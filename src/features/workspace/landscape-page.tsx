@@ -18,7 +18,6 @@ import { WorkspaceShell } from './workspace-shell';
 
 interface LandscapePageProps {
   readonly landscape: Landscape;
-  readonly folder: string;
   readonly nav: readonly NavGroup[];
   /** The workspace's plans; leave out and the section is not drawn. */
   readonly plans?: readonly PlanCard[];
@@ -80,12 +79,14 @@ function KeyJourneys({ landscape }: { readonly landscape: Landscape }) {
   );
 }
 
-function Empty({ folder }: { readonly folder: string }) {
+function Empty() {
   return (
     <Callout title="No domains yet">
       <p>
-        Add a domain as a folder with a <code>domain.yaml</code> under{' '}
-        <code>workspaces/{folder}/domains/</code>, then its systems under <code>systems/</code>.
+        Add each domain to the workspace&apos;s repo as{' '}
+        <code>domains/&lt;domain&gt;/domain.yaml</code>, and its systems under <code>systems/</code>
+        , or ask an agent to sketch them from your code with the <code>groundwork-workspace</code>{' '}
+        skill.
       </p>
     </Callout>
   );
@@ -94,7 +95,7 @@ function Empty({ folder }: { readonly folder: string }) {
 // The whole workspace: first what may change, then how it runs today, in the order a newcomer learns it: who uses
 // which domain and how the domains connect, the key journeys, and the teams that run it.
 export function LandscapePage(props: LandscapePageProps) {
-  const { landscape, folder, nav, plans, overlays, actions } = props;
+  const { landscape, nav, plans, overlays, actions } = props;
   return (
     <WorkspaceShell
       actions={actions}
@@ -117,7 +118,7 @@ export function LandscapePage(props: LandscapePageProps) {
         </section>
       )}
       {landscape.map.domains.length === 0 ? (
-        <Empty folder={folder} />
+        <Empty />
       ) : (
         <>
           <section className={styles.section}>

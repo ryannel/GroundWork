@@ -41,10 +41,10 @@ changes the graph does so with ops on these ids; it never copies them.
    `purge`), the gateway's entity cache (`layer: gateway`, `granularity: entity`), a cache in a subgraph
    (`layer: subgraph`). A cache with no `layer` is an ordinary store. An operation lifetime that differs from what
    its fields imply is `cache: [{ at, ttl, key, reason }]`, and the reason is required.
-6. **Flows.** These are curated (`workspaces/<ws>/flows/`): propose them, do not overwrite. The step that sends
+6. **Flows.** These are curated (`<workspace>/flows/`): propose them, do not overwrite. The step that sends
    the operation is `via: gql:…` with `to` the gateway and no `reads` or `writes`; the fan-out is derived. Purges
    are steps with `purges: [st:…]` after the event that triggers them.
-7. **Validate and check.** `npm test`, then open the operation in the app under `npm run dev` and compare the
+7. **Validate and check.** `npm run workspace -- check <workspace>`, then open the operation in the app under `npm run dev` and compare the
    derived query plan with the registry's. Record the registry's numbers as
    `plan_check: { fetches, round_trips, source }`; a mismatch usually means a missed `@requires`, `@provides` or
    key.

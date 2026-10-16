@@ -25,7 +25,7 @@ what you find in it are that system's components (services, apps, jobs, stores, 
 ## Output
 
 One YAML file at the path you are given (normally `~/.cache/groundwork/fragments/<ws>/<org>/<name>.yaml`; never
-inside `workspaces/`), shaped like the system model so the merge can place each entry:
+inside a workspace), shaped like the system model so the merge can place each entry:
 
 ```yaml
 repo: alder-finch/pricing

@@ -9,16 +9,15 @@ import type { z } from 'zod';
 import type { Domain, System, Workspace } from '@/domain/workspace';
 import { checkWorkspace } from '@/domain/workspace-check';
 
+import { workspaceFolders } from './workspace-folders';
 import { domainFile, systemFile, workspaceFile } from './workspace-schema';
 
-// workspaces/<workspace>/workspace.yaml
+// <workspace>/workspace.yaml          the workspace's own repo; see workspace-folders for where it is
 //   domains/<domain>/domain.yaml
 //     systems/<system>/system.yaml
-export async function readWorkspaces(
-  root = path.join(process.cwd(), 'workspaces'),
-): Promise<readonly Workspace[]> {
-  const ids = await folders(root);
-  return Promise.all(ids.map(async (id) => readWorkspace(path.join(root, id))));
+export async function readWorkspaces(root?: string): Promise<readonly Workspace[]> {
+  const found = await workspaceFolders(root);
+  return Promise.all([...found.values()].map(async (folder) => readWorkspace(folder)));
 }
 
 async function readWorkspace(folder: string): Promise<Workspace> {

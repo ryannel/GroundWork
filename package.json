@@ -27,7 +27,8 @@
     "coverage": "vitest run --coverage",
     "check": "run-p --aggregate-output --print-label typecheck lint lint:css format:check cycles knip coverage",
     "map": "node --import ./tools/register.ts --conditions=react-server tools/map.ts",
-    "plan:base": "node --import ./tools/register.ts --conditions=react-server tools/plan-base.ts"
+    "plan:base": "node --import ./tools/register.ts --conditions=react-server tools/plan-base.ts",
+    "workspace": "node --import ./tools/register.ts --conditions=react-server tools/workspace.ts"
   },
   "dependencies": {
     "ajv": "^8.20.0",

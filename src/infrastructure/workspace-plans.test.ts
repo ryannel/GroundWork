@@ -16,7 +16,10 @@ async function workspaceWith(text: string): Promise<string> {
   const dir = await mkdtemp(path.join(scratch, 'workspace-plans-'));
   made.push(dir);
   await mkdir(path.join(dir, 'ws', 'plans', 'p'), { recursive: true });
+  await writeFile(path.join(dir, 'ws', 'workspace.yaml'), 'id: ws\nname: WS\n');
   await writeFile(path.join(dir, 'ws', 'plans', 'p', 'plan.yaml'), text);
+  // An empty landed base, so the plan is read on its own rather than onto the empty workspace's today.
+  await writeFile(path.join(dir, 'ws', 'plans', 'p', 'base.yaml'), 'landed_on: 2025-01-01\n');
   return dir;
 }
 

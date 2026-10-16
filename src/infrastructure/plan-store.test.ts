@@ -88,6 +88,7 @@ describe('files that do not read', () => {
     const dir = await mkdtemp(path.join(scratch, 'plan-store-'));
     made.push(dir);
     await mkdir(path.join(dir, 'ws', 'plans', 'p'), { recursive: true });
+    await writeFile(path.join(dir, 'ws', 'workspace.yaml'), 'id: ws\nname: WS\n');
     return dir;
   };
   afterAll(async () => {

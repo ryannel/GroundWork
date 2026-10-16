@@ -432,7 +432,7 @@ screens:
     route: /checkout
     device: mobile # desktop | mobile | handheld | any
     summary: 'Slot, lines and the Place order button.'
-    image: assets/checkout.svg # today's screenshot under workspaces/<ws>/assets/
+    image: assets/checkout.svg # today's screenshot under <workspace>/assets/
     regions:
       - {
           id: scr:checkout#lines,

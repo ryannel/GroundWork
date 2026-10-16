@@ -45,9 +45,13 @@ export interface Landscape {
 const lowerFirst = (words: string): string => `${words.charAt(0).toLowerCase()}${words.slice(1)}`;
 
 function headlineOf(workspace: Workspace): string {
-  const systems = plural(systemsOf(workspace).length, 'system');
-  const runs = `${workspace.name} runs ${systems} in ${plural(workspace.domains.length, 'domain')}`;
+  const count = systemsOf(workspace).length;
   const what = workspace.description?.trim().replace(/\.$/, '') ?? '';
+  if (count === 0)
+    return what === ''
+      ? `None of ${workspace.name}'s systems is mapped yet.`
+      : `${what}. None of its systems is mapped yet.`;
+  const runs = `${workspace.name} runs ${plural(count, 'system')} in ${plural(workspace.domains.length, 'domain')}`;
   return what === '' ? `${runs}.` : `${runs}: ${lowerFirst(what)}.`;
 }
 

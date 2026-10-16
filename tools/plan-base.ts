@@ -14,9 +14,15 @@ import { stringify } from 'yaml';
 import { collectionsOf, driftOf, lockOf, onBase, scopeOf } from '@/application/plan/plan-base';
 import { readPlanBase, readPlanLock } from '@/infrastructure/plan-base-store';
 import { readPlan, readVersions } from '@/infrastructure/plan-store';
+import { workspaceFolder } from '@/infrastructure/workspace-folders';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
 
-const ROOT = path.join(process.cwd(), 'workspaces');
+async function planFolder(workspace: string, slug: string): Promise<string> {
+  const folder = await workspaceFolder(workspace);
+  if (folder === null) throw new Error(`no workspace ${workspace}`);
+  return path.join(folder, 'plans', slug);
+}
+
 const today = (): string => new Date().toISOString().slice(0, 10);
 
 const { positionals, values } = parseArgs({
@@ -25,36 +31,36 @@ const { positionals, values } = parseArgs({
 });
 
 async function workspaceId(): Promise<string> {
-  const all = await readWorkspaces(ROOT);
+  const all = await readWorkspaces();
   const found = all.find(({ id }) => values.workspace === undefined || id === values.workspace);
   if (found === undefined) throw new Error(`no workspace ${values.workspace ?? ''}`);
   return found.id;
 }
 
 async function check(workspace: string, slug: string): Promise<void> {
-  const reading = await readPlanBase(workspace, slug, ROOT);
+  const reading = await readPlanBase(workspace, slug);
   if (reading?.base.mode !== 'live')
     throw new Error(`${slug} has landed; it no longer reads today`);
-  const read = await readPlan(workspace, slug, { root: ROOT });
+  const read = await readPlan(workspace, slug);
   for (const issue of read.errors) console.error(`${issue.path}: ${issue.message}`);
   if (read.errors.length > 0) throw new Error(`${slug} does not fit today; fix it and check again`);
-  const [raw] = await readVersions(workspace, slug, ROOT);
-  const before = await readPlanLock(workspace, slug, ROOT);
+  const [raw] = await readVersions(workspace, slug);
+  const before = await readPlanLock(workspace, slug);
   const moved = before === null ? [] : driftOf(raw, reading.base, before.entities);
   const lock = { checked_on: today(), entities: lockOf(raw, reading.base) };
-  const file = path.join(ROOT, workspace, 'plans', slug, 'base.lock.json');
+  const file = path.join(await planFolder(workspace, slug), 'base.lock.json');
   await writeFile(file, `${JSON.stringify(lock, null, 2)}\n`);
   console.log(`${slug} fits today; ${String(Object.keys(lock.entities).length)} things locked`);
   if (moved.length > 0) console.log(`accepted today's changes to ${moved.join(', ')}`);
 }
 
 async function land(workspace: string, slug: string): Promise<void> {
-  const reading = await readPlanBase(workspace, slug, ROOT);
+  const reading = await readPlanBase(workspace, slug);
   if (reading?.base.mode !== 'live') throw new Error(`${slug} has already landed`);
-  const versions = await readVersions(workspace, slug, ROOT);
+  const versions = await readVersions(workspace, slug);
   const scope = scopeOf(reading.base, versions);
   const { doc } = onBase({}, reading.base, scope);
-  const folder = path.join(ROOT, workspace, 'plans', slug);
+  const folder = await planFolder(workspace, slug);
   const header = `# Today as ${slug} found it, kept now the plan has landed. Today has moved on since; see the workspace.\n`;
   const body = stringify({ landed_on: today(), ...collectionsOf(doc) }, { lineWidth: 0 });
   await writeFile(path.join(folder, 'base.yaml'), header + body);

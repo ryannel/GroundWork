@@ -1,6 +1,6 @@
 ---
 name: groundwork-issues
-description: File a Groundwork plan's work items as GitHub issues with the gh CLI, in dependency order, labelled by team and milestone, and write each issue number back into the plan as `github_issue`. Use when asked to create, file, export or preview GitHub issues from a plan in workspaces/<ws>/plans/<plan>/, or to keep status.json in step with the issues.
+description: File a Groundwork plan's work items as GitHub issues with the gh CLI, in dependency order, labelled by team and milestone, and write each issue number back into the plan as `github_issue`. Use when asked to create, file, export or preview GitHub issues from a plan in <workspace>/plans/<plan>/, or to keep status.json in step with the issues.
 ---
 
 # Plan work items to GitHub issues
@@ -15,7 +15,7 @@ naming the repos and the count.
 
 ## Before you start
 
-1. The plan validates (`npm test`; the plan's pages show no errors under `npm run dev`).
+1. The plan validates (`npm run workspace -- check <workspace>`; the plan's pages show no errors under `npm run dev`).
 2. Every work item has `repo: org/name`, one of `meta.repos`.
 3. `gh auth status` succeeds for an account that can create issues and labels in those repos.
 4. Items that already have `github_issue` are done; skip them, but use their numbers to link dependants.
@@ -50,7 +50,7 @@ gh issue create --repo <org/name> --title "<template prefix><work item title>" \
 
 ## Status
 
-Done ticks and milestone progress come from `workspaces/<ws>/plans/<plan>/status.json`, never the plan:
+Done ticks and milestone progress come from `<workspace>/plans/<plan>/status.json`, never the plan:
 
 ```json
 {

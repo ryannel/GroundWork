@@ -14,15 +14,22 @@ import type { IssueStatus } from '@/domain/plan/plan-status';
 
 import { type BaseReading, issueKey, readPlanBase, readPlanLock } from './plan-base-store';
 import { checkPlanData, type PlanCheck } from './plan-validator';
+import { workspaceFolder } from './workspace-folders';
 
-// workspaces/<workspace>/plans/<slug>/plan.yaml
+// <workspace>/plans/<slug>/plan.yaml
 //   revisions/<version>.yaml   the plan as it stood at that version
 //   status.json                GitHub issue state per work item
 //   base.yaml, base.lock.json  see plan-base-store
 // A plan file holds what the plan changes; it is read onto its base (today, or its kept copy once landed).
-const defaultRoot = (): string => path.join(process.cwd(), 'workspaces');
-const planFolder = (root: string, workspace: string, slug: string): string =>
-  path.join(root, workspace, 'plans', slug);
+// A workspace no folder holds has no plans: its plan folder is a path that is not there.
+async function planFolder(
+  root: string | undefined,
+  workspace: string,
+  slug: string,
+): Promise<string> {
+  const folder = await workspaceFolder(workspace, root);
+  return path.join(folder ?? path.join(root ?? '', '.no-such-workspace', workspace), 'plans', slug);
+}
 
 const statusFile = z.record(
   z.string(),
@@ -44,12 +51,14 @@ async function folders(folder: string): Promise<string[]> {
 /** What reading a plan found, and where its today came from. */
 export interface PlanRead extends PlanCheck {
   readonly base: BaseInfo;
+  /** The title of a plan held back by its checks, so its page can still name it. */
+  readonly title?: string | null;
 }
 
 interface At {
   readonly workspace: string;
   readonly slug: string;
-  readonly root: string;
+  readonly root: string | undefined;
   readonly fanout?: Fanout;
 }
 
@@ -64,7 +73,7 @@ async function readRaw(file: string): Promise<{ data: unknown } | { error: Issue
 
 /** Every version of the plan, as written, so they all draw the same part of today. */
 async function versionsOf(at: At): Promise<unknown[]> {
-  const folder = planFolder(at.root, at.workspace, at.slug);
+  const folder = await planFolder(at.root, at.workspace, at.slug);
   const versions = await listRevisions(at.workspace, at.slug, at.root);
   const files = [
     path.join(folder, 'plan.yaml'),
@@ -78,7 +87,7 @@ async function versionsOf(at: At): Promise<unknown[]> {
 export async function readVersions(
   workspace: string,
   slug: string,
-  root = defaultRoot(),
+  root?: string,
 ): Promise<unknown[]> {
   return versionsOf({ workspace, slug, root });
 }
@@ -111,7 +120,10 @@ async function readOnBase(
   const errors = [...whole.issues, ...checked.errors.filter(notOwn(reading))];
   const warnings = checked.warnings.filter(notOwn(reading));
   const base = await infoOf(data, reading, at);
-  if (errors.length > 0 || checked.plan === null) return { plan: null, errors, warnings, base };
+  if (errors.length > 0 || checked.plan === null) {
+    const title = checked.plan?.meta.title ?? null;
+    return { plan: null, errors, warnings, base, title };
+  }
   const scope = reading.base.mode === 'landed' ? null : scopeOf(reading.base, await versionsOf(at));
   const part = await checkPlanData(onBase(data, reading.base, scope).doc, fanout);
   if (part.plan === null || part.errors.length > 0) {
@@ -134,8 +146,8 @@ async function readPlanFile(file: string, at: At, fanout?: Fanout): Promise<Plan
 }
 
 /** The slugs of a workspace's plans. */
-export async function listPlans(workspace: string, root = defaultRoot()): Promise<string[]> {
-  return folders(path.join(root, workspace, 'plans'));
+export async function listPlans(workspace: string, root?: string): Promise<string[]> {
+  return folders(path.dirname(await planFolder(root, workspace, '-')));
 }
 
 /** Read and check plans/<slug>/plan.yaml. */
@@ -144,8 +156,8 @@ export async function readPlan(
   slug: string,
   options: { root?: string; fanout?: Fanout } = {},
 ): Promise<PlanRead> {
-  const root = options.root ?? defaultRoot();
-  const folder = planFolder(root, workspace, slug);
+  const { root } = options;
+  const folder = await planFolder(root, workspace, slug);
   return readPlanFile(path.join(folder, 'plan.yaml'), { workspace, slug, root }, options.fanout);
 }
 
@@ -153,11 +165,10 @@ export async function readPlan(
 export async function listRevisions(
   workspace: string,
   slug: string,
-  root = defaultRoot(),
+  root?: string,
 ): Promise<string[]> {
-  const entries = await readdir(path.join(planFolder(root, workspace, slug), 'revisions')).catch(
-    () => [],
-  );
+  const folder = await planFolder(root, workspace, slug);
+  const entries = await readdir(path.join(folder, 'revisions')).catch(() => []);
   return entries
     .filter((name) => name.endsWith('.yaml'))
     .map((name) => name.slice(0, -'.yaml'.length))
@@ -169,8 +180,8 @@ export async function readRevision(
   at: { workspace: string; slug: string; version: string },
   options: { root?: string; fanout?: Fanout } = {},
 ): Promise<PlanRead> {
-  const root = options.root ?? defaultRoot();
-  const folder = planFolder(root, at.workspace, at.slug);
+  const { root } = options;
+  const folder = await planFolder(root, at.workspace, at.slug);
   return readPlanFile(
     path.join(folder, 'revisions', `${path.basename(at.version)}.yaml`),
     { workspace: at.workspace, slug: at.slug, root },
@@ -182,9 +193,9 @@ export async function readRevision(
 export async function readStatus(
   workspace: string,
   slug: string,
-  root = defaultRoot(),
+  root?: string,
 ): Promise<IssueStatus> {
-  const file = path.join(planFolder(root, workspace, slug), 'status.json');
+  const file = path.join(await planFolder(root, workspace, slug), 'status.json');
   const text = await readFile(file, 'utf8').catch(() => null);
   if (text === null) return {};
   const result = statusFile.safeParse(JSON.parse(text));

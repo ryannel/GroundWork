@@ -1,6 +1,6 @@
 ---
 name: groundwork-review
-description: Review a Groundwork plan (workspaces/<ws>/plans/<plan>/plan.yaml) and the part of the system model it rests on before a room sees it. Use when asked to review, audit, check, QA or "get ready for the session" a plan. Validates, checks that every fact the plan touches cites code and is fresh, that the plan is a true overlay (no copy of today), walks the newcomer questions and every chapter on screen, and returns findings with exact YAML paths and fixes written as YAML.
+description: Review a Groundwork plan (<workspace>/plans/<plan>/plan.yaml) and the part of the system model it rests on before a room sees it. Use when asked to review, audit, check, QA or "get ready for the session" a plan. Validates, checks that every fact the plan touches cites code and is fresh, that the plan is a true overlay (no copy of today), walks the newcomer questions and every chapter on screen, and returns findings with exact YAML paths and fixes written as YAML.
 ---
 
 # Review a plan
@@ -16,8 +16,8 @@ where the answer lives).
 ## Run
 
 ```bash
-npm test                                      # the plan and model tests read every workspace
-node tools/sources.ts workspaces/<ws> --missing   # extracted facts without sources; add --check to ask GitHub
+npm run workspace -- check <workspace>        # the workspace, its model and every plan, as the app reads them
+node tools/sources.ts <workspace> --missing   # extracted facts without sources; add --check to ask GitHub
 npm run map -- repos --workspace <ws>         # the commit each repo was read at
 npm run dev                                   # then walk /<ws>/plans/<plan>/ chapter by chapter
 ```

@@ -1,11 +1,11 @@
 ---
 name: groundwork-plan
-description: Plan a cross-team change in Groundwork and write it as an overlay on the system model (workspaces/<ws>/plans/<plan>/plan.yaml) - changes as ops on system ids (including handlers), and the plan's own reasoning (why, decisions, risks, tests, work, milestones). Use when someone brings a feature idea and asks to plan it, to see what it touches, or to extend an existing plan. Fills gaps in the system model with groundwork-explore first, confirms facts with the people in plain language, validates.
+description: Plan a cross-team change in Groundwork and write it as an overlay on the system model (<workspace>/plans/<plan>/plan.yaml) - changes as ops on system ids (including handlers), and the plan's own reasoning (why, decisions, risks, tests, work, milestones). Use when someone brings a feature idea and asks to plan it, to see what it touches, or to extend an existing plan. Fills gaps in the system model with groundwork-explore first, confirms facts with the people in plain language, validates.
 ---
 
 # Plan a change
 
-A Groundwork plan is an **overlay**. The system model in `workspaces/<ws>/domains/` already says how everything
+A Groundwork plan is an **overlay**. The system model in `<workspace>/domains/` already says how everything
 runs today; a plan names the snapshot it was written against, lists what changes as ops on the model's ids, and
 adds the reasoning a room needs to say yes. The app projects today from the model onto what the plan touches (its
 changes, one hop around them, and the flows that pass through), so **a plan never copies today**.
@@ -151,14 +151,13 @@ Every question a newcomer asks of a plan, and where its answer lives: [checklist
 
 ## Validating
 
-The app validates plans against `schema/plan.schema.json` and the model when it loads them, and `npm test` reads
-every workspace. Until `tools/validate-workspace.ts` exists (a TODO in
-[groundwork-scan](../groundwork-scan/SKILL.md)), check a plan by:
+The app validates plans against `schema/plan.schema.json` and the model when it loads them, and
+`npm run workspace -- check <workspace>` reads a workspace the same way. Check a plan by:
 
 ```bash
-npm test                                     # the plan and model tests read workspaces/
+npm run workspace -- check <workspace>       # the workspace, its model and every plan read as the app does
 npm run dev                                  # then open /<ws>/plans/<plan>/ and walk every chapter
-node tools/sources.ts workspaces/<ws>        # the model's facts still cite code
+node tools/sources.ts <workspace>            # the model's facts still cite code
 npm run plan:base -- check <plan>            # fits today; writes base.lock.json
 ```
 

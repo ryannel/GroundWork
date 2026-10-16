@@ -35,7 +35,6 @@ describe('LandscapePage', () => {
     const { workspace, model } = await alder();
     render(
       <LandscapePage
-        folder="alder-finch"
         landscape={landscapeOf(workspace, model)}
         nav={[]}
         overlays={<p>the inspector</p>}
@@ -60,7 +59,7 @@ describe('LandscapePage', () => {
   it('puts the plans first, and leads with key journeys the code suggests', async () => {
     const { workspace, model } = await alder();
     const landscape = landscapeOf(workspace, model);
-    render(<LandscapePage folder="alder-finch" landscape={landscape} nav={[]} plans={[]} />);
+    render(<LandscapePage landscape={landscape} nav={[]} plans={[]} />);
     expect(screen.getAllByRole('heading', { level: 2 }).map((h) => h.textContent)).toEqual([
       'Plans',
       'Landscape',
@@ -80,7 +79,7 @@ describe('LandscapePage', () => {
     const { workspace, model } = await alder();
     const first = model.asIs.flows[0]!;
     const landscape = landscapeOf({ ...workspace, keyJourneys: [first.id, 'flow:nowhere'] }, model);
-    render(<LandscapePage folder="alder-finch" landscape={landscape} nav={[]} />);
+    render(<LandscapePage landscape={landscape} nav={[]} />);
     expect(landscape.key.cards.map((c) => c.title)).toEqual([first.name]);
     expect(landscape.map.paths.map((p) => p.title)).toEqual([first.name]);
     expect(screen.getByText(/named in workspace\.yaml/)).toBeTruthy();
@@ -90,14 +89,15 @@ describe('LandscapePage', () => {
   it('says how to add a domain when there are none', async () => {
     const { workspace, model } = await alder();
     render(
-      <LandscapePage
-        folder="shop"
-        landscape={landscapeOf({ ...workspace, domains: [] }, model)}
-        nav={[]}
-      />,
+      <LandscapePage landscape={landscapeOf({ ...workspace, domains: [] }, model)} nav={[]} />,
     );
     expect(screen.getByText('No domains yet')).toBeTruthy();
-    expect(screen.getByText('workspaces/shop/domains/')).toBeTruthy();
+    expect(screen.getByText('domains/<domain>/domain.yaml')).toBeTruthy();
+    expect(
+      screen.getByText(`${workspace.description ?? ''} None of its systems is mapped yet.`, {
+        exact: false,
+      }),
+    ).toBeTruthy();
   });
 });
 

@@ -21,7 +21,7 @@ one page; a gallery of screens is not a substitute for the flow.
    looking at? One screen per page, modal, sheet, email, push or print, in the `screens:` of the system whose
    component serves it (its `contracts.yaml`). Internal tools count. An explorer finds routes and templates
    ([groundwork-explore](../groundwork-explore/SKILL.md)); the picture and the regions come from people.
-2. **Today's picture.** A real screenshot or design export in `workspaces/<ws>/assets/` (`png`, `jpg`, `gif`,
+2. **Today's picture.** A real screenshot or design export in `<workspace>/assets/` (`png`, `jpg`, `gif`,
    `webp`, `svg` or `html`; no data URIs, no `..`, no URLs), named after the screen: `<screen-slug>.png`. Take it
    in the browser or export it from Figma. If none exists yet, write the entry anyway (the validator warns and the
    app shows a placeholder) and leave a TODO for the driver.
@@ -54,7 +54,7 @@ or removed.
 
 ## The walking mockup
 
-`workspaces/<ws>/plans/<plan>/mockups/walking.html` is one static page: a section per new screen
+`<workspace>/plans/<plan>/mockups/walking.html` is one static page: a section per new screen
 (`<section data-screen="scr:…" id="scr:…">`), the new picture inside it, each region a hotspot linking to the
 screen the journey goes to next. The app serves it at `/<ws>/plans/<plan>/mockups/walking.html` and opens it at
 `#scr:…`. The three alder-finch plans with mockups are working examples.
@@ -77,7 +77,7 @@ plausible next click.
 
 ## Check
 
-`npm test`, then under `npm run dev` open what people see today, a flow with its journey strip, and the screens
+`npm run workspace -- check <workspace>`, then under `npm run dev` open what people see today, a flow with its journey strip, and the screens
 that change in the plan. A screen is done when the picture is a file, every region box sits on the thing it names,
 the steps that show it carry `screen:`, the changed screen has a new picture or a Figma link, and the mockup walks
 the main journey end to end from its first screen.

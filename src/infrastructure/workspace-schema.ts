@@ -30,6 +30,8 @@ export const domainFile = z.strictObject({
 });
 
 export const workspaceFile = z.strictObject({
+  /** The version of the workspace layout; 1 is today's. */
+  format: z.literal(1).optional(),
   id,
   name: z.string(),
   description: z.string().optional(),

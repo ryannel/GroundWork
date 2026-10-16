@@ -1,6 +1,6 @@
 # Architecture
 
-Groundwork is a Next.js site built as static files. At build time it reads the YAML in `workspaces/`, works out
+Groundwork is a Next.js site built as static files. At build time it reads the YAML of each workspace, works out
 what each page says, and renders it. Nothing runs on a server.
 
 The layers below are enforced by `eslint.config.mjs`, and `test/architecture.test.ts` proves every rule still
@@ -17,7 +17,7 @@ deployable microservice, worker or job), a **store** (a database), a **topic** (
 user-facing app. Say "service" only when you mean that kind; say "component" when you mean any of them.
 
 ```
-workspaces/<workspace>/workspace.yaml   teams, the people (actors) who use the systems, and key journeys
+<workspace>/workspace.yaml            format, teams, the people (actors) who use the systems, and key journeys
   domains/<domain>/domain.yaml
     systems/<system>/system.yaml      components and what they talk to
     systems/<system>/contracts.yaml   what its components offer and keep (system model)
@@ -27,8 +27,29 @@ workspaces/<workspace>/workspace.yaml   teams, the people (actors) who use the s
   assets/                             screen drawings cited by journeys
   scans/<org>/<repo>.yaml             the commit each repo was last read at
   plans/<plan>/plan.yaml              revisions/, status.json, assets/, mockups/
-schema/plan.schema.json               the plan format, checked with ajv
+schema/plan.schema.json               the plan format, checked with ajv (in Groundwork, not the workspace)
 ```
+
+### Where workspaces are
+
+A workspace is its own repo, holding both its model of today and its plans, so a plan and the model it rests on
+share one history. Groundwork keeps two examples in `workspaces/` (`alder-finch` and `personal`).
+`src/infrastructure/workspace-folders.ts` is the only code that knows where workspaces are, and every reader asks
+it for a workspace's folder by id:
+
+- `GROUNDWORK_WORKSPACES`, when set, names the only workspace folders read (separated by `:`, or `;` on Windows).
+  A company's build uses it so that its site carries no other workspace: `private: true` only keeps a workspace
+  off the lists, and a static build holds every workspace it read.
+- Otherwise the examples in `workspaces/`, and the folders `groundwork.local.yaml` lists. That file is
+  git-ignored, one per machine; `bundled: false` leaves the examples out. Tests ignore it and read only the
+  examples.
+- A listed folder without a `workspace.yaml`, two folders with one id, or a local file with unknown keys is an
+  error, never skipped. A workspace's id is the `id` in its `workspace.yaml`, whatever its folder is called.
+
+`npm run workspace -- new|add|check|list` makes a workspace repo, registers one, reads one as the app does, and
+lists what is registered (`tools/workspace.ts`); the `groundwork-workspace` skill walks people through it.
+Registering links Groundwork's skills into the workspace repo, git-ignored there. The list is read once per
+process, so restart `npm run dev` after registering; Next does not watch folders outside its checkout either.
 
 ### The system model
 
@@ -157,7 +178,7 @@ inspector's bar links to it with Open as page.
 The workspace's own pages read today, outside any plan. They fetch `/<workspace>/model.json`, the system model
 as a plan-shaped document with no work and so no status, and pass the inspector, palette, hover cards and keys a
 `Reader` (`todayReaderOf`): where the model is, where thing pages live (`/<workspace>/things/`) and what images
-resolve against (`/<workspace>/`, so `assets/x.svg` is served from `workspaces/<ws>/assets/`). A plan builds its
+resolve against (`/<workspace>/`, so `assets/x.svg` is served from the workspace's `assets/`). A plan builds its
 own `Reader` with `planReaderOf`. Read today, there is no today / with-this-plan switch, no versions, no
 status and no "in this plan"; a thing's page there also says where it sits (domain › system › component), what it
 works with, the flows it takes part in and the code that says so, with who said it and the commit.
@@ -231,7 +252,7 @@ The Reference's risk grid filters its register: a click on a cell with risks sho
 "n of m risks" and a "Clear filter" button, and a second click on the cell clears it. The filter lives in the page,
 not the address.
 
-Plan assets and mockups are served by static route handlers from `workspaces/<ws>/plans/<slug>/`, not copied into
+Plan assets and mockups are served by static route handlers from the workspace's `plans/<slug>/`, not copied into
 `public/`: there is one source, and the URLs mirror the folder layout, so a mockup's `../assets/x.svg` still
 resolves.
 

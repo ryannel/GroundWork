@@ -36,13 +36,15 @@ export async function readPlanState(
 ): Promise<PlanState | null> {
   const slugs = await listPlans(workspace, root);
   if (!slugs.includes(slug)) return null;
-  const { plan, errors, warnings, base } = await readPlan(
-    workspace,
-    slug,
-    root === undefined ? {} : { root },
-  );
+  const {
+    plan,
+    errors,
+    warnings,
+    base,
+    title: heldBack,
+  } = await readPlan(workspace, slug, root === undefined ? {} : { root });
   if (plan === null || errors.length > 0) {
-    const title = plan?.meta.title ?? null;
+    const title = plan?.meta.title ?? heldBack ?? null;
     return { loaded: null, broken: { slug, title, errors, warnings } };
   }
   return {

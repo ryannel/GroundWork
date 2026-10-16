@@ -10,6 +10,7 @@ import type { Flow, Interaction, UserJourney } from '@/domain/plan/plan.generate
 import type { Workspace } from '@/domain/workspace';
 import type { Scan, Story, SystemContracts, WorkspaceModel } from '@/domain/workspace-model';
 
+import { workspaceFolder } from './workspace-folders';
 import { type Reading, readingOf } from './workspace-model-facts';
 import { contractsFile, journeyFile, scanFile, storyFile } from './workspace-model-schema';
 
@@ -21,9 +22,10 @@ import { contractsFile, journeyFile, scanFile, storyFile } from './workspace-mod
 // Every file is optional; a workspace with none has an empty model.
 export async function readWorkspaceModel(
   workspace: Workspace,
-  root = path.join(process.cwd(), 'workspaces'),
+  root?: string,
 ): Promise<WorkspaceModel> {
-  const folder = path.join(root, workspace.id);
+  const folder = await workspaceFolder(workspace.id, root);
+  if (folder === null) throw new Error(`workspace ${workspace.id}: no folder holds it`);
   const reading = readingOf();
   const story = await readStory(folder, reading);
   const flows = await readEach(path.join(folder, 'flows'), async (raw, file) =>

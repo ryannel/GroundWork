@@ -1,13 +1,13 @@
 ---
 name: groundwork-revise
-description: Revise a Groundwork plan through git with its revision ledger. Use when asked to revise, propose a change, make a revision, "v2", approve the revision, reject it, or "what changed since the approved plan" for a plan in workspaces/<ws>/plans/<plan>/. Proposes a version, edits the ops, validates and diffs, opens the PR; later approves or rejects. A human merges; never approve for someone.
+description: Revise a Groundwork plan through git with its revision ledger. Use when asked to revise, propose a change, make a revision, "v2", approve the revision, reject it, or "what changed since the approved plan" for a plan in <workspace>/plans/<plan>/. Proposes a version, edits the ops, validates and diffs, opens the PR; later approves or rejects. A human merges; never approve for someone.
 ---
 
 # Revise a plan
 
 The plan is one file; a revision is the same file at a new commit, never a copy. `meta.revisions` is the ledger
 (oldest first, statuses `proposed | approved | rejected`). The newest approved entry is the **canonical plan**; its
-exact snapshot is `workspaces/<ws>/plans/<plan>/revisions/<version>.yaml`. `meta.status` (draft | review |
+exact snapshot is `<workspace>/plans/<plan>/revisions/<version>.yaml`. `meta.status` (draft | review |
 approved) is the plan's lifecycle and is separate; the ledger is the revision lifecycle. A plan with no ledger
 behaves as before. The app shows the ledger at `/<ws>/plans/<plan>/revisions/` and each version on its own page.
 
@@ -45,9 +45,9 @@ below say what to do by hand until they exist.
 4. **Edit the plan**: ops in `changes[]`, work items, questions. **Never renumber or rename ids**: ids are how
    before and after are matched. Today stays in the model; deltas are ops. If the plan's cover says today has
    changed under it, re-read those targets and run `npm run plan:base -- check <plan>` in the same revision.
-5. **Check it**: `npm test`, then open the plan in `npm run dev` and read the new version's page. Compare with the
-   approved snapshot by eye or with `git diff --no-index workspaces/<ws>/plans/<plan>/revisions/<v>.yaml
-workspaces/<ws>/plans/<plan>/plan.yaml`. No new warnings.
+5. **Check it**: `npm run workspace -- check <workspace>`, then open the plan in `npm run dev` and read the new version's page. Compare with the
+   approved snapshot by eye or with `git diff --no-index <workspace>/plans/<plan>/revisions/<v>.yaml
+<workspace>/plans/<plan>/plan.yaml`. No new warnings.
 6. **Open the PR** with a plain summary of the diff as its body: what the revision brings, the checks, where the
    journey changes, the work and teams affected. Read the checks yourself first: a new field nobody sets, an
    untested step or a new dependency between teams is usually a gap in the ops, not something to explain away.
@@ -82,4 +82,4 @@ Typos and wording: propose and approve in the same PR; the PR review is the appr
 - `revisions/<v>.yaml` is written once, at approval or rejection, and never edited.
 - Work items already filed as issues ([groundwork-issues](../groundwork-issues/SKILL.md)): edit those issues by
   hand (`gh issue edit`) and list them in the PR body; nothing syncs them yet.
-- A CODEOWNERS line per plan folder names the owner who merges: `workspaces/<ws>/plans/<plan>/** @org/billing`.
+- A CODEOWNERS line per plan folder, in the workspace repo, names the owner who merges: `plans/<plan>/** @org/billing`.

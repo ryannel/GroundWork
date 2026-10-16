@@ -5,7 +5,7 @@
 //   npm run map -- calls <id>       the call tree under an endpoint, message or handler, --depth hops (8)
 //   npm run map -- owns <path>      the facts read from a file (--repo org/name to narrow)
 //   npm run map -- repos            the commit each repo was last read at; never-scanned repos say so
-//   npm run map -- md               write workspaces/<ws>/MAP.md
+//   npm run map -- md               write <workspace>/MAP.md
 // Options: --workspace <id> (the first workspace when not given); --checkouts <dir> adds a local path to every
 // source whose repo is checked out as <dir>/<name>.
 import { existsSync } from 'node:fs';
@@ -17,10 +17,9 @@ import { type Cited, findIn, ownedBy, type SystemMap, systemMapOf } from '@/appl
 import { callersOf, shownIn } from '@/application/system-map-links';
 import { mapMarkdownOf } from '@/application/system-map-md';
 import { systemModelOf } from '@/application/workspace-model';
+import { workspaceFolder } from '@/infrastructure/workspace-folders';
 import { readWorkspaceModel } from '@/infrastructure/workspace-model';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
-
-const ROOT = path.join(process.cwd(), 'workspaces');
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,
@@ -33,10 +32,10 @@ const { positionals, values } = parseArgs({
 });
 
 async function loaded(): Promise<SystemMap> {
-  const all = await readWorkspaces(ROOT);
+  const all = await readWorkspaces();
   const workspace = all.find(({ id }) => values.workspace === undefined || id === values.workspace);
   if (workspace === undefined) throw new Error(`no workspace ${values.workspace ?? ''}`);
-  const model = await readWorkspaceModel(workspace, ROOT);
+  const model = await readWorkspaceModel(workspace);
   return systemMapOf(workspace, systemModelOf(workspace, model));
 }
 
@@ -87,7 +86,9 @@ async function answer(map: SystemMap, command: string, arg: string): Promise<unk
       return map.repos;
     }
     case 'md': {
-      const file = path.join(ROOT, map.workspace.id, 'MAP.md');
+      const folder = await workspaceFolder(map.workspace.id);
+      if (folder === null) throw new Error(`no workspace ${map.workspace.id}`);
+      const file = path.join(folder, 'MAP.md');
       await writeFile(file, mapMarkdownOf(map));
       return { wrote: path.relative(process.cwd(), file) };
     }

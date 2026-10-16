@@ -13,12 +13,12 @@ import { systemModelOf } from '@/application/workspace-model';
 import { findWorkspace } from '@/application/workspace-paths';
 
 import { checkPlanData } from './plan-validator';
+import { workspaceFolder } from './workspace-folders';
 import { readWorkspaceModel } from './workspace-model';
 import { readWorkspaces } from './workspace-store';
 
 // plans/<slug>/base.yaml        a landed plan's today, kept as it stood: landed_on and the collections
 // plans/<slug>/base.lock.json   what the things the plan's ops lean on said when it was last checked
-const defaultRoot = (): string => path.join(process.cwd(), 'workspaces');
 
 /** A plan's base and what the base finds wrong with itself, which a plan is not blamed for. */
 export interface BaseReading {
@@ -40,8 +40,8 @@ export const issueKey = (issue: Issue): string => `${issue.path}\n${issue.messag
 
 const todays = new Map<string, Promise<BaseReading | null>>();
 
-async function readTodayBase(workspace: string, root: string): Promise<BaseReading | null> {
-  if ((await readText(path.join(root, workspace, 'workspace.yaml'))) === null) return null;
+async function readTodayBase(workspace: string, root?: string): Promise<BaseReading | null> {
+  if ((await workspaceFolder(workspace, root)) === null) return null;
   const found = findWorkspace(await readWorkspaces(root), workspace);
   if (found === null) return null;
   const today = systemModelOf(found, await readWorkspaceModel(found, root));
@@ -54,8 +54,8 @@ async function readTodayBase(workspace: string, root: string): Promise<BaseReadi
 }
 
 /** The workspace's model of today as a base, read once per build. Null when there is no such workspace. */
-async function todayBase(workspace: string, root: string): Promise<BaseReading | null> {
-  const key = `${root}\n${workspace}`;
+async function todayBase(workspace: string, root?: string): Promise<BaseReading | null> {
+  const key = `${root ?? ''}\n${workspace}`;
   const known = todays.get(key);
   if (known !== undefined) return known;
   const reading = readTodayBase(workspace, root);
@@ -71,9 +71,11 @@ async function readText(file: string): Promise<string | null> {
 export async function readPlanBase(
   workspace: string,
   slug: string,
-  root = defaultRoot(),
+  root?: string,
 ): Promise<BaseReading | null> {
-  const file = path.join(root, workspace, 'plans', slug, 'base.yaml');
+  const folder = await workspaceFolder(workspace, root);
+  if (folder === null) return null;
+  const file = path.join(folder, 'plans', slug, 'base.yaml');
   const text = await readText(file);
   if (text === null) return todayBase(workspace, root);
   const data: unknown = parse(text, { uniqueKeys: true });
@@ -89,9 +91,11 @@ export async function readPlanBase(
 export async function readPlanLock(
   workspace: string,
   slug: string,
-  root = defaultRoot(),
+  root?: string,
 ): Promise<PlanLock | null> {
-  const file = path.join(root, workspace, 'plans', slug, 'base.lock.json');
+  const folder = await workspaceFolder(workspace, root);
+  if (folder === null) return null;
+  const file = path.join(folder, 'plans', slug, 'base.lock.json');
   const text = await readText(file);
   if (text === null) return null;
   const result = lockFile.safeParse(JSON.parse(text));

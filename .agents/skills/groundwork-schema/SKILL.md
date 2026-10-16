@@ -14,7 +14,7 @@ fix, so read the message. Types for the app are generated from the schema with `
 ## Where things live
 
 ```
-workspaces/<ws>/
+<workspace>/
   workspace.yaml                         teams, name                                        people
   story.yaml                             summary, stages, concepts                          people
   flows/<flow>.yaml                      one curated walk across components per file        people
@@ -52,7 +52,7 @@ app, job or external party (`svc:`), or a store (`st:`).
 6. **Every fact says where it came from.** `origin: extracted | seeded | curated`. Extracted facts carry
    `sources: [{ repo, path, lines: [from, to], commit, symbol? }]`; the permalink is derived, never stored alone
    (the older `{ url }` form still reads, with a warning). Handlers carry sources per handler and per significant
-   step. `node tools/sources.ts workspaces/<ws>` checks it. Ops carry no sources: put them in the `add` value or
+   step. `node tools/sources.ts <workspace>` checks it. Ops carry no sources: put them in the `add` value or
    on the change.
 7. **Draft is forgiving.** While `meta.status: draft`, missing tests, work items and store access are warnings
    prefixed `draft:`. At `review` and `approved` they are errors.
@@ -117,7 +117,7 @@ of something the model already holds.
 ## What the validator checks
 
 The app validates on load (`src/infrastructure/plan-validator.ts` and `src/application/plan/check-*.ts`; the
-model through `src/domain/workspace-check.ts`), and `npm test` reads every workspace. In short:
+model through `src/domain/workspace-check.ts`), and `npm run workspace -- check <workspace>` reads a workspace the same way. In short:
 
 1. Schema shape; id pattern per kind; ids unique; step ids start with their flow id.
 2. No dangling references, including `[[id]]`, op targets, and every id in a handler (`on`, `component`, `call`,

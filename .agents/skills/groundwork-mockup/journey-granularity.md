@@ -1,6 +1,6 @@
 # Granular journeys: screen → interaction → system work → UI result
 
-Use this when discovering, authoring, visualising or reviewing a flow or journey (`workspaces/<ws>/flows/`,
+Use this when discovering, authoring, visualising or reviewing a flow or journey (`<workspace>/flows/`,
 `journeys/`, or ops in a plan) that touches a UI, email, notification or document. A stage is an overview; it must not replace the individual
 interactions and backend steps that explain how the experience works.
 

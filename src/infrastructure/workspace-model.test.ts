@@ -63,7 +63,7 @@ describe('readWorkspaceModel', () => {
 
   it('gives an empty model when there are no files, and reads scans when there are', async () => {
     const { workspace } = await alder();
-    const folder = path.join(await mkdtempIn(scratch), workspace.id);
+    const folder = await bareWorkspace(scratch, workspace.id);
     await mkdir(path.join(folder, 'scans', 'alder-finch'), { recursive: true });
     await writeFile(
       path.join(folder, 'scans', 'alder-finch', 'pricing.yaml'),
@@ -97,14 +97,18 @@ describe('readWorkspaceModel', () => {
 
   it('refuses a fact without an origin', async () => {
     const { workspace } = await alder();
-    const folder = path.join(await mkdtempIn(scratch), workspace.id);
+    const folder = await bareWorkspace(scratch, workspace.id);
     await mkdir(path.join(folder, 'flows'), { recursive: true });
     await writeFile(path.join(folder, 'flows', 'x.yaml'), 'id: flow:x\nname: X\nsteps: []\n');
     await expect(readWorkspaceModel(workspace, path.dirname(folder))).rejects.toThrow(/origin/);
   });
 });
 
-async function mkdtempIn(folder: string): Promise<string> {
+/** A folder holding one empty workspace with this id, so the model has only what a test writes. */
+async function bareWorkspace(folder: string, id: string): Promise<string> {
   await mkdir(folder, { recursive: true });
-  return mkdtemp(path.join(folder, 'model-'));
+  const workspace = path.join(await mkdtemp(path.join(folder, 'model-')), id);
+  await mkdir(workspace, { recursive: true });
+  await writeFile(path.join(workspace, 'workspace.yaml'), `id: ${id}\nname: ${id}\n`);
+  return workspace;
 }

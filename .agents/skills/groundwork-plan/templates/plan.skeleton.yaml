@@ -1,7 +1,7 @@
-# Groundwork plan skeleton. Copy to workspaces/<ws>/plans/<plan>/plan.yaml, then replace every TODO.
+# Groundwork plan skeleton. Copy to <workspace>/plans/<plan>/plan.yaml, then replace every TODO.
 #
 # Rules you must not break (see .agents/skills/groundwork-schema):
-#   - A plan is an overlay. Today lives in the system model (workspaces/<ws>/domains/…); never copy it here.
+#   - A plan is an overlay. Today lives in the system model (<workspace>/domains/…); never copy it here.
 #   - Every delta (new endpoint, field, store, step, handler step; any change of behaviour) is an op in changes[].ops,
 #     and every op targets an id in the system model today, or one this plan adds.
 #   - Ids are <prefix>:<kebab-slug>, named by meaning, never numbered, never renamed.

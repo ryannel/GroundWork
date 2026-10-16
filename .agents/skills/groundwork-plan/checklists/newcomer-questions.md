@@ -5,7 +5,7 @@ are on is empty or misleading. Use this list twice: while writing the plan (ask 
 the files).
 
 **Where** is the YAML that holds the answer. Chapters 2 and 3 describe today, so their answers live in the
-system model (`workspaces/<ws>/domains/<d>/systems/<s>/{system,contracts,handlers}.yaml`, `flows/`, `teams.yaml`),
+system model (`<workspace>/domains/<d>/systems/<s>/{system,contracts,handlers}.yaml`, `flows/`, `teams.yaml`),
 not in the plan; a gap there is filled by a scan, not by copying into the plan. Chapters 1 and 4 to 8 live in
 `plans/<plan>/plan.yaml`. **Check** is how to verify it by tool or by eye.
 
@@ -38,7 +38,7 @@ not in the plan; a gap there is filled by a scan, not by copying into the plan. 
 | 15  | Where do DTOs and payloads live?                                                            | `schemas[]` `kind: dto` / `payload`, referenced by `request`/`response`/`payload`              | no endpoint or message without its schema                                                                                                                                                                                             |
 | 15b | What does the person actually see today, and where on the page is the thing we change?      | `screens[]` (`image`, `regions[].at`, `regions[].shows`), step `screen`                        | every page, email or print the feature touches has a screen with today's screenshot and the regions the change names; the steps that show it carry `screen:`; shows in 2.x _What people see today_ and the journey strip in chapter 3 |
 | 15c | What will it look like after, and can I click through it?                                   | plan ops on `scr:` ids (`image`, `figma`, `mockup`, regions)                                   | every changed screen has a new picture or Figma link; a journey across 3+ screens has a `mockup` ([groundwork-mockup](../../groundwork-mockup/SKILL.md))                                                                              |
-| 15a | Where is the code for this? Can I check that claim?                                         | `sources[]` `{repo, path, lines, commit, symbol?}` on every extracted fact                     | `node tools/sources.ts workspaces/<ws> --missing` reports none on the facts the plan touches                                                                                                                                          |
+| 15a | Where is the code for this? Can I check that claim?                                         | `sources[]` `{repo, path, lines, commit, symbol?}` on every extracted fact                     | `node tools/sources.ts <workspace> --missing` reports none on the facts the plan touches                                                                                                                                              |
 
 ## Chapter 3 · How it runs today
 

@@ -5,7 +5,7 @@ description: Scan the code behind a Groundwork workspace and bring its system mo
 
 # Scan a workspace
 
-The system model is what runs today: `workspaces/<ws>/domains/<d>/systems/<s>/` holds the facts, and plans are
+The system model is what runs today: `<workspace>/domains/<d>/systems/<s>/` holds the facts, and plans are
 overlays on it. This skill keeps the generated part of the model true to the code. It never designs anything and
 never edits what people wrote.
 
@@ -51,7 +51,7 @@ only the fallback.
 3. **Work out what to read** (with `--since`):
 
    ```bash
-   node tools/scan-diff.ts workspaces/<ws> <org/name> "$dir" --json
+   node tools/scan-diff.ts <workspace> <org/name> "$dir" --json
    ```
 
    - exit 2: no mark yet; read this repo in full;
@@ -68,12 +68,12 @@ only the fallback.
    skill and:
    - the clone path and the full HEAD sha;
    - the repo id, the workspace, domain, system and team;
-   - **the ids table**: every fact that cites this repo (`node tools/sources.ts workspaces/<ws> --index --repo
+   - **the ids table**: every fact that cites this repo (`node tools/sources.ts <workspace> --index --repo
 <org/name>`) and every id in the system, with its natural key, plus the endpoints and messages of the systems
      this one talks to (from `talks_to` and the flows), so calls resolve to existing ids;
    - for `--since`, the work list from step 3;
    - where to write the fragment: `${GROUNDWORK_CACHE:-$HOME/.cache/groundwork}/fragments/<ws>/<org>/<name>.yaml`.
-     Never under `workspaces/`: the app reads `scans/` strictly and would refuse a fragment.
+     Never inside the workspace: the app reads `scans/` strictly and would refuse a fragment.
 
 5. **Merge** the fragments into each system's `contracts.yaml` and `handlers.yaml` (see the TODO below for the tool).
    - Match every fragment entry to an existing entry by id, and by natural key when the id differs (an explorer
@@ -91,26 +91,26 @@ only the fallback.
      the report as a proposal, with its `does`.
    - Write entries in a stable order (by id) so diffs stay small, and keep comments.
 
-6. **Validate** the workspace (see the TODO below). On errors, fix the fragment or the merge and repeat; never
+6. **Validate** the workspace (see [Validating](#validating) below). On errors, fix the fragment or the merge and repeat; never
    loosen the schema and never edit curated files to make it pass.
 
 7. **Check attribution.**
 
    ```bash
-   node tools/sources.ts workspaces/<ws> --missing          # every extracted fact cites code; exits 1 if not
-   node tools/sources.ts workspaces/<ws> --check            # optional: ask GitHub the cited files and lines exist
+   node tools/sources.ts <workspace> --missing          # every extracted fact cites code; exits 1 if not
+   node tools/sources.ts <workspace> --check            # optional: ask GitHub the cited files and lines exist
    ```
 
 8. **Report** (below), and only then **move the marks**, one per repo whose merge validated:
 
    ```bash
-   node tools/scan-mark.ts workspaces/<ws> <org/name> "$dir" --branch <branch>
+   node tools/scan-mark.ts <workspace> <org/name> "$dir" --branch <branch>
    ```
 
    It refuses when a fact still cites a file whose content at the cited commit is not what HEAD holds (an
    explorer read older code). Re-explore those facts; use `--force` only when the change is known to be
    irrelevant, and say so in the report. Then regenerate the agents' map: `npm run map -- md --workspace <ws>`
-   rewrites `workspaces/<ws>/MAP.md` with the new heads.
+   rewrites `<workspace>/MAP.md` with the new heads.
 
 9. **Confirm with the owning teams** (below).
 
@@ -167,22 +167,19 @@ Not built yet: it needs the system model's reader and writer, which are being bu
 step 5 by hand (or with a short script in the cache directory, not in the repo), following the rules above.
 When it exists it should:
 
-- take `workspaces/<ws>` and one or more fragment paths, plus the scan-diff work list for `--since`;
+- take `<workspace>` and one or more fragment paths, plus the scan-diff work list for `--since`;
 - do every rule in step 5, writing only `contracts.yaml` and `handlers.yaml` (and source paths in curated files
   for renames);
 - print the report sections 2 to 6 as JSON for this skill to word;
 - never write `scans/`: that is `tools/scan-mark.ts`, after validation.
 
-## TODO: `tools/validate-workspace.ts`
-
-Not built yet: it needs the workspace model checks in `src/domain/workspace-check.ts` and the plan validator to be
-reachable from a tool. Until then, validate with:
+## Validating
 
 ```bash
-npm test                          # the model and plan tests read the real workspaces under workspaces/
-npm run dev                       # then open /<ws>/ and each system page; a broken model fails to load
+npm run workspace -- check <workspace>   # the workspace, its model and every plan, read as the app does
+npm run dev                              # then open /<ws>/ and each system page
 ```
 
-When it exists it should run the schema over every file of the workspace, check every id reference resolves
-(including `call`, `publish`, `read` and `write` in handlers, and `on`), check plans against the model, and exit 1
-on errors so step 6 can gate step 8.
+`check` reads every file of the workspace through its schema, checks every id reference in today's model resolves
+(including `call`, `publish`, `read` and `write` in handlers, and `on`), reads each plan onto the model, and exits 1
+on errors, so step 6 gates step 8.
