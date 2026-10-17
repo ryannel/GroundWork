@@ -74,7 +74,7 @@
     "eslint-plugin-security": "4.2.0",
     "eslint-plugin-sonarjs": "4.2.2",
     "eslint-plugin-testing-library": "7.16.2",
-    "eslint-plugin-unicorn": "64.0.0",
+    "eslint-plugin-unicorn": "78.0.0",
     "happy-dom": "21.0.1",
     "json-schema-to-typescript": "^16.0.0",
     "knip": "6.41.0",
