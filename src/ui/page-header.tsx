@@ -21,8 +21,16 @@ interface PageHeaderProps {
   readonly children?: ReactNode;
 }
 
+const NO_TRAIL: NonNullable<PageHeaderProps['trail']> = [];
+
 // Breadcrumb, name, description, facts: the same order on every page, so the eye always lands in the same place.
-export function PageHeader({ trail = [], title, description, meta, children }: PageHeaderProps) {
+export function PageHeader({
+  trail = NO_TRAIL,
+  title,
+  description,
+  meta,
+  children,
+}: PageHeaderProps) {
   return (
     <header className={styles.header}>
       {trail.length === 0 ? null : (

@@ -42,11 +42,11 @@ export function NavRail({ label, groups, children }: NavRailProps) {
       {children}
       {groups.map((group) =>
         group.items.length === 0 ? (
-          <div className={styles.group} {...flags(group)} key={group.key}>
+          <div className={styles.group} key={group.key} {...flags(group)}>
             <Head group={group} />
           </div>
         ) : (
-          <details className={styles.group} {...flags(group)} key={group.key} open={group.open}>
+          <details className={styles.group} key={group.key} {...flags(group)} open={group.open}>
             <summary className={styles.summary}>
               <HeadParts group={group} />
             </summary>
@@ -66,12 +66,13 @@ function flags(group: RailGroup) {
 }
 
 function Head({ group }: { readonly group: RailGroup }) {
-  if (group.href === undefined)
+  if (group.href === undefined) {
     return (
       <div className={styles.summary}>
         <HeadParts group={group} />
       </div>
     );
+  }
   return (
     <Link
       aria-current={group.current ? 'page' : undefined}

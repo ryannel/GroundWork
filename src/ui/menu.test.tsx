@@ -32,7 +32,7 @@ describe('BarActions', () => {
         <button type="button">Search</button>
       </BarActions>,
     );
-    const more = screen.getByRole('button', { name: /more/i });
+    const more = screen.getByRole('button', { name: /more/iu });
     expect(more.getAttribute('aria-expanded')).toBe('false');
     fireEvent.click(more);
     expect(more.getAttribute('aria-expanded')).toBe('true');

@@ -26,8 +26,10 @@ interface AppBarProps {
   readonly lead?: ReactNode;
 }
 
+const NO_TRAIL: NonNullable<AppBarProps['trail']> = [];
+
 // The bar across the top of every page: the brand, the trail to where you are, the page's name, then actions.
-export function AppBar({ trail = [], title, note, after, children, lead }: AppBarProps) {
+export function AppBar({ trail = NO_TRAIL, title, note, after, children, lead }: AppBarProps) {
   return (
     <header className={styles.bar}>
       {lead}

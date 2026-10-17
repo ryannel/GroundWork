@@ -9,16 +9,19 @@ export interface LegendItem {
 }
 
 function Mark({ item }: { readonly item: LegendItem }) {
-  if (item.line !== undefined)
+  if (item.line !== undefined) {
     return <span aria-hidden="true" className={styles.line} data-line={item.line} />;
-  if (item.swatch !== undefined)
+  }
+  if (item.swatch !== undefined) {
     return <span aria-hidden="true" className={styles.swatch} data-swatch={item.swatch} />;
-  if (item.glyph !== undefined)
+  }
+  if (item.glyph !== undefined) {
     return (
       <span aria-hidden="true" className={styles.glyph}>
         <Glyph glyph={item.glyph} />
       </span>
     );
+  }
   return null;
 }
 

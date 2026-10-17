@@ -1,0 +1,26 @@
+@layer components {
+  .list {
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    list-style: none;
+  }
+
+  .item {
+    padding: var(--s-3);
+
+    & + & {
+      border-top: 1px solid var(--line-1);
+    }
+
+    &:hover,
+    &[data-chosen] {
+      background: var(--accent-soft);
+    }
+  }
+
+  .list[data-dense] > .item {
+    padding: var(--s-2) var(--s-3);
+  }
+}

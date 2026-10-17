@@ -65,7 +65,7 @@ function useDrawer(box: RefObject<HTMLDivElement | null>, open: boolean): void {
   useEffect(() => {
     setShown(false);
   }, [routed]);
-  useEffect(() => {
+  useEffect((): (() => void) | undefined => {
     if (!open) return;
     const media = matchMedia(NARROW);
     if (!media.matches) {

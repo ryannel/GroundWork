@@ -1,0 +1,24 @@
+@layer components {
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-4);
+    align-items: start;
+    margin-top: var(--s-6);
+
+    &[data-open] {
+      grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);
+    }
+  }
+
+  .main {
+    min-width: 0;
+  }
+
+  .side {
+    position: sticky;
+    top: var(--s-4);
+    max-height: calc(100vh - var(--s-8));
+    overflow: auto;
+  }
+}

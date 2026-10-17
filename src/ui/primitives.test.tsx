@@ -21,7 +21,7 @@ describe('Chip', () => {
         <Chip glyph="▣" id="orders" label="Orders" status="added" />
       </ChipList>,
     );
-    const chip = screen.getByRole('button', { name: /Orders/ });
+    const chip = screen.getByRole('button', { name: /Orders/u });
     expect(chip.dataset.inspect).toBe('orders');
     expect(chip.dataset.status).toBe('added');
     expect(chip.textContent).toBe('Orders');
@@ -38,7 +38,7 @@ describe('Chip', () => {
 
 describe('Button', () => {
   it('calls back when pressed', () => {
-    const onClick = vi.fn();
+    const onClick = vi.fn<() => void>();
     render(
       <Button label="Next step" onClick={onClick} size="sm" variant="primary">
         Next
@@ -62,7 +62,8 @@ describe('Tabs', () => {
       />,
     );
     expect(screen.getByRole('link', { name: 'B' }).getAttribute('aria-current')).toBe('page');
-    expect(screen.getByRole('link', { name: 'A' }).getAttribute('aria-current')).toBeNull();
+    const other = screen.getByRole('link', { name: 'A' });
+    expect(other.getAttribute('aria-current')).toBeNull();
   });
 });
 

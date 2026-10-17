@@ -39,7 +39,7 @@ function runNode(run: Inline, renderRef: RenderRef) {
         <a
           href={run.href}
           key={run.key}
-          rel="noopener"
+          rel="noopener noreferrer"
           target="_blank"
           title={run.short ? run.href : undefined}
         >

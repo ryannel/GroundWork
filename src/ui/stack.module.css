@@ -1,0 +1,54 @@
+@layer components {
+  .stack,
+  .cluster {
+    display: flex;
+    gap: var(--gap);
+    min-width: 0;
+
+    &[data-gap='0'] {
+      --gap: var(--s-0);
+    }
+
+    &[data-gap='1'] {
+      --gap: var(--s-1);
+    }
+
+    &[data-gap='2'] {
+      --gap: var(--s-2);
+    }
+
+    &[data-gap='3'] {
+      --gap: var(--s-3);
+    }
+
+    &[data-gap='4'] {
+      --gap: var(--s-4);
+    }
+
+    &[data-gap='6'] {
+      --gap: var(--s-6);
+    }
+  }
+
+  .stack {
+    flex-direction: column;
+  }
+
+  .cluster {
+    flex-wrap: wrap;
+    align-items: var(--align, center);
+
+    &[data-align='start'] {
+      --align: start;
+    }
+
+    &[data-align='baseline'] {
+      --align: baseline;
+    }
+
+    &[data-spread] {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
+  }
+}

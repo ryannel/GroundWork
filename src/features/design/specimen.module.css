@@ -1,0 +1,27 @@
+.specimen {
+  display: grid;
+  grid-template-columns: minmax(10rem, 16rem) minmax(0, 1fr);
+  gap: var(--s-6);
+  padding-block: var(--s-5);
+}
+
+.about {
+  display: grid;
+  gap: var(--s-1);
+  align-content: start;
+}
+
+.show {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  align-items: center;
+  min-width: 0;
+}
+
+@media (width < 48rem) {
+  .specimen {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-3);
+  }
+}

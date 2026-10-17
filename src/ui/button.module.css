@@ -45,4 +45,50 @@
     padding: 0 var(--s-2);
     font-size: var(--fs-12);
   }
+
+  .button[data-variant='link'],
+  .button[data-variant='quiet'],
+  .button[data-variant='bare'] {
+    height: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 1px;
+    }
+  }
+
+  .button[data-variant='link'] {
+    color: var(--accent-fg);
+    font-size: var(--fs-13);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .button[data-variant='quiet'] {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+
+    &:hover {
+      color: var(--accent-fg);
+      text-decoration: underline;
+    }
+  }
+
+  .button[data-variant='bare'] {
+    display: block;
+    width: 100%;
+    color: inherit;
+    text-align: left;
+
+    &:focus-visible {
+      outline-offset: -2px;
+    }
+  }
 }

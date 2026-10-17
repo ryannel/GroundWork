@@ -29,13 +29,14 @@ export function Mention({ id, label, glyph, status = 'existing', mono = false }:
         <Glyph glyph={glyph} />
       </span>
     );
-  if (label.length <= ONE_LINE)
+  if (label.length <= ONE_LINE) {
     return (
       <button {...shared} type="button">
         {icon}
         <span className={styles.name}>{label}</span>
       </button>
     );
+  }
   const space = label.indexOf(' ');
   const head = space === -1 ? label : label.slice(0, space);
   return (

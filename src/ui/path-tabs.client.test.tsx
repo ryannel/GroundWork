@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { currentTab, PathTabs } from './path-tabs.client';
 
-vi.mock('next/navigation', () => ({ usePathname: () => '/w/d/flows/one' }));
+vi.mock(import('next/navigation'), () => ({ usePathname: () => '/w/d/flows/one' }));
 
 afterEach(cleanup);
 

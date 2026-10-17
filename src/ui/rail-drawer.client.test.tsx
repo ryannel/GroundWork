@@ -1,12 +1,12 @@
 // @vitest-environment happy-dom
-import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import Link from 'next/link';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { RailDrawer, RailToggle } from './rail-drawer.client';
 
 let path = '/a/';
-vi.mock('next/navigation', () => ({ usePathname: () => path }));
+vi.mock(import('next/navigation'), () => ({ usePathname: () => path }));
 
 let narrow = true;
 beforeEach(() => {
@@ -14,8 +14,8 @@ beforeEach(() => {
   path = '/a/';
   vi.stubGlobal('matchMedia', () => ({
     matches: narrow,
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
+    addEventListener: vi.fn<() => void>(),
+    removeEventListener: vi.fn<() => void>(),
   }));
 });
 afterEach(() => {
@@ -71,16 +71,14 @@ describe('the rail drawer', () => {
     const view = frame();
     fireEvent.click(screen.getByRole('button', { name: 'Show the chapters' }));
     path = '/b/';
-    act(() => {
-      view.rerender(
-        <>
-          <RailToggle label="Show the chapters" />
-          <RailDrawer>
-            <nav />
-          </RailDrawer>
-        </>,
-      );
-    });
+    view.rerender(
+      <>
+        <RailToggle label="Show the chapters" />
+        <RailDrawer>
+          <nav />
+        </RailDrawer>
+      </>,
+    );
     expect(drawer()?.hasAttribute('data-open')).toBe(false);
   });
 

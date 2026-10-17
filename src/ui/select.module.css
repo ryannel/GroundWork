@@ -1,0 +1,17 @@
+@layer components {
+  .select {
+    max-width: 18rem;
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--node-bg);
+    color: var(--fg-1);
+    font: inherit;
+    font-size: var(--fs-13);
+
+    &:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 1px;
+    }
+  }
+}

@@ -6,7 +6,7 @@ import styles from './menu.module.css';
 
 /** While `open`, a click outside `root`, a click on a link inside it, or Esc calls `close`. */
 export function useDismiss(root: RefObject<HTMLElement | null>, open: boolean, close: () => void) {
-  useEffect(() => {
+  useEffect((): (() => void) | undefined => {
     if (!open) return;
     const onClick = (event: MouseEvent): void => {
       const target = event.target instanceof Element ? event.target : null;

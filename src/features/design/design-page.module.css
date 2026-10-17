@@ -1,0 +1,5 @@
+.groups {
+  display: grid;
+  gap: var(--s-10);
+  margin-block-start: var(--s-6);
+}
