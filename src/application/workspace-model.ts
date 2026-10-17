@@ -14,6 +14,7 @@ import type {
   Attribution,
   ComponentDetail,
   DomainLanguage,
+  KeyTerms,
   Scan,
   SystemContracts,
   WorkspaceModel,
@@ -28,6 +29,8 @@ export interface SystemModel {
   readonly scans: readonly Scan[];
   /** Each domain's words, from its language.yaml. */
   readonly languages: readonly DomainLanguage[];
+  /** The words the business has agreed on, from language.yaml at the root. */
+  readonly keyTerms: KeyTerms;
 }
 
 const SERVICE_KIND: Record<ComponentType, Service['kind'] | null> = {
@@ -53,6 +56,7 @@ export function systemModelOf(workspace: Workspace, model: WorkspaceModel): Syst
     attribution: model.attribution,
     scans: model.scans,
     languages: model.languages,
+    keyTerms: model.keyTerms,
   };
 }
 
@@ -97,7 +101,7 @@ function systemPlanOf(workspace: Workspace, model: WorkspaceModel): Plan {
 }
 
 // A system's repos are the evidence that its components belong together.
-function repoSource(repo: string): { url: string } {
+function repoSource(repo: string): { readonly url: string } {
   return { url: repo.includes('://') ? repo : `https://github.com/${repo}` };
 }
 
@@ -109,7 +113,7 @@ function teamOf(system: System): string {
 function partsOf(
   system: System,
   contracts: SystemContracts | undefined,
-): { services: Service[]; stores: Store[] } {
+): { readonly services: readonly Service[]; readonly stores: readonly Store[] } {
   const detail = new Map((contracts?.components ?? []).map((entry) => [entry.id, entry]));
   const kept = new Map((contracts?.stores ?? []).map((entry) => [entry.id, entry]));
   const services: Service[] = [];
@@ -136,7 +140,7 @@ function serviceOf(
     kind: detail?.kind ?? SERVICE_KIND[component.type] ?? 'service',
     ...plainWords(component),
     ...(detail?.summary === undefined ? {} : { summary: detail.summary }),
-    ...(detail?.sources === undefined ? {} : { sources: detail.sources }),
+    ...(detail?.sources === undefined ? {} : { sources: [...detail.sources] }),
   };
 }
 
@@ -155,7 +159,7 @@ function storeOf(component: Component, system: System, kept: Store | undefined):
   };
 }
 
-function plainWords(component: Component): { tech?: string; does?: string } {
+function plainWords(component: Component): { readonly tech?: string; readonly does?: string } {
   return {
     ...(component.tech === null ? {} : { tech: component.tech }),
     ...(component.does === null ? {} : { does: component.does }),

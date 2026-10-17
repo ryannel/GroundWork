@@ -5,9 +5,11 @@ export type RevisionEntry = NonNullable<Plan['meta']['revisions']>[number];
 
 /** Anything with a ledger: a whole plan, or just its meta. */
 type Ledgered =
-  { meta?: { revisions?: RevisionEntry[] | undefined } | undefined } | null | undefined;
+  | { readonly meta?: { readonly revisions?: readonly RevisionEntry[] | undefined } | undefined }
+  | null
+  | undefined;
 
-export const ledgerOf = (plan: Ledgered): RevisionEntry[] => plan?.meta?.revisions ?? [];
+export const ledgerOf = (plan: Ledgered): readonly RevisionEntry[] => plan?.meta?.revisions ?? [];
 
 function partsOf(v: unknown): number[] {
   const text = typeof v === 'string' || typeof v === 'number' ? String(v) : '';

@@ -1,16 +1,12 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
+import { coreShop } from '@/../test/fixtures/core-shop';
 import { derive } from '@/application/plan/derive';
 import { parseDocument } from '@/application/plan/federation-parse';
 import { printSDL, sdlLines } from '@/application/plan/federation-sdl';
 import type { SchemaNode, SystemGraph } from '@/domain/plan/plan-graph';
 
-vi.mock('server-only', () => ({}));
-
-const { readPlan } = await import('@/infrastructure/plan-store');
-
-const { plan } = await readPlan('alder-finch', 'storefront-graph');
-const m = derive(plan!);
+const m = derive(coreShop());
 const typeIds = (g: SystemGraph): string[] =>
   g.schemas.filter((s) => s.kind === 'graph-type').map((s) => s.id);
 
@@ -26,21 +22,21 @@ function parseSDL(text: string): Parsed {
   const out: Parsed = {};
   let cur: Parsed[string] | undefined;
   for (const line of text.split('\n')) {
-    const head = /^type (\w+)((?: @key\(fields: "[^"]*"\))*) \{$/.exec(line);
+    const head = /^type (\w+)((?: @key\(fields: "[^"]*"\))*) \{$/u.exec(line);
     if (head?.[1] !== undefined) {
       cur = {
-        keys: [...(head[2] ?? '').matchAll(/@key\(fields: "([^"]*)"\)/g)].map((x) => x[1]!),
+        keys: [...(head[2] ?? '').matchAll(/@key\(fields: "([^"]*)"\)/gu)].map((x) => x[1]!),
         fields: {},
       };
       out[head[1]] = cur;
       continue;
     }
     const [body = '', owned] = line.split('  # owned by ');
-    const f = /^ {2}(\w+)(?:\([^)]*\))?: (\S+)/.exec(body);
+    const f = /^ {2}(\w+)(?:\([^)]*\))?: (\S+)/u.exec(body);
     if (f?.[1] !== undefined && cur !== undefined) {
       cur.fields[f[1]] = {
         type: f[2]!,
-        directives: [...body.slice(f[0].length).matchAll(/@\w+(?:\((?:[^()"]|"[^"]*")*\))?/g)].map(
+        directives: [...body.slice(f[0].length).matchAll(/@\w+(?:\((?:[^()"]|"[^"]*")*\))?/gu)].map(
           (x) => x[0],
         ),
         owners: owned?.split(', ') ?? [],
@@ -62,10 +58,10 @@ describe('printSDL', () => {
       expect(Object.keys(sdl[t.name]?.fields ?? {}), t.name).toEqual(t.fields.map((f) => f.name));
     }
     expect(printSDL(m.toBe, ['sch:gql-query'])).toMatch(
-      /search\(q: String!, first: Int\): \[Product!\]! @provides\(fields: "name imageUrl"\)/,
+      /search\(q: String!, first: Int\): \[Product!\]! @provides\(fields: "name imageUrl"\)/u,
     );
     expect(printSDL(m.toBe, ['sch:gql-product'])).toMatch(
-      /deliveryPromise\(region: Region!\): DeliveryPromise @requires\(fields: "stock \{ fc \}"\)/,
+      /deliveryPromise\(region: Region!\): String @requires\(fields: "stock \{ fc \}"\)/u,
     );
   });
 
@@ -92,7 +88,7 @@ describe('printSDL', () => {
     expect(price?.directives).toEqual(['@override(from: "pricing", label: "percent(10)")']);
     expect(price?.owners).toEqual(['pricing', 'pricing-v2']);
     expect(printSDL(g, ['sch:gql-product'], { only: 'sg:pricing-v2' })).toMatch(
-      /price: Money! @override\(from: "pricing", label: "percent\(10\)"\)\n/,
+      /price: Money! @override\(from: "pricing", label: "percent\(10\)"\)\n/u,
     );
   });
 

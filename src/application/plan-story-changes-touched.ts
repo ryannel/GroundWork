@@ -25,16 +25,16 @@ function contractIdsOf(model: Model): string[] {
 
 export interface Touched {
   /** Record schemas that change. */
-  readonly records: string[];
-  readonly flows: string[];
+  readonly records: readonly string[];
+  readonly flows: readonly string[];
   /** Contracts and graph fields that climb a migration ladder. */
-  readonly ladders: string[];
+  readonly ladders: readonly string[];
   /** Other things that retire: payload schemas, stores, services, endpoints without a ladder. */
-  readonly retired: string[];
+  readonly retired: readonly string[];
   /** Non-record schemas (request and event bodies) whose fields change. */
-  readonly shapes: string[];
+  readonly shapes: readonly string[];
   /** Screens whose picture, regions or route change, and screens the plan removes. */
-  readonly screens: string[];
+  readonly screens: readonly string[];
 }
 
 export function touched(model: Model): Touched {
@@ -80,14 +80,12 @@ export const isSmallPlan = (model: Model): boolean =>
   (model.plan.changes ?? []).length <= SMALL_PLAN;
 
 export interface Reach {
-  readonly records: string[];
-  readonly screens: string[];
-  readonly ladders: string[];
-  readonly retired: string[];
-  readonly shapes: string[];
+  readonly records: readonly string[];
+  readonly screens: readonly string[];
+  readonly ladders: readonly string[];
+  readonly retired: readonly string[];
+  readonly shapes: readonly string[];
 }
-
-export const isEmptyReach = (r: Reach): boolean => reachIds(r).length === 0;
 
 export const reachIds = (r: Reach): string[] => [
   ...r.records,
@@ -97,18 +95,24 @@ export const reachIds = (r: Reach): string[] => [
   ...r.shapes,
 ];
 
+export const isEmptyReach = (r: Reach): boolean => reachIds(r).length === 0;
+
 /** The steps of a flow, as-is and to-be, each as the node that is still in the plan. */
 function stepsOfFlow(
   model: Model,
   flowId: string,
-): { id: string; touches: string[]; screen: string }[] {
+): { readonly id: string; readonly touches: readonly string[]; readonly screen: string }[] {
   const flow = (g: Model['asIs']) => {
     const n = g.get(flowId);
     return n?.$type === 'flow' ? n.steps : [];
   };
   const all = [...flow(model.asIs), ...flow(model.toBe)];
   const seen = new Set<string>();
-  const out: { id: string; touches: string[]; screen: string }[] = [];
+  const out: {
+    readonly id: string;
+    readonly touches: readonly string[];
+    readonly screen: string;
+  }[] = [];
   for (const step of all) {
     if (seen.has(step.id)) continue;
     seen.add(step.id);
@@ -131,7 +135,11 @@ function stepsOfFlow(
 export function reachOf(
   model: Model,
   t: Touched,
-  flow: { readonly id: string; readonly changed: ReadonlySet<string>; readonly taken: Set<string> },
+  flow: {
+    readonly id: string;
+    readonly changed: ReadonlySet<string>;
+    readonly taken: ReadonlySet<string>;
+  },
 ): Reach {
   const { taken } = flow;
   const steps = stepsOfFlow(model, flow.id);
@@ -140,15 +148,13 @@ export function reachOf(
   );
   const all = new Set(steps.flatMap((s) => s.touches.flatMap((x) => [x, topOf(x)])));
   const fresh = (ids: readonly string[]) => ids.filter((id) => !taken.has(id));
-  const reach: Reach = {
+  return {
     records: fresh(t.records.filter((id) => written.has(id))),
     screens: fresh(t.screens.filter((id) => steps.some((s) => s.screen === id))),
     ladders: fresh(t.ladders.filter((id) => model.ladder(id).chain.some((x) => all.has(x)))),
     retired: fresh(t.retired.filter((id) => all.has(id))),
     shapes: fresh(t.shapes.filter((id) => all.has(id))),
   };
-  for (const id of reachIds(reach)) taken.add(id);
-  return reach;
 }
 
 /** What no flow reaches. */

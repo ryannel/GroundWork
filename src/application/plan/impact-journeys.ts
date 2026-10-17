@@ -5,30 +5,30 @@ import type { Flow, Step } from '@/domain/plan/plan.generated';
 
 /** What a step or region carries whose shape changes: the schema, and the fields that actually change. */
 export interface Carry {
-  schema: string;
-  fields: FieldDelta[];
+  readonly schema: string;
+  readonly fields: readonly FieldDelta[];
 }
 
 export type StepMark = 'added' | 'removed' | 'behaviour' | 'data';
 
 export interface JourneyStep {
-  id: string;
-  step: Step;
-  before: Step | null;
-  after: Step | null;
-  keys: string[];
-  carries: Carry[];
-  mark: StepMark | null;
-  service: string | null;
-  team: string | null;
-  screen: string | null;
+  readonly id: string;
+  readonly step: Step;
+  readonly before: Step | null;
+  readonly after: Step | null;
+  readonly keys: readonly string[];
+  readonly carries: readonly Carry[];
+  readonly mark: StepMark | null;
+  readonly service: string | null;
+  readonly team: string | null;
+  readonly screen: string | null;
 }
 
 export interface Journey {
-  id: string;
-  flow: Flow;
-  status: 'added' | 'removed' | 'changed' | null;
-  steps: JourneyStep[];
+  readonly id: string;
+  readonly flow: Flow;
+  readonly status: 'added' | 'removed' | 'changed' | null;
+  readonly steps: readonly JourneyStep[];
 }
 
 const STEP_KEYS_IGNORED = ['id', '$deprecated'];
@@ -48,7 +48,7 @@ function stepIds(fa: Flow | undefined, fb: Flow | undefined): string[] {
 function markOf(
   a: Step | undefined,
   b: Step | undefined,
-  extra: { keys: string[]; carries: Carry[] },
+  extra: { readonly keys: readonly string[]; readonly carries: readonly Carry[] },
 ): StepMark | null {
   if (a === undefined) return 'added';
   if (b === undefined) return 'removed';
@@ -96,7 +96,7 @@ function journeyStep(sides: Sides, sid: string): JourneyStep | null {
 function statusOf(
   fa: Flow | undefined,
   fb: Flow | undefined,
-  steps: JourneyStep[],
+  steps: readonly JourneyStep[],
 ): Journey['status'] {
   if (fa === undefined) return 'added';
   if (fb === undefined) return 'removed';

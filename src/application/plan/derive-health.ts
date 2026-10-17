@@ -1,5 +1,5 @@
 import type { Core } from '@/application/plan/derive-core';
-import type { createCoverage } from '@/application/plan/derive-coverage';
+import type { CoverageQueries } from '@/application/plan/derive-coverage';
 import type { Delivery } from '@/application/plan/derive-delivery';
 import type { Register } from '@/application/plan/derive-register';
 import { memo } from '@/application/plan/derive-values';
@@ -18,28 +18,56 @@ const ORPHAN_TYPES = new Set([
 ]);
 
 interface HealthParts {
-  register: Register;
-  delivery: Delivery;
-  coverage: ReturnType<typeof createCoverage>['coverage'];
-  validation: () => Findings;
+  readonly register: Register;
+  readonly delivery: Delivery;
+  readonly coverage: CoverageQueries['coverage'];
+  readonly validation: () => Findings;
 }
 
 type Graph = Core['asIs'];
 
+/** The counts that say whether a plan is in shape. */
+export interface Health {
+  readonly changes: number;
+  readonly ops: number;
+  readonly tests: number;
+  readonly workItems: number;
+  readonly untested: number;
+  readonly provesWithoutWalking: number;
+  readonly connectionsWithoutContract: number;
+  readonly orphans: number;
+  readonly orphanIds: readonly string[];
+  readonly openQuestions: number;
+  readonly overdueQuestions: number;
+  readonly errors: number;
+  readonly warnings: number;
+  readonly ok: boolean;
+}
+
+export interface HealthQueries {
+  /** Things nothing refers to. */
+  readonly orphans: () => string[];
+  readonly health: () => Health;
+}
+
 /** What a graph itself reaches: an interface through its endpoints, a graph's types and its gateway's GraphQL interface. */
-function reachedInGraph(g: Graph, referenced: Set<string>): void {
-  for (const i of g.interfaces) {
-    if (i.endpoints.some((e) => referenced.has(e.id))) referenced.add(i.id);
-  }
-  for (const t of g.schemas) {
-    if (t.kind === 'graph-type' && t.graph !== undefined && g.has(t.graph)) referenced.add(t.id);
-  }
-  for (const i of g.interfaces) {
-    const served = g.graphs.some(
-      (gr) => gr.gateway === i.service && g.operations.some((o) => o.graph === gr.id),
-    );
-    if (i.protocol === 'graphql' && served) referenced.add(i.id);
-  }
+function reachedInGraph(g: Graph, referenced: ReadonlySet<string>): string[] {
+  const viaEndpoints = g.interfaces
+    .filter((i) => i.endpoints.some((e) => referenced.has(e.id)))
+    .map((i) => i.id);
+  const graphTypes = g.schemas
+    .filter((t) => t.kind === 'graph-type' && t.graph !== undefined && g.has(t.graph))
+    .map((t) => t.id);
+  const gateways = g.interfaces
+    .filter(
+      (i) =>
+        i.protocol === 'graphql' &&
+        g.graphs.some(
+          (gr) => gr.gateway === i.service && g.operations.some((o) => o.graph === gr.id),
+        ),
+    )
+    .map((i) => i.id);
+  return [...viaEndpoints, ...graphTypes, ...gateways];
 }
 
 /** Every id something points at, and the parent of each. */
@@ -62,12 +90,14 @@ function referencedIds(core: Core, register: Register): Set<string> {
     note(r.replacedBy);
   }
   for (const id of register.citedBy.keys()) note(id);
-  for (const g of [core.asIs, core.toBe]) reachedInGraph(g, referenced);
+  for (const g of [core.asIs, core.toBe]) {
+    for (const id of reachedInGraph(g, referenced)) referenced.add(id);
+  }
   return referenced;
 }
 
 /** Things nothing refers to, and the counts that say whether the plan is in shape. */
-export function createHealth(core: Core, parts: HealthParts) {
+export function createHealth(core: Core, parts: HealthParts): HealthQueries {
   const { plan, records, changes, tests, workItems, unionIds, sys } = core;
   const { register, delivery, coverage, validation } = parts;
 
@@ -79,7 +109,7 @@ export function createHealth(core: Core, parts: HealthParts) {
     });
   });
 
-  const health = memo(() => {
+  const health = memo((): Health => {
     const v = validation();
     const gaps = coverage().gaps;
     return {

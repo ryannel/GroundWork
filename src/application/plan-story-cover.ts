@@ -14,7 +14,7 @@ export interface Stat {
 
 const STAT_MAX = 4;
 
-const isToday = (text: string): boolean => /^today\b/i.test(text);
+const isToday = (text: string): boolean => /^today\b/iu.test(text);
 
 /** The plan's measures: up to four, each with where it is today and where it should be after. */
 export function statsOf(model: Model): Stat[] {
@@ -48,11 +48,12 @@ export interface Cover {
   readonly teams: readonly string[];
 }
 
-export function coverOf(model: Model): Cover {
+/** The cover, with today as an ISO date (YYYY-MM-DD). */
+export function coverOf(model: Model, today: string): Cover {
   return {
     title: model.plan.meta.title,
     summary: model.plan.problem.summary,
-    ask: askLines(model),
+    ask: askLines(model, today),
     stats: statsOf(model),
     teams: teamsWithWork(model),
   };

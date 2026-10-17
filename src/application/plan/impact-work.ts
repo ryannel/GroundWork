@@ -22,67 +22,85 @@ const WEIGHT: Record<WorkEffect, number> = {
 
 /** What a revision does to one work item, and why. */
 export interface WorkImpact {
-  id: string;
-  title: string;
-  team: string;
-  size: string | null;
-  milestone: string | null;
-  state: 'done' | 'open' | 'not-started' | null;
-  effect: WorkEffect;
-  why: string[];
+  readonly id: string;
+  readonly title: string;
+  readonly team: string;
+  readonly size: string | null;
+  readonly milestone: string | null;
+  readonly state: 'done' | 'open' | 'not-started' | null;
+  readonly effect: WorkEffect;
+  readonly why: readonly string[];
   /** The ledger entry says so (else it is inferred). */
-  authored: boolean;
-  note: string | null;
-  inferred: boolean;
+  readonly authored: boolean;
+  readonly note: string | null;
+  readonly inferred: boolean;
   /** The revision drops the item from the plan. */
-  gone: boolean;
+  readonly gone: boolean;
 }
 
 export interface WorkInput {
-  sides: Sides;
-  flows: Journey[];
-  screens: ScreenChange[];
-  diff: PlanDiff | null;
-  delivery: DeliveryState | null;
-  authored: NonNullable<RevisionEntry['work']> | undefined;
+  readonly sides: Sides;
+  readonly flows: readonly Journey[];
+  readonly screens: readonly ScreenChange[];
+  readonly diff: PlanDiff | null;
+  readonly delivery: DeliveryState | null;
+  readonly authored: NonNullable<RevisionEntry['work']> | undefined;
 }
 
 export interface Worked {
-  work: WorkImpact[];
+  readonly work: readonly WorkImpact[];
   /** Step or screen id → the work items that build it. */
-  byPlace: Map<string, string[]>;
+  readonly byPlace: ReadonlyMap<string, readonly string[]>;
 }
 
 interface Hit {
-  effect: WorkEffect;
-  why: { effect: WorkEffect; why: string }[];
+  readonly effect: WorkEffect;
+  readonly why: readonly { readonly effect: WorkEffect; readonly why: string }[];
 }
 
 type Told = NonNullable<WorkInput['authored']>[number];
 
 interface Tally {
-  sides: Sides;
-  items: Map<string, WorkItem>;
-  hits: Map<string, Hit>;
-  byPlace: Map<string, string[]>;
-  delivery: DeliveryState | null;
-  told: Map<string, Told>;
-  inB: Set<string>;
+  readonly sides: Sides;
+  readonly items: ReadonlyMap<string, WorkItem>;
+  readonly hits: ReadonlyMap<string, Hit>;
+  readonly byPlace: ReadonlyMap<string, readonly string[]>;
+  readonly delivery: DeliveryState | null;
+  readonly told: ReadonlyMap<string, Told>;
+  readonly inB: ReadonlySet<string>;
+  readonly hit: (id: string, reason: Reason) => void;
+  readonly at: (place: string, id: string) => void;
 }
 
-type Reason = [effect: WorkEffect, why: string];
+type Reason = readonly [effect: WorkEffect, why: string];
 
-const hit = (t: Tally, id: string, [effect, why]: Reason): void => {
-  if (!t.items.has(id)) return;
-  const cur = t.hits.get(id) ?? { effect, why: [] };
-  if (!cur.why.some((w) => w.why === why)) cur.why.push({ effect, why });
-  if (WEIGHT[effect] > WEIGHT[cur.effect]) cur.effect = effect;
-  t.hits.set(id, cur);
+/** Where hits and places gather while the work is tallied. */
+function tallyBook(): Pick<Tally, 'hits' | 'byPlace' | 'hit' | 'at'> {
+  const hits = new Map<string, Hit>();
+  const byPlace = new Map<string, readonly string[]>();
+  return {
+    hits,
+    byPlace,
+    hit: (id, [effect, why]) => {
+      const cur = hits.get(id) ?? { effect, why: [] };
+      hits.set(id, {
+        effect: WEIGHT[effect] > WEIGHT[cur.effect] ? effect : cur.effect,
+        why: cur.why.some((w) => w.why === why) ? cur.why : [...cur.why, { effect, why }],
+      });
+    },
+    at: (place, id) => {
+      const ids = byPlace.get(place) ?? [];
+      if (!ids.includes(id)) byPlace.set(place, [...ids, id]);
+    },
+  };
+}
+
+const hit = (t: Tally, id: string, reason: Reason): void => {
+  if (t.items.has(id)) t.hit(id, reason);
 };
 
 const at = (t: Tally, place: string, id: string): void => {
-  const ids = t.byPlace.get(place) ?? [];
-  if (!ids.includes(id)) t.byPlace.set(place, [...ids, id]);
+  t.at(place, id);
 };
 
 /** Done work is reopened by a change; the rest just changes. */
@@ -90,10 +108,10 @@ const behave = (t: Tally, id: string): WorkEffect =>
   workState(t.delivery, id) === 'done' ? 'rework' : 'changes';
 
 /** Passing on an optional field is no work; a breaking one is. */
-const breaks = (carries: Carry[]): boolean =>
+const breaks = (carries: readonly Carry[]): boolean =>
   carries.some((c) => c.fields.some((f) => f.verdict !== 'safe'));
 
-function edited(t: Tally, c: { id: string; keys: string[] }): void {
+function edited(t: Tally, c: { readonly id: string; readonly keys: readonly string[] }): void {
   const real = c.keys.filter((k) => k !== 'title' && k !== 'body');
   if (real.length === 0) hit(t, c.id, ['renamed', 'its title changes']);
   else hit(t, c.id, [behave(t, c.id), `its ${real.join(', ').replaceAll('_', ' ')} changes`]);
@@ -112,7 +130,7 @@ const implementing = (t: Tally, team: string, changes: ReadonlySet<string>): Wor
   [...t.items.values()].filter((x) => x.team === team && x.implements.some((c) => changes.has(c)));
 
 /** A team's work items that implement a change touching these ids. */
-function builders(t: Tally, team: string, ids: string[]): WorkItem[] {
+function builders(t: Tally, team: string, ids: readonly string[]): WorkItem[] {
   const { A, B } = t.sides;
   const chg = new Set(ids.flatMap((id) => [...(B.changesOf.get(id) ?? A.changesOf.get(id) ?? [])]));
   return implementing(t, team, chg);
@@ -143,7 +161,7 @@ function stepWork(t: Tally, flowChanges: ReadonlySet<string>, s: JourneyStep): v
   }
 }
 
-function fromSteps(t: Tally, flows: Journey[]): void {
+function fromSteps(t: Tally, flows: readonly Journey[]): void {
   for (const f of flows) {
     const flowChanges = new Set(f.steps.flatMap((s) => [...(t.sides.B.changesOf.get(s.id) ?? [])]));
     for (const s of f.steps) stepWork(t, flowChanges, s);
@@ -156,9 +174,9 @@ function screenWork(t: Tally, sc: ScreenChange): void {
   const name = sc.screen.name;
   for (const x of builders(t, sc.team, [sc.id, ...sc.regions.map((r) => r.id)])) {
     at(t, sc.id, x.id);
-    if (sc.mark === 'data')
+    if (sc.mark === 'data') {
       hit(t, x.id, ['check', `the screen “${name}” shows data whose shape changes`]);
-    else hit(t, x.id, [behave(t, x.id), `the screen “${name}” changes`]);
+    } else hit(t, x.id, [behave(t, x.id), `the screen “${name}” changes`]);
   }
 }
 
@@ -179,8 +197,10 @@ function placeAuthored(t: Tally, input: WorkInput): void {
   }
 }
 
+const BEHAVES: ReadonlySet<WorkEffect> = new Set(['rework', 'changes']);
+
 const sameEffect = (a: WorkEffect, b: WorkEffect): boolean =>
-  a === b || (a === 'rework' && b === 'changes') || (a === 'changes' && b === 'rework');
+  a === b || (BEHAVES.has(a) && BEHAVES.has(b));
 
 function effectOf(t: Tally, id: string, said: Told | undefined): WorkEffect | undefined {
   if (said === undefined) return t.hits.get(id)?.effect;
@@ -231,8 +251,7 @@ export function workOf(input: WorkInput): Worked {
   const t: Tally = {
     sides: input.sides,
     items,
-    hits: new Map(),
-    byPlace: new Map(),
+    ...tallyBook(),
     delivery: input.delivery,
     told: new Map((input.authored ?? []).map((x) => [x.item, x])),
     inB: new Set((B.plan.work_items ?? []).map((w) => w.id)),

@@ -1,4 +1,4 @@
-import { objects, sameJson, str, uniq } from '@/application/plan/derive-values';
+import { objects, sameJson, textOf, uniq } from '@/application/plan/derive-values';
 import { isRecord, type Rec, strings } from '@/application/plan/ids';
 import type { StepNode, SystemGraph } from '@/domain/plan/plan-graph';
 
@@ -15,18 +15,18 @@ export type EvidenceKind =
 
 /** One thing that differs between today and the plan; indirect evidence never asserts behaviour. */
 export interface Evidence {
-  kind: EvidenceKind;
-  target: string;
-  property: string | null;
-  before: unknown;
-  after: unknown;
-  indirect: boolean;
+  readonly kind: EvidenceKind;
+  readonly target: string;
+  readonly property: string | null;
+  readonly before: unknown;
+  readonly after: unknown;
+  readonly indirect: boolean;
 }
 
 /** The two graphs a journey compares. */
 export interface Graphs {
-  asIs: SystemGraph;
-  toBe: SystemGraph;
+  readonly asIs: SystemGraph;
+  readonly toBe: SystemGraph;
 }
 
 export const ids = (values: readonly (string | null | undefined)[]): string[] =>
@@ -50,13 +50,17 @@ function authored(value: unknown): unknown {
 const sameAuthored = (a: unknown, b: unknown): boolean => sameJson(authored(a), authored(b));
 
 interface Compare {
-  kind: EvidenceKind;
-  target: string;
-  before: Rec | null;
-  after: Rec | null;
-  indirect?: boolean;
-  omit?: string[];
+  readonly kind: EvidenceKind;
+  readonly target: string;
+  readonly before: Rec | null;
+  readonly after: Rec | null;
+  readonly indirect?: boolean;
+  readonly omit?: readonly string[];
 }
+
+/** A property someone wrote, not an id, its sources or a derived `$` one. */
+const isAuthoredProperty = (property: string): boolean =>
+  property !== 'id' && property !== 'sources' && !property.startsWith('$');
 
 function propertyEvidence(c: Compare): Evidence[] {
   const { kind, target, before, after } = c;
@@ -69,9 +73,7 @@ function propertyEvidence(c: Compare): Evidence[] {
   return ids([...Object.keys(before), ...Object.keys(after)])
     .filter(
       (property) =>
-        property !== 'id' &&
-        property !== 'sources' &&
-        !property.startsWith('$') &&
+        isAuthoredProperty(property) &&
         !(c.omit ?? []).includes(property) &&
         !sameAuthored(before[property], after[property]),
     )
@@ -89,11 +91,13 @@ function propertyEvidence(c: Compare): Evidence[] {
 function regionEvidence(
   g: Graphs,
   ref: string,
-  screens: { a: Rec | null; b: Rec | null },
+  screens: { readonly a: Rec | null; readonly b: Rec | null },
 ): Evidence[] {
   const regions = ref.includes('#')
     ? [ref]
-    : ids([...objects(screens.a?.regions), ...objects(screens.b?.regions)].map((r) => str(r.id)));
+    : ids(
+        [...objects(screens.a?.regions), ...objects(screens.b?.regions)].map((r) => textOf(r.id)),
+      );
   return regions
     .flatMap((region) =>
       propertyEvidence({
@@ -161,8 +165,8 @@ export const rec = (value: unknown): Rec | null => (isRecord(value) ? value : nu
 /** Everything that differs between a step today and with the plan: the step, its order, its screen, its references. */
 export function stepEvidence(
   g: Graphs,
-  pair: { before: StepNode | null; after: StepNode | null },
-  order: Evidence[],
+  pair: { readonly before: StepNode | null; readonly after: StepNode | null },
+  order: readonly Evidence[],
 ): Evidence[] {
   const { before, after } = pair;
   return [

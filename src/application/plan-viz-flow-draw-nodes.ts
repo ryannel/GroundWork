@@ -128,14 +128,16 @@ export function touchedBy(model: Model, steps: readonly (FlowStep | undefined)[]
 }
 
 export interface NodeFilters {
-  touched: ReadonlySet<string>;
-  lens: string | undefined;
+  readonly touched: ReadonlySet<string>;
+  /** The steps that touch each node, by id. */
+  readonly touchSteps: ReadonlyMap<string, readonly number[]>;
+  readonly lens: string | undefined;
 }
 
 export function drawNodes(
   ctx: DrawCtx,
-  nodes: Iterable<FlowNodeSpec>,
-  { touched, lens }: NodeFilters,
+  nodes: Iterable<FlowNodeSpec, unknown, undefined>,
+  { touched, touchSteps, lens }: NodeFilters,
 ): DrawnNode[] {
   return [...nodes].map((n) => {
     const team = ctx.model.ownerTeam(n.id);
@@ -151,6 +153,7 @@ export function drawNodes(
       h: n.h,
       state: status === 'added' || status === 'modified' ? status : '',
       touched: touched.has(n.id),
+      touchSteps: touchSteps.get(n.id) ?? [],
       lensOff: lens !== undefined && team !== lens,
       team: team === null ? UNKNOWN_TEAM : teamIndex(ctx.model, team),
       mark: ctx.markers[n.id] ?? null,

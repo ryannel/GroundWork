@@ -1,25 +1,44 @@
 import type { Core } from '@/application/plan/derive-core';
-import { consumersIn, type createEdges } from '@/application/plan/derive-edges';
+import { consumersIn, type EdgeQueries } from '@/application/plan/derive-edges';
 import type { Owners } from '@/application/plan/derive-owners';
-import { memo, str, uniq } from '@/application/plan/derive-values';
+import { memo, textOf, uniq } from '@/application/plan/derive-values';
 import { actingService } from '@/application/plan/graph-queries';
 import { parentOf, prop, typeOf } from '@/application/plan/ids';
 import type { Concept, Stage } from '@/domain/plan/plan.generated';
 
+/** The plan's domain: its concepts and stages, and where each service and flow sits among them. */
+export interface Domain {
+  readonly summary: string;
+  readonly concepts: readonly Concept[];
+  readonly stages: readonly Stage[];
+  readonly stageIndex: (id: string) => number;
+  readonly stageOf: (id: string) => string | null;
+  readonly roleOf: (id: string) => string | null;
+  readonly flowsIn: (stageId: string, mode?: string) => string[];
+  /** Concepts that relate to `cid` (incoming part_of / relates). */
+  readonly relatedTo: (cid: string) => Concept[];
+}
+
+export interface DomainQueries {
+  readonly domain: () => Domain;
+  /** Service-to-service links that carry data between stages, from the earlier stage to the later. */
+  readonly domainLinks: (mode?: string) => DomainLink[];
+}
+
 export interface DomainLink {
-  from: string;
-  to: string;
-  via: string[];
-  kinds: ('msg' | 'api')[];
-  same: boolean;
+  readonly from: string;
+  readonly to: string;
+  readonly via: readonly string[];
+  readonly kinds: readonly ('msg' | 'api')[];
+  readonly same: boolean;
 }
 
 const writes = (mode: string | undefined): boolean => (mode ?? '').includes('write');
 
 interface StageIndex {
-  index: Map<string, number>;
-  bySvc: Map<string, string>;
-  byFlow: Map<string, string>;
+  readonly index: ReadonlyMap<string, number>;
+  readonly bySvc: ReadonlyMap<string, string>;
+  readonly byFlow: ReadonlyMap<string, string>;
 }
 
 function stageIndexOf(stages: readonly Stage[]): StageIndex {
@@ -34,10 +53,10 @@ function stageIndexOf(stages: readonly Stage[]): StageIndex {
 
 /** The stage with most of a flow's acting services; on a tie the earlier stage. */
 function busiestStage(count: ReadonlyMap<string, number>, index: ReadonlyMap<string, number>) {
+  const rank = (st: string): number => index.get(st) ?? 0;
   let best: [string, number] | null = null;
   for (const [st, n] of count) {
-    const earlier =
-      best !== null && n === best[1] && (index.get(st) ?? 0) < (index.get(best[0]) ?? 0);
+    const earlier = best !== null && n === best[1] && rank(st) < rank(best[0]);
     if (best === null || n > best[1] || earlier) best = [st, n];
   }
   return best?.[0] ?? null;
@@ -61,10 +80,10 @@ function flowStageOf({ asIs, toBe }: Core, ix: StageIndex, fid: string): string 
  * stageOf(id) → stage id for a service (authored), a flow (authored in stage.flows, else the stage of the
  * service that acts in most of its steps), a step (its flow) or anything owned by a service.
  */
-function buildDomain(core: Core, owners: Owners) {
+function buildDomain(core: Core, owners: Owners): Domain {
   const { plan, asIs, toBe, graphOf } = core;
-  const concepts: Concept[] = plan.domain?.concepts ?? [];
-  const stages: Stage[] = plan.domain?.stages ?? [];
+  const concepts: readonly Concept[] = plan.domain?.concepts ?? [];
+  const stages: readonly Stage[] = plan.domain?.stages ?? [];
   const ix = stageIndexOf(stages);
   const flowStage = memo((fid: string): string | null => flowStageOf(core, ix, fid));
   const stageOf = (id: string): string | null => {
@@ -81,7 +100,8 @@ function buildDomain(core: Core, owners: Owners) {
     stages,
     stageIndex: (id: string): number => ix.index.get(id) ?? -1,
     stageOf,
-    roleOf: (id: string): string | null => str(prop(asIs.get(id) ?? toBe.get(id), 'does')) ?? null,
+    roleOf: (id: string): string | null =>
+      textOf(prop(asIs.get(id) ?? toBe.get(id), 'does')) ?? null,
     flowsIn: (stageId: string, mode = 'asIs'): string[] =>
       graphOf(mode)
         .flows.filter((f) => stageOf(f.id) === stageId)
@@ -94,28 +114,34 @@ function buildDomain(core: Core, owners: Owners) {
   };
 }
 
-type Domain = ReturnType<typeof buildDomain>;
 type Graph = ReturnType<Core['graphOf']>;
 
 interface Links {
-  msg: (a: string, b: string, via: string) => void;
-  api: (a: string, b: string, via: string | null) => void;
-  list: () => DomainLink[];
+  readonly msg: (a: string, b: string, via: string) => void;
+  readonly api: (a: string, b: string, via: string | null) => void;
+  readonly list: () => DomainLink[];
 }
 
 /** Links between stages, merged by their two ends and oriented from the earlier stage to the later. */
 function linkSet(dm: Domain): Links {
   const links = new Map<string, DomainLink>();
-  const put = (a: string, b: string, [via, kind]: [string | null, 'msg' | 'api']): void => {
+  const put = (
+    a: string,
+    b: string,
+    [via, kind]: readonly [string | null, 'msg' | 'api'],
+  ): void => {
     const sa = dm.stageOf(a);
     const sb = dm.stageOf(b);
     if (sa === null || sb === null || a === b) return;
     const [from, to] = dm.stageIndex(sa) <= dm.stageIndex(sb) ? [a, b] : [b, a];
     const key = `${from}|${to}`;
     const link = links.get(key) ?? { from, to, via: [], kinds: [], same: sa === sb };
-    links.set(key, link);
-    if (via !== null && !link.via.includes(via)) link.via.push(via);
-    if (!link.kinds.includes(kind)) link.kinds.push(kind);
+    const addVia = via !== null && !link.via.includes(via);
+    links.set(key, {
+      ...link,
+      via: addVia ? [...link.via, via] : link.via,
+      kinds: link.kinds.includes(kind) ? link.kinds : [...link.kinds, kind],
+    });
   };
   return {
     msg: (a, b, via) => {
@@ -129,8 +155,8 @@ function linkSet(dm: Domain): Links {
 }
 
 const writersOf = (n: {
-  owner: string;
-  access?: { svc: string; mode: string }[] | undefined;
+  readonly owner: string;
+  readonly access?: readonly { readonly svc: string; readonly mode: string }[] | undefined;
 }): string[] =>
   uniq([n.owner, ...(n.access ?? []).filter((a) => writes(a.mode)).map((a) => a.svc)]);
 
@@ -174,15 +200,20 @@ const authoredPairs = (stages: readonly Stage[]): (readonly [string, string])[] 
     .flatMap((st) => st.services ?? [])
     .flatMap((x) => (x.from ?? []).map((src) => [src, x.svc] as const));
 
-type Edges = Pick<ReturnType<typeof createEdges>, 'edgesOfGraph'>;
+type Edges = Pick<EdgeQueries, 'edgesOfGraph'>;
 
 /** Service-to-service links in a graph: events through their topic, calls between caller and callee. */
-function linksOf(core: Core, [dm, edges]: [Domain, Edges], mode: string | undefined): DomainLink[] {
+function linksOf(
+  core: Core,
+  [dm, edges]: readonly [Domain, Edges],
+  mode: string | undefined,
+): DomainLink[] {
   const g = core.graphOf(mode);
   const links = linkSet(dm);
   for (const m of g.messages) {
-    for (const c of consumersIn(g, m.id))
+    for (const c of consumersIn(g, m.id)) {
       links.msg(m.producer, c.svc, g.has(m.topic) ? m.topic : m.id);
+    }
   }
   topicLinks(g, links);
   for (const pair of authoredPairs(dm.stages)) authoredLink(g, links, pair);
@@ -193,7 +224,7 @@ function linksOf(core: Core, [dm, edges]: [Domain, Edges], mode: string | undefi
 }
 
 /** The plan's domain: authored concepts and stages, plus where each service and flow sits. */
-export function createDomain(core: Core, owners: Owners, edges: Edges) {
+export function createDomain(core: Core, owners: Owners, edges: Edges): DomainQueries {
   const domain = memo(() => buildDomain(core, owners));
 
   /**

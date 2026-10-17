@@ -50,7 +50,7 @@ describe('what a stop says', () => {
 
   it('says who talks to whom, and through what', () => {
     const one = stops[0] && narrate(steps, stops[0]);
-    expect(one?.num).toBe('1');
+    expect(one?.number).toBe('1');
     expect(one?.route).toEqual({ kind: 'pair', from: 'svc:pricing-api', to: 'st:price-topic' });
     expect(one?.vias).toEqual(['msg:price-published']);
   });
@@ -73,7 +73,7 @@ describe('what a stop says', () => {
       indices: [0, 1, 2],
     };
     const group = narrate(steps, all);
-    expect(group?.num).toBe('1–3');
+    expect(group?.number).toBe('1–3');
     expect(group?.route).toMatchObject({ kind: 'chain' });
     expect(group?.rows.map((r) => r.n)).toEqual([1, 2, 3]);
     expect(group?.rows[2]?.via).toBeNull();

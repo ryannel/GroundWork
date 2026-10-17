@@ -1,13 +1,9 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
+import { coreShop } from '@/../test/fixtures/core-shop';
 import { derive } from '@/application/plan/derive';
 
-vi.mock('server-only', () => ({}));
-
-const { readPlan } = await import('@/infrastructure/plan-store');
-
-const { plan } = await readPlan('alder-finch', 'storefront-graph');
-const m = derive(plan!);
+const m = derive(coreShop());
 const PRICE = 'sch:gql-product#price';
 
 describe('fieldLadder', () => {
@@ -18,8 +14,8 @@ describe('fieldLadder', () => {
     expect(l.from).toBe('sg:pricing');
     expect(l.to).toBe('sg:pricing-v2');
     const labels = l.rungs.map((r) => r.label).join(' | ');
-    expect(labels).not.toMatch(/price is removed/);
-    expect(labels).toMatch(/Pricing subgraph stops resolving price/);
+    expect(labels).not.toMatch(/price is removed/u);
+    expect(labels).toMatch(/Pricing stops resolving price; Pricing v2 has all of it/u);
     expect(l.rungs.find((r) => r.rung === 'migrate')?.steps).toEqual([10, 50, 100]);
   });
 

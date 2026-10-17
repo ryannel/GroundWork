@@ -5,7 +5,7 @@
 // (`work` on the ledger entry) that wins over the inference.
 
 import type { DeliveryState } from '@/application/plan/delivery';
-import { str } from '@/application/plan/derive-values';
+import { textOf } from '@/application/plan/derive-values';
 import { prop } from '@/application/plan/ids';
 import type { Check } from '@/application/plan/impact-check-types';
 import { checksOf } from '@/application/plan/impact-checks';
@@ -27,68 +27,72 @@ export type { ScreenChange } from '@/application/plan/impact-screens';
 export type { WorkImpact } from '@/application/plan/impact-work';
 
 export interface TeamImpact {
-  id: string;
-  work: WorkImpact[];
-  steps: JourneyStep[];
-  screens: ScreenChange[];
+  readonly id: string;
+  readonly work: readonly WorkImpact[];
+  readonly steps: readonly JourneyStep[];
+  readonly screens: readonly ScreenChange[];
 }
 
 export interface Tell {
-  team: string;
-  why: string;
-  whys: string[];
+  readonly team: string;
+  readonly why: string;
+  readonly whys: readonly string[];
 }
 
 export interface Tally {
-  fieldsAdded: number;
-  fieldsRemoved: number;
-  fieldsChanged: number;
-  breaking: number;
-  migration: number;
-  optional: number;
-  behaviour: number;
-  stepsAdded: number;
-  stepsRemoved: number;
-  carries: number;
-  screens: number;
-  edges: number;
-  rework: number;
-  newWork: number;
-  changes: number;
-  check: number;
+  readonly fieldsAdded: number;
+  readonly fieldsRemoved: number;
+  readonly fieldsChanged: number;
+  readonly breaking: number;
+  readonly migration: number;
+  readonly optional: number;
+  readonly behaviour: number;
+  readonly stepsAdded: number;
+  readonly stepsRemoved: number;
+  readonly carries: number;
+  readonly screens: number;
+  readonly edges: number;
+  readonly rework: number;
+  readonly newWork: number;
+  readonly changes: number;
+  readonly check: number;
 }
 
 export interface RevisionImpact {
   /** A name for any system id in either revision (the planned systems know what ops add). */
-  nameOf: (id: string) => string | null;
+  readonly nameOf: (id: string) => string | null;
   /** Who to tell before approval, and why. */
-  tell: Tell[];
-  byPlace: Map<string, string[]>;
-  fields: FieldDelta[];
-  shape: Shape;
-  journeys: Journey[];
-  screens: ScreenChange[];
-  edges: Edge[];
-  work: WorkImpact[];
-  checks: Check[];
-  teams: TeamImpact[];
-  tally: Tally;
+  readonly tell: readonly Tell[];
+  readonly byPlace: ReadonlyMap<string, readonly string[]>;
+  readonly fields: readonly FieldDelta[];
+  readonly shape: Shape;
+  readonly journeys: readonly Journey[];
+  readonly screens: readonly ScreenChange[];
+  readonly edges: readonly Edge[];
+  readonly work: readonly WorkImpact[];
+  readonly checks: readonly Check[];
+  readonly teams: readonly TeamImpact[];
+  readonly tally: Tally;
 }
 
 export interface ImpactInput {
-  from: Plan;
-  to: Plan;
+  readonly from: Plan;
+  readonly to: Plan;
   /** planDiff(from, to). */
-  diff?: PlanDiff | null;
-  delivery?: DeliveryState | null;
+  readonly diff?: PlanDiff | null;
+  readonly delivery?: DeliveryState | null;
   /** The ledger entry; its `work` is the proposer's word on each work item. */
-  entry?: RevisionEntry | null;
+  readonly entry?: RevisionEntry | null;
 }
 
 const MOVING = new Set(['rework', 'changes', 'drop', 'new']);
 
 /** Every reason a team is told, loudest first (work is sorted by weight). Approval is the plan owner's merge. */
-function whoToTell(work: WorkImpact[], edges: Edge[], by: ReadonlySet<string>): Tell[] {
+function whoToTell(
+  work: readonly WorkImpact[],
+  edges: readonly Edge[],
+  by: ReadonlySet<string>,
+): Tell[] {
   const tell = new Map<string, string[]>();
   const because = (team: string, why: string) => {
     if (by.has(team)) return;
@@ -102,7 +106,7 @@ function whoToTell(work: WorkImpact[], edges: Edge[], by: ReadonlySet<string>): 
   );
 }
 
-const count = <T>(xs: T[], f: (x: T) => boolean): number => xs.filter(f).length;
+const count = <T>(xs: readonly T[], f: (x: T) => boolean): number => xs.filter(f).length;
 
 function tallyOf({
   deltas,
@@ -111,11 +115,11 @@ function tallyOf({
   edges,
   work,
 }: {
-  deltas: FieldDelta[];
-  steps: JourneyStep[];
-  screens: ScreenChange[];
-  edges: Edge[];
-  work: WorkImpact[];
+  readonly deltas: readonly FieldDelta[];
+  readonly steps: readonly JourneyStep[];
+  readonly screens: readonly ScreenChange[];
+  readonly edges: readonly Edge[];
+  readonly work: readonly WorkImpact[];
 }): Tally {
   const real = deltas.filter((d) => !d.cosmetic);
   return {
@@ -175,7 +179,7 @@ export function revisionImpact({
       for (const P of [B, A]) {
         const e = P.g.get(id);
         if (e === undefined) continue;
-        const name = str(prop(e, 'name')) ?? str(prop(e, 'action'));
+        const name = textOf(prop(e, 'name')) ?? textOf(prop(e, 'action'));
         if (name !== undefined && name !== '') return name;
       }
       return null;

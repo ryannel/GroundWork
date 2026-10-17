@@ -24,7 +24,7 @@ export type Origin = 'extracted' | 'seeded' | 'curated';
 
 /** The lines of code a fact was read from. The permalink is derived, never stored. */
 export interface CodeSource {
-  /** org/name on GitHub, as system.yaml lists repos (alder-finch/pricing); host/org/name elsewhere. */
+  /** org/name on GitHub, as system.yaml lists repos (acme/pricing); host/org/name elsewhere. */
   readonly repo: string;
   readonly path: string;
   readonly commit: string;
@@ -45,7 +45,7 @@ export interface ComponentDetail {
   readonly id: string;
   readonly kind?: Service['kind'];
   readonly summary?: string;
-  readonly sources?: Source[];
+  readonly sources?: readonly Source[];
 }
 
 export interface SystemContracts {
@@ -76,6 +76,49 @@ export interface DomainLanguage {
   readonly concepts: readonly Concept[];
 }
 
+/** How closely a scanned word or a system matches a key term. */
+export type TermFit = 'same' | 'close' | 'renamed' | 'clash' | 'lives-in';
+
+/** Where a key term shows up in the systems: a scanned word (con:…), or the system or domain it belongs to. */
+export interface TermAnchor {
+  readonly to: string;
+  readonly fit: TermFit;
+  readonly note: string | null;
+}
+
+/** A key term put to work: how it is used, in everyday life or at the company. */
+export interface TermExample {
+  readonly context: 'everyday' | 'company';
+  readonly analogy: string | null;
+  readonly sentence: string | null;
+}
+
+/** One word the business has agreed on, in its own words, with where it shows up in the systems. */
+export interface KeyTerm {
+  readonly id: string;
+  readonly name: string;
+  readonly group: string | null;
+  /** Other words people use for the same thing. */
+  readonly aliases: readonly string[];
+  readonly means: string;
+  readonly examples: readonly TermExample[];
+  readonly relates: readonly { readonly to: string; readonly as: string }[];
+  readonly anchors: readonly TermAnchor[];
+}
+
+/** The words the whole business agrees on, above any one domain. From language.yaml at the workspace root. */
+export interface KeyTerms {
+  readonly summary: string | null;
+  /** The document the terms come from, and whether it is still open to change. */
+  readonly source: {
+    readonly title: string;
+    readonly url: string | null;
+    readonly status: string | null;
+  } | null;
+  readonly groups: readonly { readonly id: string; readonly name: string }[];
+  readonly terms: readonly KeyTerm[];
+}
+
 /** The high-water mark of one repo: the commit the system model reflects. From scans/<repo>.yaml. */
 export interface Scan {
   readonly repo: string;
@@ -92,6 +135,8 @@ export interface WorkspaceModel {
   readonly story: Story;
   /** One per domain that has a language.yaml, in domain order. */
   readonly languages: readonly DomainLanguage[];
+  /** The business's agreed words, above the domains. Empty when the workspace has no language.yaml. */
+  readonly keyTerms: KeyTerms;
   readonly flows: readonly Flow[];
   readonly journeys: readonly UserJourney[];
   readonly interactions: readonly Interaction[];

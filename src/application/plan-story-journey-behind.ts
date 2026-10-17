@@ -38,8 +38,8 @@ const WHEN: Readonly<Record<string, string>> = {
 };
 
 const sentenceOf = (text: string | undefined): string => {
-  const line = plainLine(text).replaceAll(/\s+/g, ' ').trim();
-  const end = line.search(/[!.?](?=\s|$)/);
+  const line = plainLine(text).replaceAll(/\s+/gu, ' ').trim();
+  const end = line.search(/[!.?](?=\s|$)/u);
   return end === -1 ? line : line.slice(0, end + 1);
 };
 
@@ -65,13 +65,15 @@ function cacheOf(model: Model, op: Operation, facts: WaterfallFacts): BehindOp['
   if (op.kind === 'mutation') return { text: 'A mutation is never cached.', note: null };
   const cold = model.cachePath(op.id, 'asIs', 'cold');
   const top = cold.layers.find((l) => l.layer !== 'subgraph');
-  if (policy.scope === 'private')
+  if (policy.scope === 'private') {
     return { text: privateCache(model, facts, top?.store ?? null), note: null };
-  if (top === undefined)
+  }
+  if (top === undefined) {
     return {
       text: `Not cached on the way; the response could live for ${String(policy.maxAge)} s.`,
       note: null,
     };
+  }
   const key = keyText(top.key).split(' · ').join(', ');
   return {
     text: `Cached at the ${top.layer}: one copy for each ${key === '' ? 'key' : key}. Nothing in it is private.`,
@@ -88,12 +90,15 @@ function changeOf(model: Model, id: string): string | null {
   const { before, after } = found;
   const bits: string[] = [];
   if (before !== null && after !== null) {
-    if (before.fetches !== after.fetches)
+    if (before.fetches !== after.fetches) {
       bits.push(`${String(before.fetches)} → ${String(after.fetches)} fetches`);
-    if (before.roundTrips !== after.roundTrips)
+    }
+    if (before.roundTrips !== after.roundTrips) {
       bits.push(`${String(before.roundTrips)} → ${String(after.roundTrips)} round trips`);
-    if (bits.length === 0 && found.changed.includes('subgraphs'))
+    }
+    if (bits.length === 0 && found.changed.includes('subgraphs')) {
       bits.push('a subgraph is swapped');
+    }
   }
   return bits.length === 0 ? null : bits.join(', ');
 }

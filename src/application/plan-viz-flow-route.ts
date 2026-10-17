@@ -4,33 +4,32 @@ import { PAD, portY } from '@/application/plan-viz-flow-size';
 
 /** An arrow with the route it takes and the rectangle its label sits in. */
 export interface Routed {
-  e: FlowEdge;
-  pts: Point[];
-  r: Rect | null;
+  readonly e: FlowEdge;
+  readonly pts: readonly Point[];
+  readonly r: Rect | null;
   /** A satellite store's short trunk. */
-  sat?: boolean;
+  readonly sat?: boolean;
 }
 
 interface Box extends Rect {
-  id: string;
+  readonly id: string;
 }
 
 /** The stretch of a route a label rides above (or, when `under`, below). */
 interface Stretch {
-  from: number;
-  to: number;
-  y: number;
-  under: boolean;
+  readonly from: number;
+  readonly to: number;
+  readonly y: number;
+  readonly under: boolean;
 }
 
 interface Ctx {
-  graph: FlowGraph;
-  rects: Box[];
-  trunks: Map<string, number>;
-  loops: Map<string, number>;
-  below: { y: number };
-  labels: Rect[];
-  routed: Routed[];
+  readonly rects: readonly Box[];
+  readonly loops: ReadonlyMap<string, number>;
+  /** The next free lane under the drawing. */
+  readonly below: number;
+  readonly labels: readonly Rect[];
+  readonly routed: readonly Routed[];
 }
 
 const LEAD = 18;
@@ -39,41 +38,45 @@ const SPACING = 6;
 const LOOP_GAP = 14;
 const LANE = 16;
 
-const blocked = (ctx: Ctx, run: { xs: readonly [number, number]; y: number; skip: string[] }) =>
-  ctx.rects.some(
-    (q) =>
-      !run.skip.includes(q.id) &&
-      run.y > q.y - 4 &&
-      run.y < q.y + q.h + 4 &&
-      Math.max(...run.xs) > q.x &&
-      Math.min(...run.xs) < q.x + q.w,
-  );
+const blocked = (
+  ctx: Ctx,
+  run: {
+    readonly xs: readonly [number, number];
+    readonly y: number;
+    readonly skip: readonly string[];
+  },
+) =>
+  ctx.rects.some((q) => {
+    const across = run.y > q.y - 4 && run.y < q.y + q.h + 4;
+    const along = Math.max(...run.xs) > q.x && Math.min(...run.xs) < q.x + q.w;
+    return !run.skip.includes(q.id) && across && along;
+  });
 
 interface Ends {
-  e: FlowEdge;
-  a: FlowNodeSpec;
-  b: FlowNodeSpec;
-  sx: number;
-  sy: number;
-  tx: number;
-  ty: number;
+  readonly e: FlowEdge;
+  readonly a: FlowNodeSpec;
+  readonly b: FlowNodeSpec;
+  readonly sx: number;
+  readonly sy: number;
+  readonly tx: number;
+  readonly ty: number;
   /** x of the vertical leaving the source, offset by trunk so parallel arrows do not overlap. */
-  bx: number;
+  readonly bx: number;
 }
 
-function endsOf(ctx: Ctx, e: FlowEdge): Ends | null {
-  const a = ctx.graph.nodes.get(e.from);
-  const b = ctx.graph.nodes.get(e.to);
-  if (a === undefined || b === undefined) return null;
-  if (!ctx.trunks.has(e.from)) ctx.trunks.set(e.from, ctx.trunks.size % TRUNKS);
+function endsOf(e: FlowEdge, [a, b]: readonly [FlowNodeSpec, FlowNodeSpec], trunk: number): Ends {
   const sx = a.x + a.w;
-  const bx = sx + LEAD + (ctx.trunks.get(e.from) ?? 0) * SPACING;
+  const bx = sx + LEAD + trunk * SPACING;
   return { e, a, b, sx, sy: a.y + portY(a, null), tx: b.x, ty: b.y + portY(b, e.via), bx };
 }
 
 interface Route {
-  pts: Point[];
-  seg: Stretch;
+  readonly pts: readonly Point[];
+  readonly seg: Stretch;
+  /** The lane the next hop back from the same source takes. */
+  readonly loop?: number;
+  /** The next free lane under the drawing, once this route has taken one. */
+  readonly below?: number;
 }
 
 // A hop back to an earlier column: a short loop under the source's row, not a box around the canvas.
@@ -82,12 +85,8 @@ function loopRoute(ctx: Ctx, ends: Ends, lane: number | null): Route {
   const ex = tx - LEAD;
   const from = Math.min(bx, ex);
   const to = Math.max(bx, ex);
-  let y = lane;
-  if (y === null) {
-    const band = ctx.rects.filter((q) => q.x < to && q.x + q.w > from && q.y <= a.y + a.h);
-    y = Math.max(a.y + a.fullH, ...band.map((q) => q.y + q.h)) + LOOP_GAP;
-    ctx.loops.set(e.from, y + LANE + e.lh);
-  } else ctx.loops.set(e.from, y + LANE + e.lh);
+  const band = ctx.rects.filter((q) => q.x < to && q.x + q.w > from && q.y <= a.y + a.h);
+  const y = lane ?? Math.max(a.y + a.fullH, ...band.map((q) => q.y + q.h)) + LOOP_GAP;
   return {
     pts: [
       [sx, sy],
@@ -98,6 +97,7 @@ function loopRoute(ctx: Ctx, ends: Ends, lane: number | null): Route {
       [tx, ty],
     ],
     seg: { from, to, y, under: true },
+    loop: y + LANE + e.lh,
   };
 }
 
@@ -127,9 +127,8 @@ function routeOf(ctx: Ctx, ends: Ends): Route {
     };
   }
   if (e.back) return loopRoute(ctx, ends, ctx.loops.get(e.from) ?? null);
-  const lane = ctx.below.y;
-  Object.assign(ctx.below, { y: lane + LANE });
-  return loopRoute(ctx, ends, lane);
+  const lane = ctx.below;
+  return { ...loopRoute(ctx, ends, lane), below: lane + LANE };
 }
 
 const stretches = (pts: readonly Point[]): Rect[] =>
@@ -143,7 +142,11 @@ const stretches = (pts: readonly Point[]): Rect[] =>
     };
   });
 
-function clashes(ctx: Ctx, q: Rect, edge: { e: FlowEdge; skipTarget: boolean }): boolean {
+function clashes(
+  ctx: Ctx,
+  q: Rect,
+  edge: { readonly e: FlowEdge; readonly skipTarget: boolean },
+): boolean {
   const { e, skipTarget } = edge;
   if (ctx.rects.some((n) => (!skipTarget || n.id !== e.to) && overlaps(q, n, 2))) return true;
   if (ctx.labels.some((n) => overlaps(q, n, 2))) return true;
@@ -161,53 +164,61 @@ function labelRect(ctx: Ctx, e: FlowEdge, seg: Stretch): Rect {
   return clashes(ctx, lower, { e, skipTarget: false }) ? r : lower;
 }
 
-function routeEdge(ctx: Ctx, e: FlowEdge): void {
-  const ends = endsOf(ctx, e);
-  if (ends === null) return;
+function routeEdge(ctx: Ctx, ends: Ends): { readonly route: Route; readonly routed: Routed } {
+  const { e } = ends;
   const route = routeOf(ctx, ends);
   const pts = simplify(route.pts);
-  if (e.lines.length === 0) {
-    ctx.routed.push({ e, pts, r: null });
-    return;
-  }
-  const r = labelRect(ctx, e, route.seg);
-  ctx.labels.push(r);
-  ctx.routed.push({ e, pts, r });
+  const r = e.lines.length === 0 ? null : labelRect(ctx, e, route.seg);
+  return { route, routed: { e, pts, r } };
 }
 
-function routeSatellites(ctx: Ctx): void {
-  for (const n of ctx.graph.nodes.values()) {
-    for (const sat of n.sats) {
-      const store = ctx.graph.nodes.get(sat.id);
-      if (store === undefined) continue;
+function satelliteRoutes(graph: FlowGraph): readonly Routed[] {
+  return [...graph.nodes.values()].flatMap((n) =>
+    n.sats.flatMap((sat): readonly Routed[] => {
+      const store = graph.nodes.get(sat.id);
+      if (store === undefined) return [];
       const x = n.x + 16;
       const y = store.y + portY(store, null);
-      const pts: Point[] = [
+      const pts: readonly Point[] = [
         [x, n.y + n.h],
         [x, y],
         [store.x, y],
       ];
-      ctx.routed.push({ e: sat.e, pts, r: sat.r, sat: true });
-    }
-  }
+      return [{ e: sat.e, pts, r: sat.r, sat: true }];
+    }),
+  );
 }
 
+const endNodes = (graph: FlowGraph, e: FlowEdge): readonly [FlowNodeSpec, FlowNodeSpec] | null => {
+  const a = graph.nodes.get(e.from);
+  const b = graph.nodes.get(e.to);
+  return a === undefined || b === undefined ? null : [a, b];
+};
+
 /** Every arrow's route and label, and the drawing's height once the loops under the cards are in. */
-export function routeEdges(graph: FlowGraph, height: number): { routed: Routed[]; h: number } {
+export function routeEdges(
+  graph: FlowGraph,
+  height: number,
+): { readonly routed: readonly Routed[]; readonly h: number } {
   const rects = [...graph.nodes.values()]
     .filter((n) => !n.sat)
     .map((n) => ({ x: n.x, y: n.y, w: n.w, h: n.fullH, id: n.id }));
-  const ctx: Ctx = {
-    graph,
-    rects,
-    trunks: new Map(),
-    loops: new Map(),
-    below: { y: height - PAD + 12 },
-    labels: [],
-    routed: [],
-  };
-  for (const e of graph.edges.values()) routeEdge(ctx, e);
-  routeSatellites(ctx);
-  const h = Math.max(height, ctx.below.y + 8, ...ctx.labels.map((r) => r.y + r.h + PAD));
-  return { routed: ctx.routed, h };
+  const trunks = new Map<string, number>();
+  const loops = new Map<string, number>();
+  const labels: Rect[] = [];
+  const routed: Routed[] = [];
+  let below = height - PAD + 12;
+  for (const e of graph.edges.values()) {
+    const pair = endNodes(graph, e);
+    if (pair === null) continue;
+    const trunk = trunks.get(e.from) ?? trunks.size % TRUNKS;
+    trunks.set(e.from, trunk);
+    const done = routeEdge({ rects, loops, below, labels, routed }, endsOf(e, pair, trunk));
+    if (done.route.loop !== undefined) loops.set(e.from, done.route.loop);
+    below = done.route.below ?? below;
+    if (done.routed.r !== null) labels.push(done.routed.r);
+    routed.push(done.routed);
+  }
+  const h = Math.max(height, below + 8, ...labels.map((r) => r.y + r.h + PAD));
+  return { routed: [...routed, ...satelliteRoutes(graph)], h };
 }

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { derive } = await import('@/application/plan/derive');
 const { shop, byId } = await import('@/../test/federation-kit');

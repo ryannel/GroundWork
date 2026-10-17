@@ -11,7 +11,7 @@ import type { Decision, Question, Risk } from '@/domain/plan/plan.generated';
 // Each item is shown in full once; a grouped list says what kind it is, not its state, because the group says that.
 
 const capital = (text: string): string => text.charAt(0).toUpperCase() + text.slice(1);
-const SENTENCE_CASE = /^(?:[A-Z][a-z]|A\s|An\s)/;
+const SENTENCE_CASE = /^(?:[A-Z][a-z]|A\s)/u;
 const lowerFirst = (text: string): string =>
   SENTENCE_CASE.test(text) ? text.charAt(0).toLowerCase() + text.slice(1) : text;
 const STOP = new Set(['.', ' ', '\n', '\t']);
@@ -81,9 +81,9 @@ function clause(text: string, max = 64): string {
 const norm = (text: string): string =>
   text
     .toLowerCase()
-    .replaceAll(/[^a-z0-9]+/g, ' ')
+    .replaceAll(/[^a-z0-9]+/gu, ' ')
     .trim();
-const firstOf = (text: string): string => /^.+?[!.?](?=\s|$)/.exec(text)?.[0] ?? text;
+const firstOf = (text: string): string => /^.+?[!.?](?=\s|$)/u.exec(text)?.[0] ?? text;
 
 /**
  * The headline when the plan has one decision and it is accepted: what it settles and who decided it, never the
@@ -92,15 +92,15 @@ const firstOf = (text: string): string => /^.+?[!.?](?=\s|$)/.exec(text)?.[0] ??
 function settledClaim(model: Model, e: Decision): string {
   const who = e.decider === undefined ? 'The plan’s owner' : teamName(model, e.decider);
   const title = trimStop(titleOf(e));
-  if (IMPERATIVE.has(title.split(/\s+/)[0]?.toLowerCase() ?? '')) {
+  if (IMPERATIVE.has(title.split(/\s+/u)[0]?.toLowerCase() ?? '')) {
     return `${who} decided to ${lowerFirst(title)}.`;
   }
   const said = trimStop(firstOf(plainLine(e.decision)));
   if (said !== '' && norm(said) !== norm(title)) {
     const text = trimWith(lowerFirst(clause(said, 90)), TAIL);
-    return `${who} decided: ${text}${/[.…]$/.test(text) ? '' : '.'}`;
+    return `${who} decided: ${text}${/[.…]$/u.test(text) ? '' : '.'}`;
   }
-  const on = e.decided_on === undefined ? '' : ` on ${shortDate(e.decided_on)}`;
+  const on = e.decided_on === undefined ? '' : ` on ${shortDate(e.decided_on, model.today)}`;
   return `${who} made this choice${on}.`;
 }
 
@@ -130,7 +130,11 @@ function pronounFor(n: number, of: number): string {
   return n === 2 ? 'both' : 'all';
 }
 
-function hardLine(counts: { oneWay: number; owed: number; proposed: number }): string {
+function hardLine(counts: {
+  readonly oneWay: number;
+  readonly owed: number;
+  readonly proposed: number;
+}): string {
   const { oneWay, owed, proposed } = counts;
   if (oneWay === 0) return '';
   if (oneWay > proposed || owed < oneWay) {

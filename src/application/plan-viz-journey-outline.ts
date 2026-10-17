@@ -43,26 +43,19 @@ const gapLabel = (mode: JourneyMode): string =>
 function gapsOf(model: Model, comparison: JourneyComparison, mode: JourneyMode): Gaps {
   const before = new Map<string, OutlineGap>();
   const after = new Map<string, OutlineGap>();
-  const loose: { id: string; title: string }[] = [];
-  const add = (
-    into: Map<string, OutlineGap>,
-    anchor: string,
-    row: { id: string; title: string },
-  ) => {
-    const at = into.get(anchor);
-    into.set(anchor, {
-      kind: 'gap',
-      label: gapLabel(mode),
-      rows: [...(at?.rows ?? []), row],
-    });
-  };
+  const loose: { readonly id: string; readonly title: string }[] = [];
+  const gapWith = (
+    at: OutlineGap | undefined,
+    row: { readonly id: string; readonly title: string },
+  ): OutlineGap => ({ kind: 'gap', label: gapLabel(mode), rows: [...(at?.rows ?? []), row] });
   for (const row of comparison.rows) {
     if (stepIn(row, mode) !== null) continue;
     const { neighbours } = journeyStep(model, comparison.id, { stepId: row.id, mode });
     const item = { id: row.id, title: rowTitle(row, mode) };
-    if (neighbours.before !== null) add(after, neighbours.before, item);
-    else if (neighbours.after === null) loose.push(item);
-    else add(before, neighbours.after, item);
+    const { before: prev, after: next } = neighbours;
+    if (prev !== null) after.set(prev, gapWith(after.get(prev), item));
+    else if (next === null) loose.push(item);
+    else before.set(next, gapWith(before.get(next), item));
   }
   const unanchored: OutlineGap[] =
     loose.length === 0 ? [] : [{ kind: 'gap', label: gapLabel(mode), rows: loose }];

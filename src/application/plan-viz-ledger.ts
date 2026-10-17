@@ -41,6 +41,12 @@ function keptBy(model: Model, lens: string | null): (id: string) => boolean {
   return (id) => cut.has(id) || model.teamsOf(id).includes(lens);
 }
 
+/** The teams whose lens keeps a change, so the ledger can be drawn once and cut on the client. */
+export function keepersOf(model: Model): (id: string) => string[] {
+  const keeps = model.plan.teams.map((t) => [t.id, keptBy(model, t.id)] as const);
+  return (id) => keeps.filter(([, keep]) => keep(id)).map(([team]) => team);
+}
+
 /** Every change as a row, grouped, with the groups in the plan's own order and "plan-wide" last. */
 export function ledgerGroups(
   model: Model,

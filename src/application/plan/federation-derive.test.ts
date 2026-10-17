@@ -80,8 +80,9 @@ describe('fan-out feeds the existing derived relations', () => {
       'svc:pricing-graph',
       'svc:inventory-graph',
       'svc:cart-graph',
-    ])
+    ]) {
       expect(links, s).toContain(`${s}>svc:gateway`);
+    }
     expect(links).toContain('svc:gateway>svc:web');
   });
 
@@ -311,17 +312,17 @@ describe('review fixes: requires, caches, blast radius, progressive override', (
     const cart = cachePath(g, 'gql:cart-summary', 'cold');
     expect(cart.layers[0]?.store).toBe('st:edge-cache');
     expect(cart.layers[0]?.state).toBe('blocked');
-    expect(cart.layers[0]?.why).toMatch(/Query\.cart is private/);
+    expect(cart.layers[0]?.why).toMatch(/Query\.cart is private/u);
     expect(states(cachePath(g, 'gql:add-to-cart'))).toEqual([
       'edge-cache:blocked',
       'entity-cache:blocked',
     ]);
-    expect(cachePath(g, 'gql:add-to-cart').layers[1]?.why).toMatch(/mutation/);
+    expect(cachePath(g, 'gql:add-to-cart').layers[1]?.why).toMatch(/mutation/u);
     const p = shop();
     byId(p.operations, 'gql:search').method = 'POST';
     const post = cachePath(asIsOf(p), 'gql:search');
     expect(post.layers[0]?.state).toBe('blocked');
-    expect(post.layers[0]?.why).toMatch(/does not cache POST/);
+    expect(post.layers[0]?.why).toMatch(/does not cache POST/u);
     const own = cachePath(g, 'gql:product-page');
     expect(own.layers[0]?.ttl).toBe(600);
     expect(own.layers[0]?.reason).toBe('stock is shown as in/out only');
@@ -333,7 +334,7 @@ describe('review fixes: requires, caches, blast radius, progressive override', (
     )!;
     expect(b.nulls.map((n) => n.path)).toEqual(['cart']);
     expect(b.message).toMatch(
-      /`cart` is null because `cart\.lines\.product\.name` is `String!` and every parent up to `cart\.lines` is non-null/,
+      /`cart` is null because `cart\.lines\.product\.name` is `String!` and every parent up to `cart\.lines` is non-null/u,
     );
     const p = shop();
     field(p, 'sch:gql-cart', 'lines').type = '[CartLine]!';

@@ -3,7 +3,7 @@ import type { Source } from '@/domain/plan/plan.generated';
 // How a source link reads: its own label, else "repo · file#L10-12" for GitHub, else host and path.
 
 const GITHUB =
-  /^https?:\/\/github\.com\/([^/]+\/[^/]+)\/blob\/[^/]+\/([^#?]+)(?:#L(\d+)(?:-L?(\d+))?)?/;
+  /^https?:\/\/github\.com\/([^/]+\/[^/]+)\/blob\/[^/]+\/([^#?]+)(?:#L(\d+)(?:-L?(\d+))?)?/u;
 
 /** "#L10-20" for a line or a range, or "". */
 function linesOf(line: string | undefined, end: string | undefined): string {

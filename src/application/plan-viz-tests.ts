@@ -39,7 +39,7 @@ export const envMeans = (env: string): string => ENV_MEANS[env] ?? env;
 export const envsInOrder = (envs: readonly string[]): string[] =>
   envs.toSorted((a, b) => ENV_ORDER.indexOf(a) - ENV_ORDER.indexOf(b));
 
-export const GAP: Readonly<Record<string, { word: string; means: string }>> = {
+export const GAP: Readonly<Record<string, { readonly word: string; readonly means: string }>> = {
   untested: { word: 'untested', means: 'no test proves this change' },
   'unit-only': {
     word: 'unit tests only',
@@ -93,7 +93,7 @@ export interface LevelStats {
   readonly tests: readonly Test[];
   /** The changes shown. */
   readonly m: number;
-  readonly by: Readonly<Record<string, { tests: number; changes: number }>>;
+  readonly by: Readonly<Record<string, { readonly tests: number; readonly changes: number }>>;
 }
 
 /**
@@ -190,13 +190,26 @@ export function pyramidRows(model: Model, st: LevelStats, lens?: string): Pyrami
   });
 }
 
+/** The pyramid as it is drawn: the changes shown, the tests over them, and the rows. */
+export interface PyramidView {
+  readonly changes: number;
+  readonly tests: number;
+  readonly rows: readonly Pyramid[];
+}
+
+/** The pyramid for everyone, or for one team. */
+export function pyramidView(model: Model, lens?: string): PyramidView {
+  const st = levelStats(model, lens);
+  return { changes: st.m, tests: st.tests.length, rows: pyramidRows(model, st, lens) };
+}
+
 export interface Unrun {
   readonly test: string;
   readonly change: string;
 }
 
 /** The tests that name a change they never run a step of: coverage that reads better than it is. */
-export function provesWithoutWalking(model: Model, lens?: string): Unrun[] {
+export function provesWithoutWalking(model: Model, lens?: string): readonly Unrun[] {
   const cut = lens === undefined ? null : model.teamCut(lens);
   const all = model.coverage().gaps.provesWithoutWalking;
   return cut === null ? all : all.filter((g) => cut.changes.includes(g.change));

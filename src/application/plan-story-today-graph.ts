@@ -39,8 +39,9 @@ function ownersHeadline(model: Model, graphId: string): string {
     .map((t) => ({ t, o: model.fieldOwners(t.id, 'asIs') }))
     .toSorted((a, b) => b.o.contributors.length - a.o.contributors.length);
   const [busiest] = ranked;
-  if (busiest === undefined)
+  if (busiest === undefined) {
     return `${countWord(subgraphsOf(model, graphId, 'asIs').length, 'subgraph')} divide the graph’s fields between them.`;
+  }
   const { o } = busiest;
   const keys = new Set(o.keyFields);
   const owning = o.contributors.filter((sg) =>
@@ -57,8 +58,9 @@ function cachesHeadline(model: Model): string {
       .filter((s) => s.kind === 'cache' && s.layer !== undefined)
       .map((s) => s.layer),
   );
-  if (layers.size === 0)
+  if (layers.size === 0) {
     return 'Nothing is cached on the way: every request reaches the subgraphs.';
+  }
   const any = layers.size === 1 ? 'a cache' : `any of ${numWord(layers.size)} caches`;
   return `A request can stop at ${any} before it reaches a subgraph; each decides how long an answer lives and what purges it.`;
 }

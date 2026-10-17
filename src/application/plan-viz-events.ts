@@ -48,7 +48,7 @@ export interface EventLines {
 const SHOWN_POINTS = 3;
 
 function pointsOf(
-  list: readonly { step: string; from?: string; to?: string }[],
+  list: readonly { readonly step: string; readonly from?: string; readonly to?: string }[],
   end: 'from' | 'to',
 ): EventLines {
   return {
@@ -83,7 +83,7 @@ export interface EventData {
 const orNull = (x: unknown): string | null => (typeof x === 'string' && x !== '' ? x : null);
 
 function deliveryOf(semantics: unknown): string {
-  return firstSentence(plainLine(text(semantics))).replace(/\.$/, '');
+  return firstSentence(plainLine(text(semantics))).replace(/\.$/u, '');
 }
 
 function migrationOf(model: Model, id: string, mode: EventMode): string | null {
@@ -95,7 +95,7 @@ function migrationOf(model: Model, id: string, mode: EventMode): string | null {
 function statusIn(
   model: Model,
   id: string,
-  o: { mode: EventMode; removed: boolean },
+  o: { readonly mode: EventMode; readonly removed: boolean },
 ): ElementStatus | null {
   if (o.mode !== 'diff') return null;
   return o.removed ? 'removed' : model.status(id);

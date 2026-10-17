@@ -23,9 +23,9 @@ function methodOf(
 }
 
 export interface Hint {
-  maxAge: number;
-  source: 'hint' | 'default';
-  subgraph?: string | null;
+  readonly maxAge: number;
+  readonly source: 'hint' | 'default';
+  readonly subgraph?: string | null;
 }
 
 /**
@@ -35,7 +35,7 @@ export interface Hint {
 function hintOf(
   g: SystemGraph,
   node: TreeNode,
-  at: { fd: FieldNode | undefined; fetch: Fetch | undefined },
+  at: { readonly fd: FieldNode | undefined; readonly fetch: Fetch | undefined },
 ): Hint | null {
   const hint = at.fd?.cache_control?.max_age;
   if (hint !== undefined) return { maxAge: hint, source: 'hint' };
@@ -45,53 +45,53 @@ function hintOf(
 }
 
 export interface PrivateAt {
-  field: string;
-  path: string;
-  reason: 'auth' | 'scope';
-  auth: string | null;
+  readonly field: string;
+  readonly path: string;
+  readonly reason: 'auth' | 'scope';
+  readonly auth: string | null;
 }
 
-export type HintAt = Hint & { field: string; path: string };
+export type HintAt = Hint & { readonly field: string; readonly path: string };
 
 export interface TtlOverride {
-  at: string;
-  layer: string | null;
-  ttl: number;
-  reason: string | null;
-  exceeds: boolean;
-  onUncacheable: boolean;
+  readonly at: string;
+  readonly layer: string | null;
+  readonly ttl: number;
+  readonly reason: string | null;
+  readonly exceeds: boolean;
+  readonly onUncacheable: boolean;
 }
 
 export interface ResponsePolicy {
-  operation: string;
-  method: 'GET' | 'POST';
-  maxAge: number;
-  scope: 'public' | 'private';
-  cacheable: boolean;
+  readonly operation: string;
+  readonly method: 'GET' | 'POST';
+  readonly maxAge: number;
+  readonly scope: 'public' | 'private';
+  readonly cacheable: boolean;
   /** The sentence for the reader: "cached for 30 s, limited by Product.stock". */
-  why: string;
-  limitedBy: HintAt | null;
-  private: PrivateAt[];
-  hints: HintAt[];
-  overrides: TtlOverride[];
-  auth: string[];
+  readonly why: string;
+  readonly limitedBy: HintAt | null;
+  readonly private: readonly PrivateAt[];
+  readonly hints: readonly HintAt[];
+  readonly overrides: readonly TtlOverride[];
+  readonly auth: readonly string[];
 }
 
 export function privacyOf(
   fd: FieldNode | undefined,
-): { reason: 'auth' | 'scope'; auth: string | null } | null {
+): { readonly reason: 'auth' | 'scope'; readonly auth: string | null } | null {
   if (fd?.auth !== undefined && fd.auth.trim() !== '') return { reason: 'auth', auth: fd.auth };
   return fd?.cache_control?.scope === 'private' ? { reason: 'scope', auth: null } : null;
 }
 
 interface Facts {
-  g: SystemGraph;
-  selected: number;
-  mutation: boolean;
-  method: 'GET' | 'POST';
-  maxAge: number;
-  limitedBy: HintAt | null;
-  priv: PrivateAt[];
+  readonly g: SystemGraph;
+  readonly selected: number;
+  readonly mutation: boolean;
+  readonly method: 'GET' | 'POST';
+  readonly maxAge: number;
+  readonly limitedBy: HintAt | null;
+  readonly priv: readonly PrivateAt[];
 }
 
 function uncacheableWhy(f: Facts): string {
@@ -122,7 +122,10 @@ function whyOf(f: Facts): string {
 const policies = memoPerGraph<ResponsePolicy>();
 
 /** The hints and private fields of the selected nodes; the gateway's own @requires fields count too. */
-function collect(g: SystemGraph, opId: string): { hints: HintAt[]; priv: PrivateAt[] } {
+function collect(
+  g: SystemGraph,
+  opId: string,
+): { readonly hints: readonly HintAt[]; readonly priv: readonly PrivateAt[] } {
   const plan = queryPlan(g, opId);
   const fetchOf = new Map(
     plan.selected.map((s) => [s.path, plan.fetches.find((f) => f.id === s.fetch)]),
@@ -143,7 +146,7 @@ function collect(g: SystemGraph, opId: string): { hints: HintAt[]; priv: Private
 function overridesOf(
   g: SystemGraph,
   op: OperationNode | undefined,
-  limit: { maxAge: number; cacheable: boolean },
+  limit: { readonly maxAge: number; readonly cacheable: boolean },
 ): TtlOverride[] {
   return (op?.cache ?? []).flatMap((c) =>
     c.ttl === undefined
@@ -221,13 +224,13 @@ export function fetchMaxAge(g: SystemGraph, opId: string, fetch: Fetch): number 
 
 export interface Invalidators {
   /** Both: the shortcut and the events upstream of a purging step. */
-  messages: string[];
+  readonly messages: readonly string[];
   /** The purging step ids. */
-  steps: string[];
+  readonly steps: readonly string[];
   /** The store's own `invalidated_by`. */
-  shortcut: string[];
+  readonly shortcut: readonly string[];
   /** The messages heard upstream of a purging step: what a step really reacts to. */
-  fromSteps: string[];
+  readonly fromSteps: readonly string[];
 }
 
 const invalidations = memoPerGraph<Invalidators>();

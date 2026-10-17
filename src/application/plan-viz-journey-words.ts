@@ -75,11 +75,13 @@ function indirectMarker(evidence: readonly Evidence[]): string {
   return evidence.length > 0 ? 'Related data changes' : '';
 }
 
+const isLayout = (e: Evidence): boolean => e.kind === 'screen-layout';
+
 function directMarker(direct: readonly Evidence[]): string {
-  if (direct.every((e) => e.kind === 'screen-layout' || isPicture(e))) {
+  if (direct.every((e) => isLayout(e) || isPicture(e))) {
     return 'Screen layout changes';
   }
-  if (direct.every((e) => e.kind === 'screen' || e.kind === 'screen-layout')) {
+  if (direct.every((e) => e.kind === 'screen' || isLayout(e))) {
     return 'Screen changes';
   }
   if (direct.every((e) => e.kind === 'order')) return 'Step order changes';
@@ -90,8 +92,9 @@ function directMarker(direct: readonly Evidence[]): string {
 /** The short marker for a step: what kind of difference the plan makes to it. Empty when it runs as today. */
 export function journeyMarkerText(row: JourneyRow | null | undefined, mode: JourneyMode): string {
   if (row === null || row === undefined) return '';
-  if (row.kind === 'deprecated' && mode === 'asIs')
+  if (row.kind === 'deprecated' && mode === 'asIs') {
     return 'Deprecated with this plan · still works';
+  }
   const word = KIND_WORDS[row.kind];
   if (word !== undefined && row.kind !== 'changed') return word;
   const direct = row.evidence.filter((e) => !e.indirect);
@@ -108,7 +111,7 @@ export function evidenceRank(e: Evidence): number {
   }
   if (e.kind === 'screen' && (e.property === 'shows' || e.property === null)) return 3;
   if (e.kind === 'order') return 5;
-  if (e.kind === 'screen-layout' || e.kind === 'screen-context' || e.property === 'image') {
+  if (isLayout(e) || e.kind === 'screen-context' || e.property === 'image') {
     return 50;
   }
   return 10;

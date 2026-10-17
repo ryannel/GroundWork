@@ -1,5 +1,5 @@
 import type { Core } from '@/application/plan/derive-core';
-import { present, sameJson, show, str, uniq } from '@/application/plan/derive-values';
+import { present, sameJson, show, textOf, uniq } from '@/application/plan/derive-values';
 import { isRecord, prop, strings, typeOf } from '@/application/plan/ids';
 import { clip } from '@/shared/plain-text';
 
@@ -29,15 +29,17 @@ const suffix = (x: unknown, say: (s: string) => string): string =>
 
 /** The items that name what they are: an {svc, mode} edge, a cache layer, an override, a cache hint, a key set. */
 function namedText(label: Label, v: Record<string, unknown>): string | undefined {
-  const at = str(v.at);
-  const from = str(v.from);
+  const at = textOf(v.at);
+  const from = textOf(v.from);
   if (typeof v.svc === 'string' && v.svc !== '') return `${label(v.svc)} ${show(v.mode)}`.trim();
   if (at !== undefined) return `${label(at)}${suffix(v.ttl, seconds)}`;
-  if (from !== undefined && isIdValued(from))
+  if (from !== undefined && isIdValued(from)) {
     return `from ${label(from)}${suffix(v.percent, percent)}`;
+  }
   if (typeof v.max_age === 'number') return `${show(v.max_age)} s${suffix(v.scope, dot)}`;
-  if (isKeySet(v))
+  if (isKeySet(v)) {
     return `${strings(v.fields).join(' ')} in ${strings(v.in).map(label).join(', ')}`;
+  }
   return undefined;
 }
 
@@ -70,18 +72,38 @@ function valText(label: Label, v: unknown): string {
 }
 
 /** Short text for an id-valued prop, collapsing same-name versions to "v1 → v2". */
-function pairText(core: Core, [a, b]: [string | null, string | null]): [string, string] {
+function pairText(core: Core, [a, b]: readonly [string | null, string | null]): [string, string] {
   const na = a === null ? undefined : core.get(a);
   const nb = b === null ? undefined : core.get(b);
   const name = prop(na, 'name');
-  const [va, vb] = [str(prop(na, 'version')), str(prop(nb, 'version'))];
-  if (name !== undefined && name === prop(nb, 'name') && va !== undefined && vb !== undefined)
+  const [va, vb] = [textOf(prop(na, 'version')), textOf(prop(nb, 'version'))];
+  if (name !== undefined && name === prop(nb, 'name') && va !== undefined && vb !== undefined) {
     return [va, vb];
+  }
   const none = (id: string | null): string => (id === null ? '(none)' : core.label(id));
   return [none(a), none(b)];
 }
 
-function createBase(core: Core) {
+/** The words for the values of a diff: ids as labels, list items and settings objects as short phrases. */
+export interface Words {
+  readonly label: Label;
+  readonly valText: (v: unknown) => string;
+  readonly itemText: (v: unknown) => string;
+  readonly pairText: (a: string | null, b: string | null) => [string, string];
+  readonly isIdValued: (v: unknown) => v is string;
+  /** A list prop changed: say what it gains and loses instead of printing both lists. */
+  readonly listDelta: (p: string, before: readonly unknown[], after: readonly unknown[]) => string;
+  /** Two settings objects: say what changed per key ("cache control: max age 300 → 60"). */
+  readonly objDelta: (
+    p: string,
+    before: Readonly<Record<string, unknown>>,
+    after: Readonly<Record<string, unknown>>,
+  ) => string;
+}
+
+type Base = Pick<Words, 'label' | 'valText' | 'itemText' | 'pairText' | 'isIdValued'>;
+
+function createBase(core: Core): Base {
   const { label } = core;
   return {
     label,
@@ -91,8 +113,6 @@ function createBase(core: Core) {
     isIdValued,
   };
 }
-
-type Base = ReturnType<typeof createBase>;
 
 const keyOf = (base: Base, x: unknown): string => {
   if (!isRecord(x)) return show(x);
@@ -104,10 +124,10 @@ const keyOf = (base: Base, x: unknown): string => {
 const moves = (k: string): boolean => k.startsWith('at|') || k.startsWith('key|');
 const ttlText = (v: unknown): string =>
   v === null || v === undefined ? 'derived' : `${show(v)} s`;
-const listed = (lead: string, items: string[]): string =>
+const listed = (lead: string, items: readonly string[]): string =>
   items.length > 0 ? `${lead} ${items.join(', ')}` : '';
 
-function keyMove(label: Label, [was, now]: [unknown, unknown]): string {
+function keyMove(label: Label, [was, now]: readonly [unknown, unknown]): string {
   const [before, after] = [strings(prop(was, 'in')), strings(prop(now, 'in'))];
   const plus = after.filter((s) => !before.includes(s)).map((s) => label(s));
   const minus = before.filter((s) => !after.includes(s)).map((s) => label(s));
@@ -117,14 +137,14 @@ function keyMove(label: Label, [was, now]: [unknown, unknown]): string {
   return `${strings(prop(now, 'fields')).join(' ')} ${said === '' ? 'reordered' : said}`;
 }
 
-function cacheMove(label: Label, [was, now]: [unknown, unknown]): string {
+function cacheMove(label: Label, [was, now]: readonly [unknown, unknown]): string {
   const at = label(show(prop(now, 'at')));
   const [t0, t1] = [prop(was, 'ttl'), prop(now, 'ttl')];
   return t0 === t1 ? `${at} changes` : `${at} ${ttlText(t0)} → ${ttlText(t1)}`;
 }
 
 /** What a list gains, loses and moves (a cache layer or key set kept but changed), keyed by identity. */
-function diffLists(base: Base, before: unknown[], after: unknown[]) {
+function diffLists(base: Base, before: readonly unknown[], after: readonly unknown[]) {
   const key = (x: unknown): string => keyOf(base, x);
   const b = new Map(before.map((x) => [key(x), x]));
   const a = new Map(after.map((x) => [key(x), x]));
@@ -138,13 +158,14 @@ function diffLists(base: Base, before: unknown[], after: unknown[]) {
 }
 
 /** The words for a change of a prop: what a list gains and loses, what a settings object changes per key. */
-function createDeltas(base: Base) {
+function createDeltas(base: Base): Pick<Words, 'listDelta' | 'objDelta'> {
   return {
     /** A list prop changed: say what it gains and loses instead of printing both lists. */
-    listDelta(p: string, before: unknown[], after: unknown[]): string {
+    listDelta(p: string, before: readonly unknown[], after: readonly unknown[]): string {
       const { gained, lost, moved } = diffLists(base, before, after);
-      if (moved.length > 0 && gained.length === 0 && lost.length === 0)
+      if (moved.length > 0 && gained.length === 0 && lost.length === 0) {
         return `${propWord(p)}: ${moved.join('; ')}`;
+      }
       const bits = [...moved, listed('now also', gained), listed('no longer', lost)].filter(
         (x) => x !== '',
       );
@@ -153,13 +174,18 @@ function createDeltas(base: Base) {
     },
 
     /** Two settings objects: say what changed per key ("cache control: max age 300 → 60"). */
-    objDelta(p: string, before: Record<string, unknown>, after: Record<string, unknown>): string {
+    objDelta(
+      p: string,
+      before: Readonly<Record<string, unknown>>,
+      after: Readonly<Record<string, unknown>>,
+    ): string {
       const keys = uniq([...Object.keys(before), ...Object.keys(after)]).filter(
         (k) => !sameJson(before[k], after[k]),
       );
       if (keys.length === 0) return `${propWord(p)} reordered`;
-      if (isIdValued(show(before.from)) || isIdValued(show(after.from)))
+      if (isIdValued(show(before.from)) || isIdValued(show(after.from))) {
         return `${propWord(p)}: ${base.itemText(before)} → ${base.itemText(after)}`;
+      }
       const each = keys.map(
         (k) => `${propWord(k)} ${base.valText(before[k])} → ${base.valText(after[k])}`,
       );
@@ -168,10 +194,7 @@ function createDeltas(base: Base) {
   };
 }
 
-/** The words for the values of a diff: ids as labels, list items and settings objects as short phrases. */
-export function createWords(core: Core) {
+export function createWords(core: Core): Words {
   const base = createBase(core);
   return { ...base, ...createDeltas(base) };
 }
-
-export type Words = ReturnType<typeof createWords>;

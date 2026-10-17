@@ -42,8 +42,9 @@ export function callersOf(map: SystemMap, id: string, depth = 3): MapLink[] {
   for (let hop = 0; hop < depth && frontier.length > 0; hop += 1) {
     const next: string[] = [];
     for (const link of links) {
-      if (!frontier.includes(link.to) && (link.via === null || !frontier.includes(link.via)))
+      if (!frontier.includes(link.to) && (link.via === null || !frontier.includes(link.via))) {
         continue;
+      }
       out.push(link);
       if (!seen.has(link.from)) next.push(link.from);
       seen.add(link.from);

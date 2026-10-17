@@ -38,17 +38,17 @@ const SAT_ROLE_CH = { topic: 24, store: 27 };
 
 export interface Row extends RowCount {
   readonly label: string;
-  cy: number;
-  hidden: boolean;
+  readonly cy: number;
+  readonly hidden: boolean;
 }
 
 export interface Box {
   readonly id: string;
   readonly kind: 'service' | 'system' | 'topic' | 'store';
-  x: number;
-  y: number;
-  w: number;
-  h: number;
+  readonly x: number;
+  readonly y: number;
+  readonly w: number;
+  readonly h: number;
   readonly col: number;
   readonly head: number;
   readonly lines: readonly string[];
@@ -58,16 +58,16 @@ export interface Box {
   readonly part: boolean;
   /** The text inset on a card. */
   readonly tx: number;
-  readonly rows: Row[];
+  readonly rows: readonly Row[];
   readonly more: readonly { readonly id: string; readonly label: string }[];
-  moreY: number;
+  readonly moreY: number;
   readonly top: number;
   /** The card a topic or store hangs under, and the unit whose trunk it hangs from. */
   readonly host: string | null;
   readonly trunk: string | null;
   readonly sys: string | null;
   readonly parts: readonly string[];
-  list: boolean;
+  readonly list: boolean;
 }
 
 export interface Context {
@@ -100,7 +100,7 @@ const BLANK: Omit<Box, 'id' | 'kind' | 'x' | 'y' | 'w' | 'h' | 'col'> = {
 /** A satellite's name in at most two lines: env prefix dropped, then leading dotted segments (the owner is the card above). */
 function satLines(name: string, max: number): string[] {
   let s = shortTopic(name);
-  if (s.length > max && s.includes('.') && !/\s/.test(s)) {
+  if (s.length > max && s.includes('.') && !/\s/u.test(s)) {
     const parts = s.split('.');
     while (parts.length > 1 && parts.join('.').length > max) parts.shift();
     s = parts.join('.');
@@ -157,10 +157,10 @@ function headOf(
 /** Up to MAXROWS interface rows; more than that folds the last into "+n more interfaces". */
 function placeRows(ctx: Context, id: string, top: number): Pick<Box, 'rows' | 'more' | 'moreY'> {
   const all = rowsFor(ctx, id);
-  const rows = all.length > MAXROWS ? all.slice(0, MAXROWS - 1) : all;
-  for (const [k, r] of rows.entries()) {
-    r.cy = top + k * ROW + ROW / 2;
-  }
+  const rows = (all.length > MAXROWS ? all.slice(0, MAXROWS - 1) : all).map((r, k) => ({
+    ...r,
+    cy: top + k * ROW + ROW / 2,
+  }));
   const more = all.slice(rows.length).map((r) => ({ id: r.id, label: r.label }));
   return { rows, more, moreY: top + rows.length * ROW + ROW / 2 };
 }

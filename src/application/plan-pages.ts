@@ -173,7 +173,9 @@ function aheadOf(
 }
 
 /** The `[chapter]/[screen]` segments of every screen except the cover itself, for the static routes. */
-export function screenParams(outline: Outline): { chapter: string; screen: string }[] {
+export function screenParams(
+  outline: Outline,
+): { readonly chapter: string; readonly screen: string }[] {
   return outline.pages
     .filter((p) => p.href !== planHref(outline))
     .map((p) => ({ chapter: p.chapter, screen: p.screen }));

@@ -2,6 +2,7 @@ import type { Rec } from '@/application/plan/ids';
 import {
   flag,
   isContainer,
+  listOf,
   patch,
   selfAndChildren,
   setProp,
@@ -18,8 +19,8 @@ const same = (a: unknown, b: unknown): boolean =>
 
 /** The entity a modify op edits, and the prop that holds its children (those change by add/remove). */
 interface Target {
-  entity: Rec;
-  childProp: string | undefined;
+  readonly entity: Rec;
+  readonly childProp: string | undefined;
 }
 
 function applySet(t: Target, op: OpModify, rec: OpRecord): void {
@@ -43,7 +44,9 @@ function applySet(t: Target, op: OpModify, rec: OpRecord): void {
       });
     }
     setProp(t.entity, prop, structuredClone(v));
-    rec.props.push({ prop, change: 'set', before, after: structuredClone(v) });
+    patch(rec, {
+      props: [...rec.props, { prop, change: 'set', before, after: structuredClone(v) }],
+    });
   }
 }
 
@@ -51,7 +54,7 @@ type ListChange = 'append' | 'drop';
 
 function listAfter(
   change: ListChange,
-  { before, values }: { before: unknown[]; values: unknown[] },
+  { before, values }: { readonly before: readonly unknown[]; readonly values: readonly unknown[] },
   noop: (m: string) => void,
 ): unknown[] {
   if (change === 'append') {
@@ -72,7 +75,7 @@ function listAfter(
 
 function applyOneList(
   t: Target,
-  [change, prop, values]: readonly [ListChange, string, unknown[]],
+  [change, prop, values]: readonly [ListChange, string, readonly unknown[]],
   rec: OpRecord,
 ): void {
   const cur: unknown = t.entity[prop];
@@ -100,12 +103,11 @@ function applyOneList(
   };
   const after = listAfter(change, { before, values }, noop);
   setProp(t.entity, prop, after);
-  rec.props.push({
-    prop,
-    change,
-    before,
-    after: structuredClone(after),
-    values: structuredClone(values),
+  patch(rec, {
+    props: [
+      ...rec.props,
+      { prop, change, before, after: structuredClone(after), values: structuredClone(values) },
+    ],
   });
 }
 
@@ -123,10 +125,10 @@ function targetOf(op: Op): string | null {
   return 'remove' in op ? op.remove : null;
 }
 
-/** What the targeted ops share: the live index, and which ids earlier ops removed. */
+/** What the targeted ops share: the live index, and which ids earlier ops removed (filled by the caller). */
 export interface Targeting {
-  ix: SystemIndex;
-  removedBy: Map<string, PathSegment[]>;
+  readonly ix: SystemIndex;
+  readonly removedBy: ReadonlyMap<string, readonly PathSegment[]>;
 }
 
 function flagMissing(scope: Targeting, target: string, rec: OpRecord): void {
@@ -148,12 +150,10 @@ function flagMissing(scope: Targeting, target: string, rec: OpRecord): void {
 
 function applyRemove(scope: Targeting, hit: Entry, rec: OpRecord): void {
   const ids = hit.type === 'field' ? [rec.target ?? ''] : selfAndChildren(hit.entity, hit.type);
-  const i = hit.list.indexOf(hit.entity);
-  if (i !== -1) hit.list.splice(i, 1);
-  for (const id of ids) {
-    scope.ix.idx.delete(id);
-    scope.removedBy.set(id, rec.path);
-  }
+  const list = listOf(hit.holder, hit.prop);
+  const i = list?.indexOf(hit.entity) ?? -1;
+  if (i !== -1) list?.splice(i, 1);
+  for (const id of ids) scope.ix.drop(id);
   patch(rec, { removed: structuredClone(hit.entity), ids });
 }
 
@@ -174,7 +174,7 @@ export function applyTargeted(scope: Targeting, op: Op, rec: OpRecord): void {
     };
     applySet(t, op, rec);
     applyListChange(t, op, rec);
-    scope.ix.origins.set(target, rec.path);
+    scope.ix.origin(target, rec.path);
   } else if ('deprecate' in op) {
     patch(rec, { replacedBy: op.replaced_by ?? null });
   } else {

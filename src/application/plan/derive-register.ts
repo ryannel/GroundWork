@@ -1,5 +1,5 @@
 import type { Core, Indexed } from '@/application/plan/derive-core';
-import { memo, objects, str, tie, uniq } from '@/application/plan/derive-values';
+import { memo, objects, textOf, tie, uniq } from '@/application/plan/derive-values';
 import {
   citationsIn,
   formatPath,
@@ -10,7 +10,7 @@ import {
 } from '@/application/plan/ids';
 
 export type RegisterKey = 'decide' | 'decided' | 'deferred' | 'loose' | 'notes' | 'aside';
-export type RegisterItem = Indexed & { answers?: string };
+export type RegisterItem = Indexed & { readonly answers?: string };
 
 const REGISTER: readonly [RegisterKey, string, string][] = [
   [
@@ -42,19 +42,19 @@ const DELIVERY_ROOTS = new Set([
 function caveatText(text: string, self: string, label: Core['label']): string {
   return text
     .replaceAll(
-      /\[\[([^\]|#]{1,200})(?:#[^\]|]{0,200})?(?:\|([^\]]{0,200}))?\]\]/g,
+      /\[\[([^\]|#]{1,200})(?:#[^\]|]{0,200})?(?:\|([^\]]{0,200}))?\]\]/gu,
       (_, ref: string, alt?: string) => {
         if (alt !== undefined && alt !== '') return alt;
         if (ref !== self) return label(ref);
         return typeOf(ref) === 'decision' ? 'this decision' : 'this question';
       },
     )
-    .replaceAll(/[`*_]/g, '')
+    .replaceAll(/[`*_]/gu, '')
     .trim();
 }
 
-function caveatNote({ plan, label }: Core, [path, id]: [string, string]): string {
-  const at = /^execution\.caveats\[(\d+)\]/.exec(path)?.[1];
+function caveatNote({ plan, label }: Core, [path, id]: readonly [string, string]): string {
+  const at = /^execution\.caveats\[(\d+)\]/u.exec(path)?.[1];
   const text = at === undefined ? undefined : strings(prop(plan.execution, 'caveats'))[Number(at)];
   return text === undefined
     ? 'a caveat in how it gets built'
@@ -62,29 +62,33 @@ function caveatNote({ plan, label }: Core, [path, id]: [string, string]): string
 }
 
 interface Weight {
-  ids: string[];
-  notes: string[];
-  total: number;
+  readonly ids: readonly string[];
+  readonly notes: readonly string[];
+  readonly total: number;
 }
 
 /** A citation from a delivery entry (change, risk, work item...) adds that entry, unless it is a decision's context. */
 function entryCitation(
   { plan }: Core,
-  [root, index, sub]: [string, string, string | undefined],
+  [root, index, sub]: readonly [string, string, string | undefined],
   id: string,
 ) {
   if (root === 'decisions' && sub === 'context') return {};
-  const e = str(objects(prop(plan, root))[Number(index)]?.id);
+  const e = textOf(objects(prop(plan, root))[Number(index)]?.id);
   return e !== undefined && e !== '' && e !== id ? { id: e } : {};
 }
 
 /** What a citation at `path` adds to the weight of `id`: the entry that cites it, or a note about where. */
-function citationWeight(core: Core, [path, id]: [string, string]): { id?: string; note?: string } {
-  const m = /^([a-z_]+)(?:\[(\d+)\])?(?:\.([a-z_]+))?/.exec(path);
+function citationWeight(
+  core: Core,
+  [path, id]: readonly [string, string],
+): { readonly id?: string; readonly note?: string } {
+  const m = /^([a-z_]+)(?:\[(\d+)\])?(?:\.([a-z_]+))?/u.exec(path);
   if (m === null) return {};
   const [, root = '', index, sub] = m;
-  if (DELIVERY_ROOTS.has(root) && index !== undefined)
+  if (DELIVERY_ROOTS.has(root) && index !== undefined) {
     return entryCitation(core, [root, index, sub], id);
+  }
   if (root === 'problem' && sub === 'non_goals') return { note: 'a non-goal' };
   return root === 'execution' ? { note: caveatNote(core, [path, id]) } : {};
 }
@@ -103,7 +107,7 @@ function ownWeight({ plan, changes }: Core, id: string): string[] {
   return ids;
 }
 
-function weighOf(core: Core, citedBy: ReadonlyMap<string, string[]>, id: string): Weight {
+function weighOf(core: Core, citedBy: ReadonlyMap<string, readonly string[]>, id: string): Weight {
   const ids = ownWeight(core, id);
   const notes: string[] = [];
   for (const path of citedBy.get(id) ?? []) {
@@ -116,7 +120,7 @@ function weighOf(core: Core, citedBy: ReadonlyMap<string, string[]>, id: string)
 }
 
 const isText = (x: string | undefined): x is string => x !== undefined && x !== '';
-const decideBy = (e: Indexed): string => str(prop(e, 'decide_by')) ?? '\uFFFF';
+const decideBy = (e: Indexed): string => textOf(prop(e, 'decide_by')) ?? '\uFFFF';
 const isDecision = (e: Indexed): boolean => typeOf(e.id) === 'decision';
 
 /** Where a decision sits in the register: settled, put off, set aside, or still to decide (when something rests on it). */
@@ -138,24 +142,28 @@ const TEXT_KEYS: Record<'decision' | 'question', string[]> = {
  * `answered_by`: a decision whose text cites a question (or is cited by it) settles part of it, and the question
  * links back. Questions for a decision, decisions for a question, in plan order.
  */
-function bearsOnOf({ plan, planIndex }: Core, citedBy: ReadonlyMap<string, string[]>, id: string) {
+function bearsOnOf(
+  { plan, planIndex }: Core,
+  citedBy: ReadonlyMap<string, readonly string[]>,
+  id: string,
+) {
   const t = typeOf(id);
   if (t !== 'decision' && t !== 'question') return [];
   const want = t === 'decision' ? 'questions' : 'decisions';
   const e = planIndex.get(id);
-  const text = TEXT_KEYS[t].map((k) => str(prop(e, k))).filter(isText);
-  const wanted = objects(prop(plan, want)).map((x) => str(x.id));
+  const text = TEXT_KEYS[t].map((k) => textOf(prop(e, k))).filter(isText);
+  const wanted = objects(prop(plan, want)).map((x) => textOf(x.id));
   const out = new Set(citationsIn(text.join(' ')).filter((x) => wanted.includes(x)));
   for (const path of citedBy.get(id) ?? []) {
-    const m = new RegExp(String.raw`^${want}\[(\d+)\]`).exec(path);
-    const hit = m?.[1] === undefined ? undefined : wanted[Number(m[1])];
+    const m = /^(questions|decisions)\[(\d+)\]/u.exec(path);
+    const hit = m?.[1] === want ? wanted[Number(m[2])] : undefined;
     if (hit !== undefined) out.add(hit);
   }
   // what `answered_by` already says is shown as the answer, not again here
   const answered =
     t === 'decision'
       ? new Set((plan.questions ?? []).filter((q) => q.answered_by === id).map((q) => q.id))
-      : new Set([str(prop(e, 'answered_by'))]);
+      : new Set([textOf(prop(e, 'answered_by'))]);
   return wanted.filter((x): x is string => x !== undefined && out.has(x) && !answered.has(x));
 }
 
@@ -178,7 +186,32 @@ const byWeight =
     );
 
 /** Where each id is cited (by path), and how much the plan rests on every decision and question. */
-export function createRegister(core: Core) {
+/** One group of the decision register. */
+export interface RegisterGroup {
+  readonly key: RegisterKey;
+  readonly label: string;
+  readonly note: string;
+  readonly items: readonly RegisterItem[];
+}
+
+/** Decisions and questions, what cites them and how much the plan rests on them. */
+export interface Register {
+  /** For each cited id, the paths in the plan that cite it. */
+  readonly citedBy: ReadonlyMap<string, readonly string[]>;
+  /** A question answered by a decision is settled only once that decision is accepted. */
+  readonly questionState: (
+    q: string | { readonly id?: string; readonly status?: string },
+  ) => string;
+  readonly weightOf: (id: string) => Weight;
+  /** Questions a decision answers. */
+  readonly answersOf: (id: string) => Indexed[];
+  readonly bearsOn: (id: string) => string[];
+  /** Decisions and questions as one register, grouped by how much the plan rests on them. */
+  readonly decisionRegister: () => RegisterGroup[];
+  readonly registerGroup: (id: string) => RegisterGroup | null;
+}
+
+export function createRegister(core: Core): Register {
   const { plan, planIndex } = core;
   const citedBy = new Map<string, string[]>();
   walkStrings(plan, (s, segs) => {
@@ -188,10 +221,12 @@ export function createRegister(core: Core) {
   });
 
   /** A question answered by a decision is settled only once that decision is accepted. */
-  const questionState = (q: string | { id?: string; status?: string }): string => {
+  const questionState = (
+    q: string | { readonly id?: string; readonly status?: string },
+  ): string => {
     const id = typeof q === 'string' ? q : q.id;
     return (
-      str(prop(planIndex.get(id ?? ''), 'status')) ??
+      textOf(prop(planIndex.get(id ?? ''), 'status')) ??
       (typeof q === 'string' ? undefined : q.status) ??
       'open'
     );
@@ -202,8 +237,8 @@ export function createRegister(core: Core) {
 
   const registerKey = (e: Indexed): RegisterKey => {
     const carries = weightOf(e.id).total > 0;
-    if (isDecision(e)) return decisionKey(str(prop(e, 'status')) ?? 'proposed', carries);
-    const by = planIndex.get(str(prop(e, 'answered_by')) ?? '');
+    if (isDecision(e)) return decisionKey(textOf(prop(e, 'status')) ?? 'proposed', carries);
+    const by = planIndex.get(textOf(prop(e, 'answered_by')) ?? '');
     if (by !== undefined && decisionIds.has(by.id)) return registerKey(by);
     if (questionState(e.id) === 'resolved') return carries ? 'decided' : 'notes';
     return carries ? 'decide' : 'loose';
@@ -222,10 +257,10 @@ export function createRegister(core: Core) {
    * Decisions and questions as one register, grouped by how much the plan rests on them. A question that a
    * decision answers sits right after that decision (`answers` on the entry names it).
    */
-  const decisionRegister = memo(() => {
+  const decisionRegister = memo((): RegisterGroup[] => {
     const all = [...(plan.decisions ?? []), ...(plan.questions ?? [])]
       .filter((e) => {
-        const by = str(prop(e, 'answered_by'));
+        const by = textOf(prop(e, 'answered_by'));
         return !(by !== undefined && decisionIds.has(by));
       })
       .flatMap((e) => planIndex.get(e.id) ?? []);
@@ -246,5 +281,3 @@ export function createRegister(core: Core) {
 
   return { citedBy, questionState, weightOf, answersOf, bearsOn, decisionRegister, registerGroup };
 }
-
-export type Register = ReturnType<typeof createRegister>;

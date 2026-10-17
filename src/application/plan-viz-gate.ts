@@ -29,7 +29,7 @@ function ariaOf(g: Omit<Gate, 'aria'>, model: Model): string {
 }
 
 /** A gate to draw, or null when the id is neither a question nor a decision in the plan. */
-export function gateOf(model: Model, id: string, today: Date = new Date()): Gate | null {
+export function gateOf(model: Model, id: string, today: Date): Gate | null {
   const e = deciding(model, id);
   if (e === undefined) return null;
   const decision = isDecision(e);
@@ -44,7 +44,11 @@ export function gateOf(model: Model, id: string, today: Date = new Date()): Gate
     decider,
     date,
     dateText: date === null ? '' : shortDate(date, today),
-    late: !decision && open && date !== null && isoDay(date) < isoDay(today.toISOString()),
+    late:
+      !decision &&
+      open &&
+      date !== null &&
+      isoDay(date).localeCompare(isoDay(today.toISOString())) < 0,
   };
   return { ...part, aria: ariaOf(part, model) };
 }

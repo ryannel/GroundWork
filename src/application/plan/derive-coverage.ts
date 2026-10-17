@@ -1,41 +1,39 @@
-import { createContracts } from '@/application/plan/derive-contracts';
+import { createContracts, type UncontractedLink } from '@/application/plan/derive-contracts';
 import type { Core } from '@/application/plan/derive-core';
-import { memo, str, tie, uniq } from '@/application/plan/derive-values';
+import { memo, textOf, tie, uniq } from '@/application/plan/derive-values';
 import { parentOf, prop, strings, typeOf } from '@/application/plan/ids';
 import type { OpRecord, SystemGraph } from '@/domain/plan/plan-graph';
 import { TEST_LEVELS } from '@/domain/plan/plan-vocab';
 import type { Test } from '@/domain/plan/plan.generated';
 
-interface SpanBracket {
-  test: string;
-  level: Test['level'];
-  from: string | undefined;
-  to: string | undefined;
-  fromIndex: number;
-  toIndex: number;
-  whole: boolean;
+export interface SpanBracket {
+  readonly test: string;
+  readonly level: Test['level'];
+  readonly from: string | undefined;
+  readonly to: string | undefined;
+  readonly fromIndex: number;
+  readonly toIndex: number;
+  readonly whole: boolean;
 }
 
-type Gap = 'untested' | 'unit-only' | 'no-e2e';
+export type Gap = 'untested' | 'unit-only' | 'no-e2e';
 
 interface Touch {
-  core: Core;
-  graphs: SystemGraph[];
-  out: Set<string>;
-  entities: Set<string>;
+  readonly core: Core;
+  readonly graphs: readonly SystemGraph[];
+  /** Note steps or flows the change touches. */
+  readonly hit: (ids: Iterable<string, unknown, undefined>) => void;
+  /** Note other entities the change touches (steps that refer to them are touched too). */
+  readonly mention: (ids: Iterable<string, unknown, undefined>) => void;
 }
 
 const graphsOf = (core: Core): SystemGraph[] => [core.asIs, core.toBe];
 
-const stepsOfFlow = (graphs: SystemGraph[], flow: string): string[] =>
+const stepsOfFlow = (graphs: readonly SystemGraph[], flow: string): string[] =>
   graphs.flatMap((g) => {
     const f = g.get(flow);
     return f?.$type === 'flow' ? f.steps.map((s) => s.id) : [];
   });
-
-const addAll = (into: Set<string>, ids: Iterable<string>): void => {
-  for (const id of ids) into.add(id);
-};
 
 /** Retiring a service touches every step it acts in, or that fans out to it. */
 function retire(t: Touch, id: string): void {
@@ -43,10 +41,7 @@ function retire(t: Touch, id: string): void {
     const hit = g.steps.filter(
       (s) => s.from === id || s.to === id || t.core.fanout(g, s).services.includes(id),
     );
-    addAll(
-      t.out,
-      hit.map((s) => s.id),
-    );
+    t.hit(hit.map((s) => s.id));
   }
 }
 
@@ -54,23 +49,23 @@ function touchId(t: Touch, r: OpRecord, id: string): void {
   const type = typeOf(id);
   const retiring = r.kind === 'remove' || r.kind === 'deprecate';
   if (type === 'step' || type === 'flow') {
-    t.out.add(id);
+    t.hit([id]);
     // a whole flow deprecated or removed touches every step in it
-    if (type === 'flow') addAll(t.out, stepsOfFlow(t.graphs, id));
+    if (type === 'flow') t.hit(stepsOfFlow(t.graphs, id));
   } else if (type === 'service' && retiring) {
     retire(t, id);
   } else if (!retiring) {
-    t.entities.add(id);
+    t.mention([id]);
     const p = parentOf(id);
-    if (p !== null && p !== '') t.entities.add(p);
+    if (p !== null && p !== '') t.mention([p]);
   }
 }
 
 const movedIn = (p: OpRecord['props'][number]): (string | undefined)[] => [
   ...strings(p.before),
   ...strings(p.after),
-  str(prop(p.before, 'from')),
-  str(prop(p.after, 'from')),
+  textOf(prop(p.before, 'from')),
+  textOf(prop(p.after, 'from')),
 ];
 
 /** A graph field moving between subgraphs touches the steps that reach either side. */
@@ -78,19 +73,27 @@ function touchMoved(t: Touch, r: OpRecord): void {
   const moved = r.props
     .filter((p) => p.prop === 'subgraphs' || p.prop === 'override')
     .flatMap((p) => movedIn(p));
-  for (const x of moved) if (x !== undefined && typeOf(x) === 'subgraph') t.entities.add(x);
+  t.mention(moved.filter((x): x is string => x !== undefined && typeOf(x) === 'subgraph'));
 }
 
 function touchRecord(t: Touch, r: OpRecord): void {
   for (const id of [r.target, ...r.ids]) if (id !== null) touchId(t, r, id);
   touchMoved(t, r);
   const parent = r.parent ?? '';
-  if (r.kind === 'add' && r.type === 'step' && parent !== '') t.out.add(parent);
+  if (r.kind === 'add' && r.type === 'step' && parent !== '') t.hit([parent]);
 }
 
 /** Steps (and flows) a change touches. */
 function touchedByChange(core: Core, chgId: string): Set<string> {
-  const t: Touch = { core, graphs: graphsOf(core), out: new Set(), entities: new Set() };
+  const out = new Set<string>();
+  const entities = new Set<string>();
+  const hit = (ids: Iterable<string, unknown, undefined>): void => {
+    for (const id of ids) out.add(id);
+  };
+  const mention = (ids: Iterable<string, unknown, undefined>): void => {
+    for (const id of ids) entities.add(id);
+  };
+  const t: Touch = { core, graphs: graphsOf(core), hit, mention };
   for (const r of core.records.filter((x) => x.changeId === chgId)) touchRecord(t, r);
   for (const g of t.graphs) {
     for (const s of g.steps) {
@@ -101,10 +104,10 @@ function touchedByChange(core: Core, chgId: string): Set<string> {
         ...(s.purges ?? []),
         ...core.fanout(g, s).refs,
       ];
-      if (refs.some((x) => t.entities.has(x) || t.entities.has(parentOf(x) ?? ''))) t.out.add(s.id);
+      if (refs.some((x) => entities.has(x) || entities.has(parentOf(x) ?? ''))) out.add(s.id);
     }
   }
-  return t.out;
+  return out;
 }
 
 /** The steps one walked id stands for: a flow's steps, an operation's callers, a subgraph's reachers. */
@@ -121,13 +124,12 @@ function stepsWalked(core: Core, w: string): string[] {
 function walkedBy(core: Core, t: Test): Set<string> {
   const out = new Set<string>();
   for (const w of t.walks ?? []) {
-    out.add(w);
-    addAll(out, stepsWalked(core, w));
+    for (const id of [w, ...stepsWalked(core, w)]) out.add(id);
   }
   return out;
 }
 
-const unwalked = (t: Test, walked: Set<string>, touchedBy: (id: string) => Set<string>) =>
+const unwalked = (t: Test, walked: ReadonlySet<string>, touchedBy: (id: string) => Set<string>) =>
   t.proves
     .filter((c) => ![...walked].some((w) => touchedBy(c).has(w)))
     .map((change) => ({ test: t.id, change }));
@@ -145,7 +147,7 @@ function provesWithoutWalking(core: Core, touchedBy: (id: string) => Set<string>
     );
 }
 
-function gapsOf(ts: Test[], byLevel: Record<string, string[]>): Gap[] {
+function gapsOf(ts: readonly Test[], byLevel: Record<string, readonly string[]>): Gap[] {
   const gaps: Gap[] = [];
   if (ts.length === 0) gaps.push('untested');
   else if (ts.every((t) => t.level === 'unit')) gaps.push('unit-only');
@@ -153,7 +155,37 @@ function gapsOf(ts: Test[], byLevel: Record<string, string[]>): Gap[] {
   return gaps;
 }
 
-function rowOf(core: Core, c: Core['changes'][number]) {
+export interface CoverageRow {
+  readonly change: string;
+  readonly title: string;
+  readonly tests: readonly string[];
+  readonly byLevel: Readonly<Record<string, readonly string[]>>;
+  readonly envs: readonly NonNullable<Test['env']>[];
+  readonly gaps: readonly Gap[];
+}
+
+export interface Coverage {
+  readonly levels: readonly Test['level'][];
+  readonly rows: readonly CoverageRow[];
+  readonly gaps: {
+    readonly untested: readonly string[];
+    readonly unitOnly: readonly string[];
+    readonly noE2e: readonly string[];
+    readonly provesWithoutWalking: readonly { readonly test: string; readonly change: string }[];
+    readonly connectionsWithoutContract: readonly UncontractedLink[];
+  };
+}
+
+export interface CoverageQueries {
+  readonly touchedBy: (chgId: string) => Set<string>;
+  readonly coverage: () => Coverage;
+  readonly spans: (flowId: string, mode?: string) => SpanBracket[];
+  readonly testsProving: (chgId: string) => Test[];
+  readonly walkedBy: (t: Test) => Set<string>;
+  readonly connectionsWithoutContract: () => UncontractedLink[];
+}
+
+function rowOf(core: Core, c: Core['changes'][number]): CoverageRow {
   const ts = core.tests.filter((t) => t.proves.includes(c.id));
   const byLevel = Object.fromEntries(
     TEST_LEVELS.map((l) => [l, ts.filter((t) => t.level === l).map((t) => t.id)]),
@@ -169,7 +201,7 @@ function rowOf(core: Core, c: Core['changes'][number]) {
 }
 
 /** The bracket a test makes over a flow's steps: the whole flow, or from its first to its last walked step. */
-function spanOf(ids: string[], flowId: string, t: Test): SpanBracket | undefined {
+function spanOf(ids: readonly string[], flowId: string, t: Test): SpanBracket | undefined {
   const walks = t.walks ?? [];
   const whole = walks.includes(flowId);
   const idx = walks.map((w) => ids.indexOf(w)).filter((i) => i >= 0);
@@ -188,12 +220,12 @@ function spanOf(ids: string[], flowId: string, t: Test): SpanBracket | undefined
 }
 
 /** Tests against changes: what a change touches, what a test walks, and where the gaps are. */
-export function createCoverage(core: Core) {
+export function createCoverage(core: Core): CoverageQueries {
   const { connectionsWithoutContract } = createContracts(core);
   const testsProving = memo((chgId: string) => core.tests.filter((t) => t.proves.includes(chgId)));
   const touchedBy = memo((chgId: string) => touchedByChange(core, chgId));
 
-  const coverage = memo(() => {
+  const coverage = memo((): Coverage => {
     const rows = core.changes.map((c) => rowOf(core, c));
     const gapsFor = (g: Gap): string[] =>
       rows.filter((r) => r.gaps.includes(g)).map((r) => r.change);

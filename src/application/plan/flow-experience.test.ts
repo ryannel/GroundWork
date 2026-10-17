@@ -1,14 +1,15 @@
 import { describe, expect, it, vi } from 'vitest';
 
+import { quickCheckoutOnToday } from '@/../test/fixtures/acme/plans/core-checkout';
+import { modelOf } from '@/../test/plan-kit';
 import { derive, type Model } from '@/application/plan/derive';
 import { flowExperience } from '@/application/plan/flow-experience';
 import { flowSteps } from '@/application/plan/flow-steps';
 import type { Change, Plan, Step } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
-const { readPlan } = await import('@/infrastructure/plan-store');
 
 type StepSpec = Partial<Step>;
 
@@ -129,33 +130,33 @@ describe('flowExperience', () => {
   });
 });
 
-describe('flowExperience in a real plan', () => {
-  it('separates entering details, seeing delivery, paying and receiving the email', async () => {
-    const { plan } = await readPlan('alder-finch', 'delivery-promise');
-    if (plan === null) throw new Error('no plan');
-    const m = derive(plan);
+describe('flowExperience in a plan on Acme', () => {
+  const m = modelOf(quickCheckoutOnToday().plan);
+
+  it('separates paying on the basket, receiving the email and seeing the confirmation', () => {
     for (const mode of ['asIs', 'toBe', 'diff'] as const) {
-      const steps = flowSteps(m, 'flow:checkout', mode);
-      const moments = flowExperience(m, 'flow:checkout', mode);
-      expect(moments.map((x) => x.kind)).toEqual(['action', 'update', 'action', 'output']);
+      const steps = flowSteps(m, 'flow:place-order', mode);
+      const moments = flowExperience(m, 'flow:place-order', mode);
+      expect(moments.map((x) => x.kind)).toEqual(['action', 'output', 'update']);
       expect(moments.flatMap((x) => x.indices)).toEqual(steps.map((_, i) => i));
       expect(moments.map((x) => steps[x.anchor]?.id)).toEqual([
-        'flow:checkout#address',
-        'flow:checkout#delivery',
-        'flow:checkout#pay',
-        'flow:checkout#confirmation',
+        'flow:place-order#submit',
+        'flow:place-order#email',
+        'flow:place-order#show',
       ]);
+      expect(moments[0]).toMatchObject({ screen: 'scr:basket', region: 'scr:basket#pay' });
     }
   });
 
-  it('starts adding a cart line on the product page and moves on when the cart is shown', async () => {
-    const { plan } = await readPlan('alder-finch', 'delivery-promise');
-    if (plan === null) throw new Error('no plan');
-    const m = derive(plan);
+  it('starts adding a line on the product page and moves on when the basket is shown', () => {
     for (const mode of ['asIs', 'toBe'] as const) {
-      const moments = flowExperience(m, 'flow:add-to-cart', mode);
-      expect(moments[0]).toMatchObject({ screen: 'scr:pdp', region: 'scr:pdp#add-to-cart' });
-      expect(moments[1]?.screen).toBe('scr:cart');
+      const moments = flowExperience(m, 'flow:add-to-basket', mode);
+      expect(moments[0]).toMatchObject({
+        screen: 'scr:product-page',
+        region: 'scr:product-page#buy',
+      });
+      expect(moments[1]?.screen).toBe('scr:basket');
     }
+    expect(flowExperience(m, 'flow:add-to-basket', 'toBe')[0]?.indices).toEqual([0, 1, 2, 3]);
   });
 });

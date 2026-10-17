@@ -70,7 +70,11 @@ function stepsIn(model: Model, flows: readonly string[], scope: ModelScope): num
   return steps.filter((s) => scope.focus.has(s.from) || scope.focus.has(s.to)).length;
 }
 
-function cardOf(model: Model, workspace: string, at: { j: TodayJourney; scope: ModelScope }) {
+function cardOf(
+  model: Model,
+  workspace: string,
+  at: { readonly j: TodayJourney; readonly scope: ModelScope },
+) {
   const { j, scope } = at;
   const here = stepsIn(model, j.flows, scope);
   return {
@@ -89,14 +93,6 @@ function cardOf(model: Model, workspace: string, at: { j: TodayJourney; scope: M
         ? null
         : `${String(here)} of its ${String(j.steps)} steps run in ${scope.name}`,
   };
-}
-
-/** One journey's card, read across the whole workspace. */
-export function journeyCardOf(model: Model, workspace: string, j: TodayJourney): JourneyCard {
-  return cardOf(model, workspace, {
-    j,
-    scope: { kind: 'workspace', id: workspace, name: '', focus: new Set() },
-  });
 }
 
 const KIND_ORDER = { journey: 0, flow: 1 } as const;

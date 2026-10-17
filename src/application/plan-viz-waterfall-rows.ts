@@ -18,6 +18,8 @@ import { nameOf } from '@/application/plan-viz-waterfall-words';
 
 const lat = (row: CacheRow): string => (row.latency === null ? '' : ` ${ms(row.latency)}`);
 
+const NOT_REACHED = 'not reached';
+
 /** The answer or miss mark of a cache row. */
 function stateMark(row: CacheRow, partial: boolean): Mark {
   if (row.state === 'hit') {
@@ -25,7 +27,7 @@ function stateMark(row: CacheRow, partial: boolean): Mark {
   }
   if (row.state === 'miss') return { kind: 'miss', glyph: '▌', text: 'miss' };
   if (row.state === 'blocked') return { kind: 'blocked', glyph: null, text: '✕ not cached' };
-  return { kind: 'skip', glyph: null, text: 'not reached' };
+  return { kind: 'skip', glyph: null, text: NOT_REACHED };
 }
 
 function cacheMeta(row: CacheRow): string {
@@ -54,20 +56,20 @@ function whyBlocked(row: CacheRow, policy: ResponsePolicy | null): CacheWhy {
   ) {
     return { kind: 'private', field: priv.field };
   }
-  const lead = why.replace(/^cannot (?:be )?cached:?\s*/i, '');
+  const lead = why.replace(/^cannot (?:be )?cached:?\s*/iu, '');
   return { kind: 'text', text: lead === '' ? 'not cached' : `not cached: ${lead}` };
 }
 
 export interface CacheRowExtras {
-  policy: ResponsePolicy | null;
-  partial: boolean;
-  note?: string | null;
-  wasLive?: boolean;
+  readonly policy: ResponsePolicy | null;
+  readonly partial: boolean;
+  readonly note?: string | null;
+  readonly wasLive?: boolean;
 }
 
 const perText = (model: Model, x: PerFetch): string => {
   if (!x.cacheable) return `${nameOf(model, x.subgraph)} not cached`;
-  return `${nameOf(model, x.subgraph)} ${x.state === 'skipped' ? 'not reached' : x.state}`;
+  return `${nameOf(model, x.subgraph)} ${x.state === 'skipped' ? NOT_REACHED : x.state}`;
 };
 
 export function cacheRowView(model: Model, row: CacheRow, extras: CacheRowExtras): CacheRowView {
@@ -100,16 +102,16 @@ export function hingeRowView(plan: QueryPlan, state: 'run' | 'skipped'): HingeRo
     state,
     gateway: plan.gateway,
     team: plan.gatewayTeam,
-    text: state === 'skipped' ? 'not reached' : 'splits the request across subgraphs',
+    text: state === 'skipped' ? NOT_REACHED : 'splits the request across subgraphs',
   };
 }
 
 export interface Band {
-  depth: number;
-  fetches: readonly Fetch[];
-  id: string;
-  mode: WaterfallMode;
-  msOf: (f: Fetch) => number | null;
+  readonly depth: number;
+  readonly fetches: readonly Fetch[];
+  readonly id: string;
+  readonly mode: WaterfallMode;
+  readonly msOf: (f: Fetch) => number | null;
 }
 
 /** "round trip 2 · 3 in parallel · by key sku": one round trip's heading. */

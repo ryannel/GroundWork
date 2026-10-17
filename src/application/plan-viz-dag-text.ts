@@ -4,21 +4,20 @@ interface Token {
   readonly glue: boolean;
 }
 
-const BREAK_AFTER = /(?<=[/_.-])/;
+const BREAK_AFTER = /(?<=[/_.-])/u;
 
 function chunks(word: string, width: number): string[] {
-  const pieces = word.split(BREAK_AFTER).flatMap((piece) => {
+  return word.split(BREAK_AFTER).flatMap((piece) => {
     if (piece.length <= width) return [piece];
     return Array.from({ length: Math.ceil(piece.length / width) }, (_, i) =>
       piece.slice(i * width, (i + 1) * width),
     );
   });
-  return pieces;
 }
 
 function tokens(text: string, width: number): Token[] {
   return text
-    .split(/\s+/)
+    .split(/\s+/u)
     .filter((word) => word !== '')
     .flatMap((word) => {
       if (word.length <= width) return [{ text: word, glue: false }];
@@ -44,6 +43,8 @@ function fill(list: readonly Token[], width: number): string[] {
   return lines;
 }
 
+const TAIL = 6;
+
 /** The last word, or its last six characters, dropped to make room for the ellipsis. */
 function trimTail(line: string): string {
   const trimmed = line.trimEnd();
@@ -51,8 +52,6 @@ function trimTail(line: string): string {
   const tail = trimmed.length - at - 1;
   return trimmed.slice(0, tail <= TAIL ? Math.max(at, 0) : trimmed.length - TAIL).trimEnd();
 }
-
-const TAIL = 6;
 
 /** Words wrapped to at most `max` lines of about `width` characters, an ellipsis where it overflows. */
 export function wrapTitle(text: string, width: number, max: number): string[] {

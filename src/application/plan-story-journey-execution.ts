@@ -24,7 +24,7 @@ export interface ExecutionStory {
   readonly paths: readonly ExecutionPath[];
 }
 
-const FLOW_CITATION = /\[\[(flow:[^\]]+)\]\]/;
+const FLOW_CITATION = /\[\[(flow:[^\]]+)\]\]/u;
 
 export function executionStory(model: Model): ExecutionStory | null {
   const { execution } = model.plan;

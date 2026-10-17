@@ -1,5 +1,5 @@
 import { applyOps } from '@/application/plan/apply-ops';
-import { str, uniq } from '@/application/plan/derive-values';
+import { textOf, uniq } from '@/application/plan/derive-values';
 import { buildGraph, systemOf } from '@/application/plan/graph';
 import { baseFanout } from '@/application/plan/graph-queries';
 import { labelOf, planEntries, prop } from '@/application/plan/ids';
@@ -23,10 +23,10 @@ import type {
 
 /** A plan-level entity (outside the system graphs) with the `$`-props the model gives it. */
 export type Indexed = PlanEntity & {
-  $type: EntityType;
-  $path: PathSegment[];
+  readonly $type: EntityType;
+  readonly $path: readonly PathSegment[];
   /** The status the author wrote, when the model overrode it (a question answered by a decision). */
-  $authoredStatus?: string;
+  readonly $authoredStatus?: string;
 };
 export type Anything = PlanNode | Indexed;
 
@@ -50,25 +50,25 @@ const STATUS_RANK: Record<Exclude<Changed, 'added'>, number> = {
 
 /** What the model reads from: both graphs, the op ledger and the plan-level entities. */
 export interface Core {
-  plan: Plan;
-  asIs: SystemGraph;
-  toBe: SystemGraph;
-  records: OpRecord[];
-  changes: Change[];
-  tests: Test[];
-  workItems: WorkItem[];
-  milestones: Milestone[];
-  planIndex: Map<string, Indexed>;
+  readonly plan: Plan;
+  readonly asIs: SystemGraph;
+  readonly toBe: SystemGraph;
+  readonly records: readonly OpRecord[];
+  readonly changes: readonly Change[];
+  readonly tests: readonly Test[];
+  readonly workItems: readonly WorkItem[];
+  readonly milestones: readonly Milestone[];
+  readonly planIndex: ReadonlyMap<string, Indexed>;
   /** System ids: as-is order first, then additions. */
-  unionIds: string[];
-  fanout: Fanout;
-  graphOf: (mode: string | undefined) => SystemGraph;
+  readonly unionIds: readonly string[];
+  readonly fanout: Fanout;
+  readonly graphOf: (mode: string | undefined) => SystemGraph;
   /** Any entity by id: to-be node, else as-is node (removed), else plan-level entity. */
-  get: (id: string | null | undefined) => Anything | undefined;
+  readonly get: (id: string | null | undefined) => Anything | undefined;
   /** System node from the union of both graphs (to-be preferred). */
-  sys: (id: string | null | undefined) => PlanNode | undefined;
-  label: (id: string) => string;
-  status: (id: string | null | undefined) => ElementStatus | null;
+  readonly sys: (id: string | null | undefined) => PlanNode | undefined;
+  readonly label: (id: string) => string;
+  readonly status: (id: string | null | undefined) => ElementStatus | null;
 }
 
 const isQuestion = (e: Indexed): e is Indexed & Question => e.$type === 'question';
@@ -90,11 +90,10 @@ function indexPlan(plan: Plan): Map<string, Indexed> {
   for (const p of planEntries(plan)) {
     if (!index.has(p.id)) index.set(p.id, { ...p.entity, $type: p.type, $path: p.path });
   }
-  for (const e of index.values()) {
+  for (const [id, e] of index) {
     const next = isQuestion(e) ? answeredStatus(e, index) : undefined;
     if (isQuestion(e) && next !== undefined && next !== e.status) {
-      e.$authoredStatus = e.status;
-      e.status = next;
+      index.set(id, { ...e, $authoredStatus: e.status, status: next });
     }
   }
   return index;
@@ -128,10 +127,10 @@ function statusLedger(records: readonly OpRecord[]): Map<string, Changed> {
 
 /** An interface without a name reads as "Promise REST v1", never as its raw id. */
 function interfaceLabel(get: Core['get'], n: Anything | undefined): string | undefined {
-  const svc = str(prop(get(String(prop(n, 'service'))), 'name'));
+  const svc = textOf(prop(get(String(prop(n, 'service'))), 'name'));
   if (svc === undefined) return undefined;
-  const proto = str(prop(n, 'protocol'));
-  const ver = str(prop(n, 'version'));
+  const proto = textOf(prop(n, 'protocol'));
+  const ver = textOf(prop(n, 'version'));
   const base = `${svc} ${proto === undefined ? 'interface' : proto.toUpperCase()}`;
   return ver === undefined ? base : `${base} ${ver}`;
 }
@@ -139,7 +138,7 @@ function interfaceLabel(get: Core['get'], n: Anything | undefined): string | und
 /** A handler reads as its component and what starts it: "Pricing · Get price". */
 function handlerLabel(get: Core['get'], n: Anything | undefined): string {
   const on = String(prop(n, 'on'));
-  const svc = str(prop(get(String(prop(n, 'component'))), 'name'));
+  const svc = textOf(prop(get(String(prop(n, 'component'))), 'name'));
   const what = labelOf(get(on), on);
   return svc === undefined ? what : `${svc} · ${what}`;
 }
@@ -149,7 +148,7 @@ function labelling(get: Core['get']): Core['label'] {
     const n = get(id);
     const type = prop(n, '$type');
     const name = prop(n, 'name');
-    const version = str(prop(n, 'version'));
+    const version = textOf(prop(n, 'version'));
     if (type === 'message' && version !== undefined && version !== '') {
       return `${String(name)} ${version}`;
     }
@@ -169,12 +168,10 @@ export function createCore(plan: Plan, fanout: Fanout = baseFanout): Core {
   const records = applied.records.filter((r) => r.kind !== null && r.ids.length > 0);
   const planIndex = indexPlan(plan);
   const ledger = statusLedger(records);
-  const get: Core['get'] = (id) =>
-    id === null || id === undefined
-      ? undefined
-      : (toBe.get(id) ?? asIs.get(id) ?? planIndex.get(id));
   const sys: Core['sys'] = (id) =>
-    id === null || id === undefined ? undefined : (toBe.get(id) ?? asIs.get(id));
+    typeof id === 'string' ? (toBe.get(id) ?? asIs.get(id)) : undefined;
+  const get: Core['get'] = (id) =>
+    sys(id) ?? (typeof id === 'string' ? planIndex.get(id) : undefined);
   return {
     plan,
     asIs,

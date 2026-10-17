@@ -28,7 +28,7 @@ const shownOf = (step: FlowDiagramOptions['step']): Set<number> => {
 };
 
 /** The teams with no part in the flow, by name. */
-function idleTeams(model: Model, inFlow: Iterable<string>): string[] {
+function idleTeams(model: Model, inFlow: Iterable<string, unknown, undefined>): string[] {
   const used = new Set<string>();
   for (const id of inFlow) {
     const team = model.ownerTeam(id);
@@ -42,7 +42,7 @@ function idleTeams(model: Model, inFlow: Iterable<string>): string[] {
 
 function portsOf(graph: FlowGraph, routed: readonly Routed[]): FlowDiagramData['ports'] {
   const seen = new Set<string>();
-  const out: FlowDiagramData['ports'] = [];
+  const out: FlowDiagramData['ports'][number][] = [];
   for (const { e, pts } of routed) {
     const start = pts[0];
     if (start === undefined || seen.has(e.from) || graph.nodes.get(e.from)?.kind !== 'service') {
@@ -64,13 +64,12 @@ export function flowDiagram(
   opts: FlowDiagramOptions = {},
 ): FlowDiagramData | null {
   const mode = opts.mode ?? 'asIs';
-  const graph = buildGraph(model, flowId, { mode, only: opts.only });
-  if (graph === null) return null;
+  const built = buildGraph(model, flowId, { mode, only: opts.only });
+  if (built === null) return null;
   const steps = flowSteps(model, flowId, mode);
-  const rank = rankNodes(graph);
-  sizeNodes(model, graph);
-  labelEdges(model, graph, { mode, rank });
-  const size = placeColumns(graph, rank);
+  const rank = rankNodes(built);
+  const labelled = labelEdges(model, sizeNodes(model, built), { mode, rank });
+  const { graph, ...size } = placeColumns(labelled, rank);
   const { routed, h } = routeEdges(graph, size.h);
   const shown = shownOf(opts.step);
   const ctx: DrawCtx = { model, mode, walk: walker(shown), markers: opts.markers ?? {} };
@@ -78,6 +77,10 @@ export function flowDiagram(
     model,
     [...shown].map((i) => steps[i]),
   );
+  const touchSteps = new Map<string, number[]>();
+  for (const [i, s] of steps.entries()) {
+    for (const id of touchedBy(model, [s])) touchSteps.set(id, [...(touchSteps.get(id) ?? []), i]);
+  }
   const inFlow =
     opts.only === undefined ? graph.nodes.keys() : steps.flatMap((s) => [s.from, s.to]);
   return {
@@ -85,7 +88,7 @@ export function flowDiagram(
     name: model.label(flowId),
     w: size.w,
     h,
-    nodes: drawNodes(ctx, graph.nodes.values(), { touched, lens: opts.lens }),
+    nodes: drawNodes(ctx, graph.nodes.values(), { touched, touchSteps, lens: opts.lens }),
     ...drawEdges(ctx, routed),
     ports: portsOf(graph, routed),
     rest: idleTeams(model, inFlow),
@@ -95,11 +98,17 @@ export function flowDiagram(
 
 const NODE_MARGIN = 8;
 
-/** What the shown steps take up: their systems and the words on their arrows. Null when none is shown. */
-export function diagramFocus(data: FlowDiagramData): Bounds | null {
+/**
+ * What the shown steps take up: their systems and the words on their arrows. Null when none is shown. The steps are
+ * the ones the drawing was made for, unless others are named.
+ */
+export function diagramFocus(data: FlowDiagramData, shown?: ReadonlySet<number>): Bounds | null {
+  const lit = (steps: readonly number[]): boolean => steps.some((i) => shown?.has(i) === true);
   const boxes: Bounds[] = [
-    ...data.nodes.filter((n) => n.touched),
-    ...data.labels.filter((l) => l.rows.some((r) => r.walk === 'current')),
+    ...data.nodes.filter((n) => (shown === undefined ? n.touched : lit(n.touchSteps))),
+    ...data.labels.filter((l) =>
+      l.rows.some((r) => (shown === undefined ? r.walk === 'current' : lit(r.steps))),
+    ),
   ];
   if (boxes.length === 0) return null;
   const x = Math.min(...boxes.map((b) => b.x)) - NODE_MARGIN;

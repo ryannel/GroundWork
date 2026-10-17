@@ -10,15 +10,15 @@ import type { ScreenNode, SystemGraph } from '@/domain/plan/plan-graph';
 export type MomentKind = 'background' | 'action' | 'update' | 'output' | 'linked';
 
 export interface Moment {
-  kind: MomentKind;
-  title: string;
+  readonly kind: MomentKind;
+  readonly title: string;
   /** The screen the person is on; null before the first screen. */
-  screen: string | null;
-  region: string | null;
+  readonly screen: string | null;
+  readonly region: string | null;
   /** The step that starts the moment. */
-  anchor: number;
+  readonly anchor: number;
   /** Every step that belongs to it, in flow order. */
-  indices: number[];
+  readonly indices: readonly number[];
 }
 
 const OUTPUTS = new Set(['email', 'print', 'push']);
@@ -56,19 +56,17 @@ export function flowExperience(
   const moments: Moment[] = [];
   for (const [anchor, step] of steps.entries()) {
     if (step.screen === undefined) {
-      let last = moments.at(-1);
+      const last = moments.at(-1);
       if (last === undefined) {
-        last = {
+        moments.push({
           kind: 'background',
           title: 'Before the first screen',
           screen: null,
           region: null,
           anchor,
-          indices: [],
-        };
-        moments.push(last);
-      }
-      last.indices.push(anchor);
+          indices: [anchor],
+        });
+      } else moments[moments.length - 1] = { ...last, indices: [...last.indices, anchor] };
       continue;
     }
     moments.push({

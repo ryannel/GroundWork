@@ -1,8 +1,9 @@
 // @vitest-environment node
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { derive } from '@/application/plan/derive';
-import { healthTiles, ledgerGroups } from '@/application/plan-viz-ledger';
+import { dispatchDate } from '@/../test/fixtures/acme/plans/work-dispatch';
+import { modelOf } from '@/../test/plan-kit';
+import { healthTiles, keepersOf, ledgerGroups } from '@/application/plan-viz-ledger';
 import {
   changeService,
   changeTargets,
@@ -11,33 +12,36 @@ import {
   proofLine,
 } from '@/application/plan-viz-ledger-row';
 
-vi.mock('server-only', () => ({}));
-
-async function load(slug = 'delivery-promise') {
-  const { readPlan } = await import('@/infrastructure/plan-store');
-  const loaded = await readPlan('alder-finch', slug);
-  return derive(loaded.plan!);
-}
+const load = () => modelOf(dispatchDate());
 
 describe('ledger rows', () => {
-  it('describes a change by what it touches, proves and builds', async () => {
-    const model = await load();
-    const id = model.plan.changes![0]!.id;
+  it('describes a change by what it touches, proves and builds', () => {
+    const model = load();
+    const id = 'chg:dispatch-field';
     const row = ledgerRow(model, id, 1)!;
-    expect(row.num).toBe(1);
-    expect(row.targets.length).toBeGreaterThan(0);
-    expect(row.targets.length).toBeLessThanOrEqual(3);
-    expect(row.kinds.every((k) => k.n > 0)).toBe(true);
-    expect(row.ops.length).toBeGreaterThan(0);
-    expect(changeTargets(model, id)).toContain(row.targets[0]);
-    expect(typeof changeService(model, id) === 'string' || changeService(model, id) === null).toBe(
-      true,
-    );
-    expect(kindsUsed(model, [id]).length).toBeGreaterThan(0);
+    expect(row.number).toBe(1);
+    expect(row.title).toBe('Products carry the days until dispatch');
+    expect(row.targets).toEqual(['sch:product', 'flow:publish-product']);
+    expect(row.teams).toEqual(['team:catalogue']);
+    expect(row.kinds).toEqual([
+      { kind: 'add', n: 1 },
+      { kind: 'modify', n: 2 },
+    ]);
+    expect(row.ops.map((o) => o.text)).toEqual([
+      'dispatch_days int',
+      'price_cents required: true → false',
+      'what it does: (none) → The merchandiser enters the dispatch days with the price.',
+    ]);
+    expect(row.tests).toEqual(['tst:dispatch-unit']);
+    expect(row.items).toEqual(['wi:dispatch-field']);
+    expect(row.decisions).toEqual(['dec:days-not-dates']);
+    expect(changeTargets(model, id)).toEqual(row.targets);
+    expect(changeService(model, id)).toBe('svc:products');
+    expect(kindsUsed(model, [id])).toEqual(['add', 'modify']);
   });
 
-  it('is null for a change that is not in the plan', async () => {
-    expect(ledgerRow(await load(), 'chg:nope', 1)).toBeNull();
+  it('is null for a change that is not in the plan', () => {
+    expect(ledgerRow(load(), 'chg:nope', 1)).toBeNull();
   });
 
   it('spells the proof out', () => {
@@ -47,28 +51,43 @@ describe('ledger rows', () => {
 });
 
 describe('ledger groups', () => {
-  it('numbers every change once whichever way it is grouped', async () => {
-    const model = await load();
+  it('numbers every change once whichever way it is grouped', () => {
+    const model = load();
     const total = model.plan.changes!.length;
+    expect(total).toBe(6);
+    expect(ledgerGroups(model, { groupBy: 'service' }).map((g) => g.rows.length)).toEqual([
+      3, 1, 1, 1,
+    ]);
     for (const groupBy of ['service', 'team', 'none'] as const) {
       const rows = ledgerGroups(model, { groupBy }).flatMap((g) => g.rows);
       expect(rows).toHaveLength(total);
-      expect(new Set(rows.map((r) => r.num)).size).toBe(total);
+      expect(new Set(rows.map((r) => r.number)).size).toBe(total);
     }
   });
 
-  it('keeps one team’s changes behind a lens', async () => {
-    const model = await load();
-    const team = model.plan.teams[0]!.id;
-    const kept = ledgerGroups(model, { groupBy: 'none', lens: team }).flatMap((g) => g.rows);
-    expect(kept.length).toBeLessThanOrEqual(model.plan.changes!.length);
-    expect(kept.every((r) => r.num >= 1)).toBe(true);
+  it('keeps one team’s changes behind a lens', () => {
+    const model = load();
+    const kept = ledgerGroups(model, { groupBy: 'none', lens: 'team:orders' }).flatMap(
+      (g) => g.rows,
+    );
+    expect(kept.map((r) => [r.number, r.id])).toEqual([[4, 'chg:orders-read-dispatch']]);
+  });
+
+  it('names the teams whose lens keeps each change, as the lens itself does', () => {
+    const model = load();
+    const keepers = keepersOf(model);
+    for (const team of model.plan.teams.map((t) => t.id)) {
+      const kept = ledgerGroups(model, { groupBy: 'none', lens: team }).flatMap((g) => g.rows);
+      const named = (model.plan.changes ?? []).filter((c) => keepers(c.id).includes(team));
+      expect(named.map((c) => c.id)).toEqual(kept.map((r) => r.id));
+    }
+    expect(keepers('chg:orders-read-dispatch')).toContain('team:orders');
   });
 });
 
 describe('health tiles', () => {
-  it('shows all seven, or only the ones asked for, in that order', async () => {
-    const model = await load();
+  it('shows all seven, or only the ones asked for, in that order', () => {
+    const model = load();
     expect(healthTiles(model).map((t) => t.key)).toEqual([
       'changes',
       'tests',
@@ -82,7 +101,18 @@ describe('health tiles', () => {
       'errors',
       'changes',
     ]);
-    const errors = healthTiles(model, ['errors'])[0]!;
-    expect(errors.tone).toBe(errors.value > 0 ? 'bad' : 'good');
+    expect(healthTiles(model).map((t) => [t.key, t.value, t.tone])).toEqual([
+      ['changes', 6, 'plain'],
+      ['tests', 5, 'plain'],
+      ['issues', 6, 'plain'],
+      ['untested', 0, 'good'],
+      ['orphans', 2, 'warn'],
+      ['questions', 1, 'warn'],
+      ['errors', 0, 'good'],
+    ]);
+    expect(healthTiles(model, ['orphans'])[0]!.ids).toEqual([
+      'api:products-get',
+      'api:orders-cancel',
+    ]);
   });
 });

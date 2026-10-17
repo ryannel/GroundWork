@@ -4,7 +4,7 @@ import { derive } from '@/application/plan/derive';
 
 import { flowEntriesOf } from './today-flow-list';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 

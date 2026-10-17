@@ -3,18 +3,47 @@ import { type FlowModel, type FlowStep, isTopic } from '@/application/plan/flow-
 
 /** Rows of a sequence that carry no frame; `i` indexes the flow's steps. */
 export type FlatRow =
-  | { kind: 'step'; i: number; step: FlowStep }
-  | { kind: 'note'; on: 'person'; at: number; screen: string }
-  | { kind: 'reply'; of: number; from: string; to: string; label: string; ref: string };
+  | { readonly kind: 'step'; readonly i: number; readonly step: FlowStep }
+  | { readonly kind: 'note'; readonly on: 'person'; readonly at: number; readonly screen: string }
+  | {
+      readonly kind: 'reply';
+      readonly of: number;
+      readonly from: string;
+      readonly to: string;
+      readonly label: string;
+      readonly ref: string;
+    };
 
 /** A frame opens or closes around the rows between its two ends. */
 export type FrameRow =
-  | { kind: 'open' | 'close'; frame: 'fails'; at: number; text: string }
-  | { kind: 'open' | 'close'; frame: 'group'; beat: string | null; sharedSource: string | null };
+  | {
+      readonly kind: 'open' | 'close';
+      readonly frame: 'fails';
+      readonly at: number;
+      readonly text: string;
+    }
+  | {
+      readonly kind: 'open' | 'close';
+      readonly frame: 'group';
+      readonly beat: string | null;
+      readonly sharedSource: string | null;
+    };
 
 type Range =
-  | { frame: 'fails'; a: number; b: number; i: number; text: string }
-  | { frame: 'group'; a: number; b: number; beat: string | null; sharedSource: string | null };
+  | {
+      readonly frame: 'fails';
+      readonly a: number;
+      readonly b: number;
+      readonly i: number;
+      readonly text: string;
+    }
+  | {
+      readonly frame: 'group';
+      readonly a: number;
+      readonly b: number;
+      readonly beat: string | null;
+      readonly sharedSource: string | null;
+    };
 
 /** The frame row that opens or closes a range. */
 function frameRow(r: Range, kind: 'open' | 'close'): FrameRow {
@@ -44,7 +73,7 @@ function failRanges(steps: readonly FlowStep[], flat: readonly FlatRow[]): Range
 /** The group of steps `from..to` as a range over the flat rows, or null when the rows are missing. */
 function groupRange(
   model: FlowModel,
-  group: { steps: readonly FlowStep[]; from: number; to: number },
+  group: { readonly steps: readonly FlowStep[]; readonly from: number; readonly to: number },
   flat: readonly FlatRow[],
 ): Range | null {
   const { steps, from, to } = group;
@@ -56,7 +85,7 @@ function groupRange(
   const members = Array.from({ length: to - from }, (_, d) => from + d);
   // a trailing reply row of a member belongs to the group
   for (let next = flat[b + 1]; next?.kind === 'reply' && members.includes(next.of);) {
-    b++;
+    b += 1;
     next = flat[b + 1];
   }
   const sameTopic = members.every((x) => {
@@ -86,7 +115,7 @@ function groupRanges(
   for (let i = 0; i < steps.length;) {
     const key = keys[i] ?? null;
     let j = i + 1;
-    if (key !== null) while (j < steps.length && keys[j] === key) j++;
+    if (key !== null) while (j < steps.length && keys[j] === key) j += 1;
     const range =
       key !== null && j - i > 1 ? groupRange(model, { steps, from: i, to: j }, flat) : null;
     if (range !== null) ranges.push(range);
@@ -96,16 +125,18 @@ function groupRanges(
 }
 
 /** Frames must nest: a range that would end past the one it starts in is cut to it. */
-function nest(ranges: Range[]): Range[] {
+function nest(ranges: readonly Range[]): Range[] {
   const sorted = ranges.toSorted((p, q) => tie(p.a - q.a, q.b - p.b));
   const open: Range[] = [];
+  const out: Range[] = [];
   for (const r of sorted) {
     while ((open.at(-1)?.b ?? Infinity) < r.a) open.pop();
     const outer = open.at(-1);
-    if (outer !== undefined && r.b > outer.b) r.b = outer.b;
-    open.push(r);
+    const cut = outer !== undefined && r.b > outer.b ? { ...r, b: outer.b } : r;
+    open.push(cut);
+    out.push(cut);
   }
-  return sorted;
+  return out;
 }
 
 function indexBy(ranges: readonly Range[], end: 'a' | 'b'): Map<number, Range[]> {

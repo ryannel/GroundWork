@@ -10,6 +10,7 @@ import type { Flow, Interaction, UserJourney } from '@/domain/plan/plan.generate
 import type { Workspace } from '@/domain/workspace';
 import type {
   DomainLanguage,
+  KeyTerms,
   Scan,
   Story,
   SystemContracts,
@@ -21,12 +22,14 @@ import { type Reading, readingOf } from './workspace-model-facts';
 import {
   contractsFile,
   journeyFile,
+  keyTermsFile,
   languageFile,
   scanFile,
   storyFile,
 } from './workspace-model-schema';
 
 // workspaces/<workspace>/story.yaml                 summary, stages (and concepts that belong to no domain)
+//   language.yaml                                   the key terms the whole business agrees on
 //   domains/<domain>/language.yaml                  the domain's summary and concepts
 //   flows/<flow>.yaml                               one flow per file
 //   journeys/<journey>.yaml                         a user journey and its interactions
@@ -41,29 +44,44 @@ export async function readWorkspaceModel(
   if (folder === null) throw new Error(`workspace ${workspace.id}: no folder holds it`);
   const reading = readingOf();
   const story = await readStory(folder, reading);
+  const keyTerms = await readKeyTerms(folder);
   const flows = await readEach(path.join(folder, 'flows'), async (raw, file) =>
     reading.in(file).fact<Flow>('flow', raw),
   );
   const journeys = await readEach(path.join(folder, 'journeys'), async (raw, file) =>
     readJourney(raw, file, reading),
   );
-  const languages: DomainLanguage[] = [];
-  for (const domain of workspace.domains) {
-    const file = path.join(folder, 'domains', domain.id, 'language.yaml');
-    const language = await readLanguage(domain.id, file, reading);
-    if (language !== null) languages.push(language);
-  }
-  const contracts: SystemContracts[] = [];
-  for (const domain of workspace.domains) {
-    for (const system of domain.systems) {
-      const file = path.join(folder, 'domains', domain.id, 'systems', system.id, 'contracts.yaml');
-      contracts.push(await readContracts(system.id, file, reading));
-    }
-  }
+  const languageFiles = workspace.domains.map((domain) => ({
+    domain: domain.id,
+    file: path.join(folder, 'domains', domain.id, 'language.yaml'),
+  }));
+  const systemFiles = workspace.domains.flatMap((domain) =>
+    domain.systems.map((system) => ({
+      system: system.id,
+      file: path.join(folder, 'domains', domain.id, 'systems', system.id, 'contracts.yaml'),
+    })),
+  );
+  // Files are read side by side, then checked in a fixed order so ids are claimed the same way every time.
+  const [languageTexts, contractsRaw] = await Promise.all([
+    Promise.all(languageFiles.map(async ({ file }) => readFile(file, 'utf8').catch(() => null))),
+    Promise.all(systemFiles.map(async ({ file }) => readOptional(file))),
+  ]);
+  const readLanguages = await Promise.all(
+    languageFiles.map(async ({ domain, file }, i) =>
+      readLanguage({ domain, file, raw: languageTexts[i] ?? null }, reading),
+    ),
+  );
+  const languages = readLanguages.flatMap((language) => (language === null ? [] : [language]));
+  const contracts = await Promise.all(
+    systemFiles.map(async ({ system, file }, i) =>
+      readContracts({ system, file, raw: contractsRaw[i] }, reading),
+    ),
+  );
   const scans = await readEach(path.join(folder, 'scans'), scanOf);
   return {
     story,
     languages,
+    keyTerms,
     flows,
     journeys: journeys.flatMap(({ journey }) => (journey === undefined ? [] : [journey])),
     interactions: journeys.flatMap(({ interactions }) => interactions),
@@ -83,12 +101,49 @@ async function readStory(folder: string, reading: Reading): Promise<Story> {
   };
 }
 
+async function readKeyTerms(folder: string): Promise<KeyTerms> {
+  const file = path.join(folder, 'language.yaml');
+  const data = parsed(file, keyTermsFile, await readOptional(file));
+  return {
+    summary: data.summary ?? null,
+    source:
+      data.source === undefined
+        ? null
+        : {
+            title: data.source.title,
+            url: data.source.url ?? null,
+            status: data.source.status ?? null,
+          },
+    groups: data.groups,
+    terms: data.terms.map((term) => ({
+      id: term.id,
+      name: term.name,
+      group: term.group ?? null,
+      aliases: term.aliases,
+      means: term.means,
+      examples: term.examples.map((each) => ({
+        context: each.context,
+        analogy: each.analogy ?? null,
+        sentence: each.sentence ?? null,
+      })),
+      relates: term.relates,
+      anchors: term.anchors.map((anchor) => ({
+        to: anchor.to,
+        fit: anchor.fit,
+        note: anchor.note ?? null,
+      })),
+    })),
+  };
+}
+
 async function readLanguage(
-  domain: string,
-  file: string,
+  {
+    domain,
+    file,
+    raw,
+  }: { readonly domain: string; readonly file: string; readonly raw: string | null },
   reading: Reading,
 ): Promise<DomainLanguage | null> {
-  const raw = await readFile(file, 'utf8').catch(() => null);
   if (raw === null) return null;
   const data = parsed(file, languageFile, parse(raw) ?? {});
   return {
@@ -102,7 +157,7 @@ async function readJourney(
   raw: unknown,
   file: string,
   reading: Reading,
-): Promise<{ journey?: UserJourney; interactions: Interaction[] }> {
+): Promise<{ readonly journey?: UserJourney; readonly interactions: readonly Interaction[] }> {
   const data = parsed(file, journeyFile, raw);
   const here = reading.in(file);
   const interactions = await here.facts<Interaction>('interaction', data.interactions);
@@ -112,13 +167,12 @@ async function readJourney(
 }
 
 async function readContracts(
-  system: string,
-  file: string,
+  { system, file, raw }: { readonly system: string; readonly file: string; readonly raw: unknown },
   reading: Reading,
 ): Promise<SystemContracts> {
-  const data = parsed(file, contractsFile, await readOptional(file));
+  const data = parsed(file, contractsFile, raw);
   const here = reading.in(file);
-  const all = async <T>(entries: unknown[], def: string) => here.facts<T>(def, entries);
+  const all = async <T>(entries: readonly unknown[], def: string) => here.facts<T>(def, entries);
   return {
     system,
     components: data.components.map((detail) => here.detail(detail)),
@@ -155,9 +209,8 @@ async function readEach<T>(
     .filter((entry) => entry.isFile() && entry.name.endsWith('.yaml'))
     .map((entry) => path.join(entry.parentPath, entry.name))
     .toSorted((a, b) => a.localeCompare(b));
-  const out: T[] = [];
-  for (const file of files) out.push(await read(parse(await readFile(file, 'utf8')), file));
-  return out;
+  const texts = await Promise.all(files.map(async (file) => readFile(file, 'utf8')));
+  return Promise.all(files.map(async (file, i) => read(parse(texts[i] ?? ''), file)));
 }
 
 async function readOptional(file: string): Promise<unknown> {

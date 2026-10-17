@@ -4,18 +4,18 @@ import { parentOf } from '@/application/plan/ids';
 import type { FieldNode, SchemaNode, SystemGraph } from '@/domain/plan/plan-graph';
 
 export interface SdlLine {
-  text: string;
-  kind: 'head' | 'field' | 'close' | 'blank';
-  type: string | null;
-  field: string | null;
+  readonly text: string;
+  readonly kind: 'head' | 'field' | 'close' | 'blank';
+  readonly type: string | null;
+  readonly field: string | null;
 }
 
 export interface SdlOptions {
   /** A subgraph id: print the SDL that subgraph alone would hold. */
-  only?: string | null;
+  readonly only?: string | null;
 }
 
-const slugOf = (id: string): string => id.replace(/^sg:/, '');
+const slugOf = (id: string): string => id.replace(/^sg:/u, '');
 const ESCAPED_QUOTE = String.raw`\"`;
 const quoted = (s: string): string => `"${s.replaceAll('"', ESCAPED_QUOTE)}"`;
 
@@ -28,32 +28,28 @@ function selectionText(g: SystemGraph, type: SchemaNode, ids: readonly string[])
   const idx = graphIndex(g, type.graph);
   const own: string[] = [];
   const below = new Map<string, string[]>();
-  for (const id of ids) {
-    const owner = parentOf(id);
-    const name = id.split('#')[1];
-    if (owner === null || name === undefined || name === '') continue;
+  const place = (owner: string, name: string): void => {
     if (owner === type.id) {
       if (!own.includes(name)) own.push(name);
-      continue;
+      return;
     }
     const via = viaOf(idx, type, owner);
     if (via !== undefined) below.set(via.name, [...(below.get(via.name) ?? []), name]);
+  };
+  for (const id of ids) {
+    const owner = parentOf(id);
+    const name = id.split('#')[1];
+    if (owner !== null && name !== undefined && name !== '') place(owner, name);
   }
   const nested = [...below].map(([n, kids]) => `${n} { ${kids.join(' ')} }`);
   return [...own.filter((n) => !below.has(n)), ...nested].join(' ');
 }
 
 /** A required field is external to `t`, and so is the field of `t` that reaches its type. */
-function addRequired(
-  at: { idx: GraphIndex; t: SchemaNode },
-  id: string,
-  external: Set<string>,
-): void {
-  const { idx, t } = at;
-  external.add(id);
+function requiredExternals(idx: GraphIndex, t: SchemaNode, id: string): readonly string[] {
   const owner = parentOf(id);
   const via = owner === null || owner === t.id ? undefined : viaOf(idx, t, owner);
-  if (via !== undefined) external.add(via.id);
+  return via === undefined ? [id] : [id, via.id];
 }
 
 /** Fields another subgraph resolves that `only` still has to name: what it provides and requires. */
@@ -62,7 +58,9 @@ function externalOf(idx: GraphIndex, only: string): Set<string> {
   for (const t of idx.types.values()) {
     for (const f of t.fields.filter((x) => (x.subgraphs ?? []).includes(only))) {
       for (const id of f.provides ?? []) external.add(id);
-      for (const id of f.requires ?? []) addRequired({ idx, t }, id, external);
+      for (const id of (f.requires ?? []).flatMap((r) => requiredExternals(idx, t, r))) {
+        external.add(id);
+      }
     }
   }
   return external;
@@ -78,9 +76,9 @@ function overrideOf(f: FieldNode, only: string | null): string[] {
 }
 
 interface Printing {
-  g: SystemGraph;
-  idx: GraphIndex | null;
-  only: string | null;
+  readonly g: SystemGraph;
+  readonly idx: GraphIndex | null;
+  readonly only: string | null;
 }
 
 function directives({ g, idx, only }: Printing, t: SchemaNode, f: FieldNode): string[] {
@@ -90,11 +88,11 @@ function directives({ g, idx, only }: Printing, t: SchemaNode, f: FieldNode): st
   if (f.shareable === true) out.push('@shareable');
   if (requires.length > 0) out.push(`@requires(fields: ${quoted(selectionText(g, t, requires))})`);
   if (provides.length > 0) {
-    const ret = idx?.types.get(parseTypeRef(f.type).name);
+    const returned = idx?.types.get(parseTypeRef(f.type).name);
     const text =
-      ret === undefined
+      returned === undefined
         ? provides.map((x) => x.split('#')[1] ?? '').join(' ')
-        : selectionText(g, ret, provides);
+        : selectionText(g, returned, provides);
     out.push(`@provides(fields: ${quoted(text)})`);
   }
   return [...out, ...overrideOf(f, only)];

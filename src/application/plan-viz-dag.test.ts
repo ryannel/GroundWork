@@ -1,16 +1,13 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { derive } from '@/application/plan/derive';
+import { dispatchDate } from '@/../test/fixtures/acme/plans/work-dispatch';
+import { modelOf } from '@/../test/plan-kit';
 import { dagOf } from '@/application/plan-viz-dag';
 import { wrapTitle } from '@/application/plan-viz-dag-text';
 
-vi.mock('server-only', () => ({}));
+const TODAY = new Date('2026-10-17T00:00:00Z');
 
-async function load(slug: string) {
-  const { readPlan } = await import('@/infrastructure/plan-store');
-  const loaded = await readPlan('alder-finch', slug);
-  return derive(loaded.plan!);
-}
+const load = () => modelOf(dispatchDate());
 
 describe('title wrapping', () => {
   it('breaks at words, three lines at most, with an ellipsis where it overflows', () => {
@@ -35,9 +32,9 @@ describe('title wrapping', () => {
 });
 
 describe('the dependency graph', () => {
-  it('puts each item one column right of its latest dependency', async () => {
-    const model = await load('stock-reservation');
-    const dag = dagOf(model);
+  it('puts each item one column right of its latest dependency', () => {
+    const model = load();
+    const dag = dagOf(model, { today: TODAY });
     expect(dag).not.toBeNull();
     const at = new Map(dag?.nodes.map((n) => [n.id, n.x]));
     for (const w of model.plan.work_items ?? []) {
@@ -45,12 +42,14 @@ describe('the dependency graph', () => {
     }
   });
 
-  it('marks the critical path and draws one edge for each dependency', async () => {
-    const model = await load('stock-reservation');
-    const dag = dagOf(model);
+  it('marks the critical path and draws one edge for each dependency', () => {
+    const model = load();
+    const dag = dagOf(model, { today: TODAY });
     const deps = (model.plan.work_items ?? []).reduce((n, w) => n + (w.depends_on ?? []).length, 0);
+    expect(deps).toBe(6);
     expect(dag?.edges).toHaveLength(deps);
     const path = model.criticalPath().path;
+    expect(path).toEqual(['wi:dispatch-field', 'wi:publish-v2', 'wi:orders-v2', 'wi:retire-v1']);
     expect(
       dag?.nodes
         .filter((n) => n.critical)
@@ -62,26 +61,30 @@ describe('the dependency graph', () => {
     );
   });
 
-  it('groups the columns into a band for each milestone when asked', async () => {
-    const model = await load('stock-reservation');
-    const plain = dagOf(model);
-    const banded = dagOf(model, { byMilestone: true });
+  it('groups the columns into a band for each milestone when asked', () => {
+    const model = load();
+    const plain = dagOf(model, { today: TODAY });
+    const banded = dagOf(model, { byMilestone: true, today: TODAY });
     expect(plain?.bands).toEqual([]);
-    expect(banded?.bands.length).toBeGreaterThan(0);
+    expect(banded?.bands).toHaveLength(4);
     expect(banded?.h).toBeGreaterThan(plain?.h ?? 0);
   });
 
-  it('fades the cards that are not the lens team’s', async () => {
-    const model = await load('stock-reservation');
-    const team = model.plan.work_items?.[0]?.team ?? '';
-    const dag = dagOf(model, { lens: team });
-    const dim = dag?.nodes.filter((n) => n.dim) ?? [];
-    expect(dim.length).toBeLessThan(dag?.count ?? 0);
+  it('fades the cards that are not the lens team’s', () => {
+    const model = load();
+    const dag = dagOf(model, { lens: 'team:catalogue', today: TODAY });
+    expect(dag?.count).toBe(6);
+    expect(
+      dag?.nodes
+        .filter((n) => n.dim)
+        .map((n) => n.id)
+        .toSorted((a, b) => a.localeCompare(b)),
+    ).toEqual(['wi:orders-v2', 'wi:shop-date']);
   });
 
-  it('is null for a plan with no work', async () => {
-    const model = await load('stock-reservation');
-    const bare = derive({ ...model.plan, work_items: [] });
-    expect(dagOf(bare)).toBeNull();
+  it('is null for a plan with no work', () => {
+    const model = load();
+    const bare = modelOf({ ...model.plan, work_items: [] });
+    expect(dagOf(bare, { today: TODAY })).toBeNull();
   });
 });

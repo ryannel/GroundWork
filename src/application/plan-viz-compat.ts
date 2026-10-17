@@ -59,14 +59,14 @@ function tailOf(model: Model, c: Compat): string {
 export function compatBadgeView(
   model: Model,
   id: string,
-  { quiet = false }: { quiet?: boolean } = {},
+  { quiet = false }: { readonly quiet?: boolean } = {},
 ): CompatBadgeView | null {
   const c = compatOf(model, id);
   if (c === null || (quiet && c.verdict === 'safe')) return null;
   const why = uniq(
     c.reasons
       .map((r) =>
-        r.rule === 'no-reader' ? r.text.replace(/^no reader\b/, 'no service reader') : r.text,
+        r.rule === 'no-reader' ? r.text.replace(/^no reader\b/u, 'no service reader') : r.text,
       )
       .filter(Boolean),
   )
@@ -87,7 +87,7 @@ export interface WhoView {
   readonly noReader: boolean;
 }
 
-const isStep = (id: string): boolean => /^flow:[^#]+#/.test(id);
+const isStep = (id: string): boolean => /^flow:[^#]+#/u.test(id);
 
 function placeOf(w: Person): WhoEntry['where'] {
   if (w.via === '') return null;
@@ -100,15 +100,25 @@ function movedPlace(w: Person): WhoEntry['where'] {
   return by?.rung === undefined ? placeOf(w) : { word: 'to', id: by.rung };
 }
 
-/** Who breaks (not moved by this plan) and who moves, each service with the step that proves it. */
+/** The key of a who entry: a service and where it is proved, unique within a list. */
+export const whoKey = (e: WhoEntry): string => `${e.svc} ${e.where?.id ?? ''}`;
+
+// Two readings by one service can be moved by the same step; say it once.
+const once = (entries: readonly WhoEntry[]): WhoEntry[] => [
+  ...new Map(entries.map((e) => [whoKey(e), e])).values(),
+];
+
+/** Who breaks (not moved by this plan) and who moves, each service with the step that proves it, once each. */
 export function whoView(model: Model, id: string): WhoView | null {
   const c = compatOf(model, id);
   if (c === null) return null;
   return {
-    breaks: c.who.filter((w) => w.movedBy === null).map((w) => ({ svc: w.svc, where: placeOf(w) })),
-    moves: c.who
-      .filter((w) => w.movedBy !== null)
-      .map((w) => ({ svc: w.svc, where: movedPlace(w) })),
+    breaks: once(
+      c.who.filter((w) => w.movedBy === null).map((w) => ({ svc: w.svc, where: placeOf(w) })),
+    ),
+    moves: once(
+      c.who.filter((w) => w.movedBy !== null).map((w) => ({ svc: w.svc, where: movedPlace(w) })),
+    ),
     noReader: c.verdict === 'breaking' && noReader(c),
   };
 }

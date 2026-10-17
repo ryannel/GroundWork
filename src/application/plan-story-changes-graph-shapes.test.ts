@@ -1,25 +1,19 @@
 // @vitest-environment node
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { derive, type Model } from '@/application/plan/derive';
+import { shop } from '@/../test/federation-kit';
+import { modelOf } from '@/../test/plan-kit';
+import type { Model } from '@/application/plan/derive';
 import type { GraphDiff, OperationChange } from '@/application/plan/federation-diff';
 import type { PlanSummary } from '@/application/plan/federation-model';
 import { graphChange } from '@/application/plan-story-changes-graph';
 import { graphClaim, opImpact } from '@/application/plan-story-changes-graph-ops';
 
-vi.mock('server-only', () => ({}));
-
-async function load(plan: string) {
-  const { readPlan } = await import('@/infrastructure/plan-store');
-  const loaded = await readPlan('alder-finch', plan);
-  if (loaded.plan === null) throw new Error(`no plan ${plan}`);
-  return derive(loaded.plan);
-}
-
-const real = await load('storefront-graph');
-const graphId = 'graph:storefront';
+const real = modelOf(shop());
+const graphId = 'graph:shop';
 const base = real.graphDiff(graphId);
-const ids = base.operations.map((o) => o.id);
+// Every operation in the graph, so the shapes below can name more than the plan itself changes.
+const ids = real.toBe.operations.map((o) => o.id);
 
 const summary = (over: Partial<PlanSummary> = {}): PlanSummary => ({
   fetches: 1,

@@ -1,21 +1,21 @@
 import type { Core } from '@/application/plan/derive-core';
-import { memo, present, str } from '@/application/plan/derive-values';
+import { memo, present, textOf } from '@/application/plan/derive-values';
 import { propWord, type Words } from '@/application/plan/derive-words';
 import { formatPath, isRecord, labelOf, parentOf, prop, typeOf } from '@/application/plan/ids';
 import type { OpRecord, PropChange } from '@/domain/plan/plan-graph';
 import { TYPE_WORDS } from '@/domain/plan/plan-vocab';
 
 export interface DiffEntry {
-  changeId: string | undefined;
-  opIndex: number;
-  path: string;
-  target: string | null;
-  kind: OpRecord['kind'];
-  prop: string | null;
-  before: unknown;
-  after: unknown;
-  change: PropChange['change'] | 'add' | 'deprecate' | 'remove';
-  summary: string;
+  readonly changeId: string | undefined;
+  readonly opIndex: number;
+  readonly path: string;
+  readonly target: string | null;
+  readonly kind: OpRecord['kind'];
+  readonly prop: string | null;
+  readonly before: unknown;
+  readonly after: unknown;
+  readonly change: PropChange['change'] | 'add' | 'deprecate' | 'remove';
+  readonly summary: string;
 }
 
 const SET_WORDS: Record<string, [string, string]> = {
@@ -25,14 +25,14 @@ const SET_WORDS: Record<string, [string, string]> = {
 };
 
 const isLong = (v: unknown): boolean =>
-  typeof v === 'string' && typeOf(v) === null && v.replaceAll(/\s+/g, ' ').trim().length > 60;
+  typeof v === 'string' && typeOf(v) === null && v.replaceAll(/\s+/gu, ' ').trim().length > 60;
 
 interface Ctx {
-  core: Core;
-  words: Words;
+  readonly core: Core;
+  readonly words: Words;
 }
 
-const text = (x: unknown): string => str(x) ?? '';
+const text = (x: unknown): string => textOf(x) ?? '';
 
 const wordOf = (r: OpRecord): string => {
   if (r.type === null) return '';
@@ -41,26 +41,30 @@ const wordOf = (r: OpRecord): string => {
 };
 
 const nameOf = ({ core }: Ctx, r: OpRecord): string =>
-  str(prop(core.sys(r.target), 'name')) ?? (r.target ?? '').split('#')[1] ?? '';
+  textOf(prop(core.sys(r.target), 'name')) ?? (r.target ?? '').split('#')[1] ?? '';
 
 function summariseField(ctx: Ctx, r: OpRecord, p: PropChange): string {
   const name = nameOf(ctx, r);
   const { words } = ctx;
-  if (Array.isArray(p.before) && Array.isArray(p.after))
+  if (Array.isArray(p.before) && Array.isArray(p.after)) {
     return `${name} ${words.listDelta(p.prop, p.before, p.after)}`;
-  if (isRecord(p.before) && isRecord(p.after))
+  }
+  if (isRecord(p.before) && isRecord(p.after)) {
     return `${name} ${words.objDelta(p.prop, p.before, p.after)}`;
+  }
   const change = `${words.valText(p.before)} → ${words.valText(p.after)}`;
   return p.prop === 'type' ? `${name}: ${change}` : `${name} ${propWord(p.prop)}: ${change}`;
 }
 
 /** A text prop: a rewrite, an addition at the end, or just before and after. */
 function summariseText(words: Words, p: PropChange): string {
-  const [before, after] = [str(p.before), str(p.after)];
-  if (p.prop === 'document' && before !== undefined && after !== undefined)
+  const [before, after] = [textOf(p.before), textOf(p.after)];
+  if (p.prop === 'document' && before !== undefined && after !== undefined) {
     return 'document rewritten';
-  if (before !== undefined && before !== '' && after?.startsWith(before) === true)
+  }
+  if (before !== undefined && before !== '' && after?.startsWith(before) === true) {
     return `${propWord(p.prop)}: adds ${words.valText(after.slice(before.length))}`;
+  }
   if (isLong(p.before) || isLong(p.after)) {
     const verb = p.before === null || p.before === undefined ? 'added' : 'changes';
     return `${propWord(p.prop)} ${verb}`;
@@ -70,11 +74,12 @@ function summariseText(words: Words, p: PropChange): string {
 
 function summariseValue({ words }: Ctx, p: PropChange): string {
   if (words.isIdValued(p.before) || words.isIdValued(p.after)) {
-    const [a, b] = words.pairText(str(p.before) ?? null, str(p.after) ?? null);
+    const [a, b] = words.pairText(textOf(p.before) ?? null, textOf(p.after) ?? null);
     return `${p.prop} ${a} → ${b}`;
   }
-  if (Array.isArray(p.before) && Array.isArray(p.after))
+  if (Array.isArray(p.before) && Array.isArray(p.after)) {
     return words.listDelta(p.prop, p.before, p.after);
+  }
   if (isRecord(p.before) && isRecord(p.after)) return words.objDelta(p.prop, p.before, p.after);
   return summariseText(words, p);
 }
@@ -112,8 +117,9 @@ function summariseModify(ctx: Ctx, r: OpRecord, p: PropChange | undefined): stri
 
 function summariseDeprecate({ core, words }: Ctx, r: OpRecord): string {
   const to = r.replacedBy;
-  if (typeof to !== 'string' || to === '')
+  if (typeof to !== 'string' || to === '') {
     return `− deprecated ${wordOf(r)} "${core.label(r.target ?? '')}"`;
+  }
   const [a, b] = words.pairText(r.target, to);
   return `− deprecated ${a} → ${b}`;
 }
@@ -147,7 +153,7 @@ function entriesOf(ctx: Ctx, r: OpRecord): DiffEntry[] {
     target: r.target,
     kind: r.kind,
   };
-  if (r.kind === 'modify')
+  if (r.kind === 'modify') {
     return r.props.map((p) => ({
       ...base,
       prop: p.prop,
@@ -156,6 +162,7 @@ function entriesOf(ctx: Ctx, r: OpRecord): DiffEntry[] {
       change: p.change,
       summary: summarise(ctx, r, p),
     }));
+  }
   const one = (change: DiffEntry['change'], before: unknown, after?: unknown): DiffEntry[] => [
     { ...base, prop: null, before, after, change, summary: summarise(ctx, r) },
   ];
@@ -167,8 +174,22 @@ function entriesOf(ctx: Ctx, r: OpRecord): DiffEntry[] {
 const replacedWith = (r: OpRecord, id: string): boolean =>
   r.kind === 'deprecate' && r.replacedBy === id;
 
+export interface Versions {
+  readonly supersedes: string | null;
+  readonly replacedBy: string | null;
+}
+
+export interface DiffQueries {
+  /** Every prop change of a change's ops, or of a container's own ops and its children's. */
+  readonly diff: (id: string) => DiffEntry[];
+  /** One-line summary of an op (props joined with "; "). */
+  readonly opSummary: (changeId: string | undefined, opIndex: number) => string;
+  /** The version before and after an entity. */
+  readonly versions: (id: string) => Versions;
+}
+
 /** How a plan changes things, said in words: one entry per prop of every op, and the versions of an entity. */
-export function createDiff(core: Core, words: Words) {
+export function createDiff(core: Core, words: Words): DiffQueries {
   const { sys, records, unionIds } = core;
   const ctx: Ctx = { core, words };
   const entries = (r: OpRecord): DiffEntry[] => entriesOf(ctx, r);
@@ -195,14 +216,16 @@ export function createDiff(core: Core, words: Words) {
   });
 
   /** The version before and after an entity: `supersedes` on the new one, or `replaced_by` on the deprecate op. */
-  const versions = memo((id: string): { supersedes: string | null; replacedBy: string | null } => {
+  const versions = memo((id: string): Versions => {
     const dep = records.find(
       (r) => r.kind === 'deprecate' && r.target === id && present(r.replacedBy),
     );
     const successor =
       dep?.replacedBy ?? unionIds.find((x) => prop(sys(x), 'supersedes') === id) ?? null;
     const predecessor =
-      str(prop(sys(id), 'supersedes')) ?? records.find((r) => replacedWith(r, id))?.target ?? null;
+      textOf(prop(sys(id), 'supersedes')) ??
+      records.find((r) => replacedWith(r, id))?.target ??
+      null;
     return { supersedes: predecessor, replacedBy: successor };
   });
 

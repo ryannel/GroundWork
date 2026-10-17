@@ -17,7 +17,7 @@ export const MOMENT_WORDS: Readonly<Record<MomentKind, string>> = {
 
 /** The stop (1-based, as the drawing numbers them) that holds a step; 0 when none does. */
 export const stopNumber = (
-  stops: readonly { indices: readonly number[] }[],
+  stops: readonly { readonly indices: readonly number[] }[],
   step: number,
 ): number => stops.findIndex((s) => s.indices.includes(step)) + 1;
 
@@ -87,7 +87,11 @@ function screenShown(model: Model, m: Moment, mode: ScreenMode): ScreenShown {
   return { kind: 'figure', id: m.screen, focus: m.region === null ? [] : [m.region] };
 }
 
-function systemStep(model: Model, step: FlowStep, at: { i: number; stop: number; on: boolean }) {
+function systemStep(
+  model: Model,
+  step: FlowStep,
+  at: { readonly i: number; readonly stop: number; readonly on: boolean },
+) {
   return {
     n: at.i + 1,
     id: step.id,
@@ -110,7 +114,7 @@ export interface ExperienceAt {
   /** The moment the reader is in. */
   readonly current: number;
   readonly steps: readonly FlowStep[];
-  readonly stops: readonly { indices: readonly number[] }[];
+  readonly stops: readonly { readonly indices: readonly number[] }[];
   /** The step indices of the stop the reader is on. */
   readonly selected: readonly number[];
   readonly mode: ScreenMode;
@@ -189,9 +193,9 @@ export interface SystemNav {
 /** The stops before and after the one the reader is on, among those that belong to the moment. */
 export function systemNav(
   moment: Moment,
-  stops: readonly { title: string; indices: readonly number[] }[],
+  stops: readonly { readonly title: string; readonly indices: readonly number[] }[],
   selected: number,
-): { prev: SystemNav | null; next: SystemNav | null } {
+): { readonly prev: SystemNav | null; readonly next: SystemNav | null } {
   const available = stops.flatMap((s, i) =>
     s.indices.some((x) => moment.indices.includes(x)) ? [{ title: s.title, stop: i + 1 }] : [],
   );

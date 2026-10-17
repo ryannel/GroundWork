@@ -15,14 +15,14 @@ import type {
 
 /** A call the gateway makes for an operation: which fetch and field it serves, and the share a minority gets. */
 export interface FederatedCall extends FanoutCall {
-  fetch?: string;
-  field?: string;
+  readonly fetch?: string;
+  readonly field?: string;
   /** Percent of requests that go to the minority subgraph of a progressive @override. */
-  share?: number;
+  readonly share?: number;
 }
 
 export interface FederatedFanout extends FanoutResult {
-  calls: FederatedCall[];
+  readonly calls: readonly FederatedCall[];
 }
 
 const results = memoPerGraph<FederatedFanout>();
@@ -62,13 +62,15 @@ function subgraphCalls(plan: QueryPlan, gateway: string, opId: string): Federate
 function minorityCalls(
   g: SystemGraph,
   plan: QueryPlan,
-  at: { gateway: string; opId: string },
+  at: { readonly gateway: string; readonly opId: string },
 ): FederatedCall[] {
   const served = new Set(plan.fetches.map((f) => f.service));
   const calls: FederatedCall[] = [];
-  for (const ov of plan.overrides) {
-    if (!(ov.percent > 0 && ov.percent < 100) || ov.to === null) continue;
-    const minority = ov.percent < 50 ? ov.to : ov.from;
+  const progressive = plan.overrides.filter(
+    (ov) => ov.percent > 0 && ov.percent < 100 && ov.to !== null,
+  );
+  for (const ov of progressive) {
+    const minority = ov.percent < 50 ? (ov.to ?? ov.from) : ov.from;
     const service = subgraphNode(g, minority)?.service;
     if (service === undefined || served.has(service)) continue;
     served.add(service);
@@ -90,8 +92,9 @@ function viaCalls(plan: QueryPlan, known: readonly FederatedCall[]): FederatedCa
   const calls = [...known];
   for (const f of plan.fetches) {
     for (const v of f.vias) {
-      if (f.service === null || v.to === null) continue;
-      if (calls.some((c) => c.from === f.service && c.to === v.to && c.via === v.via)) continue;
+      const already = (c: FederatedCall): boolean =>
+        c.from === f.service && c.to === v.to && c.via === v.via;
+      if (f.service === null || v.to === null || calls.some(already)) continue;
       calls.push({
         from: f.service,
         to: v.to,
@@ -126,8 +129,9 @@ function gatewayCalls(g: SystemGraph, step: StepNode, op: OperationNode): Federa
 function readRows(g: SystemGraph, f: Fetch, data: readonly FanoutRead[]): FanoutRead[] {
   const rows: FanoutRead[] = [];
   for (const r of f.reads) {
-    if (r.svc === null || [...data, ...rows].some((d) => d.svc === r.svc && d.ref === r.ref))
+    if (r.svc === null || [...data, ...rows].some((d) => d.svc === r.svc && d.ref === r.ref)) {
       continue;
+    }
     const store = r.store !== null && !isTopic(storeNode(g, r.store)?.kind) ? r.store : null;
     rows.push({ svc: r.svc, ref: r.ref, store, rw: 'read', field: r.field });
   }
@@ -137,8 +141,11 @@ function readRows(g: SystemGraph, f: Fetch, data: readonly FanoutRead[]): Fanout
 function cacheRows(f: Fetch, data: readonly FanoutRead[]): FanoutRead[] {
   const rows: FanoutRead[] = [];
   for (const x of f.caches) {
-    if ([...data, ...rows].some((d) => d.svc === f.service && d.store === x.at && d.cache === true))
+    if (
+      [...data, ...rows].some((d) => d.svc === f.service && d.store === x.at && d.cache === true)
+    ) {
       continue;
+    }
     rows.push({ svc: f.service, ref: null, store: x.at, rw: 'read', field: x.field, cache: true });
   }
   return rows;

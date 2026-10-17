@@ -6,14 +6,14 @@ import type { Step, Test } from '@/domain/plan/plan.generated';
 const LEVEL: Record<string, number> = { unit: 0, contract: 1, integration: 2, e2e: 3 };
 
 interface Trace {
-  holders: Set<string>;
-  writers: Step[];
-  readers: Step[];
+  readonly holders: ReadonlySet<string>;
+  readonly writers: readonly Step[];
+  readonly readers: readonly Step[];
   /** Where the value is born: a writer with nothing carrying it earlier in its flow (later writers pass it on). */
-  sources: Step[];
+  readonly sources: readonly Step[];
 }
 
-const touches = (holders: Set<string>, s: Step, key: 'reads' | 'writes'): boolean =>
+const touches = (holders: ReadonlySet<string>, s: Step, key: 'reads' | 'writes'): boolean =>
   (s[key] ?? []).some((r) => holders.has(baseId(r)));
 
 function trace(B: Planned, shape: Shape, d: FieldDelta): Trace {
@@ -37,7 +37,7 @@ function trace(B: Planned, shape: Shape, d: FieldDelta): Trace {
 }
 
 /** The nearest test: one that walks where the value is born, the smallest level first. */
-function nearest(tests: Test[], sources: Step[]): string[] {
+function nearest(tests: readonly Test[], sources: readonly Step[]): string[] {
   return tests
     .filter((t) => (t.walks ?? []).some((w) => sources.some((s) => s.id === w)))
     .toSorted((a, b) => (LEVEL[a.level] ?? 9) - (LEVEL[b.level] ?? 9))

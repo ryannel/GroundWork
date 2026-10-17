@@ -13,7 +13,7 @@ export type { DiagramBox, DomainDiagram } from './domain-diagram-layout';
 interface Tally {
   readonly from: string;
   readonly to: string;
-  readonly kinds: Map<LinkKind, Set<string>>;
+  readonly kinds: ReadonlyMap<LinkKind, ReadonlySet<string>>;
 }
 
 const WORDS: Record<LinkKind, string> = { api: 'call', msg: 'event', data: 'store', use: '' };
@@ -31,17 +31,18 @@ function tallies(input: LandscapeMapInput, here: ReadonlySet<string>): Tally[] {
   const actors = new Set(input.actors.map((a) => a.id));
   const homeOf = (id: string): string | null => input.homes[id] ?? (actors.has(id) ? id : null);
   const by = new Map<string, Tally>();
+  const counted = (from: string, to: string): boolean =>
+    from !== to && (here.has(from) || here.has(to));
   for (const link of input.links) {
     const from = homeOf(link.from);
     const to = homeOf(link.to);
-    if (from === null || to === null || from === to) continue;
-    if (!here.has(from) && !here.has(to)) continue;
+    if (from === null || to === null || !counted(from, to)) continue;
     const key = `${from}>${to}`;
-    const tally = by.get(key) ?? { from, to, kinds: new Map<LinkKind, Set<string>>() };
+    const tally = by.get(key) ?? { from, to, kinds: new Map<LinkKind, ReadonlySet<string>>() };
     const seen = tally.kinds.get(link.kind) ?? new Set<string>();
-    seen.add(`${link.from}>${link.to}>${link.via}`);
-    tally.kinds.set(link.kind, seen);
-    by.set(key, tally);
+    const kinds = new Map(tally.kinds);
+    kinds.set(link.kind, new Set([...seen, `${link.from}>${link.to}>${link.via}`]));
+    by.set(key, { from, to, kinds });
   }
   return [...by.values()];
 }
@@ -72,7 +73,7 @@ function draftOf(input: LandscapeMapInput, domain: string, links: readonly Tally
 
 /** The domain's systems and their neighbours, laid out left to right in the way the work moves. */
 export function domainDiagramOf(workspace: Workspace, model: Model, domain: string): DomainDiagram {
-  const input = landscapeMapInput(workspace, model, []);
+  const input = landscapeMapInput(workspace, model);
   const own = input.domains.find((d) => d.id === `domain:${domain}`);
   const here = new Set((own?.systems ?? []).map((s) => s.id));
   return layDiagram(draftOf(input, domain, tallies(input, here)));

@@ -4,7 +4,7 @@ import { isRecord } from '@/application/plan/ids';
 export function memo<A extends (string | undefined)[], R>(
   fn: (...args: A) => R,
 ): (...args: A) => R {
-  const cache = new Map<string, { value: R }>();
+  const cache = new Map<string, { readonly value: R }>();
   return (...args: A): R => {
     const key = args.map(String).join('\u0000');
     const hit = cache.get(key) ?? { value: fn(...args) };
@@ -21,9 +21,9 @@ export const uniq = <T>(xs: readonly (T | null | undefined)[]): T[] => [
 /** Whether a value is there: not null, undefined or an empty string. */
 export const present = (x: unknown): boolean => x !== null && x !== undefined && x !== '';
 
-export const tie = (...diffs: number[]): number => diffs.find((d) => d !== 0) ?? 0;
+export const tie = (...diffs: readonly number[]): number => diffs.find((d) => d !== 0) ?? 0;
 
-export const str = (v: unknown): string | undefined => (typeof v === 'string' ? v : undefined);
+export const textOf = (v: unknown): string | undefined => (typeof v === 'string' ? v : undefined);
 
 /** Objects in a list, ignoring anything else. */
 export const objects = (v: unknown): Record<string, unknown>[] =>
@@ -36,6 +36,13 @@ export function isoDay(d: Date | string | null | undefined): string {
     return `${String(d.getFullYear())}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
   }
   return (d ?? '').slice(0, 10);
+}
+
+/** The day as a Date at local midnight: a Date as it is, a YYYY-MM-DD string read as that local day. */
+export function dayOf(d: Date | string | undefined): Date | undefined {
+  if (d === undefined || d instanceof Date) return d;
+  const [year, month, day] = isoDay(d).split('-').map(Number);
+  return new Date(year ?? Number.NaN, (month ?? 1) - 1, day ?? 1);
 }
 
 /** A scalar as text; anything else as nothing. */

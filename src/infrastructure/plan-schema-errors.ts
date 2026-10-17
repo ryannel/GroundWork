@@ -1,3 +1,5 @@
+import 'server-only';
+
 import type { ErrorObject, ValidateFunction } from 'ajv';
 
 import type { Issue } from '@/application/plan/check-context';
@@ -14,8 +16,8 @@ const OP_BRANCH: Record<string, string> = {
 
 /** How to find the schema branch for an op, and where in the plan the errors being rewritten sit. */
 interface RewriteContext {
-  branchOf: (name: string) => ValidateFunction | undefined;
-  prefix?: readonly PathSegment[];
+  readonly branchOf: (name: string) => ValidateFunction | undefined;
+  readonly prefix?: readonly PathSegment[];
 }
 
 type Rewrite = (e: ErrorObject, segs: PathSegment[]) => Issue | null;
@@ -203,7 +205,7 @@ export function rewriteErrors(
 ): Issue[] {
   const prefix = ctx.prefix ?? [];
   const opFails = errors
-    .filter((e) => e.keyword === 'oneOf' && /\/changes\/\d+\/ops\/\d+$/.test(e.instancePath))
+    .filter((e) => e.keyword === 'oneOf' && /\/changes\/\d+\/ops\/\d+$/u.test(e.instancePath))
     .map((e) => e.instancePath);
   const underOp = (p: string): boolean => opFails.some((o) => p === o || p.startsWith(`${o}/`));
   const out: Issue[] = [];

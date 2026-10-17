@@ -13,21 +13,23 @@ import {
 
 /** The two revisions a diff compares, for naming ids. */
 export interface DiffPlans {
-  from: unknown;
-  to: unknown;
+  readonly from: unknown;
+  readonly to: unknown;
 }
 
 type Namer = (id: string) => string;
 
-const oneLine = (v: unknown): string => (text(v) ?? '').replaceAll(/\s+/g, ' ').trim();
+const oneLine = (v: unknown): string => (text(v) ?? '').replaceAll(/\s+/gu, ' ').trim();
 
 const NAME_KEYS = ['title', 'name', 'question', 'statement'];
 
 function namer(plans: DiffPlans): Namer {
   const index = new Map<string, Rec>();
-  for (const p of [plans.from, plans.to])
-    for (const items of Object.values(collections(p)))
+  for (const p of [plans.from, plans.to]) {
+    for (const items of Object.values(collections(p))) {
       for (const [id, e] of items) index.set(id, e);
+    }
+  }
   return (id) => {
     const e = index.get(id);
     const name = NAME_KEYS.map((k) => oneLine(e?.[k])).find((x) => x !== '') ?? '';
@@ -46,8 +48,9 @@ function milestoneLines(d: PlanDiff, name: Namer): string[] {
   const lines = d.milestones.moved.map((m) => {
     const parts: string[] = [];
     if (m.fromDue !== m.toDue) parts.push(`due ${m.fromDue ?? 'unset'} → ${m.toDue ?? 'unset'}`);
-    if (m.fromIndex !== m.toIndex)
+    if (m.fromIndex !== m.toIndex) {
       parts.push(`position ${String(m.fromIndex + 1)} → ${String(m.toIndex + 1)}`);
+    }
     return `- ${name(m.id)}: ${parts.join(', ')}`;
   });
   return ['## Milestones moved', '', ...lines, ''];
@@ -70,7 +73,7 @@ function openedLine(plans: DiffPlans, name: Namer, id: string): string {
 
 function resolvedLine(plans: DiffPlans, name: Namer, id: string): string {
   const raw = text(question(plans, id)?.answer) ?? '';
-  const answer = oneLine(raw.replaceAll(/\[\[([^\]\s]{1,200})\]\]/g, '`$1`'));
+  const answer = oneLine(raw.replaceAll(/\[\[([^\]\s]{1,200})\]\]/gu, '`$1`'));
   const tail = answer === '' ? '' : ` — ${answer}`;
   return `- **Resolved:** ${name(id)}${tail}`;
 }
@@ -109,6 +112,9 @@ const CHANGE_TAGS: Record<ChangeOps['status'], string> = {
   changed: '',
 };
 
+const fieldsNote = (fields: readonly string[]): string =>
+  fields.length > 0 ? ` (${fields.join(', ')})` : '';
+
 function changeLines(c: ChangeOps): string[] {
   return [
     `### ${c.title} (\`${c.change}\`)${CHANGE_TAGS[c.status]}`,
@@ -119,9 +125,6 @@ function changeLines(c: ChangeOps): string[] {
     '',
   ];
 }
-
-const fieldsNote = (fields: string[]): string =>
-  fields.length > 0 ? ` (${fields.join(', ')})` : '';
 
 function entityLines(key: string, e: EntityDiff, name: Namer): string[] {
   return [
@@ -155,6 +158,6 @@ export function diffMarkdown(d: PlanDiff, plans: DiffPlans): string {
   ];
   return `${out
     .join('\n')
-    .replaceAll(/\n{3,}/g, '\n\n')
+    .replaceAll(/\n{3,}/gu, '\n\n')
     .trim()}\n`;
 }

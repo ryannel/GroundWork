@@ -16,48 +16,46 @@ import type { FieldNode, OperationNode, SchemaNode, SystemGraph } from '@/domain
 /** One selected field, resolved against its graph's types. */
 export interface TreeNode {
   /** `product.price.amount`, by response key. */
-  path: string;
-  key: string;
-  name: string;
-  alias: string | null;
-  field: string | null;
-  parentType: string | null;
+  readonly path: string;
+  readonly key: string;
+  readonly name: string;
+  readonly alias: string | null;
+  readonly field: string | null;
+  readonly parentType: string | null;
   /** The graph-type it returns; null for scalars. */
-  type: string | null;
-  typeStr: string | null;
-  list: boolean;
+  readonly type: string | null;
+  readonly typeStr: string | null;
+  readonly list: boolean;
   /** This field or an ancestor is a list. */
-  underList: boolean;
-  nonNull: boolean;
-  parent: TreeNode | null;
-  children: TreeNode[];
+  readonly underList: boolean;
+  readonly nonNull: boolean;
+  readonly parent: TreeNode | null;
+  readonly children: readonly TreeNode[];
   /** Set on nodes the gateway adds itself. */
-  $router?: 'requires';
+  readonly $router?: 'requires';
 }
 
 export type TreeErrorCode =
   'unknown-operation' | 'parse' | 'no-root' | 'unknown-field' | 'top-level' | 'no-selection';
 
 export interface TreeError {
-  code: TreeErrorCode;
-  message: string;
-  path?: string;
+  readonly code: TreeErrorCode;
+  readonly message: string;
+  readonly path?: string;
 }
 
 export interface SelectionTree {
-  operation: OperationNode | null;
-  parsed: ParsedDocument;
-  root: SchemaNode | null;
-  nodes: TreeNode[];
-  all: TreeNode[];
-  errors: TreeError[];
+  readonly operation: OperationNode | null;
+  readonly parsed: ParsedDocument;
+  readonly root: SchemaNode | null;
+  readonly nodes: readonly TreeNode[];
+  readonly all: readonly TreeNode[];
+  readonly errors: readonly TreeError[];
 }
 
 interface Build {
-  idx: GraphIndex;
-  root: SchemaNode;
-  all: TreeNode[];
-  errors: TreeError[];
+  readonly idx: GraphIndex;
+  readonly root: SchemaNode;
 }
 
 const fieldFacts = (fd: FieldNode | null): Pick<TreeNode, 'field' | 'typeStr'> => ({
@@ -65,8 +63,17 @@ const fieldFacts = (fd: FieldNode | null): Pick<TreeNode, 'field' | 'typeStr'> =
   typeStr: fd?.type ?? null,
 });
 
-function makeNode(b: Build, sel: Sel, at: { parent: TreeNode | null; type: SchemaNode }): TreeNode {
-  const { parent, type } = at;
+/** A node whose children are read through `children`, so they can point back at it as their parent. */
+function makeNode(
+  b: Build,
+  sel: Sel,
+  at: {
+    readonly parent: TreeNode | null;
+    readonly type: SchemaNode;
+    readonly children: () => readonly TreeNode[];
+  },
+): TreeNode {
+  const { parent, type, children } = at;
   const fd = fieldNamed(type, sel.name);
   const ref = parseTypeRef(fd?.type);
   const target = b.idx.types.get(fd === null ? '' : ref.name) ?? null;
@@ -82,79 +89,90 @@ function makeNode(b: Build, sel: Sel, at: { parent: TreeNode | null; type: Schem
     underList: ref.list || parent?.underList === true,
     nonNull: ref.nonNull,
     parent,
-    children: [],
+    get children() {
+      return children();
+    },
   };
 }
 
-function buildNode(
-  b: Build,
-  sel: Sel,
-  at: { parent: TreeNode | null; type: SchemaNode },
-): TreeNode {
-  const { parent, type } = at;
-  const node = makeNode(b, sel, at);
-  b.all.push(node);
-  if (sel.name === '__typename') return node;
-  if (node.field === null) {
-    b.errors.push({
-      code: parent === null ? 'top-level' : 'unknown-field',
-      path: node.path,
-      message: `${node.path}: ${parent === null ? b.root.name : type.name} has no field ${sel.name}`,
-    });
+type Built = Pick<SelectionTree, 'nodes' | 'all' | 'errors'>;
+
+/** The nodes under the root, every node in the order it was built, and the fields that do not resolve. */
+function buildTree(b: Build, selections: readonly Sel[]): Built {
+  const all: TreeNode[] = [];
+  const errors: TreeError[] = [];
+  const buildNode = (
+    sel: Sel,
+    at: { readonly parent: TreeNode | null; readonly type: SchemaNode },
+  ): TreeNode => {
+    const { parent, type } = at;
+    let children: readonly TreeNode[] = [];
+    const node = makeNode(b, sel, { ...at, children: () => children });
+    all.push(node);
+    if (sel.name === '__typename') return node;
+    if (node.field === null) {
+      errors.push({
+        code: parent === null ? 'top-level' : 'unknown-field',
+        path: node.path,
+        message: `${node.path}: ${parent === null ? b.root.name : type.name} has no field ${sel.name}`,
+      });
+      return node;
+    }
+    const target =
+      node.type === null ? undefined : b.idx.types.get(parseTypeRef(node.typeStr).name);
+    if (target === undefined) return node;
+    const kids = sel.selections ?? [];
+    if (kids.length === 0) {
+      errors.push({
+        code: 'no-selection',
+        path: node.path,
+        message: `${node.path} returns ${target.name}, so it needs a selection { … }`,
+      });
+    } else children = kids.map((c) => buildNode(c, { parent: node, type: target }));
     return node;
-  }
-  const target = node.type === null ? undefined : b.idx.types.get(parseTypeRef(node.typeStr).name);
-  if (target === undefined) return node;
-  const kids = sel.selections ?? [];
-  if (kids.length === 0) {
-    b.errors.push({
-      code: 'no-selection',
-      path: node.path,
-      message: `${node.path} returns ${target.name}, so it needs a selection { … }`,
-    });
-  } else node.children = kids.map((c) => buildNode(b, c, { parent: node, type: target }));
-  return node;
+  };
+  const nodes = selections.map((s) => buildNode(s, { parent: null, type: b.root }));
+  return { nodes, all, errors };
 }
 
 const trees = memoPerGraph<SelectionTree>();
 
 function treeOf(g: SystemGraph, opId: string): SelectionTree {
   const op = operationNode(g, opId);
-  const errors: TreeError[] = [];
   const out: SelectionTree = {
     operation: op ?? null,
     parsed: parseDocument(op?.document),
     root: null,
     nodes: [],
     all: [],
-    errors,
+    errors: [],
   };
   if (op === undefined) {
-    errors.push({ code: 'unknown-operation', message: `${opId} is not an operation` });
-    return out;
+    return {
+      ...out,
+      errors: [{ code: 'unknown-operation', message: `${opId} is not an operation` }],
+    };
   }
   const { parsed } = out;
-  if (parsed.kind === null || parsed.error !== null) {
-    errors.push({
-      code: 'parse',
-      message: `${op.name}: the document does not parse (${parsed.error ?? ''})`,
-    });
-  }
+  const errors: readonly TreeError[] =
+    parsed.kind === null || parsed.error !== null
+      ? [
+          {
+            code: 'parse',
+            message: `${op.name}: the document does not parse (${parsed.error ?? ''})`,
+          },
+        ]
+      : [];
   const kind = parsed.kind === 'subscription' ? null : parsed.kind;
-  if (kind === null) return out;
+  if (kind === null) return { ...out, errors };
   const idx = graphIndex(g, op.graph);
   const root = idx.roots[kind];
   if (root === null) {
-    errors.push({
-      code: 'no-root',
-      message: `${op.graph} has no ${kind === 'query' ? 'Query' : 'Mutation'} type (a kind: graph-type schema with root: ${kind})`,
-    });
-    return out;
+    const message = `${op.graph} has no ${kind === 'query' ? 'Query' : 'Mutation'} type (a kind: graph-type schema with root: ${kind})`;
+    return { ...out, errors: [...errors, { code: 'no-root', message }] };
   }
-  out.root = root;
-  const build: Build = { idx, root, all: out.all, errors };
-  out.nodes = parsed.selections.map((s) => buildNode(build, s, { parent: null, type: root }));
-  return out;
+  const built = buildTree({ idx, root }, parsed.selections);
+  return { ...out, root, ...built, errors: [...errors, ...built.errors] };
 }
 
 /** The operation's document resolved against its graph's types. Never throws. */

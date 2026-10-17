@@ -18,8 +18,9 @@ export function voteHead(model: Model, vote: VoteSummary, approved: boolean): st
   if (approved) return `Confidence in ${model.plan.meta.version ?? 'this version'}`;
   if (vote.low.length > 0) return 'Confidence ratings';
   const teams = numWord(vote.teams.length);
-  if (vote.cast.length === vote.teams.length)
+  if (vote.cast.length === vote.teams.length) {
     return `All ${teams} teams have rated their confidence, and none is below 3.`;
+  }
   return `${capital(numWord(vote.cast.length))} of ${teams} teams have rated their confidence, and none is below 3.`;
 }
 

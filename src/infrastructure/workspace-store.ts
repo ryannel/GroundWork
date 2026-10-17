@@ -38,11 +38,12 @@ async function readWorkspace(folder: string): Promise<Workspace> {
       colour: colour ?? null,
       channel: channel ?? null,
     })),
-    actors: file.actors.map(({ id, name, summary, uses }) => ({
+    actors: file.actors.map(({ id, name, summary, uses, customer }) => ({
       id,
       name,
       summary: summary ?? null,
       uses,
+      customer,
     })),
     domains,
     keyJourneys: file.key_journeys,

@@ -1,24 +1,24 @@
-import type { Core } from '@/application/plan/derive-core';
-import { memo, objects, str, uniq } from '@/application/plan/derive-values';
+import type { Core, ElementStatus } from '@/application/plan/derive-core';
+import { memo, objects, textOf, uniq } from '@/application/plan/derive-values';
 import { actingService } from '@/application/plan/graph-queries';
 import { parentOf, prop, strings } from '@/application/plan/ids';
 import type { PlanNode } from '@/domain/plan/plan-graph';
 
 export interface Rollup {
-  added: number;
-  modified: number;
-  deprecated: number;
-  removed: number;
-  total: number;
+  readonly added: number;
+  readonly modified: number;
+  readonly deprecated: number;
+  readonly removed: number;
+  readonly total: number;
 }
 
 type Graph = Core['asIs'];
 type Lookup = (id: string) => string | null;
 
 interface Ctx {
-  core: Core;
-  navigation: (id: string) => string[];
-  owner: Lookup;
+  readonly core: Core;
+  readonly navigation: (id: string) => string[];
+  readonly owner: Lookup;
 }
 
 function interactionsOf(g: Graph, node: PlanNode | undefined): (PlanNode | undefined)[] {
@@ -33,7 +33,7 @@ function navigationServicesOf({ asIs, toBe }: Core, id: string): string[] {
     [asIs, toBe].flatMap((g) =>
       interactionsOf(g, g.get(id)).flatMap((i) =>
         i?.$type === 'interaction'
-          ? i.from.map((ref) => str(prop(g.get(ref.split('#')[0]), 'service')))
+          ? i.from.map((ref) => textOf(prop(g.get(ref.split('#')[0]), 'service')))
           : [],
       ),
     ),
@@ -44,7 +44,10 @@ function navigationServicesOf({ asIs, toBe }: Core, id: string): string[] {
 const soleOf = (list: readonly (string | undefined)[]): string | null =>
   list.length === 1 ? (list[0] ?? null) : null;
 
-function ownerOfSchema({ core, owner }: Ctx, n: PlanNode & { $type: 'schema' }): string | null {
+function ownerOfSchema(
+  { core, owner }: Ctx,
+  n: PlanNode & { readonly $type: 'schema' },
+): string | null {
   if (n.store !== undefined) return owner(n.store);
   // a graph type is composed by the gateway; its fields have their own owners
   if (n.graph !== undefined) return owner(n.graph);
@@ -89,16 +92,21 @@ function namedOwner(n: PlanNode): string | null {
   }
 }
 
-const ownerOfParent = ({ owner }: Ctx, n: { $parent?: string | undefined }): string | null =>
-  n.$parent === undefined ? null : owner(n.$parent);
+const ownerOfParent = (
+  { owner }: Ctx,
+  n: { readonly $parent?: string | undefined },
+): string | null => (n.$parent === undefined ? null : owner(n.$parent));
 
 /** A graph field belongs to the (first) subgraph that resolves it; a key field without subgraphs to its type. */
-function ownerOfField(ctx: Ctx, n: PlanNode & { $type: 'field' }): string | null {
+function ownerOfField(ctx: Ctx, n: PlanNode & { readonly $type: 'field' }): string | null {
   const sg = (n.subgraphs ?? []).find((x) => ctx.core.sys(x) !== undefined);
   return sg === undefined ? ownerOfParent(ctx, n) : ctx.owner(sg);
 }
 
-function ownerOfOperation({ owner }: Ctx, n: PlanNode & { $type: 'operation' }): string | null {
+function ownerOfOperation(
+  { owner }: Ctx,
+  n: PlanNode & { readonly $type: 'operation' },
+): string | null {
   if (n.client !== undefined) return n.client;
   const scr = (n.screens ?? [])[0];
   return scr === undefined ? null : owner(parentOf(scr) ?? scr);
@@ -147,7 +155,7 @@ const TEAM_KEY: Partial<Record<string, string>> = {
 const kids = (x: PlanNode | undefined): string[] =>
   objects(
     prop(x, 'fields') ?? prop(x, 'endpoints') ?? prop(x, 'steps') ?? prop(x, 'regions'),
-  ).flatMap((c) => str(c.id) ?? []);
+  ).flatMap((c) => textOf(c.id) ?? []);
 
 const both = ({ asIs, toBe }: Core, id: string): string[] =>
   uniq([...kids(asIs.get(id)), ...kids(toBe.get(id))]);
@@ -183,49 +191,66 @@ function subgraphFields({ unionIds, sys, asIs, toBe }: Core, id: string): string
 }
 
 /** Everything a service or team is behind, leaving out flows and steps (they cross owners) and, for a team, other teams. */
-function containedBy(core: Core, id: string, [owner, skip]: [Lookup, readonly string[]]): string[] {
+function containedBy(
+  core: Core,
+  id: string,
+  [owner, skip]: readonly [Lookup, readonly string[]],
+): string[] {
+  const skipped = new Set(['flow', 'step', ...skip]);
   return core.unionIds.filter((x) => {
     const t = core.sys(x)?.$type ?? '';
-    return x !== id && t !== 'flow' && t !== 'step' && !skip.includes(t) && owner(x) === id;
+    return x !== id && !skipped.has(t) && owner(x) === id;
   });
 }
 
 /** Counts of changed things among a container's descendants. */
 function rollupOf(ids: readonly string[], status: Core['status']): Rollup {
-  const out: Rollup = { added: 0, modified: 0, deprecated: 0, removed: 0, total: 0 };
-  for (const d of ids) {
-    const s = status(d);
-    if (s !== null && s !== 'existing') {
-      out[s]++;
-      out.total++;
-    }
-  }
-  return out;
+  const changed = ids.map((d) => status(d)).filter((s) => s !== null && s !== 'existing');
+  const count = (s: ElementStatus): number => changed.filter((x) => x === s).length;
+  return {
+    added: count('added'),
+    modified: count('modified'),
+    deprecated: count('deprecated'),
+    removed: count('removed'),
+    total: changed.length,
+  };
 }
 
 /** Who owns what: the owning service and team of any entity, what sits inside a container, and what changed in it. */
-export function createOwners(core: Core) {
+/** Who owns what: the service and team behind an id, and what sits under it. */
+export interface Owners {
+  readonly navigationTeams: (id: string) => string[];
+  readonly ownerService: (id: string) => string | null;
+  readonly ownerTeam: (id: string) => string | null;
+  readonly descendants: (id: string) => string[];
+  readonly rollup: (id: string) => Rollup;
+}
+
+export function createOwners(core: Core): Owners {
   const { sys, get, status } = core;
   const navigationServices = memo((id: string): string[] => navigationServicesOf(core, id));
   const navigationTeams = memo((id: string): string[] =>
-    uniq(navigationServices(id).map((service) => str(prop(sys(service), 'team')))),
+    uniq(navigationServices(id).map((service) => textOf(prop(sys(service), 'team')))),
   );
-  const ctx: Ctx = { core, navigation: navigationServices, owner: (id) => ownerService(id) };
-
-  const ownerService = memo((id: string): string | null => {
-    const n = sys(id);
-    return n === undefined ? null : (namedOwner(n) ?? derivedOwner(ctx, n));
-  });
+  const owners = new Map<string, string | null>();
+  const ctx: Ctx = { core, navigation: navigationServices, owner: ownerService };
+  function ownerService(id: string): string | null {
+    if (!owners.has(id)) {
+      const n = sys(id);
+      owners.set(id, n === undefined ? null : (namedOwner(n) ?? derivedOwner(ctx, n)));
+    }
+    return owners.get(id) ?? null;
+  }
 
   const ownerTeam = memo((id: string): string | null => {
     const n = get(id);
     if (n === undefined) return null;
     if (n.$type === 'team') return n.id;
     const key = TEAM_KEY[n.$type];
-    if (key !== undefined) return str(prop(n, key)) ?? null;
+    if (key !== undefined) return textOf(prop(n, key)) ?? null;
     if (n.$type === 'interaction' || n.$type === 'userJourney') return soleOf(navigationTeams(id));
     const svc = ownerService(id);
-    return svc === null ? null : (str(prop(sys(svc), 'team')) ?? null);
+    return svc === null ? null : (textOf(prop(sys(svc), 'team')) ?? null);
   });
 
   const descendants = memo((id: string): string[] => {
@@ -262,5 +287,3 @@ export function createOwners(core: Core) {
 
   return { navigationTeams, ownerService, ownerTeam, descendants, rollup };
 }
-
-export type Owners = ReturnType<typeof createOwners>;

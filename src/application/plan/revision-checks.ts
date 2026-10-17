@@ -7,23 +7,23 @@ import {
 } from '@/application/plan/revision-ledger';
 
 interface Entry {
-  list: readonly RevisionEntry[];
-  r: RevisionEntry;
-  i: number;
+  readonly list: readonly RevisionEntry[];
+  readonly r: RevisionEntry;
+  readonly i: number;
 }
 
-const at = (i: number, ...rest: (string | number)[]) => ['meta', 'revisions', i, ...rest];
+const at = (i: number, ...rest: readonly (string | number)[]) => ['meta', 'revisions', i, ...rest];
 
 function checkOrder({ list, r, i }: Entry, rep: Report): void {
   const before = list[i - 1];
   if (before !== undefined && compareVersions(r.version, before.version) <= 0) {
-    rep.err(
+    rep.error(
       at(i, 'version'),
       `${r.version} does not follow ${before.version}; meta.revisions is oldest first and every version is higher than the one before`,
     );
   }
   if (r.status === 'proposed' && i !== list.length - 1) {
-    rep.err(
+    rep.error(
       at(i, 'status'),
       `${r.version} is still proposed but a later revision follows it; approve or reject it first (only the last entry can be proposed)`,
     );
@@ -80,7 +80,7 @@ function checkWork({ list, r, i }: Entry, ctx: CheckContext, rep: Report): void 
   if (i !== list.length - 1) return;
   for (const [j, w] of (r.work ?? []).entries()) {
     if (w.action !== 'drop' && !ctx.known(w.item)) {
-      rep.err(
+      rep.error(
         at(i, 'work', j, 'item'),
         `${w.item} is not a work item in this plan; name one of its work_items (drop is the only action for one that is gone)`,
       );
@@ -94,7 +94,7 @@ function checkProposal(entry: Entry, ctx: CheckContext, rep: Report): void {
   checkWork(entry, ctx, rep);
   for (const [j, who] of (r.by ?? []).entries()) {
     if (who.startsWith('team:') && !ctx.known(who)) {
-      rep.err(
+      rep.error(
         at(i, 'by', j),
         `${who} is not a team in this plan; use one of its team ids or a plain name`,
       );
@@ -113,12 +113,12 @@ function checkHead(ctx: CheckContext, rep: Report): void {
     return;
   }
   if (meta.version === undefined) {
-    rep.err(
+    rep.error(
       ['meta', 'version'],
       `the plan has meta.revisions but no meta.version; set meta.version: "${cur.version}"`,
     );
   } else if (meta.version !== cur.version) {
-    rep.err(
+    rep.error(
       ['meta', 'version'],
       `meta.version is ${meta.version} but meta.revisions says this file is version ${cur.version}; set meta.version: "${cur.version}" (tools/revision.mjs keeps them in step)`,
     );

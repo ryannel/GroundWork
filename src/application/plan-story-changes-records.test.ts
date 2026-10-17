@@ -1,6 +1,9 @@
 // @vitest-environment node
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
+import { orderNotes } from '@/../test/fixtures/acme/plans/chapters-order-notes';
+import { sameDay } from '@/../test/fixtures/acme/plans/chapters-same-day';
+import { modelOf } from '@/../test/plan-kit';
 import {
   bySeverity,
   fit,
@@ -8,20 +11,8 @@ import {
   recordTeams,
 } from '@/application/plan-story-changes-records';
 
-vi.mock('server-only', () => ({}));
-
-const { planData } = await import('@/infrastructure/plan-data');
-
-async function modelOf(plan: string) {
-  const data = await planData({ workspace: 'alder-finch', plan });
-  if (data === null) throw new Error(`no ${plan}`);
-  return data.model;
-}
-
-const promise = await modelOf('delivery-promise');
-const reservation = await modelOf('stock-reservation');
-const graph = await modelOf('storefront-graph');
-const vat = await modelOf('invoice-vat-number');
+const draft = modelOf(sameDay());
+const notes = modelOf(orderNotes());
 
 describe('fitting a headline', () => {
   it('keeps a short headline whole', () => {
@@ -53,69 +44,49 @@ describe('fitting a headline', () => {
 
 describe('what a record costs', () => {
   it('says which unmoved readers a removal breaks', () => {
-    expect(recordClaim(promise, 'sch:product')).toBe(
-      'Removing `lead_time_text` breaks Storefront BFF, and no change in this plan moves it',
-    );
-    expect(recordClaim(graph, 'sch:gql-cart')).toBe(
-      'Removing `estimatedDelivery` breaks AddToCart and CartSummary, and no change in this plan moves them',
+    expect(recordClaim(draft, 'sch:order')).toBe(
+      'Removing `total_cents` breaks Shop BFF, Order desk and one more, and no change in this plan moves them',
     );
   });
 
   it('says a new required field breaks a reader nobody moves', () => {
-    expect(recordClaim(promise, 'sch:checkout-session')).toBe(
-      'CheckoutSession gains required `promised_date`, which breaks Cart; no change in this plan moves it',
+    expect(recordClaim(notes, 'sch:search-doc')).toBe(
+      'SearchDoc gains required `note`, which breaks Search indexer; no change in this plan moves it',
     );
   });
 
-  it('says who must move first, by name or by role', () => {
-    expect(recordClaim(promise, 'sch:price')).toBe(
-      'Price gains required `shipping_component_cents`; Pricing must move first',
-    );
-    expect(recordClaim(reservation, 'sch:stock-level')).toBe(
-      'StockLevel gains required `reserved`; Allocation worker and WMS must move first',
-    );
-    expect(recordClaim(promise, 'sch:order-placed-v1')).toBe(
-      'order.placed v1 loses `order_id`; four consumers must move first',
+  it('says who must move first, by name', () => {
+    expect(recordClaim(draft, 'sch:search-doc')).toBe(
+      'SearchDoc gains required `same_day`; Search indexer must move first',
     );
   });
 
   it('says when no service reader is recorded', () => {
-    expect(recordClaim(promise, 'sch:search-document')).toBe(
-      'SearchDocument loses `lead_time_text`; no service reader is recorded',
-    );
-    expect(recordClaim(vat, 'sch:invoice')).toBe(
-      'Invoice’s `bill_to` becomes BillingIdentity; no service reader is recorded',
+    expect(recordClaim(notes, 'sch:product-changed-v1')).toBe(
+      'product.changed v1’s `sku` becomes uuid; no service reader is recorded',
     );
   });
 
   it('reads a safe record as what it gains or loses', () => {
-    expect(recordClaim(vat, 'sch:checkout-session')).toBe(
-      'CheckoutSession gains a `billing` field',
+    expect(recordClaim(notes, 'sch:order')).toBe(
+      'Order gains a `note` field; `total_cents` is deprecated · still works',
     );
-    expect(recordClaim(promise, 'sch:cart')).toBe('Cart gains two new fields');
-    expect(recordClaim(reservation, 'sch:order')).toBe(
-      'Order `cancel_reason` is deprecated · still works',
-    );
-    expect(recordClaim(graph, 'sch:gql-money')).toBe('Money `amount` changes, `currency` changes');
-    expect(recordClaim(promise, 'sch:payment')).toBe('Payment changes');
+    expect(recordClaim(draft, 'sch:product')).toBe('Product gains two new fields');
+    expect(recordClaim(draft, 'sch:order-placed-v1')).toBe('order.placed v1 gains a `slot` field');
+    expect(recordClaim(notes, 'sch:product')).toBe('Product `sku` changes, `name` changes');
+    expect(recordClaim(notes, 'sch:order-placed-v1')).toBe('order.placed v1 changes');
   });
 });
 
 describe('records in order', () => {
   it('names the store owner first, then the teams that touch it', () => {
-    expect(recordTeams(promise, 'sch:price')).toEqual(['team:pricing']);
-    expect(recordTeams(promise, 'sch:order')).toEqual([
-      'team:orders',
-      'team:notifications',
-      'team:fulfilment',
-    ]);
+    expect(recordTeams(draft, 'sch:order')).toEqual(['team:orders']);
+    expect(recordTeams(notes, 'sch:product')).toEqual(['team:catalogue', 'team:orders']);
   });
 
   it('puts the record that breaks someone first and keeps ties in order', () => {
-    expect(bySeverity(promise, ['sch:payment', 'sch:shipment', 'sch:product'])).toEqual([
-      'sch:product',
-      'sch:payment',
-      'sch:shipment',
-    ]);
+    expect(
+      bySeverity(draft, ['sch:product', 'sch:search-doc', 'sch:order', 'sch:order-placed-v1']),
+    ).toEqual(['sch:order', 'sch:search-doc', 'sch:product', 'sch:order-placed-v1']);
   });
 });

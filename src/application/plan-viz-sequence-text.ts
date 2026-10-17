@@ -54,7 +54,7 @@ export const levelName = (level?: string): string => LEVELS[level ?? ''] ?? 'tes
 
 /** The longest word a column must hold on one line (a name breaks at spaces and after . _ -, never inside a word). */
 export const longestWord = (name: string): number =>
-  Math.max(0, ...name.split(/[\s._-]+/).map((w) => w.length));
+  Math.max(0, ...name.split(/[\s._-]+/u).map((w) => w.length));
 
 /** The column width, from the tiers, that holds every name; wider than the last tier is the last. */
 export function columnTier(

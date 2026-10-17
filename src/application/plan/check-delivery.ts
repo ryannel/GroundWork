@@ -30,7 +30,7 @@ function checkItemVerified(
     const t = tests.get(tid);
     if (t !== undefined && !t.proves.some((c) => w.implements.includes(c))) {
       const changes = w.implements.length > 0 ? w.implements.join(', ') : 'none';
-      rep.err(
+      rep.error(
         ['work_items', i, 'verified_by', j],
         `${tid} proves none of ${w.id}'s changes (${changes}); drop it from verified_by, or add the change to ${tid}.proves if it really proves it`,
       );
@@ -41,13 +41,14 @@ function checkItemVerified(
 function checkItemsVerified(plan: Plan, rep: Report): void {
   const testById = new Map((plan.tests ?? []).map((t) => [t.id, t]));
   for (const [i, t] of (plan.tests ?? []).entries()) {
-    if (t.proves.length === 0)
+    if (t.proves.length === 0) {
       rep.warn(['tests', i, 'proves'], `${t.id} proves no change; fill proves, or delete the test`);
+    }
   }
   for (const entry of (plan.work_items ?? []).entries()) {
     const [i, w] = entry;
     if (w.implements.length === 0) {
-      rep.err(
+      rep.error(
         ['work_items', i, 'implements'],
         `${w.id} must implement at least one change; list the change(s) it delivers in implements`,
       );
@@ -96,7 +97,7 @@ function checkLaterMilestone(plan: Plan, rep: Report): void {
       const mine = rank(w);
       const theirs = rank(d);
       if (d !== undefined && mine !== undefined && theirs !== undefined && theirs > mine) {
-        rep.err(
+        rep.error(
           ['work_items', i, 'depends_on', j],
           `${w.id} (${String(w.milestone)}) depends on ${dep}, which is in a later milestone (${String(d.milestone)}); move ${dep} earlier, ${w.id} later, or drop the dependency`,
         );
@@ -111,7 +112,7 @@ function checkDependencies(plan: Plan, rep: Report): void {
   const wiIndex = new Map(items.map((w, i) => [w.id, i]));
   for (const cycle of findCycles(items)) {
     const first = cycle[0] ?? '';
-    rep.err(
+    rep.error(
       ['work_items', wiIndex.get(first) ?? 0, 'depends_on'],
       `dependency cycle: ${[...cycle, first].join(' → ')}; drop one dependency, or split the item that both needs and is needed`,
     );

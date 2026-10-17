@@ -5,7 +5,7 @@ import { derive } from '@/application/plan/derive';
 import { planBarOf } from './plan-bar';
 import { outlineOf } from './plan-pages';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -44,7 +44,7 @@ describe('the plan bar', () => {
       summary: 'Pause sooner',
       href: '/shop/plans/mini/versions/v1.1/',
     });
-    expect(bar.versions?.items[1]?.date).toMatch(/^22 Sep/);
+    expect(bar.versions?.items[1]?.date).toMatch(/^22 Sep/u);
   });
 
   it('reads the old word committed as approved', async () => {

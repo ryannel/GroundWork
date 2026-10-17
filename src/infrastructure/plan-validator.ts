@@ -18,14 +18,14 @@ import { rewriteErrors, shapeProblems } from './plan-schema-errors';
 
 /** What loading a plan found. `plan` is null when the schema rejected it. */
 export interface PlanCheck {
-  plan: Plan | null;
-  errors: Issue[];
-  warnings: Issue[];
+  readonly plan: Plan | null;
+  readonly errors: readonly Issue[];
+  readonly warnings: readonly Issue[];
 }
 
 interface Validators {
-  plan: ValidateFunction<Plan>;
-  def: <T = unknown>(name: string) => ValidateFunction<T> | undefined;
+  readonly plan: ValidateFunction<Plan>;
+  readonly def: <T = unknown>(name: string) => ValidateFunction<T> | undefined;
 }
 
 let compiled: Promise<Validators> | undefined;

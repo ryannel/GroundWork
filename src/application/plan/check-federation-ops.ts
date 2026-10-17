@@ -14,7 +14,11 @@ import type { CacheUse } from '@/domain/plan/plan.generated';
 const PLAN_WARNINGS = new Set(['plan-check', 'no-shared-key', 'no-owner']);
 
 /** What the reader can do about a field the document selects that the graph does not have. */
-function fixFor(at: { s: Scope; op: OperationNode }, tree: SelectionTree, e: TreeError): string {
+function fixFor(
+  at: { readonly s: Scope; readonly op: OperationNode },
+  tree: SelectionTree,
+  e: TreeError,
+): string {
   const { s, op } = at;
   if (e.code !== 'unknown-field' && e.code !== 'top-level') return '';
   const node = tree.all.find((n) => n.path === e.path);
@@ -74,12 +78,12 @@ function checkPlanWarnings(s: Scope, op: OperationNode): void {
 }
 
 interface CacheAt {
-  s: Scope;
-  op: OperationNode;
-  pol: ResponsePolicy;
-  c: CacheUse;
-  st: StoreNode;
-  i: number;
+  readonly s: Scope;
+  readonly op: OperationNode;
+  readonly pol: ResponsePolicy;
+  readonly c: CacheUse;
+  readonly st: StoreNode;
+  readonly i: number;
 }
 
 /** A private response cannot sit at the edge, or in a gateway that caches whole responses. */

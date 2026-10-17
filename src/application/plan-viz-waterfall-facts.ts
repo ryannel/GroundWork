@@ -19,8 +19,8 @@ export function opPlan(model: Model, id: string, mode?: string): QueryPlan | nul
 
 /** One operation on one side of the plan. */
 export interface OpAt {
-  id: string;
-  mode?: string | undefined;
+  readonly id: string;
+  readonly mode?: string | undefined;
 }
 
 export function opPath(model: Model, at: OpAt, kase: WaterfallCase): CachePath | null {
@@ -29,23 +29,27 @@ export function opPath(model: Model, at: OpAt, kase: WaterfallCase): CachePath |
 }
 
 export interface WaterfallFacts {
-  plan: QueryPlan | null;
-  policy: ResponsePolicy | null;
-  roundTrips: number;
-  fetches: number;
-  teams: number;
+  readonly plan: QueryPlan | null;
+  readonly policy: ResponsePolicy | null;
+  readonly roundTrips: number;
+  readonly fetches: number;
+  readonly teams: number;
   /** A cache layer on its path has numbers; they belong to the layer, shared by every operation behind it. */
-  layerObserved: boolean;
-  layerHit: number | null;
-  layerCold: number | null;
+  readonly layerObserved: boolean;
+  readonly layerHit: number | null;
+  readonly layerCold: number | null;
   /** The layer that answers a hit, by id. */
-  hitLayer: string | null;
+  readonly hitLayer: string | null;
   /** Which layer that is: "edge", "gateway" or "cache". */
-  hitLayerName: string;
+  readonly hitLayerName: string;
   /** The subgraph whose fetch takes longest, when the plan has measurements. */
-  slowest: { subgraph: string; ms: number; via: boolean } | null;
-  cacheLayers: number;
-  mutation: boolean;
+  readonly slowest: {
+    readonly subgraph: string;
+    readonly ms: number;
+    readonly via: boolean;
+  } | null;
+  readonly cacheLayers: number;
+  readonly mutation: boolean;
 }
 
 function slowestOf(plan: QueryPlan | null, cold: CachePath | null): WaterfallFacts['slowest'] {
@@ -102,9 +106,9 @@ export function waterfallFacts(model: Model, id: string, mode?: string): Waterfa
 
 export interface RouterWhy {
   /** The tag beside the field: "for deliveryPromise" or "key". */
-  label: string;
+  readonly label: string;
   /** The sentence on hover. */
-  tip: string;
+  readonly tip: string;
 }
 
 function askedFor(model: Model, plan: QueryPlan, added: Added): string | null {
@@ -136,10 +140,10 @@ export function keyOf(model: Model, fetch: Fetch, mode?: string): string {
 }
 
 export interface FetchField {
-  name: string;
+  readonly name: string;
   /** The field's id in the plan, when the path maps to one. */
-  field: string | null;
-  path: string;
+  readonly field: string | null;
+  readonly path: string;
 }
 
 /** The direct fields a fetch returns; container fields shown through their children are dropped. */

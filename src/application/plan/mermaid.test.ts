@@ -1,27 +1,25 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { derive, type Model } from '@/application/plan/derive';
+import { quickCheckoutOnToday } from '@/../test/fixtures/acme/plans/core-checkout';
+import { giftWrap } from '@/../test/fixtures/acme/plans/journeys-gift-wrap';
+import { pauseOrders } from '@/../test/fixtures/acme/plans/pause-orders';
+import { orderEventV2 } from '@/../test/fixtures/acme/plans/versions-order-event';
+import { coreShop } from '@/../test/fixtures/core-shop';
+import { modelOf } from '@/../test/plan-kit';
 import { flowSteps } from '@/application/plan/flow-steps';
 import { flowToMermaid, mmText } from '@/application/plan/mermaid';
 
-vi.mock('server-only', () => ({}));
-
-const { readPlan, listPlans } = await import('@/infrastructure/plan-store');
-
-const WORKSPACE = 'alder-finch';
 const MODES = ['toBe', 'asIs', 'diff'] as const;
-const ENTITY = /#(35|59|lt|gt);/g;
+const ENTITY = /#(?:35|59|lt|gt);/gu;
 
-const modelOf = async (slug: string): Promise<Model> => {
-  const { plan } = await readPlan(WORKSPACE, slug);
-  if (plan === null) throw new Error(`no plan ${slug}`);
-  return derive(plan);
-};
-
-const slugs = await listPlans(WORKSPACE);
-const all = await Promise.all(slugs.map(async (slug) => ({ slug, m: await modelOf(slug) })));
-const dp = await modelOf('delivery-promise');
-const invoice = await modelOf('invoice-vat-number');
+const checkout = modelOf(quickCheckoutOnToday().plan);
+const all = [
+  { slug: 'quick-checkout', m: checkout },
+  { slug: 'pause-orders', m: modelOf(pauseOrders()) },
+  { slug: 'gift-wrap', m: modelOf(giftWrap()) },
+  { slug: 'order-event-v2', m: modelOf(orderEventV2()) },
+  { slug: 'shop', m: modelOf(coreShop()) },
+];
 
 const word = (line: string): string => line.trim().split(' ')[0] ?? '';
 
@@ -70,15 +68,16 @@ describe('flowToMermaid', () => {
   });
 
   it('gives participants short ids, with the person first in a flow someone starts', () => {
-    const out = flowToMermaid(dp, 'flow:checkout');
-    expect(out).toMatch(/^ {2}actor P as Shopper$/m);
+    const out = flowToMermaid(checkout, 'flow:place-order');
+    expect(out).toMatch(/^ {2}actor P as Customer$/mu);
     expect(out.indexOf('actor P')).toBeLessThan(out.indexOf('participant S1'));
-    for (const d of drawings) {
-      for (const line of d.text.split('\n')) {
-        const p = /^\s*participant (\S+) as /.exec(line);
-        if (p !== null) expect(p[1], `${d.where}: ${line}`).toMatch(/^[A-Z]\d*$/);
-      }
-    }
+    const participants = drawings.flatMap((d) =>
+      d.text.split('\n').flatMap((line) => {
+        const p = /^\s*participant (\S+) as /u.exec(line);
+        return p === null ? [] : [{ id: p[1], at: `${d.where}: ${line}` }];
+      }),
+    );
+    for (const { id, at } of participants) expect(id, at).toMatch(/^[A-Z]\d*$/u);
   });
 
   it('shows every step once, in order', () => {
@@ -94,17 +93,20 @@ describe('flowToMermaid', () => {
   });
 
   it('keeps authored conditions and recovery as notes, never inferred branches', () => {
-    const out = flowToMermaid(dp, 'flow:checkout', { mode: 'asIs' });
-    expect(out).toMatch(/Note over S\d+,S\d+: Only when the shopper chose financing\./);
-    expect(out).toMatch(/Note over S\d+: The shopper presses Checkout\./);
-    expect(out).not.toMatch(/\b(?:alt|opt) Only when the shopper chose financing/);
-    expect(flowToMermaid(invoice, 'flow:issue-invoice', { mode: 'asIs' })).toMatch(
-      /Note over S\d+: A Billing agent runs a script/,
+    const out = flowToMermaid(checkout, 'flow:place-order', { mode: 'asIs' });
+    expect(out).toMatch(/Note over S\d+,S\d+: Only when the customer pays by card\./u);
+    expect(out).toMatch(/Note over S\d+: The customer presses Place order on the basket\./u);
+    expect(out).not.toMatch(/\b(?:alt|opt) Only when the customer pays by card/u);
+    expect(flowToMermaid(checkout, 'flow:place-order')).toMatch(
+      /Note over S\d+,S\d+: Only when the customer pays by card or wallet\./u,
     );
+    const job = flowToMermaid(checkout, 'flow:reindex-search', { mode: 'asIs' });
+    expect(job).toMatch(/Note over S\d+: Every night a job rebuilds the index\./u);
+    expect(job).toMatch(/Note over S\d+: Pick the changed products$/mu);
   });
 
   it('groups a shared event source or a beat neutrally, never as parallel execution', () => {
-    const out = flowToMermaid(dp, 'flow:create-product');
+    const out = flowToMermaid(checkout, 'flow:publish-product');
     expect(hasLine(out, 'rect rgba')).toBe(true);
     expect(out).toContain('from the same event source');
     for (const d of drawings) {
@@ -120,7 +122,7 @@ describe('flowToMermaid', () => {
   it('carries no markup Mermaid would misread', () => {
     for (const d of drawings) {
       expect(d.text, d.where).not.toContain('<');
-      expect(d.text, d.where).not.toMatch(/\*\*|`|\]\(/);
+      expect(d.text, d.where).not.toMatch(/\*\*|`|\]\(/u);
       const bare = d.text.replaceAll(ENTITY, '');
       expect(bare.includes(';') || bare.includes('#'), d.where).toBe(false);
     }
@@ -132,17 +134,23 @@ describe('flowToMermaid', () => {
   });
 
   it('draws a failure as alt … else if it fails … end, and each removed step as a removed note', () => {
-    expect(hasLine(flowToMermaid(dp, 'flow:checkout'), 'else if it fails')).toBe(true);
+    expect(hasLine(flowToMermaid(checkout, 'flow:place-order'), 'else if it fails')).toBe(true);
+    expect(flowToMermaid(checkout, 'flow:publish-product', { mode: 'diff' })).toMatch(
+      /Note over S\d+: removed · Log the save/u,
+    );
     const removed = drawings
       .filter((d) => d.mode === 'diff')
       .map((d) => ({
-        drawn: (d.text.match(/: removed · /g) ?? []).length,
+        drawn: (d.text.match(/: removed · /gu) ?? []).length,
         steps: flowSteps(d.m, d.id, 'diff').filter((s) => s.$removed === true).length,
       }));
     expect(removed.reduce((n, r) => n + r.drawn, 0)).toBe(removed.reduce((n, r) => n + r.steps, 0));
+    expect(removed.reduce((n, r) => n + r.steps, 0)).toBeGreaterThan(0);
   });
 
   it('is pure: the same flow gives the same text', () => {
-    expect(flowToMermaid(dp, 'flow:checkout')).toBe(flowToMermaid(dp, 'flow:checkout'));
+    expect(flowToMermaid(checkout, 'flow:place-order')).toBe(
+      flowToMermaid(checkout, 'flow:place-order'),
+    );
   });
 });

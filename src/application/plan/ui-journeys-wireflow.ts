@@ -11,47 +11,47 @@ import type { ScreenNode, StepNode } from '@/domain/plan/plan-graph';
 
 /** One screen-linked step, addressable by its exact step. */
 export interface WireRecord extends RecordedStep {
-  screen: string;
-  region: string | null;
-  experienceKind: MomentKind;
+  readonly screen: string;
+  readonly region: string | null;
+  readonly experienceKind: MomentKind;
   /** Whether the kind is grouping evidence for a person's action, not proof of it. */
-  classificationInferred: boolean;
-  supportingSteps: RecordedStep[];
+  readonly classificationInferred: boolean;
+  readonly supportingSteps: readonly RecordedStep[];
 }
 
 /** Authored prose on the steps between two screens, kept verbatim. */
 export interface Note {
-  stepId: string;
-  type: 'logic' | 'fails';
-  text: string;
+  readonly stepId: string;
+  readonly type: 'logic' | 'fails';
+  readonly text: string;
 }
 
 /** The recorded order from one screen to the next. It asserts no click, condition or return path. */
 export interface Connector {
-  kind: 'output' | 'recorded-order';
-  label: string;
-  sourceStepId: string;
-  destinationStepId: string;
-  sourceScreen: string;
-  destinationScreen: string;
-  steps: RecordedStep[];
-  notes: Note[];
+  readonly kind: 'output' | 'recorded-order';
+  readonly label: string;
+  readonly sourceStepId: string;
+  readonly destinationStepId: string;
+  readonly sourceScreen: string;
+  readonly destinationScreen: string;
+  readonly steps: readonly RecordedStep[];
+  readonly notes: readonly Note[];
 }
 
 export interface WireStop extends Stop {
-  records: WireRecord[];
-  connector: Connector | null;
+  readonly records: readonly WireRecord[];
+  readonly connector: Connector | null;
 }
 
 export interface WireRoute extends Omit<Route, 'stops'> {
-  stops: WireStop[];
-  connectors: Connector[];
+  readonly stops: readonly WireStop[];
+  readonly connectors: readonly Connector[];
 }
 
 export interface Wireflows {
-  routes: WireRoute[];
-  unlinked: ScreenNode[];
-  stops: WireStop[];
+  readonly routes: readonly WireRoute[];
+  readonly unlinked: readonly ScreenNode[];
+  readonly stops: readonly WireStop[];
 }
 
 const OUTPUTS = new Set(['email', 'print', 'push']);
@@ -74,7 +74,7 @@ function momentsOf(model: FlowModel, route: Route): Map<string, Moment> {
 function recordOf(
   steps: readonly StepNode[],
   stop: Stop,
-  of: { step: StepNode; moment: Moment | undefined },
+  of: { readonly step: StepNode; readonly moment: Moment | undefined },
 ): WireRecord {
   const { step, moment } = of;
   const kind = moment?.kind ?? 'linked';
@@ -102,7 +102,7 @@ const notesOf = (steps: readonly RecordedStep[]): Note[] =>
 function connectorOf(
   model: FlowModel,
   steps: readonly StepNode[],
-  pair: { stop: Stop; next: Stop; source: WireRecord },
+  pair: { readonly stop: Stop; readonly next: Stop; readonly source: WireRecord },
 ): Connector {
   const { stop, next, source } = pair;
   const output = isOutput(model, next.screen);

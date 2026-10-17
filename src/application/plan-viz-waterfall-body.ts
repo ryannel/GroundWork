@@ -36,15 +36,15 @@ import {
 } from '@/application/plan-viz-waterfall-words';
 
 interface Build {
-  id: string;
-  mode: WaterfallMode;
-  compact: boolean;
-  diff: boolean;
-  lens: string | null;
-  plan: QueryPlan;
-  cp: CachePath;
-  facts: WaterfallFacts;
-  cmp: Comparison | null;
+  readonly id: string;
+  readonly mode: WaterfallMode;
+  readonly compact: boolean;
+  readonly diff: boolean;
+  readonly lens: string | null;
+  readonly plan: QueryPlan;
+  readonly cp: CachePath;
+  readonly facts: WaterfallFacts;
+  readonly cmp: Comparison | null;
 }
 
 function todayRow(model: Model, b: Build, r: CacheRow): CacheRowView | null {
@@ -131,12 +131,12 @@ function hingeRows(b: Build): WaterfallRow[] {
 }
 
 interface Wanted {
-  id: string;
-  kase: WaterfallCase;
-  mode: WaterfallMode;
-  compact: boolean;
-  diff: boolean;
-  lens: string | null;
+  readonly id: string;
+  readonly kase: WaterfallCase;
+  readonly mode: WaterfallMode;
+  readonly compact: boolean;
+  readonly diff: boolean;
+  readonly lens: string | null;
 }
 
 function bodyView(model: Model, o: Wanted): WaterfallBodyView | null {
@@ -164,19 +164,19 @@ function bodyView(model: Model, o: Wanted): WaterfallBodyView | null {
 }
 
 export interface WaterfallView {
-  id: string;
-  compact: boolean;
-  diff: boolean;
-  mutation: boolean;
-  title: string;
-  note: string | null;
+  readonly id: string;
+  readonly compact: boolean;
+  readonly diff: boolean;
+  readonly mutation: boolean;
+  readonly title: string;
+  readonly note: string | null;
   /** The layer's measured averages, which belong to the layer rather than the operation. */
-  times: { text: string; title: string } | null;
-  cases: CaseChoice[];
-  withControl: boolean;
+  readonly times: { readonly text: string; readonly title: string } | null;
+  readonly cases: readonly CaseChoice[];
+  readonly withControl: boolean;
   /** The case it opens on. */
-  landing: WaterfallCase;
-  bodies: WaterfallBodyView[];
+  readonly landing: WaterfallCase;
+  readonly bodies: readonly WaterfallBodyView[];
 }
 
 function timesOf(facts: WaterfallFacts): WaterfallView['times'] {
@@ -202,9 +202,9 @@ const stepCase = (model: Model, stepId: string | null | undefined): string | nul
 };
 
 interface Shown {
-  withControl: boolean;
-  landing: WaterfallCase;
-  cases: WaterfallCase[];
+  readonly withControl: boolean;
+  readonly landing: WaterfallCase;
+  readonly cases: readonly WaterfallCase[];
 }
 
 /** Which cases get a body: all of them under the control, else the one the reader lands on (or the cold path). */

@@ -76,8 +76,8 @@ function teamLensOf(ctx: Context, agg: Aggregate, cols: Columns): Pick<Kit, 'len
       if (lens === null) return null;
       if (!off(id)) return 'on';
       const sys = of === null ? undefined : cols.sysOf.get(of);
-      const close =
-        near.has(id) || (of !== null && near.has(of)) || (sys !== undefined && near.has(sys));
+      const parentNear = of !== null && near.has(of);
+      const close = near.has(id) || parentNear || (sys !== undefined && near.has(sys));
       return close ? 'near' : 'off';
     },
   };

@@ -22,16 +22,19 @@ export const stateTone = (state: string): StateTone => TONE[state] ?? 'neutral';
 export const stateWord = (state: string): string => WORD[state] ?? state;
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const ISO = /^(\d{4})-(\d{2})-(\d{2})/;
+const ISO = /^(\d{4})-(\d{2})-(\d{2})/u;
 
-/** "2026-10-16" as "16 Oct", with the year when it is not the current one; anything else comes back as it was. */
-export function shortDate(date: string, today: Date = new Date()): string {
+/**
+ * "2026-10-16" as "16 Oct", with the year when it is not today's year (or today is not known); anything else comes
+ * back as it was.
+ */
+export function shortDate(date: string, today: Date | undefined): string {
   const m = ISO.exec(date);
   const month = MONTHS[Number(m?.[2]) - 1];
   if (m === null || month === undefined) return date;
   const year = Number(m[1]);
   const day = `${String(Number(m[3]))} ${month}`;
-  return year === today.getFullYear() ? day : `${day} ${String(year)}`;
+  return year === today?.getFullYear() ? day : `${day} ${String(year)}`;
 }
 
 /** The day alone, for a machine-readable `time`. */

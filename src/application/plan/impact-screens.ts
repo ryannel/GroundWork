@@ -6,25 +6,25 @@ import type { Region, Screen } from '@/domain/plan/plan.generated';
 export type RegionMark = 'added' | 'removed' | 'behaviour' | 'layout' | 'data';
 
 export interface RegionChange {
-  id: string;
-  region: Region;
-  before: Region | null;
-  after: Region | null;
-  keys: string[];
-  carries: Carry[];
-  mark: RegionMark;
+  readonly id: string;
+  readonly region: Region;
+  readonly before: Region | null;
+  readonly after: Region | null;
+  readonly keys: readonly string[];
+  readonly carries: readonly Carry[];
+  readonly mark: RegionMark;
 }
 
 export interface ScreenChange {
-  id: string;
-  screen: Screen;
-  before: Screen | null;
-  after: Screen | null;
-  keys: string[];
-  picture: boolean;
-  regions: RegionChange[];
-  mark: 'added' | 'removed' | 'behaviour' | 'data';
-  team: string | null;
+  readonly id: string;
+  readonly screen: Screen;
+  readonly before: Screen | null;
+  readonly after: Screen | null;
+  readonly keys: readonly string[];
+  readonly picture: boolean;
+  readonly regions: readonly RegionChange[];
+  readonly mark: 'added' | 'removed' | 'behaviour' | 'data';
+  readonly team: string | null;
 }
 
 const SCREEN_KEYS = new Set([
@@ -42,11 +42,15 @@ const screenKeys = (a: Screen, b: Screen): string[] =>
   changedKeys(a, b, []).filter((k) => SCREEN_KEYS.has(k));
 
 interface Pair<T> {
-  a: T | undefined;
-  b: T | undefined;
+  readonly a: T | undefined;
+  readonly b: T | undefined;
 }
 
-function regionMark({ a, b }: Pair<Region>, rk: string[], carries: Carry[]): RegionMark | null {
+function regionMark(
+  { a, b }: Pair<Region>,
+  rk: readonly string[],
+  carries: readonly Carry[],
+): RegionMark | null {
   if (a === undefined) return 'added';
   if (b === undefined) return 'removed';
   // only the box moving is layout, not behaviour
@@ -79,8 +83,8 @@ function regionChange(sides: Sides, rid: string): RegionChange | null {
 
 function screenMark(
   { a, b }: Pair<Screen>,
-  keys: string[],
-  regions: RegionChange[],
+  keys: readonly string[],
+  regions: readonly RegionChange[],
 ): ScreenChange['mark'] | null {
   if (a === undefined) return 'added';
   if (b === undefined) return 'removed';

@@ -44,9 +44,9 @@ describe('parseDocument', () => {
     expect(parseDocument('mutation M { add(note: """multi\nline""") { id } }').kind).toBe(
       'mutation',
     );
-    expect(parseDocument('query { a { b }').error).toMatch(/expected|end of the document/);
-    expect(parseDocument('query { ...Nope }').error).toMatch(/Nope is spread but never defined/);
-    expect(parseDocument('').error).toMatch(/empty/);
+    expect(parseDocument('query { a { b }').error).toMatch(/expected|end of the document/u);
+    expect(parseDocument('query { ...Nope }').error).toMatch(/Nope is spread but never defined/u);
+    expect(parseDocument('').error).toMatch(/empty/u);
     expect(parseDocument(null).ok).toBe(false);
   });
 
@@ -169,7 +169,7 @@ describe('queryPlan', () => {
     const plan = queryPlan(asIsOf(p), 'gql:search-reviews');
     expect(fetchesOf(plan)).toEqual(['f1 search']);
     expect(plan.warnings[0]?.message).toMatch(
-      /Product cannot be reached from Search by Reviews: no shared key/,
+      /Product cannot be reached from Search by Reviews: no shared key/u,
     );
     expect(plan.warnings[0]?.code).toBe('no-shared-key');
   });
@@ -212,7 +212,7 @@ describe('queryPlan', () => {
     const p = shop();
     byId(p.operations, 'gql:product-page').plan_check = { fetches: 4, round_trips: 2 };
     expect(queryPlan(asIsOf(p), 'gql:product-page').warnings[0]?.message).toMatch(
-      /ProductPage: derived 3 fetches, registry says 4/,
+      /ProductPage: derived 3 fetches, registry says 4/u,
     );
   });
 
@@ -254,7 +254,7 @@ describe('responsePolicy', () => {
     expect(pol.maxAge).toBe(0);
     expect(pol.cacheable).toBe(false);
     expect(pol.why).toMatch(
-      /Query\.product has no cache hint, so it takes Product's default of 0 s/,
+      /Query\.product has no cache hint, so it takes Product's default of 0 s/u,
     );
     byId(p.subgraphs, 'sg:product').cache_control_default = 120;
     pol = responsePolicy(asIsOf(p), 'gql:product-page');
@@ -268,13 +268,13 @@ describe('responsePolicy', () => {
     expect(cart.private.map((x) => [x.field, x.reason, x.auth])).toEqual([
       ['sch:gql-query#cart', 'auth', 'shopper session'],
     ]);
-    expect(cart.why).toMatch(/Query\.cart is private \(auth: shopper session\)/);
+    expect(cart.why).toMatch(/Query\.cart is private \(auth: shopper session\)/u);
     expect(responsePolicy(g, 'gql:add-to-cart').why).toBe('a mutation is never cached');
     const p = shop();
     byId(p.operations, 'gql:product-page').method = 'POST';
     const post = responsePolicy(asIsOf(p), 'gql:product-page');
     expect(post.cacheable).toBe(false);
-    expect(post.why).toMatch(/sent as POST/);
+    expect(post.why).toMatch(/sent as POST/u);
     const q = shop();
     field(q, 'sch:gql-product', 'stock').cache_control!.scope = 'private';
     expect(responsePolicy(asIsOf(q), 'gql:product-page').private[0]?.reason).toBe('scope');
@@ -312,7 +312,7 @@ describe('cachePath', () => {
     byId(p.operations, 'gql:cart-summary').cache!.unshift({ at: 'st:edge-cache' });
     const c = cachePath(asIsOf(p), 'gql:cart-summary', 'hit');
     expect(c.layers[0]?.state).toBe('blocked');
-    expect(c.layers[0]?.why).toMatch(/Query\.cart is private/);
+    expect(c.layers[0]?.why).toMatch(/Query\.cart is private/u);
     expect(c.layers[1]?.state).toBe('hit');
     expect(c.layers[1]?.perFetch?.map((x) => `${x.subgraph}:${x.state}`)).toEqual([
       'sg:cart:skipped',
@@ -345,7 +345,7 @@ describe('blastRadius', () => {
     ]);
     const add = blastRadius(asIsOf(shop()), 'gql:add-to-cart');
     expect(add[0]?.wholeResponse).toBe(true);
-    expect(add[0]?.message).toMatch(/the whole response is empty because `addToCart` is `Cart!`/);
+    expect(add[0]?.message).toMatch(/the whole response is empty because `addToCart` is `Cart!`/u);
     const p = shop();
     field(p, 'sch:gql-product', 'reviews').type = '[Review!]';
     const r = blastRadius(asIsOf(p), 'gql:search-reviews');

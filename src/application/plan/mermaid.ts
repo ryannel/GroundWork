@@ -20,13 +20,13 @@ const ENTITY: Record<string, string> = { '#': '#35;', ';': '#59;', '<': '#lt;', 
 /** Text for a Mermaid label: markdown and line breaks gone, `;` `#` `<` `>` as entity codes. */
 export function mmText(text?: string): string {
   return (text ?? '')
-    .replaceAll(/\[\[([^\]]{1,200})\]\]/g, (_, id: string) => id.split(/[:#]/).pop() ?? id)
-    .replaceAll(/\[([^\]]{1,200})\]\([^)]{0,200}\)/g, '$1')
-    .replaceAll(/`([^`]*)`/g, '$1')
-    .replaceAll(/(\*{1,3}|__)(?=\S)([^*_\n]*?\S)\1/g, '$2')
-    .replaceAll(/\s+/g, ' ')
+    .replaceAll(/\[\[([^\]]{1,200})\]\]/gu, (_, id: string) => id.split(/[:#]/u).pop() ?? id)
+    .replaceAll(/\[([^\]]{1,200})\]\([^)]{0,200}\)/gu, '$1')
+    .replaceAll(/`([^`]*)`/gu, '$1')
+    .replaceAll(/(\*{1,3}|__)(?=\S)([^*_\n]*?\S)\1/gu, '$2')
+    .replaceAll(/\s+/gu, ' ')
     .trim()
-    .replaceAll(/[#;<>]/g, (c) => ENTITY[c] ?? c);
+    .replaceAll(/[#;<>]/gu, (c) => ENTITY[c] ?? c);
 }
 
 const strProp = (e: unknown, key: string): string | undefined => {
@@ -40,8 +40,9 @@ const nameOf = (model: FlowModel, id: string): string =>
 function viaText(model: FlowModel, via: string): string {
   const e = model.get(via);
   if (e === undefined) return '';
-  if (via.startsWith('msg:'))
+  if (via.startsWith('msg:')) {
     return [strProp(e, 'name'), strProp(e, 'version')].filter((x) => x !== undefined).join(' ');
+  }
   return strProp(e, 'sig') ?? strProp(e, 'name') ?? via;
 }
 
@@ -67,11 +68,11 @@ function participantIds(model: FlowModel, parts: readonly string[]): Map<string,
 }
 
 interface Pen {
-  line: (text: string) => void;
-  note: (over: string, text: string) => void;
-  indent: () => void;
-  dedent: () => void;
-  text: () => string;
+  readonly line: (text: string) => void;
+  readonly note: (over: string, text: string) => void;
+  readonly indent: () => void;
+  readonly dedent: () => void;
+  readonly text: () => string;
 }
 
 function createPen(): Pen {
@@ -96,13 +97,15 @@ function createPen(): Pen {
 }
 
 interface Ctx {
-  model: FlowModel;
-  seq: Sequence;
-  id: (part: string) => string;
-  pen: Pen;
+  readonly model: FlowModel;
+  readonly seq: Sequence;
+  readonly id: (part: string) => string;
+  readonly pen: Pen;
 }
 
-const stepRows = (rows: readonly SequenceRow[]): { i: number; step: FlowStep }[] =>
+const stepRows = (
+  rows: readonly SequenceRow[],
+): { readonly i: number; readonly step: FlowStep }[] =>
   rows.flatMap((x) => (x.kind === 'step' ? [x] : []));
 
 const stepAt = (seq: Sequence, i: number): FlowStep | undefined =>
@@ -111,7 +114,7 @@ const stepAt = (seq: Sequence, i: number): FlowStep | undefined =>
 const over = (ctx: Ctx, s: Pick<FlowStep, 'from' | 'to'>): string =>
   s.to === s.from ? ctx.id(s.from) : `${ctx.id(s.from)},${ctx.id(s.to)}`;
 
-function drawNote(ctx: Ctx, row: Extract<SequenceRow, { kind: 'note' }>): void {
+function drawNote(ctx: Ctx, row: Extract<SequenceRow, { readonly kind: 'note' }>): void {
   if (row.on === 'first') {
     const first = ctx.seq.parts[0];
     if (first !== undefined) ctx.pen.note(ctx.id(first), mmText(row.text));
@@ -219,14 +222,15 @@ function drawRow(ctx: Ctx, row: SequenceRow): void {
 export function flowToMermaid(
   model: FlowModel,
   flowId: string,
-  opts: { mode?: FlowMode } = {},
+  opts: { readonly mode?: FlowMode } = {},
 ): string {
   const seq = sequenceModel(model, flowId, opts.mode ?? 'toBe');
   const ids = participantIds(model, seq.parts);
   const pen = createPen();
   if (seq.actor !== null) pen.line(`actor P as ${mmText(seq.actor)}`);
-  for (const p of seq.parts)
+  for (const p of seq.parts) {
     pen.line(`participant ${ids.get(p) ?? p} as ${mmText(nameOf(model, p))}`);
+  }
   const ctx: Ctx = { model, seq, id: (p) => ids.get(p) ?? p, pen };
   for (const row of seq.rows) drawRow(ctx, row);
   return pen.text();

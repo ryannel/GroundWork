@@ -52,10 +52,10 @@ function approvedOf(
 }
 
 interface View {
-  on: string;
+  readonly on: string;
   /** The approved ↔ proposed pair is on show. */
-  pair: boolean;
-  past: OlderRevision | null;
+  readonly pair: boolean;
+  readonly past: OlderRevision | null;
 }
 
 /** The approved ↔ proposed pair keeps its diff; any other earlier version is read as it was, without one. */
@@ -71,8 +71,8 @@ function viewOf(want: Wanted, head: HeadRevision, approved: ApprovedRevision | n
 }
 
 function historyOf(
-  ledger: RevisionEntry[],
-  available: Set<string>,
+  ledger: readonly RevisionEntry[],
+  available: ReadonlySet<string>,
   shown: string | null,
 ): HistoryRow[] {
   return ledger
@@ -86,7 +86,10 @@ function historyOf(
 }
 
 /** Each revision against the one it was proposed on: the newest approved revision before it in the ledger. */
-function stepsOf(ledger: RevisionEntry[], plans: Map<string, Plan>): RevisionStep[] {
+function stepsOf(
+  ledger: readonly RevisionEntry[],
+  plans: ReadonlyMap<string, Plan>,
+): RevisionStep[] {
   return ledger
     .map((entry, i) => {
       const base = ledger.slice(0, i).findLast((x) => x.status === 'approved')?.version ?? null;
@@ -102,16 +105,23 @@ function stepsOf(ledger: RevisionEntry[], plans: Map<string, Plan>): RevisionSte
 }
 
 /** Every revision readable here, by version; later entries win. */
-function readable(entries: [string, Plan | null | undefined][]): Map<string, Plan> {
+function readable(
+  entries: readonly (readonly [string, Plan | null | undefined])[],
+): Map<string, Plan> {
   const byVersion = new Map<string, Plan>();
-  for (const [version, plan] of entries)
+  for (const [version, plan] of entries) {
     if (plan !== null && plan !== undefined) byVersion.set(version, plan);
+  }
   return byVersion;
 }
 
 function viewedOf(
   view: View,
-  ctx: { head: HeadRevision; ledger: RevisionEntry[]; approved: ApprovedRevision | null },
+  ctx: {
+    readonly head: HeadRevision;
+    readonly ledger: readonly RevisionEntry[];
+    readonly approved: ApprovedRevision | null;
+  },
 ) {
   const plan = view.pair ? ctx.approved?.plan : view.past?.plan;
   if (view.on === 'head' || plan === null || plan === undefined) {
@@ -121,8 +131,8 @@ function viewedOf(
 }
 
 function memoDiffs(
-  steps: RevisionStep[],
-  plans: Map<string, Plan>,
+  steps: readonly RevisionStep[],
+  plans: ReadonlyMap<string, Plan>,
 ): (version: string) => PlanDiff | null {
   const done = new Map<string, PlanDiff | null>();
   return (version) => {
@@ -138,10 +148,10 @@ function memoDiffs(
 }
 
 interface Wanted {
-  viewing: string;
-  older: OlderRevision | null;
-  snapshots: readonly string[];
-  plans: [string, Plan | null | undefined][];
+  readonly viewing: string;
+  readonly older: OlderRevision | null;
+  readonly snapshots: readonly string[];
+  readonly plans: readonly (readonly [string, Plan | null | undefined])[];
 }
 
 const wanted = (opts: RevisionOptions): Wanted => ({

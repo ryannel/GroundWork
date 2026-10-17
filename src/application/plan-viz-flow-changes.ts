@@ -9,13 +9,13 @@ export interface ChangeMarkers {
   /** The steps the plan revisits, each marked ◇. */
   readonly markers: Readonly<Record<string, string>>;
   /** Why each marked step is marked, in words. */
-  readonly reasons: Readonly<Record<string, string[]>>;
+  readonly reasons: Readonly<Record<string, readonly string[]>>;
   /** The entities each marked step carries to the changes tray. */
-  readonly pins: Readonly<Record<string, string[]>>;
+  readonly pins: Readonly<Record<string, readonly string[]>>;
 }
 
 const TOUCHED = new Set(['modified', 'deprecated', 'removed']);
-const SIGNS = /^[+~×−-]\s+/;
+const SIGNS = /^[+~×−-]\s+/u;
 
 const touches = (model: Model, id: string | undefined): boolean => {
   const status = id === undefined ? null : model.status(id);
@@ -43,8 +43,9 @@ function reasonsFor(model: Model, step: FlowStep, inserted: readonly string[]): 
   const status = model.status(step.id);
   if (touches(model, step.id)) {
     why.push(...model.diff(step.id).map((d) => d.summary));
-    if (why.length === 0)
+    if (why.length === 0) {
       why.push(status === 'removed' ? 'this step is removed' : 'this step changes');
+    }
   }
   if (step.via !== '' && step.via !== 'internal' && touches(model, step.via)) {
     why.push(`${chipInfo(model, step.via).label} is ${model.status(step.via) ?? ''}`);

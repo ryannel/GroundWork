@@ -8,48 +8,48 @@ import type { ImpactInput } from '@/application/plan/delivery-work';
 import type { Revision } from '@/application/plan/revision-types';
 
 export interface StepImpact {
-  id: string;
-  mark?: string;
+  readonly id: string;
+  readonly mark?: string;
 }
 
 export interface JourneyImpact {
-  id: string;
-  status?: string;
-  steps?: StepImpact[];
+  readonly id: string;
+  readonly status?: string;
+  readonly steps?: readonly StepImpact[];
 }
 
 export interface FieldImpact {
-  schema: string;
-  name: string;
-  kind: string;
-  cosmetic?: boolean;
+  readonly schema: string;
+  readonly name: string;
+  readonly kind: string;
+  readonly cosmetic?: boolean;
 }
 
 export interface RegionImpact {
-  id: string;
-  mark?: string;
+  readonly id: string;
+  readonly mark?: string;
 }
 
 export interface ScreenImpact {
-  id: string;
-  mark?: string;
-  regions?: RegionImpact[];
+  readonly id: string;
+  readonly mark?: string;
+  readonly regions?: readonly RegionImpact[];
 }
 
 /** What a revision does to the story: its flows and their steps, its fields, its screens and their regions. */
 export interface MarkImpact {
-  journeys?: JourneyImpact[];
-  fields?: FieldImpact[];
-  screens?: ScreenImpact[];
+  readonly journeys?: readonly JourneyImpact[];
+  readonly fields?: readonly FieldImpact[];
+  readonly screens?: readonly ScreenImpact[];
 }
 
 export type MarkImpactOf = (input: ImpactInput) => MarkImpact | null;
 
 export interface ProposedMarks {
-  version: string;
-  base: string;
+  readonly version: string;
+  readonly base: string;
   /** id → the words for its mark: "new in 1.2", "works differently in 1.2", "removed in 1.2", "changes in 1.2". */
-  marks: Map<string, string>;
+  readonly marks: ReadonlyMap<string, string>;
 }
 
 const STEP: Record<string, string> = {
@@ -70,8 +70,9 @@ function journeyMarks(
   for (const f of journeys) {
     const moved = (f.steps ?? []).filter((s) => STEP[s.mark ?? ''] !== undefined);
     for (const s of moved) put(s.id, STEP[s.mark ?? ''] ?? 'changes');
-    if (f.status !== undefined && (moved.length > 0 || f.status !== 'changed'))
+    if (f.status !== undefined && (moved.length > 0 || f.status !== 'changed')) {
       put(f.id, shape(f.status));
+    }
   }
 }
 
@@ -120,8 +121,8 @@ const impactFor = (
 const MEMO = new WeakMap<Revision, Map<string, ProposedMarks>>();
 
 interface MarkOptions {
-  impactOf: MarkImpactOf;
-  delivery?: DeliveryState | null;
+  readonly impactOf: MarkImpactOf;
+  readonly delivery?: DeliveryState | null;
 }
 
 /** Every mark a revision puts on the story, first reason winning. */
@@ -147,8 +148,9 @@ function marksOf(
  */
 export function proposedMarks(revision: Revision, opts: MarkOptions): ProposedMarks | null {
   const approved = revision.approved;
-  if (revision.viewing !== 'head' || revision.head.status !== 'proposed' || !approved?.plan)
+  if (revision.viewing !== 'head' || revision.head.status !== 'proposed' || !approved?.plan) {
     return null;
+  }
   const delivery = opts.delivery ?? null;
   const version = String(revision.head.version);
   const key = [version, delivery?.filed, delivery?.done].map(String).join('|');

@@ -1,15 +1,28 @@
 import { describe, expect, it, vi } from 'vitest';
 
+import { giftWrap } from '@/../test/fixtures/acme/plans/journeys-gift-wrap';
+import { pauseOrders } from '@/../test/fixtures/acme/plans/pause-orders';
+import {
+  giftWrapVersioned,
+  orderEventVersioned,
+} from '@/../test/fixtures/acme/plans/versions-gift-wrap';
+import { orderEventV2 } from '@/../test/fixtures/acme/plans/versions-order-event';
+import { shopGraph } from '@/../test/fixtures/journeys-shop-graph';
+import { modelOf } from '@/../test/plan-kit';
 import { derive, type Model } from '@/application/plan/derive';
 import type { Plan } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
-const { listPlans, listRevisions, readPlan, readRevision, readStatus } =
-  await import('@/infrastructure/plan-store');
-
-const WORKSPACE = 'alder-finch';
+const PLANS: Readonly<Record<string, () => Plan>> = {
+  'gift-wrap': giftWrap,
+  'pause-orders': pauseOrders,
+  'order-event-v2': orderEventV2,
+  shop: shopGraph,
+  'gift-wrap 1.2': () => giftWrapVersioned().plan,
+  'order-event-v2 1.1': () => orderEventVersioned().plan,
+};
 
 /** Ask the model everything it can be asked about every thing in the plan; none of it may throw. */
 function askAll(m: Model): void {
@@ -56,44 +69,27 @@ function askAll(m: Model): void {
   m.touchedAsIs();
 }
 
-async function planOf(slug: string, version?: string): Promise<Plan> {
-  const { plan, errors } =
-    version === undefined
-      ? await readPlan(WORKSPACE, slug)
-      : await readRevision({ workspace: WORKSPACE, slug, version });
-  if (plan === null) throw new Error(`${slug}: ${JSON.stringify(errors)}`);
-  return plan;
-}
-
-describe('the alder-finch plans', () => {
-  it('lists the plans of the workspace', async () => {
-    expect(await listPlans(WORKSPACE)).toEqual([
-      'delivery-promise',
-      'invoice-vat-number',
-      'stock-reservation',
-      'storefront-graph',
-    ]);
+describe('the fixture plans', () => {
+  it.each(Object.keys(PLANS))('%s: derives and answers every question', (slug) => {
+    const plan = PLANS[slug]?.();
+    if (plan === undefined) throw new Error(`no ${slug}`);
+    const m = modelOf(plan, {
+      status: { 'wi:wrap-sheet': { state: 'closed', closed_at: '2026-05-30' } },
+    });
+    askAll(m);
+    expect(m.validation().errors).toEqual([]);
   });
 
-  it.each(['delivery-promise', 'invoice-vat-number', 'stock-reservation', 'storefront-graph'])(
-    '%s: derives and answers every question',
-    async (slug) => {
-      const status = await readStatus(WORKSPACE, slug);
-      const plan = await planOf(slug);
-      const m = derive(plan, { status });
-      askAll(m);
-      expect(m.validation().errors).toEqual([]);
-    },
-  );
-
-  it.each(['invoice-vat-number', 'stock-reservation'])(
-    '%s: derives from every revision',
-    async (slug) => {
-      const versions = await listRevisions(WORKSPACE, slug);
-      expect(versions.length).toBeGreaterThan(0);
-      for (const v of versions) askAll(derive(await planOf(slug, v)));
-    },
-  );
+  it.each([
+    ['gift-wrap', giftWrapVersioned],
+    ['order-event-v2', orderEventVersioned],
+  ])('%s: derives from every revision', (_, versioned) => {
+    const { plan, versions, snapshots } = versioned();
+    const earlier = Object.values(snapshots);
+    expect(earlier.length).toBeGreaterThan(0);
+    expect(versions.revision.steps).toHaveLength(plan.meta.revisions?.length ?? -1);
+    for (const snapshot of earlier) askAll(derive(snapshot));
+  });
 });
 
 describe('a plan with only the required sections', () => {

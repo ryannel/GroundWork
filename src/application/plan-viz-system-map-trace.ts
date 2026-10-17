@@ -19,9 +19,11 @@ function ownedBy(drawing: SystemMapDrawing, id: string): Set<string> {
   return own;
 }
 
-function withSystems(drawing: SystemMapDrawing, ids: Set<string>): Set<string> {
-  for (const n of drawing.nodes) if (ids.has(n.id) && n.system !== null) ids.add(n.system);
-  return ids;
+function withSystems(drawing: SystemMapDrawing, ids: ReadonlySet<string>): ReadonlySet<string> {
+  const systems = drawing.nodes.flatMap((n) =>
+    ids.has(n.id) && n.system !== null ? [n.system] : [],
+  );
+  return new Set([...ids, ...systems]);
 }
 
 function ofNode(drawing: SystemMapDrawing, id: string): Trace {

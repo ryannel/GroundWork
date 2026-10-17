@@ -62,7 +62,9 @@ interface At {
   readonly fanout?: Fanout;
 }
 
-async function readRaw(file: string): Promise<{ data: unknown } | { error: Issue }> {
+async function readRaw(
+  file: string,
+): Promise<{ readonly data: unknown } | { readonly error: Issue }> {
   try {
     return { data: parse(await readFile(file, 'utf8'), { prettyErrors: true, uniqueKeys: true }) };
   } catch (error) {
@@ -140,8 +142,9 @@ async function readPlanFile(file: string, at: At, fanout?: Fanout): Promise<Plan
   const raw = await readRaw(file);
   if ('error' in raw) return { plan: null, errors: [raw.error], warnings: [], base: NO_BASE };
   const reading = isRecord(raw.data) ? await readPlanBase(at.workspace, at.slug, at.root) : null;
-  if (reading === null || !isRecord(raw.data))
+  if (reading === null || !isRecord(raw.data)) {
     return { ...(await checkPlanData(raw.data, fanout)), base: NO_BASE };
+  }
   return readOnBase(raw.data, reading, { ...at, ...(fanout === undefined ? {} : { fanout }) });
 }
 
@@ -154,7 +157,7 @@ export async function listPlans(workspace: string, root?: string): Promise<strin
 export async function readPlan(
   workspace: string,
   slug: string,
-  options: { root?: string; fanout?: Fanout } = {},
+  options: { readonly root?: string; readonly fanout?: Fanout } = {},
 ): Promise<PlanRead> {
   const { root } = options;
   const folder = await planFolder(root, workspace, slug);
@@ -177,8 +180,8 @@ export async function listRevisions(
 
 /** Read and check one revision snapshot. */
 export async function readRevision(
-  at: { workspace: string; slug: string; version: string },
-  options: { root?: string; fanout?: Fanout } = {},
+  at: { readonly workspace: string; readonly slug: string; readonly version: string },
+  options: { readonly root?: string; readonly fanout?: Fanout } = {},
 ): Promise<PlanRead> {
   const { root } = options;
   const folder = await planFolder(root, at.workspace, at.slug);

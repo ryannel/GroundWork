@@ -73,13 +73,18 @@ function sizePipe(model: Model, n: FlowNodeSpec): Size {
   return { w: PIPE_W, h: ph + events, ph, nameLines };
 }
 
+const sizeOf = (model: Model, n: FlowNodeSpec): Size => {
+  if (n.kind === 'service') return sizeCard(model, n);
+  return n.kind === 'topic' ? sizePipe(model, n) : { w: STORE_W, h: STORE_H };
+};
+
 /** How big each node is drawn. */
-export function sizeNodes(model: Model, graph: FlowGraph): void {
-  for (const n of graph.nodes.values()) {
-    if (n.kind === 'service') Object.assign(n, sizeCard(model, n));
-    else if (n.kind === 'topic') Object.assign(n, sizePipe(model, n));
-    else Object.assign(n, { w: STORE_W, h: STORE_H });
-  }
+export function sizeNodes(model: Model, graph: FlowGraph): FlowGraph {
+  const nodes = [...graph.nodes].map(([id, n]): readonly [string, FlowNodeSpec] => [
+    id,
+    { ...n, ...sizeOf(model, n) },
+  ]);
+  return { ...graph, nodes: new Map(nodes) };
 }
 
 const accessKey = (it: FlowItem): string | null =>
@@ -88,59 +93,73 @@ const accessKey = (it: FlowItem): string | null =>
     : null;
 
 // One arrow per access of the same records, however many steps make it.
-function labelItems(items: readonly FlowItem[]): FlowItem[] {
-  const out: FlowItem[] = [];
-  const access = new Map<string, FlowItem>();
+function labelItems(items: readonly FlowItem[]): readonly FlowItem[] {
+  const members = new Map<string, readonly FlowItem[]>();
   for (const item of items) {
     const key = accessKey(item);
-    const same = key === null ? undefined : access.get(key);
-    if (same?.members !== undefined) {
-      same.members.push(item);
-      continue;
-    }
-    const label = { ...item, members: [item] };
-    out.push(label);
-    if (key !== null) access.set(key, label);
+    if (key !== null) members.set(key, [...(members.get(key) ?? []), item]);
   }
-  return out;
+  return items.flatMap((item) => {
+    const key = accessKey(item);
+    const group = key === null ? [item] : (members.get(key) ?? [item]);
+    return group[0] === item ? [{ ...item, members: group }] : [];
+  });
 }
 
 function lineOf(model: Model, mode: FlowMode, satellite: boolean) {
-  return (it: FlowItem): LabelLine[] => {
-    const lines = wrapText(it.text, satellite ? SAT_CH : LABEL_CH, 2);
+  return (it: FlowItem): readonly LabelLine[] => {
     const note =
       it.implicit === true || it.fan === true ? '' : stateNote(stepState(model, mode, it.s));
-    if (note !== '') lines.push(note);
+    const lines = [
+      ...wrapText(it.text, satellite ? SAT_CH : LABEL_CH, 2),
+      ...(note === '' ? [] : [note]),
+    ];
     return lines.map((t, k) => ({ t, first: k === 0, it }));
   };
 }
 
-/** What every arrow says, sized so the gaps between columns fit it. */
-export function labelEdges(
-  model: Model,
-  graph: FlowGraph,
-  { mode, rank }: { mode: FlowMode; rank: ReadonlyMap<string, number> },
-): void {
-  // one caller into several endpoints of the same service: one label, on the top line
-  const carrier = new Map<string, FlowEdge>();
-  for (const e of graph.edges.values()) {
+// One caller into several endpoints of the same service: one label, on the top line.
+function carriedItems(
+  edges: ReadonlyMap<string, FlowEdge>,
+): ReadonlyMap<string, readonly FlowItem[]> {
+  const carrier = new Map<string, string>();
+  const all = new Map<string, readonly FlowItem[]>();
+  for (const e of edges.values()) {
     const k = `${e.from}>${e.to}`;
     const first = carrier.get(k);
     if (first === undefined) {
-      carrier.set(k, e);
-      e.all = [...e.items];
+      carrier.set(k, e.key);
+      all.set(e.key, e.items);
     } else {
-      first.all.push(...e.items);
-      e.all = [];
+      all.set(first, [...(all.get(first) ?? []), ...e.items]);
+      all.set(e.key, []);
     }
   }
-  const satellites = new Set(graph.sats.values());
-  for (const e of [...graph.edges.values(), ...graph.sats.values()]) {
-    const satellite = satellites.has(e);
-    const items = satellite ? e.items : e.all.toSorted((a, b) => a.i - b.i);
-    e.lines = labelItems(items).flatMap(lineOf(model, mode, graph.sats.has(e.to)));
-    e.lw = e.lines.length > 0 ? Math.max(...e.lines.map((l) => l.t.length * CHAR)) + 22 : 0;
-    e.lh = e.lines.length > 0 ? e.lines.length * LINE + 4 : 0;
-    e.back = !graph.sats.has(e.to) && (rank.get(e.to) ?? 0) <= (rank.get(e.from) ?? 0);
-  }
+  return all;
+}
+
+interface Labelling {
+  readonly mode: FlowMode;
+  readonly rank: ReadonlyMap<string, number>;
+}
+
+/** What every arrow says, sized so the gaps between columns fit it. */
+export function labelEdges(model: Model, graph: FlowGraph, { mode, rank }: Labelling): FlowGraph {
+  const carried = carriedItems(graph.edges);
+  const label = (e: FlowEdge, satellite: boolean): FlowEdge => {
+    const all = carried.get(e.key) ?? e.all;
+    const items = satellite ? e.items : all.toSorted((a, b) => a.i - b.i);
+    const lines = labelItems(items).flatMap(lineOf(model, mode, graph.sats.has(e.to)));
+    const lw = lines.length > 0 ? Math.max(...lines.map((l) => l.t.length * CHAR)) + 22 : 0;
+    const lh = lines.length > 0 ? lines.length * LINE + 4 : 0;
+    const back = !graph.sats.has(e.to) && (rank.get(e.to) ?? 0) <= (rank.get(e.from) ?? 0);
+    return { ...e, all, lines, lw, lh, back };
+  };
+  const edges = new Map([...graph.edges].map(([key, e]) => [key, label(e, false)]));
+  const sats = new Map([...graph.sats].map(([id, e]) => [id, label(e, true)]));
+  const nodes = [...graph.nodes].map(([id, n]): readonly [string, FlowNodeSpec] => [
+    id,
+    { ...n, sats: n.sats.map((sat) => ({ ...sat, e: sats.get(sat.id) ?? sat.e })) },
+  ]);
+  return { nodes: new Map(nodes), edges, sats };
 }

@@ -9,31 +9,31 @@ export type CallStop = 'cycle' | 'depth' | 'unhandled' | null;
 /** One link under a handler, and the handlers it leads to. */
 export interface CallLink extends Omit<HandlerEdge, 'handler' | 'on' | 'from'> {
   /** The callee's handler for an endpoint; each consumer's handler for a message; none for a read or write. */
-  next: CallTree[];
-  stop: CallStop;
+  readonly next: readonly CallTree[];
+  readonly stop: CallStop;
 }
 
 /** A handler and everything it sets off, as deep as the limit allows. */
 export interface CallTree {
-  handler: string;
-  on: string;
-  component: string;
-  summary: string | null;
-  links: CallLink[];
+  readonly handler: string;
+  readonly on: string;
+  readonly component: string;
+  readonly summary: string | null;
+  readonly links: readonly CallLink[];
 }
 
 export interface CallTreeOptions {
   /** How many hops to follow below the entry; 8 when not given. */
-  depth?: number;
-  mode?: string;
+  readonly depth?: number;
+  readonly mode?: string;
 }
 
 const DEFAULT_DEPTH = 8;
 
 interface Grower {
-  byOn: Map<string, HandlerNode[]>;
-  edges: Map<string, HandlerEdge[]>;
-  max: number;
+  readonly byOn: ReadonlyMap<string, readonly HandlerNode[]>;
+  readonly edges: ReadonlyMap<string, readonly HandlerEdge[]>;
+  readonly max: number;
 }
 
 function groupBy<T>(list: readonly T[], key: (x: T) => string): Map<string, T[]> {
@@ -43,8 +43,8 @@ function groupBy<T>(list: readonly T[], key: (x: T) => string): Map<string, T[]>
 }
 
 interface Trail {
-  above: ReadonlySet<string>;
-  depth: number;
+  readonly above: ReadonlySet<string>;
+  readonly depth: number;
 }
 
 const factsOf = (e: HandlerEdge): Omit<CallLink, 'next' | 'stop'> => ({
@@ -94,7 +94,14 @@ function entryHandlers(g: SystemGraph, entry: string): HandlerNode[] {
 }
 
 /** Handler links and call trees: what runs under each entrypoint, and when. */
-export function createHandlers(core: Core) {
+export interface HandlerQueries {
+  readonly handlerEdges: (mode?: string) => HandlerEdge[];
+  readonly handlersOf: (id: string, mode?: string) => string[];
+  /** The call tree under an entry, no deeper than `options.depth` hops. */
+  readonly callTree: (entry: string, options?: CallTreeOptions) => CallTree[];
+}
+
+export function createHandlers(core: Core): HandlerQueries {
   const handlerEdges = memo((mode: string | undefined = 'toBe'): HandlerEdge[] =>
     handlerEdgesIn(core.graphOf(mode)),
   );

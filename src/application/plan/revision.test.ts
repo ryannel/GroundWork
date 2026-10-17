@@ -1,5 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 
+import { settledPauseOrders } from '@/../test/fixtures/acme/plans/core-settled';
+import { giftWrapVersioned } from '@/../test/fixtures/acme/plans/versions-gift-wrap';
 import { buildRevision } from '@/application/plan/revision';
 import {
   diffEntry,
@@ -10,10 +12,9 @@ import {
 } from '@/application/plan/revision-view';
 import type { Plan } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
-const { listRevisions, readPlan, readRevision } = await import('@/infrastructure/plan-store');
 
 const FIRST = {
   version: '1.0',
@@ -199,30 +200,30 @@ describe('an earlier revision', () => {
   });
 });
 
-describe('a real plan with revisions', () => {
-  it.each(['invoice-vat-number', 'stock-reservation'])(
+const PLANS = {
+  'gift-wrap': () => giftWrapVersioned(),
+  'pause-orders': settledPauseOrders,
+};
+
+describe('a plan with revisions on Acme', () => {
+  it.each(Object.keys(PLANS) as (keyof typeof PLANS)[])(
     '%s: reads its snapshots and builds',
-    async (slug) => {
-      const workspace = 'alder-finch';
-      const { plan: head } = await readPlan(workspace, slug);
-      if (head === null) throw new Error(`${slug} did not load`);
-      const versions = await listRevisions(workspace, slug);
+    (slug) => {
+      const { plan: head, snapshots } = PLANS[slug]();
+      const versions = Object.keys(snapshots);
       const want = snapshotsWanted(head, 'head');
-      const read =
-        want.approved === null
-          ? null
-          : await readRevision({ workspace, slug, version: want.approved });
-      const r = buildRevision(head, read?.plan ?? null, { snapshots: versions });
+      const read = want.approved === null ? null : (snapshots[want.approved] ?? null);
+      const r = buildRevision(head, read, { snapshots: versions });
       expect(r.ledger.length).toBeGreaterThan(0);
       expect(r.history.every((h) => h.available || !versions.includes(h.version))).toBe(true);
-      if (slug === 'invoice-vat-number') {
-        expect(r.head.status).toBe('proposed');
-        expect(r.approved?.version).toBe('1.0');
-        expect(r.diff?.empty).toBe(false);
-      } else {
-        expect(r.head.status).toBe('approved');
-        expect(r.diff).toBeNull();
-      }
+      const seen = {
+        status: r.head.status,
+        approved: r.approved?.version,
+        diffEmpty: r.diff === null ? null : r.diff.empty,
+      };
+      const proposed = { status: 'proposed', approved: '1.0', diffEmpty: false };
+      const approved = { status: 'approved', approved: '1.0', diffEmpty: null };
+      expect(seen).toEqual(slug === 'gift-wrap' ? proposed : approved);
     },
   );
 });

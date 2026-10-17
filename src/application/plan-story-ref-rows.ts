@@ -48,8 +48,8 @@ export function testsByLevel(tests: readonly Test[]): LevelTests[] {
 export interface OperationRow {
   readonly op: OperationNode;
   readonly fields: number;
-  readonly subgraphs: string[];
-  readonly teams: string[];
+  readonly subgraphs: readonly string[];
+  readonly teams: readonly string[];
   readonly cached: string;
 }
 
@@ -90,7 +90,7 @@ export function operationRow(model: Model, op: OperationNode, show: Show): Opera
 export function operationsByScreen(
   model: Model,
   show: Show,
-): { screen: string; rows: OperationRow[] }[] {
+): { readonly screen: string; readonly rows: readonly OperationRow[] }[] {
   const ops = poolOf(model.asIs.operations, model.toBe.operations, show);
   const by = groupBy(ops, (o) => (o.screens?.[0] ?? '').split('#')[0] ?? '');
   return [...by].map(([screen, list]) => ({

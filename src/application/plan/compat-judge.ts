@@ -10,43 +10,43 @@ import {
 import { type Verdict, worse } from '@/application/plan/compat-rules';
 
 export interface Hit {
-  target: string;
-  field?: string;
-  verdict: Verdict;
-  rule: string;
-  text: string;
-  who: Kind[];
+  readonly target: string;
+  readonly field?: string;
+  readonly verdict: Verdict;
+  readonly rule: string;
+  readonly text: string;
+  readonly who: readonly Kind[];
 }
 
 export interface Reason {
-  target: string;
-  rule: string;
-  text: string;
-  verdict: Verdict;
+  readonly target: string;
+  readonly rule: string;
+  readonly text: string;
+  readonly verdict: Verdict;
 }
 
 export interface Person extends Affected {
-  target: string;
-  movedBy: Moved | null;
+  readonly target: string;
+  readonly movedBy: Moved | null;
 }
 
 export interface Compat {
-  verdict: Verdict;
-  reasons: Reason[];
-  who: Person[];
+  readonly verdict: Verdict;
+  readonly reasons: readonly Reason[];
+  readonly who: readonly Person[];
 }
 
 export interface Judged extends Compat {
-  targets: Map<string, Verdict>;
+  readonly targets: ReadonlyMap<string, Verdict>;
 }
 
 export const nothing = (): Compat => ({ verdict: 'safe', reasons: [], who: [] });
 
 const sameWho = (a: Affected, b: Affected): boolean => a.svc === b.svc && a.role === b.role;
-const firstOf = <T extends Affected>(w: T, i: number, all: T[]): boolean =>
+const firstOf = <T extends Affected>(w: T, i: number, all: readonly T[]): boolean =>
   all.findIndex((x) => sameWho(x, w)) === i;
 
-export function merge(parts: Compat[]): Compat {
+export function merge(parts: readonly Compat[]): Compat {
   return {
     verdict: parts.reduce<Verdict>((v, p) => worse(v, p.verdict), 'safe'),
     reasons: parts.flatMap((p) => p.reasons),
@@ -54,13 +54,16 @@ export function merge(parts: Compat[]): Compat {
   };
 }
 
-function nounOf(kinds: Kind[]): string {
+function nounOf(kinds: readonly Kind[]): string {
   if (kinds.includes('caller')) return 'caller';
   return kinds.includes('consumer') ? 'consumer' : 'reader';
 }
 
 /** A breaking hit whose readers are all moved by this plan is needs migration, and says so. */
-function breakingReasons(h: Hit, people: Person[]): { verdict: Verdict; reasons: Reason[] } {
+function breakingReasons(
+  h: Hit,
+  people: readonly Person[],
+): { readonly verdict: Verdict; readonly reasons: readonly Reason[] } {
   const reason = (rule: string, text: string, verdict: Verdict): Reason => ({
     target: h.target,
     rule,
@@ -100,7 +103,7 @@ function peopleOf(env: PeopleEnv, h: Hit, ctx: Ctx): Person[] {
  * Turn rule hits into a verdict: each hit says what and who; a breaking hit whose readers are all moved by this
  * plan is needs migration.
  */
-export function judge(env: PeopleEnv, hits: Hit[], ctx: Ctx): Judged {
+export function judge(env: PeopleEnv, hits: readonly Hit[], ctx: Ctx): Judged {
   const reasons: Reason[] = [];
   const who: Person[] = [];
   const targets = new Map<string, Verdict>();

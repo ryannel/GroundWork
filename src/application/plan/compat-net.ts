@@ -4,18 +4,18 @@ import type { InterfaceNode, SchemaNode, SystemGraph } from '@/domain/plan/plan-
 type Status = 'added' | 'removed' | 'modified';
 
 interface Row {
-  status: Status;
-  before: object | null;
-  after: object | null;
-  props: PropRow[];
+  readonly status: Status;
+  readonly before: object | null;
+  readonly after: object | null;
+  readonly props: readonly PropRow[];
 }
 
 export interface FieldRow extends Row {
-  field: string;
+  readonly field: string;
 }
 
 export interface EndpointRow extends Row {
-  endpoint: string;
+  readonly endpoint: string;
 }
 
 export type NetRow = PropRow | FieldRow | EndpointRow;

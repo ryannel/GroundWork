@@ -1,6 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { derive } from '@/application/plan/derive';
+import { deliveryTime } from '@/../test/fixtures/acme/plans/contracts-delivery-time';
+import { modelOf } from '@/../test/plan-kit';
 import {
   keyBadges,
   keyContext,
@@ -19,25 +20,27 @@ import {
   type FieldRow,
 } from '@/application/plan-viz-fields';
 
-vi.mock('server-only', () => ({}));
-
-const { readPlan } = await import('@/infrastructure/plan-store');
-
-const loaded = await readPlan('alder-finch', 'delivery-promise');
-const model = derive(loaded.plan!);
+const model = modelOf(deliveryTime());
 const PRODUCT = 'sch:product';
 
 describe('fieldRows', () => {
   it('lists the to-be fields in a diff with what changed on each', () => {
     const rows = fieldRows(model, PRODUCT, 'diff');
-    expect(rows.length).toBeGreaterThan(2);
-    const lead = rows.find((r) => r.field.name === 'lead_time_text');
-    expect(lead?.status).not.toBe('existing');
-    expect(lead?.changes.length).toBeGreaterThan(0);
+    expect(rows.map((r) => `${r.field.name} ${r.status}`)).toEqual([
+      'sku existing',
+      'price_cents modified',
+      'title added',
+      'lead_days added',
+      'weight_g added',
+      'name removed',
+    ]);
+    const name = rows.find((r) => r.field.name === 'name');
+    expect(name?.changes).toEqual(['chg:product-delivery', 'chg:drop-name']);
   });
 
   it('shows the as-is fields without marks in as-is mode', () => {
     const rows = fieldRows(model, PRODUCT, 'asIs');
+    expect(rows.map((r) => r.field.name)).toEqual(['sku', 'name', 'price_cents']);
     expect(rows.every((r) => r.status === 'existing')).toBe(true);
   });
 
@@ -49,9 +52,11 @@ describe('fieldRows', () => {
 describe('schemaCounts and worstFields', () => {
   it('counts what changed and ranks the field that breaks readers first', () => {
     const counts = schemaCounts(model, PRODUCT);
-    expect(counts.added + counts.modified + counts.deprecated + counts.removed).toBeGreaterThan(0);
+    expect(counts).toMatchObject({ fields: 5, before: 3, added: 3, modified: 1, removed: 1 });
     const worst = worstFields(model, PRODUCT);
+    expect(worst[0]?.fid).toBe('sch:product#name');
     expect(worst[0]?.verdict).toBe('breaking');
+    expect(worst.at(-1)?.verdict).toBe('safe');
     const order = worstFirst(model, PRODUCT, fieldRows(model, PRODUCT, 'diff'));
     expect(order[0]?.fid).toBe(worst[0]?.fid);
   });

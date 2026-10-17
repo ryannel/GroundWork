@@ -8,7 +8,7 @@ import { entityCard } from './plan-pages-entity-card';
 import { readEntries } from './plan-pages-entity-read';
 import { mentionsOf, placesOf } from './plan-pages-entity-where';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -21,7 +21,7 @@ describe('readEntries', () => {
     const read = readEntries({ likelihood: 'med', impact: 'high', roam: 'mitigated' });
     const facts = Object.fromEntries(read.facts.map((f) => [f.label, f.value]));
     expect(facts.Likelihood).toBe('medium');
-    expect(facts.Handling).toMatch(/^mitigated: /);
+    expect(facts.Handling).toMatch(/^mitigated: /u);
     expect(read.facts.some((f) => f.label.toLowerCase() === 'roam')).toBe(false);
   });
 
@@ -68,8 +68,8 @@ describe('where a thing appears', () => {
     const places = placesOf(model, outline, 'svc:subs');
     expect(places.length).toBeGreaterThan(0);
     for (const place of places) {
-      expect(place.label).toMatch(/^(\d+|R) · \S/);
-      expect(place.href).toMatch(/^\/shop\/plans\/mini\//);
+      expect(place.label).toMatch(/^(?:\d+|R) · \S/u);
+      expect(place.href).toMatch(/^\/shop\/plans\/mini\//u);
     }
   });
 

@@ -8,18 +8,22 @@ import { unmark } from '@/application/plan-story-versions-words';
 // Everything that differs between two versions of a plan, one plain sentence each.
 
 const kindOf = (key: string): string =>
-  key.replaceAll('_', ' ').replace(/ies$/, 'y').replace(/s$/, '');
+  key.replaceAll('_', ' ').replace(/ies$/u, 'y').replace(/s$/u, '');
 
 const isScalar = (x: unknown): boolean =>
   x === null || x === undefined || ['string', 'number', 'boolean'].includes(typeof x);
 
 const short = (x: unknown): string =>
   typeof x === 'string' || typeof x === 'number' || typeof x === 'boolean'
-    ? String(x).replaceAll(/\s+/g, ' ').trim()
+    ? String(x).replaceAll(/\s+/gu, ' ').trim()
     : '';
 
 /** What one changed key of one entity says, and the before and after when both are plain values. */
-function keyItem(view: View, at: { key: string; id: string }, k: string): EditItem {
+function keyItem(
+  view: View,
+  at: { readonly key: string; readonly id: string },
+  k: string,
+): EditItem {
   const { key, id } = at;
   const [was, now] = [findEntity(view.pair.from, id), findEntity(view.pair.to, id)];
   const [a, b] = [prop(was, k), prop(now, k)];
@@ -92,10 +96,9 @@ function milestoneItems(view: View): EditItem[] {
 
 /** Every edit between the two versions, in plain sentences. */
 export function editItems(view: View): EditItem[] {
-  const taken = new Set<string>();
-  const ops = opItems(view, taken);
+  const { items, taken } = opItems(view);
   return [
-    ...ops,
+    ...items,
     ...entityItems(view, taken),
     ...workItems(view, taken),
     ...questionItems(view),

@@ -13,20 +13,24 @@ function names(ids: readonly string[], label: (id: string) => string): string {
  * Where the plan's today comes from. An open plan reads the workspace's today as it is now, so a change there reaches
  * it; when today has moved something the plan changes since it was last checked, that is said loudly.
  */
-export function baseLine(base: BaseInfo, label: (id: string) => string): AskLine | null {
+export function baseLine(
+  base: BaseInfo,
+  label: (id: string) => string,
+  today: Date | undefined,
+): AskLine | null {
   if (base.mode === 'none') return null;
   if (base.mode === 'landed') {
     const text =
       base.landedOn === null
         ? 'Reads today as it stood when it was kept with the plan.'
-        : `Reads today as it stood on ${shortDate(base.landedOn)}, kept with the plan.`;
+        : `Reads today as it stood on ${shortDate(base.landedOn, today)}, kept with the plan.`;
     return { tone: 'note', text, link: null };
   }
   if (base.checkedOn === null) {
     const text = 'Reads today live, but has never been checked against it.';
     return { tone: 'warn', text, link: TODAY };
   }
-  const checked = shortDate(base.checkedOn);
+  const checked = shortDate(base.checkedOn, today);
   if (base.drift.length === 0) {
     return { tone: 'note', text: `Reads today live; it last fitted on ${checked}.`, link: TODAY };
   }

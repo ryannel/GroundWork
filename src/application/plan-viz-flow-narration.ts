@@ -22,7 +22,7 @@ export interface StepRowData {
 
 export interface Narration {
   /** "Step 3" or "Steps 4–6", the number part. */
-  readonly num: string;
+  readonly number: string;
   readonly group: boolean;
   readonly text: string;
   readonly route: Route;
@@ -93,7 +93,7 @@ export function narrate(steps: readonly FlowStep[], stop: Stop): Narration | nul
   const [a, b] = [stop.indices[0] ?? 0, stop.indices.at(-1) ?? 0];
   const screens = unique(list.flatMap((s) => (s.screen === undefined ? [] : [base(s.screen)])));
   return {
-    num: group ? `${String(a + 1)}–${String(b + 1)}` : String(a + 1),
+    number: group ? `${String(a + 1)}–${String(b + 1)}` : String(a + 1),
     group,
     text: stop.title,
     route: routeOf(stop, list, first),

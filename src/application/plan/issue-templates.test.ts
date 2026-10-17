@@ -52,7 +52,7 @@ describe('issue templates', () => {
 
   it('refuses a markdown-style template', () => {
     expect(() => parseIssueTemplate({ name: 'x', about: 'markdown-style' }, 'x.yml')).toThrow(
-      /not an issue form/,
+      /not an issue form/u,
     );
   });
 });

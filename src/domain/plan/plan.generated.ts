@@ -1002,7 +1002,7 @@ export interface Handler {
  */
 export interface CodeSource {
   /**
-   * the repository, e.g. github.com/alder-finch/pricing
+   * the repository, e.g. github.com/acme/pricing
    */
   repo: string;
   /**

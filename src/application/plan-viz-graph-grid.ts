@@ -64,7 +64,7 @@ const NO_OWNERS: FieldOwners = {
 
 const unique = <T>(items: readonly T[]): T[] => [...new Set(items)];
 
-const baseType = (type: string | undefined): string => (type ?? '').replaceAll(/[![\]]/g, '');
+const baseType = (type: string | undefined): string => (type ?? '').replaceAll(/[![\]]/gu, '');
 
 /** "Pricing and Cart are asked for a Product by its sku, after Catalogue answers." */
 function entityFetchLine(model: Model, typeId: string, mode: GraphMode): string {
@@ -110,7 +110,7 @@ function sidesOf(
 function stateOf(
   change: FieldChange | undefined,
   placed: { readonly before: boolean; readonly after: boolean },
-): { state: FieldState; note: string } {
+): { readonly state: FieldState; readonly note: string } {
   if (change === undefined) return { state: 'same', note: '' };
   const removed = change.status === 'removed';
   if (placed.before && !placed.after) {
@@ -202,7 +202,7 @@ function columnsOf(
 function typesShown(
   model: Model,
   graphId: string,
-  scope: { mode: GraphMode; diff: GraphDiff | null },
+  scope: { readonly mode: GraphMode; readonly diff: GraphDiff | null },
 ) {
   const now = graphTypes(model, graphId, scope.diff === null ? scope.mode : 'toBe');
   if (scope.diff === null) return now;

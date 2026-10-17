@@ -6,7 +6,7 @@ import { serviceLinks } from '@/application/plan/graph-queries';
 import { validatePlan } from '@/application/plan/validate-plan';
 import type { Plan, Service } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -145,8 +145,9 @@ async function withSystem(edit?: (p: Plan) => void): Promise<Plan> {
         { id: 'svc:subs-worker', name: 'Subs worker', team: 'team:subs', kind: 'job' },
       ],
     });
-    for (const s of p.services)
+    for (const s of p.services) {
       if (s.id === 'svc:subs' || s.id === 'svc:subs-worker') s.system = 'sys:subs';
+    }
     const db = need(
       p.stores?.find((s) => s.id === 'st:subs-db'),
       'st:subs-db',
@@ -241,19 +242,19 @@ describe('systems', () => {
     const one = await withSystem((p) => {
       delete service(p, 'svc:subs-worker').system;
     });
-    expect(warnsOn(one, /has only one service/)).toHaveLength(1);
+    expect(warnsOn(one, /has only one service/u)).toHaveLength(1);
     const split = await withSystem((p) => {
       p.domain?.stages?.[0]?.services?.pop();
       p.domain?.stages?.[1]?.services?.push({ svc: 'svc:subs-worker' });
     });
-    expect(warnsOn(split, /sit in different stages/)).toHaveLength(1);
+    expect(warnsOn(split, /sit in different stages/u)).toHaveLength(1);
     const bare = await withSystem((p) => {
       Reflect.deleteProperty(p.systems![0]!, 'sources');
     });
-    expect(warnsOn(bare, /link the code that makes them one system/)).toHaveLength(1);
+    expect(warnsOn(bare, /link the code that makes them one system/u)).toHaveLength(1);
   });
   it('warns for a service with no line, and counts a via: internal step to it as a call', async () => {
-    expect(warnsOn(await lonely(), /svc:tax has no line on the system map/)).toHaveLength(1);
+    expect(warnsOn(await lonely(), /svc:tax has no line on the system map/u)).toHaveLength(1);
     const called = await lonely((p) => {
       p.flows?.[1]?.steps.push({
         id: 'flow:billing-run#tax',
@@ -263,7 +264,7 @@ describe('systems', () => {
         action: 'Work out tax',
       });
     });
-    expect(warnsOn(called, /svc:tax has no line/)).toHaveLength(0);
+    expect(warnsOn(called, /svc:tax has no line/u)).toHaveLength(0);
     const links = serviceLinks(buildGraph(systemOf(called)), called.domain?.stages);
     expect(
       links.some(
@@ -291,10 +292,8 @@ describe('systems', () => {
 describe('glossary', () => {
   it('matches the plan’s own terms in running text and looks them up', async () => {
     const g = derive(await mini()).glossaryTerms();
-    expect(
-      [...'We dual-publish via the Outbox.'.matchAll(g.regex ?? /^$/g)].map((x) => x[0]),
-    ).toEqual(['dual-publish', 'Outbox']);
-    expect(g.lookup('OUTBOX')).toMatch(/same transaction/);
+    expect(g.find('We dual-publish via the Outbox.')).toEqual(['dual-publish', 'Outbox']);
+    expect(g.lookup('OUTBOX')).toMatch(/same transaction/u);
     expect(g.lookup('nothing')).toBeNull();
   });
   it('explains an acronym-named service and leaves names that contain a concept word whole', async () => {
@@ -321,7 +320,7 @@ describe('glossary', () => {
     const p = await mini();
     delete p.problem.glossary;
     const g = derive(p).glossaryTerms();
-    expect(g.regex).toBeNull();
+    expect(g.find('anything at all')).toEqual([]);
     expect(g.lookup('x')).toBeNull();
   });
 });

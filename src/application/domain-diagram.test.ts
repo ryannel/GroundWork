@@ -1,33 +1,31 @@
-import path from 'node:path';
+import { describe, expect, it } from 'vitest';
 
-import { describe, expect, it, vi } from 'vitest';
-
-import { systemModelOf } from '@/application/workspace-model';
-import { findWorkspace } from '@/application/workspace-paths';
-import { readWorkspaceModel } from '@/infrastructure/workspace-model';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
+import { acme } from '@/../test/workspace-kit';
 
 import { domainDiagramOf } from './domain-diagram';
 import { layDiagram } from './domain-diagram-layout';
 
-vi.mock('server-only', () => ({}));
-
-const root = path.resolve(import.meta.dirname, '../../workspaces');
-
 const box = (id: string) => ({ id, name: id, does: '', href: null, slot: 0 });
 
 describe('domainDiagramOf', () => {
-  it('draws the domain’s systems, their neighbours, and one counted line per pair', async () => {
-    const workspace = findWorkspace(await readWorkspaces(root), 'alder-finch')!;
-    const model = systemModelOf(workspace, await readWorkspaceModel(workspace, root)).model;
-    const diagram = domainDiagramOf(workspace, model, 'order-to-delivery');
-    const here = diagram.boxes.filter((b) => b.kind === 'here');
-    expect(here).toHaveLength(6);
-    expect(diagram.boxes.some((b) => b.kind === 'outside')).toBe(true);
-    expect(diagram.lines.length).toBeGreaterThan(0);
-    expect(diagram.lines.some((l) => /^\d+ (call|event|store)/.test(l.label))).toBe(true);
+  it('draws the domain’s systems, their neighbours, and one counted line per pair', () => {
+    const { workspace, today } = acme();
+    const diagram = domainDiagramOf(workspace, today.model, 'storefront');
+    const of = (kind: string) => diagram.boxes.filter((b) => b.kind === kind).map((b) => b.id);
+    expect(of('here').toSorted((a, b) => a.localeCompare(b))).toEqual(['sys:accounts', 'sys:shop']);
+    expect(of('outside')).toEqual(['sys:ordering']);
+    expect(of('actor')).toEqual(['actor:customer']);
+    expect(diagram.lines.map((l) => [l.id, l.label])).toEqual([
+      ['actor:customer>sys:shop', ''],
+      ['sys:shop>sys:ordering', '1 call'],
+    ]);
     const ids = new Set(diagram.boxes.map((b) => b.id));
     expect(diagram.lines.every((l) => ids.has(l.from) && ids.has(l.to))).toBe(true);
+  });
+
+  it('draws nothing but empty space for a domain the workspace does not have', () => {
+    const { workspace, today } = acme();
+    expect(domainDiagramOf(workspace, today.model, 'nowhere').boxes).toEqual([]);
   });
 });
 

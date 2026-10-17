@@ -18,9 +18,9 @@ export interface Merged {
   readonly hostA: string;
   readonly hostB: string;
   readonly row: string | null;
-  readonly vias: Set<string>;
-  readonly flows: Set<string>;
-  readonly parts: Set<string>;
+  readonly vias: ReadonlySet<string>;
+  readonly flows: ReadonlySet<string>;
+  readonly parts: ReadonlySet<string>;
   readonly read: boolean;
   readonly write: boolean;
   /** Only a stage says so: no flow walks it yet. */
@@ -69,11 +69,11 @@ function startOf(seen: Seen, l: Link, row: string | null): Merged {
 }
 
 function joined(prev: Merged, l: Link): Merged {
-  for (const v of l.vias) prev.vias.add(v);
-  for (const f of l.flows) prev.flows.add(f);
-  prev.parts.add(`${l.a}|${l.b}`);
   return {
     ...prev,
+    vias: new Set([...prev.vias, ...l.vias]),
+    flows: new Set([...prev.flows, ...l.flows]),
+    parts: new Set([...prev.parts, `${l.a}|${l.b}`]),
     read: prev.read || l.flags.has('read'),
     write: prev.write || l.flags.has('write'),
     noted: prev.noted && l.flags.has('hand') && !l.flags.has('walked'),
@@ -85,7 +85,7 @@ export function mergeLinks(
   agg: Aggregate,
   cols: Columns,
   nodes: ReadonlyMap<string, Box>,
-): { readonly live: Merged[]; readonly inner: Link[] } {
+): { readonly live: readonly Merged[]; readonly inner: readonly Link[] } {
   const inner: Link[] = [];
   const merged = new Map<string, Merged>();
   for (const l of agg.links.filter((x) => nodes.has(x.a) && nodes.has(x.b))) {
@@ -154,13 +154,15 @@ function spread(node: Box, list: readonly End[]): Map<number, number> {
 }
 
 /** Spread the ends that share a card side, ordered by where the other end is. */
-function ports(all: readonly Pre[]): { readonly sy: number[]; readonly ty: number[] } {
-  const ends = new Map<string, { node: Box; list: End[] }>();
+function ports(all: readonly Pre[]): {
+  readonly sy: readonly number[];
+  readonly ty: readonly number[];
+} {
+  const ends = new Map<string, { readonly node: Box; readonly list: readonly End[] }>();
   const add = (node: Box, side: string, end: End): void => {
     const key = `${node.id}|${side}`;
     const known = ends.get(key) ?? { node, list: [] };
-    known.list.push(end);
-    ends.set(key, known);
+    ends.set(key, { node: known.node, list: [...known.list, end] });
   };
   for (const [i, r] of all.entries()) {
     add(r.from, r.sa, { i, out: true, oy: mid(r.to) });
@@ -177,31 +179,50 @@ function ports(all: readonly Pre[]): { readonly sy: number[]; readonly ty: numbe
 
 interface Gap {
   readonly y: number;
-  n: number;
 }
 
 function gapsOf(placed: Placed): Gap[][] {
   return placed.blocks.map((bl) => {
-    const gs: Gap[] = [{ y: placed.top - 10, n: 0 }];
-    for (const [i, b] of bl.slice(0, -1).entries())
-      gs.push({ y: (b.bottom + (bl[i + 1]?.top ?? b.bottom)) / 2, n: 0 });
+    const gs: Gap[] = [{ y: placed.top - 10 }];
+    for (const [i, b] of bl.slice(0, -1).entries()) {
+      gs.push({ y: (b.bottom + (bl[i + 1]?.top ?? b.bottom)) / 2 });
+    }
     const last = bl.at(-1);
-    if (last !== undefined) gs.push({ y: last.bottom + 14, n: 0 });
+    if (last !== undefined) gs.push({ y: last.bottom + 14 });
     return gs;
   });
 }
 
+/** Hands out the gaps between cards and the brackets beside a column, spreading the lines that share one. */
 interface Pass {
-  readonly gaps: Gap[][];
-  readonly brackets: Map<number, number>;
+  /** The height to cross a column at, near the height the line wants. */
+  readonly cross: (col: number, want: number) => number;
+  /** How many brackets already sit beside the column. */
+  readonly bracket: (col: number) => number;
 }
 
 const at = (x: number, y: number): string => `${String(round(x))} ${String(round(y))}`;
 
-/** The gap in a column closest to the height the line wants, spreading lines that share one. */
-function nearestGap(gaps: readonly Gap[], want: number): Gap {
-  const cost = (g: Gap): number => Math.abs(g.y - want) + g.n * 8;
-  return gaps.reduce((best, g) => (cost(g) < cost(best) ? g : best), gaps[0] ?? { y: want, n: 0 });
+function passOver(placed: Placed): Pass {
+  const gaps = gapsOf(placed);
+  const used = new Map<Gap, number>();
+  const brackets = new Map<number, number>();
+  return {
+    cross: (col, want) => {
+      const [first, ...rest] = gaps[col] ?? [];
+      if (first === undefined) return want;
+      const cost = (g: Gap): number => Math.abs(g.y - want) + (used.get(g) ?? 0) * 8;
+      const best = rest.reduce((pick, g) => (cost(g) < cost(pick) ? g : pick), first);
+      const n = used.get(best) ?? 0;
+      used.set(best, n + 1);
+      return best.y + (OFFS[n % OFFS.length] ?? 0);
+    },
+    bracket: (col) => {
+      const n = brackets.get(col) ?? 0;
+      brackets.set(col, n + 1);
+      return n;
+    },
+  };
 }
 
 interface Ends {
@@ -214,8 +235,8 @@ interface Ends {
 function threaded(
   r: Pre,
   e: Ends,
-  gaps: readonly (readonly Gap[])[],
-): { pts: Point[]; lowest: number } {
+  pass: Pass,
+): { readonly pts: readonly Point[]; readonly lowest: number } {
   const dir = r.to.col > r.from.col ? 1 : -1;
   const pts: Point[] = [[e.sx, e.sy]];
   let lowest = 0;
@@ -225,12 +246,7 @@ function threaded(
   );
   for (const c of between) {
     const x0 = colX(c);
-    const g = nearestGap(
-      gaps[c] ?? [],
-      e.sy + (e.ty - e.sy) * ((x0 + CW / 2 - e.sx) / (e.tx - e.sx)),
-    );
-    const gy = g.y + (OFFS[g.n % OFFS.length] ?? 0);
-    g.n += 1;
+    const gy = pass.cross(c, e.sy + (e.ty - e.sy) * ((x0 + CW / 2 - e.sx) / (e.tx - e.sx)));
     lowest = Math.max(lowest, gy);
     const [near, far] = dir > 0 ? [x0 - 6, x0 + CW + 6] : [x0 + CW + 6, x0 - 6];
     pts.push([near, gy], [far, gy]);
@@ -257,15 +273,14 @@ function pathFor(
   r: Pre,
   y: { readonly sy: number; readonly ty: number },
   pass: Pass,
-): { d: string; tx: number; lowest: number } {
+): { readonly d: string; readonly tx: number; readonly lowest: number } {
   const sx = r.sa === 'R' ? r.from.x + r.from.w : r.from.x;
   const tx = r.sb === 'L' ? r.to.x : r.to.x + r.to.w;
   if (r.from.col !== r.to.col) {
-    const { pts, lowest } = threaded(r, { sx, tx, ...y }, pass.gaps);
+    const { pts, lowest } = threaded(r, { sx, tx, ...y }, pass);
     return { d: curved(pts), tx, lowest };
   }
-  const n = pass.brackets.get(r.from.col) ?? 0;
-  pass.brackets.set(r.from.col, n + 1);
+  const n = pass.bracket(r.from.col);
   const bx = colX(r.from.col) + CW + 12 + (n % 5) * 6;
   return {
     d: roundPath(
@@ -286,10 +301,10 @@ export function routeAll(
   live: readonly Merged[],
   nodes: ReadonlyMap<string, Box>,
   placed: Placed,
-): { readonly routes: Route[]; readonly h: number } {
+): { readonly routes: readonly Route[]; readonly h: number } {
   const all = live.map((l) => pre(l, nodes)).filter((r): r is Pre => r !== null);
   const { sy, ty } = ports(all);
-  const pass: Pass = { gaps: gapsOf(placed), brackets: new Map() };
+  const pass = passOver(placed);
   const paths = all.map((r, i) => pathFor(r, { sy: sy[i] ?? 0, ty: ty[i] ?? 0 }, pass));
   const routes = all.map((r, i): Route => ({
     line: r.line,

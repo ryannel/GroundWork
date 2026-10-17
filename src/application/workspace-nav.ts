@@ -5,7 +5,14 @@ import { keyJourneysOf } from './key-journeys';
 import { todayJourneysOf } from './today-journeys';
 import { journeyHref, journeysHref, referenceHref, referenceKindHref } from './today-reader';
 import { referenceOf } from './today-reference';
-import { domainHref, systemHref, workspaceHref } from './workspace-paths';
+import {
+  domainHref,
+  languageHref,
+  peopleHref,
+  plansHref,
+  systemHref,
+  workspaceHref,
+} from './workspace-paths';
 
 export interface NavItem {
   readonly href: string;
@@ -25,39 +32,45 @@ export interface NavGroup {
   readonly items: readonly NavItem[];
 }
 
-/** Where the reader is in the workspace: its landscape, a domain, or a system in one, or its journeys or
- * reference, at one of them by key. */
+/** Where the reader is in the workspace: its map, language or people, a domain, or a system in one, its
+ * journeys or reference (at one of them by key), or its plans. */
 export interface NavHere {
   readonly domain?: string;
   readonly system?: string;
-  readonly section?: 'journeys' | 'reference';
+  readonly section?: 'journeys' | 'reference' | 'language' | 'people' | 'plans';
   /** The journey's key or the reference's kind being read. */
   readonly key?: string;
   /** The workspace as it runs today; with it the journeys and reference list what they hold. */
   readonly today?: Model;
 }
 
-interface PlanLink {
-  readonly id: string;
-  readonly title: string;
-  readonly href: string;
+// The landscape's own pages: the map of the whole workspace, its words, and the people who use it.
+function landscapeGroup(workspace: string, here: NavHere): NavGroup {
+  const map = here.domain === undefined && here.section === undefined;
+  const words = here.section === 'language';
+  const people = here.section === 'people';
+  return {
+    key: 'landscape',
+    marker: '◦',
+    title: 'Landscape',
+    href: workspaceHref(workspace),
+    current: map,
+    open: map || words || people,
+    items: [
+      { href: workspaceHref(workspace), title: 'Map', current: map },
+      { href: languageHref(workspace), title: 'Language', current: words },
+      { href: peopleHref(workspace), title: 'People', current: people },
+    ],
+  };
 }
 
 // The workspace as a rail: its landscape first, then each domain opening to its systems, then its plans apart.
 export function workspaceNavOf(
   workspace: Workspace,
-  plans: readonly PlanLink[],
+  plans: readonly unknown[],
   here: NavHere,
 ): NavGroup[] {
-  const landscape: NavGroup = {
-    key: 'landscape',
-    marker: '◦',
-    title: 'Landscape',
-    href: workspaceHref(workspace.id),
-    current: here.domain === undefined && here.section === undefined,
-    open: false,
-    items: [],
-  };
+  const landscape = landscapeGroup(workspace.id, here);
   const domains = workspace.domains.map((domain, index): NavGroup => {
     const current = domain.id === here.domain;
     return {
@@ -76,17 +89,17 @@ export function workspaceNavOf(
     };
   });
   const today = [journeysGroup(workspace, here), referenceGroup(workspace.id, here)];
-  if (plans.length === 0) return [landscape, ...domains, ...today];
+  // A workspace can hold hundreds of plans, so the rail counts them and the index finds them.
   const planGroup: NavGroup = {
     key: 'plans',
     marker: 'P',
     title: 'Plans',
-    href: `${workspaceHref(workspace.id)}#plans`,
-    count: String(plans.length),
-    current: false,
-    open: true,
+    href: plansHref(workspace.id),
+    ...(plans.length === 0 ? {} : { count: String(plans.length) }),
+    current: here.section === 'plans',
+    open: false,
     side: true,
-    items: plans.map((plan) => ({ href: plan.href, title: plan.title, current: false })),
+    items: [],
   };
   return [landscape, ...domains, ...today, planGroup];
 }

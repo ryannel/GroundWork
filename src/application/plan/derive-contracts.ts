@@ -3,23 +3,24 @@ import { memo } from '@/application/plan/derive-values';
 import type { FanoutCall, StepNode, SystemGraph } from '@/domain/plan/plan-graph';
 import type { Test } from '@/domain/plan/plan.generated';
 
-interface UncontractedLink {
-  from: string;
-  to: string;
-  via: string;
-  step: string;
-  flow: string | undefined;
-  steps: string[];
-  reason: 'added' | 'via-changed' | 'fanout-changed';
-  subgraph?: string;
+export interface UncontractedLink {
+  readonly from: string;
+  readonly to: string;
+  readonly via: string;
+  readonly step: string;
+  readonly flow: string | undefined;
+  readonly steps: readonly string[];
+  readonly reason: 'added' | 'via-changed' | 'fanout-changed';
+  readonly subgraph?: string;
 }
 
-type Links = Map<string, UncontractedLink>;
+/** A link and the key that merges it with links of the same call. */
+type Keyed = readonly [string, UncontractedLink];
 
 interface Scope {
-  core: Core;
-  contract: Test[];
-  viaChanged: Set<string | null>;
+  readonly core: Core;
+  readonly contract: readonly Test[];
+  readonly viaChanged: ReadonlySet<string | null>;
 }
 
 const walksAny = (t: Test, s: StepNode): boolean =>
@@ -34,10 +35,17 @@ function endService(core: Core, g: SystemGraph, id: string): string | null {
   return n?.$type === 'store' ? n.owner : null;
 }
 
-function keep(out: Links, key: string, link: UncontractedLink): void {
-  const seen = out.get(key);
-  if (seen === undefined) out.set(key, link);
-  else if (!seen.steps.includes(link.step)) seen.steps.push(link.step);
+/** Merge links of the same call, listing every step that makes it. */
+function mergeLinks(links: readonly Keyed[]): UncontractedLink[] {
+  const out = new Map<string, UncontractedLink>();
+  for (const [key, link] of links) {
+    const seen = out.get(key);
+    if (seen === undefined) out.set(key, link);
+    else if (!seen.steps.includes(link.step)) {
+      out.set(key, { ...seen, steps: [...seen.steps, link.step] });
+    }
+  }
+  return [...out.values()];
 }
 
 function contractCovers(t: Test, s: StepNode, c: FanoutCall): boolean {
@@ -54,7 +62,7 @@ const callsBefore = (core: Core, s: StepNode): Set<string> => {
 };
 
 /** A step on an operation: new client → gateway and gateway → subgraph pairs need a contract test. */
-function operationLinks(sc: Scope, s: StepNode, out: Links): void {
+function operationLinks(sc: Scope, s: StepNode): Keyed[] {
   const { core } = sc;
   const added = core.status(s.id) === 'added';
   const fresh = added || sc.viaChanged.has(s.id);
@@ -64,8 +72,8 @@ function operationLinks(sc: Scope, s: StepNode, out: Links): void {
     .calls.filter((c) => c.via === s.via && c.from !== '' && c.to !== '' && c.from !== c.to)
     .filter((c) => fresh || !before.has(callKey(c)))
     .filter((c) => !sc.contract.some((t) => contractCovers(t, s, c)));
-  for (const c of calls) {
-    const reason = fresh ? 'via-changed' : 'fanout-changed';
+  const reason = fresh ? 'via-changed' : 'fanout-changed';
+  return calls.map((c): Keyed => {
     const link: UncontractedLink = {
       from: c.from,
       to: c.to,
@@ -76,12 +84,12 @@ function operationLinks(sc: Scope, s: StepNode, out: Links): void {
       reason: added ? 'added' : reason,
       ...(c.subgraph !== undefined && c.subgraph !== '' ? { subgraph: c.subgraph } : {}),
     };
-    keep(out, callKey(c), link);
-  }
+    return [callKey(c), link];
+  });
 }
 
 /** A call that runs today is not new, even when a new flow reuses it. */
-const runsToday = (core: Core, s: StepNode, [from, to]: [string, string]): boolean =>
+const runsToday = (core: Core, s: StepNode, [from, to]: readonly [string, string]): boolean =>
   core.asIs.steps.some(
     (o) =>
       o.via === s.via &&
@@ -90,15 +98,15 @@ const runsToday = (core: Core, s: StepNode, [from, to]: [string, string]): boole
   );
 
 /** A new or re-routed cross-service api or msg step. */
-function connectionLink(sc: Scope, s: StepNode, out: Links): void {
+function connectionLink(sc: Scope, s: StepNode): Keyed[] {
   const { core } = sc;
-  if (!/^(?:api|msg):/.test(s.via)) return;
+  if (!/^(?:api|msg):/u.test(s.via)) return [];
   const added = core.status(s.id) === 'added';
-  if (!added && !sc.viaChanged.has(s.id)) return;
+  if (!added && !sc.viaChanged.has(s.id)) return [];
   const from = endService(core, core.toBe, s.from);
   const to = endService(core, core.toBe, s.to);
-  if (from === null || to === null || from === to) return;
-  if (sc.contract.some((t) => walksAny(t, s)) || runsToday(core, s, [from, to])) return;
+  if (from === null || to === null || from === to) return [];
+  if (sc.contract.some((t) => walksAny(t, s)) || runsToday(core, s, [from, to])) return [];
   const link: UncontractedLink = {
     from,
     to,
@@ -108,11 +116,16 @@ function connectionLink(sc: Scope, s: StepNode, out: Links): void {
     steps: [s.id],
     reason: added ? 'added' : 'via-changed',
   };
-  keep(out, `${from}|${to}|${s.via}`, link);
+  return [[`${from}|${to}|${s.via}`, link]];
+}
+
+export interface ContractQueries {
+  /** New or re-routed cross-service api or msg steps with no contract test walking the step or its flow. */
+  readonly connectionsWithoutContract: () => UncontractedLink[];
 }
 
 /** Cross-service links of new or re-routed steps that no contract test walks. */
-export function createContracts(core: Core) {
+export function createContracts(core: Core): ContractQueries {
   const sc: Scope = {
     core,
     contract: core.tests.filter((t) => t.level === 'contract'),
@@ -124,14 +137,13 @@ export function createContracts(core: Core) {
   };
 
   /** New or re-routed cross-service api or msg steps with no contract test walking the step or its flow. */
-  const connectionsWithoutContract = memo((): UncontractedLink[] => {
-    const out: Links = new Map();
-    for (const s of core.toBe.steps) {
-      if (s.via.startsWith('gql:')) operationLinks(sc, s, out);
-      else connectionLink(sc, s, out);
-    }
-    return [...out.values()];
-  });
+  const connectionsWithoutContract = memo((): UncontractedLink[] =>
+    mergeLinks(
+      core.toBe.steps.flatMap((s) =>
+        s.via.startsWith('gql:') ? operationLinks(sc, s) : connectionLink(sc, s),
+      ),
+    ),
+  );
 
   return { connectionsWithoutContract };
 }

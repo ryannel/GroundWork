@@ -76,7 +76,7 @@ export function placesOf(model: Model, outline: Outline, id: string): EntityPlac
     : [...story, { label: labelOf(ref.number, ref.title), title: page.title, href: page.href }];
 }
 
-const SEGMENT = /[^.[\]]+/g;
+const SEGMENT = /[^.[\]]+/gu;
 
 /** The deepest thing with an id along a plan path ("decisions[3].context" is that decision), or null. */
 function holderOf(plan: unknown, path: string): string | null {
@@ -104,7 +104,7 @@ export function mentionsOf(model: Model, id: string): Mentions {
   const parts = new Set<string>();
   for (const path of model.inverse(id).citedBy) {
     const holder = holderOf(model.plan, path);
-    if (holder === null) parts.add((/^[^.[]+/.exec(path)?.[0] ?? path).replaceAll('_', ' '));
+    if (holder === null) parts.add((/^[^.[]+/u.exec(path)?.[0] ?? path).replaceAll('_', ' '));
     else if (holder !== id) ids.add(holder);
   }
   return { ids: [...ids], parts: [...parts] };

@@ -13,8 +13,8 @@ import type { Revision } from '@/application/plan/revision-types';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 export interface SnapshotsWanted {
-  approved: string | null;
-  older: string | null;
+  readonly approved: string | null;
+  readonly older: string | null;
 }
 
 /** Which snapshots ?rev=<version> needs read: the approved one (for the proposal's diff), and an older one to read. */
@@ -54,7 +54,7 @@ const hasId = (x: unknown, id: string): x is Rec => isRecord(x) && x.id === id;
 export function findEntity(plan: Plan | null | undefined, id: string): Rec | null {
   if (!plan || id === '') return null;
   const pools: unknown[] = [
-    ...Object.entries(plan).map(([, v]: [string, unknown]) => v),
+    ...Object.entries(plan).map(([, v]: readonly [string, unknown]) => v),
     prop(plan.problem, 'scenarios'),
     prop(plan.domain, 'concepts'),
     prop(plan.domain, 'stages'),
@@ -67,7 +67,8 @@ export function findEntity(plan: Plan | null | undefined, id: string): Rec | nul
 }
 
 export type DiffEntry =
-  { key: string; kind: 'added' | 'removed' } | { key: string; kind: 'changed'; keys: string[] };
+  | { readonly key: string; readonly kind: 'added' | 'removed' }
+  | { readonly key: string; readonly kind: 'changed'; readonly keys: readonly string[] };
 
 /** Which diff collection (services, changes…) lists an id as added, removed or changed. */
 export function diffEntry(diff: PlanDiff | null | undefined, id: string): DiffEntry | null {

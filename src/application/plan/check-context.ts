@@ -14,81 +14,84 @@ import type { PathSegment } from '@/domain/plan/plan-ids';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 export interface Issue {
-  path: string;
-  message: string;
+  readonly path: string;
+  readonly message: string;
 }
 
 /** Everything the cross-reference checks share: the plan, both graphs and what the ledger did. */
 export interface CheckContext {
-  plan: Plan;
-  asIs: SystemGraph;
-  toBe: SystemGraph;
-  applied: AppliedOps;
-  planEntities: Map<string, PlanEntry>;
-  planDupes: { id: string; path: PathSegment[]; first: PathSegment[] }[];
-  addedBy: Map<string, OpRecord>;
-  removedBy: Map<string, OpRecord>;
-  deprecatedBy: Map<string, OpRecord>;
-  modsById: Map<string, OpRecord[]>;
-  fanout: Fanout;
-  known: (id: string) => boolean;
+  readonly plan: Plan;
+  readonly asIs: SystemGraph;
+  readonly toBe: SystemGraph;
+  readonly applied: AppliedOps;
+  readonly planEntities: ReadonlyMap<string, PlanEntry>;
+  readonly planDupes: readonly {
+    readonly id: string;
+    readonly path: readonly PathSegment[];
+    readonly first: readonly PathSegment[];
+  }[];
+  readonly addedBy: ReadonlyMap<string, OpRecord>;
+  readonly removedBy: ReadonlyMap<string, OpRecord>;
+  readonly deprecatedBy: ReadonlyMap<string, OpRecord>;
+  readonly modsById: ReadonlyMap<string, readonly OpRecord[]>;
+  readonly fanout: Fanout;
+  readonly known: (id: string) => boolean;
 }
 
 /** Where checks report: errors, warnings, and `strict` (an error, or a warning while the plan is a draft). */
 export interface Report {
-  errors: Issue[];
-  warnings: Issue[];
-  err: (segs: readonly PathSegment[], message: string) => void;
-  warn: (segs: readonly PathSegment[], message: string) => void;
-  strict: (segs: readonly PathSegment[], message: string) => void;
+  readonly errors: readonly Issue[];
+  readonly warnings: readonly Issue[];
+  readonly error: (segs: readonly PathSegment[], message: string) => void;
+  readonly warn: (segs: readonly PathSegment[], message: string) => void;
+  readonly strict: (segs: readonly PathSegment[], message: string) => void;
 }
 
 export function createReport(draft: boolean): Report {
   const errors: Issue[] = [];
   const warnings: Issue[] = [];
-  const err: Report['err'] = (segs, message) => errors.push({ path: formatPath(segs), message });
-  const warn: Report['warn'] = (segs, message) =>
+  const error: Report['error'] = (segs, message) => {
+    errors.push({ path: formatPath(segs), message });
+  };
+  const warn: Report['warn'] = (segs, message) => {
     warnings.push({ path: formatPath(segs), message });
+  };
   const warnDraft: Report['strict'] = (segs, message) => {
     warn(segs, `draft: ${message}`);
   };
-  return { errors, warnings, err, warn, strict: draft ? warnDraft : err };
+  return { errors, warnings, error, warn, strict: draft ? warnDraft : error };
 }
 
 type Ledger = Pick<CheckContext, 'addedBy' | 'removedBy' | 'deprecatedBy' | 'modsById'>;
 
-const INDEXERS: Record<OpKind, (ledger: Ledger, r: OpRecord, ok: boolean) => void> = {
-  add(ledger, r) {
-    for (const id of r.ids) if (!ledger.addedBy.has(id)) ledger.addedBy.set(id, r);
-  },
-  remove(ledger, r, ok) {
-    if (ok) for (const id of r.ids) ledger.removedBy.set(id, r);
-  },
-  deprecate(ledger, r, ok) {
-    if (ok && r.target !== null) ledger.deprecatedBy.set(r.target, r);
-  },
-  modify(ledger, r) {
-    if (r.target !== null)
-      ledger.modsById.set(r.target, [...(ledger.modsById.get(r.target) ?? []), r]);
-  },
-};
-
 function indexLedger(records: readonly OpRecord[]): Ledger {
-  const ledger: Ledger = {
-    addedBy: new Map(),
-    removedBy: new Map(),
-    deprecatedBy: new Map(),
-    modsById: new Map(),
+  const addedBy = new Map<string, OpRecord>();
+  const removedBy = new Map<string, OpRecord>();
+  const deprecatedBy = new Map<string, OpRecord>();
+  const modsById = new Map<string, readonly OpRecord[]>();
+  const indexers: Record<OpKind, (r: OpRecord, ok: boolean) => void> = {
+    add(r) {
+      for (const id of r.ids) if (!addedBy.has(id)) addedBy.set(id, r);
+    },
+    remove(r, ok) {
+      if (ok) for (const id of r.ids) removedBy.set(id, r);
+    },
+    deprecate(r, ok) {
+      if (ok && r.target !== null) deprecatedBy.set(r.target, r);
+    },
+    modify(r) {
+      if (r.target !== null) modsById.set(r.target, [...(modsById.get(r.target) ?? []), r]);
+    },
   };
   for (const r of records) {
-    if (r.kind !== null) INDEXERS[r.kind](ledger, r, r.problems.length === 0);
+    if (r.kind !== null) indexers[r.kind](r, r.problems.length === 0);
   }
-  return ledger;
+  return { addedBy, removedBy, deprecatedBy, modsById };
 }
 
 function indexPlanEntities(plan: Plan) {
   const planEntities = new Map<string, PlanEntry>();
-  const planDupes: CheckContext['planDupes'] = [];
+  const planDupes: CheckContext['planDupes'][number][] = [];
   for (const p of planEntries(plan)) {
     const first = planEntities.get(p.id);
     if (first === undefined) planEntities.set(p.id, p);
@@ -109,7 +112,7 @@ export function createContext(plan: Plan, fanout: Fanout = baseFanout): CheckCon
 }
 
 /** A prop of an entity, and (when it is not just the prop's own key) where inside it to point. */
-export type PropRef = string | { prop: string; rel: readonly PathSegment[] };
+export type PropRef = string | { readonly prop: string; readonly rel: readonly PathSegment[] };
 
 const propName = (ref: PropRef): string => (typeof ref === 'string' ? ref : ref.prop);
 const propRel = (ref: PropRef): readonly PathSegment[] =>
@@ -142,8 +145,8 @@ export const touched = (ctx: CheckContext, id: string): boolean =>
 
 /** The path to report for a node: its own source path in the as-is, else the op that touched it. */
 export function whereAt(
-  at: { ctx: CheckContext; g: SystemGraph },
-  node: { id: string; $path: PathSegment[] },
+  at: { readonly ctx: CheckContext; readonly g: SystemGraph },
+  node: { readonly id: string; readonly $path: readonly PathSegment[] },
   ref: PropRef,
 ): PathSegment[] {
   return at.g === at.ctx.asIs && !touched(at.ctx, node.id)
@@ -152,10 +155,10 @@ export function whereAt(
 }
 
 /** The as-is nodes of a kind, and the to-be nodes of that kind the ledger touched. */
-export function scoped<N extends { id: string }>(
+export function scoped<N extends { readonly id: string }>(
   ctx: CheckContext,
-  select: (g: SystemGraph) => N[],
-): { g: SystemGraph; list: N[] }[] {
+  select: (g: SystemGraph) => readonly N[],
+): { readonly g: SystemGraph; readonly list: readonly N[] }[] {
   return [
     { g: ctx.asIs, list: select(ctx.asIs) },
     { g: ctx.toBe, list: select(ctx.toBe).filter((x) => touched(ctx, x.id)) },

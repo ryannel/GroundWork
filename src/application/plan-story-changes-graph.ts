@@ -21,7 +21,9 @@ const uniq = <T>(xs: readonly T[]): T[] => [...new Set(xs)];
 const capital = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
 
 /** The graph the plan changes, when it changes one. */
-export function graphChangeOf(model: Model): { graphId: string; diff: GraphDiff } | null {
+export function graphChangeOf(
+  model: Model,
+): { readonly graphId: string; readonly diff: GraphDiff } | null {
   const graph = model.toBe.graphs[0] ?? model.asIs.graphs[0];
   if (graph === undefined) return null;
   const diff = model.graphDiff(graph.id);
@@ -56,8 +58,9 @@ function ownerParts(model: Model, diff: GraphDiff): string[] {
   const fresh = diff.operations.filter((o) => o.before === null);
   const joined = diff.subgraphs.filter((s) => s.status === 'added').length;
   if (diff.fields.some((f) => f.moved)) return movedClause(model, diff);
-  if (gone > 0)
+  if (gone > 0) {
     return [`${capital(numWord(gone))} ${gone === 1 ? 'field is removed' : 'fields are removed'}`];
+  }
   if (changed.length > 0) return [opsPhrase(changed.length, routeChanged)];
   if (fresh.length > 0) {
     const names = fresh.map((o) => model.label(o.id)).join(' and ');

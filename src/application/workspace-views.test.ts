@@ -1,25 +1,16 @@
-import path from 'node:path';
+import { describe, expect, it } from 'vitest';
 
-import { describe, expect, it, vi } from 'vitest';
-
+import { acme as acmeKit } from '@/../test/workspace-kit';
 import { type Component, type Workspace, systemDoes } from '@/domain/workspace';
-import { readWorkspaceModel } from '@/infrastructure/workspace-model';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
 
 import { neighboursOf } from './today-neighbours';
 import { domainViewOf } from './workspace-domain';
 import { landscapeOf } from './workspace-landscape';
-import { systemModelOf } from './workspace-model';
-import { domainPaths, findWorkspace, systemPaths } from './workspace-paths';
+import { domainPaths, systemPaths } from './workspace-paths';
 import { systemViewOf } from './workspace-system';
 
-vi.mock('server-only', () => ({}));
-
-const root = path.resolve(import.meta.dirname, '../../workspaces');
-
-async function alder() {
-  const workspace = findWorkspace(await readWorkspaces(root), 'alder-finch')!;
-  const today = systemModelOf(workspace, await readWorkspaceModel(workspace, root));
+function acme() {
+  const { workspace, today } = acmeKit();
   return { workspace, today, model: today.model };
 }
 
@@ -97,89 +88,93 @@ const shop: Workspace = {
 };
 
 describe('landscapeOf', () => {
-  it('says what the workspace runs, draws its domains in order of the work, and names who runs what', async () => {
-    const { workspace, model } = await alder();
+  it('says what the workspace runs, and maps its domains and the people in them', () => {
+    const { workspace, model } = acme();
     const view = landscapeOf(workspace, model);
-    expect(view.headline).toMatch(/^Alder & Finch runs 14 systems in 3 domains/);
+    expect(view.headline).toBe(
+      'Acme runs 6 systems in 3 domains: a small shop: a catalogue, a storefront and the orders between them.',
+    );
     expect(view.facts).toEqual([
       '3 domains',
-      '14 systems',
-      '61 components',
-      '2 user journeys',
-      '19 flows',
+      '6 systems',
+      '4 people',
+      '19 components',
+      '4 journeys and flows',
     ]);
-    expect(view.journeys.slice(0, 2).map((j) => j.kind)).toEqual(['journey', 'journey']);
-    expect(view.journeys.every((j) => j.href.startsWith('/alder-finch/journeys/'))).toBe(true);
     expect(view.map.domains.map((d) => d.id)).toEqual([
-      'domain:commercial-backbone',
-      'domain:website',
-      'domain:order-to-delivery',
+      'domain:catalogue',
+      'domain:orders',
+      'domain:storefront',
     ]);
-    const website = view.map.domains.find((d) => d.id === 'domain:website')!;
-    expect(website.href).toBe('/alder-finch/website/');
-    expect(website.systems.find((s) => s.id === 'sys:checkout')?.does).toBe(
-      'Turns a cart into a paid order',
-    );
-    const checkout = view.teams.find((t) => t.id === 'team:checkout')!;
-    expect(checkout.slot).toBe(1);
-    expect(checkout.systems.map((s) => s.href)).toContain('/alder-finch/website/checkout/');
+    const storefront = view.map.domains.find((d) => d.id === 'domain:storefront')!;
+    expect(storefront.href).toBe('/acme/storefront/');
+    expect(storefront.systems).toBe(2);
+    expect(view.drawing.boxes.map((b) => b.id)).toContain('actor:customer');
   });
 
-  it('says only what it runs when the workspace says nothing of itself', async () => {
-    const { workspace, model } = await alder();
+  it('says only what it runs when the workspace says nothing of itself', () => {
+    const { workspace, model } = acme();
     expect(landscapeOf({ ...workspace, description: null }, model).headline).toBe(
-      'Alder & Finch runs 14 systems in 3 domains.',
+      'Acme runs 6 systems in 3 domains.',
     );
   });
 });
 
 describe('domainViewOf', () => {
-  it('teaches the domain: its edges, journeys through it, systems and what it offers', async () => {
-    const { workspace, model } = await alder();
-    const view = domainViewOf(workspace, model, 'order-to-delivery')!;
-    expect(view.headline).toMatch(/^Order to delivery’s 6 systems take part in /);
-    expect(view.purpose).toMatch(/^From a paid order/);
+  it('teaches the domain: its edges, journeys through it, systems and what it offers', () => {
+    const { workspace, model } = acme();
+    const view = domainViewOf(workspace, model, 'orders')!;
+    expect(view.headline).toBe(
+      'Orders’s 2 systems take part in 1 user journey and 2 flows, and work with 1 system in other domains.',
+    );
+    expect(view.purpose).toBe('Takes an order from placed to paid.');
     expect(view.journeys.every((j) => j.here !== null)).toBe(true);
-    expect(view.systems.map((s) => s.href)).toContain('/alder-finch/order-to-delivery/payments/');
-    expect(view.neighbours.reachedBy.map((n) => n.id)).toContain('checkout');
+    expect(view.journeys.map((j) => j.here)).toContain('1 of its 1 steps run in Orders');
+    expect(view.systems.map((s) => s.href)).toEqual([
+      '/acme/orders/ordering/',
+      '/acme/orders/payments/',
+    ]);
+    expect(view.neighbours.reachedBy.map((n) => n.id)).toEqual(['shop']);
     expect(view.catalogue.apis.length).toBeGreaterThan(0);
-    expect(view.catalogue.events.map((e) => e.head.id)).toContain('msg:order-placed');
-    expect(view.counts.systems).toBe(6);
+    expect(view.catalogue.events.map((e) => e.head.id)).toEqual(['msg:order-placed']);
+    expect(view.counts).toMatchObject({ systems: 2, components: 7, calls: 4, stores: 1 });
     expect(view.counts.flows).toBe(view.flows.length);
     expect(view.counts.events).toBe(view.catalogue.events.length);
     expect(view.teams.every((t) => t.slot > 0)).toBe(true);
     expect(view.systems.every((s) => s.components > 0)).toBe(true);
   });
 
-  it('returns null for an unknown domain', async () => {
-    const { workspace, model } = await alder();
+  it('returns null for an unknown domain', () => {
+    const { workspace, model } = acme();
     expect(domainViewOf(workspace, model, 'nope')).toBeNull();
   });
 });
 
 describe('systemViewOf', () => {
-  it('teaches the system: its job, owner, code, flows and components', async () => {
-    const { workspace, today } = await alder();
-    const view = systemViewOf(workspace, today, { domain: 'website', system: 'checkout' })!;
-    expect(view.headline).toBe('Checkout turns a cart into a paid order.');
-    expect(view.about).toMatch(/^Run by the .+ team, in the Website domain$/);
-    expect(view.trail.map((step) => step.href)).toEqual(['/alder-finch/', '/alder-finch/website/']);
-    expect(view.repos).toEqual([
-      expect.objectContaining({ repo: 'alder-finch/checkout', scanned: false }),
-    ]);
-    expect(view.repos[0]?.read).toMatch(/^Not scanned yet/);
-    expect(view.flows.length).toBeGreaterThan(0);
-    expect(view.components.map((c) => c.chip.id)).toContain('svc:checkout');
-    const checkout = view.components.find((c) => c.chip.id === 'svc:checkout')!;
-    expect(checkout.calls.length).toBeGreaterThan(0);
-    expect(checkout.offers.every((o) => o.calls.length === 0)).toBe(true);
-    expect(view.data.map((d) => d.head.id)).toContain('st:cart-cache');
+  it('teaches the system: its job, owner, code, flows and components', () => {
+    const { workspace, today } = acme();
+    const view = systemViewOf(workspace, today, { domain: 'storefront', system: 'shop' })!;
+    expect(view.headline).toBe('Shop: The website the customer shops on.');
+    expect(view.about).toBe('Run by the Web team, in the Storefront domain');
+    expect(view.trail.map((step) => step.href)).toEqual(['/acme/', '/acme/storefront/']);
+    expect(view.repos).toEqual([expect.objectContaining({ repo: 'acme/shop', scanned: false })]);
+    expect(view.repos[0]?.read).toMatch(/^Not scanned yet/u);
+    expect(view.flows).toHaveLength(1);
+    expect(view.components.map((c) => c.chip.id)).toEqual(['svc:shop-bff', 'svc:shop-web']);
+    const bff = view.components.find((c) => c.chip.id === 'svc:shop-bff')!;
+    expect(bff.calls.length).toBeGreaterThan(0);
+    expect(bff.offers.map((o) => o.chip.id)).toEqual(['api:bff-place-order']);
+    expect(bff.offers.every((o) => o.calls.length === 0)).toBe(true);
+    expect(view.data.map((d) => d.head.id)).toEqual(['st:basket-cache']);
+    expect(systemViewOf(workspace, today, { domain: 'orders', system: 'ordering' })?.headline).toBe(
+      'Ordering records orders and tells people about them.',
+    );
   });
 
-  it('returns null for an unknown system or domain', async () => {
-    const { workspace, today } = await alder();
-    expect(systemViewOf(workspace, today, { domain: 'website', system: 'payments' })).toBeNull();
-    expect(systemViewOf(workspace, today, { domain: 'nope', system: 'checkout' })).toBeNull();
+  it('returns null for an unknown system or domain', () => {
+    const { workspace, today } = acme();
+    expect(systemViewOf(workspace, today, { domain: 'storefront', system: 'payments' })).toBeNull();
+    expect(systemViewOf(workspace, today, { domain: 'nope', system: 'shop' })).toBeNull();
   });
 });
 

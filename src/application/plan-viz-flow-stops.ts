@@ -8,8 +8,8 @@ export interface Stop {
   readonly title: string;
   /** The title in a few words, for a tight space. */
   readonly short: string;
-  readonly stepIds: string[];
-  readonly indices: number[];
+  readonly stepIds: readonly string[];
+  readonly indices: readonly number[];
   /** What the steps of a grouped stop have in common, when the plan says. */
   readonly beat: string | null;
   /** The topic the steps of a stop that fans out read from. */
@@ -35,11 +35,11 @@ function isInternal(model: Model, s: FlowStep): boolean {
 }
 
 interface Open {
-  beat: string | null;
-  fan: string | null;
-  actor: string | null;
-  stepIds: string[];
-  indices: number[];
+  readonly beat: string | null;
+  readonly fan: string | null;
+  readonly actor: string | null;
+  readonly stepIds: readonly string[];
+  readonly indices: readonly number[];
 }
 
 const fanOf = (model: Model, s: FlowStep): string | null =>
@@ -92,8 +92,11 @@ export function stepStops(model: Model, flowId: string, opts: StopOptions = {}):
     const fan = fanOf(model, s);
     const together = opts.singleSteps !== true && !experience;
     if (last !== undefined && together && joins(model, last, s)) {
-      last.stepIds.push(s.id);
-      last.indices.push(i);
+      out[out.length - 1] = {
+        ...last,
+        stepIds: [...last.stepIds, s.id],
+        indices: [...last.indices, i],
+      };
     } else {
       out.push({
         beat: s.beat ?? null,

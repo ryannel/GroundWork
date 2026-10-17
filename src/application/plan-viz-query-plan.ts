@@ -16,11 +16,11 @@ export const WHY: Readonly<Record<Added['reason'], string>> = {
 /** A name in a fetch's selection, with the names asked inside it. */
 export interface SelNode {
   readonly name: string;
-  readonly kids: SelNode[];
-  router: Added['reason'] | null;
+  readonly kids: readonly SelNode[];
+  readonly router: Added['reason'] | null;
 }
 
-const slug = (id: string): string => id.replace(/^sg:/, '');
+const slug = (id: string): string => id.replace(/^sg:/u, '');
 
 /** The plan to draw, or null when the document does not parse or no fetch is derived. */
 export function planOf(model: Model, opId: string, mode: PlanMode = 'toBe'): QueryPlan | null {
@@ -48,28 +48,32 @@ export function planFacts(model: Model, opId: string, mode: PlanMode = 'toBe'): 
   return (rounds.length > 1 ? ['Sequence', ...steps] : steps).join('>');
 }
 
-function put(roots: SelNode[], rel: readonly string[], router: Added['reason'] | null): void {
-  let level = roots;
-  let node: SelNode | undefined;
-  for (const name of rel) {
-    node = level.find((n) => n.name === name);
-    if (node === undefined) {
-      node = { name, kids: [], router: null };
-      level.push(node);
-    }
-    level = node.kids;
-  }
-  if (node !== undefined && router !== null) node.router = router;
+function put(
+  level: readonly SelNode[],
+  rel: readonly string[],
+  router: Added['reason'] | null,
+): readonly SelNode[] {
+  const [name, ...rest] = rel;
+  if (name === undefined) return level;
+  const found = level.find((n) => n.name === name);
+  const node = found ?? { name, kids: [], router: null };
+  const last = rest.length === 0 && router !== null;
+  const placed = {
+    ...node,
+    kids: put(node.kids, rest, router),
+    router: last ? router : node.router,
+  };
+  return found === undefined ? [...level, placed] : level.map((n) => (n === found ? placed : n));
 }
 
 /** A fetch's selection as nested names ("price { amount currency }"), relative to where it is folded in. */
-export function selectionOf(plan: QueryPlan, f: Fetch): SelNode[] {
-  const roots: SelNode[] = [];
+export function selectionOf(plan: QueryPlan, f: Fetch): readonly SelNode[] {
+  let roots: readonly SelNode[] = [];
   const base = f.kind === 'root' ? 0 : f.path.split('.').length;
   const add = (path: string, router: Added['reason'] | null): void => {
     if (f.kind !== 'root' && !path.startsWith(`${f.path}.`)) return;
     const rel = path.split('.').slice(base);
-    if (rel.length > 0) put(roots, rel, router);
+    if (rel.length > 0) roots = put(roots, rel, router);
   };
   for (const p of f.paths) add(p, null);
   for (const a of plan.addedByRouter) if (a.fetch === f.id) add(a.path, a.reason);

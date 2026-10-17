@@ -2,10 +2,10 @@
 export type Point = readonly [x: number, y: number];
 
 export interface Rect {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
+  readonly x: number;
+  readonly y: number;
+  readonly w: number;
+  readonly h: number;
 }
 
 const ROUND = 8;
@@ -21,7 +21,7 @@ export const clipText = (text: string, n: number): string =>
 
 /** A topic without its `<env>.public.` prefix. */
 export const shortTopic = (text: string): string => {
-  const short = text.replace(/^<[^>]+>\.(?:public\.)?/, '');
+  const short = text.replace(/^<[^>]+>\.(?:public\.)?/u, '');
   return short === '' ? text : short;
 };
 
@@ -29,7 +29,7 @@ export const shortTopic = (text: string): string => {
 export function wrapText(text: string, n: number, max = 2): string[] {
   const lines: string[] = [];
   let line = '';
-  for (const word of text.split(/\s+/).filter(Boolean)) {
+  for (const word of text.split(/\s+/u).filter(Boolean)) {
     if (line === '') line = word;
     else if (`${line} ${word}`.length <= n) line = `${line} ${word}`;
     else {

@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { createCore } from '@/application/plan/derive-core';
 import { createWords, propWord } from '@/application/plan/derive-words';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -41,7 +41,7 @@ describe('itemText and valText', () => {
   it('shortens long text and lists values', async () => {
     const w = await words();
     expect(w.valText(null)).toBe('(none)');
-    expect(w.valText('long '.repeat(20))).toMatch(/…$/);
+    expect(w.valText('long '.repeat(20))).toMatch(/…$/u);
     expect(w.valText('short   text')).toBe('short text');
     expect(w.valText([])).toBe('(none)');
     expect(w.valText(['svc:subs', 'x'])).toBe(`${w.label('svc:subs')}, x`);

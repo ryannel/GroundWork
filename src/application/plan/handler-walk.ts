@@ -7,32 +7,32 @@ import type { HandlerStep, HandlerSteps } from '@/domain/plan/plan.generated';
 
 /** Where a step sits in its handler's tree: the guards around it, in reading order, and what they make it. */
 interface Frame {
-  path: PathSegment[];
-  guards: string[];
-  conditional: boolean;
-  looped: boolean;
-  async: boolean;
+  readonly path: readonly PathSegment[];
+  readonly guards: readonly string[];
+  readonly conditional: boolean;
+  readonly looped: boolean;
+  readonly async: boolean;
 }
 
 export interface WalkedStep extends Frame {
-  step: HandlerStep;
+  readonly step: HandlerStep;
 }
 
 export type HandlerLinkKind = 'call' | 'publish' | 'read' | 'write';
 
 /** What a step reaches outside its component: an endpoint, a message, or a schema in a store. */
 export interface HandlerLink {
-  kind: HandlerLinkKind;
-  target: string;
-  store: string | null;
+  readonly kind: HandlerLinkKind;
+  readonly target: string;
+  readonly store: string | null;
 }
 
 interface Branch {
-  steps: HandlerSteps | undefined;
-  at: PathSegment[];
-  guard: string | null;
-  conditional?: boolean;
-  looped?: boolean;
+  readonly steps: HandlerSteps | undefined;
+  readonly at: readonly PathSegment[];
+  readonly guard: string | null;
+  readonly conditional?: boolean;
+  readonly looped?: boolean;
 }
 
 /** The step lists inside a step, each with the guard a reader would say before it. */
@@ -57,7 +57,7 @@ function branchesOf(s: HandlerStep): Branch[] {
   return [];
 }
 
-function own(s: HandlerStep, frame: Frame, path: PathSegment[]): Frame {
+function own(s: HandlerStep, frame: Frame, path: readonly PathSegment[]): Frame {
   return {
     path,
     guards: s.when === undefined ? frame.guards : [...frame.guards, `when ${s.when}`],
@@ -77,17 +77,18 @@ function enter(frame: Frame, b: Branch): Frame {
   };
 }
 
-function visit(steps: HandlerSteps, frame: Frame, out: WalkedStep[]): void {
-  for (const [i, s] of steps.entries()) {
+function visit(steps: HandlerSteps, frame: Frame): readonly WalkedStep[] {
+  return [...steps.entries()].flatMap(([i, s]) => {
     const here = own(s, frame, [...frame.path, i]);
-    out.push({ step: s, ...here });
-    for (const b of branchesOf(s)) if (b.steps !== undefined) visit(b.steps, enter(here, b), out);
-  }
+    const nested = branchesOf(s).flatMap((b) =>
+      b.steps === undefined ? [] : visit(b.steps, enter(here, b)),
+    );
+    return [{ step: s, ...here }, ...nested];
+  });
 }
 
 /** Every step of a handler, depth first, with its path from the handler (`['steps', 1, 'else', 0]`). */
-export function walkHandler(handler: { steps: HandlerSteps }): WalkedStep[] {
-  const out: WalkedStep[] = [];
+export function walkHandler(handler: { readonly steps: HandlerSteps }): readonly WalkedStep[] {
   const root: Frame = {
     path: ['steps'],
     guards: [],
@@ -95,8 +96,7 @@ export function walkHandler(handler: { steps: HandlerSteps }): WalkedStep[] {
     looped: false,
     async: false,
   };
-  visit(handler.steps, root, out);
-  return out;
+  return visit(handler.steps, root);
 }
 
 /** The guards around a step as one readable line, or null when it always runs. */
@@ -114,9 +114,9 @@ export function linkOf(s: HandlerStep): HandlerLink | null {
 
 /** An id a step names: the prop it sits in and the types it may point at. */
 export interface StepRef {
-  prop: string;
-  id: string;
-  expect: readonly EntityType[];
+  readonly prop: string;
+  readonly id: string;
+  readonly expect: readonly EntityType[];
 }
 
 const SCHEMA: readonly EntityType[] = ['schema', 'field'];

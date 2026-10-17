@@ -5,14 +5,40 @@ import { parentOf } from '@/application/plan/ids';
 import type { SystemGraph, StepNode } from '@/domain/plan/plan-graph';
 
 export interface ScreenLook {
-  image: string | null;
-  figma: string | null;
-  mockup: string | null;
+  readonly image: string | null;
+  readonly figma: string | null;
+  readonly mockup: string | null;
 }
 
 export interface ScreenStop {
-  screen: string;
-  region: string | null;
+  readonly screen: string;
+  readonly region: string | null;
+}
+
+export interface FlowOnScreen {
+  readonly flow: string;
+  readonly steps: readonly string[];
+}
+
+/** Before | after for a screen: both looks, and whether the picture itself changes. */
+export interface ScreenDiff {
+  readonly before: ScreenLook | null;
+  readonly after: ScreenLook | null;
+  readonly pictureChanges: boolean;
+  readonly regions: readonly { readonly id: string; readonly status: ElementStatus }[];
+  readonly changed: boolean;
+}
+
+export interface ScreenQueries {
+  /** Screens a service serves (as-is ∪ to-be), in plan order. */
+  readonly screensOf: (svcId: string) => string[];
+  readonly screenOfStep: (g: SystemGraph, step: StepNode) => ScreenStop | null;
+  /** Flows whose steps happen on a screen. Without a mode, reads as-is ∪ to-be. */
+  readonly flowsOnScreen: (scrId: string, mode: string | undefined) => FlowOnScreen[];
+  readonly look: (scrId: string, mode?: string) => ScreenLook | null;
+  readonly screenDiff: (scrId: string) => ScreenDiff;
+  /** As-is entities that chapter 5 revisits. */
+  readonly touchedAsIs: () => string[];
 }
 
 const SKIPPED = new Set(['field', 'step', 'endpoint', 'team', 'region']);
@@ -24,7 +50,7 @@ function graphsFor(mode: string | undefined, asIs: SystemGraph, toBe: SystemGrap
   return mode === 'toBe' ? [toBe] : [asIs, toBe];
 }
 
-export function createScreens(core: Core, owners: Owners) {
+export function createScreens(core: Core, owners: Owners): ScreenQueries {
   const { asIs, toBe, sys, unionIds, status } = core;
   const { descendants, rollup } = owners;
 
@@ -47,7 +73,7 @@ export function createScreens(core: Core, owners: Owners) {
   };
 
   /** Flows whose steps happen on a screen, with the step ids. Without a mode, reads as-is ∪ to-be. */
-  const flowsOnScreen = memo((scrId: string, mode: string | undefined) => {
+  const flowsOnScreen = memo((scrId: string, mode: string | undefined): FlowOnScreen[] => {
     const hits = new Map<string, string[]>();
     const graphs = graphsFor(mode, asIs, toBe);
     for (const g of graphs) {
@@ -69,7 +95,7 @@ export function createScreens(core: Core, owners: Owners) {
   };
 
   /** Before | after for a screen: both looks, and whether the picture itself changes. */
-  const screenDiff = memo((scrId: string) => {
+  const screenDiff = memo((scrId: string): ScreenDiff => {
     const before = look(scrId, 'asIs');
     const after = look(scrId, 'toBe');
     const regions = descendants(scrId).map((id) => ({ id, status: status(id) ?? 'existing' }));

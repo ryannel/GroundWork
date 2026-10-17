@@ -25,8 +25,9 @@ function itemOf(model: Model, grid: Grid, id: string): StoreItem {
 
 function headline(model: Model, grid: Grid): string {
   const [most] = [...grid.shared].toSorted((a, b) => sharersOf(grid, b) - sharersOf(grid, a));
-  if (most === undefined)
+  if (most === undefined) {
     return 'Every store belongs to one service: nothing reads another service’s data directly.';
+  }
   const others = grid.shared.length - 1;
   const are = others === 1 ? 'is' : 'are';
   const also = others > 0 ? `, and ${countWord(others, 'other store')} ${are} shared too` : '';

@@ -1,8 +1,16 @@
+import 'server-only';
+
 import { z } from 'zod';
 
-import { RESERVED_PAGES, RESERVED_SYSTEM_PAGES } from '@/domain/workspace-check';
+import {
+  RESERVED_PAGES,
+  RESERVED_SYSTEM_PAGES,
+  RESERVED_WORKSPACES,
+} from '@/domain/workspace-check';
 
-const id = z.string().regex(/^[a-z0-9][a-z0-9:-]*$/, 'ids are lower-case, with - and :');
+const RESERVED = 'the id is reserved for a page';
+
+const id = z.string().regex(/^[a-z0-9][a-z0-9:-]*$/u, 'ids are lower-case, with - and :');
 
 const componentFile = z.strictObject({
   id,
@@ -16,7 +24,7 @@ const componentFile = z.strictObject({
 });
 
 export const systemFile = z.strictObject({
-  id: id.refine((value) => !RESERVED_SYSTEM_PAGES.includes(value), 'the id is reserved for a page'),
+  id: id.refine((value) => !RESERVED_SYSTEM_PAGES.includes(value), RESERVED),
   name: z.string(),
   purpose: z.string().optional(),
   team: id.optional(),
@@ -25,7 +33,7 @@ export const systemFile = z.strictObject({
 });
 
 export const domainFile = z.strictObject({
-  id: id.refine((value) => !RESERVED_PAGES.includes(value), 'the id is reserved for a page'),
+  id: id.refine((value) => !RESERVED_PAGES.includes(value), RESERVED),
   name: z.string(),
   purpose: z.string().optional(),
 });
@@ -33,7 +41,7 @@ export const domainFile = z.strictObject({
 export const workspaceFile = z.strictObject({
   /** The version of the workspace layout; 1 is today's. */
   format: z.literal(1).optional(),
-  id,
+  id: id.refine((value) => !RESERVED_WORKSPACES.includes(value), RESERVED),
   name: z.string(),
   description: z.string().optional(),
   private: z.boolean().default(false),
@@ -54,6 +62,7 @@ export const workspaceFile = z.strictObject({
         name: z.string(),
         summary: z.string().optional(),
         uses: z.array(id).default([]),
+        customer: z.boolean().default(false),
       }),
     )
     .default([]),

@@ -25,7 +25,7 @@ export const subgraphsOf = (model: Model, graphId: string, mode: GraphMode): Sub
 
 /** The name of a subgraph without the word "subgraph". */
 export const subgraphLabel = (model: Model, id: string): string =>
-  model.label(id).replace(/ subgraph$/i, '');
+  model.label(id).replace(/ subgraph$/iu, '');
 
 /** A field a response must not share between people: it needs sign-in, or says so. */
 export const isPrivateField = (field: FieldNode | undefined): boolean =>
@@ -33,7 +33,7 @@ export const isPrivateField = (field: FieldNode | undefined): boolean =>
 
 export const fieldName = (id: string): string => id.split('#')[1] ?? '';
 
-export const fieldsOf = (graph: SystemGraph, typeId: string): FieldNode[] => {
+export const fieldsOf = (graph: SystemGraph, typeId: string): readonly FieldNode[] => {
   const node = graph.get(typeId);
   return node?.$type === 'schema' ? node.fields : [];
 };

@@ -90,10 +90,12 @@ function callsHeadline(model: Model, edges: readonly Edge[]): string {
     (e) => e.from,
     (e) => e.to,
   );
-  if (callees.size > callers.size)
+  if (callees.size > callers.size) {
     return `${model.label(caller)} makes most of the calls: it waits on ${countWord(callees.size, 'component')}.`;
-  if (callers.size > 1)
+  }
+  if (callers.size > 1) {
     return `${model.label(callee)} is the one most components wait on: ${countWord(callers.size, 'component')} call it.`;
+  }
   return 'Every call is one component asking one other: none waits on more than one, and none is asked by more than one.';
 }
 
@@ -158,8 +160,9 @@ function topicHubs(model: Model): Hub[] {
 
 function eventsHeadline(model: Model, hubs: readonly Hub[]): string {
   const [hub] = hubs;
-  if (hub === undefined || hub.consumers.length === 0)
+  if (hub === undefined || hub.consumers.length === 0) {
     return 'Nothing in this plan talks through events today.';
+  }
   const who = hub.producers.map((p) => model.label(p));
   const verb = who.length === 1 ? 'publishes' : 'publish';
   const listen = hub.consumers.length === 1 ? 'listens' : 'listen';

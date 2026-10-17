@@ -7,7 +7,7 @@ type Label = (id: string) => string;
 
 const TRAILING = new Set([' ', ',', ';', ':', '–', '—', '-']);
 
-const folded = (text: string): string => text.split(/\s+/).filter(Boolean).join(' ');
+const folded = (text: string): string => text.split(/\s+/u).filter(Boolean).join(' ');
 
 /** Stray emphasis and code marks a clip or a typo left behind. */
 const unmarked = (text: string): string =>
@@ -15,7 +15,7 @@ const unmarked = (text: string): string =>
 
 /** Markdown and citations off, whitespace folded: for search and summaries. */
 export function plain(text: string | null | undefined, label: Label): string {
-  const lines = (text ?? '').split('\n').map((line) => line.replace(/^#+ ?/, ''));
+  const lines = (text ?? '').split('\n').map((line) => line.replace(/^#+ ?/u, ''));
   const words = parseMarkdown(lines.join('\n')).map((block) =>
     block.kind === 'list'
       ? block.items.map((item) => inlineText(item.inlines, label)).join(' ')

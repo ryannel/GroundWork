@@ -23,14 +23,14 @@ export interface EntitySource {
 }
 
 export interface Read {
-  text: string | null;
-  sections: EntitySection[];
-  facts: EntityFact[];
+  readonly text: string | null;
+  readonly sections: readonly EntitySection[];
+  readonly facts: readonly EntityFact[];
   /** The ids it points at, by field. */
-  links: { readonly label: string; readonly ids: readonly string[] }[];
+  readonly links: readonly { readonly label: string; readonly ids: readonly string[] }[];
   /** A plan-relative path to its picture. */
-  image: string | null;
-  sources: EntitySource[];
+  readonly image: string | null;
+  readonly sources: readonly EntitySource[];
 }
 
 /** The fields that say what it is, best first: the first one present is its text. */
@@ -63,9 +63,9 @@ const isLevel = (v: string): v is 'low' | 'med' | 'high' =>
   v === 'low' || v === 'med' || v === 'high';
 
 const humanise = (key: string): string =>
-  LABELS[key] ?? key.replaceAll('_', ' ').replace(/^./, (c) => c.toUpperCase());
+  LABELS[key] ?? key.replaceAll('_', ' ').replace(/^./u, (c) => c.toUpperCase());
 
-const isUrl = (value: string): boolean => /^https?:\/\/\S+$/.test(value);
+const isUrl = (value: string): boolean => /^https?:\/\/\S+$/u.test(value);
 
 /** What a fact says: a level in words, a handling word with what it means, an address as where it goes. */
 function factValue(key: string, value: string): string {
@@ -78,7 +78,7 @@ function factValue(key: string, value: string): string {
   return isUrl(value) ? new URL(value).hostname : value;
 }
 
-const GITHUB_BLOB = /^https:\/\/github\.com\/[^/]+\/([^/]+)\/blob\/[^/]+\/(.+)$/;
+const GITHUB_BLOB = /^https:\/\/github\.com\/[^/]+\/([^/]+)\/blob\/[^/]+\/(.+)$/u;
 
 /** A source as its label, or repo · path#line for a GitHub permalink, or the address. */
 function sourceOf(value: unknown): EntitySource | null {
@@ -88,7 +88,7 @@ function sourceOf(value: unknown): EntitySource | null {
   const label = 'label' in value && typeof value.label === 'string' ? value.label : null;
   const blob = GITHUB_BLOB.exec(url);
   const fallback =
-    blob === null ? url.replace(/^https?:\/\//, '') : `${blob[1] ?? ''} · ${blob[2] ?? ''}`;
+    blob === null ? url.replace(/^https?:\/\//u, '') : `${blob[1] ?? ''} · ${blob[2] ?? ''}`;
   return { label: label ?? fallback, href: url };
 }
 
@@ -100,41 +100,46 @@ export const idsIn = (value: unknown): string[] => {
 const isScalar = (value: unknown): value is string | number | boolean =>
   typeof value === 'boolean' || typeof value === 'number' || typeof value === 'string';
 
+type Field =
+  | { readonly to: 'links'; readonly link: Read['links'][number] }
+  | { readonly to: 'sections'; readonly section: EntitySection }
+  | { readonly to: 'facts'; readonly fact: EntityFact };
+
 /** A field that is not prose, the picture or sources: ids it points at, a long passage, or a short fact. */
-function readField(read: Read, key: string, value: unknown): void {
+function readField(key: string, value: unknown): Field | null {
   const ids = idsIn(value);
   if (ids.length > 0 && (!Array.isArray(value) || ids.length === value.length)) {
-    read.links.push({ label: humanise(key), ids });
-    return;
+    return { to: 'links', link: { label: humanise(key), ids } };
   }
-  if (!isScalar(value)) return;
+  if (!isScalar(value)) return null;
   const text = String(value);
   if (typeof value === 'string' && text.length > FACT_MAX && !isUrl(text)) {
-    read.sections.push({ label: humanise(key), text });
-    return;
+    return { to: 'sections', section: { label: humanise(key), text } };
   }
-  read.facts.push({
-    label: humanise(key),
-    value: factValue(key, text),
-    href: isUrl(text) ? text : null,
-  });
+  return {
+    to: 'facts',
+    fact: { label: humanise(key), value: factValue(key, text), href: isUrl(text) ? text : null },
+  };
 }
 
 /** Sorts what the thing carries: prose, short facts, passages, ids it points at, its picture and sources. */
 export function readEntries(node: object): Read {
-  const read: Read = { text: null, sections: [], facts: [], links: [], image: null, sources: [] };
   const record: Record<string, unknown> = { ...node };
-  const prose = PROSE.filter((key) => typeof record[key] === 'string');
-  const [first, ...rest] = prose;
-  if (first !== undefined) read.text = String(record[first]);
-  for (const key of rest) read.sections.push({ label: humanise(key), text: String(record[key]) });
-  const image = record.image;
-  const sources = record.sources;
+  const [first, ...rest] = PROSE.filter((key) => typeof record[key] === 'string');
+  const { image, sources } = record;
   const listed = Array.isArray(sources) ? sources.map(sourceOf) : [];
-  read.sources.push(...listed.filter((x): x is EntitySource => x !== null));
-  for (const [key, value] of Object.entries(record)) {
-    if (!HIDDEN.has(key) && !key.startsWith('$') && !PROSE.includes(key))
-      readField(read, key, value);
-  }
-  return { ...read, image: typeof image === 'string' ? image : null };
+  const fields = Object.entries(record)
+    .filter(([key]) => !HIDDEN.has(key) && !key.startsWith('$') && !PROSE.includes(key))
+    .flatMap(([key, value]) => readField(key, value) ?? []);
+  return {
+    text: first === undefined ? null : String(record[first]),
+    sections: [
+      ...rest.map((key) => ({ label: humanise(key), text: String(record[key]) })),
+      ...fields.flatMap((field) => (field.to === 'sections' ? [field.section] : [])),
+    ],
+    facts: fields.flatMap((field) => (field.to === 'facts' ? [field.fact] : [])),
+    links: fields.flatMap((field) => (field.to === 'links' ? [field.link] : [])),
+    image: typeof image === 'string' ? image : null,
+    sources: listed.filter((x): x is EntitySource => x !== null),
+  };
 }

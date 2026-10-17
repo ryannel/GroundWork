@@ -1,5 +1,9 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
+import { shop } from '@/../test/federation-kit';
+import { orderNotes } from '@/../test/fixtures/acme/plans/chapters-order-notes';
+import { sameDay } from '@/../test/fixtures/acme/plans/chapters-same-day';
+import { modelOf } from '@/../test/plan-kit';
 import {
   contractEvidence,
   contractHeadline,
@@ -9,16 +13,6 @@ import {
   fitParts,
 } from '@/application/plan-story-prove';
 import { e2eReach, namesOf } from '@/application/plan-story-prove-flows';
-
-vi.mock('server-only', () => ({}));
-
-const { planData } = await import('@/infrastructure/plan-data');
-
-async function modelOf(plan: string) {
-  const data = await planData({ workspace: 'alder-finch', plan });
-  if (data === null) throw new Error(`no ${plan}`);
-  return data.model;
-}
 
 describe('fitParts', () => {
   it('joins parts to two lines and leaves the rest for the lede', () => {
@@ -43,59 +37,69 @@ describe('namesOf', () => {
 });
 
 describe('e2eHeadline', () => {
-  it('says which flows no end-to-end test covers and which only in part', async () => {
-    const model = await modelOf('stock-reservation');
+  it('says which flows no end-to-end test covers and which only in part', () => {
+    const model = modelOf(orderNotes());
     const head = e2eHeadline(model);
-    expect(head.headline).toBe('No end-to-end test covers “Allocate the order”.');
-    expect(head.rest).toBe('“Pay and place the order” is covered only in part.');
+    expect(head.headline).toBe('No end-to-end test covers “Cancel an order”.');
+    expect(head.rest).toBe('“Place an order” is covered only in part.');
     expect(head.reach.none.map((f) => f.id)).toEqual(e2eReach(model).none.map((f) => f.id));
   });
 
-  it('counts when more than two flows are named', async () => {
-    const head = e2eHeadline(await modelOf('delivery-promise'));
-    expect(head.headline).toBe('No end-to-end test covers four of the eleven changed flows.');
+  it('counts when more than two flows are named', () => {
+    const head = e2eHeadline(modelOf(sameDay()));
+    expect(head.headline).toBe('No end-to-end test covers three of the four changed flows.');
   });
 });
 
 describe('contractHeadline', () => {
-  it('names the one re-routed link that has no contract test', async () => {
-    const model = await modelOf('storefront-graph');
-    expect(contractHeadline(model, contractEvidence(model))).toMatch(
-      /^The re-routed call “.+” has no contract test\.$/,
+  it('names the one re-routed link that has no contract test', () => {
+    const model = modelOf(shop());
+    expect(contractHeadline(model, contractEvidence(model))).toBe(
+      'The re-routed call “ProductPage” has no contract test.',
     );
   });
 
-  it('is content when every link has a test, and counts the links', async () => {
-    const model = await modelOf('stock-reservation');
+  it('names the one new link that has no contract test', () => {
+    const model = modelOf(sameDay());
+    expect(contractHeadline(model, contractEvidence(model))).toBe(
+      'The new call “GET /api/slots” has no contract test.',
+    );
+    expect(evidenceLine(contractEvidence(model))).toBe(
+      'Two contract tests cover two links between services.',
+    );
+  });
+
+  it('is content when every link has a test, and counts the links', () => {
+    const model = modelOf(orderNotes());
     const evidence = contractEvidence(model);
     expect(contractHeadline(model, evidence)).toBe(
       'Every new or re-routed call has a contract test.',
     );
-    expect(evidenceLine(evidence)).toBe('Four contract tests cover six links between services.');
+    expect(evidenceLine(evidence)).toBe('Two contract tests cover three links between services.');
   });
 });
 
 describe('coverageHeadline', () => {
-  it('names the change with unit tests only', async () => {
-    const head = coverageHeadline(await modelOf('delivery-promise'));
+  it('names the change with unit tests only', () => {
+    const head = coverageHeadline(modelOf(sameDay()));
     expect(head.headline).toBe('Every change has a test, but one has unit tests only.');
     expect(head.weakest?.kind).toBe('Unit tests only');
-    expect(head.weakest?.ids).toEqual(['chg:enrichment-weight-required']);
+    expect(head.weakest?.ids).toEqual(['chg:product-same-day']);
   });
 
-  it('says the thin spot in the flows when every change has an end-to-end test', async () => {
-    const model = await modelOf('stock-reservation');
+  it('says the thin spot in the flows when every change has an end-to-end test', () => {
+    const model = modelOf(orderNotes());
     expect(coverageHeadline(model).headline).toBe(
       'Every change has a test, and each is covered end to end.',
     );
     const reach = e2eHeadline(model).reach;
     expect(coverageHeadline(model, { reach }).headline).toBe(
-      'Every change has a test, but no end-to-end test covers “Allocate the order”.',
+      'Every change has a test, but no end-to-end test covers “Cancel an order”.',
     );
   });
 
-  it('adds the tests that never run what they prove', async () => {
-    const head = coverageHeadline(await modelOf('storefront-graph'));
+  it('adds the tests that never run what they prove', () => {
+    const head = coverageHeadline(modelOf(sameDay()));
     expect(head.rest).toBe('One test claims a change but never runs its steps.');
   });
 });

@@ -51,13 +51,21 @@ export const RESERVED_PAGES: readonly string[] = [
   'reference',
   'things',
   'assets',
+  'language',
+  'people',
 ];
+
+/** Page names at the top of the app, beside the workspaces at /<workspace>/, so no workspace may take one. */
+export const RESERVED_WORKSPACES: readonly string[] = ['design'];
 
 /** Page names beside the systems at /<workspace>/<domain>/<name>/, so no system may take one. */
 export const RESERVED_SYSTEM_PAGES: readonly string[] = ['flows', 'map', 'language', 'interfaces'];
 
 function reservedDomains(workspace: Workspace): readonly string[] {
   return [
+    ...(RESERVED_WORKSPACES.includes(workspace.id)
+      ? [`workspace ${workspace.id}: the id is reserved for the ${workspace.id} page`]
+      : []),
     ...workspace.domains
       .filter((domain) => RESERVED_PAGES.includes(domain.id))
       .map((domain) => `domain ${domain.id}: the id is reserved for the ${domain.id} pages`),

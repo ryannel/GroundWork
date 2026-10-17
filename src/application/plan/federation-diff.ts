@@ -1,6 +1,6 @@
 import type { Core } from '@/application/plan/derive-core';
 import type { DiffEntry } from '@/application/plan/derive-diff';
-import { memo, str } from '@/application/plan/derive-values';
+import { memo, textOf } from '@/application/plan/derive-values';
 import type { Federation, PlanSummary } from '@/application/plan/federation-model';
 import { isRecord, prop } from '@/application/plan/ids';
 import type { Field } from '@/domain/plan/plan.generated';
@@ -9,47 +9,47 @@ type Status = ReturnType<Core['status']>;
 type SummaryKey = keyof PlanSummary;
 
 interface Entry {
-  id: string;
-  status: Status;
+  readonly id: string;
+  readonly status: Status;
 }
 
 export interface FieldChange {
-  id: string;
-  type: string;
-  status: Status;
-  subgraphs: { before: string[]; after: string[] };
-  moved: boolean;
-  override: Field['override'] | null;
-  usage: Field['usage'] | null;
-  summaries: string[];
+  readonly id: string;
+  readonly type: string;
+  readonly status: Status;
+  readonly subgraphs: { readonly before: readonly string[]; readonly after: readonly string[] };
+  readonly moved: boolean;
+  readonly override: Field['override'] | null;
+  readonly usage: Field['usage'] | null;
+  readonly summaries: readonly string[];
 }
 
 export interface OperationChange {
-  id: string;
-  status: Status;
-  before: PlanSummary | null;
-  after: PlanSummary | null;
-  changed: SummaryKey[];
+  readonly id: string;
+  readonly status: Status;
+  readonly before: PlanSummary | null;
+  readonly after: PlanSummary | null;
+  readonly changed: readonly SummaryKey[];
 }
 
 export interface CacheChange extends Entry {
-  summaries: string[];
+  readonly summaries: readonly string[];
 }
 
 /** What a plan changes in one graph: subgraphs, types, fields, operations (by plan) and caches on its path. */
 export interface GraphDiff {
-  graph: string;
-  subgraphs: Entry[];
-  types: Entry[];
-  fields: FieldChange[];
-  operations: OperationChange[];
-  caches: CacheChange[];
+  readonly graph: string;
+  readonly subgraphs: readonly Entry[];
+  readonly types: readonly Entry[];
+  readonly fields: readonly FieldChange[];
+  readonly operations: readonly OperationChange[];
+  readonly caches: readonly CacheChange[];
 }
 
 interface Parts {
-  fed: Federation;
-  diff: (id: string) => DiffEntry[];
-  descendants: (id: string) => string[];
+  readonly fed: Federation;
+  readonly diff: (id: string) => DiffEntry[];
+  readonly descendants: (id: string) => string[];
 }
 
 const SUMMARY_KEYS: SummaryKey[] = [
@@ -64,10 +64,10 @@ const SUMMARY_KEYS: SummaryKey[] = [
 const sameJson = (a: unknown, b: unknown): boolean => JSON.stringify(a) === JSON.stringify(b);
 
 interface Scope {
-  core: Core;
-  parts: Parts;
-  graphId: string;
-  changed: (id: string) => boolean;
+  readonly core: Core;
+  readonly parts: Parts;
+  readonly graphId: string;
+  readonly changed: (id: string) => boolean;
 }
 
 const summariesOf = ({ parts }: Scope, id: string): string[] =>
@@ -76,7 +76,7 @@ const summariesOf = ({ parts }: Scope, id: string): string[] =>
     .filter((e) => e.target === id)
     .map((e) => e.summary);
 
-function fieldsOf(env: Scope, typeIds: string[]): FieldChange[] {
+function fieldsOf(env: Scope, typeIds: readonly string[]): FieldChange[] {
   const { core, parts, changed } = env;
   const out: FieldChange[] = [];
   for (const type of typeIds) {
@@ -103,7 +103,7 @@ function fieldsOf(env: Scope, typeIds: string[]): FieldChange[] {
   return out;
 }
 
-function operationsIn(env: Scope, opIds: string[]): OperationChange[] {
+function operationsIn(env: Scope, opIds: readonly string[]): OperationChange[] {
   const { core, parts, changed } = env;
   const out: OperationChange[] = [];
   for (const id of opIds) {
@@ -121,7 +121,7 @@ function operationsIn(env: Scope, opIds: string[]): OperationChange[] {
 }
 
 /** Caches on the graph's path: owned by its gateway, or attached to one of its operations or fields. */
-function cachesIn(env: Scope, attachers: string[]): CacheChange[] {
+function cachesIn(env: Scope, attachers: readonly string[]): CacheChange[] {
   const { core, graphId, changed } = env;
   const gateway = prop(core.sys(graphId), 'gateway');
   const attached = (storeId: string): boolean =>
@@ -135,17 +135,13 @@ function cachesIn(env: Scope, attachers: string[]): CacheChange[] {
   return core.unionIds
     .filter((id) => {
       const n = core.sys(id);
-      return (
-        n?.$type === 'store' &&
-        n.kind === 'cache' &&
-        changed(id) &&
-        (str(n.owner) === gateway || attached(id))
-      );
+      const isCache = n?.$type === 'store' && n.kind === 'cache';
+      return isCache && changed(id) && (textOf(n.owner) === gateway || attached(id));
     })
     .map((id) => ({ id, status: core.status(id), summaries: summariesOf(env, id) }));
 }
 
-export function createGraphDiff(core: Core, parts: Parts) {
+export function createGraphDiff(core: Core, parts: Parts): (graphId: string) => GraphDiff {
   return memo((graphId: string): GraphDiff => {
     const env: Scope = {
       core,
@@ -153,8 +149,9 @@ export function createGraphDiff(core: Core, parts: Parts) {
       graphId,
       changed: (id) => core.status(id) !== 'existing',
     };
-    const inGraph = (id: string): boolean => (str(prop(core.sys(id), 'graph')) ?? null) === graphId;
-    const ofType = (type: string): string[] =>
+    const inGraph = (id: string): boolean =>
+      (textOf(prop(core.sys(id), 'graph')) ?? null) === graphId;
+    const ofType = (type: string): readonly string[] =>
       core.unionIds.filter((id) => core.sys(id)?.$type === type && inGraph(id));
     const typeIds = ofType('schema').filter((id) => prop(core.sys(id), 'kind') === 'graph-type');
     const opIds = ofType('operation');

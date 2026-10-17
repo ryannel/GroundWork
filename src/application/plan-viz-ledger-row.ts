@@ -23,7 +23,7 @@ const MAX_TARGETS = 3;
 
 export interface LedgerRow {
   readonly id: string;
-  readonly num: number;
+  readonly number: number;
   readonly title: string;
   readonly why: string | null;
   readonly rollout: string | null;
@@ -109,14 +109,14 @@ export function kindsUsed(model: Model, ids: readonly string[]): OpKind[] {
   return KIND_ORDER.filter((k) => used.has(k));
 }
 
-export function ledgerRow(model: Model, id: string, num: number): LedgerRow | null {
+export function ledgerRow(model: Model, id: string, number: number): LedgerRow | null {
   const chg = (model.plan.changes ?? []).find((c) => c.id === id);
   if (chg === undefined) return null;
   const targets = changeTargets(model, id);
   const why = chg.why ?? null;
   return {
     id,
-    num,
+    number,
     title: chg.title,
     why,
     rollout: chg.rollout ?? null,

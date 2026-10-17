@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { derive } from '@/application/plan/derive';
 import { problemHead, promiseView, scenariosView } from '@/application/plan-story-why';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 const base = await loadFixture('mini.yaml');
@@ -62,7 +62,7 @@ describe('scenariosView', () => {
       scenarios: [{ id: 'sc:one', title: 'One', story: 'A story', flows: flow ? [flow.id] : [] }],
     });
     expect(scenariosView(model).cards).toHaveLength(1);
-    expect(scenariosView(model).headline).toMatch(/One|scenario/);
+    expect(scenariosView(model).headline).toMatch(/One|scenario/u);
   });
 
   it('names the scenario when it has no flows', () => {

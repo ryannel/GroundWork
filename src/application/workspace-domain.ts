@@ -62,7 +62,12 @@ export interface DomainView {
   readonly catalogue: Catalogue;
 }
 
-function headlineOf(name: string, view: { systems: number; role: string | null; outside: number }) {
+const lowerIn = (role: string): string => role.replace(/^In /u, 'in ');
+
+function headlineOf(
+  name: string,
+  view: { readonly systems: number; readonly role: string | null; readonly outside: number },
+) {
   const systems = plural(view.systems, 'system');
   const role =
     view.role === null ? 'take part in no journey yet' : `take part ${lowerIn(view.role)}`;
@@ -86,8 +91,6 @@ function countsOf(domain: Domain, flows: number, catalogue: Catalogue): DomainCo
     stores: catalogue.data.length,
   };
 }
-
-const lowerIn = (role: string): string => role.replace(/^In /, 'in ');
 
 /** A domain's page, read from the model of today; null when the workspace has no such domain. */
 export function domainViewOf(workspace: Workspace, model: Model, id: string): DomainView | null {

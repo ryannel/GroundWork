@@ -1,21 +1,15 @@
-import path from 'node:path';
-
 import { describe, expect, it, vi } from 'vitest';
 
+import { acme } from '@/../test/workspace-kit';
 import { componentsOf } from '@/domain/workspace';
 
 import { systemModelOf } from './workspace-model';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
-const { readWorkspaces } = await import('@/infrastructure/workspace-store');
-const { readWorkspaceModel } = await import('@/infrastructure/workspace-model');
 const { checkPlanData } = await import('@/infrastructure/plan-validator');
 
-const root = path.resolve(import.meta.dirname, '../../workspaces');
-const workspaces = await readWorkspaces(root);
-const workspace = workspaces.find(({ id }) => id === 'alder-finch')!;
-const read = await readWorkspaceModel(workspace, root);
+const { workspace, model: read } = acme();
 const { plan, model, attribution, scans } = systemModelOf(workspace, read);
 
 describe('systemModelOf', () => {
@@ -23,7 +17,7 @@ describe('systemModelOf', () => {
     const check = await checkPlanData(structuredClone(plan));
     expect(check.errors).toEqual([]);
     expect(
-      check.warnings.filter(({ message }) => !/has only one service|has no sources/.test(message)),
+      check.warnings.filter(({ message }) => !/has only one service|has no sources/u.test(message)),
     ).toEqual([]);
     expect(model.validation().errors).toEqual([]);
   });
@@ -42,11 +36,12 @@ describe('systemModelOf', () => {
   });
 
   it('keeps the structure’s words and the model’s detail', () => {
-    const allocation = plan.services.find(({ id }) => id === 'svc:allocation');
-    expect(allocation).toMatchObject({ team: 'team:fulfilment', system: 'sys:fulfilment' });
-    expect(allocation?.summary).toMatch(/order\.placed/);
-    expect(plan.stores?.find(({ id }) => id === 'st:wms-db')?.owner).toBe('svc:wms');
-    expect(attribution['svc:allocation']?.origin).toBe('seeded');
-    expect(scans).toEqual([]);
+    const products = plan.services.find(({ id }) => id === 'svc:products');
+    expect(products).toMatchObject({ team: 'team:catalogue', system: 'sys:products' });
+    expect(products?.summary).toMatch(/product\.changed/u);
+    expect(plan.stores?.find(({ id }) => id === 'st:orders-db')?.owner).toBe('svc:order-api');
+    expect(attribution['svc:products']?.origin).toBe('extracted');
+    expect(attribution['flow:place-order']?.origin).toBe('curated');
+    expect(scans.map(({ repo }) => repo)).toEqual(['acme/ordering']);
   });
 });

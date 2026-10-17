@@ -1,6 +1,8 @@
 // @vitest-environment node
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
+import { sameDay } from '@/../test/fixtures/acme/plans/chapters-same-day';
+import { modelOf } from '@/../test/plan-kit';
 import {
   type Choices,
   choicesHeadline,
@@ -17,27 +19,20 @@ import {
 } from '@/application/plan-story-commit';
 import type { Decision, Risk } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
-
-const { planData } = await import('@/infrastructure/plan-data');
-
-async function modelOf(plan: string) {
-  const data = await planData({ workspace: 'alder-finch', plan });
-  if (data === null) throw new Error(`no ${plan}`);
-  return data.model;
-}
-
-const model = await modelOf('delivery-promise');
+const model = modelOf(sameDay());
 const all = choicesOf(model);
 const [first] = [...all.proposed, ...all.accepted];
-if (first === undefined) throw new Error('delivery-promise has no decisions');
+if (first === undefined) throw new Error('the same-day plan has no decisions');
 const none: Choices = { proposed: [], accepted: [], answered: [] };
-type Edit<T> = { readonly [K in keyof T]?: T[K] | undefined };
+/** An edit to a fixture; null takes the field away. */
+type Edit<T> = { readonly [K in keyof T]?: T[K] | null };
 const defined = <T extends object>(base: T, edit: Edit<T>): T =>
-  Object.fromEntries(Object.entries({ ...base, ...edit }).filter(([, v]) => v !== undefined)) as T;
+  Object.fromEntries(
+    Object.entries({ ...base, ...edit }).filter(([key, v]) => !(v === null && key in edit)),
+  ) as T;
 const decision = (edit: Edit<Decision>): Decision => defined(first, edit);
 const [risk] = risksBySeverity(model);
-if (risk === undefined) throw new Error('delivery-promise has no risks');
+if (risk === undefined) throw new Error('the same-day plan has no risks');
 const riskOf = (edit: Edit<Risk>): Risk => defined(risk, edit);
 
 describe('the choices headline', () => {
@@ -47,7 +42,7 @@ describe('the choices headline', () => {
   });
 
   it('turns a lone accepted choice that opens with a verb into what was decided', () => {
-    const only = decision({ title: 'Use carrier cut-offs.', decider: undefined });
+    const only = decision({ title: 'Use carrier cut-offs.', decider: null });
     expect(choicesHeadline(model, { ...none, accepted: [only] })).toBe(
       'The plan’s owner decided to use carrier cut-offs.',
     );
@@ -57,7 +52,7 @@ describe('the choices headline', () => {
     const only = decision({
       title: 'Cut-off source',
       decision: 'Carriers publish their own cut-offs. Nothing else.',
-      decider: undefined,
+      decider: null,
     });
     expect(choicesHeadline(model, { ...none, accepted: [only] })).toBe(
       'The plan’s owner decided: carriers publish their own cut-offs.',
@@ -68,17 +63,17 @@ describe('the choices headline', () => {
     const only = decision({
       title: 'Cut-off source',
       decision: 'Cut-off source.',
-      decider: undefined,
+      decider: null,
       decided_on: '2026-09-03',
     });
     expect(choicesHeadline(model, { ...none, accepted: [only] })).toMatch(
-      /^The plan’s owner made this choice on .+\.$/,
+      /^The plan’s owner made this choice on .+\.$/u,
     );
     const undated = decision({
       title: 'Cut-off source',
       decision: '',
-      decider: undefined,
-      decided_on: undefined,
+      decider: null,
+      decided_on: null,
     });
     expect(choicesHeadline(model, { ...none, accepted: [undated] })).toBe(
       'The plan’s owner made this choice.',
@@ -94,11 +89,11 @@ describe('the choices headline', () => {
   });
 
   it('counts unowned proposals without naming a team', () => {
-    const one = decision({ decider: undefined, reversibility: 'one-way' });
+    const one = decision({ decider: null, reversibility: 'one-way' });
     expect(choicesHeadline(model, { ...none, proposed: [one] })).toBe(
       'One choice still has to be accepted; it would be hard to reverse once built.',
     );
-    const both = [one, decision({ id: 'D9', decider: undefined, reversibility: 'one-way' })];
+    const both = [one, decision({ id: 'D9', decider: null, reversibility: 'one-way' })];
     expect(choicesHeadline(model, { ...none, proposed: both })).toBe(
       'Two choices still have to be accepted; both would be hard to reverse once built.',
     );
@@ -117,7 +112,7 @@ describe('the risks headline', () => {
   });
 
   it('gives the only risk’s handling and owner', () => {
-    expect(risksHeadline(model, [riskOf({ owner: undefined, roam: 'owned' })])).toBe(
+    expect(risksHeadline(model, [riskOf({ owner: null, roam: 'owned' })])).toBe(
       'The one risk is open, and nobody owns it.',
     );
   });
@@ -142,6 +137,6 @@ describe('the rest of the register', () => {
   it('names a group it has no word for by its key', () => {
     const odd: RegisterGroup = { key: 'odd', label: 'Odd', note: '', items: [first] };
     expect(restLede([odd])).toBe('One odd. Kept here for the record.');
-    expect(itemCount(2)).toMatch(/items/);
+    expect(itemCount(2)).toMatch(/items/u);
   });
 });

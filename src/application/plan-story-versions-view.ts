@@ -35,6 +35,9 @@ export interface VersionView {
   readonly sections: readonly Section[];
 }
 
+/** A section's key on its page: its kind says what it is, its title which one, as a page has several texts. */
+export const sectionKey = (s: Section): string => ('title' in s ? `${s.key}:${s.title}` : s.key);
+
 /** Ids a diff touches, to find earlier versions about the same things. */
 function touched(d: PlanDiff | null): Set<string> {
   if (d === null) return new Set();
@@ -85,10 +88,10 @@ function whyProse(view: View): Prose[] {
 
 /** The sections that read the same for every status: what changes, the flows, the work. */
 function changeSections(view: View): {
-  tally: Section;
-  journey: Section;
-  work: Section;
-  edits: Section;
+  readonly tally: Section;
+  readonly journey: Section;
+  readonly work: Section;
+  readonly edits: Section;
 } {
   const { pair, tense } = view;
   const { t } = tense;
@@ -124,8 +127,9 @@ function pairSections(view: View, data: VersionsData, st: RevisionStep): Section
   const s = changeSections(view);
   const reason = reasonOf(st);
   const rejection = reason !== null && st.entry.status === 'rejected' ? [reason] : [];
-  if (view.tense.gone)
+  if (view.tense.gone) {
     return [...rejection, ...whyProse(view), s.tally, s.journey, s.work, s.edits];
+  }
   const notes = reason === null ? [] : [reason];
   const decide: Section[] = view.tense.live
     ? [{ key: 'text', title: 'Decide', text: decideText(view, st), faint: false }]

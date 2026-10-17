@@ -1,31 +1,24 @@
 // @vitest-environment node
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { derive } from '@/application/plan/derive';
+import { shopRetiringPricing } from '@/../test/fixtures/acme/plans/contracts-plans';
+import { modelOf } from '@/../test/plan-kit';
 import { fieldName, graphTypes, subgraphLabel } from '@/application/plan-viz-graph-base';
 import { cacheTable } from '@/application/plan-viz-graph-caches';
 import { ownershipGrid } from '@/application/plan-viz-graph-grid';
 import { graphPicture } from '@/application/plan-viz-graph-picture';
 
-vi.mock('server-only', () => ({}));
-
-async function load(plan: string) {
-  const { readPlan } = await import('@/infrastructure/plan-store');
-  const loaded = await readPlan('alder-finch', plan);
-  if (loaded.plan === null) throw new Error(`no plan ${plan}`);
-  return derive(loaded.plan);
-}
-
-const model = await load('storefront-graph');
-const graph = 'graph:storefront';
+const model = modelOf(shopRetiringPricing());
+const graph = 'graph:shop';
 
 describe('graph picture', () => {
   it('reads left to right: clients, edge, gateway, gateway cache, subgraphs', () => {
     const view = graphPicture(model, graph);
     expect(view?.edge.map((b) => b.id)).toContain('st:edge-cache');
-    expect(view?.gatewayCache.map((b) => b.id)).toContain('st:gateway-entity-cache');
+    expect(view?.gatewayCache.map((b) => b.id)).toContain('st:entity-cache');
     expect(view?.gateway.operations.length).toBe(5);
     expect(view?.rows.length).toBe(model.asIs.subgraphs.length);
+    expect(view?.rows.map((r) => r.label)).toContain('Pricing');
     for (const row of view?.rows ?? []) expect(row.label).not.toMatch(/ subgraph$/u);
   });
 
@@ -37,6 +30,7 @@ describe('graph picture', () => {
     const rows = graphPicture(model, graph, 'toBe')?.rows.map((r) => r.id) ?? [];
     expect(rows).toContain('sg:promise');
     expect(rows).toContain('sg:pricing-v2');
+    expect(graphPicture(model, graph)?.rows.map((r) => r.id)).not.toContain('sg:promise');
   });
 });
 
@@ -61,6 +55,7 @@ describe('ownership grid', () => {
       grid?.rows.flatMap((r) => r.cells.flatMap((c) => c.fields.map((f) => f.state))),
     );
     expect(states.has('new')).toBe(true);
+    expect(states.has('was')).toBe(true);
   });
 
   it('is nothing for a graph it does not know', () => {
@@ -80,7 +75,7 @@ describe('cache table', () => {
 
   it('marks what changes when given the diff', () => {
     const rows = cacheTable(model, { diff: model.graphDiff(graph) });
-    expect(rows.some((r) => r.status !== 'same')).toBe(true);
+    expect(rows.find((r) => r.layer === 'subgraph')?.status).toBe('changed');
   });
 });
 

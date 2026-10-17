@@ -16,15 +16,15 @@ const labelOf = (model: Model, id: string): string => chipInfo(model, id).label;
 /** A subgraph or store in a sentence: no "subgraph" suffix, no code marks. */
 export const nameOf = (model: Model, id: string): string =>
   labelOf(model, id)
-    .replace(/\bsubgraph$/i, '')
+    .replace(/\bsubgraph$/iu, '')
     .replaceAll('`', '')
     .trim();
 
 const uniq = (xs: readonly string[]): string[] => [...new Set(xs.filter((x) => x !== ''))];
 
 export interface CaseChoice {
-  kase: WaterfallCase;
-  label: string;
+  readonly kase: WaterfallCase;
+  readonly label: string;
 }
 
 const outer = (cp: CachePath | null, state: CacheRow['state']): CacheRow | undefined =>
@@ -67,8 +67,9 @@ function answeredText(model: Model, cp: CachePath, answered: string): string {
   const ran = cp.fetches.filter((f) => f.state === 'run').length;
   const row = cp.layers.find((l) => l.store === answered);
   const name = labelOf(model, answered);
-  if (row?.layer === 'subgraph')
+  if (row?.layer === 'subgraph') {
     return `${name} answered inside its subgraph; the other fetches still ran`;
+  }
   return ran === 0
     ? `${name} answered; nothing below it ran`
     : `${name} answered; ${String(ran)} of ${String(cp.fetches.length)} fetches still ran`;
@@ -93,10 +94,10 @@ function countsText(model: Model, facts: WaterfallFacts, before: Before | null):
 }
 
 export interface SummaryOf {
-  facts: WaterfallFacts;
-  cp: CachePath;
+  readonly facts: WaterfallFacts;
+  readonly cp: CachePath;
   /** Today's numbers, in a comparison. */
-  before: Before | null;
+  readonly before: Before | null;
 }
 
 /** The one line under a case: what ran, what answered, and what changed since today. */

@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import { afterAll, describe, expect, it, vi } from 'vitest';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { cloneFolder, folderOf, readLocal, registeredAt, workspaceFolders } =
   await import('./workspace-folders');
@@ -39,8 +39,11 @@ async function checkout(): Promise<{ home: string; repo: string }> {
 
 describe('workspaceFolders', () => {
   it('finds the bundled examples by the id in their workspace.yaml', async () => {
-    const found = await workspaceFolders(path.join(process.cwd(), 'workspaces'));
-    expect([...found.keys()]).toEqual(expect.arrayContaining(['alder-finch', 'personal']));
+    const bundled = path.join(await scratchDir(), 'workspaces');
+    const acme = await workspaceAt(path.join(bundled, 'acme-example'), 'acme');
+    const personal = await workspaceAt(path.join(bundled, 'personal'), 'personal');
+    const found = await workspaceFolders(bundled);
+    expect(Object.fromEntries(found)).toEqual({ acme, personal });
   });
 });
 
@@ -78,7 +81,7 @@ describe('registeredAt', () => {
   it('refuses a listed folder that holds no workspace', async () => {
     const { home } = await checkout();
     await writeFile(path.join(home, 'groundwork.local.yaml'), 'workspaces: [../nowhere]\n');
-    await expect(registeredAt(home, { local: true })).rejects.toThrow(/holds no workspace\.yaml/);
+    await expect(registeredAt(home, { local: true })).rejects.toThrow(/holds no workspace\.yaml/u);
   });
 
   it('refuses two folders with the same workspace id', async () => {
@@ -89,14 +92,14 @@ describe('registeredAt', () => {
       'workspaces: [../acme-groundwork, ../copy]\n',
     );
     await expect(registeredAt(home, { local: true })).rejects.toThrow(
-      /workspace acme: found in both/,
+      /workspace acme: found in both/u,
     );
   });
 
   it('refuses a local file it does not understand', async () => {
     const { home } = await checkout();
     await writeFile(path.join(home, 'groundwork.local.yaml'), 'workspace: [../acme-groundwork]\n');
-    await expect(registeredAt(home, { local: true })).rejects.toThrow(/groundwork\.local\.yaml/);
+    await expect(registeredAt(home, { local: true })).rejects.toThrow(/groundwork\.local\.yaml/u);
   });
 
   it('reads a linked repo from its clone in .workspaces/', async () => {
@@ -116,7 +119,7 @@ describe('registeredAt', () => {
       path.join(home, 'groundwork.local.yaml'),
       'workspaces:\n  - repo: https://github.com/beta/beta-groundwork\n',
     );
-    await expect(registeredAt(home, { local: true })).rejects.toThrow(/not cloned.*pull/);
+    await expect(registeredAt(home, { local: true })).rejects.toThrow(/not cloned.*pull/u);
   });
 
   it('keeps folders and repos as written', async () => {
@@ -142,6 +145,6 @@ describe('cloneFolder', () => {
   });
 
   it('refuses a repo it cannot name', () => {
-    expect(() => cloneFolder('https://x.test/..')).toThrow(/give it a folder/);
+    expect(() => cloneFolder('https://x.test/..')).toThrow(/give it a folder/u);
   });
 });

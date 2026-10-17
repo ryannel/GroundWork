@@ -43,10 +43,10 @@ export interface View {
 type Sides = Pick<Pair, 'from' | 'to'>;
 
 /** A thing's name in whichever revision has it; the impact knows what the ops add. */
-export function nameIn(pair: Sides & { im?: RevisionImpact }, id: string): string {
+export function nameIn(pair: Sides & { readonly im?: RevisionImpact }, id: string): string {
   const found = findEntity(pair.to, id) ?? findEntity(pair.from, id);
   if (found !== null) return unmark(labelOf(found, id));
-  return unmark(pair.im?.nameOf(id) ?? id.replace(/^[a-z]+:/, ''));
+  return unmark(pair.im?.nameOf(id) ?? id.replace(/^[a-z]+:/u, ''));
 }
 
 /** The team that owns a service, else the service's own name. */
@@ -60,10 +60,11 @@ export function teamOfService(pair: Pair, id: string): string {
 export function valueText(pair: Pair, value: unknown): string {
   if (value === null || value === undefined || value === '') return '';
   if (Array.isArray(value)) return value.map((x: unknown) => valueText(pair, x)).join(', ');
-  if (typeof value !== 'string' && typeof value !== 'number' && typeof value !== 'boolean')
+  if (typeof value !== 'string' && typeof value !== 'number' && typeof value !== 'boolean') {
     return JSON.stringify(value);
+  }
   const text = String(value);
-  if (!/^[a-z]+:[\w-]/.test(text) || /\s/.test(text)) return unmark(text);
+  if (!/^[a-z]+:[\w-]/u.test(text) || /\s/u.test(text)) return unmark(text);
   const [id = text, part] = text.split('#');
   return part === undefined ? nameIn(pair, id) : `${nameIn(pair, id)} · ${part}`;
 }

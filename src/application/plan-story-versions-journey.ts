@@ -87,8 +87,9 @@ function edgeAlarms({ pair, tense }: View): Map<string, string> {
     const [from, to] = [teamOfService(pair, e.from), teamOfService(pair, e.to)];
     const today = e.before === 'event' ? `; today it only sends ${to} events` : '';
     const call = tense.t('would call', 'calls', 'would have called');
-    for (const id of e.steps)
+    for (const id of e.steps) {
       alarms.set(id, `**New dependency:** ${from} ${call} ${to} here${today}.`);
+    }
   }
   return alarms;
 }
@@ -157,7 +158,11 @@ interface Context {
   readonly newFlow: boolean;
 }
 
-function stepView(view: View, at: { s: JourneyStep; n: number }, ctx: Context): StepView {
+function stepView(
+  view: View,
+  at: { readonly s: JourneyStep; readonly n: number },
+  ctx: Context,
+): StepView {
   const { s, n } = at;
   const { pair, tense } = view;
   const { from, to } = s.step;
@@ -195,8 +200,9 @@ function foldRun(view: View, group: Group, run: readonly StepView[]): JourneyRow
   if (run.length < 3 || first === undefined || last === undefined || group === 'marked') {
     return run.map((step) => ({ kind: 'step', step }));
   }
-  if (group === 'same')
+  if (group === 'same') {
     return [{ kind: 'fold', text: `${String(run.length)} steps unchanged`, title: null }];
+  }
   const pass = view.tense.t('pass', 'passed', 'would have passed');
   return [
     {
@@ -208,12 +214,12 @@ function foldRun(view: View, group: Group, run: readonly StepView[]): JourneyRow
 }
 
 function rowsOf(view: View, f: Journey, ctx: Context): JourneyRow[] {
-  const runs: { group: Group; steps: StepView[] }[] = [];
+  const runs: { readonly group: Group; readonly steps: readonly StepView[] }[] = [];
   for (const [i, s] of f.steps.entries()) {
     const group = groupOf(view, s, ctx);
     const last = runs.at(-1);
     const step = stepView(view, { s, n: i + 1 }, ctx);
-    if (last?.group === group) last.steps.push(step);
+    if (last?.group === group) runs[runs.length - 1] = { group, steps: [...last.steps, step] };
     else runs.push({ group, steps: [step] });
   }
   return runs.flatMap((r) => foldRun(view, r.group, r.steps));

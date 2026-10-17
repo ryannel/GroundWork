@@ -14,6 +14,6 @@ export function setRefLabel(labeller: Labeller | null): void {
 export function refLabel(id: string): string {
   const label = current?.(id) ?? null;
   if (label !== null && label !== id) return label;
-  const slug = id.replace(/^[a-z]+:/, '');
-  return (slug.split('#').pop() ?? slug).replaceAll(/[-_]/g, ' ');
+  const slug = id.replace(/^[a-z]+:/u, '');
+  return (slug.split('#').pop() ?? slug).replaceAll(/[-_]/gu, ' ');
 }

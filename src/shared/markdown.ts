@@ -27,16 +27,17 @@ interface Found {
   readonly end: number;
 }
 
-const ID = /^[a-z]+:[\w.#-]+$/;
+const ID = /^[a-z]+:[\w.#-]+$/u;
 const URL_END = new Set([' ', '\t', '\n', '<', '>', '"']);
 const URL_TRAIL = new Set(['.', ',', ';', ':', '!', '?', ')']);
 
 /** "github.com/…/transport.go#L47" for a long URL. */
 export function shortUrl(url: string): string {
-  const rest = url.replace(/^https?:\/\//, '').replace(/^www\./, '');
-  const cut = rest.search(/[/?#]/);
+  const rest = url.replace(/^https?:\/\//u, '').replace(/^www\./u, '');
+  const cut = rest.search(/[/?#]/u);
   const host = cut < 0 ? rest : rest.slice(0, cut);
-  const tail = (cut < 0 ? '' : rest.slice(cut)).split(/[/?]/).findLast((part) => part !== '') ?? '';
+  const tail =
+    (cut < 0 ? '' : rest.slice(cut)).split(/[/?]/u).findLast((part) => part !== '') ?? '';
   if (tail === '') return host;
   const short = tail.length > 40 ? `${tail.slice(0, 39)}…` : tail;
   return `${host}/…/${short}`;
@@ -48,10 +49,12 @@ function enclosed(text: string, at: number, marks: readonly [string, string]): F
   if (end === -1) return null;
   const inner = text.slice(at + open.length, end);
   const after = end + close.length;
-  if (open === '[[')
+  if (open === '[[') {
     return ID.test(inner) ? { token: { kind: 'ref', id: inner }, end: after } : null;
-  if (open === '`')
+  }
+  if (open === '`') {
     return inner === '' ? null : { token: { kind: 'code', text: inner }, end: after };
+  }
   if (inner === '' || inner.includes('*') || inner.startsWith(' ')) return null;
   const kind = open === '**' ? 'strong' : 'em';
   return { token: { kind, children: parseInline(inner) }, end: after };
@@ -63,8 +66,9 @@ function link(text: string, at: number): Found | null {
   if (end < 0) return null;
   const label = text.slice(at + 1, middle);
   const href = text.slice(middle + 2, end);
-  if (label === '' || label.includes(']') || !href.startsWith('http') || /\s/.test(href))
+  if (label === '' || label.includes(']') || !href.startsWith('http') || /\s/u.test(href)) {
     return null;
+  }
   return { token: { kind: 'link', href, text: label, short: false }, end: end + 1 };
 }
 
@@ -112,8 +116,8 @@ export function parseInline(text: string): Inline[] {
 type LineKind = 'bullet' | 'number' | 'quote' | 'text';
 
 function lineKind(line: string): [LineKind, string] {
-  if (/^[-*]\s/.test(line)) return ['bullet', line.slice(1).trimStart()];
-  const number = /^\d+[.)]\s/.exec(line);
+  if (/^[-*]\s/u.test(line)) return ['bullet', line.slice(1).trimStart()];
+  const number = /^\d+[.)]\s/u.exec(line);
   if (number !== null) return ['number', line.slice(number[0].length).trimStart()];
   if (line.startsWith('>')) return ['quote', line.slice(1).trimStart()];
   return ['text', line];
@@ -169,6 +173,9 @@ export function inlineText(inlines: readonly Inline[], label: (id: string) => st
         }
         case 'ref': {
           return label(run.id);
+        }
+        default: {
+          return '';
         }
       }
     })

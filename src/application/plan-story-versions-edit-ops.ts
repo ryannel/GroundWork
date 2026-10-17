@@ -55,7 +55,7 @@ function targetOf(view: View, op: unknown): string {
   return `**${typeof name === 'string' ? name : ''}**`;
 }
 
-const bare = (text: string): string => text.replace(/^[+~−×-]\s*/, '');
+const bare = (text: string): string => text.replace(/^[+~−×-]\s*/u, '');
 
 const fieldItem = (via: string, what: string, f?: Field): EditItem =>
   plainOf(what, { via, detail: f?.note });
@@ -108,17 +108,31 @@ function changedItems(view: View, c: ChangeOps, via: string): EditItem[] {
   ];
 }
 
-export function opItems(view: View, taken: Set<string>): EditItem[] {
-  return view.pair.diff.ops.flatMap((c) => {
+/** The edits the ops make, and the decisions, tests and work items already told as kin of a new change. */
+export function opItems(view: View): {
+  readonly items: readonly EditItem[];
+  readonly taken: ReadonlySet<string>;
+} {
+  const taken = new Set<string>();
+  const items = view.pair.diff.ops.flatMap((c) => {
     const via = refText(view, c.change);
-    if (c.status === 'added') return [kinOf(view, { change: c.change, via }, taken)];
+    if (c.status === 'added') {
+      const kin = kinOf(view, { change: c.change, via }, taken);
+      for (const id of kin.ids) taken.add(id);
+      return [kin.item];
+    }
     if (c.status === 'removed') return [plainOf(`Drops the change ${via}`)];
     return changedItems(view, c, via);
   });
+  return { items, taken };
 }
 
 /** A new change brings its own decision, test and work item: they read as one thing, not four. */
-function kinOf(view: View, c: { change: string; via: string }, taken: Set<string>): EditItem {
+function kinOf(
+  view: View,
+  c: { readonly change: string; readonly via: string },
+  taken: ReadonlySet<string>,
+): { readonly item: EditItem; readonly ids: readonly string[] } {
   const { change, via } = c;
   const { diff, to } = view.pair;
   const own = findEntity(to, change);
@@ -135,7 +149,6 @@ function kinOf(view: View, c: { change: string; via: string }, taken: Set<string
       .filter((id) => mine(id, 'implements', change))
       .map((id) => ['work item', id] as const),
   ];
-  for (const [, id] of kin) taken.add(id);
   const detail = kin.map(([word, id]) => `with the ${word} ${refText(view, id)}`).join('; ');
-  return plainOf(`Adds a new change: ${via}`, { detail });
+  return { item: plainOf(`Adds a new change: ${via}`, { detail }), ids: kin.map(([, id]) => id) };
 }

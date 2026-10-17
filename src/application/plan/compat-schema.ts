@@ -9,15 +9,18 @@ import {
 } from '@/application/plan/compat-rules';
 import type { SchemaNode, SystemGraph } from '@/domain/plan/plan-graph';
 
-export type Versions = (id: string) => { supersedes?: string | null; replacedBy?: string | null };
+export type Versions = (id: string) => {
+  readonly supersedes?: string | null;
+  readonly replacedBy?: string | null;
+};
 
 export interface Env extends PeopleEnv {
-  status: (id: string) => string | null;
-  versions: Versions;
+  readonly status: (id: string) => string | null;
+  readonly versions: Versions;
 }
 
 /** The ids that supersede these, in the plan or by an op. */
-export function successorsOf(env: Env, ids: string[]): string[] {
+export function successorsOf(env: Env, ids: readonly string[]): string[] {
   const later = [...env.toBe.messages, ...env.toBe.endpoints];
   return ids
     .flatMap((x) => [
@@ -29,7 +32,7 @@ export function successorsOf(env: Env, ids: string[]): string[] {
 
 function ctxOf(
   env: Env,
-  target: { id: string; sch: SchemaNode | null },
+  target: { readonly id: string; readonly sch: SchemaNode | null },
   roles: Partial<Roles>,
 ): Ctx {
   const [requests, responses, messages] = [
@@ -56,11 +59,8 @@ function systemRoles(env: Env, sch: SchemaNode): Roles {
 }
 
 function whoOfRoles(roles: Roles): Kind[] {
-  const reads =
-    roles.record ||
-    roles.response.length > 0 ||
-    roles.graph ||
-    (roles.request.length === 0 && roles.payload.length === 0);
+  const unsent = roles.request.length === 0 && roles.payload.length === 0;
+  const reads = roles.record || roles.response.length > 0 || roles.graph || unsent;
   return [
     ...(roles.request.length > 0 ? (['caller'] as const) : []),
     ...(roles.payload.length > 0 ? (['consumer'] as const) : []),
@@ -69,21 +69,24 @@ function whoOfRoles(roles: Roles): Kind[] {
 }
 
 /** One hit per rule and field, whoever it touches (a removed field breaks callers and readers alike). */
-function hitsOf(id: string, name: string, rules: RoleRule[]): Hit[] {
+function hitsOf(id: string, name: string, rules: readonly RoleRule[]): Hit[] {
   const byRule = new Map<string, Hit>();
   for (const r of rules) {
     const key = `${r.rule}|${r.text}`;
-    const hit = byRule.get(key) ?? {
-      target: `${id}#${name}`,
-      field: name,
-      verdict: r.verdict,
-      rule: r.rule,
-      text: r.text,
-      who: [],
-    };
-    hit.who.push(r.who);
-    hit.verdict = worse(hit.verdict, r.verdict);
-    byRule.set(key, hit);
+    const prior = byRule.get(key);
+    byRule.set(
+      key,
+      prior === undefined
+        ? {
+            target: `${id}#${name}`,
+            field: name,
+            verdict: r.verdict,
+            rule: r.rule,
+            text: r.text,
+            who: [r.who],
+          }
+        : { ...prior, who: [...prior.who, r.who], verdict: worse(prior.verdict, r.verdict) },
+    );
   }
   return [...byRule.values()];
 }

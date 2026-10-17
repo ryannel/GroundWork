@@ -56,12 +56,12 @@ interface Facts {
   readonly id: string;
   readonly layer: CacheRowView['layer'];
   readonly does: string;
-  readonly ttl: TtlItem[];
+  readonly ttl: readonly TtlItem[];
   readonly key: string;
-  readonly events: string[];
-  readonly steps: string[];
+  readonly events: readonly string[];
+  readonly steps: readonly string[];
   readonly purge: string;
-  readonly blocked: BlockedLine[];
+  readonly blocked: readonly BlockedLine[];
 }
 
 function subgraphTtl(g: SystemGraph, store: string): TtlItem[] {
@@ -106,17 +106,27 @@ function blockedBy(model: Model, store: string, mode: GraphMode): BlockedLine[] 
   });
 }
 
+const PER_ITEM: TtlItem = {
+  label: '',
+  text: 'per item: each lookup keeps its own lifetime',
+  override: false,
+  why: '',
+};
+
+function ttlOf(model: Model, store: string, mode: GraphMode): TtlItem[] {
+  const g = graphIn(model, mode);
+  const node = g.get(store);
+  if (node?.$type !== 'store') return [];
+  if (node.layer === 'subgraph') return subgraphTtl(g, store);
+  if (node.granularity === 'entity') return [PER_ITEM];
+  return pathTtl(model, store, mode);
+}
+
 function factsOf(model: Model, store: string, mode: GraphMode): Facts | null {
   const g = graphIn(model, mode);
   const node = g.get(store);
   if (node?.$type !== 'store' || node.layer === undefined) return null;
-  let ttl: TtlItem[] = [];
-  if (node.layer === 'subgraph') ttl = subgraphTtl(g, store);
-  else if (node.granularity === 'entity') {
-    ttl = [
-      { label: '', text: 'per item: each lookup keeps its own lifetime', override: false, why: '' },
-    ];
-  } else ttl = pathTtl(model, store, mode);
+  const ttl = ttlOf(model, store, mode);
   const inv = invalidators(g, store);
   return {
     id: store,
@@ -143,7 +153,11 @@ function ttlLines(now: readonly TtlItem[], was: readonly TtlItem[] | null): TtlL
   return [...lines, ...dropped.map((w): TtlLine => ({ item: null, was: w, isNew: false }))];
 }
 
-function statusOf(scope: { was: Facts | null; changed: boolean; diff: boolean }) {
+function statusOf(scope: {
+  readonly was: Facts | null;
+  readonly changed: boolean;
+  readonly diff: boolean;
+}) {
   if (scope.diff && scope.was === null) return 'new';
   return scope.changed ? 'changed' : 'same';
 }
@@ -151,7 +165,7 @@ function statusOf(scope: { was: Facts | null; changed: boolean; diff: boolean })
 function rowOf(
   model: Model,
   now: Facts,
-  scope: { was: Facts | null; changed: boolean; diff: boolean },
+  scope: { readonly was: Facts | null; readonly changed: boolean; readonly diff: boolean },
 ): CacheRowView {
   const { was } = scope;
   const added = was === null ? [] : now.events.filter((e) => !was.events.includes(e));

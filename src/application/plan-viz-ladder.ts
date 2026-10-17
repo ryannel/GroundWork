@@ -51,7 +51,7 @@ interface Ctx {
   readonly model: Model;
   readonly id: string;
   readonly w: Words;
-  readonly ret: Retirement;
+  readonly retirement: Retirement;
   readonly who: readonly string[];
 }
 
@@ -63,7 +63,7 @@ function retireBreaks({ id, who, w }: Ctx): string {
 
 /** Who has to move to the new version, by which milestone, and what breaks for whoever has not. */
 function deadline(c: Ctx, l: Ladder): string {
-  const { model, w, ret, who } = c;
+  const { model, w, retirement, who } = c;
   const names =
     who.length > 3
       ? `${who.slice(0, 3).join(', ')} and ${numWord(who.length - 3)} more`
@@ -71,24 +71,26 @@ function deadline(c: Ctx, l: Ladder): string {
   const lastMs = lastMigrateMs(model, l);
   const by = lastMs === null ? '' : ` by ${msShort(model, lastMs)}`;
   const verb = who.length === 1 ? 'has' : 'have';
-  if (ret.kind === 'retire' && ret.ms !== null) {
-    if (who.length === 0)
-      return `${w.oldQ} is removed in ${msShort(model, ret.ms)}; nobody is recorded as still using it.`;
-    return `${names} ${verb} to move to ${w.nextQ} by ${msShort(model, ret.ms)}, when ${w.oldQ} is removed; ${retireBreaks(c)}.`;
+  if (retirement.kind === 'retire' && retirement.ms !== null) {
+    if (who.length === 0) {
+      return `${w.oldQ} is removed in ${msShort(model, retirement.ms)}; nobody is recorded as still using it.`;
+    }
+    return `${names} ${verb} to move to ${w.nextQ} by ${msShort(model, retirement.ms)}, when ${w.oldQ} is removed; ${retireBreaks(c)}.`;
   }
   if (who.length === 0) return '';
-  if (ret.kind === 'deprecate') {
-    const when = ret.ms === null ? '' : ` in ${msShort(model, ret.ms)}`;
+  if (retirement.kind === 'deprecate') {
+    const when = retirement.ms === null ? '' : ` in ${msShort(model, retirement.ms)}`;
     return `${names} should move to ${w.nextQ}${by}. Nothing breaks yet: ${w.oldQ} is deprecated${when} and still works, and removing it is a later plan.`;
   }
   return `${names} move to ${w.nextQ}${by}. ${w.oldQ} keeps working until a later plan removes it.`;
 }
 
 function retireSentence(c: Ctx, move: Move | null, l: Ladder): string {
-  const { model, w, ret } = c;
-  const at = ret.ms === null ? '' : ` in ${msShort(model, ret.ms)}`;
-  if (ret.kind === 'deprecate') return `${w.oldQ} is deprecated${at}; removal is a later plan.`;
-  if (ret.kind !== 'retire') return '';
+  const { model, w, retirement } = c;
+  const at = retirement.ms === null ? '' : ` in ${msShort(model, retirement.ms)}`;
+  const deprecated = retirement.kind === 'deprecate';
+  if (deprecated) return `${w.oldQ} is deprecated${at}; removal is a later plan.`;
+  if (retirement.kind !== 'retire') return '';
   if (move !== null) {
     const field =
       model
@@ -97,8 +99,8 @@ function retireSentence(c: Ctx, move: Move | null, l: Ladder): string {
         .pop() ?? '';
     return `${model.label(move.from)} stops resolving \`${field}\`${at}, once ${model.label(move.to)} serves all of it.`;
   }
-  if (ret.early) {
-    return `${w.oldQ} is removed after the migrations (planned ${msShort(model, ret.ms ?? '')}, before the last migration in ${msShort(model, ret.lastMigrate ?? '')}: check the plan).`;
+  if (retirement.early) {
+    return `${w.oldQ} is removed after the migrations (planned ${msShort(model, retirement.ms ?? '')}, before the last migration in ${msShort(model, retirement.lastMigrate ?? '')}: check the plan).`;
   }
   return `${w.oldQ} is removed${at}, once every consumer has moved.`;
 }
@@ -134,20 +136,20 @@ export function ladderSummary(model: Model, id: string): LadderSummary | null {
   const l = model.ladder(id);
   const w = wordsOf(model, l);
   if (w === null || l.rungs.length === 0) return null;
-  const ret = retireMilestone(model, id);
+  const retirement = retireMilestone(model, id);
   const who = l.rungs
     .filter((r) => r.rung === 'migrate' && isConsumer(r.consumer))
     .map((r) => model.label(r.consumer ?? ''));
-  const c: Ctx = { model, id, w, ret, who };
+  const c: Ctx = { model, id, w, retirement, who };
   const move = movesBetween(l);
   const retire = retireSentence(c, move, l);
   return {
     headline: headlineOf(c, move, l),
     deadline: move === null ? deadline(c, l) : '',
-    retire: /^v\d/.test(retire) ? retire : capital(retire),
+    retire: /^v\d/u.test(retire) ? retire : capital(retire),
     sequence: sequencing(model, id),
-    early: ret.early,
-    kind: ret.kind,
+    early: retirement.early,
+    kind: retirement.kind,
   };
 }
 

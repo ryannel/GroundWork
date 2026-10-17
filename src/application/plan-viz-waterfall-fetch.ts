@@ -21,18 +21,18 @@ export function fetchMs(model: Model, f: Fetch): number | null {
 }
 
 export interface FetchContext {
-  plan: QueryPlan;
-  fstate: ReadonlyMap<string, 'run' | 'skipped'>;
-  dataRows: readonly CacheRow[];
-  entityRows: readonly CacheRow[];
-  blast: readonly Blast[];
+  readonly plan: QueryPlan;
+  readonly fstate: ReadonlyMap<string, 'run' | 'skipped'>;
+  readonly dataRows: readonly CacheRow[];
+  readonly entityRows: readonly CacheRow[];
+  readonly blast: readonly Blast[];
   /** Null for every fetch unless all of them are measured. */
-  msOf: (f: Fetch) => number | null;
-  maxMs: number | null;
-  change: FetchChange | null;
-  lens: string | null;
-  compact: boolean;
-  cols: number;
+  readonly msOf: (f: Fetch) => number | null;
+  readonly maxMs: number | null;
+  readonly change: FetchChange | null;
+  readonly lens: string | null;
+  readonly compact: boolean;
+  readonly cols: number;
 }
 
 const label = (model: Model, id: string): string => chipInfo(model, id).label;

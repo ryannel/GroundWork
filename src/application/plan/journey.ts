@@ -9,21 +9,21 @@ export type JourneyModel = Pick<Model, 'asIs' | 'toBe' | 'diff' | 'status'>;
 export type RowKind = 'same' | 'changed' | 'added' | 'removed' | 'deprecated';
 
 export interface JourneyRow {
-  id: string;
-  before: StepNode | null;
-  after: StepNode | null;
-  kind: RowKind;
-  evidence: Evidence[];
+  readonly id: string;
+  readonly before: StepNode | null;
+  readonly after: StepNode | null;
+  readonly kind: RowKind;
+  readonly evidence: readonly Evidence[];
   /** The changes that explain the evidence. */
-  changes: string[];
+  readonly changes: readonly string[];
 }
 
 export interface JourneyComparison {
-  id: string;
-  beforeFlow: FlowNode | null;
-  afterFlow: FlowNode | null;
-  presence: 'existing' | 'removed' | 'added' | 'unknown';
-  rows: JourneyRow[];
+  readonly id: string;
+  readonly beforeFlow: FlowNode | null;
+  readonly afterFlow: FlowNode | null;
+  readonly presence: 'existing' | 'removed' | 'added' | 'unknown';
+  readonly rows: readonly JourneyRow[];
 }
 
 const flowIn = (graph: JourneyModel['asIs'], id: string): FlowNode | null => {
@@ -36,7 +36,7 @@ const isToday = (mode: string): boolean => ['asIs', 'today', 'before'].includes(
 /** Where a run of removed steps goes: after its surviving predecessor, else before its successor. */
 function insertionPoint(
   out: readonly string[],
-  neighbours: { previous: string | undefined; next: string | undefined },
+  neighbours: { readonly previous: string | undefined; readonly next: string | undefined },
 ): number {
   const { previous, next } = neighbours;
   if (previous !== undefined && out.includes(previous)) return out.indexOf(previous) + 1;
@@ -49,11 +49,11 @@ function unionOrder(before: readonly StepNode[], after: readonly StepNode[]): st
   const remaining = new Set(out);
   for (let i = 0; i < before.length;) {
     if (remaining.has(before[i]?.id ?? '')) {
-      i++;
+      i += 1;
       continue;
     }
     const start = i;
-    while (i < before.length && !remaining.has(before[i]?.id ?? '')) i++;
+    while (i < before.length && !remaining.has(before[i]?.id ?? '')) i += 1;
     const run = before.slice(start, i).map((step) => step.id);
     const at = insertionPoint(out, { previous: before[start - 1]?.id, next: before[i]?.id });
     out.splice(at, 0, ...run);
@@ -87,14 +87,14 @@ function changesFor(model: JourneyModel, evidence: readonly Evidence[], id: stri
 }
 
 interface Pair {
-  before: StepNode | null;
-  after: StepNode | null;
+  readonly before: StepNode | null;
+  readonly after: StepNode | null;
 }
 
 function orderEvidence(
   id: string,
   pair: Pair,
-  shared: { before: string[]; after: string[] },
+  shared: { readonly before: readonly string[]; readonly after: readonly string[] },
 ): Evidence[] {
   if (pair.before === null || pair.after === null) return [];
   const before = shared.before.indexOf(id);
@@ -104,7 +104,7 @@ function orderEvidence(
     : [{ kind: 'order', target: id, property: 'order', before, after, indirect: false }];
 }
 
-const dedupe = (evidence: Evidence[]): Evidence[] => {
+const dedupe = (evidence: readonly Evidence[]): Evidence[] => {
   const seen = new Set<string>();
   return evidence.filter((item) => {
     const key = `${item.kind}|${item.target}|${String(item.property)}`;
@@ -121,7 +121,10 @@ function kindOf(pair: Pair, deprecated: boolean, evidence: readonly Evidence[]):
   return evidence.some((item) => !item.indirect) ? 'changed' : 'same';
 }
 
-function rowOf(model: JourneyModel, at: { id: string; pair: Pair; order: Evidence[] }): JourneyRow {
+function rowOf(
+  model: JourneyModel,
+  at: { readonly id: string; readonly pair: Pair; readonly order: readonly Evidence[] },
+): JourneyRow {
   const { id, pair, order } = at;
   const deprecated = pair.after !== null && model.status(id) === 'deprecated';
   const own: Evidence[] = deprecated
@@ -172,14 +175,14 @@ export function journeyComparison(model: JourneyModel, flowId: string): JourneyC
 }
 
 export interface JourneyFocus {
-  comparison: JourneyComparison;
-  row: JourneyRow | null;
-  step: StepNode | null;
-  exists: boolean;
-  flowExists: boolean;
-  presence: JourneyComparison['presence'];
+  readonly comparison: JourneyComparison;
+  readonly row: JourneyRow | null;
+  readonly step: StepNode | null;
+  readonly exists: boolean;
+  readonly flowExists: boolean;
+  readonly presence: JourneyComparison['presence'];
   /** The nearest steps either side that the selected graph also has. */
-  neighbours: { before: string | null; after: string | null };
+  readonly neighbours: { readonly before: string | null; readonly after: string | null };
 }
 
 function neighboursOf(source: readonly StepNode[], stepId: string, available: ReadonlySet<string>) {
@@ -202,7 +205,7 @@ function sideOf(comparison: JourneyComparison, row: JourneyRow | null, today: bo
 export function journeyStep(
   model: JourneyModel,
   flowId: string,
-  focus: { stepId: string; mode?: string },
+  focus: { readonly stepId: string; readonly mode?: string },
 ): JourneyFocus {
   const comparison = journeyComparison(model, flowId);
   const row = comparison.rows.find((item) => item.id === focus.stepId) ?? null;

@@ -6,22 +6,22 @@ type Who = 'caller' | 'consumer' | 'operation' | 'reader' | 'writer';
 
 /** The roles a schema plays: a record (kept in a store), the body of endpoints, the payload of messages. */
 export interface Roles {
-  record: boolean;
-  request: string[];
-  response: string[];
-  payload: string[];
-  graph: boolean;
+  readonly record: boolean;
+  readonly request: readonly string[];
+  readonly response: readonly string[];
+  readonly payload: readonly string[];
+  readonly graph: boolean;
 }
 
 export interface Rule {
-  verdict: Verdict;
-  rule: string;
-  text: string;
-  who: Who;
+  readonly verdict: Verdict;
+  readonly rule: string;
+  readonly text: string;
+  readonly who: Who;
 }
 
 export interface RoleRule extends Rule {
-  role: Role;
+  readonly role: Role;
 }
 
 type Shape = Partial<Field>;
@@ -34,7 +34,7 @@ export const worse = (a: Verdict | null | undefined, b: Verdict): Verdict =>
 export const sameJson = (a: unknown, b: unknown): boolean =>
   JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
 
-const baseType = (t: string | undefined): string => (t ?? '').trim().replace(/\?$/, '').trim();
+const baseType = (t: string | undefined): string => (t ?? '').trim().replace(/\?$/u, '').trim();
 
 function enumOf(t: string | undefined): string[] | null {
   const base = baseType(t);
@@ -59,7 +59,7 @@ function roleList(roles: Roles): Role[] {
   return list.length > 0 ? list : ['shape'];
 }
 
-const rule = ([verdict, id]: [Verdict, string], text: string, who: Who): Rule => ({
+const rule = ([verdict, id]: readonly [Verdict, string], text: string, who: Who): Rule => ({
   verdict,
   rule: id,
   text,
@@ -132,8 +132,9 @@ function rulesFor(role: Role, was: Shape | undefined, now: Shape | undefined): R
     const r = now?.required === true ? requiredRule(role, now, 'a new required field') : null;
     return r === null ? [] : [r];
   }
-  if (now === undefined)
+  if (now === undefined) {
     return [rule(['breaking', 'remove'], 'the field is removed', readerOf(role))];
+  }
   return [
     ...typeRules(role, was, now),
     ...requiredRules(role, was, now),
@@ -146,7 +147,7 @@ export function fieldRule(
   roles: Roles,
   was: Shape | undefined,
   now: Shape | undefined,
-): { verdict: Verdict; rules: RoleRule[] } {
+): { readonly verdict: Verdict; readonly rules: readonly RoleRule[] } {
   const rules = roleList(roles).flatMap((role) =>
     rulesFor(role, was, now).map((r) => ({ ...r, role })),
   );
@@ -160,10 +161,10 @@ const skipped = (k: string): boolean =>
   k.startsWith('$') || k === 'id' || k === 'sources' || CHILD_KEYS.has(k);
 
 export interface PropRow {
-  prop: string;
-  before: unknown;
-  after: unknown;
-  status: 'added' | 'removed' | 'modified';
+  readonly prop: string;
+  readonly before: unknown;
+  readonly after: unknown;
+  readonly status: 'added' | 'removed' | 'modified';
 }
 
 const nullish = (v: unknown): boolean => v === null || v === undefined;

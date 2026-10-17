@@ -4,7 +4,7 @@ import { derive } from '@/application/plan/derive';
 import { buildGraph } from '@/application/plan/graph';
 import { layoutOf } from '@/application/plan/layout';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 

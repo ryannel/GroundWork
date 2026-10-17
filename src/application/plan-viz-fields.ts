@@ -182,11 +182,15 @@ export const FILTER_ROWS = 40;
  */
 export function foldGroups(
   rows: readonly FieldRow[],
-  { fold, diff, marked }: { fold: FoldMode; diff: boolean; marked: boolean },
+  {
+    fold,
+    diff,
+    marked,
+  }: { readonly fold: FoldMode; readonly diff: boolean; readonly marked: boolean },
 ): number[] {
   const hidden = Array.from({ length: rows.length }, () => 0);
-  const on =
-    fold === 'existing' || (fold !== false && diff && marked && rows.length > FOLD_MIN_ROWS);
+  const long = diff && marked && rows.length > FOLD_MIN_ROWS;
+  const on = fold === 'existing' || (fold !== false && long);
   if (!on) return hidden;
   const quiet = rows.map((r) =>
     fold === 'existing' ? r.status !== 'added' : r.status === 'existing',
@@ -195,9 +199,9 @@ export function foldGroups(
   let i = 0;
   while (i < rows.length) {
     let j = i;
-    while (quiet[j] === true) j++;
+    while (quiet[j] === true) j += 1;
     if (j > i && (fold === 'existing' || j - i > FOLD_RUN)) {
-      group++;
+      group += 1;
       hidden.fill(group, i, j);
     }
     i = Math.max(j, i + 1);

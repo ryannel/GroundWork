@@ -1,27 +1,52 @@
 import type { Core } from '@/application/plan/derive-core';
 import { memo, uniq } from '@/application/plan/derive-values';
-import { blastRadius, fieldOwners } from '@/application/plan/federation-blast';
-import { type CacheCase, cachePath } from '@/application/plan/federation-cache';
-import { federatedFanout } from '@/application/plan/federation-fanout';
+import {
+  type Blast,
+  blastRadius,
+  type FieldOwners,
+  fieldOwners,
+} from '@/application/plan/federation-blast';
+import { type CacheCase, type CachePath, cachePath } from '@/application/plan/federation-cache';
+import { type FederatedFanout, federatedFanout } from '@/application/plan/federation-fanout';
 import { queryPlan } from '@/application/plan/federation-plan';
-import { responsePolicy } from '@/application/plan/federation-policy';
+import type { QueryPlan } from '@/application/plan/federation-plan-types';
+import { type ResponsePolicy, responsePolicy } from '@/application/plan/federation-policy';
 import { parentOf, typeOf } from '@/application/plan/ids';
 import type { SystemGraph } from '@/domain/plan/plan-graph';
 
 export interface PlanSummary {
-  fetches: number;
-  roundTrips: number;
-  subgraphs: string[];
-  maxAge: number;
-  scope: 'public' | 'private';
-  cacheable: boolean;
+  readonly fetches: number;
+  readonly roundTrips: number;
+  readonly subgraphs: readonly string[];
+  readonly maxAge: number;
+  readonly scope: 'public' | 'private';
+  readonly cacheable: boolean;
+}
+
+type ByMode<R> = (id: string, mode?: string) => R;
+
+export interface FederationQueries {
+  readonly queryPlan: ByMode<QueryPlan>;
+  readonly responsePolicy: ByMode<ResponsePolicy>;
+  readonly cachePath: (id: string, mode?: string, kase?: string) => CachePath;
+  readonly blastRadius: ByMode<readonly Blast[]>;
+  readonly fieldOwners: ByMode<FieldOwners>;
+  readonly fanoutOf: ByMode<FederatedFanout | undefined>;
+  readonly teamsBehind: ByMode<readonly string[]>;
+  readonly planSummary: ByMode<PlanSummary | null>;
+}
+
+export interface OperationLookups {
+  readonly operationsOf: ByMode<readonly string[]>;
+  readonly operationsSelecting: ByMode<readonly string[]>;
+  readonly operationsOn: ByMode<readonly string[]>;
 }
 
 const cacheCase = (kase: string | undefined): CacheCase =>
   kase === 'hit' || kase === 'miss' ? kase : 'cold';
 
 /** Queries over the federated graphs; each takes a mode (default to-be) and is memoised. */
-export function createFederation(core: Core) {
+export function createFederation(core: Core): FederationQueries {
   const { asIs, toBe } = core;
   const graphFor = (mode: string | undefined): SystemGraph => core.graphOf(mode);
 
@@ -45,7 +70,8 @@ export function createFederation(core: Core) {
     return step?.$type === 'step' ? federatedFanout(g, step) : undefined;
   });
 
-  const teamsBehind = (opId: string, mode?: string): string[] => queryPlanIn(opId, mode).teams;
+  const teamsBehind = (opId: string, mode?: string): readonly string[] =>
+    queryPlanIn(opId, mode).teams;
 
   const planSummary = (opId: string, mode?: string): PlanSummary | null => {
     if (!graphFor(mode).has(opId)) return null;
@@ -73,10 +99,10 @@ export function createFederation(core: Core) {
   };
 }
 
-type Plans = Pick<ReturnType<typeof createFederation>, 'queryPlan'>;
+type Plans = Pick<FederationQueries, 'queryPlan'>;
 
 /** Which operations touch a screen, a field or a subgraph, by their query plans. */
-export function createOperationLookups(core: Core, plans: Plans) {
+export function createOperationLookups(core: Core, plans: Plans): OperationLookups {
   const graphFor = (mode: string | undefined): SystemGraph => core.graphOf(mode);
   const queryPlanIn = plans.queryPlan;
 
@@ -108,5 +134,4 @@ export function createOperationLookups(core: Core, plans: Plans) {
   return { operationsOf, operationsSelecting, operationsOn };
 }
 
-export type Federation = ReturnType<typeof createFederation> &
-  ReturnType<typeof createOperationLookups>;
+export type Federation = FederationQueries & OperationLookups;

@@ -40,11 +40,12 @@ const localFile = z.strictObject({
 /** The folder a repo's clone goes in: the last part of its URL, without .git. */
 export function cloneFolder(repo: string): string {
   const name = repo
-    .split(/[/:\\]/)
+    .split(/[/:\\]/u)
     .findLast((part) => part !== '')
-    ?.replace(/\.git$/, '');
-  if (name === undefined || name === '' || name === '.' || name === '..')
+    ?.replace(/\.git$/u, '');
+  if (name === undefined || name === '' || name === '.' || name === '..') {
     throw new Error(`${repo}: cannot tell what to call its folder; give it a folder`);
+  }
   return path.join(CLONES, name);
 }
 
@@ -65,12 +66,14 @@ interface Listed {
 async function idOf({ folder, listedIn, repo }: Listed): Promise<string> {
   const file = path.join(folder, 'workspace.yaml');
   const text = await readFile(file, 'utf8').catch(() => null);
-  if (text === null && repo !== undefined)
+  if (text === null && repo !== undefined) {
     throw new Error(
       `${repo}: listed in ${listedIn} but not cloned to ${folder}; run npm run workspace -- pull`,
     );
-  if (text === null)
+  }
+  if (text === null) {
     throw new Error(`${folder}: listed in ${listedIn} but holds no workspace.yaml`);
+  }
   const result = idOnly.safeParse(parse(text));
   if (!result.success) throw new Error(`${file}: has no id`);
   return result.data.id;

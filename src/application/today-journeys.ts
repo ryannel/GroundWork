@@ -48,7 +48,10 @@ function systemOf(model: Model, id: string): string | null {
   return null;
 }
 
-function crossed(model: Model, flows: readonly string[]): { systems: string[]; steps: number } {
+function crossed(
+  model: Model,
+  flows: readonly string[],
+): { readonly systems: readonly string[]; readonly steps: number } {
   const systems = new Set<string>();
   const steps = flows.flatMap((id) => flowOf(model, id)?.steps ?? []);
   for (const step of steps) {
@@ -60,7 +63,10 @@ function crossed(model: Model, flows: readonly string[]): { systems: string[]; s
   return { systems: [...systems], steps: steps.length };
 }
 
-function flowJourney(model: Model, group: { key: string; flows: readonly string[] }): TodayJourney {
+function flowJourney(
+  model: Model,
+  group: { readonly key: string; readonly flows: readonly string[] },
+): TodayJourney {
   const first = flowOf(model, group.flows[0] ?? '');
   const last = flowOf(model, group.flows.at(-1) ?? '');
   return {

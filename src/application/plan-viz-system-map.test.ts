@@ -1,25 +1,18 @@
 // @vitest-environment node
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { derive } from '@/application/plan/derive';
+import { contractsPlans, stagedDeliveryTime } from '@/../test/fixtures/acme/plans/contracts-plans';
+import { modelOf } from '@/../test/plan-kit';
 import { SHOW_ALL, SHOW_OVERVIEW, drawSystemMap } from '@/application/plan-viz-system-map';
 import { systemMapInput } from '@/application/plan-viz-system-map-input';
 import { traceOf } from '@/application/plan-viz-system-map-trace';
 
-vi.mock('server-only', () => ({}));
-
-const PLANS = ['delivery-promise', 'invoice-vat-number', 'stock-reservation', 'storefront-graph'];
-
-async function load(plan: string) {
-  const { readPlan } = await import('@/infrastructure/plan-store');
-  const loaded = await readPlan('alder-finch', plan);
-  if (loaded.plan === null) throw new Error(`no plan ${plan}`);
-  return derive(loaded.plan);
-}
+const PLANS = [...contractsPlans(), ['staged delivery-time', stagedDeliveryTime()] as const];
+const load = () => modelOf(stagedDeliveryTime());
 
 describe('system map layout', () => {
-  it.each(PLANS)('draws every system of %s inside its drawing, in both layouts', async (plan) => {
-    const model = await load(plan);
+  it.each(PLANS)('draws every system of %s inside its drawing, in both layouts', (_, plan) => {
+    const model = modelOf(plan);
     const input = systemMapInput(model);
     for (const show of [SHOW_ALL, SHOW_OVERVIEW]) {
       const drawing = drawSystemMap(input, { show });
@@ -36,8 +29,8 @@ describe('system map layout', () => {
     }
   });
 
-  it.each(PLANS)('hides topics, stores and interfaces in the overview of %s', async (plan) => {
-    const input = systemMapInput(await load(plan));
+  it.each(PLANS)('hides topics, stores and interfaces in the overview of %s', (_, plan) => {
+    const input = systemMapInput(modelOf(plan));
     const full = drawSystemMap(input, { show: SHOW_ALL });
     const small = drawSystemMap(input, { show: SHOW_OVERVIEW });
     expect(small?.nodes.some((n) => n.kind === 'topic' || n.kind === 'store')).toBe(false);
@@ -45,11 +38,11 @@ describe('system map layout', () => {
     expect((full?.nodes.length ?? 0) >= (small?.nodes.length ?? 0)).toBe(true);
   });
 
-  it('folds one system when asked', async () => {
-    const input = systemMapInput(await load('storefront-graph'));
+  it('folds one system when asked', () => {
+    const input = systemMapInput(load());
     const open = drawSystemMap(input, { show: SHOW_ALL });
     const system = open?.nodes.find((n) => n.kind === 'system');
-    if (system === undefined) return;
+    if (system === undefined) throw new Error('no system');
     const folded = drawSystemMap(input, { show: SHOW_ALL, flip: new Set([system.id]) });
     expect(open?.nodes.filter((n) => n.system === system.id).length).toBeGreaterThan(0);
     expect(folded?.nodes.filter((n) => n.system === system.id).length).toBe(0);
@@ -60,8 +53,8 @@ describe('system map layout', () => {
     expect(folded?.nodes.find((n) => n.id === system.id)?.partCount).toBe(inside);
   });
 
-  it('dims everything outside a team lens', async () => {
-    const model = await load('delivery-promise');
+  it('dims everything outside a team lens', () => {
+    const model = load();
     const team =
       model.asIs.services.map((s) => model.ownerTeam(s.id)).find((t) => t !== null) ?? null;
     const drawing = drawSystemMap(systemMapInput(model, team), { show: SHOW_ALL });
@@ -71,8 +64,8 @@ describe('system map layout', () => {
 });
 
 describe('system map trace', () => {
-  it.each(PLANS)('lights a card with its lines and neighbours in %s', async (plan) => {
-    const drawing = drawSystemMap(systemMapInput(await load(plan)), { show: SHOW_ALL });
+  it.each(PLANS)('lights a card with its lines and neighbours in %s', (_, plan) => {
+    const drawing = drawSystemMap(systemMapInput(modelOf(plan)), { show: SHOW_ALL });
     const line = drawing?.lines[0];
     if (drawing === null || line === undefined) throw new Error('nothing drawn');
     const card = traceOf(drawing, { kind: 'node', id: line.a });
@@ -84,12 +77,12 @@ describe('system map trace', () => {
     expect(one.nodes.has(line.b)).toBe(true);
   });
 
-  it('lights the parts of a system and their partners', async () => {
-    const drawing = drawSystemMap(systemMapInput(await load('storefront-graph')), {
+  it('lights the parts of a system and their partners', () => {
+    const drawing = drawSystemMap(systemMapInput(load()), {
       show: SHOW_ALL,
     });
     const system = drawing?.nodes.find((n) => n.kind === 'system');
-    if (drawing === null || system === undefined) return;
+    if (drawing === null || system === undefined) throw new Error('no system');
     const lit = traceOf(drawing, { kind: 'node', id: system.id });
     const parts = drawing.nodes.filter((n) => n.system === system.id);
     expect(parts.every((p) => lit.nodes.has(p.id))).toBe(true);

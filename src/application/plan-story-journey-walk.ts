@@ -73,7 +73,7 @@ export function stopBeside(
   walk: Walk,
   at: { readonly index: number; readonly mode: JourneyMode },
   by: -1 | 1,
-) {
+): number | null {
   const stops = walk.stops[at.mode];
   const found = by === 1 ? stops.find((i) => i > at.index) : stops.findLast((i) => i < at.index);
   return found ?? null;

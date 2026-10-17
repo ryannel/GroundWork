@@ -27,7 +27,7 @@ export interface KeyOptions {
 }
 
 const callKind = (via: string): 'api' | 'msg' | 'other' => {
-  if (/^(api|gql):/.test(via)) return 'api';
+  if (/^(?:api|gql):/u.test(via)) return 'api';
   return via.startsWith('msg:') ? 'msg' : 'other';
 };
 

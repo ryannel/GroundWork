@@ -14,23 +14,25 @@ import type { Commitment } from '@/domain/plan/plan.generated';
 
 export type Stage = 'draft' | 'review' | 'approved' | 'in-delivery' | 'delivered';
 
+const IN_DELIVERY: Stage = 'in-delivery';
+
 /** Delivery, once work items have issues, outranks `meta.status`; 'committed' reads as approved. */
 export function planStage(model: Model): Stage {
-  const summary = buildSummary(model);
+  const summary = buildSummary(model, model.today);
   if (summary.delivered) return 'delivered';
-  if (summary.started) return 'in-delivery';
+  if (summary.started) return IN_DELIVERY;
   const own = model.plan.meta.status ?? 'draft';
   return own === 'committed' ? 'approved' : own;
 }
 
 export const isApproved = (stage: Stage): boolean =>
-  stage === 'approved' || stage === 'in-delivery' || stage === 'delivered';
+  stage === 'approved' || stage === IN_DELIVERY || stage === 'delivered';
 
 export const possessive = (name: string): string => `${name}${name.endsWith('s') ? '’' : '’s'}`;
 
 const capital = (text: string): string => text.charAt(0).toUpperCase() + text.slice(1);
 const lower = (text: string): string => text.charAt(0).toLowerCase() + text.slice(1);
-const startsSentenceCase = (text: string): boolean => /^[A-Z][a-z]/.test(text);
+const startsSentenceCase = (text: string): boolean => /^[A-Z][a-z]/u.test(text);
 
 const FAR = '\uFFFF';
 const byDate = (a: Deciding, b: Deciding): number =>
@@ -56,7 +58,7 @@ export const gateTitle = (e: Deciding): string =>
 export function asClause(title: string): string {
   const text = title.trim();
   const clause = startsSentenceCase(text) ? lower(text) : text;
-  return /[!.?]$/.test(clause) ? clause : `${clause}.`;
+  return /[!.?]$/u.test(clause) ? clause : `${clause}.`;
 }
 
 const REASON_MAX = 100;
@@ -64,7 +66,7 @@ const CLAUSE_MIN = 20;
 const REASON_SEPARATORS = [', and ', '; ', ', so ', ', but ', ' because '];
 
 const firstSentence = (text: string): string => {
-  const end = /[!.?]\s/.exec(text);
+  const end = /[!.?]\s/u.exec(text);
   return end === null ? text : text.slice(0, end.index + 1);
 };
 
@@ -87,8 +89,8 @@ function cutAtClause(text: string, max: number): string {
 export function reasonOf(note: string | undefined, max = REASON_MAX): string {
   const text = plainLine(note ?? '')
     .trim()
-    .replaceAll(/\s+/g, ' ');
-  const sentence = firstSentence(text).replace(/[!.?]$/, '');
+    .replaceAll(/\s+/gu, ' ');
+  const sentence = firstSentence(text).replace(/[!.?]$/u, '');
   const out = sentence.length > max ? cutAtClause(sentence, max) : sentence;
   return startsSentenceCase(out) ? lower(out) : out;
 }
@@ -116,7 +118,7 @@ export function lowVoteSentence(
 /** The day the plan was approved, as "25 Sep", or ''. */
 export function approvedOn(model: Model): string {
   const entry = (model.plan.meta.revisions ?? []).find((r) => r.status === 'approved');
-  return entry?.approved_on === undefined ? '' : shortDate(entry.approved_on);
+  return entry?.approved_on === undefined ? '' : shortDate(entry.approved_on, model.today);
 }
 
 export interface AskLink {
@@ -134,18 +136,18 @@ export interface AskLine {
 const STILL_TO_SETTLE: AskLink = { chapter: 'commit', screen: 'ask', label: 'Still to settle →' };
 const BUILD_ORDER: AskLink = { chapter: 'build', screen: 'build-order', label: 'Build order →' };
 
-const today = (): string => new Date().toISOString().slice(0, 10);
-const byDay = (day: string | undefined): string =>
-  day === undefined ? '' : `, by ${shortDate(day)}`;
+const byDay = (day: string | undefined, today: Date | undefined): string =>
+  day === undefined ? '' : `, by ${shortDate(day, today)}`;
 
 function gateLead(model: Model, first: Deciding, late: boolean): string {
   const who = first.decider === undefined ? 'Nobody named' : teamName(model, first.decider);
-  if (!late || first.decide_by === undefined)
-    return `${who} decides first${byDay(first.decide_by)}`;
-  return `${possessive(who)} answer was due ${shortDate(first.decide_by)}`;
+  if (!late || first.decide_by === undefined) {
+    return `${who} decides first${byDay(first.decide_by, model.today)}`;
+  }
+  return `${possessive(who)} answer was due ${shortDate(first.decide_by, model.today)}`;
 }
 
-function gateMore(gates: readonly Deciding[], first: Deciding): string {
+function gateMore(gates: readonly Deciding[], first: Deciding, today: Date | undefined): string {
   const rest = gates.length - 1;
   if (rest === 0) return '';
   const last = gates
@@ -153,19 +155,26 @@ function gateMore(gates: readonly Deciding[], first: Deciding): string {
     .toSorted((a, b) => a.localeCompare(b))
     .at(-1);
   const tail =
-    last === undefined || last === first.decide_by ? '' : `, the last due ${shortDate(last)}`;
+    last === undefined || last === first.decide_by
+      ? ''
+      : `, the last due ${shortDate(last, today)}`;
   const verb = rest === 1 ? 'has' : 'have';
   return ` ${capital(numWord(rest))} more ${verb} to be settled before approval${tail}.`;
 }
 
-function gateLine(model: Model, gates: readonly Deciding[], hasLow: boolean): AskLine | null {
+function gateLine(
+  model: Model,
+  gates: readonly Deciding[],
+  at: { readonly hasLow: boolean; readonly today: string },
+): AskLine | null {
+  const { hasLow, today } = at;
   const [head] = gates;
   if (head === undefined) return null;
   const first = gates.find((e) => e.decide_by !== undefined) ?? head;
-  const late = first.decide_by !== undefined && first.decide_by < today();
+  const late = first.decide_by !== undefined && first.decide_by.localeCompare(today) < 0;
   return {
     tone: late ? 'warn' : 'note',
-    text: `${gateLead(model, first, late)}: ${asClause(gateTitle(first))}${gateMore(gates, first)}`,
+    text: `${gateLead(model, first, late)}: ${asClause(gateTitle(first))}${gateMore(gates, first, model.today)}`,
     link: hasLow ? null : STILL_TO_SETTLE,
   };
 }
@@ -179,14 +188,14 @@ function nothingLeft(model: Model, missing: readonly string[]): string {
   return `Nothing is left to decide; ${names} ${one ? 'has' : 'have'} not rated ${one ? 'its' : 'their'} confidence yet.`;
 }
 
-function beforeApproval(model: Model, vote: VoteSummary): AskLine[] {
+function beforeApproval(model: Model, vote: VoteSummary, today: string): AskLine[] {
   const out: AskLine[] = [];
   const hasLow = vote.low.length > 0;
   if (hasLow) {
     const text = `${lowVoteSentence(model, vote.low, vote.votes)} The owner rethinks the plan before approving it.`;
     out.push({ tone: 'warn', text, link: STILL_TO_SETTLE });
   }
-  const gate = gateLine(model, gatesOf(model), hasLow);
+  const gate = gateLine(model, gatesOf(model), { hasLow, today });
   if (gate !== null) out.push(gate);
   else if (!hasLow) {
     out.push({ tone: 'note', text: nothingLeft(model, vote.missing), link: STILL_TO_SETTLE });
@@ -194,15 +203,15 @@ function beforeApproval(model: Model, vote: VoteSummary): AskLine[] {
   return out;
 }
 
-function inDelivery(model: Model): AskLine[] {
-  const summary = buildSummary(model);
+function inDelivery(model: Model, today: string): AskLine[] {
+  const summary = buildSummary(model, model.today);
   const ms = (model.plan.milestones ?? []).find((m) => m.id === summary.current?.id);
   if (ms === undefined) return [];
   const teams = [...new Set(summary.left.map((w) => w.team))].map((t) => teamName(model, t));
-  const late = ms.due !== undefined && ms.due < today();
+  const late = ms.due !== undefined && ms.due.localeCompare(today) < 0;
   const name = model.label(ms.id).split(' · ')[0] ?? ms.id;
   const dueWord = late ? 'which was due' : 'due';
-  const due = ms.due === undefined ? '' : `, ${dueWord} ${shortDate(ms.due)}`;
+  const due = ms.due === undefined ? '' : `, ${dueWord} ${shortDate(ms.due, model.today)}`;
   const verb = teams.length === 1 ? 'has' : 'have';
   return [
     {
@@ -222,8 +231,8 @@ function approvedLine(model: Model): AskLine {
 }
 
 function deliveredLine(model: Model): AskLine {
-  const { closed } = buildSummary(model);
-  const last = closed === null ? '' : `; the last closed ${shortDate(closed)}`;
+  const { closed } = buildSummary(model, model.today);
+  const last = closed === null ? '' : `; the last closed ${shortDate(closed, model.today)}`;
   const text = `Every work item is done${last}.`;
   return {
     tone: 'note',
@@ -232,10 +241,13 @@ function deliveredLine(model: Model): AskLine {
   };
 }
 
-/** The lines of the ask, loudest first. None repeats the stage word the top bar already carries. */
-export function askLines(model: Model): AskLine[] {
+/**
+ * The lines of the ask, loudest first. None repeats the stage word the top bar already carries. Today is an ISO
+ * date (YYYY-MM-DD), against which answers and milestones are late.
+ */
+export function askLines(model: Model, today: string): AskLine[] {
   const stage = planStage(model);
-  if (!isApproved(stage)) return beforeApproval(model, voteSummary(model));
+  if (!isApproved(stage)) return beforeApproval(model, voteSummary(model), today);
   if (stage === 'delivered') return [deliveredLine(model)];
-  return stage === 'in-delivery' ? inDelivery(model) : [approvedLine(model)];
+  return stage === IN_DELIVERY ? inDelivery(model, today) : [approvedLine(model)];
 }

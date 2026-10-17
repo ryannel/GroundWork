@@ -5,10 +5,10 @@ import { type EntityType, type PathSegment, CHILDREN } from '@/domain/plan/plan-
 
 /** One way an entity fails its schema: the prop at fault, where inside it, and what to say. */
 export interface ShapeProblem {
-  prop: string | undefined;
-  tail: PathSegment[];
-  message: string;
-  unknownProp: boolean;
+  readonly prop: string | undefined;
+  readonly tail: readonly PathSegment[];
+  readonly message: string;
+  readonly unknownProp: boolean;
 }
 
 /** Checks one authored entity against the schema def of its type. Injected, because ajv is infrastructure. */
@@ -43,7 +43,7 @@ export function checkShapes(ctx: CheckContext, rep: Report, shape: ShapeCheck): 
       const message = problem.unknownProp
         ? `${problem.prop} is not a property of a ${node.$type}; use one of its real props (see the ${node.$type} entry in schema/plan.schema.json)`
         : problem.message;
-      rep.err([...rec.path, change, problem.prop, ...problem.tail], message);
+      rep.error([...rec.path, change, problem.prop, ...problem.tail], message);
     }
   }
 }

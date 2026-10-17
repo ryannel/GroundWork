@@ -24,7 +24,7 @@ const sortedKeys = (
 export function servicesByTeam(
   model: Model,
   show: Show,
-): { team: string; services: ServiceNode[] }[] {
+): { readonly team: string; readonly services: readonly ServiceNode[] }[] {
   const groups = groupBy(poolOf(model.asIs.services, model.toBe.services, show), (s) => s.team);
   return sortedKeys(model, groups, (t) => t).map((team) => ({
     team,
@@ -33,10 +33,10 @@ export function servicesByTeam(
 }
 
 export interface ServiceFacts {
-  readonly owns: string[];
-  readonly interfaces: InterfaceNode[];
-  readonly publishes: string[];
-  readonly listensTo: string[];
+  readonly owns: readonly string[];
+  readonly interfaces: readonly InterfaceNode[];
+  readonly publishes: readonly string[];
+  readonly listensTo: readonly string[];
 }
 
 /** What one service owns, offers, publishes and consumes. */
@@ -59,7 +59,7 @@ export function serviceFacts(model: Model, show: Show, id: string): ServiceFacts
 export interface StoreGroup {
   readonly title: string;
   readonly note: string;
-  readonly stores: StoreNode[];
+  readonly stores: readonly StoreNode[];
 }
 
 const DATA = new Set(['database', 'warehouse', 'bucket']);
@@ -85,8 +85,8 @@ export function storeGroups(stores: readonly StoreNode[]): StoreGroup[] {
 }
 
 export interface StoreFacts {
-  readonly records: string[];
-  readonly events: string[];
+  readonly records: readonly string[];
+  readonly events: readonly string[];
 }
 
 /** The records a store holds and the events on it. */
@@ -100,7 +100,10 @@ export function storeFacts(model: Model, show: Show, id: string): StoreFacts {
 }
 
 /** Screens of the mode, grouped by the app that serves them, apps in team order. */
-export function screensByApp(model: Model, show: Show): { app: string; screens: string[] }[] {
+export function screensByApp(
+  model: Model,
+  show: Show,
+): { readonly app: string; readonly screens: readonly string[] }[] {
   const groups = groupBy(poolOf(model.asIs.screens, model.toBe.screens, show), (s) => s.service);
   return sortedKeys(model, groups, (app) => teamOf(model, app) ?? '').map((app) => ({
     app,
@@ -109,9 +112,9 @@ export function screensByApp(model: Model, show: Show): { app: string; screens: 
 }
 
 export interface SchemaGroups {
-  readonly records: { store: string; schemas: SchemaNode[] }[];
-  readonly bodies: SchemaNode[];
-  readonly graphTypes: SchemaNode[];
+  readonly records: readonly { readonly store: string; readonly schemas: readonly SchemaNode[] }[];
+  readonly bodies: readonly SchemaNode[];
+  readonly graphTypes: readonly SchemaNode[];
 }
 
 /** Schemas of the mode: records by the store that holds them, request and event bodies, and the graph's types. */
@@ -131,7 +134,7 @@ export function schemaGroups(model: Model, show: Show): SchemaGroups {
 export interface SchemaFacts {
   readonly fields: number;
   /** The events and endpoints whose body this is. */
-  readonly carriedBy: string[];
+  readonly carriedBy: readonly string[];
 }
 
 /** How big a schema is and what carries it. */
@@ -150,7 +153,15 @@ export function schemaFacts(model: Model, show: Show, s: SchemaNode): SchemaFact
 }
 
 /** Who owns a graph type's fields, the keys others look it up by, and the operations that select from it. */
-export function graphTypeFacts(model: Model, show: Show, id: string) {
+export function graphTypeFacts(
+  model: Model,
+  show: Show,
+  id: string,
+): {
+  readonly contributors: ReturnType<Model['fieldOwners']>['contributors'];
+  readonly keys: readonly string[];
+  readonly operations: ReturnType<Model['operationsSelecting']>;
+} {
   const mode = graphOf(show);
   const owners = model.fieldOwners(id, mode);
   return {

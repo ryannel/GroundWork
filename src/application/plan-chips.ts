@@ -78,8 +78,9 @@ function kindOf(id: string, entity: unknown): Kind {
   const base = { glyph: OWN_GLYPHS[type] ?? glyphOf(id), word: TYPE_WORDS[type] };
   const kind = prop(entity, 'kind');
   const layer = prop(entity, 'layer');
-  if (type === 'store' && kind === 'cache' && typeof layer === 'string')
+  if (type === 'store' && kind === 'cache' && typeof layer === 'string') {
     return { glyph: '◍', word: `${layer} cache` };
+  }
   const found = typeof kind === 'string' ? KINDS[type]?.[kind] : undefined;
   return found === undefined ? base : { glyph: found[0], word: found[1] };
 }
@@ -107,7 +108,7 @@ export function questionTitle(text: string): string {
   const end = words.indexOf('?');
   if (end === -1) return clip(words, refLabel, 90);
   const head = words.slice(0, end + 1);
-  const starts = [...head.matchAll(/[.!:;]\s+(?=[A-Z])/g)].map((m) => m.index + m[0].length);
+  const starts = [...head.matchAll(/[.!:;]\s+(?=[A-Z])/gu)].map((m) => m.index + m[0].length);
   return clip(head.slice(starts.at(-1) ?? 0), refLabel, 110);
 }
 
@@ -121,8 +122,9 @@ function chipLabel(model: Model, id: string): string {
   const entity = model.get(id);
   if (entity === undefined) return id;
   const type = typeOf(id);
-  if (type === 'risk')
+  if (type === 'risk') {
     return clip(text(entity, 'title') ?? text(entity, 'statement') ?? id, refLabel, 64);
+  }
   if (type === 'question') {
     const title = text(entity, 'title');
     return title === null

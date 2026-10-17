@@ -13,20 +13,20 @@ export type IssueModel = Pick<
 /** Replace [[id]] citations with "label (`id`)" for plain Markdown readers. */
 export const unlink = (model: IssueModel, text: string | undefined): string =>
   (text ?? '')
-    .replaceAll(/\[\[([^\]\s]{1,200})\]\]/g, (_, id: string) => `${model.label(id)} (\`${id}\`)`)
+    .replaceAll(/\[\[([^\]\s]{1,200})\]\]/gu, (_, id: string) => `${model.label(id)} (\`${id}\`)`)
     .trim();
 
 /** Join lines, squeezing runs of blank lines. */
-export const block = (lines: string[]): string =>
+export const block = (lines: readonly string[]): string =>
   lines
     .join('\n')
-    .replaceAll(/\n{3,}/g, '\n\n')
+    .replaceAll(/\n{3,}/gu, '\n\n')
     .trim();
 
 /** A team channel, or '' for a placeholder such as "tbd". */
 function realChannel(team: Team | undefined): string {
   const c = (team?.channel ?? '').trim();
-  return /^(todo|tbd|tbc|\?+|-|n\/a)?$/i.test(c) ? '' : c;
+  return /^(?:todo|tbd|tbc|\?+|-|n\/a)?$/iu.test(c) ? '' : c;
 }
 
 export function summaryOf(model: IssueModel, wi: WorkItem, ms: Milestone | undefined): string {
@@ -46,23 +46,28 @@ export function summaryOf(model: IssueModel, wi: WorkItem, ms: Milestone | undef
 /** The reason for each change, and what the milestone makes work. */
 export function whyOf(
   model: IssueModel,
-  changes: [string, Change | undefined][],
+  changes: readonly (readonly [string, Change | undefined])[],
   ms: Milestone | undefined,
 ): string {
   const lines = changes.flatMap(([, c]) =>
     c?.why === undefined || c.why === '' ? [] : [`- **${c.title}:** ${unlink(model, c.why)}`],
   );
-  if (ms?.exit !== undefined && ms.exit !== '')
+  if (ms?.exit !== undefined && ms.exit !== '') {
     lines.push('', `> Milestone exit: ${unlink(model, ms.exit)}`);
+  }
   return block(lines);
 }
 
 /** The ops checklist, one block per implemented change. */
-export function howOf(model: IssueModel, changes: [string, Change | undefined][]): string {
+export function howOf(
+  model: IssueModel,
+  changes: readonly (readonly [string, Change | undefined])[],
+): string {
   const lines = changes.flatMap(([id, c]) => {
     const byOp = new Map<number, string[]>();
-    for (const e of model.diff(id))
+    for (const e of model.diff(id)) {
       byOp.set(e.opIndex, [...(byOp.get(e.opIndex) ?? []), e.summary]);
+    }
     const checks = [...byOp.values()].map((s) => `- [ ] ${s.join('; ')}`);
     const rollout =
       c?.rollout === undefined || c.rollout === ''

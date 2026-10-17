@@ -5,7 +5,7 @@ import { andList } from '@/application/plan-viz-ladder-order';
 // The words of the Versions chapter: the ledger's three (proposed, approved, rejected), dates, and who decided.
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const DAY = /^(\d{4})-(\d{2})-(\d{2})/;
+const DAY = /^(\d{4})-(\d{2})-(\d{2})/u;
 
 /** "2026-10-02" → "2 Oct 2026"; without the year "2 Oct". Anything else is left as it is. */
 export function dayText(date: string | null | undefined, withYear = true): string {
@@ -54,7 +54,7 @@ export type RevisionLook = 'proposed' | 'rejected' | 'in-force' | 'superseded';
 export function statusLook(
   rv: Pick<Revision, 'approved'>,
   r: RevisionEntry,
-): { look: RevisionLook; word: string } {
+): { readonly look: RevisionLook; readonly word: string } {
   if (r.status === 'proposed' || r.status === 'rejected') return { look: r.status, word: r.status };
   const inForce = r.version === rv.approved?.version;
   return { look: inForce ? 'in-force' : 'superseded', word: 'approved' };
@@ -82,7 +82,7 @@ export const plural = (n: number, one: string, many = `${one}s`): string =>
 
 /** Markdown the plan writes into a sentence, as plain text. */
 export function unmark(text: string | null | undefined): string {
-  return (text ?? '').replaceAll(/\*{1,2}([^*]+)\*{1,2}/g, '$1').replaceAll(/`([^`]+)`/g, '$1');
+  return (text ?? '').replaceAll(/\*{1,2}([^*]+)\*{1,2}/gu, '$1').replaceAll(/`([^`]+)`/gu, '$1');
 }
 
 /** The newest approved revision that was proposed on this one. */

@@ -3,48 +3,53 @@ import { createCursor, tokenize, type Cursor } from '@/application/plan/federati
 // A small GraphQL executable-document parser: operations and fragments, no graphql-js.
 
 export interface Sel {
-  name: string;
-  alias: string | null;
+  readonly name: string;
+  readonly alias: string | null;
   /** Alias, else name: the key the response carries. */
-  key: string;
-  selections: Sel[] | null;
+  readonly key: string;
+  readonly selections: readonly Sel[] | null;
 }
 
 export interface Variable {
-  name: string;
-  type: string;
+  readonly name: string;
+  readonly type: string;
   /** Non-null with no default: it must be sent. */
-  required: boolean;
+  readonly required: boolean;
 }
 
 export type OperationKind = 'query' | 'mutation' | 'subscription';
 
 export interface ParsedDocument {
-  ok: boolean;
+  readonly ok: boolean;
   /** Names the line on a syntax error, an undefined or cyclic fragment, or a document without an operation. */
-  error: string | null;
-  kind: OperationKind | null;
-  name: string | null;
-  variables: Variable[];
+  readonly error: string | null;
+  readonly kind: OperationKind | null;
+  readonly name: string | null;
+  readonly variables: readonly Variable[];
   /** How many operations the document holds (the first one is returned). */
-  operations: number;
-  selections: Sel[];
+  readonly operations: number;
+  readonly selections: readonly Sel[];
 }
 
 type RawSel =
-  | { type: 'field'; name: string; alias: string | null; selections: RawSel[] | null }
-  | { type: 'inline'; selections: RawSel[] }
-  | { type: 'spread'; name: string };
+  | {
+      readonly type: 'field';
+      readonly name: string;
+      readonly alias: string | null;
+      readonly selections: readonly RawSel[] | null;
+    }
+  | { readonly type: 'inline'; readonly selections: readonly RawSel[] }
+  | { readonly type: 'spread'; readonly name: string };
 
 interface Fragment {
-  selections: RawSel[];
+  readonly selections: readonly RawSel[];
 }
 
 interface RawOperation {
-  kind: OperationKind;
-  name: string | null;
-  variables: Variable[];
-  selections: RawSel[];
+  readonly kind: OperationKind;
+  readonly name: string | null;
+  readonly variables: readonly Variable[];
+  readonly selections: readonly RawSel[];
 }
 
 function skipValue(c: Cursor): void {
@@ -159,7 +164,10 @@ function fragmentDefinition(c: Cursor): [string, Fragment] {
   return [name, { selections: selectionSet(c) }];
 }
 
-function document(c: Cursor): { ops: RawOperation[]; fragments: Map<string, Fragment> } {
+function document(c: Cursor): {
+  readonly ops: readonly RawOperation[];
+  readonly fragments: ReadonlyMap<string, Fragment>;
+} {
   const ops: RawOperation[] = [];
   const fragments = new Map<string, Fragment>();
   while (c.peek() !== undefined) {
@@ -181,55 +189,64 @@ function document(c: Cursor): { ops: RawOperation[]; fragments: Map<string, Frag
 }
 
 interface Merged {
-  name: string;
-  alias: string | null;
-  key: string;
-  selections: RawSel[] | null;
+  readonly name: string;
+  readonly alias: string | null;
+  readonly key: string;
+  readonly selections: readonly RawSel[] | null;
 }
 
-interface FlattenCtx {
-  fragments: ReadonlyMap<string, Fragment>;
-  errors: string[];
-  byKey: Map<string, Merged>;
+interface Flattened {
+  readonly selections: readonly Sel[];
+  readonly errors: readonly string[];
 }
 
-function addField(byKey: Map<string, Merged>, s: Extract<RawSel, { type: 'field' }>): void {
-  const key = s.alias ?? s.name;
-  const cur = byKey.get(key);
-  if (cur === undefined) {
-    byKey.set(key, { name: s.name, alias: s.alias, key, selections: s.selections });
-  } else if (s.selections !== null) {
-    cur.selections = [...(cur.selections ?? []), ...s.selections];
-  }
-}
-
-function visit(ctx: FlattenCtx, list: readonly RawSel[], stack: ReadonlySet<string>): void {
-  for (const s of list) {
-    if (s.type === 'inline') visit(ctx, s.selections, stack);
-    else if (s.type === 'field') addField(ctx.byKey, s);
-    else visitSpread(ctx, s.name, stack);
-  }
-}
-
-function visitSpread(ctx: FlattenCtx, name: string, stack: ReadonlySet<string>): void {
-  const fragment = ctx.fragments.get(name);
-  if (fragment === undefined) ctx.errors.push(`fragment ${name} is spread but never defined`);
-  else if (stack.has(name)) ctx.errors.push(`fragment ${name} spreads itself`);
-  else visit(ctx, fragment.selections, new Set([...stack, name]));
+/** The fields of a selection list, fragments spread and same-key fields merged, with what went wrong. */
+function mergeFields(
+  selections: readonly RawSel[],
+  fragments: ReadonlyMap<string, Fragment>,
+): { readonly merged: readonly Merged[]; readonly errors: readonly string[] } {
+  const byKey = new Map<string, Merged>();
+  const errors: string[] = [];
+  const addField = (s: Extract<RawSel, { readonly type: 'field' }>): void => {
+    const key = s.alias ?? s.name;
+    const cur = byKey.get(key);
+    if (cur === undefined) {
+      byKey.set(key, { name: s.name, alias: s.alias, key, selections: s.selections });
+    } else if (s.selections !== null) {
+      byKey.set(key, { ...cur, selections: [...(cur.selections ?? []), ...s.selections] });
+    }
+  };
+  /** The selections a spread brings in, or none (noting why) when it is missing or spreads itself. */
+  const spread = (name: string, stack: ReadonlySet<string>): readonly RawSel[] => {
+    const fragment = fragments.get(name);
+    if (fragment === undefined) errors.push(`fragment ${name} is spread but never defined`);
+    else if (stack.has(name)) errors.push(`fragment ${name} spreads itself`);
+    return fragment === undefined || stack.has(name) ? [] : fragment.selections;
+  };
+  const visit = (list: readonly RawSel[], stack: ReadonlySet<string>): void => {
+    for (const s of list) {
+      if (s.type === 'inline') visit(s.selections, stack);
+      else if (s.type === 'field') addField(s);
+      else visit(spread(s.name, stack), new Set([...stack, s.name]));
+    }
+  };
+  visit(selections, new Set());
+  return { merged: [...byKey.values()], errors };
 }
 
 /** Flatten fragments into fields and merge fields with the same response key. */
 function flatten(
   selections: readonly RawSel[],
   fragments: ReadonlyMap<string, Fragment>,
-  errors: string[],
-): Sel[] {
-  const ctx: FlattenCtx = { fragments, errors, byKey: new Map() };
-  visit(ctx, selections, new Set());
-  return [...ctx.byKey.values()].map((n) => ({
-    ...n,
-    selections: n.selections === null ? null : flatten(n.selections, fragments, errors),
-  }));
+): Flattened {
+  const { merged, errors } = mergeFields(selections, fragments);
+  const children = merged.map((n) =>
+    n.selections === null ? null : flatten(n.selections, fragments),
+  );
+  return {
+    selections: merged.map((n, i) => ({ ...n, selections: children[i]?.selections ?? null })),
+    errors: [...errors, ...children.flatMap((c) => c?.errors ?? [])],
+  };
 }
 
 const EMPTY: ParsedDocument = {
@@ -256,8 +273,7 @@ export function parseDocument(text: unknown): ParsedDocument {
     if (op === undefined) {
       return { ...EMPTY, error: 'the document has no query, mutation or subscription' };
     }
-    const errors: string[] = [];
-    const selections = flatten(op.selections, fragments, errors);
+    const { selections, errors } = flatten(op.selections, fragments);
     return {
       ok: errors.length === 0,
       error: errors[0] ?? null,
@@ -273,15 +289,15 @@ export function parseDocument(text: unknown): ParsedDocument {
 }
 
 export interface TypeRef {
-  name: string;
-  list: boolean;
-  nonNull: boolean;
-  itemNonNull: boolean;
+  readonly name: string;
+  readonly list: boolean;
+  readonly nonNull: boolean;
+  readonly itemNonNull: boolean;
 }
 
 /** A GraphQL type string in parts: `[Product!]!` → { name: 'Product', list, nonNull, itemNonNull }. */
 export function parseTypeRef(text: unknown): TypeRef {
-  const s = (typeof text === 'string' ? text : '').replaceAll(/\s+/g, '');
+  const s = (typeof text === 'string' ? text : '').replaceAll(/\s+/gu, '');
   const nonNull = s.endsWith('!');
   const inner = nonNull ? s.slice(0, -1) : s;
   const list = inner.startsWith('[');
@@ -289,7 +305,7 @@ export function parseTypeRef(text: unknown): TypeRef {
   const end = close === -1 ? inner.length : close;
   const item = list ? inner.slice(1, end) : inner;
   return {
-    name: item.replaceAll(/[[\]!]/g, ''),
+    name: item.replaceAll(/[[\]!]/gu, ''),
     list,
     nonNull,
     itemNonNull: list && item.endsWith('!'),

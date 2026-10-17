@@ -76,6 +76,8 @@ export interface DagOptions {
   readonly byMilestone?: boolean | undefined;
   /** Fade every card that is not this team's. */
   readonly lens?: string | null | undefined;
+  /** The day the milestone bands read their due dates against; the caller reads the clock. */
+  readonly today: Date;
 }
 
 const CHAR_W = 7.9;
@@ -91,11 +93,14 @@ interface Ctx {
   readonly frame: Frame;
   readonly critical: ReadonlySet<string>;
   readonly byMs: boolean;
+  readonly today: Date;
 }
 
 /** What a band says at its right: the due date, and how far on it is once delivery has begun. */
-function bandRight(model: Model, id: string, hasState: boolean): string {
-  const state = hasState && milestoneById(model, id) !== undefined ? msState(model, id) : null;
+function bandRight(ctx: Ctx, id: string, hasState: boolean): string {
+  const { model, today } = ctx;
+  const state =
+    hasState && milestoneById(model, id) !== undefined ? msState(model, id, today) : null;
   if (state === null) return '';
   const progress = state.started && state.total > 0 ? state.text : '';
   return [state.dueText, progress].filter((part) => part !== '').join(' · ');
@@ -110,7 +115,7 @@ function bandViews(ctx: Ctx, hasState: boolean): DagBandView[] {
     const w = PAD + band.to * (NODE_W + COL_GAP) + NODE_W + end - x;
     const ms = milestoneById(model, band.id);
     const name = ms === undefined ? 'No milestone' : ms.name;
-    const right = bandRight(model, band.id, hasState);
+    const right = bandRight(ctx, band.id, hasState);
     const room = w - LABEL_PAD - (right === '' ? 0 : right.length * CHAR_W + PAD);
     const fit = Math.max(MIN_FIT, Math.floor(room / CHAR_W));
     const shown = name.length > fit ? `${name.slice(0, fit - 1).trimEnd()}…` : name;
@@ -122,13 +127,17 @@ function waitsText(model: Model, waits: readonly string[]): string {
   return waits
     .map((q) => {
       const by = (model.plan.questions ?? []).find((x) => x.id === q)?.decide_by;
-      const when = by === undefined ? '' : ` (by ${shortDate(by)})`;
+      const when = by === undefined ? '' : ` (by ${shortDate(by, model.today)})`;
       return `${model.label(q)}${when}${model.overdue(q) ? ' · overdue' : ''}`;
     })
     .join('\n');
 }
 
-function aria(ctx: Ctx, w: WorkItem, wait: { waits: readonly string[]; late: boolean }): string {
+function aria(
+  ctx: Ctx,
+  w: WorkItem,
+  wait: { readonly waits: readonly string[]; readonly late: boolean },
+): string {
   const { model, critical } = ctx;
   const { waits, late } = wait;
   const state = wiState(model, w.id);
@@ -177,7 +186,7 @@ function nodeOf(ctx: Ctx, w: WorkItem, lens: string | null): DagNode {
 }
 
 /** The dependency graph of the plan's work items; null when there are none. */
-export function dagOf(model: Model, opts: DagOptions = {}): Dag | null {
+export function dagOf(model: Model, opts: DagOptions): Dag | null {
   const work = workList(model);
   if (work.length === 0) return null;
   const known = new Set(work.map((w) => w.id));
@@ -194,7 +203,7 @@ export function dagOf(model: Model, opts: DagOptions = {}): Dag | null {
   }));
   const grid = gridOf(dagItems, { milestones, byMilestone: byMs, critical });
   const frame = frameOf(grid, byMs);
-  const ctx: Ctx = { model, items, grid, frame, critical, byMs };
+  const ctx: Ctx = { model, items, grid, frame, critical, byMs, today: opts.today };
   const nodes = items.map((w) => nodeOf(ctx, w, opts.lens ?? null));
   const hasState = nodes.some((n) => n.state !== null);
   return {

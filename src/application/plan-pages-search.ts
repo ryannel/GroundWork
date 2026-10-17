@@ -143,7 +143,7 @@ export function searchPalette(
   const q = query.trim().toLowerCase();
   if (q === '' && filter !== null) return pool.slice(0, LIMIT);
   if (q === '') return pool.filter((e) => e.kind === 'screen').slice(0, PRE_SEARCH);
-  const words = q.split(/\s+/);
+  const words = q.split(/\s+/u);
   return pool
     .filter((e) => words.every((w) => e.haystack.includes(w)))
     .toSorted((a, b) => score(a, q) - score(b, q))

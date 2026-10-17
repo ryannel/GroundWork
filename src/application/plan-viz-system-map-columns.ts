@@ -5,7 +5,7 @@ import type { SystemMapInput } from '@/application/plan-viz-system-map-types';
 
 export interface Columns {
   /** The columns, each a list of units: a service, or a system whose parts share the column. */
-  readonly cols: string[][];
+  readonly cols: readonly (readonly string[])[];
   /** The stage each column shows, by its place in the plan's stages. */
   readonly used: readonly number[];
   readonly partsOf: ReadonlyMap<string, readonly string[]>;
@@ -42,33 +42,37 @@ const bothIn = (
 const firstDiff = (...diffs: readonly number[]): number => diffs.find((d) => d !== 0) ?? 0;
 
 function relax(
-  rank: Map<string, number>,
+  rank: ReadonlyMap<string, number>,
   dir: readonly (readonly [string, string])[],
   limit: number,
-): boolean {
+): ReadonlyMap<string, number> | null {
+  const relaxed = new Map(rank);
   let moved = false;
   for (const [a, b] of dir) {
-    const next = (rank.get(a) ?? 0) + 1;
-    if ((rank.get(b) ?? 0) < next && next < limit) {
-      rank.set(b, next);
+    const next = (relaxed.get(a) ?? 0) + 1;
+    if ((relaxed.get(b) ?? 0) < next && next < limit) {
+      relaxed.set(b, next);
       moved = true;
     }
   }
-  return moved;
+  return moved ? relaxed : null;
 }
 
 /** With no stages, the longest chain of calls and events puts each card one step after what feeds it. */
 function ranks(
   ids: readonly string[],
   pairs: readonly (readonly [string, string])[],
-): Map<string, number> {
-  const rank = new Map(ids.map((id) => [id, 0]));
-  const dir = bothIn(pairs, rank).filter(([a, b]) => a !== b);
-  [...ids].every(() => relax(rank, dir, ids.length));
-  return rank;
+): ReadonlyMap<string, number> {
+  const start: ReadonlyMap<string, number> = new Map(ids.map((id) => [id, 0]));
+  const dir = bothIn(pairs, start).filter(([a, b]) => a !== b);
+  const settle = (rank: ReadonlyMap<string, number>, left: number): ReadonlyMap<string, number> => {
+    const next = left === 0 ? null : relax(rank, dir, ids.length);
+    return next === null ? rank : settle(next, left - 1);
+  };
+  return settle(start, ids.length);
 }
 
-function stageColumns(input: SystemMapInput, agg: Aggregate): Map<string, number> {
+function stageColumns(input: SystemMapInput, agg: Aggregate): ReadonlyMap<string, number> {
   const ids = input.services.map((s) => s.id);
   if (input.stages.length === 0) {
     const dir = agg.links
@@ -82,24 +86,25 @@ function stageColumns(input: SystemMapInput, agg: Aggregate): Map<string, number
 
 /** A card no stage owns joins its nearest neighbour's column, else the first. */
 function fillGaps(
-  col: Map<string, number>,
+  col: ReadonlyMap<string, number>,
   ids: readonly string[],
   nb: ReadonlyMap<string, ReadonlySet<string>>,
-): void {
+): ReadonlyMap<string, number> {
+  const filled = new Map(col);
   for (let pass = 0; pass < 2; pass += 1) {
-    for (const id of ids.filter((x) => !col.has(x))) {
-      const near = [...(nb.get(id) ?? [])].map((n) => col.get(n)).filter((c) => c !== undefined);
-      if (near.length > 0 || pass === 1) col.set(id, near.length > 0 ? Math.min(...near) : 0);
+    for (const id of ids.filter((x) => !filled.has(x))) {
+      const near = [...(nb.get(id) ?? [])].map((n) => filled.get(n)).filter((c) => c !== undefined);
+      if (near.length > 0 || pass === 1) filled.set(id, near.length > 0 ? Math.min(...near) : 0);
     }
   }
+  return filled;
 }
 
-function assign(input: SystemMapInput, agg: Aggregate): Map<string, number> {
+function assign(input: SystemMapInput, agg: Aggregate): ReadonlyMap<string, number> {
   const ids = input.services.map((s) => s.id);
   const col = stageColumns(input, agg);
   const pairs = agg.links.map((l): [string, string] => [hostOf(agg, l.a), hostOf(agg, l.b)]);
-  fillGaps(col, ids, neighbours(ids, bothIn(pairs, new Map(ids.map((id) => [id, 0])))));
-  return col;
+  return fillGaps(col, ids, neighbours(ids, bothIn(pairs, new Map(ids.map((id) => [id, 0])))));
 }
 
 /** The deployables of one system are one unit when they share a column. */
@@ -120,7 +125,7 @@ function systemParts(
 }
 
 interface Place {
-  readonly cols: string[][];
+  readonly cols: readonly (readonly string[])[];
   readonly nbU: ReadonlyMap<string, ReadonlySet<string>>;
   readonly colOfU: (unit: string) => number;
 }
@@ -201,14 +206,16 @@ function orderColumns(
   input: SystemMapInput,
   place: Place,
   members: (u: string) => readonly string[],
-): void {
+): readonly (readonly string[])[] {
   const byStart = startOrder(input, members);
-  for (const list of place.cols) list.sort(byStart);
-  const { cols } = place;
+  const cols = place.cols.map((list) => list.toSorted(byStart));
   const order = cols.map((_, c) => c);
   for (let it = 0; it < 6; it += 1) {
-    for (const c of it % 2 === 1 ? order.toReversed() : order) cols[c] = pullToward(place, c);
+    for (const c of it % 2 === 1 ? order.toReversed() : order) {
+      cols[c] = pullToward({ ...place, cols }, c);
+    }
   }
+  return cols;
 }
 
 export function layoutColumns(input: SystemMapInput, agg: Aggregate): Columns {
@@ -230,8 +237,7 @@ export function layoutColumns(input: SystemMapInput, agg: Aggregate): Columns {
   const nbU = neighbours(units, bothIn(pairs, new Map(units.map((u) => [u, 0]))));
   const cols: string[][] = used.map(() => []);
   for (const u of units) cols[colOfU(u)]?.push(u);
-  orderColumns(input, { cols, nbU, colOfU }, membersOf);
-  const sorted = cols.map((list) =>
+  const sorted = orderColumns(input, { cols, nbU, colOfU }, membersOf).map((list) =>
     providersFirst(list, aboveOf(agg, { unitOf, isInternal, colOfU })),
   );
   const linked = new Set(units.filter((u) => (nbU.get(u)?.size ?? 0) > 0));

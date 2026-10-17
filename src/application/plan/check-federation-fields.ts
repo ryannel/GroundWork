@@ -13,14 +13,14 @@ import type { FieldNode, SchemaNode } from '@/domain/plan/plan-graph';
 
 /** A graph-type field, with what its checks share. */
 export interface FieldAt {
-  s: Scope;
-  t: SchemaNode;
-  f: FieldNode;
-  idx: GraphIndex;
-  name: string;
-  subs: string[];
+  readonly s: Scope;
+  readonly t: SchemaNode;
+  readonly f: FieldNode;
+  readonly idx: GraphIndex;
+  readonly name: string;
+  readonly subs: readonly string[];
   /** The returned graph type, when it is modelled. */
-  ret: SchemaNode | null;
+  readonly returned: SchemaNode | null;
 }
 
 export function fieldAt(s: Scope, t: SchemaNode, f: FieldNode): FieldAt {
@@ -32,7 +32,7 @@ export function fieldAt(s: Scope, t: SchemaNode, f: FieldNode): FieldAt {
     idx,
     name: fieldLabel(s.g, f.id),
     subs: f.subgraphs ?? [],
-    ret: idx.types.get(parseTypeRef(f.type).name) ?? null,
+    returned: idx.types.get(parseTypeRef(f.type).name) ?? null,
   };
 }
 
@@ -108,13 +108,13 @@ export function checkRequires({ s, f, name, subs }: FieldAt): void {
 }
 
 /** @provides names fields of the type the field returns, which its subgraph does not already resolve everywhere. */
-export function checkProvides({ s, f, name, subs, ret }: FieldAt): void {
+export function checkProvides({ s, f, name, subs, returned }: FieldAt): void {
   for (const [j, pid] of (f.provides ?? []).entries()) {
     const where = s.at(f, 'provides', ['provides', j]);
-    if (ret === null || pid.split('#')[0] !== ret.id) {
+    if (returned === null || pid.split('#')[0] !== returned.id) {
       s.error(
         where,
-        `${name} provides ${pid}, which is not a field of ${ret?.name ?? parseTypeRef(f.type).name}; @provides names fields of the type the field returns`,
+        `${name} provides ${pid}, which is not a field of ${returned?.name ?? parseTypeRef(f.type).name}; @provides names fields of the type the field returns`,
       );
     }
     const tf = s.g.get(pid);
@@ -131,9 +131,9 @@ export function checkProvides({ s, f, name, subs, ret }: FieldAt): void {
 }
 
 /** A value type (no keys) is defined in every subgraph that returns it. */
-export function checkValueType({ s, f, name, subs, ret }: FieldAt): void {
-  if (ret === null || keysOf(ret).length > 0 || ret.root !== undefined) return;
-  const foreign = ret.fields.filter((rf) => {
+export function checkValueType({ s, f, name, subs, returned }: FieldAt): void {
+  if (returned === null || keysOf(returned).length > 0 || returned.root !== undefined) return;
+  const foreign = returned.fields.filter((rf) => {
     const rs = rf.subgraphs ?? [];
     return rs.length > 0 && subs.length > 0 && !rs.some((x) => subs.includes(x));
   });
@@ -143,7 +143,7 @@ export function checkValueType({ s, f, name, subs, ret }: FieldAt): void {
   const by = [...new Set(foreign.flatMap((x) => x.subgraphs ?? []))].join(', ');
   s.warn(
     s.at(f, 'type'),
-    `${ret.name} is returned by ${name} (${subs.join(', ')}) but ${names} ${verb} resolved by ${by}; a value type is defined in every subgraph that returns it, so list ${subs.join(', ')} on ${ret.name}'s fields (shareable: true)`,
+    `${returned.name} is returned by ${name} (${subs.join(', ')}) but ${names} ${verb} resolved by ${by}; a value type is defined in every subgraph that returns it, so list ${subs.join(', ')} on ${returned.name}'s fields (shareable: true)`,
   );
 }
 

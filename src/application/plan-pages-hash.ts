@@ -5,7 +5,7 @@ import { ID_PREFIXES } from '@/domain/plan/plan-ids';
 
 const MARK = '#i-';
 
-const clean = (text: string): string => text.replaceAll(/[^\w.~-]/g, '');
+const clean = (text: string): string => text.replaceAll(/[^\w.~-]/gu, '');
 
 export function idToToken(id: string): string {
   return clean(id.replace(':', '-').replace('#', '.'));

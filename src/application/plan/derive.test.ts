@@ -5,13 +5,13 @@ import { derive } from '@/application/plan/derive';
 import type { Rec } from '@/application/plan/ids';
 import type { Change, Plan, Question } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
 const mini = async (): Promise<Plan> => loadFixture('mini.yaml');
 
-function byId<T extends { id: string }>(list: T[] | undefined, id: string): T {
+function byId<T extends { readonly id: string }>(list: readonly T[] | undefined, id: string): T {
   const found = list?.find((x) => x.id === id);
   if (found === undefined) throw new Error(`no ${id} in the fixture`);
   return found;
@@ -343,8 +343,9 @@ describe('delivery', () => {
     const order = m.topoOrder();
     expect(order).toHaveLength(6);
     for (const w of m.plan.work_items ?? []) {
-      for (const d of w.depends_on ?? [])
+      for (const d of w.depends_on ?? []) {
         expect(order.indexOf(d)).toBeLessThan(order.indexOf(w.id));
+      }
     }
   });
   it('groups work into waves', () => {

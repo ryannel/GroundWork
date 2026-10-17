@@ -7,35 +7,35 @@ import type { OpRecord, SchemaNode, StepNode, SystemGraph } from '@/domain/plan/
 export type Kind = 'reader' | 'writer' | 'caller' | 'consumer' | 'operation';
 
 export interface Affected {
-  svc: string;
-  role: 'reader' | 'writer' | 'caller' | 'consumer';
-  via: string;
+  readonly svc: string;
+  readonly role: 'reader' | 'writer' | 'caller' | 'consumer';
+  readonly via: string;
 }
 
 export interface Moved {
-  step: string | null;
-  change: string | null;
+  readonly step: string | null;
+  readonly change: string | null;
   /** The next version a consumer now listens to. */
-  rung?: string;
+  readonly rung?: string;
 }
 
 /** What is being judged: the schema (if any), the endpoints and messages it travels in, and their successors. */
 export interface Ctx {
-  id: string;
-  sch: SchemaNode | null;
-  requests: string[];
-  responses: string[];
-  messages: string[];
-  successors: string[];
+  readonly id: string;
+  readonly sch: SchemaNode | null;
+  readonly requests: readonly string[];
+  readonly responses: readonly string[];
+  readonly messages: readonly string[];
+  readonly successors: readonly string[];
 }
 
 export interface PeopleEnv {
-  asIs: SystemGraph;
-  toBe: SystemGraph;
-  records: readonly OpRecord[];
+  readonly asIs: SystemGraph;
+  readonly toBe: SystemGraph;
+  readonly records: readonly OpRecord[];
   /** Steps the plan adds or edits. */
-  changed: ReadonlyMap<string, StepNode>;
-  operationsSelecting: (id: string, mode: string) => string[];
+  readonly changed: ReadonlyMap<string, StepNode>;
+  readonly operationsSelecting: (id: string, mode: string) => readonly string[];
 }
 
 const STEP_KEYS = [
@@ -78,19 +78,19 @@ type Put = (svc: string | null | undefined, role: Affected['role'], via: string)
 
 /** What to look for: who is `kind` to this edit (one field, or all of the schema's). */
 export interface Query {
-  kind: Kind;
-  ctx: Ctx;
-  field?: string;
+  readonly kind: Kind;
+  readonly ctx: Ctx;
+  readonly field?: string;
 }
 
 interface Search {
-  g: SystemGraph;
-  ctx: Ctx;
-  ids: Set<string>;
-  put: Put;
+  readonly g: SystemGraph;
+  readonly ctx: Ctx;
+  readonly ids: ReadonlySet<string>;
+  readonly put: Put;
 }
 
-function callersOf(s: Search, vias: string[], role: 'caller' | 'reader'): void {
+function callersOf(s: Search, vias: readonly string[], role: 'caller' | 'reader'): void {
   for (const e of vias) {
     for (const step of s.g.steps) {
       if (step.via === e && isService(s.g, step.from)) s.put(step.from, role, step.id);
@@ -140,8 +140,9 @@ export function affected(env: PeopleEnv, q: Query): Affected[] {
   if (kind === 'caller') callersOf(s, ctx.requests, 'caller');
   if (kind === 'consumer') consumerPeople(s);
   if (kind === 'operation' && q.field !== undefined && ctx.sch !== null) {
-    for (const o of env.operationsSelecting(`${ctx.sch.id}#${q.field}`, 'asIs'))
+    for (const o of env.operationsSelecting(`${ctx.sch.id}#${q.field}`, 'asIs')) {
       put(o, 'reader', o);
+    }
   }
   return out;
 }

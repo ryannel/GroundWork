@@ -1,7 +1,8 @@
 // @vitest-environment happy-dom
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { derive } from '@/application/plan/derive';
+import { deliveryTime } from '@/../test/fixtures/acme/plans/contracts-delivery-time';
+import { modelOf } from '@/../test/plan-kit';
 import {
   callersOf,
   copyablePath,
@@ -13,13 +14,7 @@ import {
   typedParams,
 } from '@/application/plan-viz-endpoint';
 
-vi.mock('server-only', () => ({}));
-
-async function load() {
-  const { readPlan } = await import('@/infrastructure/plan-store');
-  const loaded = await readPlan('alder-finch', 'delivery-promise');
-  return derive(loaded.plan!);
-}
+const load = () => modelOf(deliveryTime());
 
 describe('signatures', () => {
   it('splits several signatures and shared verbs', () => {
@@ -29,6 +24,12 @@ describe('signatures', () => {
     ]);
     expect(parseSig('query product(sku)')).toEqual([{ verbs: ['query'], path: 'product(sku)' }]);
     expect(parseSig()).toEqual([]);
+  });
+
+  it('keeps a verb written twice once, so each badge has its own key', () => {
+    expect(parseSig('GET|POST|PUT|DELETE|POST /v1/x')).toEqual([
+      { verbs: ['GET', 'POST', 'PUT', 'DELETE'], path: '/v1/x' },
+    ]);
   });
 
   it('picks out path params and a dimmed query', () => {
@@ -48,16 +49,22 @@ describe('signatures', () => {
 });
 
 describe('an interface in the plan', () => {
-  it('lists endpoints, says what they share, types params and finds callers', async () => {
-    const model = await load();
-    const eps = interfaceEndpoints(model, 'if:pim-rest', 'diff');
-    expect(eps.map((e) => e.id)).toEqual(['api:pim-save-product', 'api:pim-get-product']);
+  it('lists endpoints, says what they share, types params and finds callers', () => {
+    const model = load();
+    const eps = interfaceEndpoints(model, 'if:products-rest', 'diff');
+    expect(eps.map((e) => e.id)).toEqual(['api:products-get', 'api:products-update']);
     expect(sharedFacts(eps)).toEqual({ auth: 'staff SSO', idempotent: true });
+    expect(sharedFacts(interfaceEndpoints(model, 'if:products-rest', 'asIs'))).toEqual({
+      idempotent: true,
+    });
     expect(sharedFacts([])).toEqual({});
-    const [save] = eps;
+    const [, save] = eps;
     const params = typedParams(model, save!, { names: ['sku'], mode: 'toBe' });
     expect(params).toHaveLength(1);
-    expect(Array.isArray(callersOf(model, 'api:pim-save-product', 'diff'))).toBe(true);
+    expect(callersOf(model, 'api:products-update', 'diff').map((c) => c.svc)).toEqual([
+      'svc:product-admin',
+    ]);
+    expect(callersOf(model, 'api:products-get', 'diff')).toEqual([]);
     expect(interfaceEndpoints(model, 'if:nothing', 'asIs')).toEqual([]);
   });
 });

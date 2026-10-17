@@ -15,10 +15,10 @@ import { plainTitle } from '@/shared/plain-text';
 
 /** What the drawing needs besides the graph. */
 export interface DrawCtx {
-  model: Model;
-  mode: FlowMode;
-  walk: Walker;
-  markers: Readonly<Record<string, string>>;
+  readonly model: Model;
+  readonly mode: FlowMode;
+  readonly walk: Walker;
+  readonly markers: Readonly<Record<string, string>>;
 }
 
 const plan = (ctx: DrawCtx): boolean => ctx.mode !== 'asIs';
@@ -112,10 +112,11 @@ function rowsOf(ctx: DrawCtx, e: FlowEdge, top: number): DrawnRow[] {
       implicit: l.it.implicit === true,
       walk: grouped ? ctx.walk.loudest(members.map((m) => m.i)) : ctx.walk.of(l.it.i),
       state: plan(ctx) ? state : '',
-      num: numberOf(l.it, l.first),
+      number: numberOf(l.it, l.first),
       lettered: l.it.letter !== undefined,
       description: describe(ctx, l.it, members),
       step: grouped ? null : l.it.i,
+      steps: members.map((m) => m.i),
       ref: grouped ? e.to : l.it.s.id,
       mark: markOf(ctx, l.it, l.first),
       y: top + k * LINE,
@@ -123,7 +124,10 @@ function rowsOf(ctx: DrawCtx, e: FlowEdge, top: number): DrawnRow[] {
   });
 }
 
-function labelOf(ctx: DrawCtx, { e, r }: Routed & { r: NonNullable<Routed['r']> }): DrawnLabel {
+function labelOf(
+  ctx: DrawCtx,
+  { e, r }: Routed & { readonly r: NonNullable<Routed['r']> },
+): DrawnLabel {
   const steps = [...new Set(e.lines.flatMap((l) => (l.it.members ?? [l.it]).map((m) => m.i)))];
   return {
     key: e.key,
@@ -143,7 +147,7 @@ function labelOf(ctx: DrawCtx, { e, r }: Routed & { r: NonNullable<Routed['r']> 
 export function drawEdges(
   ctx: DrawCtx,
   routed: readonly Routed[],
-): { edges: DrawnEdge[]; labels: DrawnLabel[] } {
+): { readonly edges: readonly DrawnEdge[]; readonly labels: readonly DrawnLabel[] } {
   const labels: DrawnLabel[] = [];
   for (const x of routed) {
     if (x.r !== null) labels.push(labelOf(ctx, { ...x, r: x.r }));

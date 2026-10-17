@@ -39,6 +39,7 @@ describe('workspaceNavOf', () => {
       'Find',
       'Journeys',
       'Reference',
+      'Plans',
     ]);
     const find = nav[2]!;
     expect(find).toMatchObject({
@@ -56,7 +57,40 @@ describe('workspaceNavOf', () => {
     const plans = [{ id: 'p', title: 'New prices', href: '/shop/plans/p/' }];
     const nav = workspaceNavOf(shop, plans, {});
     expect(nav[0]!.current).toBe(true);
-    expect(nav.at(-1)).toMatchObject({ title: 'Plans', side: true, open: true, count: '1' });
+    expect(nav[0]!.items.map((item) => [item.title, item.current])).toEqual([
+      ['Map', true],
+      ['Language', false],
+      ['People', false],
+    ]);
+    expect(nav.at(-1)).toMatchObject({
+      title: 'Plans',
+      href: '/shop/plans/',
+      side: true,
+      current: false,
+      count: '1',
+      items: [],
+    });
+  });
+
+  it('marks the plans on their index, and keeps them in the rail when there are none', () => {
+    expect(workspaceNavOf(shop, [], { section: 'plans' }).at(-1)).toMatchObject({
+      title: 'Plans',
+      current: true,
+    });
+    expect(workspaceNavOf(shop, [], {}).at(-1)).not.toHaveProperty('count');
+  });
+
+  it('opens the landscape on its language and people pages', () => {
+    const nav = workspaceNavOf(shop, [], { section: 'people' });
+    expect(nav[0]).toMatchObject({ current: false, open: true });
+    expect(nav[0]!.items.find((item) => item.current)).toMatchObject({
+      title: 'People',
+      href: '/shop/people/',
+    });
+    expect(workspaceNavOf(shop, [], { section: 'language' })[0]!.items[1]).toMatchObject({
+      href: '/shop/language/',
+      current: true,
+    });
   });
 
   it('marks the journeys or reference being read, not the landscape', () => {

@@ -21,8 +21,9 @@ export function cardTip(ctx: Context, box: Box): string {
   const does = node?.does ?? '';
   const kind = node?.kind ?? '';
   if (box.kind === 'topic') return withDoes(`Topic: ${name}`, does);
-  if (box.kind === 'store')
+  if (box.kind === 'store') {
     return withDoes(`${kind === '' ? 'Store' : capital(kind)}: ${name}`, does);
+  }
   const word = kind === '' || kind === 'service' ? '' : kind;
   const quiet = box.compact ? '\nNo calls, events or stores modelled today' : '';
   const head = `${name}${bracket(word)}${dotted(ownerOf(ctx, box))}`;

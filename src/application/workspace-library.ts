@@ -36,8 +36,8 @@ export interface Library {
 // Shared workspaces first, then by name: the one a team works in leads.
 export function libraryOf(
   workspaces: readonly Workspace[],
-  plans: ReadonlyMap<string, readonly PlanInput[]> = new Map(),
-  today = new Date(),
+  plans: ReadonlyMap<string, readonly PlanInput[]>,
+  today: Date,
 ): Library {
   const cards = workspaces.toSorted(sharedFirst).map((workspace) => {
     const briefs = briefsOf(workspace.id, plans.get(workspace.id) ?? [], today);

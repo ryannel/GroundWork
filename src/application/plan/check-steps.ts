@@ -45,10 +45,10 @@ function dataChanged(ctx: CheckContext, g: SystemGraph, step: StepNode): boolean
 }
 
 interface StepScope {
-  ctx: CheckContext;
-  rep: Report;
-  g: SystemGraph;
-  asIs: boolean;
+  readonly ctx: CheckContext;
+  readonly rep: Report;
+  readonly g: SystemGraph;
+  readonly asIs: boolean;
 }
 
 const pathOf =
@@ -60,11 +60,11 @@ function checkFlowsHaveSteps(s: StepScope): void {
   for (const flow of s.g.flows) {
     if (flow.steps.length > 0) continue;
     const empty = `${flow.id} has no steps; give it at least one step`;
-    if (s.asIs || s.ctx.addedBy.has(flow.id)) s.rep.err([...flow.$path, 'steps'], empty);
+    if (s.asIs || s.ctx.addedBy.has(flow.id)) s.rep.error([...flow.$path, 'steps'], empty);
     else {
       const before = s.ctx.asIs.get(flow.id);
       if (before?.$type === 'flow' && before.steps.length > 0) {
-        s.rep.err(
+        s.rep.error(
           flow.$path,
           `${flow.id} has no steps left in the to-be (every step is removed); remove the flow itself instead`,
         );
@@ -75,15 +75,15 @@ function checkFlowsHaveSteps(s: StepScope): void {
 
 /** One step being checked: where it sits, and how to point at its props. */
 interface StepCheck extends StepScope {
-  step: StepNode;
-  at: ReturnType<typeof pathOf>;
+  readonly step: StepNode;
+  readonly at: ReturnType<typeof pathOf>;
 }
 
 function checkGateway(c: StepCheck, target: OperationNode): void {
   const gw = c.g.get(target.graph);
   const gateway = gw?.$type === 'graph' ? gw.gateway : undefined;
   if (gateway !== undefined && c.step.to !== gateway) {
-    c.rep.err(
+    c.rep.error(
       c.at('to'),
       `via ${c.step.via} is answered by ${target.graph}'s gateway ${gateway}, so "to" must be ${gateway} (got ${c.step.to})`,
     );
@@ -93,7 +93,7 @@ function checkGateway(c: StepCheck, target: OperationNode): void {
 function checkClient(c: StepCheck, target: OperationNode): void {
   const { step } = c;
   if (c.g.get(step.from)?.$type !== 'service') {
-    c.rep.err(
+    c.rep.error(
       c.at('from'),
       `via ${step.via}: "from" must be the service that sends the operation (got ${step.from})`,
     );
@@ -137,7 +137,7 @@ function checkViaOperation(c: StepCheck): void {
 
 function checkViaEndpoint(c: StepCheck, target: EndpointNode): void {
   if (c.step.to === target.$service) return;
-  c.rep.err(
+  c.rep.error(
     c.at('to'),
     `via ${c.step.via} is served by ${String(target.$service)}, so "to" must be ${String(target.$service)} (got ${c.step.to})`,
   );
@@ -150,7 +150,7 @@ function checkViaMessage(c: StepCheck, target: MessageNode): void {
     return;
   }
   const named = consumers.length > 0 ? consumers.join(', ') : 'none';
-  c.rep.err(
+  c.rep.error(
     c.at('via'),
     `via ${step.via}: "from" must be its producer (${target.producer}) or "to" must be one of its consumers (${named}) or its topic (${target.topic}); publish = from producer to topic, consume = from topic to a consumer (append a new consumer to ${step.via}.consumers)`,
   );
@@ -231,8 +231,9 @@ function checkStep(s: StepScope, step: StepNode): void {
     !touched(s.ctx, step.id) &&
     !viaChanged(s.ctx, step) &&
     !dataChanged(s.ctx, s.g, step)
-  )
+  ) {
     return;
+  }
   const c: StepCheck = { ...s, step, at: pathOf(s, step) };
   checkVia(c);
   checkAccess(c);

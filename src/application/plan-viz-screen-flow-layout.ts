@@ -57,7 +57,7 @@ const PAD = 12;
 const LANE = 12;
 
 interface Gap {
-  top: number;
+  readonly top: number;
   readonly h: number;
   readonly outgoing: readonly FlowLine[];
   readonly incoming: readonly FlowLine[];
@@ -66,7 +66,7 @@ interface Gap {
 const get = <T>(map: ReadonlyMap<string, T>, id: string, fallback: T): T => map.get(id) ?? fallback;
 
 interface Ranked {
-  readonly ranks: Map<string, number>;
+  readonly ranks: ReadonlyMap<string, number>;
   readonly forward: ReadonlySet<string>;
 }
 
@@ -76,9 +76,10 @@ function forwardEdges(nodes: readonly FlowBox[], links: readonly FlowLine[]): Se
   const forward = new Set<string>();
   const visit = (id: string): void => {
     colour.set(id, 1);
+    const leads = (edge: FlowLine): boolean =>
+      edge.shared !== true && edge.source === id && edge.destination !== id;
     for (const edge of links) {
-      if (edge.shared === true || edge.source !== id || edge.destination === id) continue;
-      if (colour.get(edge.destination) === 1) continue;
+      if (!leads(edge) || colour.get(edge.destination) === 1) continue;
       forward.add(edge.id);
       if (!colour.has(edge.destination)) visit(edge.destination);
     }
@@ -91,27 +92,35 @@ function forwardEdges(nodes: readonly FlowBox[], links: readonly FlowLine[]): Se
   return forward;
 }
 
-/** Push each forward edge's target below its source; true while anything moved. */
+/** Push each forward edge's target below its source; null once nothing moves. */
 function relaxRanks(
-  ranks: Map<string, number>,
+  ranks: ReadonlyMap<string, number>,
   links: readonly FlowLine[],
   forward: ReadonlySet<string>,
-): boolean {
+): ReadonlyMap<string, number> | null {
+  const relaxed = new Map(ranks);
   let changed = false;
   for (const edge of links.filter((e) => forward.has(e.id))) {
-    const next = get(ranks, edge.source, 0) + 1;
-    if (next > get(ranks, edge.destination, 0)) {
-      ranks.set(edge.destination, next);
+    const next = get(relaxed, edge.source, 0) + 1;
+    if (next > get(relaxed, edge.destination, 0)) {
+      relaxed.set(edge.destination, next);
       changed = true;
     }
   }
-  return changed;
+  return changed ? relaxed : null;
 }
 
 function rankNodes(nodes: readonly FlowBox[], links: readonly FlowLine[]): Ranked {
   const forward = forwardEdges(nodes, links);
-  const ranks = new Map(nodes.map((n) => [n.id, 0]));
-  while (relaxRanks(ranks, links, forward));
+  let settled: ReadonlyMap<string, number> = new Map(nodes.map((n) => [n.id, 0]));
+  for (
+    let next = relaxRanks(settled, links, forward);
+    next !== null;
+    next = relaxRanks(settled, links, forward)
+  ) {
+    settled = next;
+  }
+  const ranks = new Map(settled);
   const connected = new Set(
     links
       .filter((e) => e.shared !== true && e.source !== e.destination)
@@ -119,8 +128,9 @@ function rankNodes(nodes: readonly FlowBox[], links: readonly FlowLine[]): Ranke
   );
   const last = Math.max(0, ...ranks.values());
   // A screen reached only through a shared control sits apart from the main path.
-  for (const node of nodes)
+  for (const node of nodes) {
     if (!connected.has(node.id) && connected.size > 0) ranks.set(node.id, last + 1);
+  }
   return { ranks, forward };
 }
 
@@ -130,12 +140,11 @@ function outsideEdges(links: readonly FlowLine[], ranked: Ranked): FlowLine[] {
   const usedEntrance = new Set<string>();
   return links.filter((edge) => {
     const pair = `${edge.source}|${edge.destination}`;
-    const outside =
-      edge.shared === true ||
+    const offRank =
       !ranked.forward.has(edge.id) ||
-      get(ranked.ranks, edge.destination, 0) !== get(ranked.ranks, edge.source, 0) + 1 ||
-      usedPair.has(pair) ||
-      usedEntrance.has(edge.destination);
+      get(ranked.ranks, edge.destination, 0) !== get(ranked.ranks, edge.source, 0) + 1;
+    const used = usedPair.has(pair) || usedEntrance.has(edge.destination);
+    const outside = edge.shared === true || offRank || used;
     usedPair.add(pair);
     if (!outside) usedEntrance.add(edge.destination);
     return outside;
@@ -143,8 +152,8 @@ function outsideEdges(links: readonly FlowLine[], ranked: Ranked): FlowLine[] {
 }
 
 interface Grid {
-  readonly rects: Placed[];
-  readonly gaps: Gap[];
+  readonly rects: readonly Placed[];
+  readonly gaps: readonly Gap[];
   readonly bodyWidth: number;
   readonly bottom: number;
 }
@@ -215,7 +224,7 @@ interface Route {
 
 function routeOutside(
   edge: FlowLine,
-  ends: { source: Placed; target: Placed },
+  ends: { readonly source: Placed; readonly target: Placed },
   route: Route,
 ): Routed {
   const { cx, grid } = route;
@@ -251,7 +260,7 @@ function routeOutside(
 
 function routeDirect(
   edge: FlowLine,
-  ends: { source: Placed; target: Placed },
+  ends: { readonly source: Placed; readonly target: Placed },
   route: Route,
 ): Routed {
   const { cx, grid } = route;

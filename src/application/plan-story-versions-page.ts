@@ -45,7 +45,7 @@ const capital = (text: string): string => `${text.charAt(0).toUpperCase()}${text
 const lower = (text: string): string => `${text.charAt(0).toLowerCase()}${text.slice(1)}`;
 
 function headlineOf(st: RevisionStep): string {
-  const summary = (st.entry.summary ?? '').replaceAll(/\s+/g, ' ').trim();
+  const summary = (st.entry.summary ?? '').replaceAll(/\s+/gu, ' ').trim();
   return summary === '' ? `Version ${st.version}` : summary;
 }
 

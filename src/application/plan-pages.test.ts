@@ -10,7 +10,7 @@ import { hashFor, idToToken, inspectedIn, tokenToId } from './plan-pages-hash';
 import { keyOf } from './plan-pages-screens';
 import { outlineScreens, paletteEntries, paletteGroups, searchPalette } from './plan-pages-search';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -88,8 +88,8 @@ describe('the outline', () => {
     const around = neighboursOf(outline, last);
     expect(around.end).toBe('/shop/');
     expect(around.opens).toBeNull();
-    const ref = outline.pages.find((p) => p.chapter === 'ref');
-    if (ref !== undefined) expect(neighboursOf(outline, ref).end).toBeNull();
+    const ref = outline.pages.filter((p) => p.chapter === 'ref').slice(0, 1);
+    for (const page of ref) expect(neighboursOf(outline, page).end).toBeNull();
   });
 
   it('leaves the cover out of the static screen params', () => {
@@ -171,7 +171,7 @@ describe('searchPalette', () => {
   it('finds steps and fields by name, saying whose they are', () => {
     const step = entries.find((entry) => entry.target === 'flow:cancel#request');
     expect(step?.kind).toBe('part');
-    expect(step?.hint).toMatch(/^step 1 of /);
+    expect(step?.hint).toMatch(/^step 1 of /u);
     expect(
       entries.some((entry) => entry.kind === 'part' && entry.hint.startsWith('field of ')),
     ).toBe(true);
@@ -263,9 +263,9 @@ describe('footprints', () => {
   it('shows a plan on the landscape with its stage', () => {
     const card = planCardOf('shop', input);
     expect(card.href).toBe('/shop/plans/mini/');
-    expect(card.stage).toMatch(/^In delivery · 1 of \d+ work items? done$/);
+    expect(card.stage).toMatch(/^In delivery · 1 of \d+ work items? done$/u);
     const draft = planCardOf('shop', { ...input, status: {} });
-    expect(draft.stage).toMatch(/^(Draft|In review|Approved|Committed)$/);
+    expect(draft.stage).toMatch(/^(Draft|In review|Approved|Committed)$/u);
   });
 });
 

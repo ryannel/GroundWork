@@ -6,7 +6,7 @@ import { diffMarkdown } from '@/application/plan/plan-diff-markdown';
 import { summariser } from '@/application/plan/plan-diff-ops';
 import type { Plan } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -23,7 +23,7 @@ describe('plan diff', () => {
     const [a, b] = [await mini(), await mini()];
     const d = planDiff(a, b);
     expect(d.empty).toBe(true);
-    expect(diffMarkdown(d, { from: a, to: b })).toMatch(/No semantic changes/);
+    expect(diffMarkdown(d, { from: a, to: b })).toMatch(/No semantic changes/u);
   });
 
   it('entities, ops, questions, work items, milestones', async () => {
@@ -80,19 +80,19 @@ describe('plan diff', () => {
     ]);
 
     const md = diffMarkdown(d, { from: a, to: b });
-    expect(md).toMatch(/## Milestones moved\n\n- Cleanup \(`ms:cleanup`\): position 3 → 1/);
-    expect(md).toMatch(/Consumers migrated \(`ms:migrate`\): due unset → 2026-11-01/);
+    expect(md).toMatch(/## Milestones moved\n\n- Cleanup \(`ms:cleanup`\): position 3 → 1/u);
+    expect(md).toMatch(/Consumers migrated \(`ms:migrate`\): due unset → 2026-11-01/u);
     expect(md).toMatch(
-      /\*\*Resolved:\*\* Can trials pause\? \(`q:trial-pause`\) — No; see `dec:version-event`\./,
+      /\*\*Resolved:\*\* Can trials pause\? \(`q:trial-pause`\) — No; see `dec:version-event`\./u,
     );
     expect(md).toMatch(
-      /\*\*Opened:\*\* How long\? \(`q:new`\) — decider `team:subs`, by 2026-10-20/,
+      /\*\*Opened:\*\* How long\? \(`q:new`\) — decider `team:subs`, by 2026-10-20/u,
     );
-    expect(md).toMatch(/\*\*Moved:\*\* Skip paused \(`wi:skip`\): `ms:migrate` → `ms:skeleton`/);
+    expect(md).toMatch(/\*\*Moved:\*\* Skip paused \(`wi:skip`\): `ms:migrate` → `ms:skeleton`/u);
     expect(md).toMatch(
-      /### Retire the legacy email \(`chg:retire-email`\)\n\n- added: − deprecated v1 → v2/,
+      /### Retire the legacy email \(`chg:retire-email`\)\n\n- added: − deprecated v1 → v2/u,
     );
-    expect(md).toMatch(/- changed Subscriptions \(`svc:subs`\): tech/);
+    expect(md).toMatch(/- changed Subscriptions \(`svc:subs`\): tech/u);
   });
 
   it('an op whose target stays the same is edited, not removed and added', async () => {
@@ -106,7 +106,7 @@ describe('plan diff', () => {
     const o = d.ops.find((x) => x.change === 'chg:pause-api');
     expect([o?.added.length, o?.removed.length, o?.edited.length]).toEqual([0, 0, 1]);
     expect(o?.edited[0]?.fields).toEqual(['value.summary']);
-    expect(diffMarkdown(d, { from: a, to: b })).toMatch(/- edited: .*\(value\.summary\)/);
+    expect(diffMarkdown(d, { from: a, to: b })).toMatch(/- edited: .*\(value\.summary\)/u);
   });
 
   it('reports changes dropped and new, and falls back to raw op text', async () => {
@@ -120,8 +120,8 @@ describe('plan diff', () => {
     const fresh = d.ops.find((o) => o.change === 'chg:fresh');
     expect(fresh?.added[0]?.summary).toBe('× remove msg:nothing-here');
     const md = diffMarkdown(d, { from: a, to: b });
-    expect(md).toMatch(/\(new change\)/);
-    expect(md).toMatch(/\(change dropped\)/);
+    expect(md).toMatch(/\(new change\)/u);
+    expect(md).toMatch(/\(change dropped\)/u);
   });
 
   it('describes an op in plain words when no model can', () => {

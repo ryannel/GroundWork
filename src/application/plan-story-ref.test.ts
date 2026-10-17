@@ -46,7 +46,7 @@ import {
 import { refHead } from '@/application/plan-story-ref-words';
 import { deciding } from '@/application/plan-viz-decision';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 const mini = derive(await loadFixture('mini.yaml'));
@@ -127,8 +127,8 @@ describe('the system catalogues', () => {
     const groups = storeGroups(shop.toBe.stores);
     expect(groups.length).toBeGreaterThan(0);
     expect(groups.flatMap((g) => g.stores)).toHaveLength(shop.toBe.stores.length);
-    const pipes = groups.find((g) => g.title === 'Topics and queues');
-    if (pipes !== undefined) expect(pipes.note).not.toBe('');
+    const pipes = groups.filter((g) => g.title === 'Topics and queues').slice(0, 1);
+    for (const group of pipes) expect(group.note).not.toBe('');
   });
 
   it('tells the records and events of a store', () => {
@@ -199,8 +199,9 @@ describe('the flow, test and operation rows', () => {
       expect(row.fields).toBeGreaterThanOrEqual(0);
       expect(typeof triggerWord(row.op)).toBe('string');
     }
-    const [op] = shop.asIs.operations;
-    if (op !== undefined) expect(operationRow(shop, op, 'asis').op).toBe(op);
+    for (const op of shop.asIs.operations.slice(0, 1)) {
+      expect(operationRow(shop, op, 'asis').op).toBe(op);
+    }
   });
 
   it('says a trigger in words and says nothing for none', () => {
@@ -208,8 +209,8 @@ describe('the flow, test and operation rows', () => {
     if (op === undefined) return;
     expect(triggerWord({ ...op, trigger: 'load' })).toBe('page load');
     expect(triggerWord({ ...op, trigger: 'interval' })).toBe('timer');
-    const bare = shop.toBe.operations.find((o) => o.trigger === undefined);
-    if (bare !== undefined) expect(triggerWord(bare)).toBe('');
+    const bare = shop.toBe.operations.filter((o) => o.trigger === undefined).slice(0, 1);
+    for (const each of bare) expect(triggerWord(each)).toBe('');
   });
 
   it('puts work under its milestones, and the unplaced last', () => {
@@ -237,9 +238,10 @@ describe('the register and the heads', () => {
   it('gives each decision or question the words it is found by', () => {
     for (const group of mini.decisionRegister()) {
       for (const item of group.items) {
-        const found = deciding(mini, item.id);
-        if (found !== undefined)
-          expect(decidingSearch(mini, found)).toContain(item.id.toLowerCase());
+        const found = [deciding(mini, item.id)].filter((each) => each !== undefined);
+        for (const each of found) {
+          expect(decidingSearch(mini, each)).toContain(item.id.toLowerCase());
+        }
       }
     }
   });

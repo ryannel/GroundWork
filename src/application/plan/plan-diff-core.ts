@@ -4,56 +4,64 @@ import { isRecord, prop, type Rec } from '@/application/plan/ids';
 import { PLAN_COLLECTIONS, SYSTEM_COLLECTIONS } from '@/domain/plan/plan-ids';
 
 export interface OpLine {
-  index: number;
-  summary: string;
+  readonly index: number;
+  readonly summary: string;
 }
 export interface EditedOp extends OpLine {
-  fromIndex: number;
-  fields: string[];
+  readonly fromIndex: number;
+  readonly fields: readonly string[];
 }
 export interface ChangeOps {
-  change: string;
-  title: string;
-  status: 'added' | 'removed' | 'changed';
-  added: OpLine[];
-  removed: OpLine[];
-  edited: EditedOp[];
+  readonly change: string;
+  readonly title: string;
+  readonly status: 'added' | 'removed' | 'changed';
+  readonly added: readonly OpLine[];
+  readonly removed: readonly OpLine[];
+  readonly edited: readonly EditedOp[];
 }
 export interface EntityDiff {
-  added: string[];
-  removed: string[];
-  changed: { id: string; keys: string[] }[];
+  readonly added: readonly string[];
+  readonly removed: readonly string[];
+  readonly changed: readonly { readonly id: string; readonly keys: readonly string[] }[];
 }
 export interface MovedMilestone {
-  id: string;
-  name: string;
-  fromDue: string | null;
-  toDue: string | null;
-  fromIndex: number;
-  toIndex: number;
+  readonly id: string;
+  readonly name: string;
+  readonly fromDue: string | null;
+  readonly toDue: string | null;
+  readonly fromIndex: number;
+  readonly toIndex: number;
 }
 export interface PlanMeta {
-  version: string | null;
-  date: string | null;
-  status: string | null;
+  readonly version: string | null;
+  readonly date: string | null;
+  readonly status: string | null;
 }
 export interface PlanDiff {
-  from: PlanMeta;
-  to: PlanMeta;
-  title: string;
-  entities: Record<string, EntityDiff>;
-  ops: ChangeOps[];
-  questions: { opened: string[]; resolved: string[]; reopened: string[] };
-  workItems: {
-    added: string[];
-    removed: string[];
-    remilestoned: { id: string; from: string | null; to: string | null }[];
+  readonly from: PlanMeta;
+  readonly to: PlanMeta;
+  readonly title: string;
+  readonly entities: Record<string, EntityDiff>;
+  readonly ops: readonly ChangeOps[];
+  readonly questions: {
+    readonly opened: readonly string[];
+    readonly resolved: readonly string[];
+    readonly reopened: readonly string[];
   };
-  milestones: { moved: MovedMilestone[] };
-  empty: boolean;
+  readonly workItems: {
+    readonly added: readonly string[];
+    readonly removed: readonly string[];
+    readonly remilestoned: readonly {
+      readonly id: string;
+      readonly from: string | null;
+      readonly to: string | null;
+    }[];
+  };
+  readonly milestones: { readonly moved: readonly MovedMilestone[] };
+  readonly empty: boolean;
 }
 
-export type Entities = Map<string, Rec>;
+export type Entities = ReadonlyMap<string, Rec>;
 export type Collections = Record<string, Entities>;
 
 export const text = (v: unknown): string | null => (typeof v === 'string' && v !== '' ? v : null);
@@ -95,8 +103,9 @@ const byId = (items: unknown): Entities =>
 /** Every top-level collection that holds id'd entities (plus the problem's scenarios and the domain's concepts and stages). */
 export function collections(plan: unknown): Collections {
   const out: Collections = {};
-  for (const key of [...Object.keys(SYSTEM_COLLECTIONS), ...Object.keys(PLAN_COLLECTIONS)])
+  for (const key of [...Object.keys(SYSTEM_COLLECTIONS), ...Object.keys(PLAN_COLLECTIONS)]) {
     out[key] = byId(prop(plan, key));
+  }
   out.scenarios = byId(prop(prop(plan, 'problem'), 'scenarios'));
   out.concepts = byId(prop(prop(plan, 'domain'), 'concepts'));
   out.stages = byId(prop(prop(plan, 'domain'), 'stages'));

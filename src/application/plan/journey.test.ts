@@ -1,24 +1,19 @@
 import { describe, expect, it, vi } from 'vitest';
 
+import { quickCheckoutOnToday } from '@/../test/fixtures/acme/plans/core-checkout';
 import { derive } from '@/application/plan/derive';
 import { journeyComparison, journeyStep, type JourneyRow } from '@/application/plan/journey';
 import type { Plan } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
-const { readPlan } = await import('@/infrastructure/plan-store');
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
-const planOf = async (slug: string): Promise<Plan> => {
-  const { plan } = await readPlan('alder-finch', slug);
-  if (plan === null) throw new Error(`no plan ${slug}`);
-  return plan;
-};
-const stock = derive(await planOf('stock-reservation'));
-const invoice = derive(await planOf('invoice-vat-number'));
-const storefront = derive(await planOf('storefront-graph'));
+/** The quick-checkout plan on the whole of the richer Acme today, which a test may change. */
+const wholePlan = (): Plan => structuredClone(quickCheckoutOnToday().whole);
+const checkout = derive(wholePlan());
 
-const row = (rows: JourneyRow[], id: string): JourneyRow => {
+const row = (rows: readonly JourneyRow[], id: string): JourneyRow => {
   const found = rows.find((item) => item.id === id);
   if (found === undefined) throw new Error(`no row ${id}`);
   return found;
@@ -34,16 +29,16 @@ const step = (id: string, action: string) => ({
 
 describe('journeyComparison: whole flows', () => {
   it.each([
-    ['flow:abandon', 'added', 'asIs'],
-    ['flow:oversell-report', 'removed', 'toBe'],
+    ['flow:refund-order', 'added', 'asIs'],
+    ['flow:cancel-order', 'removed', 'toBe'],
   ] as const)('%s is %s, with no fallback steps in the other graph', (id, presence, absent) => {
-    const c = journeyComparison(stock, id);
+    const c = journeyComparison(checkout, id);
     expect(c.presence).toBe(presence);
     expect(c.rows.length).toBeGreaterThan(0);
     expect(c.rows.every((r) => r.kind === presence)).toBe(true);
     const first = c.rows[0];
     if (first === undefined) throw new Error('no rows');
-    const selected = journeyStep(stock, id, { stepId: first.id, mode: absent });
+    const selected = journeyStep(checkout, id, { stepId: first.id, mode: absent });
     expect(selected).toMatchObject({
       exists: false,
       flowExists: false,
@@ -54,7 +49,7 @@ describe('journeyComparison: whole flows', () => {
   });
 
   it('says a missing flow is unknown, with nulls rather than undefined', () => {
-    expect(journeyComparison(stock, 'flow:missing')).toEqual({
+    expect(journeyComparison(checkout, 'flow:missing')).toEqual({
       id: 'flow:missing',
       beforeFlow: null,
       afterFlow: null,
@@ -63,9 +58,9 @@ describe('journeyComparison: whole flows', () => {
     });
   });
 
-  it('does not treat a flow whose every step is replaced as absent', async () => {
-    const plan = await planOf('storefront-graph');
-    const flow = plan.flows?.find((f) => f.id === 'flow:browse-product');
+  it('does not treat a flow whose every step is replaced as absent', () => {
+    const plan = wholePlan();
+    const flow = plan.flows?.find((f) => f.id === 'flow:view-product');
     if (flow === undefined) throw new Error('no flow');
     const first = flow.steps[0];
     if (first === undefined) throw new Error('no step');
@@ -97,24 +92,24 @@ describe('journeyComparison: whole flows', () => {
 
 describe('journeyComparison: order', () => {
   it('keeps the actual gap of chained added steps in today', () => {
-    const c = journeyComparison(stock, 'flow:reserve');
+    const c = journeyComparison(checkout, 'flow:add-to-basket');
     const ids = c.rows.map((r) => r.id);
-    const from = ids.indexOf('flow:reserve#hold') - 1;
-    expect(ids.slice(from, ids.indexOf('flow:reserve#keep-ids') + 2)).toEqual([
-      'flow:reserve#payment-step',
-      'flow:reserve#hold',
-      'flow:reserve#keep-ids',
-      'flow:reserve#create',
+    const from = ids.indexOf('flow:add-to-basket#reserve') - 1;
+    expect(ids.slice(from, ids.indexOf('flow:add-to-basket#hold') + 2)).toEqual([
+      'flow:add-to-basket#price',
+      'flow:add-to-basket#reserve',
+      'flow:add-to-basket#hold',
+      'flow:add-to-basket#show',
     ]);
-    for (const stepId of ['flow:reserve#hold', 'flow:reserve#keep-ids']) {
-      const today = journeyStep(stock, c.id, { stepId });
+    for (const stepId of ['flow:add-to-basket#reserve', 'flow:add-to-basket#hold']) {
+      const today = journeyStep(checkout, c.id, { stepId });
       expect(today.flowExists).toBe(true);
       expect(today.exists).toBe(false);
       expect(today.neighbours).toEqual({
-        before: 'flow:reserve#payment-step',
-        after: 'flow:reserve#create',
+        before: 'flow:add-to-basket#price',
+        after: 'flow:add-to-basket#show',
       });
-      expect(journeyStep(stock, c.id, { stepId, mode: 'toBe' }).step?.id).toBe(stepId);
+      expect(journeyStep(checkout, c.id, { stepId, mode: 'toBe' }).step?.id).toBe(stepId);
     }
   });
 
@@ -151,67 +146,68 @@ describe('journeyComparison: order', () => {
     });
   });
 
-  it('reports a reordered step with its identity intact, and navigates by the selected graph', async () => {
-    const plan = await planOf('invoice-vat-number');
-    const flow = plan.flows?.find((f) => f.id === 'flow:issue-invoice');
-    const render = flow?.steps.find((s) => s.id === 'flow:issue-invoice#render');
-    if (render === undefined) throw new Error('no step');
+  it('reports a reordered step with its identity intact, and navigates by the selected graph', () => {
+    const plan = wholePlan();
+    const flow = plan.flows?.find((f) => f.id === 'flow:place-order');
+    const card = flow?.steps.find((s) => s.id === 'flow:place-order#card');
+    if (card === undefined) throw new Error('no step');
     plan.changes = [
       {
         id: 'chg:reorder',
-        title: 'Render later',
+        title: 'Charge the card later',
         ops: [
-          { remove: render.id },
+          { remove: card.id },
           {
             add: 'step',
-            into: 'flow:issue-invoice',
-            after: 'flow:issue-invoice#send',
-            value: render,
+            into: 'flow:place-order',
+            after: 'flow:place-order#publish',
+            value: card,
           },
         ],
       },
     ];
     const m = derive(plan);
-    const c = journeyComparison(m, 'flow:issue-invoice');
-    const moved = row(c.rows, render.id);
+    const c = journeyComparison(m, 'flow:place-order');
+    const moved = row(c.rows, card.id);
     expect(moved.before).not.toBeNull();
     expect(moved.after).not.toBeNull();
     expect(moved.evidence.find((e) => e.kind === 'order')?.after).toBeGreaterThan(0);
+    expect(journeyStep(m, c.id, { stepId: card.id, mode: 'toBe' }).neighbours).toEqual({
+      before: 'flow:place-order#publish',
+      after: 'flow:place-order#email',
+    });
   });
 });
 
 describe('journeyComparison: evidence', () => {
   it('keeps a deprecated step executable and names the change that deprecated it', () => {
-    const c = journeyComparison(invoice, 'flow:issue-invoice');
-    const r = row(c.rows, 'flow:issue-invoice#reissue');
+    const c = journeyComparison(checkout, 'flow:publish-product');
+    const r = row(c.rows, 'flow:publish-product#refresh');
     expect(r.kind).toBe('deprecated');
     expect(r.before).not.toBeNull();
     expect(r.after).not.toBeNull();
-    expect(r.changes).toContain('chg:invoice-prints-vat');
-    expect(journeyStep(invoice, c.id, { stepId: r.id, mode: 'toBe' }).exists).toBe(true);
+    expect(r.changes).toContain('chg:product-v2');
+    expect(journeyStep(checkout, c.id, { stepId: r.id, mode: 'toBe' }).exists).toBe(true);
   });
 
   it('keeps exact region layout apart from the context of the parent screen', () => {
-    const r = row(
-      journeyComparison(storefront, 'flow:browse-product').rows,
-      'flow:browse-product#reviews',
-    );
+    const r = row(journeyComparison(checkout, 'flow:place-order').rows, 'flow:place-order#submit');
     expect(
       r.evidence.some(
-        (e) => e.kind === 'screen-layout' && e.target === 'scr:pdp#reviews' && e.property === 'at',
+        (e) => e.kind === 'screen-layout' && e.target === 'scr:basket#pay' && e.property === 'at',
       ),
     ).toBe(true);
     expect(
-      r.evidence.some((e) => e.kind === 'screen-context' && e.target === 'scr:pdp' && e.indirect),
+      r.evidence.some(
+        (e) => e.kind === 'screen-context' && e.target === 'scr:basket' && e.indirect,
+      ),
     ).toBe(true);
-    expect(
-      r.evidence.some((e) => e.target === 'scr:pdp#delivery' || e.target === 'scr:pdp#stock'),
-    ).toBe(false);
+    expect(r.evidence.some((e) => e.target === 'scr:basket#lines')).toBe(false);
     expect(r.evidence.some((e) => e.kind === 'step')).toBe(false);
   });
 
-  it('treats a changed whole record as indirect evidence, not a behavioural change', async () => {
-    const plan = await planOf('invoice-vat-number');
+  it('treats a changed whole record as indirect evidence, not a behavioural change', () => {
+    const plan = wholePlan();
     plan.changes = [
       {
         id: 'chg:data-only',
@@ -220,8 +216,8 @@ describe('journeyComparison: evidence', () => {
       },
     ];
     const r = row(
-      journeyComparison(derive(plan), 'flow:checkout-address').rows,
-      'flow:checkout-address#publish',
+      journeyComparison(derive(plan), 'flow:place-order').rows,
+      'flow:place-order#create',
     );
     expect(r.kind).toBe('same');
     expect(
@@ -231,13 +227,10 @@ describe('journeyComparison: evidence', () => {
   });
 
   it('includes local old and new values without graph metadata noise', () => {
-    const r = row(
-      journeyComparison(invoice, 'flow:issue-invoice').rows,
-      'flow:issue-invoice#render',
-    );
+    const r = row(journeyComparison(checkout, 'flow:place-order').rows, 'flow:place-order#card');
     const logic = r.evidence.find((e) => e.kind === 'step' && e.property === 'logic');
-    expect(String(logic?.before)).toMatch(/delivery address/);
-    expect(String(logic?.after)).toMatch(/vat_country/);
+    expect(String(logic?.before)).toMatch(/pays by card\.$/u);
+    expect(String(logic?.after)).toMatch(/card or wallet/u);
     expect(
       r.evidence.some((e) => (e.property ?? '').startsWith('$') || e.property === 'sources'),
     ).toBe(false);
@@ -246,8 +239,8 @@ describe('journeyComparison: evidence', () => {
 
 describe('journeyStep', () => {
   it('keeps an unknown step unavailable rather than selecting the first', () => {
-    const s = journeyStep(invoice, 'flow:issue-invoice', {
-      stepId: 'flow:issue-invoice#missing',
+    const s = journeyStep(checkout, 'flow:place-order', {
+      stepId: 'flow:place-order#missing',
       mode: 'toBe',
     });
     expect(s).toMatchObject({
@@ -260,12 +253,18 @@ describe('journeyStep', () => {
   });
 
   it('follows the selected graph for neighbours', () => {
-    const s = journeyStep(invoice, 'flow:issue-invoice', { stepId: 'flow:issue-invoice#render' });
+    const s = journeyStep(checkout, 'flow:place-order', { stepId: 'flow:place-order#card' });
     expect(s.exists).toBe(true);
     expect(s.neighbours).toEqual({
-      before: 'flow:issue-invoice#consume',
-      after: 'flow:issue-invoice#send',
+      before: 'flow:place-order#charge',
+      after: 'flow:place-order#publish',
     });
+    expect(
+      journeyStep(checkout, 'flow:publish-product', {
+        stepId: 'flow:publish-product#announce',
+        mode: 'toBe',
+      }).neighbours,
+    ).toEqual({ before: 'flow:publish-product#save', after: 'flow:publish-product#index' });
   });
 });
 

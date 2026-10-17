@@ -1,5 +1,9 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
+import { giftWrap } from '@/../test/fixtures/acme/plans/journeys-gift-wrap';
+import { pauseOrders } from '@/../test/fixtures/acme/plans/pause-orders';
+import { orderEventV2 } from '@/../test/fixtures/acme/plans/versions-order-event';
+import { shopGraph } from '@/../test/fixtures/journeys-shop-graph';
 import { deliveryOf } from '@/application/plan/delivery';
 import { derive } from '@/application/plan/derive';
 import { buildRevision } from '@/application/plan/revision';
@@ -10,16 +14,19 @@ import { versionView } from '@/application/plan-story-versions-view';
 import { dayText, plural, tenseOf } from '@/application/plan-story-versions-words';
 import type { Plan } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+const FIXTURES: Readonly<Record<string, () => Plan>> = {
+  'gift-wrap': giftWrap,
+  'pause-orders': pauseOrders,
+  'order-event-v2': orderEventV2,
+  shop: shopGraph,
+};
 
-const { readLoadedPlan } = await import('@/infrastructure/workspace-plans');
+const SLUGS = Object.keys(FIXTURES);
 
-const SLUGS = ['delivery-promise', 'invoice-vat-number', 'stock-reservation', 'storefront-graph'];
-
-async function planOf(slug: string): Promise<Plan> {
-  const loaded = await readLoadedPlan('alder-finch', slug);
-  if (loaded === null) throw new Error(`no ${slug}`);
-  return loaded.plan;
+function planOf(slug: string): Plan {
+  const make = FIXTURES[slug];
+  if (make === undefined) throw new Error(`no ${slug}`);
+  return make();
 }
 
 type Ledger = NonNullable<Plan['meta']['revisions']>;
@@ -53,8 +60,8 @@ const LEDGER: Ledger = [
 ];
 
 /** A ledger whose later versions are another plan altogether, so the diff touches every part of a plan. */
-async function revisionBetween(from: string, to: string) {
-  const [a, b] = [await planOf(from), await planOf(to)];
+function revisionBetween(from: string, to: string) {
+  const [a, b] = [planOf(from), planOf(to)];
   const head: Plan = { ...b, meta: { ...b.meta, revisions: LEDGER } };
   const plans: Record<string, Plan> = { '1.0': { ...a, meta: { ...a.meta, revisions: LEDGER } } };
   for (const version of ['1.1', '1.2', '1.3']) plans[version] = head;
@@ -70,8 +77,8 @@ const PAIRS = SLUGS.flatMap((from) =>
 );
 
 describe('versions page across plans', () => {
-  it.each(PAIRS)('reads every version of %s becoming %s', async (from, to) => {
-    const { revision, delivery, model } = await revisionBetween(from, to);
+  it.each(PAIRS)('reads every version of %s becoming %s', (from, to) => {
+    const { revision, delivery, model } = revisionBetween(from, to);
     const data = { revision, delivery };
     for (const step of revision.steps) {
       const view = versionView(model, data, step);
@@ -82,11 +89,8 @@ describe('versions page across plans', () => {
     }
   });
 
-  it('puts the live version first and tells a rejected one in the past', async () => {
-    const { revision, delivery, model } = await revisionBetween(
-      'delivery-promise',
-      'storefront-graph',
-    );
+  it('puts the live version first and tells a rejected one in the past', () => {
+    const { revision, delivery, model } = revisionBetween('gift-wrap', 'shop');
     const [live, ...rest] = revision.steps;
     expect(live?.entry.status).toBe('proposed');
     const live13 = versionView(model, { revision, delivery }, live ?? revision.steps[0]!);
@@ -99,8 +103,8 @@ describe('versions page across plans', () => {
     expect(gone.sections.map((s) => s.key)).not.toContain('checks');
   });
 
-  it('says nobody recorded why for a rejection without a reason', async () => {
-    const { revision, model } = await revisionBetween('delivery-promise', 'storefront-graph');
+  it('says nobody recorded why for a rejection without a reason', () => {
+    const { revision, model } = revisionBetween('gift-wrap', 'shop');
     const cards = historyView(model, revision).cards;
     expect(cards.map((c) => c.version)).toEqual(['1.3', '1.2', '1.1', '1.0']);
     expect(cards.find((c) => c.version === '1.2')?.rejection).toEqual({ reason: '' });
@@ -112,8 +116,8 @@ describe('versions page across plans', () => {
 });
 
 describe('version screens', () => {
-  it('lists the history, then every version newest first', async () => {
-    const { model } = await revisionBetween('delivery-promise', 'storefront-graph');
+  it('lists the history, then every version newest first', () => {
+    const { model } = revisionBetween('gift-wrap', 'shop');
     expect(versionScreens(model).map((s) => s.key)).toEqual([
       'history',
       versionKey('1.3'),

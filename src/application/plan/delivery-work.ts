@@ -7,41 +7,33 @@ import type { Revision } from '@/application/plan/revision-types';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 export interface TouchedWork {
-  id: string;
-  why: string;
-  change?: string;
+  readonly id: string;
+  readonly why: string;
+  readonly change?: string;
 }
 
 export interface ImpactWork {
-  id: string;
-  effect: string;
-  why: string[];
-  note?: string | null;
-  authored?: boolean;
+  readonly id: string;
+  readonly effect: string;
+  readonly why: readonly string[];
+  readonly note?: string | null;
+  readonly authored?: boolean;
 }
 
 /** What a revision does to the work: one entry per work item it moves. */
 export interface ImpactView {
-  work: ImpactWork[];
+  readonly work: readonly ImpactWork[];
 }
 
 export interface ImpactInput {
-  from: Plan;
-  to: Plan;
-  diff: PlanDiff;
-  delivery: DeliveryState | null;
-  entry: RevisionEntry | null;
+  readonly from: Plan;
+  readonly to: Plan;
+  readonly diff: PlanDiff;
+  readonly delivery: DeliveryState | null;
+  readonly entry: RevisionEntry | null;
 }
 
 export type ImpactOf = (input: ImpactInput) => ImpactView;
-
-type Touched = Map<string, TouchedWork>;
-
-const adder =
-  (out: Touched) =>
-  (id: string, why: string, change?: string): void => {
-    if (!out.has(id)) out.set(id, change === undefined ? { id, why } : { id, why, change });
-  };
 
 /** The changes a diff edits: those with ops other than added ones, and those whose own fields changed or went. */
 function editedChanges(diff: PlanDiff): Set<string> {
@@ -61,10 +53,13 @@ function editedChanges(diff: PlanDiff): Set<string> {
  */
 export function workTouched(diff: PlanDiff | null, basePlan: Plan | null): TouchedWork[] {
   if (!diff) return [];
-  const out: Touched = new Map();
-  const touch = adder(out);
-  for (const c of diff.entities.work_items?.changed ?? [])
+  const out = new Map<string, TouchedWork>();
+  const touch = (id: string, why: string, change?: string): void => {
+    if (!out.has(id)) out.set(id, change === undefined ? { id, why } : { id, why, change });
+  };
+  for (const c of diff.entities.work_items?.changed ?? []) {
     touch(c.id, `its ${c.keys.join(', ')} changes`);
+  }
   for (const id of diff.workItems.added) touch(id, 'it is new');
   for (const id of diff.workItems.removed) touch(id, 'it is dropped');
   for (const r of diff.workItems.remilestoned) touch(r.id, 'it moves milestone');
@@ -76,7 +71,10 @@ export function workTouched(diff: PlanDiff | null, basePlan: Plan | null): Touch
   return [...out.values()];
 }
 
-export type FiledTouched = TouchedWork & { issue: string; state: 'open' | 'closed' | null };
+export type FiledTouched = TouchedWork & {
+  readonly issue: string;
+  readonly state: 'open' | 'closed' | null;
+};
 
 /** The work a revision touches that is already under way (has a GitHub issue), with the issue and its state. */
 export function filedWorkTouched(
@@ -92,7 +90,7 @@ export function filedWorkTouched(
   });
 }
 
-export type FiledChanged = FiledTouched & { effect: string };
+export type FiledChanged = FiledTouched & { readonly effect: string };
 
 /**
  * The work under way a revision changes, by its impact: reopened, changed or dropped, the proposer's word first.
@@ -139,10 +137,10 @@ function liveImpact(
 }
 
 export interface ProposalImpact {
-  version: string | null;
-  filed: number;
-  closed: number;
-  items: FiledChanged[];
+  readonly version: string | null;
+  readonly filed: number;
+  readonly closed: number;
+  readonly items: readonly FiledChanged[];
 }
 
 /** What a live proposal does to work under way, when it changes filed work, else null. */
@@ -162,9 +160,9 @@ export function proposalImpact(
 }
 
 export interface ProposedEffect {
-  effect: string;
-  authored: boolean;
-  note: string | null;
+  readonly effect: string;
+  readonly authored: boolean;
+  readonly note: string | null;
 }
 
 /**
@@ -176,7 +174,7 @@ export function proposalWork(
   revision: Revision,
   delivery: DeliveryState | null,
   impactOf: ImpactOf,
-): { version: string | null; byId: Map<string, ProposedEffect> } | null {
+): { readonly version: string | null; readonly byId: ReadonlyMap<string, ProposedEffect> } | null {
   const impact = liveImpact(revision, delivery, impactOf);
   if (!impact) return null;
   const byId = new Map(

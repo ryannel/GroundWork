@@ -20,9 +20,9 @@ const CHANGED_INSIDE = new Set([
 ]);
 
 interface StoryParts {
-  owners: Owners;
-  register: Register;
-  delivery: Delivery;
+  readonly owners: Owners;
+  readonly register: Register;
+  readonly delivery: Delivery;
 }
 
 const FIXED_CHAPTER: Partial<Record<string, Chapter>> = {
@@ -68,11 +68,11 @@ const touches = (r: OpRecord, id: string): boolean =>
   r.target === id || r.ids.includes(id) || r.parent === id || parentOf(r.target ?? '') === id;
 
 interface Env {
-  core: Core;
-  wiById: Delivery['wiById'];
-  owners: Owners;
-  stepsUsing: (id: string) => string[];
-  changedInside: (id: string) => boolean;
+  readonly core: Core;
+  readonly wiById: Delivery['wiById'];
+  readonly owners: Owners;
+  readonly stepsUsing: (id: string) => string[];
+  readonly changedInside: (id: string) => boolean;
 }
 
 /** A flow reads as new, or runs (and changes when it or anything in it did). */
@@ -146,14 +146,39 @@ function testsFor(core: Core, id: string, touching: readonly string[]): string[]
 }
 
 /** The changes that explain an entity: what a decision belongs to, what a work item implements, what a test proves. */
-function changesFor(env: Pick<Env, 'core' | 'wiById'>, id: string, touching: string[]) {
+function changesFor(env: Pick<Env, 'core' | 'wiById'>, id: string, touching: readonly string[]) {
   const { core, wiById } = env;
   const t = typeOf(id);
-  if (t === 'decision')
+  if (t === 'decision') {
     return core.changes.filter((c) => (c.decisions ?? []).includes(id)).map((c) => c.id);
+  }
   if (t === 'workItem') return wiById.get(id)?.implements ?? [];
   if (t === 'test') return strings(prop(core.planIndex.get(id), 'proves'));
   return touching.filter((c) => c !== id);
+}
+
+/** Everything that points at an entity; a schema also names the endpoints and messages that carry it. */
+export interface Inverse {
+  readonly questions: readonly string[];
+  readonly decisions: readonly string[];
+  readonly risks: readonly string[];
+  readonly workItems: readonly string[];
+  readonly tests: readonly string[];
+  readonly flows: readonly string[];
+  readonly steps: readonly string[];
+  readonly changes: readonly string[];
+  readonly scenarios: readonly string[];
+  readonly citedBy: readonly string[];
+  readonly story: readonly Chapter[];
+  readonly endpoints?: readonly string[];
+  readonly messages?: readonly string[];
+}
+
+export interface StoryQueries {
+  readonly stepsUsing: (id: string) => string[];
+  readonly changesTouching: (id: string) => string[];
+  readonly storyRefs: (id: string) => Chapter[];
+  readonly inverse: (id: string) => Inverse;
 }
 
 /** A DTO or payload is carried by endpoints (request / response) and events (payload): the way back up from a schema. */
@@ -171,7 +196,7 @@ function carriedBy({ asIs, toBe }: Core, id: string) {
 }
 
 /** Where an entity shows up: the steps using it, the changes touching it, the story chapters, and all that points at it. */
-export function createStory(core: Core, parts: StoryParts) {
+export function createStory(core: Core, parts: StoryParts): StoryQueries {
   const { plan, planIndex, records } = core;
   const { rollup } = parts.owners;
   const { citedBy } = parts.register;
@@ -196,11 +221,11 @@ export function createStory(core: Core, parts: StoryParts) {
   );
 
   /** Everything that points at an entity. */
-  const inverse = memo((id: string) => {
+  const inverse = memo((id: string): Inverse => {
     const t = typeOf(id);
     const touching = t === 'change' ? [id] : changesTouching(id);
     const steps = t === 'flow' ? [] : stepsUsing(id);
-    const out = {
+    const out: Inverse = {
       questions: (plan.questions ?? [])
         .filter((q) => (q.blocks ?? []).some((b) => b === id || touching.includes(b)))
         .map((q) => q.id),

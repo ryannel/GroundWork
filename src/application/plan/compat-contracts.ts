@@ -9,14 +9,14 @@ import {
 import { affected, type Ctx, movedBy } from '@/application/plan/compat-people';
 import { propRows, type Roles } from '@/application/plan/compat-rules';
 import { type Env, successorsOf } from '@/application/plan/compat-schema';
-import { str } from '@/application/plan/derive-values';
+import { textOf } from '@/application/plan/derive-values';
 import { prop } from '@/application/plan/ids';
 
 export type ContractKind = 'endpoint' | 'message';
 
 export interface Target {
-  id: string;
-  kind: ContractKind;
+  readonly id: string;
+  readonly kind: ContractKind;
 }
 type Judge = (id: string, scope?: Roles) => Compat;
 
@@ -30,6 +30,9 @@ const ctxFor = (env: Env, id: string, kind: ContractKind): Ctx => ({
   messages: kind === 'message' ? [id] : [],
   successors: successorsOf(env, [id]),
 });
+
+const who = (kind: ContractKind): 'caller' | 'consumer' =>
+  kind === 'endpoint' ? 'caller' : 'consumer';
 
 /** A versioned pair (one replaces the other): whoever is on the old version has to move. */
 function pairResult(env: Env, id: string, kind: ContractKind): Compat | null {
@@ -86,15 +89,12 @@ function carried(id: string, kind: ContractKind, after: object): [string | undef
     payload: [],
     ...r,
   });
-  if (kind === 'message') return [[str(prop(after, 'payload')), roles({ payload: [id] })]];
+  if (kind === 'message') return [[textOf(prop(after, 'payload')), roles({ payload: [id] })]];
   return [
-    [str(prop(after, 'request')), roles({ request: [id] })],
-    [str(prop(after, 'response')), roles({ response: [id] })],
+    [textOf(prop(after, 'request')), roles({ request: [id] })],
+    [textOf(prop(after, 'response')), roles({ response: [id] })],
   ];
 }
-
-const who = (kind: ContractKind): 'caller' | 'consumer' =>
-  kind === 'endpoint' ? 'caller' : 'consumer';
 
 function removal(env: Env, { id, kind }: Target): Compat {
   const gone: Hit = {

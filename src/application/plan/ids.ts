@@ -39,7 +39,7 @@ function childTypeOf(base: EntityType, suffix: string | undefined): EntityType |
 /** Entity type of an id, or null when the prefix is unknown. `flow:x#y` is a step, `sch:x#y` a field. */
 export function typeOf(id: unknown): EntityType | null {
   if (typeof id !== 'string') return null;
-  const m = /^([a-z]+):[^#\s]+(#.+)?$/.exec(id);
+  const m = /^([a-z]+):[^#\s]+(#.+)?$/u.exec(id);
   const key = m?.[1];
   if (m === null || key === undefined || !isPrefix(key)) return null;
   return childTypeOf(ID_PREFIXES[key], m[2]);
@@ -54,7 +54,7 @@ export function parentOf(id: unknown): string | null {
 /** Field ids are `<schema>#<name>`. */
 export const fieldId = (schemaId: string, name: unknown): string => `${schemaId}#${String(name)}`;
 
-const CITE_RE = /\[\[([^\]\s]{1,200})\]\]/g;
+const CITE_RE = /\[\[([^\]\s]{1,200})\]\]/gu;
 
 /** All `[[id]]` citations in a string. */
 export function citationsIn(text: unknown): string[] {
@@ -65,13 +65,13 @@ export function citationsIn(text: unknown): string[] {
 /** Call `fn` for every string in a value, with its path from the root passed in. */
 export function walkStrings(
   value: unknown,
-  fn: (text: string, path: PathSegment[]) => void,
-  path: PathSegment[] = [],
+  fn: (text: string, path: readonly PathSegment[]) => void,
+  path: readonly PathSegment[] = [],
 ): void {
   if (typeof value === 'string') fn(value, path);
-  else if (Array.isArray(value))
+  else if (Array.isArray(value)) {
     for (const [i, v] of value.entries()) walkStrings(v, fn, [...path, i]);
-  else if (isRecord(value)) {
+  } else if (isRecord(value)) {
     for (const [k, v] of Object.entries(value)) walkStrings(v, fn, [...path, k]);
   }
 }
@@ -80,7 +80,7 @@ export function walkStrings(
 export function formatPath(segments: readonly PathSegment[]): string {
   let out = '';
   for (const s of segments) {
-    if (typeof s === 'number' || /^\d+$/.test(s)) out += `[${String(s)}]`;
+    if (typeof s === 'number' || /^\d+$/u.test(s)) out += `[${String(s)}]`;
     else out += out === '' ? s : `.${s}`;
   }
   return out === '' ? '(root)' : out;
@@ -94,19 +94,19 @@ export function pointerToSegments(pointer: string): PathSegment[] {
     .slice(1)
     .map((s) => {
       const k = s.replaceAll('~1', '/').replaceAll('~0', '~');
-      return /^\d+$/.test(k) ? Number(k) : k;
+      return /^\d+$/u.test(k) ? Number(k) : k;
     });
 }
 
 export interface EntityRef {
-  prop: string;
-  path: PathSegment[];
-  id: string;
+  readonly prop: string;
+  readonly path: readonly PathSegment[];
+  readonly id: string;
   /** Allowed target types; null means any. */
-  expect: readonly EntityType[] | null;
+  readonly expect: readonly EntityType[] | null;
 }
 
-const SPEC = /^(\w+)(\[\])?(?:\.(\w+)(\[\])?)?$/;
+const SPEC = /^(\w+)(\[\])?(?:\.(\w+)(\[\])?)?$/u;
 
 function refsOfSpec(spec: string, expect: EntityRef['expect'], entity: unknown): EntityRef[] {
   const m = SPEC.exec(spec);
@@ -114,7 +114,7 @@ function refsOfSpec(spec: string, expect: EntityRef['expect'], entity: unknown):
   const sub = m?.[3];
   const value = name === undefined ? undefined : prop(entity, name);
   if (m === null || name === undefined || value === undefined || value === null) return [];
-  const one = (id: unknown, path: PathSegment[]): EntityRef[] =>
+  const one = (id: unknown, path: readonly PathSegment[]): EntityRef[] =>
     typeof id === 'string' ? [{ prop: name, path, id, expect }] : [];
   if (m[2] !== undefined) {
     if (!Array.isArray(value)) return [];
@@ -149,7 +149,11 @@ export function refsOf(type: RefOwner, entity: unknown): EntityRef[] {
 
 type PlanKey = keyof typeof PLAN_COLLECTIONS;
 
-function entriesOf(list: readonly PlanEntity[] | undefined, type: EntityType, path: PathSegment[]) {
+function entriesOf(
+  list: readonly PlanEntity[] | undefined,
+  type: EntityType,
+  path: readonly PathSegment[],
+) {
   return (list ?? []).map((entity, i): PlanEntry => ({
     id: entity.id,
     type,

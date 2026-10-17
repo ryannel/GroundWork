@@ -83,8 +83,9 @@ export function suggestedJourneys(
 export function keyJourneysOf(workspace: Workspace, model: Model): KeyJourneys {
   const journeys = todayJourneysOf(model);
   const named = workspace.keyJourneys ?? [];
-  if (named.length === 0)
+  if (named.length === 0) {
     return { source: 'code', picked: suggestedJourneys(workspace, journeys), unknown: [] };
+  }
   const find = (name: string) => journeys.find((j) => j.id === name || j.key === name);
   return {
     source: 'hand',

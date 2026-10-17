@@ -42,7 +42,12 @@ export interface ContractFindings {
 const unique = <T>(xs: readonly T[]): T[] => [...new Set(xs)];
 
 function cellOf(
-  located: readonly { test: string; consumer: string; provider: string; via: string }[],
+  located: readonly {
+    readonly test: string;
+    readonly consumer: string;
+    readonly provider: string;
+    readonly via: string;
+  }[],
   consumer: string,
   provider: string,
 ): ContractCell {

@@ -32,13 +32,13 @@ const wrongType = (r: EntityRef): string =>
 export function checkUniqueIds(ctx: CheckContext, rep: Report): void {
   for (const dup of ctx.asIs.duplicates) {
     const first = ctx.asIs.get(dup.id);
-    rep.err(
+    rep.error(
       dup.$path,
       `duplicate id ${dup.id} (first defined at ${formatPath(first?.$path ?? [])}); rename one and update its references`,
     );
   }
   for (const d of ctx.planDupes) {
-    rep.err(
+    rep.error(
       d.path,
       `duplicate id ${d.id} (first defined at ${formatPath(d.first)}); rename one and update its references`,
     );
@@ -46,7 +46,7 @@ export function checkUniqueIds(ctx: CheckContext, rep: Report): void {
   for (const step of ctx.asIs.steps) {
     const flow = step.$parent ?? '';
     if (!step.id.startsWith(`${flow}#`)) {
-      rep.err(
+      rep.error(
         [...step.$path, 'id'],
         `step id must start with ${flow}# (rename it, or move the step into the flow its id names)`,
       );
@@ -56,30 +56,33 @@ export function checkUniqueIds(ctx: CheckContext, rep: Report): void {
 
 /** What every ref check needs: the plan's context and where to report. */
 interface Scope {
-  ctx: CheckContext;
-  rep: Report;
+  readonly ctx: CheckContext;
+  readonly rep: Report;
 }
 
-function checkAddCollision(s: Scope, rec: OpRecord, seen: Map<string, string>): void {
+/** Report an add that collides; true when this is the first add of its id (so the caller notes it). */
+function checkAddCollision(s: Scope, rec: OpRecord, seen: ReadonlyMap<string, string>): boolean {
   const id = rec.target ?? '';
   const first = seen.get(id);
   const asIs = s.ctx.asIs.get(id);
   if (asIs !== undefined) {
-    s.rep.err(
+    s.rep.error(
       [...rec.path, 'value'],
       `add id ${id} collides with an as-is id (${formatPath(asIs.$path)}); use modify with only the changed props instead`,
     );
-  } else if (first === undefined) seen.set(id, opRef(rec));
-  else {
-    s.rep.err(
-      [...rec.path, 'value'],
-      `add id ${id} collides with an earlier add (${first}); keep one add and merge the values`,
-    );
+    return false;
   }
+  if (first === undefined) return true;
+  s.rep.error(
+    [...rec.path, 'value'],
+    `add id ${id} collides with an earlier add (${first}); keep one add and merge the values`,
+  );
+  return false;
 }
 
-function checkAdd(s: Scope, rec: OpRecord, seen: Map<string, string>): void {
-  checkAddCollision(s, rec, seen);
+/** Check one add; true when it is the first add of its id. */
+function checkAdd(s: Scope, rec: OpRecord, seen: ReadonlyMap<string, string>): boolean {
+  const first = checkAddCollision(s, rec, seen);
   const parent = rec.parent ?? null;
   const parentAdd = parent === null ? undefined : s.ctx.addedBy.get(parent);
   if (parent !== null && !s.ctx.asIs.has(parent) && parentAdd !== undefined) {
@@ -88,6 +91,7 @@ function checkAdd(s: Scope, rec: OpRecord, seen: Map<string, string>): void {
       `${parent} is itself added by ${opRef(parentAdd)}; prefer putting this ${rec.type ?? 'entity'} in that add`,
     );
   }
+  return first;
 }
 
 function checkTargetExists(s: Scope, rec: OpRecord, id: string): void {
@@ -95,12 +99,12 @@ function checkTargetExists(s: Scope, rec: OpRecord, id: string): void {
   if (s.ctx.asIs.has(id)) return;
   const add = s.ctx.addedBy.get(id);
   if (add !== undefined && !ledgerBefore(add, rec)) {
-    s.rep.err(
+    s.rep.error(
       [...rec.path, kind],
       `${id} is added later in the changes list, by ${opRef(add)}; move this ${kind} after that add (or into the add's value)`,
     );
   } else if (add === undefined) {
-    s.rep.err(
+    s.rep.error(
       [...rec.path, kind],
       `${id} does not exist; fix the id (op targets must exist today or be added earlier in the changes list; for something new use an add op)`,
     );
@@ -113,7 +117,7 @@ function checkTarget(s: Scope, rec: OpRecord): void {
   const by = rec.replacedBy ?? null;
   if (rec.kind !== 'deprecate' || by === null) return;
   if (!s.ctx.known(by)) {
-    s.rep.err([...rec.path, 'replaced_by'], `${by} does not exist; ${DANGLING}`);
+    s.rep.error([...rec.path, 'replaced_by'], `${by} does not exist; ${DANGLING}`);
   } else if (typeOf(by) !== typeOf(id)) {
     s.rep.warn(
       [...rec.path, 'replaced_by'],
@@ -126,7 +130,7 @@ function checkTarget(s: Scope, rec: OpRecord): void {
 function reportLedgerNotes(rep: Report, rec: OpRecord): void {
   for (const p of rec.problems) {
     if (p.code === 'shape' || p.code === 'collision' || p.code === 'missing') continue;
-    rep.err([...rec.path, ...p.at], p.message);
+    rep.error([...rec.path, ...p.at], p.message);
   }
   for (const w of rec.warnings) rep.warn([...rec.path, ...w.at], w.message);
 }
@@ -138,19 +142,21 @@ export function checkLedger(ctx: CheckContext, rep: Report): void {
   for (const rec of ctx.applied.records) {
     reportLedgerNotes(rep, rec);
     if (rec.target === null) continue;
-    if (rec.kind === 'add') checkAdd(s, rec, seenAdds);
-    else if (rec.kind !== null) checkTarget(s, rec);
+    if (rec.kind === 'add') {
+      if (checkAdd(s, rec, seenAdds)) seenAdds.set(rec.target, opRef(rec));
+    } else if (rec.kind !== null) checkTarget(s, rec);
   }
 }
 
 function checkAsIsRef(s: Scope, node: PlanNode, r: EntityRef): void {
   const segs = [...node.$path, ...r.path];
   const added = s.ctx.addedBy.get(r.id);
-  if (!typeOk(r.id, r.expect)) s.rep.err(segs, wrongType(r));
-  else if (s.ctx.asIs.has(r.id)) return;
-  else if (added === undefined) s.rep.err(segs, `${r.id} does not exist; ${DANGLING}`);
+  if (!typeOk(r.id, r.expect)) s.rep.error(segs, wrongType(r));
+  else if (s.ctx.asIs.has(r.id)) {
+    // an as-is reference to an as-is id is fine
+  } else if (added === undefined) s.rep.error(segs, `${r.id} does not exist; ${DANGLING}`);
   else {
-    s.rep.err(
+    s.rep.error(
       segs,
       `${r.id} is added by ${opRef(added)}; base arrays describe today only — reference it from an op (e.g. modify … set: { via: ${r.id} }) or from the added entity`,
     );
@@ -169,11 +175,12 @@ function checkToBeRef(s: Scope, node: PlanNode, r: EntityRef): void {
   if (!touched(ctx, node.id) && (!ctx.asIs.has(r.id) || !typeOk(r.id, r.expect))) return;
   const segs = blame(ctx, node.id, { prop: r.prop, rel: r.path });
   const removed = ctx.removedBy.get(r.id);
-  if (!typeOk(r.id, r.expect)) rep.err(segs, wrongType(r));
-  else if (r.prop === 'supersedes' && ctx.known(r.id)) return;
-  else if (removed === undefined) rep.err(segs, `${r.id} does not exist; ${DANGLING}`);
+  if (!typeOk(r.id, r.expect)) rep.error(segs, wrongType(r));
+  else if (r.prop === 'supersedes' && ctx.known(r.id)) {
+    // a decision may supersede one that is known outside this plan
+  } else if (removed === undefined) rep.error(segs, `${r.id} does not exist; ${DANGLING}`);
   else {
-    rep.err(
+    rep.error(
       segs,
       `${node.id} refers to ${r.id}, which ${opRef(removed)} removes; migrate this reference first (modify it), or deprecate instead of remove`,
     );
@@ -190,8 +197,8 @@ function checkPlanRefs({ ctx, rep }: Scope): void {
   for (const pe of ctx.planEntities.values()) {
     for (const r of refsOf(pe.type, pe.entity)) {
       const segs = [...pe.path, ...r.path];
-      if (!typeOk(r.id, r.expect)) rep.err(segs, wrongType(r));
-      else if (!ctx.known(r.id)) rep.err(segs, `${r.id} does not exist; ${DANGLING}`);
+      if (!typeOk(r.id, r.expect)) rep.error(segs, wrongType(r));
+      else if (!ctx.known(r.id)) rep.error(segs, `${r.id} does not exist; ${DANGLING}`);
     }
   }
 }
@@ -200,7 +207,7 @@ function checkCommitmentRefs({ ctx, rep }: Scope): void {
   for (const [i, c] of (ctx.plan.commitment ?? []).entries()) {
     for (const r of refsOf('commitment', c)) {
       if (!ctx.known(r.id)) {
-        rep.err(['commitment', i, ...r.path], `${r.id} does not exist; ${DANGLING}`);
+        rep.error(['commitment', i, ...r.path], `${r.id} does not exist; ${DANGLING}`);
       }
     }
   }
@@ -210,7 +217,7 @@ function checkCitations({ ctx, rep }: Scope): void {
   walkStrings(ctx.plan, (text, segs) => {
     for (const id of citationsIn(text)) {
       if (!ctx.known(id)) {
-        rep.err(segs, `cites [[${id}]], which does not exist; fix the id or remove the citation`);
+        rep.error(segs, `cites [[${id}]], which does not exist; fix the id or remove the citation`);
       }
     }
   });

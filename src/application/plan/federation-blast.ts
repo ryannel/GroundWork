@@ -13,28 +13,28 @@ import { selectionTree, type TreeNode } from '@/application/plan/federation-tree
 import type { FieldNode, SchemaNode, SystemGraph } from '@/domain/plan/plan-graph';
 
 interface PathType {
-  path: string;
-  type: string;
+  readonly path: string;
+  readonly type: string;
 }
 
 /** The last non-null link under a nulled path, and the deeper selected field whose `!` started it. */
 export interface Because extends PathType {
-  origin: PathType | null;
+  readonly origin: PathType | null;
 }
 
 export interface BlastNull {
-  path: string;
-  because: Because | null;
+  readonly path: string;
+  readonly because: Because | null;
 }
 
 export interface Blast {
-  fetch: string;
-  subgraph: string;
-  service: string | null;
-  wholeResponse: boolean;
-  nulls: BlastNull[];
+  readonly fetch: string;
+  readonly subgraph: string;
+  readonly service: string | null;
+  readonly wholeResponse: boolean;
+  readonly nulls: readonly BlastNull[];
   /** "if Inventory fails, `product` is null because `product.stock` is `Stock!`". */
-  message: string;
+  readonly message: string;
 }
 
 const quoted = (path: string): string => `\`${path}\``;
@@ -42,7 +42,7 @@ const quoted = (path: string): string => `\`${path}\``;
 const typeOf = (n: TreeNode): string => n.typeStr ?? '';
 
 /** Where a null at `n` stops: the nearest nullable ancestor (null = the whole response) and the last `!` crossed. */
-function climb(n: TreeNode): { at: string | null; because: TreeNode | null } {
+function climb(n: TreeNode): { readonly at: string | null; readonly because: TreeNode | null } {
   let cur: TreeNode | null = n;
   let because: TreeNode | null = null;
   while (cur?.nonNull === true) {
@@ -64,8 +64,8 @@ function becauseOf(n: TreeNode, link: TreeNode | null): Because | null {
 }
 
 function nullsOf(lost: readonly TreeNode[]): {
-  whole: Because | null;
-  nulls: Map<string, Because | null>;
+  readonly whole: Because | null;
+  readonly nulls: ReadonlyMap<string, Because | null>;
 } {
   const nulls = new Map<string, Because | null>();
   let whole: Because | null = null;
@@ -113,7 +113,7 @@ export function blastRadius(g: SystemGraph, opId: string): Blast[] {
 
 function failureOf(
   g: SystemGraph,
-  at: { plan: QueryPlan; byPath: ReadonlyMap<string, TreeNode> },
+  at: { readonly plan: QueryPlan; readonly byPath: ReadonlyMap<string, TreeNode> },
   f: Fetch,
 ): Blast {
   const { plan, byPath } = at;
@@ -137,45 +137,44 @@ function failureOf(
 }
 
 export interface FieldOwners {
-  type: string;
+  readonly type: string;
   /** Subgraph id → the field ids it resolves; key fields count for every subgraph in their key's `in`. */
-  bySubgraph: Record<string, string[]>;
+  readonly bySubgraph: Record<string, readonly string[]>;
   /** Subgraphs that resolve a field or are listed in a key. */
-  contributors: string[];
+  readonly contributors: readonly string[];
   /** In a key's `in` but resolving no non-key field. */
-  stubs: string[];
-  keys: { fields: string[]; in: string[] }[];
-  keyFields: string[];
+  readonly stubs: readonly string[];
+  readonly keys: readonly { readonly fields: readonly string[]; readonly in: readonly string[] }[];
+  readonly keyFields: readonly string[];
 }
 
 const owners = memoPerGraph<FieldOwners>();
 
 interface Owned {
-  by: Map<string, string[]>;
-  keyFields: string[];
-  owning: Set<string>;
-}
-
-function put(o: Owned, sg: string, field: string): void {
-  const cur = o.by.get(sg) ?? [];
-  if (!cur.includes(field)) o.by.set(sg, [...cur, field]);
-}
-
-function ownField(o: Owned, t: SchemaNode, f: FieldNode): void {
-  const key = isKeyField(t, f.name);
-  if (key) o.keyFields.push(f.id);
-  for (const sg of f.subgraphs ?? []) {
-    put(o, sg, f.id);
-    if (!key) o.owning.add(sg);
-  }
-  if (key) for (const sg of keyIns(t, f.name)) put(o, sg, f.id);
+  readonly by: ReadonlyMap<string, readonly string[]>;
+  readonly keyFields: readonly string[];
+  readonly owning: ReadonlySet<string>;
 }
 
 function ownedBy(t: SchemaNode | undefined): Owned {
-  const o: Owned = { by: new Map(), keyFields: [], owning: new Set() };
-  if (t === undefined) return o;
-  for (const f of t.fields) ownField(o, t, f);
-  return o;
+  const by = new Map<string, readonly string[]>();
+  const keyFields: string[] = [];
+  const owning = new Set<string>();
+  const put = (sg: string, field: string): void => {
+    const cur = by.get(sg) ?? [];
+    if (!cur.includes(field)) by.set(sg, [...cur, field]);
+  };
+  const ownField = (node: SchemaNode, f: FieldNode): void => {
+    const key = isKeyField(node, f.name);
+    if (key) keyFields.push(f.id);
+    for (const sg of f.subgraphs ?? []) {
+      put(sg, f.id);
+      if (!key) owning.add(sg);
+    }
+    if (key) for (const sg of keyIns(node, f.name)) put(sg, f.id);
+  };
+  if (t !== undefined) for (const f of t.fields) ownField(t, f);
+  return { by, keyFields, owning };
 }
 
 /** Who owns which field of a graph type. */

@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { briefsOf, planBriefOf } from './workspace-library-plans';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -45,7 +45,7 @@ describe('planBriefOf', () => {
     const brief = planBriefOf('shop', moving, before);
     expect(brief.group).toBe('delivery');
     expect(brief.done).toBe(1);
-    expect(brief.note).toMatch(/^1 of \d+ work items done/);
+    expect(brief.note).toMatch(/^1 of \d+ work items done/u);
   });
 
   it('calls a plan nobody has proposed a draft', () => {

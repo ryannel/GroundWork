@@ -60,7 +60,7 @@ function decideNote(model: Model, today: Date): Note {
   const who = first.decider === undefined ? 'Nobody named' : teamName(model, first.decider);
   const by = first.decide_by;
   if (by === undefined) return { note: `${who} decides first`, late: false };
-  const late = by < today.toISOString().slice(0, 10);
+  const late = by.localeCompare(today.toISOString().slice(0, 10)) < 0;
   const day = shortDate(by, today);
   return late
     ? { note: `${possessive(who)} answer was due ${day}`, late }
@@ -85,8 +85,8 @@ function noteOf(model: Model, group: PlanGroup, today: Date): Note {
   return { note: 'Being written', late: false };
 }
 
-export function planBriefOf(workspace: string, input: PlanInput, today = new Date()): PlanBrief {
-  const model = derive(input.plan, { status: input.status });
+export function planBriefOf(workspace: string, input: PlanInput, today: Date): PlanBrief {
+  const model = derive(input.plan, { status: input.status, today });
   const group = GROUP_OF[planStage(model)];
   const summary = buildSummary(model, today);
   return {
@@ -101,11 +101,7 @@ export function planBriefOf(workspace: string, input: PlanInput, today = new Dat
 }
 
 /** The plans in the order someone should look at them. */
-export function briefsOf(
-  workspace: string,
-  plans: readonly PlanInput[],
-  today = new Date(),
-): PlanBrief[] {
+export function briefsOf(workspace: string, plans: readonly PlanInput[], today: Date): PlanBrief[] {
   return plans.map((plan) => planBriefOf(workspace, plan, today)).toSorted(byNeed);
 }
 

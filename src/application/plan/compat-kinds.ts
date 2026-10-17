@@ -13,10 +13,10 @@ import { propRows, type Roles } from '@/application/plan/compat-rules';
 import type { Env } from '@/application/plan/compat-schema';
 
 export interface Kit {
-  env: Env;
-  ofSchema: (id: string, scope?: Roles) => Judged;
-  net: (id: string) => NetRow[];
-  compat: (id: string) => Compat | null;
+  readonly env: Env;
+  readonly ofSchema: (id: string, scope?: Roles) => Judged;
+  readonly net: (id: string) => NetRow[];
+  readonly compat: (id: string) => Compat | null;
 }
 
 const noRoles = (record: boolean): Roles => ({
@@ -27,7 +27,7 @@ const noRoles = (record: boolean): Roles => ({
   payload: [],
 });
 
-const rootCtx = (id: string, requests: string[]): Ctx => ({
+const rootCtx = (id: string, requests: readonly string[]): Ctx => ({
   id,
   sch: null,
   requests,

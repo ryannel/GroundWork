@@ -17,9 +17,9 @@ import {
 import type { Change, WorkItem } from '@/domain/plan/plan.generated';
 
 export interface IssueOptions {
-  today?: Date | string | undefined;
+  readonly today?: Date | string | undefined;
   /** Defaults to the built-in template for the item's issue_type. */
-  template?: Pick<IssueTemplate, 'fields'> | null | undefined;
+  readonly template?: Pick<IssueTemplate, 'fields'> | null | undefined;
 }
 
 const workItemOf = (model: IssueModel, id: string): WorkItem | undefined =>

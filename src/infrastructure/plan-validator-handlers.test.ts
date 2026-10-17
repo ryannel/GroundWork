@@ -6,7 +6,7 @@ import { parse } from 'yaml';
 
 import type { Handler, Plan } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { checkPlanData } = await import('./plan-validator');
 
@@ -21,7 +21,7 @@ function handler(p: Plan, id: string): Handler {
   return found;
 }
 
-const lines = (list: { path: string; message: string }[]) =>
+const lines = (list: readonly { readonly path: string; readonly message: string }[]) =>
   list.map((e) => `${e.path}: ${e.message}`);
 
 async function findings(mutate?: (p: Plan) => void) {
@@ -33,7 +33,7 @@ async function findings(mutate?: (p: Plan) => void) {
 
 describe('handler schema', () => {
   it('the fixture passes the schema and the checks', async () => {
-    expect(await findings()).toEqual({ errors: [], warnings: [] });
+    await expect(findings()).resolves.toEqual({ errors: [], warnings: [] });
   });
 
   it('a step must be one kind of step', async () => {
@@ -86,7 +86,7 @@ describe('handler checks', () => {
       const fork = handler(p, 'h:pricing-get-price').steps[1];
       if (fork !== undefined && 'else' in fork) fork.else.push({ call: 'api:missing' });
     });
-    expect(errors[0]).toMatch(/^handlers\[0\]\.steps\[1\]\.else\[2\]\.call: api:missing/);
+    expect(errors[0]).toMatch(/^handlers\[0\]\.steps\[1\]\.else\[2\]\.call: api:missing/u);
   });
 
   it('what starts a handler must reach its component', async () => {

@@ -18,7 +18,7 @@ const DONE = new Set(['accepted', 'resolved', 'answered']);
 const NOT_OPEN = new Set(['deferred', 'rejected', 'superseded']);
 /** The states the page's group headings already name (To decide, Decided): a card in one of them need not say it again. */
 const GROUPED = new Set(['accepted', 'proposed', 'open', 'resolved', 'answered']);
-const FIRST_SENTENCE = /^.+?[!.?](?=\s|$)/;
+const FIRST_SENTENCE = /^.+?[!.?](?=\s|$)/u;
 
 const doorWord = (e: Deciding): string =>
   isDecision(e) ? (DOOR[e.reversibility ?? ''] ?? '') : '';
@@ -36,7 +36,7 @@ export function deciding(model: Model, id: string): Deciding | undefined {
 
 /** The first sentence of a markdown text, still markdown so [[refs]] stay chips. */
 export function firstSentenceMd(text?: string): string {
-  const t = (text ?? '').trim().replaceAll(/\s+/g, ' ');
+  const t = (text ?? '').trim().replaceAll(/\s+/gu, ' ');
   return FIRST_SENTENCE.exec(t)?.[0] ?? t;
 }
 
@@ -118,7 +118,7 @@ export interface Meta {
 }
 
 /** The line under a card: who decides, by when, and how hard it is to undo. */
-export function metaOf(e: Deciding, today: Date = new Date()): Meta {
+export function metaOf(e: Deciding, today: Date | undefined): Meta {
   const when = whenOf(e);
   return {
     decider: e.decider ?? null,
@@ -129,7 +129,10 @@ export function metaOf(e: Deciding, today: Date = new Date()): Meta {
         : {
             ...when,
             text: shortDate(when.date, today),
-            late: when.pending && isoDay(when.date) < isoDay(today.toISOString()),
+            late:
+              when.pending &&
+              today !== undefined &&
+              isoDay(when.date).localeCompare(isoDay(today.toISOString())) < 0,
           },
     door: doorWord(e),
   };

@@ -4,20 +4,20 @@ export interface DiffRun {
 }
 
 export interface WordDiff {
-  readonly was: DiffRun[];
-  readonly now: DiffRun[];
+  readonly was: readonly DiffRun[];
+  readonly now: readonly DiffRun[];
 }
 
 const MAX_CELLS = 40_000;
-const SPACE = /^\s*$/;
+const SPACE = /^\s*$/u;
 
 function merged(items: readonly DiffRun[]): DiffRun[] {
   const runs: DiffRun[] = [];
   for (const item of items) {
     const last = runs.at(-1);
-    if (last?.mark === item.mark)
+    if (last?.mark === item.mark) {
       runs[runs.length - 1] = { mark: item.mark, text: last.text + item.text };
-    else runs.push(item);
+    } else runs.push(item);
   }
   return runs;
 }
@@ -50,17 +50,22 @@ const markOf = (word: string, mark: 'ins' | 'del'): DiffRun['mark'] =>
   SPACE.test(word) ? 'same' : mark;
 
 /** The runs one move adds to the old text and to the new. */
-function runsOf(how: Move, x: string, y: string): { old: DiffRun[]; fresh: DiffRun[] } {
-  if (how === 'same')
+function runsOf(
+  how: Move,
+  x: string,
+  y: string,
+): { readonly old: readonly DiffRun[]; readonly fresh: readonly DiffRun[] } {
+  if (how === 'same') {
     return { old: [{ mark: 'same', text: x }], fresh: [{ mark: 'same', text: y }] };
+  }
   if (how === 'ins') return { old: [], fresh: [{ mark: markOf(y, 'ins'), text: y }] };
   return { old: [{ mark: markOf(x, 'del'), text: x }], fresh: [] };
 }
 
 /** Word-level diff: the old text with the removed words marked, the new with the added words marked. */
 export function wordDiff(was: string, now: string): WordDiff {
-  const a = was.split(/(\s+)/);
-  const b = now.split(/(\s+)/);
+  const a = was.split(/(\s+)/u);
+  const b = now.split(/(\s+)/u);
   if (a.length * b.length > MAX_CELLS) {
     return { was: [{ mark: 'del', text: was }], now: [{ mark: 'ins', text: now }] };
   }

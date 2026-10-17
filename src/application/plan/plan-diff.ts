@@ -41,15 +41,18 @@ function entitiesDiff(a: Collections, b: Collections): Record<string, EntityDiff
 }
 
 function questionsDiff(a: Collections, b: Collections): PlanDiff['questions'] {
-  const out: PlanDiff['questions'] = { opened: [], resolved: [], reopened: [] };
-  for (const [id, q] of b.questions ?? none()) {
-    const prev = a.questions?.get(id);
-    const open = q.status !== 'resolved';
-    if (prev === undefined) out[open ? 'opened' : 'resolved'].push(id);
-    else if (prev.status !== 'resolved' && !open) out.resolved.push(id);
-    else if (prev.status === 'resolved' && open) out.reopened.push(id);
-  }
-  return out;
+  const rows = [...(b.questions ?? none())].map(([id, q]) => ({
+    id,
+    prev: a.questions?.get(id),
+    open: q.status !== 'resolved',
+  }));
+  const ids = (keep: (r: (typeof rows)[number]) => boolean): string[] =>
+    rows.filter(keep).map((r) => r.id);
+  return {
+    opened: ids((r) => r.prev === undefined && r.open),
+    resolved: ids((r) => !r.open && r.prev?.status !== 'resolved'),
+    reopened: ids((r) => r.open && r.prev?.status === 'resolved'),
+  };
 }
 
 function workItemsDiff(a: Collections, b: Collections): PlanDiff['workItems'] {
@@ -91,12 +94,14 @@ const metaOf = (p: unknown): PlanMeta => {
   };
 };
 
+const noWorkOrMilestones = ({ workItems: w, milestones }: Omit<PlanDiff, 'empty'>): boolean =>
+  w.added.length + w.removed.length + w.remilestoned.length + milestones.moved.length === 0;
+
 const isEmpty = (d: Omit<PlanDiff, 'empty'>): boolean =>
   Object.keys(d.entities).length === 0 &&
   d.ops.length === 0 &&
   Object.values(d.questions).every((x) => x.length === 0) &&
-  d.workItems.added.length + d.workItems.removed.length + d.workItems.remilestoned.length === 0 &&
-  d.milestones.moved.length === 0;
+  noWorkOrMilestones(d);
 
 function safeDerive(plan: Plan): Derived | null {
   try {

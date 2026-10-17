@@ -20,7 +20,7 @@ export interface UnionStep {
   readonly status: ElementStatus | null;
 }
 
-function stepsIn(model: Model, mode: 'asIs' | 'toBe', flowId: string): StepNode[] {
+function stepsIn(model: Model, mode: 'asIs' | 'toBe', flowId: string): readonly StepNode[] {
   const flow = model[mode].get(flowId);
   return flow?.$type === 'flow' ? flow.steps : [];
 }
@@ -89,7 +89,7 @@ function modifiedWords(
   return mod.length > 0 ? [plural(mod.length, 'step changes', 'steps change')] : [];
 }
 
-function verbWords(parts: string[], n: number, verb: string): string[] {
+function verbWords(parts: readonly string[], n: number, verb: string): string[] {
   if (n === 0) return [];
   const noun = n === 1 ? 'step ' : 'steps ';
   const lead = parts.length > 0 ? '' : noun;
@@ -103,12 +103,14 @@ function flowTally(model: Model, flowId: string): string {
   const mod = steps.filter((x) => x.status === 'modified');
   const parts = modifiedWords(model, mod, steps);
   // a deprecated step still runs until it is removed: it is never counted as removed
-  for (const status of ['added', 'removed', 'deprecated'] as const)
+  for (const status of ['added', 'removed', 'deprecated'] as const) {
     parts.push(...verbWords(parts, count(status), status));
+  }
   if (parts.length === 0) {
     const props = uniq(flowProps(model, flowId));
-    if (props.length > 0)
+    if (props.length > 0) {
       parts.push(`its ${props.join(' and ')} ${props.length === 1 ? 'changes' : 'change'}`);
+    }
   }
   return parts.join(', ');
 }
@@ -120,8 +122,9 @@ function weights(model: Model, flowId: string): Map<string, number> {
     const own = model.diff(id).filter((d) => d.target === id);
     const light = own.length > 0 && own.every((d) => only(d.prop));
     for (const d of own) {
-      if (d.changeId !== undefined)
+      if (d.changeId !== undefined) {
         out.set(d.changeId, (out.get(d.changeId) ?? 0) + (light ? 0.5 : 1));
+      }
     }
   };
   for (const id of changedStepIds(model, flowId)) add(id, (p) => p === 'via');
@@ -133,7 +136,10 @@ function weights(model: Model, flowId: string): Map<string, number> {
  * What the reader takes away from a flow: the claim of the change that touches most of its steps. The tally of
  * steps goes to the lede. A flow no change titles reads "<flow>: <tally>".
  */
-export function flowHead(model: Model, flowId: string): { head: string; lede: string } {
+export function flowHead(
+  model: Model,
+  flowId: string,
+): { readonly head: string; readonly lede: string } {
   const tally = flowTally(model, flowId);
   const weight = weights(model, flowId);
   const lead = changesOf(model, flowId).toSorted(

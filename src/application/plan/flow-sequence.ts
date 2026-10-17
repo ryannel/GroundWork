@@ -15,19 +15,19 @@ import type { FlowNode } from '@/domain/plan/plan-graph';
 export type SequenceRow =
   | FlatRow
   | FrameRow
-  | { kind: 'enter'; to: string; label: string }
-  | { kind: 'note'; on: 'first'; text: string };
+  | { readonly kind: 'enter'; readonly to: string; readonly label: string }
+  | { readonly kind: 'note'; readonly on: 'first'; readonly text: string };
 
 export interface Sequence {
-  rows: SequenceRow[];
-  steps: FlowStep[];
+  readonly rows: readonly SequenceRow[];
+  readonly steps: readonly FlowStep[];
   /** Everything that takes part, in the order it first appears. */
-  parts: string[];
+  readonly parts: readonly string[];
   /** The person who starts the flow; null when a job, a schedule or the system does. */
-  actor: string | null;
-  job: boolean;
-  automated: boolean;
-  flow: FlowNode | undefined;
+  readonly actor: string | null;
+  readonly job: boolean;
+  readonly automated: boolean;
+  readonly flow: FlowNode | undefined;
 }
 
 const screenOf = (s: FlowStep | undefined): string | null =>
@@ -36,16 +36,17 @@ const screenOf = (s: FlowStep | undefined): string | null =>
 function nameOf(model: FlowModel, id: string): string {
   const e = model.get(id);
   const name = prop(e, 'name') ?? prop(e, 'title');
-  return (typeof name === 'string' ? name : id).replaceAll(/\s+/g, ' ').trim();
+  return (typeof name === 'string' ? name : id).replaceAll(/\s+/gu, ' ').trim();
 }
 
 interface Call {
-  i: number;
-  step: FlowStep;
+  readonly i: number;
+  readonly step: FlowStep;
 }
 
 /** The sync calls that are still open, and the replies that close them. */
-function createCalls(model: FlowModel, steps: readonly FlowStep[], flat: FlatRow[]) {
+function createCalls(model: FlowModel, steps: readonly FlowStep[]) {
+  const flat: FlatRow[] = [];
   const stack: Call[] = [];
   const reply = (call: Call): void => {
     const via = model.get(call.step.via);
@@ -68,6 +69,10 @@ function createCalls(model: FlowModel, steps: readonly FlowStep[], flat: FlatRow
   };
   const lastWhere = (test: (c: Call) => boolean): number => stack.findLastIndex(test);
   return {
+    flat,
+    emit: (row: FlatRow): void => {
+      flat.push(row);
+    },
     open: (call: Call): void => {
       stack.push(call);
     },
@@ -109,30 +114,29 @@ function screenNote(i: number, s: FlowStep, seen: string | null): FlatRow | null
 
 /** Pass 1: the steps, the replies to sync calls and the notes of what the person sees, flat. */
 function flatRows(model: FlowModel, steps: readonly FlowStep[], actor: string | null): FlatRow[] {
-  const flat: FlatRow[] = [];
-  const calls = createCalls(model, steps, flat);
+  const calls = createCalls(model, steps);
   let seen = actor === null ? null : screenOf(steps[0]);
   for (const [i, s] of steps.entries()) {
     const live = s.$removed !== true;
     if (live) calls.arrive(s.from, i);
-    flat.push({ kind: 'step', i, step: s });
+    calls.emit({ kind: 'step', i, step: s });
     const note = actor === null ? null : screenNote(i, s, seen);
     if (note !== null) {
-      flat.push(note);
+      calls.emit(note);
       seen = screenOf(s);
     }
     if (live && isSync(s.via) && s.from !== s.to) calls.open({ i, step: s });
   }
   calls.drain();
-  return flat;
+  return calls.flat;
 }
 
 /** "System" is an authored machine actor, not an unnamed human; a human role such as "System administrator" is not. */
 function actorOf(model: FlowModel, flow: FlowNode | undefined, job: boolean) {
   const named = (flow?.actor ?? '').trim();
   const type = prop(model.get(named), '$type');
-  const automated =
-    job || /^system$/i.test(named) || type === 'service' || type === 'store' || type === 'system';
+  const machine = type === 'service' || type === 'store' || type === 'system';
+  const automated = job || /^system$/iu.test(named) || machine;
   return { actor: named !== '' && !automated ? named : null, automated };
 }
 
@@ -165,4 +169,4 @@ export const sequenceRows = (
   model: FlowModel,
   flowId: string,
   mode: FlowMode = 'toBe',
-): SequenceRow[] => sequenceModel(model, flowId, mode).rows;
+): readonly SequenceRow[] => sequenceModel(model, flowId, mode).rows;

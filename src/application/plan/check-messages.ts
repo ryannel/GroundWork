@@ -10,13 +10,17 @@ const keyNames = (key: string): string[] =>
 
 type Msg = SystemGraph['messages'][number];
 
-function checkKey(at: { ctx: CheckContext; g: SystemGraph }, m: Msg, rep: Report): void {
+function checkKey(
+  at: { readonly ctx: CheckContext; readonly g: SystemGraph },
+  m: Msg,
+  rep: Report,
+): void {
   const payload = m.key === undefined || m.payload === undefined ? undefined : at.g.get(m.payload);
   if (m.key === undefined || payload?.$type !== 'schema') return;
   const names = payload.fields.map((f) => f.name);
   const path = whereAt(at, m, 'key');
   for (const n of keyNames(m.key).filter((k) => !names.includes(k))) {
-    rep.err(
+    rep.error(
       path,
       `${m.id} is keyed by ${n}, which is not a field of ${String(m.payload)}; use one of ${names.length === 0 ? '(no fields)' : names.join(', ')}`,
     );

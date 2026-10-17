@@ -16,7 +16,7 @@ import {
   reasonOf,
 } from '@/application/plan-story-cover-standing';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 const base = await loadFixture('mini.yaml');
@@ -24,7 +24,7 @@ const base = await loadFixture('mini.yaml');
 const NO_NOTE: string | undefined = new Map<string, string>().get('none');
 
 type Over = Partial<typeof base>;
-const withPlan = (over: Over) => derive({ ...base, ...over });
+const withPlan = (over: Over) => derive({ ...base, ...over }, { today: '2026-10-17' });
 
 const waiting = (decideBy?: string): Over => ({
   questions: [
@@ -102,6 +102,8 @@ describe('stage', () => {
   });
 });
 
+const TODAY = '2026-10-17';
+
 describe('the ask', () => {
   it('names what is left to settle, soonest first', () => {
     const model = withPlan(waiting('2999-01-05'));
@@ -110,7 +112,7 @@ describe('the ask', () => {
     if (gate === undefined) return;
     expect(gateTitle(gate)).toContain('price');
     expect(heldUp(model, 'q:price')).toContain('wi:pause-endpoint');
-    const [line] = askLines(model);
+    const [line] = askLines(model, TODAY);
     expect(line?.tone).toBe('note');
     expect(line?.text).toContain('Billing decides first, by 5 Jan');
     expect(line?.link?.screen).toBe('ask');
@@ -134,28 +136,28 @@ describe('the ask', () => {
         blocks: ['wi:pause-endpoint'],
       },
     ];
-    const [line] = askLines(withPlan({ questions }));
+    const [line] = askLines(withPlan({ questions }), TODAY);
     expect(line?.tone).toBe('warn');
     expect(line?.text).toContain('answer was due 5 Jan 2001');
     expect(line?.text).toContain('more have to be settled before approval');
   });
 
   it('says who has not rated when nothing is left to decide', () => {
-    const [line] = askLines(withPlan({ questions: [], decisions: [] }));
-    expect(line?.text).toMatch(/^Nothing is left to decide; .* not rated/);
+    const [line] = askLines(withPlan({ questions: [], decisions: [] }), TODAY);
+    expect(line?.text).toMatch(/^Nothing is left to decide; .* not rated/u);
     const rated = withPlan({
       questions: [],
       decisions: [],
       commitment: base.teams.map((t) => ({ team: t.id, confidence: 4 })),
     });
-    expect(askLines(rated)[0]?.text).toContain('can approve it by merging');
+    expect(askLines(rated, TODAY)[0]?.text).toContain('can approve it by merging');
   });
 
   it('leads with a team that is not confident', () => {
     const model = withPlan({
       commitment: [{ team: 'team:subs', confidence: 1, note: 'Too big.' }],
     });
-    const lines = askLines(model);
+    const lines = askLines(model, TODAY);
     expect(lines[0]?.tone).toBe('warn');
     expect(lines[0]?.text).toContain('The owner rethinks the plan before approving it.');
   });
@@ -174,13 +176,15 @@ describe('the ask', () => {
         },
       ],
     };
-    expect(askLines(withPlan({ meta }))[0]?.text).toBe('Teams build from 1.2, approved 25 Sep.');
+    expect(askLines(withPlan({ meta }), TODAY)[0]?.text).toBe(
+      'Teams build from 1.2, approved 25 Sep.',
+    );
   });
 
   it('says where an approved plan stands once work has begun, and when it is done', () => {
     const meta = { ...base.meta, status: 'committed' as const };
     const issues = (base.work_items ?? []).map((w, i) => ({ ...w, github_issue: i + 1 }));
-    const started = askLines(withPlan({ meta, work_items: issues }));
+    const started = askLines(withPlan({ meta, work_items: issues }), TODAY);
     expect(started.length).toBeLessThanOrEqual(1);
     const model = withPlan({ meta, work_items: issues });
     expect(planStage(model)).toBe('in-delivery');
@@ -209,7 +213,7 @@ describe('the cover', () => {
 
   it('opens a door to each team with something to do', () => {
     const model = withPlan({});
-    const cover = coverOf(model);
+    const cover = coverOf(model, TODAY);
     expect(cover.title).toBe(base.meta.title);
     expect(cover.teams).toEqual(teamsWithWork(model));
     expect(cover.teams).toContain('team:subs');

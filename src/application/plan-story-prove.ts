@@ -168,10 +168,11 @@ const many = (n: number): string => (n === 1 ? 'one has' : `${numWord(n)} have`)
 
 function untestedPart(model: Model, cut: Cut, lens: string | undefined): string {
   const team = lens === undefined ? null : teamName(model, lens);
-  if (cut.untested.length === 1)
+  if (cut.untested.length === 1) {
     return team === null
       ? 'Every change but one has a test'
       : `${team}’s part: every change but one has a test`;
+  }
   const of = `${numWord(cut.untested.length)} of the ${numWord(cut.total)}`;
   const whose = team === null ? 'changes' : `${team} changes`;
   return `No test proves ${of} ${whose}`;
@@ -179,10 +180,12 @@ function untestedPart(model: Model, cut: Cut, lens: string | undefined): string 
 
 /** The part of the headline about tests of the end-to-end kind, once every change has one. */
 function reachPart(every: string, reach: E2eReach | null): string {
-  if (reach === null || (reach.none.length === 0 && reach.partial.length === 0))
+  if (reach === null || (reach.none.length === 0 && reach.partial.length === 0)) {
     return `${every}, and each is covered end to end`;
-  if (reach.none.length > 0)
+  }
+  if (reach.none.length > 0) {
     return `${every}, but no end-to-end test covers ${namesOf(reach.none.map(quoted))}`;
+  }
   const verb = reach.partial.length === 1 ? 'is' : 'are';
   return `${every}, but ${namesOf(reach.partial.map(quoted))} ${verb} covered only in part`;
 }
@@ -190,8 +193,8 @@ function reachPart(every: string, reach: E2eReach | null): string {
 function leadOf(
   model: Model,
   cut: Cut,
-  opts: { lens: string | undefined; reach: E2eReach | null },
-): { part: string; weakest: Weakest | null } {
+  opts: { readonly lens: string | undefined; readonly reach: E2eReach | null },
+): { readonly part: string; readonly weakest: Weakest | null } {
   const { lens, reach } = opts;
   const every =
     lens === undefined
@@ -201,18 +204,21 @@ function leadOf(
     const ids3 = ids.slice(0, WEAK_SHOWN);
     return { kind, ids: ids3, more: ids.length - ids3.length };
   };
-  if (cut.untested.length > 0)
+  if (cut.untested.length > 0) {
     return { part: untestedPart(model, cut, lens), weakest: weak('No test at all', cut.untested) };
-  if (cut.unitOnly.length > 0)
+  }
+  if (cut.unitOnly.length > 0) {
     return {
       part: `${every}, but ${many(cut.unitOnly.length)} unit tests only`,
       weakest: weak('Unit tests only', cut.unitOnly),
     };
-  if (cut.noE2e.length > 0)
+  }
+  if (cut.noE2e.length > 0) {
     return {
       part: `${every}, but ${many(cut.noE2e.length)} no end-to-end test`,
       weakest: weak('No end-to-end test', cut.noE2e),
     };
+  }
   if (cut.total === 0) return { part: 'No changes in this team’s part to prove', weakest: null };
   return { part: reachPart(every, reach), weakest: null };
 }
@@ -223,17 +229,18 @@ function leadOf(
  */
 export function coverageHeadline(
   model: Model,
-  opts: { lens?: string; reach?: E2eReach } = {},
+  opts: { readonly lens?: string; readonly reach?: E2eReach } = {},
 ): CoverageHead {
   const cut = cutOf(model, opts.lens);
   const { part, weakest } = leadOf(model, cut, { lens: opts.lens, reach: opts.reach ?? null });
   const parts = [part];
-  if (cut.unrun > 0)
+  if (cut.unrun > 0) {
     parts.push(
       cut.unrun === 1
         ? 'one test claims a change but never runs its steps'
         : `${numWord(cut.unrun)} tests claim a change but never run its steps`,
     );
+  }
   const fitted = fitParts(parts);
   return { headline: fitted.headline, rest: fitted.rest, weakest };
 }

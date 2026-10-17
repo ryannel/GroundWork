@@ -27,8 +27,8 @@ import type { Fanout } from '@/domain/plan/plan-graph';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 export interface Findings {
-  errors: Issue[];
-  warnings: Issue[];
+  readonly errors: readonly Issue[];
+  readonly warnings: readonly Issue[];
 }
 
 function dedupeIssues(list: readonly Issue[]): Issue[] {
@@ -60,9 +60,9 @@ const GRAPH_CHECKS: ((ctx: CheckContext, rep: Report) => void)[] = [
 
 export interface ValidateOptions {
   /** Federation fan-out (graph queries); defaults to the federated fan-out. */
-  fanout?: Fanout | undefined;
+  readonly fanout?: Fanout | undefined;
   /** Schema check for entities a modify op changed; without it that recheck is skipped. */
-  shape?: ShapeCheck;
+  readonly shape?: ShapeCheck;
 }
 
 /** The cross-reference checks of a schema-valid plan. Schema errors come first, from the store. */

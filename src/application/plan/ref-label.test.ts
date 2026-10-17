@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { derive } from '@/application/plan/derive';
 import { refLabel, setRefLabel } from '@/application/plan/ref-label';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 

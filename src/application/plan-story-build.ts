@@ -10,7 +10,7 @@ import type { WorkItem } from '@/domain/plan/plan.generated';
 // What leads the build chapter: one claim per state of the work. Before delivery, what gates it; in delivery, who has
 // work left; delivered, that it is. The cards themselves are the board's.
 
-const TITLE_BREAK = /[(:;,—–]/;
+const TITLE_BREAK = /[(:;,—–]/u;
 const TITLE_MAX = 48;
 const PATH_TEAMS = 2;
 const SIZE_ORDER = ['XL', 'L'] as const;
@@ -38,9 +38,10 @@ function firstGate(model: Model, sum: BuildSummary): FirstGate | null {
   return null;
 }
 
-function deliveredHeadline(sum: BuildSummary): string {
+function deliveredHeadline(model: Model, sum: BuildSummary): string {
   const done = sum.total === 1 ? 'the work item is' : `all ${String(sum.total)} work items`;
-  const closed = sum.closed === null ? '' : `; the last milestone closed ${shortDate(sum.closed)}`;
+  const closed =
+    sum.closed === null ? '' : `; the last milestone closed ${shortDate(sum.closed, model.today)}`;
   return `Delivered: ${done} done${closed}.`;
 }
 
@@ -74,14 +75,16 @@ function waitsHeadline(model: Model, sum: BuildSummary): string {
   return capital(`${path}the rest can be built in parallel.`);
 }
 
+const NO_WORK = 'No work items yet.';
+
 /** 7.1's headline, one claim per state. */
 export function orderHeadline(
   model: Model,
   sum: BuildSummary,
   waves: readonly (readonly string[])[],
 ): string {
-  if (sum.total === 0) return 'No work items yet.';
-  if (sum.delivered) return deliveredHeadline(sum);
+  if (sum.total === 0) return NO_WORK;
+  if (sum.delivered) return deliveredHeadline(model, sum);
   if (sum.started) return startedHeadline(model, sum);
   if (!waves.some((w) => w.length > 1)) {
     return 'Every step needs the one before it, so nothing can be built in parallel.';
@@ -93,7 +96,7 @@ function deliveredWork(model: Model, sum: BuildSummary): string {
   const by = new Map<string, number>();
   for (const w of sum.items) by.set(w.team, (by.get(w.team) ?? 0) + 1);
   const [top] = [...by].toSorted((a, b) => b[1] - a[1]);
-  if (top === undefined) return 'No work items yet.';
+  if (top === undefined) return NO_WORK;
   const [team, n] = top;
   const who = teamName(model, team);
   if (by.size === 1) return `${who} built all ${String(sum.total)} work items.`;
@@ -128,7 +131,7 @@ function pathWork(model: Model, sum: BuildSummary): string {
 
 /** 7.3's headline: who carries the critical path before delivery, who has what is left in delivery. */
 export function workHeadline(model: Model, sum: BuildSummary): string {
-  if (sum.total === 0) return 'No work items yet.';
+  if (sum.total === 0) return NO_WORK;
   if (sum.delivered) return deliveredWork(model, sum);
   return sum.started ? leftWork(model, sum) : pathWork(model, sum);
 }

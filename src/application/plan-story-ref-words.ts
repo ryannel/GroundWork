@@ -126,7 +126,7 @@ function tests(model: Model): RefHead {
 }
 
 function work(model: Model): RefHead {
-  const sum = buildSummary(model);
+  const sum = buildSummary(model, model.today);
   const done = sum.started ? `, ${String(sum.done)} done` : '';
   return {
     headline:

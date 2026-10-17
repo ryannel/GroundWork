@@ -34,29 +34,35 @@ import type {
 // A node is an entity plus the `$`-props the graph derives. Children (fields, steps, endpoints,
 // regions) are nodes themselves, and `$type` narrows a PlanNode to one entity.
 interface NodeMeta<K extends EntityType> {
-  $type: K;
-  $path: PathSegment[];
-  $parent?: string;
-  $index?: number;
-  $seq?: number;
-  $service?: string;
+  readonly $type: K;
+  readonly $path: readonly PathSegment[];
+  readonly $parent?: string;
+  readonly $index?: number;
+  readonly $seq?: number;
+  readonly $service?: string;
 }
 
 export type TeamNode = Team & NodeMeta<'team'>;
 export type SystemNode = System & NodeMeta<'system'>;
 export type ServiceNode = Service & NodeMeta<'service'>;
 export type StoreNode = Store & NodeMeta<'store'>;
-export type FieldNode = Field & { id: string } & NodeMeta<'field'>;
-export type SchemaNode = Omit<Schema, 'fields'> & { fields: FieldNode[] } & NodeMeta<'schema'>;
+export type FieldNode = Field & { readonly id: string } & NodeMeta<'field'>;
+export type SchemaNode = Omit<Schema, 'fields'> & {
+  readonly fields: readonly FieldNode[];
+} & NodeMeta<'schema'>;
 export type EndpointNode = Endpoint & NodeMeta<'endpoint'>;
 export type InterfaceNode = Omit<Interface, 'endpoints'> & {
-  endpoints: EndpointNode[];
+  readonly endpoints: readonly EndpointNode[];
 } & NodeMeta<'interface'>;
 export type MessageNode = Message & NodeMeta<'message'>;
 export type StepNode = Step & NodeMeta<'step'>;
-export type FlowNode = Omit<Flow, 'steps'> & { steps: StepNode[] } & NodeMeta<'flow'>;
+export type FlowNode = Omit<Flow, 'steps'> & {
+  readonly steps: readonly StepNode[];
+} & NodeMeta<'flow'>;
 export type RegionNode = Region & NodeMeta<'region'>;
-export type ScreenNode = Omit<Screen, 'regions'> & { regions: RegionNode[] } & NodeMeta<'screen'>;
+export type ScreenNode = Omit<Screen, 'regions'> & {
+  readonly regions: readonly RegionNode[];
+} & NodeMeta<'screen'>;
 export type GraphNode = Graph & NodeMeta<'graph'>;
 export type SubgraphNode = Subgraph & NodeMeta<'subgraph'>;
 export type OperationNode = Operation & NodeMeta<'operation'>;
@@ -86,91 +92,91 @@ export type PlanNode =
   | HandlerNode;
 
 export interface SystemGraph {
-  readonly byId: Map<string, PlanNode>;
-  readonly duplicates: PlanNode[];
-  readonly teams: TeamNode[];
-  readonly systems: SystemNode[];
-  readonly services: ServiceNode[];
-  readonly stores: StoreNode[];
-  readonly schemas: SchemaNode[];
-  readonly fields: FieldNode[];
-  readonly interfaces: InterfaceNode[];
-  readonly endpoints: EndpointNode[];
-  readonly messages: MessageNode[];
-  readonly flows: FlowNode[];
-  readonly steps: StepNode[];
-  readonly screens: ScreenNode[];
-  readonly regions: RegionNode[];
-  readonly interactions: InteractionNode[];
-  readonly userJourneys: UserJourneyNode[];
-  readonly graphs: GraphNode[];
-  readonly subgraphs: SubgraphNode[];
-  readonly operations: OperationNode[];
-  readonly handlers: HandlerNode[];
-  get: (id: string | null | undefined) => PlanNode | undefined;
-  has: (id: string) => boolean;
+  readonly byId: ReadonlyMap<string, PlanNode>;
+  readonly duplicates: readonly PlanNode[];
+  readonly teams: readonly TeamNode[];
+  readonly systems: readonly SystemNode[];
+  readonly services: readonly ServiceNode[];
+  readonly stores: readonly StoreNode[];
+  readonly schemas: readonly SchemaNode[];
+  readonly fields: readonly FieldNode[];
+  readonly interfaces: readonly InterfaceNode[];
+  readonly endpoints: readonly EndpointNode[];
+  readonly messages: readonly MessageNode[];
+  readonly flows: readonly FlowNode[];
+  readonly steps: readonly StepNode[];
+  readonly screens: readonly ScreenNode[];
+  readonly regions: readonly RegionNode[];
+  readonly interactions: readonly InteractionNode[];
+  readonly userJourneys: readonly UserJourneyNode[];
+  readonly graphs: readonly GraphNode[];
+  readonly subgraphs: readonly SubgraphNode[];
+  readonly operations: readonly OperationNode[];
+  readonly handlers: readonly HandlerNode[];
+  readonly get: (id: string | null | undefined) => PlanNode | undefined;
+  readonly has: (id: string) => boolean;
 }
 
 /** The system half of a plan: the base arrays only. */
 export interface SystemSource {
-  teams: Team[];
-  systems: System[];
-  services: Service[];
-  stores: Store[];
-  schemas: Schema[];
-  interfaces: Interface[];
-  messages: Message[];
-  flows: Flow[];
-  screens: Screen[];
-  interactions: Interaction[];
-  user_journeys: UserJourney[];
-  graphs: Graph[];
-  subgraphs: Subgraph[];
-  operations: Operation[];
-  handlers: Handler[];
+  readonly teams: readonly Team[];
+  readonly systems: readonly System[];
+  readonly services: readonly Service[];
+  readonly stores: readonly Store[];
+  readonly schemas: readonly Schema[];
+  readonly interfaces: readonly Interface[];
+  readonly messages: readonly Message[];
+  readonly flows: readonly Flow[];
+  readonly screens: readonly Screen[];
+  readonly interactions: readonly Interaction[];
+  readonly user_journeys: readonly UserJourney[];
+  readonly graphs: readonly Graph[];
+  readonly subgraphs: readonly Subgraph[];
+  readonly operations: readonly Operation[];
+  readonly handlers: readonly Handler[];
 }
 
 export type OpKind = 'add' | 'modify' | 'deprecate' | 'remove';
 
 export interface OpProblem {
-  code: string;
+  readonly code: string;
   /** Path segments relative to the op. */
-  at: PathSegment[];
-  message: string;
+  readonly at: readonly PathSegment[];
+  readonly message: string;
 }
 
 export interface PropChange {
-  prop: string;
-  change: 'set' | 'append' | 'drop';
-  before: unknown;
-  after: unknown;
-  values?: unknown[];
+  readonly prop: string;
+  readonly change: 'set' | 'append' | 'drop';
+  readonly before: unknown;
+  readonly after: unknown;
+  readonly values?: readonly unknown[];
 }
 
 /** What one op did to the as-is system, in ledger order. */
 export interface OpRecord {
-  kind: OpKind | null;
-  changeId: string | undefined;
-  changeIndex: number;
-  opIndex: number;
-  path: PathSegment[];
-  target: string | null;
-  type: EntityType | null;
-  ids: string[];
-  parent?: string | null;
-  afterId?: string | null;
-  value?: unknown;
-  props: PropChange[];
-  replacedBy?: string | null;
-  removed?: unknown;
-  problems: OpProblem[];
-  warnings: OpProblem[];
+  readonly kind: OpKind | null;
+  readonly changeId: string | undefined;
+  readonly changeIndex: number;
+  readonly opIndex: number;
+  readonly path: readonly PathSegment[];
+  readonly target: string | null;
+  readonly type: EntityType | null;
+  readonly ids: readonly string[];
+  readonly parent?: string | null;
+  readonly afterId?: string | null;
+  readonly value?: unknown;
+  readonly props: readonly PropChange[];
+  readonly replacedBy?: string | null;
+  readonly removed?: unknown;
+  readonly problems: readonly OpProblem[];
+  readonly warnings: readonly OpProblem[];
 }
 
 export interface AppliedOps {
-  system: SystemSource;
-  records: OpRecord[];
-  origins: Map<string, PathSegment[]>;
+  readonly system: SystemSource;
+  readonly records: readonly OpRecord[];
+  readonly origins: ReadonlyMap<string, readonly PathSegment[]>;
 }
 
 /** An entity that lives outside the system graphs. */
@@ -178,41 +184,41 @@ export type PlanEntity =
   Change | Test | Milestone | WorkItem | Decision | Risk | Question | Scenario | Concept | Stage;
 
 export interface PlanEntry {
-  id: string;
-  type: EntityType;
-  entity: PlanEntity;
+  readonly id: string;
+  readonly type: EntityType;
+  readonly entity: PlanEntity;
   /** Where the entity sits in plan.yaml. */
-  path: PathSegment[];
+  readonly path: readonly PathSegment[];
 }
 
 export interface FanoutCall {
-  from: string;
-  to: string;
-  via: string | null;
-  kind: 'api' | 'msg' | 'internal';
+  readonly from: string;
+  readonly to: string;
+  readonly via: string | null;
+  readonly kind: 'api' | 'msg' | 'internal';
   /** True for a call the gateway makes on the step's behalf, not one the step names. */
-  fanout: boolean;
-  subgraph?: string;
+  readonly fanout: boolean;
+  readonly subgraph?: string;
 }
 
 export interface FanoutRead {
-  svc: string | null;
-  store: string | null;
-  rw: 'read' | 'write';
-  ref: string | null;
-  field?: string;
-  cache?: boolean;
+  readonly svc: string | null;
+  readonly store: string | null;
+  readonly rw: 'read' | 'write';
+  readonly ref: string | null;
+  readonly field?: string;
+  readonly cache?: boolean;
 }
 
 /** What a step reaches once its `via` is expanded; the federation port fills in the operation case. */
 export interface FanoutResult {
-  calls: FanoutCall[];
-  data: FanoutRead[];
-  purges: { svc: string | null; store: string }[];
-  refs: string[];
-  services: string[];
-  subgraphs: string[];
-  operation: string | null;
+  readonly calls: readonly FanoutCall[];
+  readonly data: readonly FanoutRead[];
+  readonly purges: readonly { readonly svc: string | null; readonly store: string }[];
+  readonly refs: readonly string[];
+  readonly services: readonly string[];
+  readonly subgraphs: readonly string[];
+  readonly operation: string | null;
 }
 
 export type Fanout = (g: SystemGraph, step: StepNode) => FanoutResult;

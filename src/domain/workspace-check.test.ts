@@ -30,8 +30,8 @@ describe('checkWorkspace', () => {
     const map: Workspace = {
       ...workspace([{ id: 'd', name: 'D', purpose: null, systems: [system('s')] }]),
       actors: [
-        { id: 'actor:a', name: 'A', summary: null, uses: ['s:c'] },
-        { id: 'actor:a', name: 'A', summary: null, uses: ['gone'] },
+        { id: 'actor:a', name: 'A', summary: null, uses: ['s:c'], customer: false },
+        { id: 'actor:a', name: 'A', summary: null, uses: ['gone'], customer: false },
       ],
     };
     expect(checkWorkspace(map).errors).toEqual([
@@ -91,6 +91,9 @@ describe('checkWorkspace', () => {
       checkWorkspace(workspace([{ id: 'd', name: 'D', purpose: null, systems: [system('flows')] }]))
         .errors,
     ).toContain("system flows: the id is reserved for the domain's flows pages");
+    expect(checkWorkspace({ ...workspace([]), id: 'design' }).errors).toContain(
+      'workspace design: the id is reserved for the design page',
+    );
     expect(
       checkWorkspace(workspace([{ id: 'd', name: 'D', purpose: null, systems: [] }])).warnings,
     ).toEqual(['domain d: has no systems yet']);

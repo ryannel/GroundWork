@@ -34,7 +34,10 @@ interface Link {
 }
 
 /** Each edge gets its own vertical lane in the gap before its target column, the critical one nearest the target. */
-function lanes(links: readonly Link[], at: { grid: Grid; frame: Frame; hot: ReadonlySet<string> }) {
+function lanes(
+  links: readonly Link[],
+  at: { readonly grid: Grid; readonly frame: Frame; readonly hot: ReadonlySet<string> },
+) {
   const { grid, frame, hot } = at;
   const lane = new Map<string, number>();
   const byCol = Map.groupBy(links, (e) => grid.col.get(e.to) ?? 0);
@@ -69,7 +72,7 @@ function kindOf(key: string, hot: ReadonlySet<string>, bad: ReadonlySet<string>)
 /** The arrows between the work items, the critical path's on top and the sequencing problems' beneath it. */
 export function edgesOf(
   model: Model,
-  at: { items: readonly WorkItem[]; grid: Grid; frame: Frame },
+  at: { readonly items: readonly WorkItem[]; readonly grid: Grid; readonly frame: Frame },
   path: readonly string[],
 ): DagEdge[] {
   const { items, grid, frame } = at;

@@ -1,36 +1,36 @@
 /** A rectangle in drawing coordinates. */
 export interface Bounds {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
+  readonly x: number;
+  readonly y: number;
+  readonly w: number;
+  readonly h: number;
 }
 
 /** Where the drawing sits in its panel: a scale and an offset in panel pixels. */
 export interface PaneView {
-  s: number;
-  x: number;
-  y: number;
+  readonly s: number;
+  readonly x: number;
+  readonly y: number;
   /** Framed to show the whole drawing. */
-  fit: boolean;
+  readonly fit: boolean;
   /** Framed on the selected interaction. */
-  focus: boolean;
+  readonly focus: boolean;
 }
 
 export interface Framing {
   /** The drawn size. */
-  w: number;
-  h: number;
+  readonly w: number;
+  readonly h: number;
   /** The panel's size. */
-  vw: number;
-  vh: number;
+  readonly vw: number;
+  readonly vh: number;
   /** What the selected interaction takes up; null when nothing is selected. */
-  bounds?: Bounds | null;
+  readonly bounds?: Bounds | null;
   /** Large drawings frame the selection at no less than this scale. */
-  readable?: number;
-  focus?: boolean;
+  readonly readable?: number;
+  readonly focus?: boolean;
   /** The smallest scale Fit may use. */
-  minFit?: number;
+  readonly minFit?: number;
 }
 
 export type ZoomCommand = 'in' | 'out' | 'reset' | 'fit' | 'focus';
@@ -46,7 +46,11 @@ const LINE_HEIGHT_PX = 20;
 
 const clampZoom = (s: number): number => Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, s));
 
-function centred(offset: number, size: number, room: { viewport: number; scale: number }): number {
+function centred(
+  offset: number,
+  size: number,
+  room: { readonly viewport: number; readonly scale: number },
+): number {
   const { viewport, scale } = room;
   const drawn = size * scale;
   if (drawn <= viewport) return (viewport - drawn) / 2;
@@ -84,7 +88,11 @@ export function frameDiagram(framing: Framing): PaneView {
 }
 
 /** Zoom to a scale, keeping the point under `at` where it is. */
-export function zoomAbout(view: PaneView, scale: number, at: { x: number; y: number }): PaneView {
+export function zoomAbout(
+  view: PaneView,
+  scale: number,
+  at: { readonly x: number; readonly y: number },
+): PaneView {
   const s = clampZoom(scale);
   return {
     s,
@@ -119,8 +127,8 @@ export const panned = (view: PaneView, x: number, y: number): PaneView => ({
 /** Does the panel leave part of the drawing out of sight? */
 export function isPartial(
   view: PaneView,
-  drawn: { w: number; h: number },
-  panel: { vw: number; vh: number },
+  drawn: { readonly w: number; readonly h: number },
+  panel: { readonly vw: number; readonly vh: number },
 ): boolean {
   return !(
     view.x >= -1 &&
@@ -148,10 +156,14 @@ const KEYS: Readonly<Record<string, ZoomCommand>> = {
 export const zoomKey = (key: string): ZoomCommand | null => KEYS[key] ?? null;
 
 /** Which edges of a sideways-scrolling panel have more behind them. */
-export function scrollCue(box: { scrollLeft: number; scrollWidth: number; clientWidth: number }): {
-  more: boolean;
-  left: boolean;
-  right: boolean;
+export function scrollCue(box: {
+  readonly scrollLeft: number;
+  readonly scrollWidth: number;
+  readonly clientWidth: number;
+}): {
+  readonly more: boolean;
+  readonly left: boolean;
+  readonly right: boolean;
 } {
   const more = box.scrollWidth - box.clientWidth > 4;
   return {

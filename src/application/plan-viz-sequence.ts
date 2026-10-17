@@ -65,7 +65,11 @@ export interface SeqViewOptions {
 const isStore = (model: Model, id: string): boolean =>
   prop(model.get(id), '$type') === 'store' || id.startsWith('st:');
 
-function partOf(model: Model, mode: FlowMode, at: { id: string; col: number }): SeqPart {
+function partOf(
+  model: Model,
+  mode: FlowMode,
+  at: { readonly id: string; readonly col: number },
+): SeqPart {
   const { id, col } = at;
   const [glyph, word] = nodeType(id, model.get(id));
   const team = teamOf(model, id);
@@ -98,15 +102,17 @@ interface Bracket {
 /** The tests' brackets over the cell rows they cover, each in the first lane that is free there. */
 function bracketsOf(
   model: Model,
-  flow: { id: string; mode: FlowMode },
+  flow: { readonly id: string; readonly mode: FlowMode },
   rowOf: ReadonlyMap<string, number>,
 ): Bracket[] {
   const ends: number[] = [];
   const out: Omit<Bracket, 'n'>[] = [];
-  for (const sp of model.spans(flow.id, flow.mode === 'asIs' ? 'asIs' : 'toBe')) {
+  const spans = model.spans(flow.id, flow.mode === 'asIs' ? 'asIs' : 'toBe').flatMap((sp) => {
     const a = rowOf.get(sp.from ?? '');
     const b = rowOf.get(sp.to ?? '');
-    if (a === undefined || b === undefined) continue;
+    return a === undefined || b === undefined ? [] : [{ sp, a, b }];
+  });
+  for (const { sp, a, b } of spans) {
     const free = ends.findIndex((end) => end < a);
     const lane = free === -1 ? ends.length : free;
     if (lane >= MAX_LANES) continue;
@@ -165,7 +171,6 @@ function ctxOf(model: Model, opts: SeqViewOptions, shape: Shape): Ctx {
     model,
     mode: shape.mode,
     cur,
-    curMin: cur.size > 0 ? Math.min(...cur) : Number.POSITIVE_INFINITY,
     off,
     cols: Math.min(shape.parts.length + off, MAX_COLS),
     participants: shape.parts,

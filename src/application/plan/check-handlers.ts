@@ -17,31 +17,40 @@ const DANGLING =
   'fix the id, or define it (in the base arrays if it runs today, as an add op if the plan introduces it)';
 
 interface Scope {
-  ctx: CheckContext;
-  rep: Report;
-  g: SystemGraph;
+  readonly ctx: CheckContext;
+  readonly rep: Report;
+  readonly g: SystemGraph;
 }
 
-const at = (s: Scope, node: { id: string; $path: PlanNode['$path'] }, ref: PropRef) =>
-  whereAt({ ctx: s.ctx, g: s.g }, node, ref);
+const at = (
+  s: Scope,
+  node: { readonly id: string; readonly $path: PlanNode['$path'] },
+  ref: PropRef,
+) => whereAt({ ctx: s.ctx, g: s.g }, node, ref);
 
-function checkStepRef(s: Scope, h: HandlerNode, [ref, rel]: [StepRef, PlanNode['$path']]): void {
+function checkStepRef(
+  s: Scope,
+  h: HandlerNode,
+  [ref, rel]: readonly [StepRef, PlanNode['$path']],
+): void {
   const where = at(s, h, { prop: 'steps', rel: [...rel, ref.prop] });
   const type = typeOf(ref.id);
-  if (!s.g.has(ref.id)) s.rep.err(where, `${ref.id} does not exist; ${DANGLING}`);
+  if (!s.g.has(ref.id)) s.rep.error(where, `${ref.id} does not exist; ${DANGLING}`);
   else if (type === null || !ref.expect.includes(type)) {
-    s.rep.err(where, `${ref.id} is a ${String(type)}; expected ${ref.expect.join(' or ')}`);
+    s.rep.error(where, `${ref.id} is a ${String(type)}; expected ${ref.expect.join(' or ')}`);
   }
 }
 
-const unsourced = (x: { origin?: string; sources?: HandlerSource[] }): boolean =>
-  x.origin === 'extracted' && (x.sources ?? []).length === 0;
+const unsourced = (x: {
+  readonly origin?: string;
+  readonly sources?: readonly HandlerSource[];
+}): boolean => x.origin === 'extracted' && (x.sources ?? []).length === 0;
 
 function checkSteps(s: Scope, h: HandlerNode): void {
   for (const w of walkHandler(h)) {
     for (const ref of stepRefs(w.step)) checkStepRef(s, h, [ref, w.path]);
     if (unsourced(w.step)) {
-      s.rep.err(
+      s.rep.error(
         at(s, h, { prop: 'steps', rel: [...w.path, 'origin'] }),
         'an extracted step must say where it was read: add sources ({repo, path, lines, commit})',
       );
@@ -50,7 +59,10 @@ function checkSteps(s: Scope, h: HandlerNode): void {
 }
 
 /** The services whose screens an interaction starts from. */
-function interactionServices(g: SystemGraph, n: PlanNode & { $type: 'interaction' }): string[] {
+function interactionServices(
+  g: SystemGraph,
+  n: PlanNode & { readonly $type: 'interaction' },
+): string[] {
   return n.from.flatMap((id) => {
     const screen = g.get(parentOf(id) ?? id);
     return screen?.$type === 'screen' ? [screen.service] : [];
@@ -76,18 +88,18 @@ function checkOn(s: Scope, h: HandlerNode): void {
   if (h.on.startsWith('job:')) return;
   const where = at(s, h, 'on');
   if (!s.g.has(h.on)) {
-    s.rep.err(where, `${h.on} does not exist; ${DANGLING}`);
+    s.rep.error(where, `${h.on} does not exist; ${DANGLING}`);
     return;
   }
   const why = onMismatch(s.g, h);
-  if (why !== null) s.rep.err(where, why);
+  if (why !== null) s.rep.error(where, why);
 }
 
 function checkHandler(s: Scope, h: HandlerNode): void {
   checkOn(s, h);
   checkSteps(s, h);
   if (unsourced(h)) {
-    s.rep.err(
+    s.rep.error(
       at(s, h, 'origin'),
       `${h.id} was extracted from code but has no sources; add where it was read ({repo, path, lines, commit})`,
     );
@@ -109,7 +121,7 @@ function callsByComponent(g: SystemGraph): Map<string, Set<string>> {
 }
 
 /** A flow step that calls an endpoint should match a call in a handler of its caller, once the caller has any. */
-function checkFlowCalls(s: Scope, steps: readonly (PlanNode & { $type: 'step' })[]): void {
+function checkFlowCalls(s: Scope, steps: readonly (PlanNode & { readonly $type: 'step' })[]): void {
   const calls = callsByComponent(s.g);
   for (const step of steps) {
     const known = calls.get(step.from);

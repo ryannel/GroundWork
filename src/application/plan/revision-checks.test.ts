@@ -10,7 +10,7 @@ import {
 import { validatePlan } from '@/application/plan/validate-plan';
 import type { Plan } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -65,14 +65,14 @@ const metaErrors = async (mutate: Mutate) => {
 describe('revision ledger checks', () => {
   it('a clean ledger validates', async () => {
     const list = [A, { ...P, summary: 'split the topic', by: ['team:web'] }];
-    expect(await metaErrors(ledger(list))).toEqual([]);
+    await expect(metaErrors(ledger(list))).resolves.toEqual([]);
   });
 
   it('versions ascend numerically (1.10 follows 1.9)', async () => {
     await expectError(
       ledger([A, { ...P, version: '1.0' }]),
       'meta.revisions[1].version',
-      /does not follow 1\.0/,
+      /does not follow 1\.0/u,
     );
     await expectError(
       ledger([
@@ -80,20 +80,20 @@ describe('revision ledger checks', () => {
         { ...P, version: '1.9' },
       ]),
       'meta.revisions[1].version',
-      /does not follow 1\.10/,
+      /does not follow 1\.10/u,
     );
     const ascending = ledger([
       { ...A, version: '1.9' },
       { ...P, version: '1.10' },
     ]);
-    expect(await metaErrors(ascending)).toEqual([]);
+    await expect(metaErrors(ascending)).resolves.toEqual([]);
   });
 
   it('only the last entry may be proposed', async () => {
     await expectError(
       ledger([{ ...P, version: '1.0' }, P]),
       'meta.revisions[0].status',
-      /only the last entry can be proposed/,
+      /only the last entry can be proposed/u,
     );
   });
 
@@ -101,17 +101,20 @@ describe('revision ledger checks', () => {
     await expectError(
       meta({ revisions: [A, P], version: '1.0' }),
       'meta.version',
-      /meta\.revisions says this file is version 1\.1/,
+      /meta\.revisions says this file is version 1\.1/u,
     );
     await expectError(
       meta({ revisions: [A, { ...P, status: 'rejected' }], version: '1.1' }),
       'meta.version',
-      /meta\.revisions says this file is version 1\.0/,
+      /meta\.revisions says this file is version 1\.0/u,
     );
     await expectError(
-      meta({ revisions: [A], version: undefined }),
+      (p) => {
+        Object.assign(p.meta, { revisions: [A] });
+        Reflect.deleteProperty(p.meta, 'version');
+      },
       'meta.version',
-      /no meta\.version/,
+      /no meta\.version/u,
     );
   });
 
@@ -119,50 +122,50 @@ describe('revision ledger checks', () => {
     await expectError(
       ledger([A, { ...P, by: ['team:nope'] }]),
       'meta.revisions[1].by[0]',
-      /not a team in this plan/,
+      /not a team in this plan/u,
     );
-    expect(await metaErrors(ledger([A, { ...P, by: ['Ops guild'] }]))).toEqual([]);
+    await expect(metaErrors(ledger([A, { ...P, by: ['Ops guild'] }]))).resolves.toEqual([]);
   });
 
   it("the head's work words must name work items", async () => {
     await expectError(
       ledger([A, { ...P, work: [{ item: 'wi:nope', action: 'rework' }] }]),
       'meta.revisions[1].work[0].item',
-      /not a work item in this plan/,
+      /not a work item in this plan/u,
     );
     const dropped = ledger([A, { ...P, work: [{ item: 'wi:gone', action: 'drop' }] }]);
-    expect(await metaErrors(dropped)).toEqual([]);
+    await expect(metaErrors(dropped)).resolves.toEqual([]);
   });
 
   it('approval fields match the status', async () => {
     await expectWarning(
       ledger([{ version: '1.0', status: 'approved', date: '2026-09-01' }]),
       'meta.revisions[0]',
-      /no approved_on/,
+      /no approved_on/u,
     );
     await expectWarning(
       ledger([{ ...P, version: '1.0', approved_on: '2026-09-02' }]),
       'meta.revisions[0]',
-      /carries approval fields/,
+      /carries approval fields/u,
     );
     await expectWarning(
       meta({ revisions: [{ version: '1.0', status: 'rejected', date: '2026-09-01' }] }),
       'meta.revisions',
-      /every version is rejected/,
+      /every version is rejected/u,
     );
   });
 
   it('a rejection says when and why; a proposal says why', async () => {
     const rejected: RevisionEntry = { ...P, status: 'rejected' };
     const list = ledger([A, rejected, { ...P, version: '1.2', why: 'x' }]);
-    await expectWarning(list, 'meta.revisions[1]', /says nobody why/);
-    await expectWarning(list, 'meta.revisions[1]', /no rejected_on/);
+    await expectWarning(list, 'meta.revisions[1]', /says nobody why/u);
+    await expectWarning(list, 'meta.revisions[1]', /no rejected_on/u);
     await expectWarning(
       ledger([A, { ...P, rejected_by: '@x' }]),
       'meta.revisions[1]',
-      /carries rejection fields/,
+      /carries rejection fields/u,
     );
-    await expectWarning(ledger([A, P]), 'meta.revisions[1]', /proposed without a why/);
+    await expectWarning(ledger([A, P]), 'meta.revisions[1]', /proposed without a why/u);
   });
 });
 
@@ -200,7 +203,7 @@ describe('message keys', () => {
     await expectError(
       keyed('no_such_field'),
       'messages[0].key',
-      /is keyed by no_such_field.*use one of subscription_id, status/,
+      /is keyed by no_such_field.*use one of subscription_id, status/u,
     );
     const ok = await run(keyed('status, subscription_id'));
     expect(ok.errors).toEqual([]);

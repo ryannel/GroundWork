@@ -89,15 +89,22 @@ interface Pair {
 function gather(pairs: readonly Pair[]): readonly Link[] {
   const links = new Map<
     string,
-    { from: string; to: string; via: ConnectionKind[]; count: number }
+    {
+      readonly from: string;
+      readonly to: string;
+      readonly via: readonly ConnectionKind[];
+      readonly count: number;
+    }
   >();
   for (const pair of pairs) {
     if (pair.from === pair.to) continue;
     const key = `${pair.from}>${pair.to}`;
     const link = links.get(key) ?? { from: pair.from, to: pair.to, via: [], count: 0 };
-    if (!link.via.includes(pair.via)) link.via.push(pair.via);
-    link.count += pair.weight ?? 1;
-    links.set(key, link);
+    links.set(key, {
+      ...link,
+      via: link.via.includes(pair.via) ? link.via : [...link.via, pair.via],
+      count: link.count + (pair.weight ?? 1),
+    });
   }
   return [...links.values()];
 }

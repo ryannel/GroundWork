@@ -13,7 +13,7 @@ export interface JourneyGroup {
   readonly flows: readonly string[];
 }
 
-const flowsOf = (model: Model): { id: string; name: string }[] => [
+const flowsOf = (model: Model): { readonly id: string; readonly name: string }[] => [
   ...new Map([...model.asIs.flows, ...model.toBe.flows].map((f) => [f.id, f])).values(),
 ];
 
@@ -35,8 +35,9 @@ export function journeyGroups(model: Model): JourneyGroup[] {
     }
   }
   for (const flow of all) {
-    if (!covered.has(flow.id))
+    if (!covered.has(flow.id)) {
       groups.push({ key: keyOf(flow.id), title: flow.name, scenario: null, flows: [flow.id] });
+    }
   }
   return groups;
 }

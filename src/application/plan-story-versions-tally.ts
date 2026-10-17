@@ -14,11 +14,12 @@ const spellOne = (n: number): string => (n === 1 ? 'One' : String(n));
 
 function workItems(x: Tally, { t }: Tense): TallyItem[] {
   const out: TallyItem[] = [];
-  if (x.edges > 0)
+  if (x.edges > 0) {
     out.push({
       text: `${plural(x.edges, 'new dependency', 'new dependencies')} between teams`,
       tone: 'warn',
     });
+  }
   if (x.breaking > 0) out.push({ text: plural(x.breaking, 'breaking field change'), tone: 'warn' });
   if (x.rework > 0) {
     const n = plural(x.rework, 'done work item');
@@ -60,8 +61,9 @@ function stepItems(x: Tally, { t }: Tense): TallyItem[] {
       tone: 'mod',
     });
   }
-  if (x.stepsRemoved > 0)
+  if (x.stepsRemoved > 0) {
     out.push({ text: `${plural(x.stepsRemoved, 'step')} removed`, tone: 'warn' });
+  }
   if (x.carries > 0) {
     const pass = plural(x.carries, 'step passes', 'steps pass');
     const n = plural(x.carries, 'step');

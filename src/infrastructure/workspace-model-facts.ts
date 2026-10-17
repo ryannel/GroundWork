@@ -24,13 +24,13 @@ import {
 /** Reads the facts of the system model, keeping who said each one and where in the code. */
 export interface Reading {
   readonly attribution: Readonly<Record<string, Attribution>>;
-  in: (file: string) => FileReading;
+  readonly in: (file: string) => FileReading;
 }
 
 export interface FileReading {
-  facts: <T>(def: string, entries: readonly unknown[]) => Promise<T[]>;
-  fact: <T>(def: string, raw: unknown) => Promise<T>;
-  detail: (raw: z.output<typeof componentDetail>) => ComponentDetail;
+  readonly facts: <T>(def: string, entries: readonly unknown[]) => Promise<T[]>;
+  readonly fact: <T>(def: string, raw: unknown) => Promise<T>;
+  readonly detail: (raw: z.output<typeof componentDetail>) => ComponentDetail;
 }
 
 type Attribute = (id: string, attribution: Attribution) => void;
@@ -55,11 +55,8 @@ export function readingOf(): Reading {
     };
     return {
       fact,
-      facts: async <T>(def: string, entries: readonly unknown[]): Promise<T[]> => {
-        const out: T[] = [];
-        for (const raw of entries) out.push(await fact<T>(def, raw));
-        return out;
-      },
+      facts: async <T>(def: string, entries: readonly unknown[]): Promise<T[]> =>
+        Promise.all(entries.map(async (raw) => fact<T>(def, raw))),
       detail: (raw) => {
         claim(raw.id, `${file}: ${raw.id}`);
         return detailOf(raw, attribute);
@@ -69,7 +66,10 @@ export function readingOf(): Reading {
   return { attribution, in: inFile };
 }
 
-function unwrap(raw: unknown, file: string): { id: string; origin: Origin; fact: unknown } {
+function unwrap(
+  raw: unknown,
+  file: string,
+): { readonly id: string; readonly origin: Origin; readonly fact: unknown } {
   if (!isRecord(raw) || typeof raw.id !== 'string') throw new Error(`${file}: an entry has no id`);
   const { origin: said, ...fact } = raw;
   const origin = originSchema.safeParse(said);
@@ -113,7 +113,7 @@ function attributed(value: unknown, walk: Walk): unknown {
   return out;
 }
 
-function cite(raw: unknown, id: unknown, walk: Walk): Source[] {
+function cite(raw: unknown, id: unknown, walk: Walk): readonly Source[] {
   const parsed = anySource.array().safeParse(raw);
   if (!parsed.success) {
     throw new Error(
@@ -127,8 +127,8 @@ function cite(raw: unknown, id: unknown, walk: Walk): Source[] {
 
 // Code sources are kept for attribution and drawn as permalinks; a bare link is drawn as it is.
 function citedOf(sources: readonly z.output<typeof anySource>[]): {
-  code: CodeSource[];
-  plan: Source[];
+  readonly code: readonly CodeSource[];
+  readonly plan: readonly Source[];
 } {
   const code: CodeSource[] = [];
   const plan: Source[] = [];

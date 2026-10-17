@@ -5,7 +5,7 @@ import { revisionImpact } from '@/application/plan/impact';
 import { planDiff } from '@/application/plan/plan-diff';
 import type { Plan } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 

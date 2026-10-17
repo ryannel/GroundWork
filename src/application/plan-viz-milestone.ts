@@ -45,9 +45,14 @@ function lastClosed(model: Model, items: readonly { readonly id: string }[]): st
 }
 
 function stateText(
-  parts: { short: string; done: number; total: number; started: boolean },
+  parts: {
+    readonly short: string;
+    readonly done: number;
+    readonly total: number;
+    readonly started: boolean;
+  },
   closed: string | null,
-  today: Date,
+  today: Date | undefined,
 ): string {
   const { short, done, total, started } = parts;
   if (started && total > 0 && done === total) {
@@ -59,11 +64,15 @@ function stateText(
     : `When ${short} is done`;
 }
 
+/** A day before today; never when today is not known. */
+const beforeToday = (day: string, today: Date | undefined): boolean =>
+  today !== undefined && day.localeCompare(isoDay(today.toISOString())) < 0;
+
 /** Where a milestone stands; null for an id the plan does not have. */
 export function msState(
   model: Model,
   msId: string,
-  today: Date = new Date(),
+  today: Date | undefined,
 ): MilestoneState | null {
   const ms = milestoneById(model, msId);
   if (ms === undefined) return null;
@@ -87,7 +96,7 @@ export function msState(
     closedAt,
     due,
     dueText: due === null ? '' : `due ${shortDate(due, today)}`,
-    late: !allDone && due !== null && due < isoDay(today.toISOString()),
+    late: !allDone && due !== null && beforeToday(due, today),
     text: stateText({ short, done, total: items.length, started }, closedAt, today),
     items: items.map((w) => w.id),
   };
@@ -138,7 +147,7 @@ export interface BuildSummary {
  * What the build comes to: counts, the milestone still being worked on and what is left in it, when it all finished,
  * and which teams the critical path runs through.
  */
-export function buildSummary(model: Model, today: Date = new Date()): BuildSummary {
+export function buildSummary(model: Model, today: Date | undefined): BuildSummary {
   const items = workOrdered(model);
   const todo = items.filter((w) => wiState(model, w.id) !== 'done');
   const started = items.some((w) => wiState(model, w.id) !== null);

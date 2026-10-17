@@ -1,20 +1,20 @@
 // The tokenizer and cursor of the GraphQL document parser.
 
 export interface Token {
-  t: 'p' | 'n' | 'v';
-  v: string;
-  line: number;
+  readonly t: 'p' | 'n' | 'v';
+  readonly v: string;
+  readonly line: number;
 }
 
 type Kind = Token['t'] | 'skip';
 
 const RULES: readonly (readonly [Kind, RegExp])[] = [
-  ['skip', /^(?:[\s,\uFEFF]+|#[^\n]*)/],
-  ['p', /^(?:\.\.\.|[!$&():=@[\]{|}])/],
-  ['n', /^[_A-Za-z]\w*/],
-  ['v', /^-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/],
-  ['v', /^"""[\s\S]*?"""/],
-  ['v', /^"(?:[^"\\\n]|\\.)*"/],
+  ['skip', /^(?:[\s,]+|#[^\n]*)/u],
+  ['p', /^(?:\.\.\.|[!$&():=@[\]{|}])/u],
+  ['n', /^[_A-Za-z]\w*/u],
+  ['v', /^-?\d+(?:\.\d+)?(?:e[+-]?\d+)?/iu],
+  ['v', /^"""[\s\S]*?"""/u],
+  ['v', /^"(?:[^"\\\n]|\\.)*"/u],
 ];
 
 const newlines = (text: string): number => text.split('\n').length - 1;
@@ -26,7 +26,7 @@ function badToken(text: string, line: number): SyntaxError {
   return new SyntaxError(`line ${String(line)}: unexpected "${text}"`);
 }
 
-function matchAt(rest: string): { kind: Kind | null; text: string } {
+function matchAt(rest: string): { readonly kind: Kind | null; readonly text: string } {
   for (const [kind, re] of RULES) {
     const m = re.exec(rest);
     if (m !== null) return { kind, text: m[0] };
@@ -49,15 +49,15 @@ export function tokenize(src: string): Token[] {
 }
 
 export interface Cursor {
-  peek: () => Token | undefined;
-  at: (v: string) => boolean;
-  atName: (v?: string) => boolean;
-  next: () => Token;
-  back: () => void;
-  eat: (v: string) => void;
-  name: () => string;
-  fail: (what: string) => never;
-  skipGroup: (open: string, close: string) => void;
+  readonly peek: () => Token | undefined;
+  readonly at: (v: string) => boolean;
+  readonly atName: (v?: string) => boolean;
+  readonly next: () => Token;
+  readonly back: () => void;
+  readonly eat: (v: string) => void;
+  readonly name: () => string;
+  readonly fail: (what: string) => never;
+  readonly skipGroup: (open: string, close: string) => void;
 }
 
 export function createCursor(tokens: readonly Token[]): Cursor {

@@ -6,8 +6,12 @@ import { wiState } from '@/application/plan-viz-work';
 // The ownership table: one row per team, one column per kind of thing it owns or decides. Cells are counts that open
 // the names; the team page and the teams page read the same function, so they cannot disagree.
 
+/** What a team owns in the system, and what it owns or decides in the plan. */
+type SystemKey = 'svc' | 'st' | 'if' | 'msg';
+type PlanKey = 'chg' | 'wi' | 'tst' | 'dec' | 'vote';
+
 export interface OwnerColumn {
-  readonly key: 'svc' | 'st' | 'if' | 'msg' | 'chg' | 'wi' | 'tst' | 'dec' | 'vote';
+  readonly key: SystemKey | PlanKey;
   readonly head: string;
   /** The title of the panel a count opens. */
   readonly title: string;
@@ -91,5 +95,5 @@ export function ownerFacts(model: Model, team: string, lists: OwnerLists): strin
 /** A team's channel, unless the plan still holds a placeholder there. */
 export function channelOf(model: Model, team: string): string {
   const channel = model.plan.teams.find((t) => t.id === team)?.channel ?? '';
-  return /^(tbd|todo|-|n\/a)?$/i.test(channel.trim()) ? '' : channel.trim();
+  return /^(?:tbd|todo|-|n\/a)?$/iu.test(channel.trim()) ? '' : channel.trim();
 }

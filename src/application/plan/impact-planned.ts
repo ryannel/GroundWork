@@ -16,53 +16,54 @@ import type {
 } from '@/domain/plan/plan.generated';
 
 export interface PlacedStep {
-  step: Step;
-  flow: Flow;
-  index: number;
+  readonly step: Step;
+  readonly flow: Flow;
+  readonly index: number;
 }
 
 /** The planned system of a plan (every change applied), indexed for comparison. */
 export interface Planned {
-  plan: Plan;
-  sys: SystemSource;
-  g: SystemGraph;
-  steps: Map<string, PlacedStep>;
-  regions: Map<string, { region: Region; screen: Screen }>;
-  endpoints: Map<string, Endpoint>;
+  readonly plan: Plan;
+  readonly sys: SystemSource;
+  readonly g: SystemGraph;
+  readonly steps: ReadonlyMap<string, PlacedStep>;
+  readonly regions: ReadonlyMap<string, { readonly region: Region; readonly screen: Screen }>;
+  readonly endpoints: ReadonlyMap<string, Endpoint>;
   /** Which changes touch an id: the op's own ids, and the flow or screen they sit in. */
-  changesOf: Map<string, Set<string>>;
-  deprecated: Set<string>;
-  flows: Map<string, Flow>;
-  screens: Map<string, Screen>;
-  schemas: Map<string, Schema>;
-  messages: Map<string, Message>;
-  services: Map<string, Service>;
-  stores: Map<string, Store>;
+  readonly changesOf: ReadonlyMap<string, ReadonlySet<string>>;
+  readonly deprecated: ReadonlySet<string>;
+  readonly flows: ReadonlyMap<string, Flow>;
+  readonly screens: ReadonlyMap<string, Screen>;
+  readonly schemas: ReadonlyMap<string, Schema>;
+  readonly messages: ReadonlyMap<string, Message>;
+  readonly services: ReadonlyMap<string, Service>;
+  readonly stores: ReadonlyMap<string, Store>;
 }
 
 /** "billing#id" → "billing". */
 export const baseId = (ref: unknown): string =>
   typeof ref === 'string' ? (ref.split('#')[0] ?? '') : '';
 
-const byId = <T extends { id: string }>(list: readonly T[]): Map<string, T> =>
+const byId = <T extends { readonly id: string }>(list: readonly T[]): Map<string, T> =>
   new Map(list.map((x) => [x.id, x]));
 
 /** "BillingIdentity[]", "list<BillingIdentity>", "BillingIdentity?" → "BillingIdentity". */
 export function typeName(t: unknown): string {
   const text = typeof t === 'string' ? t : '';
-  const wrapped = /^(?:list|array|set)<(.{1,200})>$/i.exec(text);
-  return (wrapped?.[1] ?? text).replaceAll(/[[\]?!]/g, '').trim();
+  const wrapped = /^(?:list|array|set)<(.{1,200})>$/iu.exec(text);
+  return (wrapped?.[1] ?? text).replaceAll(/[[\]?!]/gu, '').trim();
 }
 
 /** The keys at which two entities differ, bar the ones that say nothing. */
 export function changedKeys(a: object, b: object, ignored: readonly string[]): string[] {
-  const [x, y] = [new Map(Object.entries(a)), new Map(Object.entries(b))];
+  const x = new Map<string, unknown>(Object.entries(a));
+  const y = new Map<string, unknown>(Object.entries(b));
   return [...new Set([...x.keys(), ...y.keys()])].filter(
     (k) => !ignored.includes(k) && !sameJson(x.get(k), y.get(k)),
   );
 }
 
-const WORD = /\w/;
+const WORD = /\w/u;
 
 /** Does the text name the word whole (not as part of a longer name)? */
 export function mentions(text: unknown, word: string | undefined): boolean {
@@ -103,7 +104,7 @@ function changesTouching(
 export function planned(plan: Plan): Planned {
   const applied = applyOps(plan, plan.changes ?? []);
   const sys = applied.system;
-  const regions = new Map<string, { region: Region; screen: Screen }>();
+  const regions = new Map<string, { readonly region: Region; readonly screen: Screen }>();
   for (const screen of sys.screens) {
     for (const region of screen.regions ?? []) regions.set(region.id, { region, screen });
   }

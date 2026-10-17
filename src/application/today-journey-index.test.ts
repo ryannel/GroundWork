@@ -1,12 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
+
+import { acme } from '@/../test/workspace-kit';
 
 import { journeyIndexOf } from './today-journey-index';
 
-vi.mock('server-only', () => ({}));
-
-const { todayData } = await import('@/infrastructure/today-data');
-const data = await todayData('alder-finch');
-if (data === null) throw new Error('no alder-finch');
+const data = acme();
 const index = journeyIndexOf(data.workspace, data.today.model);
 const rows = index.groups.flatMap((g) => g.rows);
 
@@ -16,6 +14,11 @@ describe('journeyIndexOf', () => {
     expect(new Set(rows.map((r) => r.key)).size).toBe(index.total);
     expect(index.groups[0]?.title).toBe('User journeys');
     expect(index.groups[0]?.rows.every((r) => r.kind === 'journey')).toBe(true);
+    expect(index.groups.map((g) => [g.title, g.rows.map((r) => r.key)])).toEqual([
+      ['User journeys', ['uj-buy']],
+      ['Publish', ['flow-publish-product']],
+      ['Buy', ['flow-cancel-order', 'flow-place-order']],
+    ]);
   });
 
   it('knows the domains each one has steps in, and offers only those', () => {
@@ -23,10 +26,13 @@ describe('journeyIndexOf', () => {
     for (const row of rows) for (const d of row.domains) expect(ids.has(d)).toBe(true);
     const used = new Set(rows.flatMap((r) => r.domains));
     expect(index.domains.map((d) => d.id).every((id) => used.has(id))).toBe(true);
+    expect(rows.find((r) => r.key === 'flow-cancel-order')?.domains).toEqual(['orders']);
+    expect(rows.find((r) => r.key === 'uj-buy')?.domains).toEqual(['storefront', 'orders']);
   });
 
   it('can be found by the systems it crosses', () => {
-    const row = rows.find((r) => r.through !== '');
-    expect(row?.terms).toContain(row?.through.split(', ')[0]?.toLowerCase());
+    const row = rows.find((r) => r.key === 'flow-publish-product');
+    expect(row?.through).toBe('Products, Search');
+    expect(row?.terms).toContain('products search');
   });
 });

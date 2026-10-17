@@ -9,32 +9,32 @@ import type { PathSegment } from '@/domain/plan/plan-ids';
 
 /** One call, publish, read or write a handler makes, with the forks and loops around it. */
 export interface HandlerEdge {
-  handler: string;
+  readonly handler: string;
   /** What starts the handler: an endpoint, a message, a schedule or an interaction. */
-  on: string;
+  readonly on: string;
   /** The component the handler runs in. */
-  from: string;
+  readonly from: string;
   /** The component at the other end: the endpoint's service, the message's topic, the store; null if unknown. */
-  to: string | null;
-  kind: HandlerLinkKind;
+  readonly to: string | null;
+  readonly kind: HandlerLinkKind;
   /** The endpoint, message or schema the step names. */
-  target: string;
+  readonly target: string;
   /** Where the step sits in the handler (`['steps', 1, 'else', 0]`). */
-  path: PathSegment[];
+  readonly path: readonly PathSegment[];
   /** The guards around the step, outermost first: "when …", "unless …", "for each …". */
-  guards: string[];
+  readonly guards: readonly string[];
   /** The guards as one line, or null when the step always runs. */
-  guard: string | null;
-  conditional: boolean;
-  looped: boolean;
-  async: boolean;
-  does: string | null;
+  readonly guard: string | null;
+  readonly conditional: boolean;
+  readonly looped: boolean;
+  readonly async: boolean;
+  readonly does: string | null;
 }
 
 /** The component a link reaches, by its kind. */
 function farEnd(
   g: SystemGraph,
-  link: { kind: HandlerLinkKind; target: string; store: string | null },
+  link: { readonly kind: HandlerLinkKind; readonly target: string; readonly store: string | null },
 ) {
   if (link.store !== null) return link.store;
   const n = g.get(link.target);
@@ -73,13 +73,13 @@ export function handlerEdgesIn(g: SystemGraph): HandlerEdge[] {
 
 /** The shape of a talks-to edge, as derive-edges collects them. */
 interface TalksTo {
-  from: string;
-  to: string;
-  via?: string | null;
-  kind: 'api' | 'msg' | 'data';
-  read?: boolean;
-  write?: boolean;
-  handler?: string;
+  readonly from: string;
+  readonly to: string;
+  readonly via?: string | null;
+  readonly kind: 'api' | 'msg' | 'data';
+  readonly read?: boolean;
+  readonly write?: boolean;
+  readonly handler?: string;
 }
 
 const isTopic = (g: SystemGraph, id: string): boolean => {

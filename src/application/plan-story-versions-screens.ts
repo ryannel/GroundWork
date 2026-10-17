@@ -49,8 +49,9 @@ function bodyOf(pair: Pair, r: RegionChange): RegionBody {
   }
   if (r.mark === 'added') return { kind: 'text', text: unmark(r.after?.shows), struck: false };
   if (r.mark === 'removed') return { kind: 'text', text: unmark(r.before?.shows), struck: true };
-  if (r.keys.includes('shows'))
+  if (r.keys.includes('shows')) {
     return { kind: 'diff', diff: beforeAfter(pair, r.before?.shows, r.after?.shows) };
+  }
   return { kind: 'moves' };
 }
 

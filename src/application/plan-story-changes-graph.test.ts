@@ -1,7 +1,10 @@
 // @vitest-environment node
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { derive } from '@/application/plan/derive';
+import { shop } from '@/../test/federation-kit';
+import { pauseOrders } from '@/../test/fixtures/acme/plans/pause-orders';
+import { dispatchDate } from '@/../test/fixtures/acme/plans/work-dispatch';
+import { modelOf } from '@/../test/plan-kit';
 import { graphChange, graphChangeOf } from '@/application/plan-story-changes-graph';
 import {
   edgeWord,
@@ -14,32 +17,25 @@ import {
   splitWhy,
 } from '@/application/plan-story-changes-graph-ops';
 
-vi.mock('server-only', () => ({}));
-
-async function load(plan: string) {
-  const { readPlan } = await import('@/infrastructure/plan-store');
-  const loaded = await readPlan('alder-finch', plan);
-  if (loaded.plan === null) throw new Error(`no plan ${plan}`);
-  return derive(loaded.plan);
-}
-
-const model = await load('storefront-graph');
+const model = modelOf(shop());
 const change = graphChangeOf(model);
-if (change === null) throw new Error('storefront-graph changes no graph');
+if (change === null) throw new Error('the shop plan changes no graph');
 const { diff } = change;
 
 describe('graph change', () => {
-  it('exists only for the plan that changes a graph', async () => {
-    expect(change.graphId).toBe('graph:storefront');
-    for (const plan of ['delivery-promise', 'invoice-vat-number', 'stock-reservation']) {
-      expect(graphChangeOf(await load(plan)), plan).toBeNull();
-      expect(graphChange(await load(plan)), plan).toBeNull();
+  it('exists only for the plan that changes a graph', () => {
+    expect(change.graphId).toBe('graph:shop');
+    for (const plan of [pauseOrders(), dispatchDate()]) {
+      expect(graphChangeOf(modelOf(plan)), plan.meta.id).toBeNull();
+      expect(graphChange(modelOf(plan)), plan.meta.id).toBeNull();
     }
   });
 
   it('says what the reader feels, in one sentence ending in a full stop', () => {
     const shaped = graphChange(model);
-    expect(shaped?.headline).toMatch(/\.$/u);
+    expect(shaped?.headline).toBe(
+      'Estimated round trips: ProductPage goes from 2 to 3 round trips.',
+    );
     expect(shaped?.changeIds.length).toBeGreaterThan(0);
   });
 });
@@ -62,10 +58,13 @@ describe('operation impact', () => {
   });
 
   it('says where a new operation was split from, and why', () => {
-    for (const row of rows.filter((r) => r.kind === 'new')) {
-      const from = splitOf(model, diff, row);
-      if (from !== null) expect(splitWhy(model, row, from)).not.toBe('');
-    }
+    const split = rows
+      .filter((r) => r.kind === 'new')
+      .flatMap((row) => {
+        const from = splitOf(model, diff, row);
+        return from === null ? [] : [{ row, from }];
+      });
+    for (const { row, from } of split) expect(splitWhy(model, row, from)).not.toBe('');
   });
 
   it('words the edge for each side of every operation', () => {
@@ -92,8 +91,9 @@ describe('words', () => {
 
   it('summarises a route that changes', () => {
     const moved = diff.operations.find((o) => o.before !== null && o.after !== null);
-    if (moved?.before === null || moved?.after === null || moved === undefined)
+    if (moved?.before === null || moved?.after === null || moved === undefined) {
       throw new Error('no changed operation');
+    }
     expect(routeSummary(moved.before, moved.after)).not.toBe('');
   });
 });

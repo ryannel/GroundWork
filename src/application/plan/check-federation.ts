@@ -60,10 +60,10 @@ function checkGatewayInterface(s: Scope, gr: GraphNode): void {
 }
 
 interface Purge {
-  s: Scope;
-  st: StoreNode;
-  writers: Set<string>;
-  heard: string[];
+  readonly s: Scope;
+  readonly st: StoreNode;
+  readonly writers: ReadonlySet<string>;
+  readonly heard: readonly string[];
 }
 
 function checkPurge({ s, st, writers, heard }: Purge, mid: string, i: number): void {
@@ -117,8 +117,8 @@ function retiresWithoutUsage(ctx: CheckContext, rec: OpRecord): boolean {
 /** Retiring a graph field needs evidence that nobody still asks for it. */
 function checkUsageEvidence(ctx: CheckContext, rep: Report): void {
   for (const rec of ctx.applied.records) {
-    if (rec.kind !== 'deprecate' && rec.kind !== 'remove') continue;
-    if (!retiresWithoutUsage(ctx, rec)) continue;
+    const retires = rec.kind === 'deprecate' || rec.kind === 'remove';
+    if (!retires || !retiresWithoutUsage(ctx, rec)) continue;
     rep.warn(
       [...rec.path, rec.kind],
       `${String(rec.target)} is ${rec.kind === 'remove' ? 'removed' : 'deprecated'} with no usage evidence; add usage: { clients, per_day, last_seen, source } from the schema registry to the field first`,

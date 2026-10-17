@@ -1,11 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
 
-vi.mock('server-only', () => ({}));
+import { contractsPlans } from '@/../test/fixtures/acme/plans/contracts-plans';
+
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
-const { readPlan } = await import('@/infrastructure/plan-store');
 const { derive } = await import('@/application/plan/derive');
 const { flowDiagram, diagramFocus } = await import('@/application/plan-viz-flow-diagram');
+const { seqWalk } = await import('@/application/plan-viz-flow-drawn');
 
 const shop = derive(await loadFixture('shop.yaml'));
 const mini = derive(await loadFixture('mini.yaml'));
@@ -14,7 +16,15 @@ const flowsOf = (m: typeof shop): string[] => (m.plan.flows ?? []).map((f) => f.
 
 /** The pairs of cards that overlap. */
 function crowded(
-  d: { nodes: { id: string; x: number; y: number; w: number; h: number }[] } | null,
+  d: {
+    readonly nodes: readonly {
+      readonly id: string;
+      readonly x: number;
+      readonly y: number;
+      readonly w: number;
+      readonly h: number;
+    }[];
+  } | null,
 ) {
   const nodes = d?.nodes ?? [];
   return nodes.flatMap((a, i) =>
@@ -72,9 +82,9 @@ describe('a flow diagram of the shop', () => {
 
   it('numbers steps from one and letters a gateway fan-out', () => {
     const d = flowDiagram(shop, 'flow:browse', { mode: 'toBe' });
-    const nums = d?.labels.flatMap((l) => l.rows.map((r) => r.num)).filter((n) => n !== null);
+    const nums = d?.labels.flatMap((l) => l.rows.map((r) => r.number)).filter((n) => n !== null);
     expect(nums?.length).toBeGreaterThan(0);
-    expect(nums?.every((n) => /^\d+[a-z]?$/.test(n))).toBe(true);
+    expect(nums?.every((n) => /^\d+[a-z]?$/u.test(n))).toBe(true);
     const fan = flowDiagram(shop, 'flow:browse', { mode: 'toBe' })?.labels.flatMap((l) => l.rows);
     expect(fan?.some((r) => r.lettered)).toBe(true);
   });
@@ -88,7 +98,7 @@ describe('a flow diagram of the shop', () => {
 describe('walking through a flow', () => {
   it('calls the shown step current, earlier ones walked, later ones to come', () => {
     const d = flowDiagram(shop, 'flow:price-purge', { mode: 'toBe', step: 1 });
-    const rows = d?.labels.flatMap((l) => l.rows).filter((r) => r.num !== null) ?? [];
+    const rows = d?.labels.flatMap((l) => l.rows).filter((r) => r.number !== null) ?? [];
     expect(rows.find((r) => r.step === 1)?.walk).toBe('current');
     expect(rows.find((r) => r.step === 0)?.walk).toBe('walked');
     expect(rows.some((r) => r.walk === 'tocome')).toBe(true);
@@ -103,6 +113,20 @@ describe('walking through a flow', () => {
     expect(focus?.x).toBeLessThan(d?.w ?? 0);
     const plain = flowDiagram(shop, 'flow:price-purge', { mode: 'toBe' });
     expect(plain === null ? undefined : diagramFocus(plain)).toBeNull();
+  });
+
+  it('frames any step on a drawing made for another, as a drawing made for it would', () => {
+    const drawn = flowDiagram(shop, 'flow:price-purge', { mode: 'toBe', step: 0 });
+    const own = flowDiagram(shop, 'flow:price-purge', { mode: 'toBe', step: 1 });
+    if (drawn === null || own === null) throw new Error('no drawing');
+    expect(diagramFocus(drawn, new Set([1]))).toEqual(diagramFocus(own));
+  });
+
+  it('says which steps light each row and touch each node', () => {
+    const d = flowDiagram(shop, 'flow:price-purge', { mode: 'toBe', step: 1 });
+    const rows = d?.labels.flatMap((l) => l.rows) ?? [];
+    for (const r of rows) expect(r.walk === 'current').toBe(r.steps.includes(1));
+    for (const n of d?.nodes ?? []) expect(n.touched).toBe(n.touchSteps.includes(1));
   });
 
   it('draws plain when no step is shown', () => {
@@ -168,19 +192,30 @@ describe('the plan on top of today', () => {
   });
 });
 
-describe('real plans', () => {
-  const slugs = ['invoice-vat-number', 'delivery-promise', 'storefront-graph', 'stock-reservation'];
-
-  it('lays out every flow without crossing cards', async () => {
-    for (const slug of slugs) {
-      const loaded = await readPlan('alder-finch', slug);
-      if (loaded.plan === null) throw new Error(`${slug} did not load`);
-      const m = derive(loaded.plan);
-      for (const id of flowsOf(m)) {
-        for (const mode of ['asIs', 'toBe', 'diff'] as const) {
-          expect(crowded(flowDiagram(m, id, { mode })), `${slug} ${id} ${mode}`).toEqual([]);
-        }
+describe('whole plans', () => {
+  it.each(contractsPlans())('lays out every flow of %s without crossing cards', (_, plan) => {
+    const m = derive(plan);
+    const flows = flowsOf(m);
+    expect(flows.length).toBeGreaterThan(0);
+    for (const id of flows) {
+      for (const mode of ['asIs', 'toBe', 'diff'] as const) {
+        expect(flowDiagram(m, id, { mode }), `${id} ${mode}`).not.toBeNull();
+        expect(crowded(flowDiagram(m, id, { mode })), `${id} ${mode}`).toEqual([]);
       }
     }
+  });
+});
+
+describe('seqWalk', () => {
+  it('calls the shown steps current and those before the first walked', () => {
+    const shown = new Set([2, 3]);
+    expect([0, 1, 2, 3, 4].map((i) => seqWalk(i, shown))).toEqual([
+      'walked',
+      'walked',
+      'current',
+      'current',
+      '',
+    ]);
+    expect(seqWalk(0, new Set())).toBe('');
   });
 });

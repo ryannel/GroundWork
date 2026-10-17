@@ -25,7 +25,7 @@ export interface OpImpact {
 
 const RANK: Readonly<Record<OpKind, number>> = { lost: 0, up: 1, new: 2, down: 3, same: 4 };
 
-const firstNonZero = (...ns: number[]): number => ns.find((n) => n !== 0) ?? 0;
+const firstNonZero = (...ns: readonly number[]): number => ns.find((n) => n !== 0) ?? 0;
 
 const trips = (n: number): string => `${String(n)} ${n === 1 ? 'round trip' : 'round trips'}`;
 const fetches = (n: number): string => `${String(n)} ${n === 1 ? 'fetch' : 'fetches'}`;
@@ -35,7 +35,7 @@ const capital = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
 export const secsText = (n: number): string =>
   n >= 120 && n % 60 === 0 ? `${String(n / 60)} min` : `${String(n)} s`;
 
-function kindOf(change: OperationChange): { kind: OpKind; delta: number } {
+function kindOf(change: OperationChange): { readonly kind: OpKind; readonly delta: number } {
   const { before, after } = change;
   if (before === null) return { kind: 'new', delta: 0 };
   const delta = (after?.roundTrips ?? 0) - before.roundTrips;
@@ -76,8 +76,9 @@ export function opImpact(model: Model, diff: GraphDiff): OpImpact[] {
 
 /** "2 → 3 round trips · 3 → 4 fetches", or "Same route: 2 round trips, 3 fetches" when neither number moves. */
 export function routeSummary(before: PlanSummary, after: PlanSummary): string {
-  if (before.roundTrips === after.roundTrips && before.fetches === after.fetches)
+  if (before.roundTrips === after.roundTrips && before.fetches === after.fetches) {
     return `Same route: ${trips(after.roundTrips)}, ${fetches(after.fetches)}`;
+  }
   const rt =
     before.roundTrips === after.roundTrips
       ? trips(after.roundTrips)
@@ -93,10 +94,12 @@ export function routeSummary(before: PlanSummary, after: PlanSummary): string {
 export function opsPhrase(changed: number, routeChanged: number): string {
   if (changed === 0) return '';
   const count = `${capital(numWord(changed))} ${changed === 1 ? 'operation' : 'operations'}`;
-  if (routeChanged === changed)
+  if (routeChanged === changed) {
     return `${count} ${changed === 1 ? 'takes' : 'take'} a different route`;
-  if (routeChanged === 0)
+  }
+  if (routeChanged === 0) {
     return `${count} ${changed === 1 ? 'changes' : 'change'}, on the same route`;
+  }
   return `${count} change, ${numWord(routeChanged)} on a different route`;
 }
 
@@ -157,10 +160,11 @@ export function splitWhy(model: Model, row: OpImpact, pair: OpImpact): string {
   const bits: string[] = [];
   if (extra.length > 0) bits.push(`its edge key varies by ${andList(extra)}`);
   const more = model.queryPlan(row.id, 'toBe').roundTrips - (pair.before?.roundTrips ?? 0);
-  if (more > 0)
+  if (more > 0) {
     bits.push(`it ${bits.length > 0 ? 'adds' : 'would add'} ${moreTrips(more)} to the page`);
+  }
   if (bits.length > 0) return bits.join(' and ');
-  const reason = (policy.overrides[0]?.reason ?? '').replaceAll('`', '').replace(/\.$/, '');
+  const reason = (policy.overrides[0]?.reason ?? '').replaceAll('`', '').replace(/\.$/u, '');
   return reason === '' ? '' : lower(reason);
 }
 
@@ -176,8 +180,9 @@ function upClause(model: Model, up: readonly OpImpact[]): string {
   const [a, b] = shown;
   const was = (r: OpImpact): string => String(r.before?.roundTrips ?? 0);
   const now = (r: OpImpact): number => r.after?.roundTrips ?? 0;
+  const same = (x: OpImpact, y: OpImpact): boolean => was(x) === was(y) && now(x) === now(y);
   const text =
-    a !== undefined && b !== undefined && was(a) === was(b) && now(a) === now(b)
+    a !== undefined && b !== undefined && same(a, b)
       ? `${andList([a.name, b.name])} go from ${was(a)} to ${trips(now(a))}`
       : shown
           .map((r, i) =>
@@ -216,10 +221,11 @@ export function graphClaim(
   const of = (kind: OpKind): OpImpact[] => rows.filter((r) => r.kind === kind);
   const [lost, up, down, fresh] = [of('lost'), of('up'), of('down'), of('new')];
   const clauses: string[] = [];
-  if (lost.length > 0)
+  if (lost.length > 0) {
     clauses.push(
       `${andList(lost.map((r) => r.name))} ${lost.length === 1 ? 'is' : 'are'} no longer cached at the edge`,
     );
+  }
   if (up.length > 0) clauses.push(upClause(model, up));
   if (fresh.length > 0) clauses.push(freshClause(model, diff, fresh));
   if (clauses.length === 0 && down.length > 0) {

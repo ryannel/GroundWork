@@ -6,8 +6,8 @@
 import type { Issue } from '@/application/plan/check-context';
 import { isRecord, prop } from '@/application/plan/ids';
 
-const SEGMENT = /([^.[\]]+)|\[(\d+)\]/g;
-const PATH_IN_TEXT = /\b[a-z_]+\[\d+\](?:\.[A-Za-z_]+|\[\d+\])*/g;
+const SEGMENT = /([^.[\]]+)|\[(\d+)\]/gu;
+const PATH_IN_TEXT = /\b[a-z_]+\[\d+\](?:\.[A-Za-z_]+|\[\d+\])*/gu;
 const OP_VERBS = ['modify', 'deprecate', 'remove'];
 
 function addLabel(node: Record<string, unknown>): string | null {
@@ -56,8 +56,8 @@ function warningKey(plan: unknown, w: Issue): string {
 }
 
 export interface Baseline<W extends Issue = Issue> {
-  plan: unknown;
-  warnings: readonly W[];
+  readonly plan: unknown;
+  readonly warnings: readonly W[];
 }
 
 /**

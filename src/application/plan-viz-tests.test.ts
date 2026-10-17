@@ -1,7 +1,11 @@
 // @vitest-environment node
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { derive } from '@/application/plan/derive';
+import { shop } from '@/../test/federation-kit';
+import { pauseOrders } from '@/../test/fixtures/acme/plans/pause-orders';
+import { checkoutContracts } from '@/../test/fixtures/acme/plans/work-contracts';
+import { dispatchDate } from '@/../test/fixtures/acme/plans/work-dispatch';
+import { modelOf } from '@/../test/plan-kit';
 
 import { contractFindings } from './plan-viz-contract-matrix';
 import {
@@ -19,21 +23,17 @@ import {
   testInfo,
 } from './plan-viz-tests';
 
-vi.mock('server-only', () => ({}));
+const plans = [dispatchDate, checkoutContracts, shop, pauseOrders];
 
-const { readPlan } = await import('@/infrastructure/plan-store');
-
-async function modelOf(slug: string) {
-  const loaded = await readPlan('alder-finch', slug);
-  return derive(loaded.plan!);
+function notes(plan: () => Parameters<typeof modelOf>[0]) {
+  const model = modelOf(plan());
+  return gapNotes(model, levelStats(model)).map((n) => n.text);
 }
 
-const slugs = ['delivery-promise', 'stock-reservation', 'storefront-graph', 'invoice-vat-number'];
-
 describe('the test levels', () => {
-  it('counts tests and changes per level, and shows the pyramid end-to-end first', async () => {
-    for (const slug of slugs) {
-      const model = await modelOf(slug);
+  it('counts tests and changes per level, and shows the pyramid end-to-end first', () => {
+    for (const plan of plans) {
+      const model = modelOf(plan());
       const st = levelStats(model);
       expect(st.m).toBe(model.coverage().rows.length);
       const rows = pyramidRows(model, st);
@@ -47,23 +47,32 @@ describe('the test levels', () => {
     }
   });
 
-  it('narrows to a team', async () => {
-    const model = await modelOf('delivery-promise');
-    const team = model.plan.teams[0]!.id;
-    const st = levelStats(model, team);
-    expect(st.m).toBeLessThanOrEqual(levelStats(model).m);
-    expect(provesWithoutWalking(model, team).length).toBeLessThanOrEqual(
-      provesWithoutWalking(model).length,
-    );
+  it('notes the gaps each plan leaves', () => {
+    expect(notes(dispatchDate)).toEqual([
+      'no end-to-end test for 5 changes',
+      '1 change has unit tests only',
+    ]);
+    expect(notes(checkoutContracts)).toEqual(['1 new link without a contract test']);
   });
 
-  it('describes a planned test and the places tests run', async () => {
-    const model = await modelOf('delivery-promise');
-    const test = model.plan.tests![0]!;
-    const info = testInfo(model, test.id);
-    expect(info.tip).toContain('Planned');
-    expect(info.tip).toContain(test.id);
-    expect(info.label).toContain('planned');
+  it('narrows to a team', () => {
+    const model = modelOf(dispatchDate());
+    expect(levelStats(model).m).toBe(6);
+    expect(levelStats(model, 'team:orders').m).toBe(1);
+    expect(provesWithoutWalking(model)).toEqual([
+      { test: 'tst:shop-e2e', change: 'chg:shop-shows-date' },
+      { test: 'tst:no-v1-left', change: 'chg:retire-v1' },
+    ]);
+    expect(provesWithoutWalking(model, 'team:orders')).toEqual([]);
+  });
+
+  it('describes a planned test and the places tests run', () => {
+    const model = modelOf(dispatchDate());
+    const info = testInfo(model, 'tst:dispatch-unit');
+    expect(info.tip).toBe(
+      'Planned unit test (no result yet) · A product saves its dispatch days · tst:dispatch-unit · runs in every build',
+    );
+    expect(info.label).toBe('planned unit test: A product saves its dispatch days');
     expect(testInfo(model, 'tst:nothing').name).toBe('tst:nothing');
     expect(runsLine(['ci'])).toBe('runs in every build');
     expect(runsLine(['ci', 'staging'])).toBe('runs on every build · staging');
@@ -71,9 +80,9 @@ describe('the test levels', () => {
 });
 
 describe('the contracts', () => {
-  it('pairs every contract test with the services it checks', async () => {
-    for (const slug of slugs) {
-      const model = await modelOf(slug);
+  it('pairs every contract test with the services it checks', () => {
+    for (const plan of plans) {
+      const model = modelOf(plan());
       const tests = (model.plan.tests ?? []).filter((t) => t.level === 'contract').map((t) => t.id);
       expect(new Set(contractPairs(model).map((p) => p.test))).toEqual(new Set(tests));
       const f = contractFindings(model);
@@ -83,14 +92,30 @@ describe('the contracts', () => {
     }
   });
 
+  it('finds the providers, the test that checks no call and the new link with no test', () => {
+    const f = contractFindings(modelOf(checkoutContracts()));
+    expect(f.providers).toEqual([
+      'svc:shop-bff',
+      'svc:order-api',
+      'svc:payments',
+      'svc:card-provider',
+      'svc:search-api',
+      'svc:products',
+    ]);
+    expect(f.orphans).toEqual(['tst:receipt-contract']);
+    expect(f.missing).toMatchObject([
+      { consumer: 'svc:payments', provider: 'svc:order-api', via: 'msg:order-placed' },
+    ]);
+  });
+
   it('says whether a link is a call or an event', () => {
     expect(linkWord('msg:a')).toBe('event');
     expect(linkWord('api:a')).toBe('call');
   });
 
-  it('dims what is outside a team', async () => {
-    const model = await modelOf('delivery-promise');
-    const f = contractFindings(model, model.plan.teams[0]!.id);
-    expect(f.rows.every((r) => typeof r.dim === 'boolean')).toBe(true);
+  it('dims what is outside a team', () => {
+    const f = contractFindings(modelOf(checkoutContracts()), 'team:payments');
+    expect(f.rows.filter((r) => !r.dim).map((r) => r.consumer)).toEqual(['svc:payments']);
+    expect(f.rows.filter((r) => r.dim)).toHaveLength(4);
   });
 });

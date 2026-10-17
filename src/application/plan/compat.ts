@@ -23,8 +23,9 @@ function ofSchemaId({ env, ofSchema, net }: Kit, id: string): Compat | null {
   if (!env.asIs.has(id)) return nothing();
   const r = ofSchema(id);
   const dep = env.status(id) === 'deprecated' ? deprecation(id) : null;
-  if (r.reasons.length === 0 && dep === null && net(id).length === 0 && env.toBe.has(id))
+  if (r.reasons.length === 0 && dep === null && net(id).length === 0 && env.toBe.has(id)) {
     return null;
+  }
   return merge(dep === null ? [r] : [r, dep]);
 }
 
@@ -46,13 +47,39 @@ function ofField(kit: Kit, id: string): Compat | null {
   return touched(env.status(id)) ? nothing() : null;
 }
 
+/** The compatibility of one thing, by what kind of thing it is. */
+function compatOf(kit: Kit, id: string): Compat | null {
+  const type = (kit.env.asIs.get(id) ?? kit.env.toBe.get(id))?.$type;
+  switch (type) {
+    case 'schema': {
+      return ofSchemaId(kit, id);
+    }
+    case 'field': {
+      return ofField(kit, id);
+    }
+    case 'endpoint':
+    case 'message': {
+      return ofContract(kit, id, type);
+    }
+    case 'interface': {
+      return ofInterface(kit, id);
+    }
+    case 'store': {
+      return ofStore(kit, id);
+    }
+    default: {
+      return null;
+    }
+  }
+}
+
 /**
  * What a change does to the people who rely on what it touches: the verdict, the reasons, and who is affected.
  * `null` means the plan does not touch it; `nothing()` means it is new or only moved.
  */
 export function createCompat(input: CompatInput): {
-  compat: (id: string) => Compat | null;
-  netDiff: (id: string) => NetRow[];
+  readonly compat: (id: string) => Compat | null;
+  readonly netDiff: (id: string) => NetRow[];
 } {
   const env: Env = {
     records: [],
@@ -63,30 +90,11 @@ export function createCompat(input: CompatInput): {
     ...input,
   };
   const net = memo((id: string) => netDiff(env.asIs, env.toBe, id));
-  const kit: Kit = { env, ofSchema: createSchemaCompat(env), net, compat: (id) => compat(id) };
-  const compat = memo((id: string): Compat | null => {
-    const type = (env.asIs.get(id) ?? env.toBe.get(id))?.$type;
-    switch (type) {
-      case 'schema': {
-        return ofSchemaId(kit, id);
-      }
-      case 'field': {
-        return ofField(kit, id);
-      }
-      case 'endpoint':
-      case 'message': {
-        return ofContract(kit, id, type);
-      }
-      case 'interface': {
-        return ofInterface(kit, id);
-      }
-      case 'store': {
-        return ofStore(kit, id);
-      }
-      default: {
-        return null;
-      }
-    }
-  });
+  const known = new Map<string, Compat | null>();
+  const kit: Kit = { env, ofSchema: createSchemaCompat(env), net, compat };
+  function compat(id: string): Compat | null {
+    if (!known.has(id)) known.set(id, compatOf(kit, id));
+    return known.get(id) ?? null;
+  }
   return { compat, netDiff: net };
 }

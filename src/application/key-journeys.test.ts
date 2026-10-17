@@ -12,7 +12,7 @@ const workspace = {
   description: null,
   isPrivate: false,
   teams: [],
-  actors: [{ id: 'actor:shopper', name: 'Shopper', summary: null, uses: [] }],
+  actors: [{ id: 'actor:shopper', name: 'Shopper', summary: null, uses: [], customer: true }],
   domains: [
     { id: 'shop', name: 'Shop', systems: ['a', 'b', 'c'].map(system) },
     { id: 'back', name: 'Back', systems: ['d', 'e'].map(system) },

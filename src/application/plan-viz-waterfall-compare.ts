@@ -5,24 +5,24 @@ import type { ResponsePolicy } from '@/application/plan/federation-policy';
 // The waterfall against today's: which fetches of the to-be plan are new, which moved to another subgraph, which are gone.
 
 export interface FetchChange {
-  kind: 'add' | 'moved' | 'gone';
+  readonly kind: 'add' | 'moved' | 'gone';
   /** The subgraph the fetch's fields came from, when it moved. */
-  was?: string;
+  readonly was?: string;
 }
 
 export interface Before {
-  roundTrips: number;
-  fetches: number;
-  teams: number;
-  plan: QueryPlan;
-  policy: ResponsePolicy;
+  readonly roundTrips: number;
+  readonly fetches: number;
+  readonly teams: number;
+  readonly plan: QueryPlan;
+  readonly policy: ResponsePolicy;
 }
 
 export interface Comparison {
   /** Today's plan for the operation; null when it is new. */
-  before: Before | null;
-  changes: Map<string, FetchChange>;
-  gone: Fetch[];
+  readonly before: Before | null;
+  readonly changes: ReadonlyMap<string, FetchChange>;
+  readonly gone: readonly Fetch[];
 }
 
 /** The fetch of the before plan that held most of this fetch's own fields, by id. */
@@ -53,8 +53,9 @@ export function compare(model: Model, id: string, after: QueryPlan): Comparison 
     if (was === undefined) changes.set(fetch.id, { kind: 'add' });
     else {
       used.add(was);
-      if (was.subgraph !== fetch.subgraph)
+      if (was.subgraph !== fetch.subgraph) {
         changes.set(fetch.id, { kind: 'moved', was: was.subgraph });
+      }
     }
   }
   const gone = plan.fetches.filter(

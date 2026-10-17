@@ -5,121 +5,127 @@ import type { RouterWhy, WaterfallCase } from '@/application/plan-viz-waterfall-
 
 /** A small tag on a row: whether a layer answered, missed or was never reached. */
 export interface Mark {
-  kind: 'hit' | 'miss' | 'skip' | 'blocked';
+  readonly kind: 'hit' | 'miss' | 'skip' | 'blocked';
   /** A block character drawn before the text, which carries no meaning of its own. */
-  glyph: string | null;
-  text: string;
+  readonly glyph: string | null;
+  readonly text: string;
 }
 
 export type RowState = 'hit' | 'miss' | 'skipped' | 'blocked';
 
-export type CacheWhy = { kind: 'private'; field: string } | { kind: 'text'; text: string };
+export type CacheWhy =
+  | { readonly kind: 'private'; readonly field: string }
+  | { readonly kind: 'text'; readonly text: string };
 
 export interface CacheRowView {
-  kind: 'cache';
-  key: string;
+  readonly kind: 'cache';
+  readonly key: string;
   /** "edge", "gateway" or "data cache". */
-  layer: string;
-  state: RowState;
-  store: string;
-  why: CacheWhy | null;
-  meta: string;
+  readonly layer: string;
+  readonly state: RowState;
+  readonly store: string;
+  readonly why: CacheWhy | null;
+  readonly meta: string;
   /** What each fetch's own cache did, for a gateway entity cache. */
-  per: { key: string; text: string; state: RowState }[];
-  mark: Mark;
+  readonly per: readonly {
+    readonly key: string;
+    readonly text: string;
+    readonly state: RowState;
+  }[];
+  readonly mark: Mark;
   /** "today" or "with this plan" in a comparison. */
-  note: string | null;
+  readonly note: string | null;
   /** Today's row, shown beside the plan's struck one. */
-  wasLive: boolean;
+  readonly wasLive: boolean;
 }
 
 export interface HingeRowView {
-  kind: 'hinge';
-  key: string;
-  state: 'run' | 'skipped';
-  gateway: string;
-  team: string | null;
-  text: string;
+  readonly kind: 'hinge';
+  readonly key: string;
+  readonly state: 'run' | 'skipped';
+  readonly gateway: string;
+  readonly team: string | null;
+  readonly text: string;
 }
 
 export interface BandRowView {
-  kind: 'band';
-  key: string;
-  text: string;
+  readonly kind: 'band';
+  readonly key: string;
+  readonly text: string;
   /** What a mutation's first round trip writes. */
-  writes: string[];
+  readonly writes: readonly string[];
 }
 
 export interface FillRowView {
-  kind: 'fill';
-  key: string;
+  readonly kind: 'fill';
+  readonly key: string;
   /** Innermost layer first. */
-  stores: string[];
+  readonly stores: readonly string[];
 }
 
 export interface FetchFieldView {
-  name: string;
-  field: string | null;
-  router: RouterWhy | null;
+  readonly name: string;
+  readonly field: string | null;
+  readonly router: RouterWhy | null;
 }
 
 export interface FetchReadView {
-  store: string;
-  kind: 'cache' | 'via' | 'store';
-  skipped: boolean;
-  mark: Mark | null;
+  readonly store: string;
+  readonly kind: 'cache' | 'via' | 'store';
+  readonly skipped: boolean;
+  readonly mark: Mark | null;
 }
 
 export interface FetchBarView {
   /** The round-trip column it sits in, counting from 1; the cache marks take column 0. */
-  depth: number;
+  readonly depth: number;
   /** The columns the track has, cache marks included. */
-  cols: number;
+  readonly cols: number;
   /** Its width as a share of the column, when the plan measured it. */
-  share: number | null;
-  ms: number | null;
+  readonly share: number | null;
+  readonly ms: number | null;
   /** The subgraph its endpoint then calls, when it has a via. */
-  calls: string | null;
-  callsSkipped: boolean;
-  skipped: boolean;
+  readonly calls: string | null;
+  readonly callsSkipped: boolean;
+  readonly skipped: boolean;
 }
 
 export interface FetchRowView {
-  kind: 'fetch';
-  key: string;
-  id: string;
-  subgraph: string;
-  team: string | null;
-  state: 'run' | 'skipped';
-  lens: 'mine' | 'faded' | null;
-  change: FetchChange | null;
-  fields: FetchFieldView[];
-  batch: { text: string; title: string; warn: boolean } | null;
-  gateCache: Mark | null;
-  reads: FetchReadView[];
-  blast: string | null;
-  bar: FetchBarView;
+  readonly kind: 'fetch';
+  readonly key: string;
+  readonly id: string;
+  readonly subgraph: string;
+  readonly team: string | null;
+  readonly state: 'run' | 'skipped';
+  readonly lens: 'mine' | 'faded' | null;
+  readonly change: FetchChange | null;
+  readonly fields: readonly FetchFieldView[];
+  readonly batch: { readonly text: string; readonly title: string; readonly warn: boolean } | null;
+  readonly gateCache: Mark | null;
+  readonly reads: readonly FetchReadView[];
+  readonly blast: string | null;
+  readonly bar: FetchBarView;
 }
 
 export type WaterfallRow = CacheRowView | HingeRowView | BandRowView | FetchRowView | FillRowView;
 
 export interface WaterfallBodyView {
-  kase: WaterfallCase;
-  caption: string | null;
-  rows: WaterfallRow[];
-  summary: string;
+  readonly kase: WaterfallCase;
+  readonly caption: string | null;
+  readonly rows: readonly WaterfallRow[];
+  readonly summary: string;
 }
 
 export interface WaterfallOptions {
-  mode?: 'asIs' | 'toBe' | undefined;
+  readonly mode?: 'asIs' | 'toBe' | undefined;
   /** The case to open on, when the path has it. */
-  kase?: string | null | undefined;
+  readonly kase?: string | null | undefined;
   /** Fetch rows only, plus the layer that answers; one case, no control. */
-  compact?: boolean | undefined;
+  readonly compact?: boolean | undefined;
   /** A flow step to take the case from. */
-  stepId?: string | null | undefined;
+  readonly stepId?: string | null | undefined;
   /** The to-be plan against today's. */
-  diff?: boolean | undefined;
+  readonly diff?: boolean | undefined;
   /** A team id: its fetch rows keep the accent, the rest fade. */
-  lens?: string | null | undefined;
+  readonly lens?: string | null | undefined;
 }

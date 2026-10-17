@@ -19,14 +19,14 @@ import { teamPart, type TeamPart } from './plan-story-part';
 
 // The words a team's page opens with, and the one line per team on the page for everyone.
 
-const byDate = (date: string | undefined, sep = ''): string =>
-  date === undefined ? '' : `${sep} by ${shortDate(date)}`;
+const byDate = (date: string | undefined, today: Date | undefined, sep = ''): string =>
+  date === undefined ? '' : `${sep} by ${shortDate(date, today)}`;
 const items = (n: number): string => (n === 1 ? 'work item' : 'work items');
 
 function forMilestone(model: Model, w: WorkItem | undefined): string {
   const ms = (model.plan.milestones ?? []).find((m) => m.id === w?.milestone);
   if (ms === undefined) return '';
-  const due = ms.due === undefined ? '' : ` (due ${shortDate(ms.due)})`;
+  const due = ms.due === undefined ? '' : ` (due ${shortDate(ms.due, model.today)})`;
   return `, for ${msShort(model, ms.id)}${due}`;
 }
 
@@ -44,8 +44,9 @@ function leftSentence(model: Model, name: string, p: TeamPart): string {
     return `${possessive(name)} ${which} done.`;
   }
   const forMs = forMilestone(model, p.left[0]);
-  if (open < n)
+  if (open < n) {
     return `${name} has ${numWord(open)} of ${numWord(n)} work items still to do${forMs}.`;
+  }
   if (n === 1) return `${possessive(name)} work item is still to do${forMs}.`;
   return `${name} has all ${numWord(n)} work items still to do${forMs}.`;
 }
@@ -60,13 +61,17 @@ function buildsSentence(model: Model, team: string, p: TeamPart): string {
 const firstDated = (gates: readonly Deciding[]): Deciding | undefined =>
   gates.find((e) => e.decide_by !== undefined) ?? gates[0];
 
-function decidesSentence(name: string, decides: readonly Deciding[]): string {
+function decidesSentence(
+  name: string,
+  decides: readonly Deciding[],
+  today: Date | undefined,
+): string {
   const first = firstDated(decides);
   if (first === undefined) return '';
   if (decides.length === 1) {
-    return `${name} decides one thing the plan waits on${byDate(first.decide_by, ',')}: ${asClause(gateTitle(first))}`;
+    return `${name} decides one thing the plan waits on${byDate(first.decide_by, today, ',')}: ${asClause(gateTitle(first))}`;
   }
-  const when = first.decide_by === undefined ? '' : `; the first${byDate(first.decide_by)}`;
+  const when = first.decide_by === undefined ? '' : `; the first${byDate(first.decide_by, today)}`;
   return `${name} decides ${numWord(decides.length)} things the plan waits on${when}.`;
 }
 
@@ -106,7 +111,7 @@ function lowHeadline(name: string, p: TeamPart): string {
 export function headlineOf(model: Model, team: string, p: TeamPart): string {
   const name = teamName(model, team);
   if (p.low) return lowHeadline(name, p);
-  if (p.decides.length > 0) return decidesSentence(name, p.decides);
+  if (p.decides.length > 0) return decidesSentence(name, p.decides, model.today);
   if (p.work.length > 0) return buildsSentence(model, team, p);
   const touched = p.steps.filter((s) => s.kind !== 'differently' || !s.sameCall);
   if (touched.length === 0) return nothingChanges(model, name, p);
@@ -118,7 +123,8 @@ function waitsSentence(model: Model, name: string, p: TeamPart): string {
   const gate = p.waitsOn[0]?.gate;
   if (gate === undefined) return '';
   const decider = gate.decider === undefined ? '' : `${possessive(teamName(model, gate.decider))} `;
-  const by = gate.decide_by === undefined ? '' : ` (decide by ${shortDate(gate.decide_by)})`;
+  const by =
+    gate.decide_by === undefined ? '' : ` (decide by ${shortDate(gate.decide_by, model.today)})`;
   const more = p.waitsOn.length > 1 ? ` and ${numWord(p.waitsOn.length - 1)} more` : '';
   return `${possessive(name)} part waits on ${decider}decision${by}${more}.`;
 }
@@ -127,8 +133,9 @@ function waitsSentence(model: Model, name: string, p: TeamPart): string {
 export function ledeOf(model: Model, team: string, p: TeamPart): string {
   const bits: string[] = [];
   if (p.low) bits.push('The plan is rethought before its owner approves it.');
-  if ((p.low || p.decides.length > 0) && p.work.length > 0)
+  if ((p.low || p.decides.length > 0) && p.work.length > 0) {
     bits.push(buildsSentence(model, team, p));
+  }
   bits.push(waitsSentence(model, teamName(model, team), p));
   return bits.filter((b) => b !== '').join(' ');
 }
@@ -166,7 +173,7 @@ function partLine(model: Model, team: string): readonly Bit[] {
       : [
           {
             tone: 'plain',
-            text: `decides ${numWord(p.decides.length)}${byDate(first.decide_by)}`,
+            text: `decides ${numWord(p.decides.length)}${byDate(first.decide_by, model.today)}`,
           } as const,
         ]),
     ...(p.work.length > 0 ? [{ tone: 'plain', text: buildBit(p) } as const] : []),
@@ -184,7 +191,7 @@ export interface TeamLine {
 }
 
 function everyoneHeadline(model: Model, low: readonly TeamLine[]): string {
-  const path = buildSummary(model).pathTeams.map((id) => teamName(model, id));
+  const path = buildSummary(model, model.today).pathTeams.map((id) => teamName(model, id));
   const [lead = ''] = path;
   if (low.length > 0) {
     const names = andList(low.map((l) => teamName(model, l.team)));
@@ -199,7 +206,10 @@ function everyoneHeadline(model: Model, low: readonly TeamLine[]): string {
 }
 
 /** One line per team, the team holding the plan up first. */
-export function everyone(model: Model): { headline: string; lines: TeamLine[] } {
+export function everyone(model: Model): {
+  readonly headline: string;
+  readonly lines: readonly TeamLine[];
+} {
   const lines = model.plan.teams.map((t) => ({ team: t.id, bits: partLine(model, t.id) }));
   const low = lines.filter((l) => l.bits.some((b) => b.tone === 'warn'));
   return {

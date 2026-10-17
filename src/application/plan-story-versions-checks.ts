@@ -33,7 +33,7 @@ interface Said {
   readonly inline?: boolean;
 }
 
-type Of<K extends Check['kind']> = Extract<Check, { kind: K }>;
+type Of<K extends Check['kind']> = Extract<Check, { readonly kind: K }>;
 
 const code = (s: string): string => `\`${s}\``;
 const bold = (s: string): string => `**${s}**`;
@@ -41,7 +41,7 @@ const bold = (s: string): string => `**${s}**`;
 const quote = (name: string): string => `“${name}”`;
 const stripStop = (text: string): string => {
   let end = text.length;
-  while (end > 0 && /[.\s]/.test(text.charAt(end - 1))) end -= 1;
+  while (end > 0 && /[.\s]/u.test(text.charAt(end - 1))) end -= 1;
   return text.slice(0, end);
 };
 

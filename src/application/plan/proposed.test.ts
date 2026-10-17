@@ -1,22 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
 
+import { settledPauseOrders } from '@/../test/fixtures/acme/plans/core-settled';
+import { giftWrapVersioned } from '@/../test/fixtures/acme/plans/versions-gift-wrap';
 import { proposedMark, proposedMarks, type MarkImpact } from '@/application/plan/proposed';
 import { buildRevision } from '@/application/plan/revision';
-
-vi.mock('server-only', () => ({}));
-
-const { readPlan, readRevision } = await import('@/infrastructure/plan-store');
-
-const WORKSPACE = 'alder-finch';
-
-const read = async (slug: string, version?: string) => {
-  const { plan } =
-    version === undefined
-      ? await readPlan(WORKSPACE, slug)
-      : await readRevision({ workspace: WORKSPACE, slug, version });
-  if (plan === null) throw new Error(`no ${slug} ${version ?? 'head'}`);
-  return plan;
-};
 
 const IMPACT: MarkImpact = {
   journeys: [
@@ -52,14 +39,16 @@ const IMPACT: MarkImpact = {
   ],
 };
 
-const head = await read('invoice-vat-number');
-const approvedPlan = await read('invoice-vat-number', '1.0');
+const gift = giftWrapVersioned();
+const head = gift.plan;
+const approvedPlan = gift.versions.revision.approved?.plan ?? null;
 // The marks are memoised per revision, so each test builds its own.
 const proposal = () => buildRevision(head, approvedPlan);
-const settled = buildRevision(await read('stock-reservation'));
+const settled = buildRevision(settledPauseOrders().plan);
 
 describe('proposedMarks', () => {
   it('words each mark with the proposed version', () => {
+    expect(approvedPlan?.meta.version).toBe('1.0');
     const m = proposedMarks(proposal(), { impactOf: () => IMPACT });
     expect(m?.version).toBe('1.2');
     expect(m?.base).toBe('1.0');
@@ -86,7 +75,7 @@ describe('proposedMarks', () => {
     const m = proposedMarks(revision, { impactOf: () => ({}) });
     const ops = revision.diff?.ops ?? [];
     expect(ops.length).toBeGreaterThan(0);
-    for (const o of ops) expect(m?.marks.get(o.change)).toMatch(/ in 1\.2$/);
+    for (const o of ops) expect(m?.marks.get(o.change)).toMatch(/ in 1\.2$/u);
   });
 
   it('keeps the first reason for an id, and reads one id', () => {
@@ -97,7 +86,7 @@ describe('proposedMarks', () => {
   });
 
   it('asks for the impact once per revision and delivery state', () => {
-    const impactOf = vi.fn(() => IMPACT);
+    const impactOf = vi.fn<() => typeof IMPACT>(() => IMPACT);
     const fresh = buildRevision(head, null);
     expect(proposedMarks(fresh, { impactOf })).toBeNull();
     const again = proposal();

@@ -75,10 +75,10 @@ export function opKind(op: unknown): OpKind | null {
 export type LinkKind = 'api' | 'msg' | 'data';
 
 export interface ServiceLink {
-  from: string;
-  to: string;
-  kind: LinkKind;
-  via: string | null;
+  readonly from: string;
+  readonly to: string;
+  readonly kind: LinkKind;
+  readonly via: string | null;
 }
 
 const writersOf = (st: StoreNode): string[] => [
@@ -93,8 +93,8 @@ const readersOf = (st: StoreNode): string[] =>
 
 /** How a link is drawn: its kind, and what carries it (an api, a topic, a store). */
 interface Via {
-  kind: LinkKind;
-  via?: string | null;
+  readonly kind: LinkKind;
+  readonly via?: string | null;
 }
 
 type Put = (from: string | null | undefined, to: string | null | undefined, how: Via) => void;

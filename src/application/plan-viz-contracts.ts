@@ -31,7 +31,10 @@ function operationPairs(model: Model, stepId: string, via: string): Pair[] {
     .map((c) => ({ consumer: c.from, provider: c.to, via: c.via ?? via }));
 }
 
-function eventPair(model: Model, step: { from: string; to: string; via: string }): Pair[] {
+function eventPair(
+  model: Model,
+  step: { readonly from: string; readonly to: string; readonly via: string },
+): Pair[] {
   const message = nodeOf(model, step.via);
   const consumer = svcOf(step.to) ?? svcOf(step.from);
   return consumer !== null && message?.$type === 'message'

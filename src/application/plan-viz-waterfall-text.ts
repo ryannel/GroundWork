@@ -19,12 +19,12 @@ export function plural(noun: string): string {
   return noun.endsWith('s') ? noun : `${noun}s`;
 }
 
-const HEADER = /^[A-Z][a-z]+(?:-[A-Z][a-z]+)+$/;
+const HEADER = /^[A-Z][a-z]+(?:-[A-Z][a-z]+)+$/u;
 
 function keyWord(raw: string): string {
   const x = raw.trim();
-  if (/^accept-language$/i.test(x)) return 'language header';
-  if (/^selection hash$/i.test(x)) return 'selection';
+  if (/^accept-language$/iu.test(x)) return 'language header';
+  if (/^selection hash$/iu.test(x)) return 'selection';
   return HEADER.test(x) ? `${x.toLowerCase().replaceAll('-', ' ')} header` : x;
 }
 
@@ -50,16 +50,19 @@ export function keyText(key?: CacheKey | null): string {
   return parts.map(keyWord).join(' · ');
 }
 
-const words = (t: string): string => t.replaceAll(/([a-z0-9])([A-Z])/g, '$1 $2').toLowerCase();
+const words = (t: string): string => t.replaceAll(/([a-z0-9])([A-Z])/gu, '$1 $2').toLowerCase();
 
 /** Type strings in words: `[Review!]!` becomes "a list of reviews that must exist", `Money!` "a required Money". */
 export function humanBlast(text: string): string {
   return text
-    .replaceAll(/`\[(\w+)!]!?`/g, (_, t: string) => `a list of ${plural(words(t))} that must exist`)
-    .replaceAll(/`\[(\w+)]!?`/g, (_, t: string) => `a list of ${plural(words(t))}`)
-    .replaceAll(/`([A-Z]\w*)!`/g, (_, t: string) => `a required ${t}`)
+    .replaceAll(
+      /`\[(\w+)!\]!?`/gu,
+      (_, t: string) => `a list of ${plural(words(t))} that must exist`,
+    )
+    .replaceAll(/`\[(\w+)\]!?`/gu, (_, t: string) => `a list of ${plural(words(t))}`)
+    .replaceAll(/`([A-Z]\w*)!`/gu, (_, t: string) => `a required ${t}`)
     .replaceAll('`', '')
-    .replaceAll(/\bis null\b/g, 'comes back empty')
-    .replaceAll(/\bare null\b/g, 'come back empty')
-    .replaceAll(/\bis non-null\b/g, 'is required');
+    .replaceAll(/\bis null\b/gu, 'comes back empty')
+    .replaceAll(/\bare null\b/gu, 'come back empty')
+    .replaceAll(/\bis non-null\b/gu, 'is required');
 }

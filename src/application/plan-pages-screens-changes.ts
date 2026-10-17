@@ -43,10 +43,11 @@ const afterColon = (id: string): string => id.split(':')[1] ?? id;
 
 function smallScreens(model: Model, t: Touched): ChangeScreen[] {
   const taken = new Set<string>();
-  const reaches = t.flows.map((id) => ({
-    id,
-    reach: reachOf(model, t, { id, changed: new Set(changedStepIds(model, id)), taken }),
-  }));
+  const reaches = t.flows.map((id) => {
+    const reach = reachOf(model, t, { id, changed: new Set(changedStepIds(model, id)), taken });
+    for (const reached of reachIds(reach)) taken.add(reached);
+    return { id, reach };
+  });
   const left = leftOver(t, taken);
   const more = !isEmptyReach(left);
   const flows = reaches.map(({ id, reach }, i): ChangeScreen => ({
@@ -68,8 +69,9 @@ function smallScreens(model: Model, t: Touched): ChangeScreen[] {
 
 function flowScreens(model: Model, ids: readonly string[]): ChangeScreen[] {
   if (ids.length === 0) return [];
-  if (ids.length > SPLIT)
+  if (ids.length > SPLIT) {
     return [{ key: 'flows', title: 'Flows that change', body: { kind: 'flows', ids } }];
+  }
   return ids.map((id) => ({
     key: `flow-${afterColon(id)}`,
     title: nameOf(model, id),
@@ -79,8 +81,9 @@ function flowScreens(model: Model, ids: readonly string[]): ChangeScreen[] {
 
 function screenScreens(model: Model, ids: readonly string[]): ChangeScreen[] {
   if (ids.length === 0) return [];
-  if (ids.length > SPLIT)
+  if (ids.length > SPLIT) {
     return [{ key: 'screens', title: 'Screens that change', body: { kind: 'screens', ids } }];
+  }
   return ids.map((id) => ({
     key: `screen-${afterColon(id)}`,
     title: `${nameOf(model, id)} changes`,
@@ -92,8 +95,9 @@ function contractScreens(t: Touched): ChangeScreen[] {
   if (
     reachIds({ records: [], screens: [], ladders: t.ladders, retired: t.retired, shapes: t.shapes })
       .length === 0
-  )
+  ) {
     return [];
+  }
   return [
     {
       key: 'contracts',
@@ -144,5 +148,5 @@ export function changesLayout(model: Model): ChangeScreen[] {
   ];
 }
 
-export const changeScreens = (model: Model): { key: string; title: string }[] =>
+export const changeScreens = (model: Model): { readonly key: string; readonly title: string }[] =>
   changesLayout(model).map(({ key, title }) => ({ key, title }));

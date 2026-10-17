@@ -11,14 +11,14 @@ import type { PlanDiff } from '@/application/plan/plan-diff-core';
 import type { RevisionEntry } from '@/application/plan/revision-ledger';
 
 export interface CheckInput {
-  sides: Sides;
-  deltas: FieldDelta[];
-  flows: Journey[];
-  screens: ScreenChange[];
-  edges: Edge[];
-  work: WorkImpact[];
-  diff: PlanDiff | null;
-  entry: RevisionEntry | null;
+  readonly sides: Sides;
+  readonly deltas: readonly FieldDelta[];
+  readonly flows: readonly Journey[];
+  readonly screens: readonly ScreenChange[];
+  readonly edges: readonly Edge[];
+  readonly work: readonly WorkImpact[];
+  readonly diff: PlanDiff | null;
+  readonly entry: RevisionEntry | null;
 }
 
 /** A contract other services read changes shape. */

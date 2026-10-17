@@ -7,26 +7,26 @@ import type { IssueStatus } from '@/domain/plan/plan-status';
 
 /** The parts of a plan delivery reads; a whole Plan fits. */
 export interface DeliveryPlan {
-  meta?: { status?: string; revisions?: RevisionEntry[] };
-  work_items?: { id: string; github_issue?: number }[];
+  readonly meta?: { readonly status?: string; readonly revisions?: readonly RevisionEntry[] };
+  readonly work_items?: readonly { readonly id: string; readonly github_issue?: number }[];
 }
 
 export interface FiledWork {
-  issue: string;
-  state: 'open' | 'closed' | null;
+  readonly issue: string;
+  readonly state: 'open' | 'closed' | null;
 }
 
 export interface DeliveryState {
   /** meta.status (draft | review | approved; 'committed' reads as approved) until an issue is filed, then 'in-delivery', and 'delivered' once every work item has a closed issue. */
-  stage: string;
-  filed: number;
-  done: number;
-  total: number;
-  items: Map<string, FiledWork>;
+  readonly stage: string;
+  readonly filed: number;
+  readonly done: number;
+  readonly total: number;
+  readonly items: ReadonlyMap<string, FiledWork>;
   /** The proposal's new work items, left out of every count. */
-  pending: Set<string>;
+  readonly pending: ReadonlySet<string>;
   /** The proposed version, when the head is one. */
-  proposed: string | null;
+  readonly proposed: string | null;
 }
 
 const proposedHead = (plan: DeliveryPlan | null | undefined): RevisionEntry | null => {
@@ -64,7 +64,7 @@ function filedItems(work: NonNullable<DeliveryPlan['work_items']>, status: Issue
 
 function stageOf(
   plan: DeliveryPlan,
-  counts: { filed: number; done: number; total: number },
+  counts: { readonly filed: number; readonly done: number; readonly total: number },
 ): string {
   if (counts.filed === 0) {
     const own = plan.meta?.status ?? 'draft';
@@ -140,7 +140,7 @@ export const EFFECT = {
 } as const;
 
 /** "4 work items under way, 2 of them done": in the plan's words (work items), not GitHub's (issues). */
-export function impactText(x: { filed: number; closed: number }): string {
+export function impactText(x: { readonly filed: number; readonly closed: number }): string {
   const head = `${String(x.filed)} work ${x.filed === 1 ? 'item' : 'items'} under way`;
   if (x.closed === 0) return head;
   if (x.closed < x.filed) return `${head}, ${String(x.closed)} of them done`;

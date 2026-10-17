@@ -6,84 +6,131 @@ import type { Plan } from '@/domain/plan/plan.generated';
 const TEAM_SLOTS = 13;
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-const WD =
-  '(Mon|Tue|Tues|Wed|Thu|Thur|Thurs|Fri|Sat|Sun|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)';
-const MON = '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*';
 
 interface DateParts {
-  wd: string;
-  day: string;
-  mon: string;
-  year: string | undefined;
+  readonly wd: string;
+  readonly day: string;
+  readonly mon: string;
+  readonly year?: string | undefined;
 }
 
-// "Thu 9 Oct", "Friday 10 October 2026", "Mon, 13th of Oct", "Thu Oct 9", "Thu 2026-10-09"
-const WEEKDAY_DATES: { re: RegExp; pick: (m: RegExpExecArray) => DateParts }[] = [
+const WEEKDAY_WORDS = new Set([
+  'Mon',
+  'Tue',
+  'Tues',
+  'Wed',
+  'Thu',
+  'Thur',
+  'Thurs',
+  'Fri',
+  'Sat',
+  'Sun',
+  ...WEEKDAYS,
+]);
+
+/** A capitalised word naming a month: one of its three-letter heads, then anything. */
+const isMonth = (word: string): boolean => MONTHS.includes(word.slice(0, 3).toLowerCase());
+
+interface DateTail {
+  readonly re: RegExp;
+  /** Whether a year may follow. */
+  readonly year: boolean;
+  readonly pick: (wd: string, m: RegExpExecArray) => DateParts | null;
+}
+
+// what follows the weekday in "Thu 9 Oct", "Friday 10 October 2026", "Mon, 13th of Oct", "Thu Oct 9", "Thu 2026-10-09"
+const WEEKDAY_TAILS: readonly DateTail[] = [
   {
-    re: new RegExp(
-      String.raw`\b${WD}\b\.?,?\s+(?:the\s+)?(\d{1,2})(?:st|nd|rd|th)?(?:\s+of)?\s+${MON}\b(?:,?\s+(\d{4})\b)?`,
-      'g',
-    ),
-    pick: (m) => ({ wd: m[1] ?? '', day: m[2] ?? '', mon: m[3] ?? '', year: m[4] }),
+    re: /^(?:the\s+)?(\d{1,2})(?:st|nd|rd|th)?(?:\s+of)?\s+([A-Z][a-z]*)\b/u,
+    year: true,
+    pick: (wd, m) => monthParts({ wd, day: m[1] ?? '', mon: m[2] ?? '' }),
   },
   {
-    re: new RegExp(
-      String.raw`\b${WD}\b\.?,?\s+${MON}\.?\s+(\d{1,2})(?:st|nd|rd|th)?\b(?:,?\s+(\d{4})\b)?`,
-      'g',
-    ),
-    pick: (m) => ({ wd: m[1] ?? '', day: m[3] ?? '', mon: m[2] ?? '', year: m[4] }),
+    re: /^([A-Z][a-z]*)\.?\s+(\d{1,2})(?:st|nd|rd|th)?\b/u,
+    year: true,
+    pick: (wd, m) => monthParts({ wd, day: m[2] ?? '', mon: m[1] ?? '' }),
   },
   {
-    re: new RegExp(String.raw`\b${WD}\b\.?,?\s+(\d{4})-(\d{2})-(\d{2})\b`, 'g'),
-    pick: (m) => ({
-      wd: m[1] ?? '',
-      day: m[4] ?? '',
-      mon: MONTHS[Number(m[3]) - 1] ?? '',
-      year: m[2],
-    }),
+    re: /^(\d{4})-(\d{2})-(\d{2})\b/u,
+    year: false,
+    pick: (wd, m) => ({ wd, day: m[3] ?? '', mon: MONTHS[Number(m[2]) - 1] ?? '', year: m[1] }),
   },
 ];
 
-interface WeekdayProblem {
-  text: string;
-  said: string;
-  actual: string;
-  date: string;
+function monthParts(parts: DateParts): DateParts | null {
+  return isMonth(parts.mon) ? parts : null;
 }
 
-function problemOf(
-  m: RegExpExecArray,
-  parts: DateParts,
-  defaultYear: string | undefined,
-): WeekdayProblem | null {
-  const y = Number(parts.year ?? defaultYear);
-  const mi = MONTHS.indexOf(parts.mon.slice(0, 3).toLowerCase());
-  const d = Number(parts.day);
-  if (Number.isNaN(y) || y === 0 || mi === -1 || Number.isNaN(d) || d < 1 || d > 31) return null;
-  const when = new Date(Date.UTC(y, mi, d));
-  if (when.getUTCMonth() !== mi) return null;
-  const actual = WEEKDAYS[when.getUTCDay()] ?? '';
-  if (actual.toLowerCase().startsWith(parts.wd.slice(0, 3).toLowerCase())) return null;
-  return { text: m[0], said: parts.wd, actual, date: when.toISOString().slice(0, 10) };
+interface DateMatch {
+  readonly text: string;
+  readonly parts: DateParts;
 }
 
-/** Weekdays that disagree with the calendar. A date with no year takes `defaultYear`. */
-export function weekdayProblems(text: string, defaultYear?: string): WeekdayProblem[] {
-  const out: WeekdayProblem[] = [];
-  for (const { re, pick } of WEEKDAY_DATES) {
-    for (const m of text.matchAll(re)) {
-      const found = problemOf(m, pick(m), defaultYear);
-      if (found !== null) out.push(found);
+/** The date a tail makes at the start of `rest`, with the year after it when one may follow; its length too. */
+function tailAt(rest: string, tail: DateTail, wd: string): DateMatch | null {
+  const t = tail.re.exec(rest);
+  const parts = t === null ? null : tail.pick(wd, t);
+  if (t === null || parts === null) return null;
+  const y = tail.year ? /^,?\s+(\d{4})\b/u.exec(rest.slice(t[0].length)) : null;
+  const year = y?.[1] ?? parts.year;
+  return { text: rest.slice(0, t[0].length + (y?.[0].length ?? 0)), parts: { ...parts, year } };
+}
+
+/** The dates one tail makes after a weekday, left to right, each starting after the last one ends. */
+function datesWith(text: string, tail: DateTail): DateMatch[] {
+  const out: DateMatch[] = [];
+  // a capitalised word, and the full stop, comma and space that may follow a weekday
+  const head = /\b([A-Z][a-z]*)\.?,?\s+/gu;
+  for (let m = head.exec(text); m !== null; m = head.exec(text)) {
+    const wd = m[1] ?? '';
+    const date = WEEKDAY_WORDS.has(wd) ? tailAt(text.slice(head.lastIndex), tail, wd) : null;
+    if (date === null) head.lastIndex = m.index + 1;
+    else {
+      const whole = text.slice(m.index, head.lastIndex) + date.text;
+      out.push({ text: whole, parts: date.parts });
+      head.lastIndex += date.text.length;
     }
   }
   return out;
 }
 
+interface WeekdayProblem {
+  readonly text: string;
+  readonly said: string;
+  readonly actual: string;
+  readonly date: string;
+}
+
+const isDay = (d: number): boolean => !Number.isNaN(d) && d >= 1 && d <= 31;
+
+function problemOf(
+  { text, parts }: DateMatch,
+  defaultYear: string | undefined,
+): WeekdayProblem | null {
+  const y = Number(parts.year ?? defaultYear);
+  const mi = MONTHS.indexOf(parts.mon.slice(0, 3).toLowerCase());
+  const known = !Number.isNaN(y) && y !== 0 && mi !== -1;
+  if (!known || !isDay(Number(parts.day))) return null;
+  const d = Number(parts.day);
+  const when = new Date(Date.UTC(y, mi, d));
+  if (when.getUTCMonth() !== mi) return null;
+  const actual = WEEKDAYS[when.getUTCDay()] ?? '';
+  if (actual.toLowerCase().startsWith(parts.wd.slice(0, 3).toLowerCase())) return null;
+  return { text, said: parts.wd, actual, date: when.toISOString().slice(0, 10) };
+}
+
+/** Weekdays that disagree with the calendar. A date with no year takes `defaultYear`. */
+export function weekdayProblems(text: string, defaultYear?: string): WeekdayProblem[] {
+  return WEEKDAY_TAILS.flatMap((tail) => datesWith(text, tail))
+    .map((date) => problemOf(date, defaultYear))
+    .filter((found) => found !== null);
+}
+
 function checkWeekdays(plan: Plan, rep: Report): void {
-  const year = /^\d{4}/.exec(plan.meta.date ?? '')?.[0];
-  walkStrings(plan, (str, segs) => {
-    for (const p of weekdayProblems(str, year)) {
-      rep.err(
+  const year = /^\d{4}/u.exec(plan.meta.date ?? '')?.[0];
+  walkStrings(plan, (value, segs) => {
+    for (const p of weekdayProblems(value, year)) {
+      rep.error(
         segs,
         `"${p.text}" says ${p.said}, but ${p.date} is a ${p.actual}; change the weekday (or the date) so they agree`,
       );
@@ -95,7 +142,7 @@ function checkWeekdays(plan: Plan, rep: Report): void {
 function walkSources(
   value: unknown,
   fn: (src: Record<string, unknown>, segs: PathSegment[]) => void,
-  path: PathSegment[] = [],
+  path: readonly PathSegment[] = [],
 ): void {
   if (Array.isArray(value)) {
     for (const [i, v] of value.entries()) walkSources(v, fn, [...path, i]);
@@ -114,8 +161,8 @@ function walkSources(
 function checkSources(plan: Plan, rep: Report): void {
   walkSources(plan, (src, segs) => {
     const url = typeof src.url === 'string' ? src.url : '';
-    const ref = /^https?:\/\/github\.com\/[^/]+\/[^/]+\/blob\/([^/]+)\//.exec(url)?.[1];
-    if (ref !== undefined && !/^[0-9a-f]{40}$/.test(ref)) {
+    const ref = /^https?:\/\/github\.com\/[^/]+\/[^/]+\/blob\/([^/]+)\//u.exec(url)?.[1];
+    if (ref !== undefined && !/^[0-9a-f]{40}$/u.test(ref)) {
       rep.warn(
         [...segs, 'url'],
         `source points at ref "${ref}", which can drift; use a commit permalink (press y on github.com)`,

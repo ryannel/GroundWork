@@ -4,6 +4,7 @@ import {
   collectionKeyOf,
   flag,
   indexChildren,
+  listOf,
   patch,
   selfAndChildren,
   setProp,
@@ -14,8 +15,8 @@ import { ADD_TYPES, CHILDREN, type ContainerType } from '@/domain/plan/plan-ids'
 import type { Change, Op, OpAdd } from '@/domain/plan/plan.generated';
 
 export interface Applying {
-  system: SystemSource;
-  ix: SystemIndex;
+  readonly system: SystemSource;
+  readonly ix: SystemIndex;
 }
 
 export function newRecord(chg: Change, [ci, oi]: readonly [number, number], op: Op): OpRecord {
@@ -34,14 +35,20 @@ export function newRecord(chg: Change, [ci, oi]: readonly [number, number], op: 
   };
 }
 
+/** The list an entity goes into: `holder[prop]`. */
+interface Slot {
+  readonly holder: Rec;
+  readonly prop: string;
+}
+
 const intoOf = (op: OpAdd): string | undefined => ('into' in op ? op.into : undefined);
 
 /** The children list of the container an add goes into, or null (with a problem on the record). */
 function childList(
   ix: SystemIndex,
-  { op, container }: { op: OpAdd; container: ContainerType },
+  { op, container }: { readonly op: OpAdd; readonly container: ContainerType },
   rec: OpRecord,
-): unknown[] | null {
+): Slot | null {
   const into = intoOf(op);
   patch(rec, { parent: into ?? null });
   if (into === undefined) {
@@ -71,22 +78,19 @@ function childList(
   }
   const prop = CHILDREN[container][0];
   if (!Array.isArray(parent.entity[prop])) setProp(parent.entity, prop, []);
-  const list: unknown = parent.entity[prop];
-  return Array.isArray(list) ? list : null;
+  return { holder: parent.entity, prop };
 }
 
-/** The list an added entity goes into (a base array, or its container's children), or null. */
-function addTarget({ system, ix }: Applying, op: OpAdd, rec: OpRecord): unknown[] | null {
+/** Where an added entity goes (a base array, or its container's children), or null. */
+function addTarget({ system, ix }: Applying, op: OpAdd, rec: OpRecord): Slot | null {
   const container = ADD_TYPES[op.add];
   if (container !== null) return childList(ix, { op, container }, rec);
   const key = collectionKeyOf(op.add);
-  if (key === undefined) return null;
-  const list: unknown[] = system[key];
-  return list;
+  return key === undefined ? null : { holder: { ...system }, prop: key };
 }
 
 /** Where a step goes: after a named sibling, else at the end. */
-function stepPosition(op: OpAdd, list: unknown[], rec: OpRecord): number {
+function stepPosition(op: OpAdd, list: readonly unknown[], rec: OpRecord): number {
   const after = 'after' in op ? op.after : undefined;
   if (op.add !== 'step' || after === undefined) return list.length;
   const i = list.findIndex((s) => isRecord(s) && s.id === after);
@@ -113,22 +117,24 @@ function checkChildId(op: OpAdd, value: Rec, rec: OpRecord): void {
 
 /** What goes in, and the list it goes into. */
 interface Placement {
-  op: OpAdd;
-  id: string;
-  value: Rec;
-  list: unknown[];
+  readonly op: OpAdd;
+  readonly id: string;
+  readonly value: Rec;
+  readonly slot: Slot;
 }
 
 function place(ix: SystemIndex, at: Placement, rec: OpRecord): void {
-  const { op, id, value, list } = at;
+  const { op, id, value, slot } = at;
+  const list = listOf(slot.holder, slot.prop);
+  if (list === null) return;
   const pos = stepPosition(op, list, rec);
   const before: unknown = pos > 0 ? list[pos - 1] : undefined;
   const afterId =
     op.add === 'step' && isRecord(before) && typeof before.id === 'string' ? before.id : null;
   list.splice(pos, 0, value);
   const base = [...rec.path, 'value'];
-  ix.idx.set(id, { entity: value, type: op.add, list, parent: intoOf(op) ?? null });
-  ix.origins.set(id, base);
+  ix.put(id, { entity: value, type: op.add, ...slot, parent: intoOf(op) ?? null });
+  ix.origin(id, base);
   indexChildren(ix, { entity: value, type: op.add, base });
   patch(rec, {
     afterId,
@@ -140,8 +146,8 @@ function place(ix: SystemIndex, at: Placement, rec: OpRecord): void {
 export function applyAdd(scope: Applying, op: OpAdd, rec: OpRecord): void {
   patch(rec, { type: op.add });
   const value: unknown = structuredClone(op.value);
-  const list = addTarget(scope, op, rec);
-  if (list === null || !isRecord(value)) return;
+  const slot = addTarget(scope, op, rec);
+  if (slot === null || !isRecord(value)) return;
   const id = op.add === 'field' ? fieldId(intoOf(op) ?? '', value.name) : value.id;
   if (typeof id !== 'string') return;
   patch(rec, { target: id });
@@ -154,5 +160,5 @@ export function applyAdd(scope: Applying, op: OpAdd, rec: OpRecord): void {
     return;
   }
   checkChildId(op, value, rec);
-  place(scope.ix, { op, id, value, list }, rec);
+  place(scope.ix, { op, id, value, slot }, rec);
 }

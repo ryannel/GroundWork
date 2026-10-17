@@ -3,6 +3,7 @@ import type { ElementStatus } from '@/application/plan/derive-core';
 import { type FlowMode, type FlowStep, stepKind } from '@/application/plan/flow-steps';
 import { prop } from '@/application/plan/ids';
 import { chipInfo } from '@/application/plan-chips';
+import { seqWalk } from '@/application/plan-viz-flow-drawn';
 import { viaLabel } from '@/application/plan-viz-map';
 import type { Draft } from '@/application/plan-viz-sequence-rows';
 import {
@@ -21,8 +22,6 @@ export interface Ctx {
   readonly model: Model;
   readonly mode: FlowMode;
   readonly cur: ReadonlySet<number>;
-  /** Steps before the first current one have been walked. */
-  readonly curMin: number;
   /** 1 when a person starts the flow and so has the first column, else 0. */
   readonly off: number;
   readonly cols: number;
@@ -68,7 +67,11 @@ export interface SeqSelf {
   readonly place: Place;
   /** The box sits left of its lifeline, its stores reading toward the left. */
   readonly left: boolean;
-  readonly stores: readonly { id: string; label: string; title: string }[];
+  readonly stores: readonly {
+    readonly id: string;
+    readonly label: string;
+    readonly title: string;
+  }[];
 }
 
 /** Where a cell sits: its number among the cells and the test brackets that run past it. */
@@ -175,10 +178,7 @@ function selfOf(ctx: Ctx, s: FlowStep): SeqSelf {
   };
 }
 
-function walkOf(ctx: Ctx, i: number): SeqStep['walk'] {
-  if (ctx.cur.has(i)) return 'current';
-  return i < ctx.curMin ? 'walked' : '';
-}
+const walkOf = (ctx: Ctx, i: number): SeqStep['walk'] => seqWalk(i, ctx.cur);
 
 function statusOfStep(ctx: Ctx, s: FlowStep): ElementStatus {
   if (s.$removed === true) return 'removed';
@@ -191,7 +191,7 @@ const isNewVia = (ctx: Ctx, s: FlowStep): boolean =>
   s.via !== 'internal' &&
   ctx.model.status(s.via) === 'added';
 
-function stepCell(ctx: Ctx, d: Extract<Draft, { type: 'step' }>, where: Where): SeqStep {
+function stepCell(ctx: Ctx, d: Extract<Draft, { readonly type: 'step' }>, where: Where): SeqStep {
   const s = d.row.step;
   const status = statusOfStep(ctx, s);
   const writes = s.writes ?? [];

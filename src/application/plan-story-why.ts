@@ -73,7 +73,7 @@ function promiseHeadline(first: string, budget: string): string {
   return budget === '' ? 'What this plan promises.' : `The time budget is ${budget}.`;
 }
 
-function milestoneOf(m: { id: string; name: string }): Milestone {
+function milestoneOf(m: { readonly id: string; readonly name: string }): Milestone {
   const [mark = m.name, ...rest] = m.name.split(' · ').map((part) => part.trim());
   return { id: m.id, mark, text: rest.length > 0 ? rest.join(' · ') : m.name };
 }
@@ -83,7 +83,7 @@ export function promiseView(model: Model): PromiseView {
   const { problem, meta, milestones = [] } = model.plan;
   const goals = problem.goals ?? [];
   const appetite = meta.appetite ?? null;
-  const budget = (appetite ?? '').split(/[·,;]/)[0]?.trim() ?? '';
+  const budget = (appetite ?? '').split(/[·,;]/u)[0]?.trim() ?? '';
   const first = withoutStops((goals[0] ?? '').trim());
   const promises = first === '' ? goals : goals.slice(1);
   return {
@@ -120,13 +120,15 @@ interface Counts {
 }
 
 function scenariosHeadline({ added, today, title, one }: Counts): string {
-  if (added + today === 0)
+  if (added + today === 0) {
     return one
       ? `${title ?? 'The scenario'}: the one this plan must make work.`
       : 'The scenarios this plan must make work.';
+  }
   const subject = one ? `“${title ?? ''}”` : 'Every scenario';
-  if (added === 0)
+  if (added === 0) {
     return `${subject} runs on flows that work today; the plan changes how they behave.`;
+  }
   if (today === 0) return `${subject} needs a flow that doesn’t exist yet.`;
   return `The scenarios run on today’s flows plus ${numWord(added)} new ${added === 1 ? 'one' : 'ones'}.`;
 }

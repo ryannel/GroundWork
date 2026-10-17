@@ -54,7 +54,7 @@ export function systemViewOf(
   const scope = systemScopeOf(workspace, path.system);
   if (domain === undefined || system === undefined || scope === null) return null;
   const { model } = today;
-  const does = systemDoes(system).replace(/\.$/, '');
+  const does = systemDoes(system).replace(/\.$/u, '');
   const team = teamOf(workspace, system.team);
   const flows = flowEntriesOf(model, {
     focus: scope.focus,

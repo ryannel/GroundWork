@@ -4,7 +4,7 @@ import { derive } from '@/application/plan/derive';
 import type { CallTree } from '@/application/plan/derive-handlers';
 import type { Plan } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -14,7 +14,7 @@ const m = derive(await prices());
 const stopMark = (stop: string | null): string => (stop === null ? '' : ` [${stop}]`);
 
 /** A tree drawn as indented lines: handler, then each link with where it stops. */
-function drawn(trees: CallTree[], indent = ''): string[] {
+function drawn(trees: readonly CallTree[], indent = ''): string[] {
   return trees.flatMap((t) => [
     `${indent}${t.handler}`,
     ...t.links.flatMap((l) => [

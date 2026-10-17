@@ -44,13 +44,13 @@ export interface CatalogueCluster {
   readonly note: string;
   readonly width: number;
   readonly height: number;
-  readonly screens: CatalogueScreenBox[];
-  readonly lines: CatalogueLine[];
+  readonly screens: readonly CatalogueScreenBox[];
+  readonly lines: readonly CatalogueLine[];
 }
 
 export interface CatalogueGroup {
   readonly label: string;
-  readonly clusters: CatalogueCluster[];
+  readonly clusters: readonly CatalogueCluster[];
 }
 
 export interface CatalogueJourney {
@@ -68,10 +68,13 @@ export interface CatalogueCard {
 export interface CatalogueView {
   readonly headline: string;
   readonly key: string;
-  readonly journeys: CatalogueJourney[];
+  readonly journeys: readonly CatalogueJourney[];
   readonly hasShared: boolean;
-  readonly groups: CatalogueGroup[];
-  readonly sections: { readonly app: string | null; readonly cards: CatalogueCard[] }[];
+  readonly groups: readonly CatalogueGroup[];
+  readonly sections: readonly {
+    readonly app: string | null;
+    readonly cards: readonly CatalogueCard[];
+  }[];
 }
 
 const APP_MISSING = 'Serving app not recorded';
@@ -82,7 +85,7 @@ const LABEL_MAX = 190;
 const GLYPH = 7;
 
 const isShared = (edge: MapEdge): boolean => edge.relationship === 'interaction' && edge.shared;
-const journeysOf = (edge: MapEdge): string[] =>
+const journeysOf = (edge: MapEdge): readonly string[] =>
   edge.relationship === 'interaction' ? edge.journeyIds : [edge.flowId];
 
 function appName(model: Model, service: string): string {
@@ -111,8 +114,8 @@ function keyLine(map: ScreenMap): string {
 }
 
 interface Component {
-  readonly nodes: MapNode[];
-  readonly edges: MapEdge[];
+  readonly nodes: readonly MapNode[];
+  readonly edges: readonly MapEdge[];
 }
 
 function connected(map: ScreenMap): Component[] {
@@ -122,13 +125,15 @@ function connected(map: ScreenMap): Component[] {
     return up === id ? id : root(up);
   };
   for (const e of map.edges) parent.set(root(e.destination), root(e.source));
-  const parts = new Map<string, { nodes: MapNode[]; edges: MapEdge[] }>();
+  const parts = new Map<string, Component>();
   for (const node of map.nodes) {
     const part = parts.get(root(node.id)) ?? { nodes: [], edges: [] };
-    part.nodes.push(node);
-    parts.set(root(node.id), part);
+    parts.set(root(node.id), { ...part, nodes: [...part.nodes, node] });
   }
-  for (const edge of map.edges) parts.get(root(edge.source))?.edges.push(edge);
+  for (const edge of map.edges) {
+    const part = parts.get(root(edge.source));
+    if (part !== undefined) parts.set(root(edge.source), { ...part, edges: [...part.edges, edge] });
+  }
   return [...parts.values()];
 }
 
@@ -144,20 +149,24 @@ function ordered(map: ScreenMap, part: Component): Component {
 }
 
 interface Bucket {
-  label: string;
-  parts: Component[];
-  size: number;
+  readonly label: string;
+  readonly parts: readonly Component[];
+  readonly size: number;
 }
 
-function grouped(map: ScreenMap): { label: string; parts: Component[] }[] {
+function grouped(
+  map: ScreenMap,
+): { readonly label: string; readonly parts: readonly Component[] }[] {
   const buckets = new Map<string, Bucket>();
   for (const part of connected(map).map((p) => ordered(map, p))) {
     const actors = [...new Set(part.nodes.flatMap((n) => n.actors).filter((a) => a !== null))];
     const label = actors.length > 0 ? actors.join(' · ') : 'Other recorded screens';
     const bucket = buckets.get(label) ?? { label, parts: [], size: 0 };
-    bucket.parts.push(part);
-    bucket.size += part.nodes.length;
-    buckets.set(label, bucket);
+    buckets.set(label, {
+      label,
+      parts: [...bucket.parts, part],
+      size: bucket.size + part.nodes.length,
+    });
   }
   return [...buckets.values()]
     .toSorted((a, b) => b.size - a.size)
@@ -180,7 +189,7 @@ const pathOf = (points: Routed['points']): string =>
   points.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${String(x)},${String(y)}`).join(' ');
 
 function cluster(
-  { model, map }: { model: Model; map: ScreenMap },
+  { model, map }: { readonly model: Model; readonly map: ScreenMap },
   part: Component,
   index: number,
 ): CatalogueCluster {

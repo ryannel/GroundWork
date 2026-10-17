@@ -15,7 +15,7 @@ import type {
 import type { EntityType, PathSegment } from '@/domain/plan/plan-ids';
 import type { Flow, Interface, Schema, Screen } from '@/domain/plan/plan.generated';
 
-type Origins = ReadonlyMap<string, PathSegment[]> | undefined;
+type Origins = ReadonlyMap<string, readonly PathSegment[]> | undefined;
 
 /** The system half of a plan (base arrays only), deep-cloned. */
 export function systemOf(plan: Partial<SystemSource>): SystemSource {
@@ -44,7 +44,7 @@ function systemOfScreens(plan: Partial<SystemSource>) {
   };
 }
 
-function flat<T extends { id: string }, K extends EntityType>(
+function flat<T extends { readonly id: string }, K extends EntityType>(
   list: readonly T[] | undefined,
   [type, key]: readonly [K, string],
   origins: Origins,
@@ -105,115 +105,81 @@ function regionNodes(screen: Screen, i: number, origins: Origins): RegionNode[] 
 type Lists = Omit<SystemGraph, 'byId' | 'duplicates' | 'get' | 'has'>;
 
 interface Index {
-  byId: Map<string, PlanNode>;
-  duplicates: PlanNode[];
+  readonly byId: ReadonlyMap<string, PlanNode>;
+  readonly duplicates: readonly PlanNode[];
 }
 
-function register<N extends PlanNode>(ix: Index, list: N[], node: N): void {
-  if (ix.byId.has(node.id)) ix.duplicates.push(node);
-  else ix.byId.set(node.id, node);
-  list.push(node);
+/** Ids are unique: the first node with an id is the one found by it, the later ones are duplicates. */
+function indexOf(nodes: readonly PlanNode[]): Index {
+  const byId = new Map<string, PlanNode>();
+  const duplicates: PlanNode[] = [];
+  for (const n of nodes) {
+    if (byId.has(n.id)) duplicates.push(n);
+    else byId.set(n.id, n);
+  }
+  return { byId, duplicates };
 }
 
-function emptyLists(): Lists {
+type PlainKey =
+  | 'teams'
+  | 'systems'
+  | 'services'
+  | 'stores'
+  | 'messages'
+  | 'interactions'
+  | 'userJourneys'
+  | 'graphs'
+  | 'subgraphs'
+  | 'operations'
+  | 'handlers';
+
+function plainLists(system: Partial<SystemSource>, o: Origins): Pick<Lists, PlainKey> {
   return {
-    teams: [],
-    systems: [],
-    services: [],
-    stores: [],
-    schemas: [],
-    fields: [],
-    interfaces: [],
-    endpoints: [],
-    messages: [],
-    flows: [],
-    steps: [],
-    screens: [],
-    regions: [],
-    interactions: [],
-    userJourneys: [],
-    graphs: [],
-    subgraphs: [],
-    operations: [],
-    handlers: [],
+    teams: flat(system.teams, ['team', 'teams'], o),
+    systems: flat(system.systems, ['system', 'systems'], o),
+    services: flat(system.services, ['service', 'services'], o),
+    stores: flat(system.stores, ['store', 'stores'], o),
+    messages: flat(system.messages, ['message', 'messages'], o),
+    interactions: flat(system.interactions, ['interaction', 'interactions'], o),
+    userJourneys: flat(system.user_journeys, ['userJourney', 'user_journeys'], o),
+    graphs: flat(system.graphs, ['graph', 'graphs'], o),
+    subgraphs: flat(system.subgraphs, ['subgraph', 'subgraphs'], o),
+    operations: flat(system.operations, ['operation', 'operations'], o),
+    handlers: flat(system.handlers, ['handler', 'handlers'], o),
   };
 }
 
-interface Build {
-  ix: Index;
-  lists: Lists;
-  origins: Origins;
-}
+const schemaNodes = (system: Partial<SystemSource>, o: Origins): readonly SchemaNode[] =>
+  (system.schemas ?? []).map((e, i) => ({
+    ...e,
+    fields: fieldNodes(e, i, o),
+    $type: 'schema',
+    $path: o?.get(e.id) ?? ['schemas', i],
+  }));
 
-function fillPlain(b: Build, system: Partial<SystemSource>): void {
-  const add = (list: PlanNode[], nodes: PlanNode[]): void => {
-    for (const n of nodes) register(b.ix, list, n);
-  };
-  const { lists, origins: o } = b;
-  add(lists.teams, flat(system.teams, ['team', 'teams'], o));
-  add(lists.systems, flat(system.systems, ['system', 'systems'], o));
-  add(lists.services, flat(system.services, ['service', 'services'], o));
-  add(lists.stores, flat(system.stores, ['store', 'stores'], o));
-  add(lists.messages, flat(system.messages, ['message', 'messages'], o));
-  add(lists.interactions, flat(system.interactions, ['interaction', 'interactions'], o));
-  add(lists.userJourneys, flat(system.user_journeys, ['userJourney', 'user_journeys'], o));
-  add(lists.graphs, flat(system.graphs, ['graph', 'graphs'], o));
-  add(lists.subgraphs, flat(system.subgraphs, ['subgraph', 'subgraphs'], o));
-  add(lists.operations, flat(system.operations, ['operation', 'operations'], o));
-  add(lists.handlers, flat(system.handlers, ['handler', 'handlers'], o));
-}
+const interfaceNodes = (system: Partial<SystemSource>, o: Origins): readonly InterfaceNode[] =>
+  (system.interfaces ?? []).map((e, i) => ({
+    ...e,
+    endpoints: endpointNodes(e, i, o),
+    $type: 'interface',
+    $path: o?.get(e.id) ?? ['interfaces', i],
+  }));
 
-function fillSchemas(b: Build, system: Partial<SystemSource>): void {
-  for (const [i, e] of (system.schemas ?? []).entries()) {
-    const node: SchemaNode = {
-      ...e,
-      fields: fieldNodes(e, i, b.origins),
-      $type: 'schema',
-      $path: b.origins?.get(e.id) ?? ['schemas', i],
-    };
-    register(b.ix, b.lists.schemas, node);
-    for (const f of node.fields) register(b.ix, b.lists.fields, f);
-  }
-}
+const flowNodes = (system: Partial<SystemSource>, o: Origins): readonly FlowNode[] =>
+  (system.flows ?? []).map((e, i) => ({
+    ...e,
+    steps: stepNodes(e, i, o),
+    $type: 'flow',
+    $path: o?.get(e.id) ?? ['flows', i],
+  }));
 
-function fillInterfaces(b: Build, system: Partial<SystemSource>): void {
-  for (const [i, e] of (system.interfaces ?? []).entries()) {
-    const node: InterfaceNode = {
-      ...e,
-      endpoints: endpointNodes(e, i, b.origins),
-      $type: 'interface',
-      $path: b.origins?.get(e.id) ?? ['interfaces', i],
-    };
-    register(b.ix, b.lists.interfaces, node);
-    for (const c of node.endpoints) register(b.ix, b.lists.endpoints, c);
-  }
-}
-
-function fillFlows(b: Build, system: Partial<SystemSource>): void {
-  for (const [i, e] of (system.flows ?? []).entries()) {
-    const node: FlowNode = {
-      ...e,
-      steps: stepNodes(e, i, b.origins),
-      $type: 'flow',
-      $path: b.origins?.get(e.id) ?? ['flows', i],
-    };
-    register(b.ix, b.lists.flows, node);
-    for (const c of node.steps) register(b.ix, b.lists.steps, c);
-  }
-}
-
-function fillScreens(b: Build, system: Partial<SystemSource>): void {
-  for (const [i, e] of (system.screens ?? []).entries()) {
-    const node: ScreenNode = {
-      ...e,
-      regions: regionNodes(e, i, b.origins),
-      $type: 'screen',
-      $path: b.origins?.get(e.id) ?? ['screens', i],
-    };
-    register(b.ix, b.lists.screens, node);
-    for (const c of node.regions) register(b.ix, b.lists.regions, c);
-  }
-}
+const screenNodes = (system: Partial<SystemSource>, o: Origins): readonly ScreenNode[] =>
+  (system.screens ?? []).map((e, i) => ({
+    ...e,
+    regions: regionNodes(e, i, o),
+    $type: 'screen',
+    $path: o?.get(e.id) ?? ['screens', i],
+  }));
 
 /**
  * Build an indexed graph from a system ({teams, services, …}). Nodes are shallow copies of entities
@@ -222,14 +188,29 @@ function fillScreens(b: Build, system: Partial<SystemSource>): void {
  * `origins` maps an id to its source path (default: where it sits in the base arrays).
  */
 export function buildGraph(system: Partial<SystemSource>, origins?: Origins): SystemGraph {
-  const ix: Index = { byId: new Map(), duplicates: [] };
-  const lists = emptyLists();
-  const build: Build = { ix, lists, origins };
-  fillPlain(build, system);
-  fillSchemas(build, system);
-  fillInterfaces(build, system);
-  fillFlows(build, system);
-  fillScreens(build, system);
+  const plain = plainLists(system, origins);
+  const schemas = schemaNodes(system, origins);
+  const interfaces = interfaceNodes(system, origins);
+  const flows = flowNodes(system, origins);
+  const screens = screenNodes(system, origins);
+  const lists: Lists = {
+    ...plain,
+    schemas,
+    fields: schemas.flatMap((n) => n.fields),
+    interfaces,
+    endpoints: interfaces.flatMap((n) => n.endpoints),
+    flows,
+    steps: flows.flatMap((n) => n.steps),
+    screens,
+    regions: screens.flatMap((n) => n.regions),
+  };
+  const ix = indexOf([
+    ...Object.values(plain).flat(),
+    ...schemas.flatMap((n) => [n, ...n.fields]),
+    ...interfaces.flatMap((n) => [n, ...n.endpoints]),
+    ...flows.flatMap((n) => [n, ...n.steps]),
+    ...screens.flatMap((n) => [n, ...n.regions]),
+  ]);
   return {
     ...lists,
     ...ix,

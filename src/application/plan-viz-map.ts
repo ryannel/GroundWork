@@ -42,7 +42,7 @@ function endpointLabel(method: string, path: string, max: number): string {
 }
 
 function signatureLabel(sig: string, max: number): string {
-  const [method = '', path = ''] = sig.split(/\s+/, 2);
+  const [method = '', path = ''] = sig.split(/\s+/u, 2);
   if (METHODS.has(method) && path !== '') return endpointLabel(method, path, max);
   return clipText(emptied(sig), max);
 }

@@ -7,7 +7,7 @@ import type { Flow } from '@/domain/plan/plan.generated';
 export type FlowModel = Pick<Model, 'asIs' | 'toBe' | 'get' | 'status' | 'edges'>;
 
 /** A step; in a diff, `$removed` marks one the plan takes away. */
-export type FlowStep = StepNode & { $removed?: boolean };
+export type FlowStep = StepNode & { readonly $removed?: boolean };
 
 /** Which steps a view reads: as-is, to-be, or to-be with the removed steps struck in. */
 export type FlowMode = 'asIs' | 'toBe' | 'diff';
@@ -33,7 +33,7 @@ export function flowIn(graph: FlowModel['asIs'], id: string): FlowNode | undefin
 }
 
 /** To-be steps with the as-is steps the plan removes put back where they were. */
-function withRemoved(base: FlowStep[], asIs: FlowNode): FlowStep[] {
+function withRemoved(base: readonly FlowStep[], asIs: FlowNode): FlowStep[] {
   const out = [...base];
   const have = new Set(base.map((s) => s.id));
   for (const [i, s] of asIs.steps.entries()) {
@@ -55,12 +55,14 @@ export function flowSteps(model: FlowModel, flowId: string, mode: FlowMode = 'to
   return mode === 'diff' && asIs !== undefined ? withRemoved(base, asIs) : base;
 }
 
-const JOB_WORDS = /\b(cron\w*|job|scheduler|nightly)\b/i;
+const JOB_WORDS = /\b(?:cron\w*|job|scheduler|nightly)\b/iu;
 
 /** Is this flow started by a job rather than a person? */
 export function isJob(
   model: FlowModel,
-  flow: Pick<Flow, 'actor' | 'trigger' | 'steps'> | undefined,
+  flow:
+    | (Pick<Flow, 'actor' | 'trigger'> & { readonly steps: readonly Pick<StepNode, 'from'>[] })
+    | undefined,
 ): boolean {
   const first = flow?.steps[0]?.from;
   return (
@@ -68,7 +70,7 @@ export function isJob(
   );
 }
 
-export const isSync = (via: string | undefined): boolean => /^(api|gql):/.test(via ?? '');
+export const isSync = (via: string | undefined): boolean => /^(?:api|gql):/u.test(via ?? '');
 
 /** api (a call that waits for its answer, REST or GraphQL) · msg (an event) · data (to or from a store) · internal. */
 export function stepKind(model: FlowModel, s: Pick<StepNode, 'via' | 'from' | 'to'>): StepKind {

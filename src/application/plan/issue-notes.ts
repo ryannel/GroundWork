@@ -4,7 +4,7 @@
 import { block, unlink, type IssueModel } from '@/application/plan/issue-parts';
 import type { WorkItem } from '@/domain/plan/plan.generated';
 
-const uniq = (xs: string[]): string[] => [...new Set(xs)];
+const uniq = (xs: readonly string[]): string[] => [...new Set(xs)];
 
 function dependsOn(model: IssueModel, wi: WorkItem): string[] {
   const deps = wi.depends_on ?? [];
@@ -31,7 +31,7 @@ function waitLine(model: IssueModel, qid: string, today: Today): string {
   return `- [ ] ${asked === '' ? qid : asked} (\`${qid}\`) — ${decider} · ${when}`;
 }
 
-function waitsOn(model: IssueModel, blockers: string[], today: Today): string[] {
+function waitsOn(model: IssueModel, blockers: readonly string[], today: Today): string[] {
   if (blockers.length === 0) return [];
   return ['#### Waits on', '', ...blockers.map((q) => waitLine(model, q, today)), ''];
 }
@@ -41,7 +41,7 @@ const statusOf = (model: IssueModel, id: string): string => fieldOf(model, id, '
 const textOf = (model: IssueModel, id: string, key: 'question' | 'statement'): string =>
   unlink(model, fieldOf(model, id, key));
 
-function links(model: IssueModel, wi: WorkItem, blockers: string[]): string[] {
+function links(model: IssueModel, wi: WorkItem, blockers: readonly string[]): string[] {
   const inv = wi.implements.map((c) => model.inverse(c));
   const decisions = uniq(inv.flatMap((i) => i.decisions));
   const questions = uniq([

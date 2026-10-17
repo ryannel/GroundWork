@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { derive } from '@/application/plan/derive';
 import { issueMarkdown, issueSections } from '@/application/plan/issues';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -18,7 +18,7 @@ describe('issueMarkdown', () => {
     expect(md).toContain('- [ ] status: enum(active, cancelled) → enum(active, paused, cancelled)');
     expect(md).toContain('Pause contract');
     expect(md).toContain('Given an active sub');
-    expect([...md.matchAll(/^### (.+)$/gm)].map((m) => m[1])).toEqual([
+    expect([...md.matchAll(/^### (.+)$/gmu)].map((m) => m[1])).toEqual([
       'Summary',
       'Why',
       'How',

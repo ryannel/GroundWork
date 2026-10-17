@@ -1,56 +1,35 @@
-import { type KeyJourneys, keyJourneysOf } from '@/application/key-journeys';
-import { landscapeMapInput, type LandscapeMapInput } from '@/application/landscape-map-input';
-import { workspaceScopeOf } from '@/application/model-scope';
+import { domainMapOf, type DomainMap } from '@/application/landscape-domains';
+import { drawDomainMap, type MapDrawing } from '@/application/landscape-domains-layout';
 import type { Model } from '@/application/plan/derive';
 import { andList } from '@/application/plan-viz-ladder-order';
-import { teamIndex } from '@/application/plan-viz-teams';
-import { type JourneyCard, journeyCardOf, journeyCardsOf } from '@/application/today-scope';
+import type { JourneyCard } from '@/application/today-scope';
 import { componentsOf, type Domain, systemsOf, type Workspace } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
-import { journeysHref } from './today-reader';
-import { systemHref } from './workspace-paths';
-
-// The landscape teaches the whole workspace: what is true of it in one line, the canvas of who uses which domain
-// and how the domains connect, the journeys that carry the work, and the teams that run it.
-
-/** A team and the systems it runs. */
-export interface TeamRow {
-  readonly id: string;
-  readonly name: string;
-  readonly slot: number;
-  readonly channel: string | null;
-  readonly systems: readonly { readonly name: string; readonly href: string }[];
-}
+// The landscape teaches the whole workspace: what is true of it in one line, and the map of its domains, the
+// people who work in each, the customer they serve, and how the domains rely on one another.
 
 export interface Landscape {
   readonly name: string;
   /** What is true of the workspace, as one sentence. */
   readonly headline: string;
   readonly facts: readonly string[];
-  /** The people, domains and outside services, and how they connect. */
-  readonly map: LandscapeMapInput;
-  readonly journeys: readonly JourneyCard[];
-  /** The journeys the workspace leads with, and whether a person or the code picked them. */
-  readonly key: {
-    readonly source: KeyJourneys['source'];
-    readonly cards: readonly JourneyCard[];
-    readonly unknown: readonly string[];
-  };
-  /** Where every journey and flow is listed. */
-  readonly allJourneys: string;
-  readonly teams: readonly TeamRow[];
+  /** The domains, the people in them, the customer, and the lines between. */
+  readonly map: DomainMap;
+  /** Where the map puts each box and line. */
+  readonly drawing: MapDrawing;
 }
 
 const lowerFirst = (words: string): string => `${words.charAt(0).toLowerCase()}${words.slice(1)}`;
 
 function headlineOf(workspace: Workspace): string {
   const count = systemsOf(workspace).length;
-  const what = workspace.description?.trim().replace(/\.$/, '') ?? '';
-  if (count === 0)
+  const what = workspace.description?.trim().replace(/\.$/u, '') ?? '';
+  if (count === 0) {
     return what === ''
       ? `None of ${workspace.name}'s systems is mapped yet.`
       : `${what}. None of its systems is mapped yet.`;
+  }
   const runs = `${workspace.name} runs ${plural(count, 'system')} in ${plural(workspace.domains.length, 'domain')}`;
   return what === '' ? `${runs}.` : `${runs}: ${lowerFirst(what)}.`;
 }
@@ -68,53 +47,20 @@ export function roleOf(domain: Domain, journeys: readonly JourneyCard[]): string
   return parts.length === 0 ? null : `In ${andList(parts)}`;
 }
 
-function teamsOf(workspace: Workspace, model: Model): TeamRow[] {
-  const run = workspace.domains.flatMap((domain) =>
-    domain.systems.map((system) => ({ domain, system })),
-  );
-  return workspace.teams.map((team) => ({
-    id: team.id,
-    name: team.name,
-    slot: teamIndex(model, team.id),
-    channel: team.channel,
-    systems: run
-      .filter(({ system }) => system.team === team.id)
-      .map(({ domain, system }) => ({
-        name: system.name,
-        href: systemHref({ workspace: workspace.id, domain: domain.id, system: system.id }),
-      })),
-  }));
-}
-
 /** The landscape of a workspace, read from its model of today. */
 export function landscapeOf(workspace: Workspace, model: Model): Landscape {
-  const journeys = journeyCardsOf(model, workspace.id, workspaceScopeOf(workspace));
-  const key = keyJourneysOf(workspace, model);
+  const map = domainMapOf(workspace, model);
   return {
     name: workspace.name,
     headline: headlineOf(workspace),
     facts: [
       plural(workspace.domains.length, 'domain'),
       plural(systemsOf(workspace).length, 'system'),
+      plural(map.people.length, 'person', 'people'),
       plural(componentsOf(workspace).length, 'component'),
-      plural(model.asIs.userJourneys.length, 'user journey'),
-      plural(model.asIs.flows.length, 'flow'),
+      plural(map.journeys.length, 'journey and flow', 'journeys and flows'),
     ],
-    map: landscapeMapInput(
-      workspace,
-      model,
-      key.picked.map((k) => k.journey.key),
-    ),
-    journeys,
-    allJourneys: journeysHref(workspace.id),
-    key: {
-      source: key.source,
-      cards: key.picked.map((k) => ({
-        ...journeyCardOf(model, workspace.id, k.journey),
-        why: k.why,
-      })),
-      unknown: key.unknown,
-    },
-    teams: teamsOf(workspace, model),
+    map,
+    drawing: drawDomainMap(map),
   };
 }

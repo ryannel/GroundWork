@@ -17,22 +17,22 @@ export type CacheCase = 'hit' | 'miss' | 'cold';
 
 export type CacheRow = Omit<Draft, 'blocked' | 'observed'> & {
   /** Why a blocked row cannot be used. */
-  why: string | null;
+  readonly why: string | null;
   /** Whether the row is filled on the way back (a miss). */
-  fills: boolean;
-  latency: number | null;
+  readonly fills: boolean;
+  readonly latency: number | null;
 };
 
 export interface CachePath {
-  id: string;
-  case: CacheCase;
+  readonly id: string;
+  readonly case: CacheCase;
   /** The store that skips every fetch; null when the subgraphs do some work. */
-  answeredBy: string | null;
+  readonly answeredBy: string | null;
   /** A gateway entity cache that was hit but leaves some fetches to run. */
-  partial: string | null;
-  layers: CacheRow[];
-  fetches: (Fetch & { state: 'run' | 'skipped' })[];
-  policy: ResponsePolicy | null;
+  readonly partial: string | null;
+  readonly layers: readonly CacheRow[];
+  readonly fetches: readonly (Fetch & { readonly state: 'run' | 'skipped' })[];
+  readonly policy: ResponsePolicy | null;
 }
 
 const paths = memoPerGraph<CachePath>();
@@ -42,7 +42,7 @@ const answers = (row: Draft): boolean =>
   row.granularity === 'response' ||
   (row.granularity === 'entity' && (row.perFetch ?? []).every((p) => p.cacheable));
 
-type FetchState = Map<string, 'run' | 'skipped'>;
+type FetchState = ReadonlyMap<string, 'run' | 'skipped'>;
 
 function tierState(row: Draft, index: number, answerAt: number): RowState {
   if (row.blocked !== undefined) return 'blocked';
@@ -53,7 +53,6 @@ function tierState(row: Draft, index: number, answerAt: number): RowState {
 function entityFetchState(row: Draft, p: PerFetch, fetchState: FetchState): RowState {
   if (row.state === 'blocked') return 'blocked';
   const state = p.cacheable ? row.state : 'skipped';
-  if (state === 'hit') fetchState.set(p.fetch, 'skipped');
   return row.state === 'skipped' && fetchState.get(p.fetch) === 'skipped' ? 'skipped' : state;
 }
 
@@ -64,6 +63,10 @@ function withFetchStates(row: Draft, fetchState: FetchState): Draft {
   }));
   return { ...row, perFetch };
 }
+
+/** The fetches an entity row skips: those it answers from cache. */
+const skippedBy = (row: Draft): readonly string[] =>
+  (row.perFetch ?? []).filter((p) => p.state === 'hit').map((p) => p.fetch);
 
 /** Data caches: hit when their fetch runs (hit and miss cases), miss when cold, skipped when the fetch never runs. */
 function dataState(row: Draft, kase: CacheCase, fetchState: FetchState): RowState {
@@ -81,26 +84,32 @@ function toRow(r: Draft): CacheRow {
 }
 
 interface Tiers {
-  response: Draft[];
-  data: Draft[];
+  readonly response: readonly Draft[];
+  readonly data: readonly Draft[];
 }
 
 /** The response tiers with their state, the row that answers (if any), and which fetches still run. */
 function settleResponse(
-  tiers: Draft[],
+  tiers: readonly Draft[],
   kase: CacheCase,
   fetches: readonly Fetch[],
-): { rows: Draft[]; answer: Draft | undefined; fetchState: FetchState } {
+): {
+  readonly rows: readonly Draft[];
+  readonly answer: Draft | undefined;
+  readonly fetchState: FetchState;
+} {
   const live = tiers.filter((r) => r.blocked === undefined);
-  const answer = { hit: live[0], miss: live[1], cold: undefined }[kase];
+  const answerIndex = { hit: 0, miss: 1, cold: -1 }[kase];
+  const answer = answerIndex < 0 ? undefined : live[answerIndex];
   const answerAt = answer === undefined ? Infinity : tiers.indexOf(answer);
-  const fetchState: FetchState = new Map(fetches.map((f) => [f.id, 'run']));
-  if (answer?.granularity === 'response') {
-    for (const k of fetchState.keys()) fetchState.set(k, 'skipped');
-  }
+  const initial = answer?.granularity === 'response' ? 'skipped' : 'run';
+  const fetchState = new Map<string, 'run' | 'skipped'>(fetches.map((f) => [f.id, initial]));
   const rows = tiers.map((r, i) => {
     const settled = { ...r, state: tierState(r, i, answerAt) };
-    return settled.granularity === 'entity' ? withFetchStates(settled, fetchState) : settled;
+    if (settled.granularity !== 'entity') return settled;
+    const withStates = withFetchStates(settled, fetchState);
+    for (const fetch of skippedBy(withStates)) fetchState.set(fetch, 'skipped');
+    return withStates;
   });
   return { rows, answer, fetchState };
 }

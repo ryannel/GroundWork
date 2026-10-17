@@ -34,7 +34,7 @@ const GRAPH_FIELD_PROPS = [
 ];
 
 /** `graph|TypeName` to the fields that return a type nobody modelled. */
-export type Unknown = Map<string, FieldNode[]>;
+export type Unknown = ReadonlyMap<string, readonly FieldNode[]>;
 
 /** A field of a plain schema may not carry what only a graph-type field has. */
 function checkPlainSchema(s: Scope, t: SchemaNode): void {
@@ -88,17 +88,23 @@ function checkMissingKeys(s: Scope, t: SchemaNode): void {
   );
 }
 
-function noteUnknown(at: { s: Scope; t: SchemaNode; f: FieldNode }, unknown: Unknown): void {
+/** The `graph|type` key of a field's type when that type is not modelled, else null. */
+function unknownKey(at: {
+  readonly s: Scope;
+  readonly t: SchemaNode;
+  readonly f: FieldNode;
+}): string | null {
   const { s, t, f } = at;
   const tn = parseTypeRef(f.type).name;
-  if (tn === '' || BUILTIN_SCALARS.includes(tn) || graphIndex(s.g, t.graph).types.has(tn)) return;
-  const key = `${String(t.graph)}|${tn}`;
-  unknown.set(key, [...(unknown.get(key) ?? []), f]);
+  if (tn === '' || BUILTIN_SCALARS.includes(tn) || graphIndex(s.g, t.graph).types.has(tn)) {
+    return null;
+  }
+  return `${String(t.graph)}|${tn}`;
 }
 
 /** Checks 16: graph types: keys, ownership and the composition rules. */
 export function checkGraphTypes(s: Scope): void {
-  const unknown: Unknown = new Map();
+  const unknown = new Map<string, readonly FieldNode[]>();
   for (const t of s.g.schemas) {
     if (t.kind !== 'graph-type') {
       checkPlainSchema(s, t);
@@ -113,7 +119,8 @@ export function checkGraphTypes(s: Scope): void {
       checkProvides(a);
       checkValueType(a);
       checkReadsAndCaches(a);
-      noteUnknown({ s, t, f }, unknown);
+      const key = unknownKey({ s, t, f });
+      if (key !== null) unknown.set(key, [...(unknown.get(key) ?? []), f]);
     }
   }
   reportUnknown(s, unknown);

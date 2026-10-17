@@ -18,38 +18,38 @@ import type { CacheUse, Store } from '@/domain/plan/plan.generated';
 export type RowState = 'hit' | 'miss' | 'skipped' | 'blocked';
 
 export interface PerFetch {
-  fetch: string;
-  subgraph: string;
-  ttl: number;
-  cacheable: boolean;
-  state: RowState;
+  readonly fetch: string;
+  readonly subgraph: string;
+  readonly ttl: number;
+  readonly cacheable: boolean;
+  readonly state: RowState;
 }
 
 /** A cache row before the case is settled: it may carry the reason it is blocked. */
 export interface Draft {
-  store: string;
-  name: string;
-  layer: 'edge' | 'gateway' | 'subgraph';
-  key: NonNullable<CacheUse['key']> | null;
-  invalidatedBy: string[];
-  purgedIn: string[];
-  stale: Store['stale'] | null;
-  observed: Store['observed'] | null;
-  granularity: 'response' | 'entity' | 'data';
-  ttl: number | null;
+  readonly store: string;
+  readonly name: string;
+  readonly layer: 'edge' | 'gateway' | 'subgraph';
+  readonly key: NonNullable<CacheUse['key']> | null;
+  readonly invalidatedBy: readonly string[];
+  readonly purgedIn: readonly string[];
+  readonly stale: Store['stale'] | null;
+  readonly observed: Store['observed'] | null;
+  readonly granularity: 'response' | 'entity' | 'data';
+  readonly ttl: number | null;
   /** Authored and differs from the derived max-age; authored and equal; derived; per field; per fetch. */
-  ttlSource: 'override' | 'authored' | 'derived' | 'field' | 'per-fetch';
-  derivedTtl?: number;
-  scope: 'public' | 'private';
-  reason: string | null;
-  state: RowState;
-  blocked?: string;
-  fetch?: string;
-  fields?: string[];
-  perFetch?: PerFetch[];
+  readonly ttlSource: 'override' | 'authored' | 'derived' | 'field' | 'per-fetch';
+  readonly derivedTtl?: number;
+  readonly scope: 'public' | 'private';
+  readonly reason: string | null;
+  readonly state: RowState;
+  readonly blocked?: string;
+  readonly fetch?: string;
+  readonly fields?: readonly string[];
+  readonly perFetch?: readonly PerFetch[];
 }
 
-const onPath = (st: PlanNode | undefined): st is StoreNode & { layer: Draft['layer'] } =>
+const onPath = (st: PlanNode | undefined): st is StoreNode & { readonly layer: Draft['layer'] } =>
   st?.$type === 'store' &&
   st.kind === 'cache' &&
   st.layer !== undefined &&
@@ -89,10 +89,10 @@ function responseStores(g: SystemGraph, op: OperationNode): ResponseStore[] {
 }
 
 export interface TierFacts {
-  g: SystemGraph;
-  op: OperationNode;
-  plan: QueryPlan;
-  policy: ResponsePolicy;
+  readonly g: SystemGraph;
+  readonly op: OperationNode;
+  readonly plan: QueryPlan;
+  readonly policy: ResponsePolicy;
 }
 
 function blockReason(f: TierFacts, row: Draft): string | undefined {
@@ -110,7 +110,7 @@ function blockReason(f: TierFacts, row: Draft): string | undefined {
   return (row.ttl ?? 0) > 0 ? undefined : policy.why;
 }
 
-type ResponseStore = StoreNode & { layer: Draft['layer'] };
+type ResponseStore = StoreNode & { readonly layer: Draft['layer'] };
 
 function entityRow(f: TierFacts, row: Draft): Draft {
   const perFetch = f.plan.fetches.map((x): PerFetch => {
@@ -161,7 +161,8 @@ export function operationDataTier(f: TierFacts): Draft[] {
     for (const c of fetch.caches) {
       const st = storeNode(f.g, c.at);
       if (!onPath(st)) continue;
-      const cur = rows.find((r) => r.store === st.id && r.fetch === fetch.id);
+      const at = rows.findIndex((r) => r.store === st.id && r.fetch === fetch.id);
+      const cur = rows[at];
       if (cur?.fields === undefined) {
         rows.push({
           ...base(f.g, st, 'subgraph'),
@@ -170,7 +171,9 @@ export function operationDataTier(f: TierFacts): Draft[] {
           fetch: fetch.id,
           fields: [c.field],
         });
-      } else if (!cur.fields.includes(c.field)) cur.fields.push(c.field);
+      } else if (!cur.fields.includes(c.field)) {
+        rows[at] = { ...cur, fields: [...cur.fields, c.field] };
+      }
     }
   }
   return rows;

@@ -136,10 +136,10 @@ export function frameOf(grid: Grid, byMs: boolean): Frame {
 
 /** From (x1,y1) to (x2,y2), leaving right and entering left, with rounded corners; backwards edges loop below. */
 export function orthogonal(
-  from: { x: number; y: number },
-  to: { x: number; y: number },
+  from: { readonly x: number; readonly y: number },
+  to: { readonly x: number; readonly y: number },
   midX: number,
-) {
+): string {
   const { x: x1, y: y1 } = from;
   const { x: x2, y: y2 } = to;
   if (Math.abs(y2 - y1) < 1) return `M${String(x1)},${String(y1)} H${String(x2)}`;

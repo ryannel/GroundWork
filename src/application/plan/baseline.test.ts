@@ -4,7 +4,7 @@ import { newWarnings, stablePath } from '@/application/plan/baseline';
 import { validatePlan } from '@/application/plan/validate-plan';
 import type { Plan } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 

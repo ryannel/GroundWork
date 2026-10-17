@@ -1,70 +1,72 @@
-import path from 'node:path';
+import { describe, expect, it } from 'vitest';
 
-import { describe, expect, it, vi } from 'vitest';
-
+import { acme as acmeKit } from '@/../test/workspace-kit';
 import { findIn, ownedBy, systemMapOf, unscanned } from '@/application/system-map';
 import { callersOf, shownIn } from '@/application/system-map-links';
 import { mapMarkdownOf } from '@/application/system-map-md';
-import { systemModelOf } from '@/application/workspace-model';
-import { readWorkspaceModel } from '@/infrastructure/workspace-model';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
 
-vi.mock('server-only', () => ({}));
-
-const root = path.resolve(import.meta.dirname, '../../workspaces');
-
-async function alder() {
-  const workspaces = await readWorkspaces(root);
-  const workspace = workspaces.find(({ id }) => id === 'alder-finch')!;
-  const model = await readWorkspaceModel(workspace, root);
-  return systemMapOf(workspace, systemModelOf(workspace, model));
+function acme() {
+  const { workspace, today } = acmeKit();
+  return systemMapOf(workspace, today);
 }
 
 describe('the system map', () => {
-  it('places every fact in its domain, system and component', async () => {
-    const map = await alder();
-    const price = map.facts.get('api:pricing-get-price')!;
-    expect(price).toMatchObject({
+  it('places every fact in its domain, system and component', () => {
+    const map = acme();
+    expect(map.facts.get('api:orders-create')).toMatchObject({
       type: 'endpoint',
-      domain: 'commercial-backbone',
-      system: 'price-engine',
-      component: 'svc:pricing',
+      name: 'POST /orders',
+      domain: 'orders',
+      system: 'ordering',
+      component: 'svc:order-api',
+    });
+    expect(map.facts.get('st:search-index')).toMatchObject({
+      domain: 'catalogue',
+      system: 'search',
     });
   });
 
-  it('cites the parent when a fact has no sources of its own', async () => {
-    const map = await alder();
-    const price = map.facts.get('api:pricing-get-price')!;
-    expect(price.sourcesOf).toBe('svc:pricing');
-    expect(price.sources[0]?.url).toMatch(/^https:\/\/github\.com\/alder-finch\/pricing\/blob\//);
+  it('cites the parent when a fact has no sources of its own', () => {
+    const map = acme();
+    const get = map.facts.get('api:products-get')!;
+    expect(get.sourcesOf).toBe('svc:products');
+    expect(get.sources[0]?.url).toMatch(/^https:\/\/github\.com\/acme\/products\/blob\//u);
+    const create = map.facts.get('api:orders-create')!;
+    expect(create.sourcesOf).toBeNull();
+    expect(create.sources.map((s) => s.lines)).toEqual([[34, 61]]);
   });
 
-  it('finds facts by words, best match first', async () => {
-    const found = findIn(await alder(), 'pricing graph');
-    expect(found[0]?.id).toBe('svc:pricing-graph');
+  it('finds facts by words, best match first', () => {
+    const found = findIn(acme(), 'order mailer');
+    expect(found[0]?.id).toBe('svc:order-mailer');
   });
 
-  it('says who calls an endpoint', async () => {
-    const map = await alder();
-    const shown = shownIn(map, 'api:pricing-get-price')!;
-    expect(shown.in.map(({ from }) => from)).toContain('svc:pricing-graph');
-    expect(callersOf(map, 'api:pricing-get-price').length).toBeGreaterThanOrEqual(shown.in.length);
+  it('says who calls an endpoint', () => {
+    const map = acme();
+    const shown = shownIn(map, 'api:orders-create')!;
+    expect(shown.in.map(({ from }) => from)).toContain('svc:shop-bff');
+    expect(callersOf(map, 'api:orders-create').length).toBeGreaterThanOrEqual(shown.in.length);
     expect(shownIn(map, 'api:nothing')).toBeUndefined();
   });
 
-  it('finds the facts read from a file', async () => {
-    const owned = ownedBy(await alder(), 'ProductResolver.kt');
-    expect(owned.map(({ id }) => id)).toContain('svc:pricing-graph');
+  it('finds the facts read from a file', () => {
+    const owned = ownedBy(acme(), 'OrderController.kt');
+    expect(owned.map(({ id }) => id)).toEqual(
+      expect.arrayContaining(['if:orders-rest', 'api:orders-create']),
+    );
+    expect(owned.map(({ id }) => id)).not.toContain('svc:products');
   });
 
-  it('lists repos never scanned', async () => {
-    const map = await alder();
-    expect(unscanned(map).map(({ repo }) => repo)).toContain('alder-finch/pricing');
+  it('lists repos never scanned', () => {
+    const map = acme();
+    const repos = unscanned(map).map(({ repo }) => repo);
+    expect(repos).toContain('acme/products');
+    expect(repos).not.toContain('acme/ordering');
   });
 
-  it('writes one line per component in MAP.md', async () => {
-    const text = mapMarkdownOf(await alder());
-    expect(text).toContain('## Commercial backbone (`commercial-backbone`)');
-    expect(text).toContain('- `svc:pricing` Pricing');
+  it('writes one line per component in MAP.md', () => {
+    const text = mapMarkdownOf(acme());
+    expect(text).toContain('## Orders (`orders`)');
+    expect(text).toContain('- `svc:order-api` Order API');
   });
 });

@@ -4,7 +4,7 @@ import type { Rec } from '@/application/plan/ids';
 import { validatePlan } from '@/application/plan/validate-plan';
 import type { Change, Plan } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -22,7 +22,7 @@ const opValue = (c: Change, i: number): Rec => op(c, i).value as Rec;
 
 type Mutate = (p: Plan) => void;
 
-const untouched: Mutate = vi.fn();
+const untouched = vi.fn<Mutate>();
 const dec = (p: Plan) => p.decisions![0]!;
 const q = (p: Plan) => p.questions![0]!;
 
@@ -65,7 +65,7 @@ describe('uniqueness', () => {
         p.services.push({ ...p.services[0]! });
       },
       'services[4]',
-      /duplicate id svc:web/,
+      /duplicate id svc:web/u,
     ));
   it('duplicate step ids', async () =>
     expectError(
@@ -73,7 +73,7 @@ describe('uniqueness', () => {
         flow(p, 'flow:cancel').steps[1]!.id = 'flow:cancel#request';
       },
       'flows[0].steps[1]',
-      /duplicate id/,
+      /duplicate id/u,
     ));
   it('step id must carry its flow prefix', async () =>
     expectError(
@@ -82,7 +82,7 @@ describe('uniqueness', () => {
         op(chg(p, 'chg:retire-email'), 0).remove = 'flow:billing-run#legacy-email';
       },
       'flows[0].steps[4].id',
-      /must start with flow:cancel#/,
+      /must start with flow:cancel#/u,
     ));
 });
 
@@ -93,7 +93,7 @@ describe('dangling refs', () => {
         Object.assign(p.services[1]!, { team: 'team:nobody' });
       },
       'services[1].team',
-      /team:nobody does not exist; fix the id, or define it/,
+      /team:nobody does not exist; fix the id, or define it/u,
     ));
   it('as-is entity may not reference an added id', async () =>
     expectError(
@@ -101,7 +101,7 @@ describe('dangling refs', () => {
         flow(p, 'flow:cancel').steps[1]!.via = 'msg:status-changed-v2';
       },
       'flows[0].steps[1].via',
-      /added by changes\[1\]\.ops\[1\]/,
+      /added by changes\[1\]\.ops\[1\]/u,
     ));
   it('plan-level ref', async () =>
     expectError(
@@ -109,7 +109,7 @@ describe('dangling refs', () => {
         p.tests![0]!.proves.push('chg:nope');
       },
       'tests[0].proves[1]',
-      /chg:nope does not exist/,
+      /chg:nope does not exist/u,
     ));
   it('wrong target type', async () =>
     expectError(
@@ -117,7 +117,7 @@ describe('dangling refs', () => {
         Object.assign(p.messages![0]!, { topic: 'svc:subs' });
       },
       'messages[0].topic',
-      /expected store/,
+      /expected store/u,
     ));
   it('field ref in reads must exist', async () =>
     expectError(
@@ -125,7 +125,7 @@ describe('dangling refs', () => {
         flow(p, 'flow:billing-run').steps[0]!.reads = ['sch:invoice#nope'];
       },
       'flows[1].steps[0].reads[0]',
-      /does not exist/,
+      /does not exist/u,
     ));
   it('[[id]] citation in markdown', async () =>
     expectError(
@@ -133,7 +133,7 @@ describe('dangling refs', () => {
         Object.assign(p.problem, { why: 'See [[svc:ghost]].' });
       },
       'problem.why',
-      /cites \[\[svc:ghost\]\]/,
+      /cites \[\[svc:ghost\]\]/u,
     ));
   it('[[id]] citation inside an op value', async () =>
     expectError(
@@ -141,7 +141,7 @@ describe('dangling refs', () => {
         opValue(chg(p, 'chg:pause-api'), 0).summary = 'x [[dec:nope]]';
       },
       'changes[0].ops[0].value.summary',
-      /dec:nope/,
+      /dec:nope/u,
     ));
   it('op target dangling', async () =>
     expectError(
@@ -149,15 +149,15 @@ describe('dangling refs', () => {
         op(chg(p, 'chg:retire-email'), 0).remove = 'flow:cancel#ghost';
       },
       'changes[4].ops[0].remove',
-      /does not exist/,
+      /does not exist/u,
     ));
   it('to-be entity refers to something removed', async () =>
     expectError(
       (p) => {
         chg(p, 'chg:retire-email').ops.push({ remove: 'sch:invoice' });
       },
-      /flows\[1\]\.steps\[0\]\.reads\[0\]|changes/,
-      /removes/,
+      /flows\[1\]\.steps\[0\]\.reads\[0\]|changes/u,
+      /removes/u,
     ));
   it('a test may walk a removed step (as-is and to-be both count)', async () => {
     const { errors } = await run(untouched);
@@ -196,7 +196,7 @@ describe('op targets are as-is; adds do not collide', () => {
         });
       },
       'changes[0].ops[5].modify',
-      /added later in the changes list, by changes\[1\]\.ops\[1\]; move this modify after/,
+      /added later in the changes list, by changes\[1\]\.ops\[1\]; move this modify after/u,
     ));
   it('add collides with an as-is id', async () =>
     expectError(
@@ -204,7 +204,7 @@ describe('op targets are as-is; adds do not collide', () => {
         opValue(chg(p, 'chg:pause-api'), 0).id = 'sch:subscription';
       },
       'changes[0].ops[0].value',
-      /collides with an as-is id/,
+      /collides with an as-is id/u,
     ));
   it('add collides with an earlier add', async () =>
     expectError(
@@ -212,7 +212,7 @@ describe('op targets are as-is; adds do not collide', () => {
         opValue(chg(p, 'chg:status-event-v2'), 0).id = 'sch:pause-request';
       },
       'changes[1].ops[0].value',
-      /collides with an earlier add/,
+      /collides with an earlier add/u,
     ));
   it('append to a scalar', async () =>
     expectError(
@@ -223,7 +223,7 @@ describe('op targets are as-is; adds do not collide', () => {
         };
       },
       'changes[3].ops[2].append.owner',
-      /not a list/,
+      /not a list/u,
     ));
   it('after must be a sibling', async () =>
     expectError(
@@ -231,7 +231,7 @@ describe('op targets are as-is; adds do not collide', () => {
         op(chg(p, 'chg:skip-paused'), 0).after = 'flow:cancel#publish';
       },
       'changes[3].ops[0].after',
-      /not a step of flow:billing-run/,
+      /not a step of flow:billing-run/u,
     ));
   it('remove twice', async () =>
     expectError(
@@ -239,7 +239,7 @@ describe('op targets are as-is; adds do not collide', () => {
         chg(p, 'chg:retire-email').ops.push({ remove: 'flow:cancel#legacy-email' });
       },
       'changes[4].ops[1].remove',
-      /already removed/,
+      /already removed/u,
     ));
 });
 
@@ -250,7 +250,7 @@ describe('records need a store', () => {
         Reflect.deleteProperty(p.schemas![0]!, 'store');
       },
       'schemas[0].store',
-      /record, so it needs a store; add `store: st:…` to the schema/,
+      /record, so it needs a store; add `store: st:…` to the schema/u,
     ));
   it('added record without store', async () =>
     expectError(
@@ -258,7 +258,7 @@ describe('records need a store', () => {
         opValue(chg(p, 'chg:pause-api'), 0).kind = 'record';
       },
       'changes[0].ops[0].value.kind',
-      /needs a store/,
+      /needs a store/u,
     ));
   it('topic with no message', async () =>
     expectWarning(
@@ -271,7 +271,7 @@ describe('records need a store', () => {
         });
       },
       'stores[3]',
-      /no message says what goes on it/,
+      /no message says what goes on it/u,
     ));
 });
 
@@ -284,7 +284,7 @@ describe('step via consistency', () => {
         s.writes = [];
       },
       'flows[0].steps[0].to',
-      /served by svc:subs/,
+      /served by svc:subs/u,
     ));
   it('msg via: from producer or to consumer/topic', async () =>
     expectError(
@@ -292,7 +292,7 @@ describe('step via consistency', () => {
         flow(p, 'flow:cancel').steps[0]!.via = 'msg:status-changed-v1';
       },
       'flows[0].steps[0].via',
-      /producer \(svc:subs\)/,
+      /producer \(svc:subs\)/u,
     ));
   it('to-be step modified onto a message it does not consume', async () =>
     expectError(
@@ -300,17 +300,17 @@ describe('step via consistency', () => {
         opValue(chg(p, 'chg:status-event-v2'), 1).consumers = ['svc:analytics'];
       },
       'changes[1].ops[3].set.via',
-      /consumers/,
+      /consumers/u,
     ));
   it('warns when a to-be step uses a deprecated via', async () =>
-    expectWarning(untouched, 'flows[0].steps[1].via', /deprecates/));
+    expectWarning(untouched, 'flows[0].steps[1].via', /deprecates/u));
   it('errors when a to-be step uses a removed via', async () =>
     expectError(
       (p) => {
         chg(p, 'chg:retire-email').ops.push({ remove: 'msg:status-changed-v1' });
       },
       'flows[0].steps[1].via',
-      /changes\[4\]\.ops\[1\] removes/,
+      /changes\[4\]\.ops\[1\] removes/u,
     ));
 });
 
@@ -322,7 +322,7 @@ describe('reads and writes belong to the acting service', () => {
         flow(p, 'flow:cancel').steps[2]!.reads = ['sch:subscription'];
       },
       'flows[0].steps[2].reads[0]',
-      /svc:billing \(the acting service\) reads sch:subscription/,
+      /svc:billing \(the acting service\) reads sch:subscription/u,
     ));
   it('access grants read, not write', async () =>
     expectError(
@@ -331,7 +331,7 @@ describe('reads and writes belong to the acting service', () => {
         Object.assign(p.flows![0]!.steps[3]!, { writes: ['sch:invoice'] });
       },
       'flows[0].steps[3].writes[0]',
-      /svc:analytics.*writes sch:invoice/,
+      /svc:analytics.*writes sch:invoice/u,
     ));
   it('access granted by an op is honoured in the to-be', async () => {
     const { errors } = await run((p) => {
@@ -360,18 +360,19 @@ describe('changes are tested and implemented', () => {
         Object.assign(p, { tests: p.tests!.filter((t) => t.id !== 'tst:no-email') });
       },
       'changes[4]',
-      /has no test/,
+      /has no test/u,
     ));
   it('change without work item', async () =>
     expectError(
       (p) => {
         Object.assign(p.meta, { status: 'review' });
         Object.assign(p, { work_items: p.work_items!.filter((w) => w.id !== 'wi:retire') });
-        for (const w of p.work_items!)
+        for (const w of p.work_items!) {
           w.depends_on = (w.depends_on ?? []).filter((d) => d !== 'wi:retire');
+        }
       },
       'changes[4]',
-      /has no work item/,
+      /has no work item/u,
     ));
   it('work item implements nothing', async () =>
     expectError(
@@ -379,7 +380,7 @@ describe('changes are tested and implemented', () => {
         Object.assign(p.work_items![1]!, { implements: [] });
       },
       'work_items[1].implements',
-      /at least one change/,
+      /at least one change/u,
     ));
   it('verified_by test proves none of its changes', async () =>
     expectError(
@@ -387,7 +388,7 @@ describe('changes are tested and implemented', () => {
         Object.assign(p.work_items![1]!, { verified_by: ['tst:skip-unit'] });
       },
       'work_items[1].verified_by[0]',
-      /proves none of wi:v2-event/,
+      /proves none of wi:v2-event/u,
     ));
 });
 
@@ -403,7 +404,7 @@ describe('draft plans: completeness rules are warnings', () => {
     const msgs = warnings.map((w) => `${w.path}: ${w.message}`);
     expect(
       msgs.some((m) =>
-        /^changes\[4\]: draft: chg:retire-email has no test .*add a test with proves: \[chg:retire-email\]/.test(
+        /^changes\[4\]: draft: chg:retire-email has no test .*add a test with proves: \[chg:retire-email\]/u.test(
           m,
         ),
       ),
@@ -423,7 +424,7 @@ describe('draft plans: completeness rules are warnings', () => {
         Object.assign(p.work_items![1]!, { implements: [] });
       },
       'work_items[1].implements',
-      /at least one change/,
+      /at least one change/u,
     ));
 });
 
@@ -433,8 +434,8 @@ describe('depends_on is acyclic and milestone-ordered', () => {
       (p) => {
         byId(p.work_items, 'wi:v2-event').depends_on = ['wi:retire'];
       },
-      /work_items\[\d\]\.depends_on/,
-      /dependency cycle: .*wi:v2-event/,
+      /work_items\[\d\]\.depends_on/u,
+      /dependency cycle: .*wi:v2-event/u,
     ));
   it('depends on a later milestone', async () =>
     expectError(
@@ -442,7 +443,7 @@ describe('depends_on is acyclic and milestone-ordered', () => {
         byId(p.work_items, 'wi:pause-endpoint').depends_on = ['wi:skip'];
       },
       'work_items[0].depends_on[0]',
-      /later milestone \(ms:migrate\)/,
+      /later milestone \(ms:migrate\)/u,
     ));
 });
 
@@ -456,7 +457,7 @@ describe('flows have steps', () => {
         p.work_items!.splice(4, 1);
       },
       'flows[1].steps',
-      /has no steps/,
+      /has no steps/u,
     ));
   it('added flow without steps', async () =>
     expectError(
@@ -464,7 +465,7 @@ describe('flows have steps', () => {
         opValue(chg(p, 'chg:pause-api'), 4).steps = [];
       },
       'changes[0].ops[4].value.steps',
-      /has no steps/,
+      /has no steps/u,
     ));
   it('to-be flow whose steps are all removed', async () =>
     expectError(
@@ -475,7 +476,7 @@ describe('flows have steps', () => {
         ];
       },
       'flows[1]',
-      /no steps left in the to-be/,
+      /no steps left in the to-be/u,
     ));
   it('step from/to must exist in the as-is graph', async () =>
     expectError(
@@ -483,15 +484,15 @@ describe('flows have steps', () => {
         flow(p, 'flow:cancel').steps[1]!.from = 'svc:ghost';
       },
       'flows[0].steps[1].from',
-      /svc:ghost does not exist/,
+      /svc:ghost does not exist/u,
     ));
   it('added step from/to must exist in the to-be graph', async () =>
     expectError(
       (p) => {
         opValue(chg(p, 'chg:skip-paused'), 0).to = 'st:ghost';
       },
-      /changes\[3\]\.ops\[0\]\.value\.to/,
-      /st:ghost does not exist/,
+      /changes\[3\]\.ops\[0\]\.value\.to/u,
+      /st:ghost does not exist/u,
     ));
 });
 
@@ -520,7 +521,7 @@ describe('decisions, questions and risks', () => {
         delete dec(p).decider;
       },
       'decisions[0]',
-      /names no decider/,
+      /names no decider/u,
     ));
   it('one-way decision records the options it weighed', async () =>
     expectWarning(
@@ -528,7 +529,7 @@ describe('decisions, questions and risks', () => {
         delete dec(p).options;
       },
       'decisions[0]',
-      /one-way but records no options/,
+      /one-way but records no options/u,
     ));
   it('a proposed decision a change rests on needs an owner and a date', async () =>
     expectWarning(
@@ -537,7 +538,7 @@ describe('decisions, questions and risks', () => {
         chg(p, 'chg:pause-api').decisions = ['dec:version-event'];
       },
       'decisions[0]',
-      /has no decide_by/,
+      /has no decide_by/u,
     ));
   it('deferred needs a date to revisit', async () =>
     expectWarning(
@@ -545,7 +546,7 @@ describe('decisions, questions and risks', () => {
         dec(p).status = 'deferred';
       },
       'decisions[0]',
-      /deferred with no decide_by/,
+      /deferred with no decide_by/u,
     ));
   it('supersedes marks the old decision superseded', async () => {
     await expectWarning(
@@ -559,14 +560,14 @@ describe('decisions, questions and risks', () => {
         });
       },
       'decisions[1].supersedes[0]',
-      /still accepted; mark dec:version-event superseded/,
+      /still accepted; mark dec:version-event superseded/u,
     );
     await expectError(
       (p) => {
         dec(p).supersedes = ['dec:version-event'];
       },
       'decisions[0].supersedes[0]',
-      /cannot supersede itself/,
+      /cannot supersede itself/u,
     );
   });
   it('a question is resolved only once the decision answering it is accepted', async () => {
@@ -576,21 +577,21 @@ describe('decisions, questions and risks', () => {
         Object.assign(q(p), { status: 'resolved', answered_by: 'dec:version-event' });
       },
       'questions[0].status',
-      /still proposed; keep the question open/,
+      /still proposed; keep the question open/u,
     );
     await expectWarning(
       (p) => {
         q(p).answered_by = 'dec:version-event';
       },
       'questions[0].status',
-      /accepted; mark the question resolved/,
+      /accepted; mark the question resolved/u,
     );
     await expectWarning(
       (p) => {
         q(p).status = 'resolved';
       },
       'questions[0]',
-      /resolved with no answer/,
+      /resolved with no answer/u,
     );
   });
   it('an accepted risk names the decision that accepts it', async () => {
@@ -599,14 +600,14 @@ describe('decisions, questions and risks', () => {
         Object.assign(p.risks![0]!, { roam: 'accepted' });
       },
       'risks[0]',
-      /no decision accepts it/,
+      /no decision accepts it/u,
     );
     await expectWarning(
       (p) => {
         Object.assign(p.risks![0]!, { accepted_by: 'dec:version-event' });
       },
       'risks[0].accepted_by',
-      /roam is mitigated/,
+      /roam is mitigated/u,
     );
   });
   it('open gates block only an approved plan', async () => {
@@ -629,6 +630,6 @@ describe('decisions, questions and risks', () => {
         Object.assign(p.meta, { status: 'committed' });
       },
       'meta.status',
-      /now called "approved"/,
+      /now called "approved"/u,
     ));
 });

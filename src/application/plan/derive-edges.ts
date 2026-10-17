@@ -1,48 +1,27 @@
-import { type Core, type ElementStatus, modeOf } from '@/application/plan/derive-core';
+import { type Core, modeOf } from '@/application/plan/derive-core';
+import type {
+  CallPoint,
+  Consumer,
+  Edge,
+  EdgeKind,
+  EdgeQueries,
+  Overlay,
+  StepPoint,
+  StoreCell,
+  StoreGrid,
+} from '@/application/plan/derive-edge-types';
 import { putHandlerEdges } from '@/application/plan/derive-handler-edges';
 import { memo } from '@/application/plan/derive-values';
 import type { StepNode, SystemGraph } from '@/domain/plan/plan-graph';
 
-export type EdgeKind = 'api' | 'msg' | 'data';
-export type Overlay = 'none' | 'all' | EdgeKind;
-
-export interface Edge {
-  id: string;
-  from: string;
-  to: string;
-  via: string | null;
-  kind: EdgeKind;
-  sync: boolean;
-  mode: 'read' | 'write' | 'readwrite' | null;
-  read: boolean;
-  write: boolean;
-  fanout?: boolean;
-  steps: string[];
-  /** The handlers whose calls, publishes, reads or writes draw this edge. */
-  handlers?: string[];
-  /** Set in diff mode only. */
-  status?: ElementStatus;
-}
-
-export interface Consumer {
-  svc: string;
-  steps: string[];
-  declared: boolean;
-}
-
-export interface StepPoint {
-  step: string;
-  flow: string | undefined;
-  from: string;
-  to: string;
-}
+export type { Consumer, Edge, EdgeQueries } from '@/application/plan/derive-edge-types';
 
 const isTopic = (kind: string): boolean => kind === 'topic' || kind === 'queue';
 
 /** The services whose steps carry a message to them, with the steps that do. */
 function walkedConsumers(
   g: SystemGraph,
-  m: { id: string; producer: string },
+  m: { readonly id: string; readonly producer: string },
 ): Map<string, string[]> {
   const bySvc = new Map<string, string[]>();
   for (const s of g.steps) {
@@ -86,14 +65,14 @@ function consumeIn(g: SystemGraph, msgId: string): StepPoint[] {
 }
 
 interface Seen {
-  from: string;
-  to: string;
-  via?: string | null;
-  kind: EdgeKind;
-  fanout?: boolean;
-  read?: boolean;
-  write?: boolean;
-  handler?: string;
+  readonly from: string;
+  readonly to: string;
+  readonly via?: string | null;
+  readonly kind: EdgeKind;
+  readonly fanout?: boolean;
+  readonly read?: boolean;
+  readonly write?: boolean;
+  readonly handler?: string;
 }
 
 type Put = (e: Seen, stepId?: string) => void;
@@ -107,13 +86,13 @@ const dataMode = (e: Edge): Edge['mode'] => {
 };
 
 const withHandler = (
-  list: string[] | undefined,
+  list: readonly string[] | undefined,
   handler: string | undefined,
-): string[] | undefined =>
+): readonly string[] | undefined =>
   handler === undefined || list?.includes(handler) === true ? list : [...(list ?? []), handler];
 
 /** Collects edges, merging those with the same ends (and message or api). */
-function edgeSet(): { put: Put; list: () => Edge[] } {
+function edgeSet(): { readonly put: Put; readonly list: () => Edge[] } {
   const map = new Map<string, Edge>();
   const put: Put = (e, stepId) => {
     const key = edgeKey(e);
@@ -129,13 +108,16 @@ function edgeSet(): { put: Put; list: () => Edge[] } {
       write: false,
       steps: [],
     };
-    map.set(key, cur);
-    if (e.fanout === true) cur.fanout = true;
-    if (e.read === true) cur.read = true;
-    if (e.write === true) cur.write = true;
-    if (stepId !== undefined && !cur.steps.includes(stepId)) cur.steps.push(stepId);
     const handlers = withHandler(cur.handlers, e.handler);
-    if (handlers !== undefined) cur.handlers = handlers;
+    const newStep = stepId !== undefined && !cur.steps.includes(stepId);
+    map.set(key, {
+      ...cur,
+      ...(e.fanout === true ? { fanout: true } : {}),
+      ...(e.read === true ? { read: true } : {}),
+      ...(e.write === true ? { write: true } : {}),
+      steps: newStep ? [...cur.steps, stepId] : cur.steps,
+      ...(handlers === undefined ? {} : { handlers }),
+    });
   };
   const list = (): Edge[] =>
     [...map.values()].map((e) => (e.kind === 'data' ? { ...e, mode: dataMode(e) } : e));
@@ -160,7 +142,7 @@ function diffEdges(core: Core, before: readonly Edge[], after: readonly Edge[]):
 type StoreGraph = ReturnType<Core['graphOf']>;
 
 /** One cell per service that reads or writes a store: who owns it, how it may access it, which steps touch it. */
-function storeCells(g: StoreGraph, edges: readonly Edge[]) {
+function storeCells(g: StoreGraph, edges: readonly Edge[]): StoreCell[] {
   return edges
     .filter((e) => e.kind === 'data')
     .map((e) => {
@@ -181,7 +163,7 @@ function storeCells(g: StoreGraph, edges: readonly Edge[]) {
 }
 
 /** Talks-to edges, the services × stores matrix and the call and publish points of apis and messages. */
-export function createEdges(core: Core) {
+export function createEdges(core: Core): EdgeQueries {
   const { graphOf } = core;
 
   const edgesOfGraph = memo((mode: string | undefined): Edge[] => {
@@ -208,7 +190,7 @@ export function createEdges(core: Core) {
   );
 
   /** Services × stores read/write matrix (owner + access + step reads/writes). Topics excluded. */
-  const storeGrid = memo((mode: string | undefined = 'toBe') => {
+  const storeGrid = memo((mode: string | undefined = 'toBe'): StoreGrid => {
     const g = graphOf(mode);
     const stores = g.stores.filter((s) => !isTopic(s.kind)).map((s) => s.id);
     const cells = storeCells(g, edgesOfGraph(modeOf(mode) === 'asIs' ? 'asIs' : 'toBe'));
@@ -220,11 +202,11 @@ export function createEdges(core: Core) {
       shared: stores.filter(
         (st) => new Set(cells.filter((c) => c.store === st).map((c) => c.svc)).size > 1,
       ),
-      cell: (svc: string, st: string) => index.get(`${svc}|${st}`) ?? null,
+      cell: (svc: string, st: string): StoreCell | null => index.get(`${svc}|${st}`) ?? null,
     };
   });
 
-  const callers = memo((apiId: string, mode: string | undefined = 'toBe') =>
+  const callers = memo((apiId: string, mode: string | undefined = 'toBe'): CallPoint[] =>
     graphOf(mode)
       .steps.filter((s) => s.via === apiId)
       .map((s) => ({ step: s.id, flow: s.$parent, from: s.from })),
@@ -254,7 +236,7 @@ export function createEdges(core: Core) {
 function apiEdges(core: Core, g: SystemGraph, put: Put): void {
   for (const s of g.steps) {
     for (const c of core.fanout(g, s).calls) {
-      if (c.kind === 'api' && /^(api|gql):/.test(c.via ?? '')) {
+      if (c.kind === 'api' && /^(?:api|gql):/u.test(c.via ?? '')) {
         put({ from: c.from, to: c.to, via: c.via, kind: 'api', fanout: c.fanout }, s.id);
       }
     }
@@ -276,7 +258,7 @@ function messageEdges(g: SystemGraph, put: Put): void {
 
 function publishEdges(
   g: SystemGraph,
-  m: { id: string; producer: string; topic: string },
+  m: { readonly id: string; readonly producer: string; readonly topic: string },
   put: Put,
 ) {
   const edge = { from: m.producer, to: m.topic, via: m.id, kind: 'msg' as const };
@@ -304,7 +286,7 @@ function storeAccessEdges(g: SystemGraph, put: Put): void {
 type Fanned = ReturnType<Core['fanout']>;
 
 /** What a step reads, writes and purges, through the services it fans out to. */
-function fannedEdges(g: SystemGraph, fo: Fanned, [put, stepId]: [Put, string]): void {
+function fannedEdges(g: SystemGraph, fo: Fanned, [put, stepId]: readonly [Put, string]): void {
   for (const d of fo.data) {
     const store = g.get(d.store);
     if (typeof d.svc === 'string' && store?.$type === 'store' && !isTopic(store.kind)) {

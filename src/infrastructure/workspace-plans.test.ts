@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import { afterAll, describe, expect, it, vi } from 'vitest';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { readPlanState } = await import('./workspace-plans');
 
@@ -50,6 +50,6 @@ describe('readPlanState', () => {
   });
 
   it('knows no plan that is not there', async () => {
-    expect(await readPlanState('ws', 'absent', await workspaceWith(mini))).toBeNull();
+    await expect(readPlanState('ws', 'absent', await workspaceWith(mini))).resolves.toBeNull();
   });
 });

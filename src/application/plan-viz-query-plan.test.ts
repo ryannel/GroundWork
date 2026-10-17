@@ -1,36 +1,32 @@
 // @vitest-environment node
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { derive } from '@/application/plan/derive';
+import { shop } from '@/../test/federation-kit';
+import { modelOf } from '@/../test/plan-kit';
 import { planFacts, planOf, roundsOf, selectionOf, WHY } from '@/application/plan-viz-query-plan';
 
-vi.mock('server-only', () => ({}));
-
-async function load() {
-  const { readPlan } = await import('@/infrastructure/plan-store');
-  const loaded = await readPlan('alder-finch', 'storefront-graph');
-  return derive(loaded.plan!);
-}
+const load = () => modelOf(shop());
 
 const OP = 'gql:product-page';
 
 describe('the query plan of an operation', () => {
-  it('lists the fetches in rounds', async () => {
-    const model = await load();
+  it('lists the fetches in rounds', () => {
+    const model = load();
     const plan = planOf(model, OP)!;
+    expect(plan.fetches).toHaveLength(4);
     expect(roundsOf(plan).flat()).toHaveLength(plan.fetches.length);
     expect(planFacts(model, OP)).toMatch(/Fetch|Parallel/u);
     expect(planFacts(model, OP, 'asIs')).toBeTypeOf('string');
   });
 
-  it('is empty for an unknown operation', async () => {
-    const model = await load();
+  it('is empty for an unknown operation', () => {
+    const model = load();
     expect(planOf(model, 'gql:nothing')).toBeNull();
     expect(planFacts(model, 'gql:nothing')).toBe('');
   });
 
-  it('nests each fetch selection below where it folds in', async () => {
-    const model = await load();
+  it('nests each fetch selection below where it folds in', () => {
+    const model = load();
     const plan = planOf(model, OP)!;
     for (const f of plan.fetches) {
       const names = selectionOf(plan, f);

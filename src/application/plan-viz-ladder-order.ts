@@ -225,13 +225,13 @@ function earlyPart(o: Order, early: readonly Early[]): Part {
 /** The old version planned to go before the last consumer has moved. */
 function retirePart(o: Order, id: string, l: Ladder): Part | null {
   const { model, n } = o;
-  const ret = retireMilestone(model, id);
-  const { ms, lastMigrate } = ret;
-  if (!ret.early || ms === null || lastMigrate === null) return null;
+  const retirement = retireMilestone(model, id);
+  const { ms, lastMigrate } = retirement;
+  if (!retirement.early || ms === null || lastMigrate === null) return null;
   const last = consumerMoves(model, l).filter((r) => r.ms === lastMigrate);
   const names = andList(last.map((r) => model.label(r.consumer)));
   const items = (model.plan.work_items ?? [])
-    .filter((w) => w.implements.some((c) => ret.changes.includes(c)) && w.milestone === ms)
+    .filter((w) => w.implements.some((c) => retirement.changes.includes(c)) && w.milestone === ms)
     .map((w) => w.id);
   const consumerItems = [
     ...new Set(last.flatMap((r) => r.items.filter((w) => milestoneOf(model, w) === lastMigrate))),

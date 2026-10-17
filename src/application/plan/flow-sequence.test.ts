@@ -1,30 +1,26 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { derive, type Model } from '@/application/plan/derive';
+import { quickCheckoutOnToday } from '@/../test/fixtures/acme/plans/core-checkout';
+import { giftWrap } from '@/../test/fixtures/acme/plans/journeys-gift-wrap';
+import { pauseOrders } from '@/../test/fixtures/acme/plans/pause-orders';
+import { coreShop } from '@/../test/fixtures/core-shop';
+import { modelOf } from '@/../test/plan-kit';
+import { derive } from '@/application/plan/derive';
 import { type SequenceRow, sequenceModel, sequenceRows } from '@/application/plan/flow-sequence';
 import { flowSteps, isJob, isNewLink, knownPath, stepKind } from '@/application/plan/flow-steps';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
-const { readPlan, listPlans } = await import('@/infrastructure/plan-store');
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
-const WORKSPACE = 'alder-finch';
-const modelOf = async (slug: string): Promise<Model> => {
-  const { plan } = await readPlan(WORKSPACE, slug);
-  if (plan === null) throw new Error(`no plan ${slug}`);
-  return derive(plan);
-};
-
-const slugs = await listPlans(WORKSPACE);
-const models = await Promise.all(slugs.map(async (slug) => modelOf(slug)));
-const dp = await modelOf('delivery-promise');
+const checkout = modelOf(quickCheckoutOnToday().plan);
 const mini = derive(await loadFixture('mini.yaml'));
+const models = [checkout, modelOf(pauseOrders()), modelOf(giftWrap()), mini, modelOf(coreShop())];
 
 const MODES = ['toBe', 'asIs', 'diff'] as const;
 
 /** The frames left open, and in a close that does not match the frame it closes, a mismatch marker. */
-function unclosed(rows: SequenceRow[]): string[] {
+function unclosed(rows: readonly SequenceRow[]): string[] {
   const stack: string[] = [];
   for (const r of rows) {
     if (r.kind === 'open') stack.push(r.frame);
@@ -34,8 +30,10 @@ function unclosed(rows: SequenceRow[]): string[] {
 }
 
 /** For each group frame with a shared source, the steps' origins until the group closes. */
-function groupSources(rows: SequenceRow[]): { shared: string; froms: string[] }[] {
-  const out: { shared: string; froms: string[] }[] = [];
+function groupSources(
+  rows: readonly SequenceRow[],
+): { readonly shared: string; readonly froms: readonly string[] }[] {
+  const out: { readonly shared: string; readonly froms: readonly string[] }[] = [];
   for (const [i, r] of rows.entries()) {
     if (r.kind !== 'open' || r.frame !== 'group' || r.sharedSource === null) continue;
     const end = rows.findIndex((x, j) => j > i && x.kind === 'close' && x.frame === 'group');
@@ -52,10 +50,10 @@ const step = (id: string) => {
   if (s === undefined) throw new Error(`no ${id}`);
   return s;
 };
-const at = <T>(rows: T[], test: (r: T) => boolean): number => rows.findIndex(test);
+const at = <T>(rows: readonly T[], test: (r: T) => boolean): number => rows.findIndex(test);
 
 describe('sequenceRows: replies', () => {
-  const rows = sequenceRows(dp, 'flow:checkout', 'toBe');
+  const rows = sequenceRows(checkout, 'flow:place-order', 'toBe');
   const stepRow = (i: number) => at(rows, (r) => r.kind === 'step' && r.i === i);
   const replyRow = (i: number) => at(rows, (r) => r.kind === 'reply' && r.of === i);
 
@@ -63,31 +61,33 @@ describe('sequenceRows: replies', () => {
     const r = rows[replyRow(2)];
     expect(r).toMatchObject({
       kind: 'reply',
-      from: 'svc:promise',
-      to: 'svc:checkout',
-      label: 'DeliveryPromise',
+      from: 'svc:payments',
+      to: 'svc:order-api',
+      label: 'Payment',
     });
     expect(replyRow(2)).toBeGreaterThan(stepRow(2));
   });
 
   it('unwinds innermost first: nested calls answer before the call that made them', () => {
+    expect(replyRow(3)).toBeLessThan(replyRow(2));
     expect(replyRow(2)).toBeLessThan(replyRow(1));
-    expect(replyRow(3)).toBeLessThan(replyRow(1));
     expect(replyRow(1)).toBeLessThan(replyRow(0));
+    expect(replyRow(0)).toBe(rows.length - 1);
   });
 
   it('gives an internal step, or a call with no response, no reply', () => {
     expect(replyRow(4)).toBe(-1);
+    expect(replyRow(6)).toBe(-1);
     const replies = rows.filter((x) => x.kind === 'reply');
     expect(replies.every((r) => r.label !== '')).toBe(true);
     expect(new Set(replies.map((x) => x.of)).size).toBe(replies.length);
   });
 
   it('answers a publisher before its event consumers run', () => {
-    const r = sequenceRows(dp, 'flow:create-product', 'toBe');
-    const pub = at(r, (x) => x.kind === 'step' && x.step.action === 'Announce the product');
+    const r = sequenceRows(checkout, 'flow:publish-product', 'toBe');
+    const pub = at(r, (x) => x.kind === 'step' && x.step.action === 'Announce the change');
     const reply = at(r, (x) => x.kind === 'reply' && x.of === 0);
-    const consumer = at(r, (x) => x.kind === 'step' && x.step.action === 'Update the read copy');
+    const consumer = at(r, (x) => x.kind === 'step' && x.step.action === 'Index the product');
     expect(pub).toBeLessThan(reply);
     expect(reply).toBeLessThan(consumer);
   });
@@ -95,14 +95,15 @@ describe('sequenceRows: replies', () => {
 
 describe('sequenceRows: frames', () => {
   it('wraps a step that fails in a frame that holds its reply and the calls inside it', () => {
-    const rows = sequenceRows(dp, 'flow:checkout', 'toBe');
+    const rows = sequenceRows(checkout, 'flow:place-order', 'toBe');
     const open = at(rows, (r) => r.kind === 'open' && r.frame === 'fails' && r.at === 2);
     const close = at(rows, (r) => r.kind === 'close' && r.frame === 'fails' && r.at === 2);
     expect(open).toBeGreaterThanOrEqual(0);
     expect(close).toBeGreaterThan(open);
-    expect(JSON.stringify(rows[open])).toMatch(/Delivery date on request/);
+    expect(JSON.stringify(rows[open])).toMatch(/A declined card leaves the order unpaid/u);
     expect(open).toBeLessThan(at(rows, (r) => r.kind === 'step' && r.i === 2));
     expect(close).toBeGreaterThan(at(rows, (r) => r.kind === 'reply' && r.of === 2));
+    expect(close).toBeGreaterThan(at(rows, (r) => r.kind === 'step' && r.i === 3));
   });
 
   it('closes every frame it opens, in order, for every flow of every plan', () => {
@@ -114,9 +115,9 @@ describe('sequenceRows: frames', () => {
   });
 
   it('groups steps from one event source and names the source without inferring timing', () => {
-    const rows = sequenceRows(dp, 'flow:create-product', 'toBe');
+    const rows = sequenceRows(checkout, 'flow:publish-product', 'toBe');
     const open = rows.find((r) => r.kind === 'open' && r.frame === 'group');
-    expect(open).toMatchObject({ sharedSource: 'st:catalog-events' });
+    expect(open).toMatchObject({ sharedSource: 'st:product-events' });
   });
 
   it('groups steps that share a beat, with no shared source when they leave several', () => {
@@ -142,9 +143,9 @@ describe('sequenceRows: frames', () => {
 
 describe('sequenceModel: the person', () => {
   it('starts a flow someone triggers with an enter row and the person as actor', () => {
-    const sm = sequenceModel(dp, 'flow:checkout', 'toBe');
-    expect(sm.actor).toBe('Shopper');
-    expect(sm.rows[0]).toMatchObject({ kind: 'enter', to: 'svc:storefront-web' });
+    const sm = sequenceModel(checkout, 'flow:place-order', 'toBe');
+    expect(sm.actor).toBe('Customer');
+    expect(sm.rows[0]).toMatchObject({ kind: 'enter', to: 'svc:shop-web' });
     const trigger = sm.flow?.trigger;
     expect(sm.rows.some((r) => r.kind === 'note' && r.on === 'first' && r.text === trigger)).toBe(
       true,
@@ -152,36 +153,35 @@ describe('sequenceModel: the person', () => {
   });
 
   it('gives a job no person row', () => {
-    let seen = 0;
-    for (const m of models) {
-      for (const flow of m.toBe.flows) {
-        if (!isJob(m, flow)) continue;
-        seen++;
-        const sm = sequenceModel(m, flow.id, 'toBe');
-        expect(sm.rows.some((r) => r.kind === 'enter')).toBe(false);
-        expect(sm.actor).toBeNull();
-      }
+    const jobs = models.flatMap((m) =>
+      m.toBe.flows.filter((flow) => isJob(m, flow)).map((flow) => ({ m, flow })),
+    );
+    for (const { m, flow } of jobs) {
+      const sm = sequenceModel(m, flow.id, 'toBe');
+      expect(sm.rows.some((r) => r.kind === 'enter')).toBe(false);
+      expect(sm.actor).toBeNull();
     }
-    expect(seen).toBeGreaterThan(0);
+    expect(jobs.length).toBeGreaterThan(0);
   });
 
   it('never gives a System actor a person lifeline', () => {
-    let seen = 0;
-    for (const m of models) {
-      for (const mode of ['asIs', 'toBe'] as const) {
-        for (const flow of m.graphOf(mode).flows) {
-          if (!/^system$/i.test(flow.actor ?? '')) continue;
-          seen++;
-          const sm = sequenceModel(m, flow.id, mode);
-          expect(sm.actor).toBeNull();
-          expect(sm.automated).toBe(true);
-          expect(
-            sm.rows.some((r) => r.kind === 'enter' || (r.kind === 'note' && r.on === 'person')),
-          ).toBe(false);
-        }
-      }
+    const systemFlows = models.flatMap((m) =>
+      (['asIs', 'toBe'] as const).flatMap((mode) =>
+        m
+          .graphOf(mode)
+          .flows.filter((flow) => /^system$/iu.test(flow.actor ?? ''))
+          .map((flow) => ({ m, mode, flow })),
+      ),
+    );
+    for (const { m, mode, flow } of systemFlows) {
+      const sm = sequenceModel(m, flow.id, mode);
+      expect(sm.actor).toBeNull();
+      expect(sm.automated).toBe(true);
+      expect(
+        sm.rows.some((r) => r.kind === 'enter' || (r.kind === 'note' && r.on === 'person')),
+      ).toBe(false);
     }
-    expect(seen).toBeGreaterThan(0);
+    expect(systemFlows.length).toBeGreaterThan(0);
   });
 
   it('keeps a human role that contains System a person', async () => {
@@ -196,25 +196,29 @@ describe('sequenceModel: the person', () => {
   });
 
   it('notes the screen the person sees when it changes, not on every step', () => {
-    const notes = sequenceRows(dp, 'flow:checkout', 'toBe').flatMap((r) =>
+    const notes = sequenceRows(checkout, 'flow:place-order', 'toBe').flatMap((r) =>
       r.kind === 'note' && r.on === 'person' ? [r.screen.split('#')[0]] : [],
     );
-    expect(notes.length).toBeGreaterThanOrEqual(1);
-    for (const [i, n] of notes.entries()) if (i > 0) expect(n).not.toBe(notes[i - 1]);
+    expect(notes).toEqual(['scr:order-email', 'scr:confirmation']);
+    for (const [i, n] of notes.slice(1).entries()) expect(n).not.toBe(notes[i]);
   });
 
   it('is pure: the same flow gives the same rows', () => {
-    expect(sequenceRows(dp, 'flow:checkout', 'toBe')).toEqual(
-      sequenceRows(dp, 'flow:checkout', 'toBe'),
+    expect(sequenceRows(checkout, 'flow:place-order', 'toBe')).toEqual(
+      sequenceRows(checkout, 'flow:place-order', 'toBe'),
     );
   });
 
   it('draws a flow the plan removes from the as-is steps, and one it adds from the to-be', () => {
-    const p = models.find((m) => m.asIs.flows.some((f) => !m.toBe.has(f.id)));
-    const gone = p?.asIs.flows.find((f) => !p.toBe.has(f.id));
-    if (p === undefined || gone === undefined) return;
-    expect(sequenceModel(p, gone.id, 'toBe').steps).toHaveLength(gone.steps.length);
-    expect(sequenceModel(p, 'flow:missing', 'toBe')).toMatchObject({ steps: [], rows: [] });
+    const gone = checkout.asIs.get('flow:cancel-order');
+    if (gone?.$type !== 'flow') throw new Error('no flow:cancel-order today');
+    expect(checkout.toBe.has(gone.id)).toBe(false);
+    expect(sequenceModel(checkout, gone.id, 'toBe').steps).toHaveLength(gone.steps.length);
+    const added = checkout.toBe.get('flow:refund-order');
+    if (added?.$type !== 'flow') throw new Error('no flow:refund-order');
+    expect(checkout.asIs.has(added.id)).toBe(false);
+    expect(sequenceModel(checkout, added.id, 'asIs').steps).toHaveLength(added.steps.length);
+    expect(sequenceModel(checkout, 'flow:missing', 'toBe')).toMatchObject({ steps: [], rows: [] });
   });
 });
 

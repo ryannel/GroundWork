@@ -14,7 +14,7 @@ import {
   wasText,
 } from './plan-viz-text';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 

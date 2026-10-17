@@ -12,8 +12,9 @@ export interface JourneyScreen {
 
 export function journeyScreens(model: Model): JourneyScreen[] {
   const pages = journeyGroups(model).map((g) => ({ key: g.key, title: g.title }));
-  if (model.plan.execution !== undefined)
+  if (model.plan.execution !== undefined) {
     pages.push({ key: 'execution', title: 'How it plays out' });
+  }
   if (behindOperations(model).length > 0) pages.push({ key: 'behind', title: 'Behind the button' });
   return pages.length > 0 ? pages : [{ key: 'empty', title: 'Journey' }];
 }

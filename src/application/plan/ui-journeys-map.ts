@@ -18,10 +18,10 @@ import type { RegionNode, ScreenNode } from '@/domain/plan/plan-graph';
 
 /** Every baseline screen once, grouped by its recorded serving app. */
 export interface ScreenCatalogue {
-  routes: Route[];
-  screens: ScreenNode[];
-  groups: { service: string; screens: ScreenNode[] }[];
-  unlinked: ScreenNode[];
+  readonly routes: readonly Route[];
+  readonly screens: readonly ScreenNode[];
+  readonly groups: readonly { readonly service: string; readonly screens: readonly ScreenNode[] }[];
+  readonly unlinked: readonly ScreenNode[];
 }
 
 export function todayScreenCatalogue(model: FlowModel): ScreenCatalogue {
@@ -39,9 +39,30 @@ export function todayScreenCatalogue(model: FlowModel): ScreenCatalogue {
 }
 
 const plainControlText = (value: string | undefined): string =>
-  (value ?? '').replaceAll(/\*\*|__/g, '').trim();
-const regexpText = (value: string): string =>
-  value.replaceAll(/[$()*+.?[\\\]^{|}]/g, String.raw`\$&`);
+  (value ?? '').replaceAll(/\*\*|__/gu, '').trim();
+/** The text after `prefix`, compared case-insensitively, or null when it does not start with it. */
+const after = (text: string, prefix: string): readonly string[] =>
+  text.toLowerCase().startsWith(prefix.toLowerCase()) ? [text.slice(prefix.length)] : [];
+
+/** The text with and without an optional leading part. */
+const maybe = (text: string, optional: RegExp): readonly string[] => {
+  const without = text.replace(optional, '');
+  return without === text ? [text] : [text, without];
+};
+
+const PRESS = /^\s+(?:presses|clicks|taps|press|click|tap)\s+/iu;
+const ENDING = /^["”’']?(?:\s+(?:button|link))?[.!?]?$/iu;
+
+/** "[The] <actor> presses [the] ["]<control>["] [button]." */
+function isPressSentence(text: string, actor: string, control: string): boolean {
+  return maybe(text, /^The\s+/iu)
+    .flatMap((t) => after(t, actor))
+    .flatMap((t) => maybe(t, PRESS).filter((x) => x !== t))
+    .flatMap((t) => maybe(t, /^the\s+/iu))
+    .flatMap((t) => maybe(t, /^["“‘']/u))
+    .flatMap((t) => after(t, control))
+    .some((t) => ENDING.test(t));
+}
 
 /**
  * The trigger can establish the initiating control only for the first, single screen record. Exact names and a
@@ -50,24 +71,20 @@ const regexpText = (value: string): string =>
  */
 function explicitStartingControl(
   route: WireRoute,
-  visit: { stop: WireStop; stopIndex: number },
+  visit: { readonly stop: WireStop; readonly stopIndex: number },
   region: RegionNode | null,
 ): boolean {
   if (visit.stopIndex !== 0 || visit.stop.records.length !== 1 || region === null) return false;
   if (route.actor === undefined || route.actor === '' || region.name === '') return false;
-  const actor = regexpText(plainControlText(route.actor));
-  const control = regexpText(plainControlText(region.name));
-  const sentence = new RegExp(
-    String.raw`^(?:The\s+)?${actor}\s+(?:presses|clicks|taps|press|click|tap)\s+(?:the\s+)?(?:["“‘'])?${control}(?:["”’'])?(?:\s+(?:button|link))?[.!?]?$`,
-    'i',
-  );
-  return sentence.test(plainControlText(route.trigger));
+  const actor = plainControlText(route.actor);
+  const control = plainControlText(region.name);
+  return isPressSentence(plainControlText(route.trigger), actor, control);
 }
 
 function edgeOf(
   model: FlowModel,
   route: WireRoute,
-  visit: { stop: WireStop; stopIndex: number },
+  visit: { readonly stop: WireStop; readonly stopIndex: number },
 ): RecordedEdge | null {
   const { stop, stopIndex } = visit;
   const { connector } = stop;
@@ -110,25 +127,50 @@ function visitRoute(
   model: FlowModel,
   route: WireRoute,
   byScreen: ReadonlyMap<string, MapNode>,
-): RecordedEdge[] {
+): { readonly edges: readonly RecordedEdge[]; readonly touches: readonly Touch[] } {
   const edges: RecordedEdge[] = [];
+  const touches: Touch[] = [];
   const visits = new Map<string, number>();
   for (const [stopIndex, stop] of route.stops.entries()) {
-    const node = byScreen.get(stop.screen);
-    if (node === undefined) continue;
-    if (!node.journeyIds.includes(route.id)) node.journeyIds.push(route.id);
-    const actor = route.actor ?? null;
-    if (!node.actors.includes(actor)) node.actors.push(actor);
+    if (!byScreen.has(stop.screen)) continue;
     const visitIndex = visits.get(stop.screen) ?? 0;
     visits.set(stop.screen, visitIndex + 1);
-    node.records.push(
-      ...stop.records.map((record) => ({ ...record, flowId: route.id, stopIndex, visitIndex })),
-    );
+    touches.push({
+      screen: stop.screen,
+      journeyId: route.id,
+      actor: route.actor ?? null,
+      records: stop.records.map((record) => ({
+        ...record,
+        flowId: route.id,
+        stopIndex,
+        visitIndex,
+      })),
+    });
     const edge = edgeOf(model, route, { stop, stopIndex });
     if (edge !== null) edges.push(edge);
   }
-  return edges;
+  return { edges, touches };
 }
+
+/** A route reaching a screen: who, and what it records there. */
+interface Touch {
+  readonly screen: string;
+  readonly journeyId: string;
+  readonly actor: string | null;
+  readonly records: MapNode['records'];
+}
+
+const unique = <T>(xs: readonly T[]): T[] => [...new Set(xs)];
+
+const touched = (node: MapNode, touches: readonly Touch[]): MapNode => {
+  const mine = touches.filter((t) => t.screen === node.id);
+  return {
+    ...node,
+    journeyIds: unique(mine.map((t) => t.journeyId)),
+    actors: unique(mine.map((t) => t.actor)),
+    records: mine.flatMap((t) => t.records),
+  };
+};
 
 /**
  * The current screen landscape. Screens have one identity even when several journeys visit them, or a journey
@@ -141,13 +183,16 @@ function visitRoute(
 export function todayScreenMap(model: FlowModel): ScreenMap {
   if (model.asIs.interactions.length > 0) return interactionScreenMap(model);
   const wire = todayWireflows(model);
-  const nodes = model.asIs.screens.map(newNode);
-  const byScreen = new Map(nodes.map((node) => [node.id, node]));
+  const blank = model.asIs.screens.map(newNode);
+  const byScreen = new Map(blank.map((node) => [node.id, node]));
   const edges: RecordedEdge[] = [];
+  const touches: Touch[] = [];
   const journeys: RecordedJourney[] = [];
   for (const route of wire.routes) {
-    const routeEdges = visitRoute(model, route, byScreen);
+    const visited = visitRoute(model, route, byScreen);
+    const routeEdges = visited.edges;
     edges.push(...routeEdges);
+    touches.push(...visited.touches);
     journeys.push({
       explicit: false,
       id: route.id,
@@ -161,6 +206,7 @@ export function todayScreenMap(model: FlowModel): ScreenMap {
       stops: route.stops,
     });
   }
+  const nodes = blank.map((node) => touched(node, touches));
   return {
     explicit: false,
     nodes,

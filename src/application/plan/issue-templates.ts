@@ -9,27 +9,27 @@ export type IssueType = (typeof ISSUE_TYPES)[number];
 const DEFAULT_ISSUE_TYPE: IssueType = 'task';
 
 export interface TemplateField {
-  id: string;
-  label: string;
-  required: boolean;
+  readonly id: string;
+  readonly label: string;
+  readonly required: boolean;
 }
 
 export interface IssueTemplate {
-  name: string;
-  description: string;
-  title: string;
-  labels: string[];
-  fields: TemplateField[];
-  source: string;
+  readonly name: string;
+  readonly description: string;
+  readonly title: string;
+  readonly labels: readonly string[];
+  readonly fields: readonly TemplateField[];
+  readonly source: string;
 }
 
 /** The plan sections an issue body is filled from. */
 export interface IssueSections {
-  summary?: string;
-  why?: string;
-  how?: string;
-  acceptance?: string;
-  notes?: string;
+  readonly summary?: string;
+  readonly why?: string;
+  readonly how?: string;
+  readonly acceptance?: string;
+  readonly notes?: string;
 }
 
 const field = (id: string, label: string, required = false): TemplateField => ({
@@ -100,8 +100,8 @@ export const builtinTemplate = (
 const norm = (s: string): string =>
   s
     .toLowerCase()
-    .replaceAll(/[^a-z0-9]+/g, '-')
-    .replaceAll(/^-|-$/g, '');
+    .replaceAll(/[^a-z0-9]+/gu, '-')
+    .replaceAll(/^-|-$/gu, '');
 
 const asText = (v: unknown): string =>
   typeof v === 'string' || typeof v === 'number' ? String(v) : '';
@@ -127,8 +127,11 @@ function fieldOf(block: unknown): TemplateField[] {
 /** Read a GitHub issue-form template from its parsed YAML document. */
 export function parseIssueTemplate(doc: unknown, source = ''): IssueTemplate {
   const body = prop(doc, 'body');
-  if (!Array.isArray(body))
-    throw new Error(`${source === '' ? 'template' : source} is not an issue form (no body list)`);
+  if (!Array.isArray(body)) {
+    throw new TypeError(
+      `${source === '' ? 'template' : source} is not an issue form (no body list)`,
+    );
+  }
   return {
     name: asText(prop(doc, 'name')),
     description: asText(prop(doc, 'description')),
@@ -174,7 +177,7 @@ const sectionText = (sections: IssueSections, key: SectionKey): string =>
   (sections[key] ?? '').trim();
 
 /** An appended section is a heading under the field, so its own headings step down one level. */
-const nested = (text: string): string => text.replaceAll(/^(#{4,5}) /gm, '$1# ');
+const nested = (text: string): string => text.replaceAll(/^(#{4,5}) /gmu, '$1# ');
 
 /**
  * Issue body in the template's layout: `### Label` per field, as GitHub renders a submitted form.

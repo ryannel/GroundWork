@@ -5,7 +5,7 @@ import { derive } from '@/application/plan/derive';
 import { outlineOf } from './plan-pages';
 import { crumbOf, teamHidden, teamPages, teamPlaces } from './plan-pages-team';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -26,24 +26,29 @@ describe('team pages', () => {
   });
 
   it('keeps the cover, the why and the reference for every team', () => {
-    for (const team of teams)
-      for (const page of outline.pages.filter((p) => ['cover', 'why', 'ref'].includes(p.chapter)))
+    for (const team of teams) {
+      for (const page of outline.pages.filter((p) => ['cover', 'why', 'ref'].includes(p.chapter))) {
         expect(team.hrefs).toContain(page.href);
+      }
+    }
   });
 
   it('leaves no chapter empty', () => {
-    for (const team of teams)
-      for (const chapter of outline.chapters) {
-        const pages = outline.pages.filter((p) => p.chapter === chapter.key);
-        if (pages.length > 0) expect(pages.some((p) => team.hrefs.includes(p.href))).toBe(true);
-      }
+    const filled = outline.chapters
+      .map((chapter) => outline.pages.filter((p) => p.chapter === chapter.key))
+      .filter((pages) => pages.length > 0);
+    for (const team of teams) {
+      for (const pages of filled) expect(pages.some((p) => team.hrefs.includes(p.href))).toBe(true);
+    }
   });
 
   it('drops the changes ledger, which no team reads by itself', () => {
     const ledger = outline.pages.find((p) => p.chapter === 'changes' && p.screen === 'ledger');
-    for (const team of teams)
-      if (ledger !== undefined && outline.pages.filter((p) => p.chapter === 'changes').length > 1)
-        expect(team.hrefs).not.toContain(ledger.href);
+    const many = outline.pages.filter((p) => p.chapter === 'changes').length > 1;
+    const dropped = ledger !== undefined && many ? [ledger.href] : [];
+    for (const team of teams) {
+      expect(team.hrefs.filter((href) => dropped.includes(href))).toEqual([]);
+    }
   });
 
   it('cuts a team that touches little to fewer pages than the whole plan', () => {
@@ -57,7 +62,10 @@ describe('team pages', () => {
     expect(hidden.length + team.hrefs.length).toBe(all.length);
     const first = teamPlaces(teams, team.hrefs[0] ?? '')[0];
     expect(first).toMatchObject({ id: team.id, at: 1, of: team.hrefs.length });
-    if (hidden[0] !== undefined) expect(teamPlaces(teams, hidden[0])[0]?.at).toBeNull();
+    const firstHidden = hidden.slice(0, 1);
+    expect(firstHidden.map((href) => teamPlaces(teams, href)[0]?.at)).toEqual(
+      firstHidden.map(() => null),
+    );
   });
 
   it('names the chapter, then the screen', () => {

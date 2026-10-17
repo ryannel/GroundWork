@@ -1,60 +1,68 @@
 import type { Core } from '@/application/plan/derive-core';
 import type { Delivery } from '@/application/plan/derive-delivery';
 import type { Owners } from '@/application/plan/derive-owners';
-import { memo, str, uniq } from '@/application/plan/derive-values';
-import { formatPath, isRecord, prop, strings, typeOf } from '@/application/plan/ids';
+import { memo, textOf, uniq } from '@/application/plan/derive-values';
+import { formatPath, isRecord, prop, strings, typeOf, type Rec } from '@/application/plan/ids';
 import type { OpRecord, PlanNode, StepNode } from '@/domain/plan/plan-graph';
 
 type Rung = 'expand' | 'contract' | 'retire' | 'migrate';
 type RungKind = 'expand' | 'migrate' | 'deprecate' | 'retire';
 
 export interface LadderOp {
-  changeId: string | undefined;
-  opIndex: number;
-  path: string;
-  kind: OpRecord['kind'];
-  summary: string;
+  readonly changeId: string | undefined;
+  readonly opIndex: number;
+  readonly path: string;
+  readonly kind: OpRecord['kind'];
+  readonly summary: string;
 }
 
 export interface LadderRung {
-  rung: 'expand' | 'migrate' | 'contract';
-  kind: RungKind;
-  label: string;
-  consumer?: string;
-  ops: LadderOp[];
-  changes: string[];
-  workItems: string[];
-  teams: string[];
+  readonly rung: 'expand' | 'migrate' | 'contract';
+  readonly kind: RungKind;
+  readonly label: string;
+  readonly consumer?: string;
+  readonly ops: readonly LadderOp[];
+  readonly changes: readonly string[];
+  readonly workItems: readonly string[];
+  readonly teams: readonly string[];
+}
+
+/** The versions of a contract, oldest first, and the rungs of the ladder that moves people between them. */
+export interface Ladder {
+  readonly chain: readonly string[];
+  readonly rungs: readonly LadderRung[];
+  /** True only when a remove op retires an old version (a deprecate keeps it served). */
+  readonly retired: boolean;
 }
 
 const chainLimit = 20;
 interface StepEnds {
-  from: string | undefined;
-  to: string | undefined;
-  via: string | undefined;
+  readonly from: string | undefined;
+  readonly to: string | undefined;
+  readonly via: string | undefined;
 }
 
 interface LadderParts {
-  owners: Owners;
-  delivery: Delivery;
-  versions: (id: string) => { replacedBy: string | null };
-  opSummary: (changeId: string | undefined, opIndex: number) => string;
+  readonly owners: Owners;
+  readonly delivery: Delivery;
+  readonly versions: (id: string) => { readonly replacedBy: string | null };
+  readonly opSummary: (changeId: string | undefined, opIndex: number) => string;
 }
 
-const stepOf = (v: unknown): StepEnds =>
-  isRecord(v)
-    ? { from: str(v.from), to: str(v.to), via: str(v.via) }
-    : { from: undefined, to: undefined, via: undefined };
+function stepOf(v: unknown): StepEnds {
+  const step: Rec = isRecord(v) ? v : {};
+  return { from: textOf(step.from), to: textOf(step.to), via: textOf(step.via) };
+}
 
 const nonEmpty = (x: string | null | undefined): x is string => typeof x === 'string' && x !== '';
 
 /** The versions an id is one of: what it supersedes, then what replaces it. */
 function chainOf({ sys }: Core, versions: LadderParts['versions'], id: string): string[] {
   const chain = [id];
-  let cur = str(prop(sys(id), 'supersedes'));
+  let cur = textOf(prop(sys(id), 'supersedes'));
   for (let g = 0; nonEmpty(cur) && g < chainLimit; g++) {
     chain.unshift(cur);
-    cur = str(prop(sys(cur), 'supersedes'));
+    cur = textOf(prop(sys(cur), 'supersedes'));
   }
   let next = versions(id).replacedBy;
   for (let g = 0; nonEmpty(next) && !chain.includes(next) && g < chainLimit; g++) {
@@ -65,16 +73,16 @@ function chainOf({ sys }: Core, versions: LadderParts['versions'], id: string): 
 }
 
 interface Env {
-  core: Core;
-  isApi: boolean;
-  chain: string[];
-  inChain: ReadonlySet<string>;
-  opSummary: LadderParts['opSummary'];
+  readonly core: Core;
+  readonly isApi: boolean;
+  readonly chain: readonly string[];
+  readonly inChain: ReadonlySet<string>;
+  readonly opSummary: LadderParts['opSummary'];
 }
 
 interface Placement {
-  rung: Rung;
-  consumer?: string | undefined;
+  readonly rung: Rung;
+  readonly consumer?: string | undefined;
 }
 
 const providerOf = ({ sys }: Core, vid: string): string | undefined => {
@@ -151,12 +159,17 @@ function placements(env: Env, r: OpRecord): Placement[] {
 }
 
 interface Collected {
-  rungs: Record<Exclude<Rung, 'migrate'>, LadderOp[]>;
-  migrate: Map<string, LadderOp[]>;
+  readonly rungs: Record<Exclude<Rung, 'migrate'>, readonly LadderOp[]>;
+  readonly migrate: ReadonlyMap<string, readonly LadderOp[]>;
 }
 
 function collect(env: Env): Collected {
-  const out: Collected = { rungs: { expand: [], contract: [], retire: [] }, migrate: new Map() };
+  const rungs: Record<Exclude<Rung, 'migrate'>, LadderOp[]> = {
+    expand: [],
+    contract: [],
+    retire: [],
+  };
+  const migrate = new Map<string, readonly LadderOp[]>();
   for (const r of env.core.records) {
     for (const p of placements(env, r)) {
       const item: LadderOp = {
@@ -168,21 +181,24 @@ function collect(env: Env): Collected {
       };
       if (p.rung === 'migrate') {
         const key = p.consumer ?? '(unknown)';
-        out.migrate.set(key, [...(out.migrate.get(key) ?? []), item]);
-      } else out.rungs[p.rung].push(item);
+        migrate.set(key, [...(migrate.get(key) ?? []), item]);
+      } else rungs[p.rung].push(item);
     }
   }
-  return out;
+  return { rungs, migrate };
 }
 
 /** Same-name versions collapse to "v1" / "v2"; otherwise full labels. */
-function shortNamer({ sys, label }: Core, chain: string[]): (cid: string, i: number) => string {
+function shortNamer(
+  { sys, label }: Core,
+  chain: readonly string[],
+): (cid: string, i: number) => string {
   const nodes = chain.map((c) => sys(c));
-  const first = str(prop(nodes[0], 'name'));
-  const versionOf = (n: PlanNode | undefined): string | undefined => str(prop(n, 'version'));
+  const first = textOf(prop(nodes[0], 'name'));
+  const versionOf = (n: PlanNode | undefined): string | undefined => textOf(prop(n, 'version'));
   const sameName =
     nodes.every((n) => {
-      const name = str(prop(n, 'name'));
+      const name = textOf(prop(n, 'name'));
       return name !== undefined && name === first && nonEmpty(versionOf(n));
     }) && new Set(nodes.map(versionOf)).size === nodes.length;
   const distinct = new Set(chain.map(label)).size === chain.length;
@@ -194,7 +210,7 @@ function shortNamer({ sys, label }: Core, chain: string[]): (cid: string, i: num
 
 type Labeller = (kind: RungKind, consumer?: string) => string;
 
-function labeller(core: Core, chain: string[], isApi: boolean): Labeller {
+function labeller(core: Core, chain: readonly string[], isApi: boolean): Labeller {
   const short = shortNamer(core, chain);
   const old = chain.length > 1 ? chain.slice(0, -1).map(short).join(', ') : null;
   const newest = short(chain.at(-1) ?? '', chain.length - 1);
@@ -202,8 +218,9 @@ function labeller(core: Core, chain: string[], isApi: boolean): Labeller {
   const consumerName = (c: string | undefined): string =>
     c !== undefined && c !== '(unknown)' ? core.label(c) : 'A consumer';
   return (kind, consumer) => {
-    if (kind === 'expand')
+    if (kind === 'expand') {
       return old === null ? `${newest} ${served}` : `${newest} ${served} next to ${old}`;
+    }
     if (kind === 'migrate') {
       return `${consumerName(consumer)} ${old === null ? 'starts using' : 'moves to'} ${newest}`;
     }
@@ -213,19 +230,19 @@ function labeller(core: Core, chain: string[], isApi: boolean): Labeller {
 }
 
 interface RungSpec {
-  rung: LadderRung['rung'];
-  kind: RungKind;
-  consumer?: string;
+  readonly rung: LadderRung['rung'];
+  readonly kind: RungKind;
+  readonly consumer?: string;
 }
 
 interface Rungs {
-  core: Core;
-  owners: Owners;
-  delivery: Delivery;
-  labelOf: Labeller;
+  readonly core: Core;
+  readonly owners: Owners;
+  readonly delivery: Delivery;
+  readonly labelOf: Labeller;
 }
 
-function withOwners(env: Rungs, spec: RungSpec, ops: LadderOp[]): LadderRung {
+function withOwners(env: Rungs, spec: RungSpec, ops: readonly LadderOp[]): LadderRung {
   const { rung, kind, consumer } = spec;
   const changes = uniq(ops.map((o) => o.changeId));
   const wis = env.core.workItems
@@ -251,8 +268,8 @@ function withOwners(env: Rungs, spec: RungSpec, ops: LadderOp[]): LadderRung {
  * expand → migrate (per consumer) → contract rungs for a versioned message or endpoint. A `deprecate` op is a
  * "marked deprecated (still served)" rung; only a `remove` op retires. Both have rung 'contract' (deprecate first).
  */
-export function createLadder(core: Core, parts: LadderParts) {
-  return memo((id: string) => {
+export function createLadder(core: Core, parts: LadderParts): (id: string) => Ladder {
+  return memo((id: string): Ladder => {
     const chain = chainOf(core, parts.versions, id);
     const isApi = typeOf(id) === 'endpoint';
     const { rungs, migrate } = collect({

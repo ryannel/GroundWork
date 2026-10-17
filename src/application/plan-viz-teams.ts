@@ -29,7 +29,7 @@ export function isRinged(slot: number): boolean {
 
 export function teamName(model: Model, teamId: string): string {
   const name = text(prop(model.get(teamId), 'name'));
-  return name === '' ? teamId.replace(/^team:/, '') : name;
+  return name === '' ? teamId.replace(/^team:/u, '') : name;
 }
 
 function parentOf(id: string): string | null {

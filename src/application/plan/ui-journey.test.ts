@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { derive } from '@/application/plan/derive';
 import { uiJourney } from '@/application/plan/ui-journey';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 

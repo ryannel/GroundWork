@@ -77,11 +77,8 @@ function walk(authored: UserJourneyNode, edges: readonly InteractionEdge[]) {
     const chosen =
       nodeIds.length > 0 ? candidates.filter((edge) => edge.source === nodeIds.at(-1)) : candidates;
     if (nodeIds.length === 0) entranceIds.push(...chosen.map((edge) => edge.source));
-    for (const edge of chosen) {
-      path.push(edge);
-      edge.journeyIds.push(authored.id);
-      if (nodeIds.length === 0) nodeIds.push(edge.source);
-    }
+    path.push(...chosen);
+    if (nodeIds.length === 0 && chosen[0] !== undefined) nodeIds.push(chosen[0].source);
     if (chosen[0] !== undefined) nodeIds.push(chosen[0].destination);
   }
   return { path, nodeIds, entranceIds };
@@ -107,33 +104,60 @@ function journeyOf(authored: UserJourneyNode, edges: readonly InteractionEdge[])
   };
 }
 
-function visit(journeys: readonly AuthoredJourney[], byScreen: ReadonlyMap<string, MapNode>): void {
-  for (const journey of journeys) {
-    for (const id of journey.nodeIds) {
-      const node = byScreen.get(id);
-      if (node === undefined) continue;
-      if (!node.journeyIds.includes(journey.id)) node.journeyIds.push(journey.id);
-      if (!node.actors.includes(journey.actor)) node.actors.push(journey.actor);
-    }
-  }
+const unique = <T>(xs: readonly T[]): T[] => [...new Set(xs)];
+
+/** Each screen with the journeys that reach it, who does them, and the flow work recorded on it. */
+function visit(
+  nodes: readonly MapNode[],
+  journeys: readonly AuthoredJourney[],
+  graph: SystemGraph,
+): MapNode[] {
+  const records = graph.flows.flatMap((flow) =>
+    flow.steps.map((step) => ({
+      screen: screenOf(step.screen ?? ''),
+      record: { ...recordedStep(step), flowId: flow.id },
+    })),
+  );
+  return nodes.map((node) => {
+    const reaching = journeys.filter((journey) => journey.nodeIds.includes(node.id));
+    return {
+      ...node,
+      journeyIds: unique([...node.journeyIds, ...reaching.map((journey) => journey.id)]),
+      actors: unique([...node.actors, ...reaching.map((journey) => journey.actor)]),
+      records: [
+        ...node.records,
+        ...records.filter((r) => r.screen === node.id).map((r) => r.record),
+      ],
+    };
+  });
 }
+
+/** Each edge with the journeys that take it, once for each time they do. */
+const withJourneys = (
+  edges: readonly InteractionEdge[],
+  journeys: readonly AuthoredJourney[],
+): InteractionEdge[] =>
+  edges.map((edge) => ({
+    ...edge,
+    journeyIds: [
+      ...edge.journeyIds,
+      ...journeys.flatMap((journey) =>
+        journey.edgeIds.filter((id) => id === edge.id).map(() => journey.id),
+      ),
+    ],
+  }));
 
 /** Navigation comes from explicit UI records, never from neighbouring flows. */
 export function interactionScreenMap(model: FlowModel): ScreenMap {
   const graph = model.asIs;
-  const nodes = graph.screens.map(newNode);
-  const byScreen = new Map(nodes.map((node) => [node.id, node]));
-  const edges = edgesOf(graph, byScreen);
-  const journeys = graph.userJourneys.map((authored) => journeyOf(authored, edges));
+  const blank = graph.screens.map(newNode);
+  const byScreen = new Map(blank.map((node) => [node.id, node]));
+  const bare = edgesOf(graph, byScreen);
+  const journeys = graph.userJourneys.map((authored) => journeyOf(authored, bare));
+  const edges = withJourneys(bare, journeys);
   const groups: ActorGroup[] = groupByActor(journeys);
-  visit(journeys, byScreen);
   // Keep all baseline screen-linked work available, without projecting more arrows.
-  for (const flow of graph.flows) {
-    for (const step of flow.steps) {
-      const node = byScreen.get(screenOf(step.screen ?? ''));
-      node?.records.push({ ...recordedStep(step), flowId: flow.id });
-    }
-  }
+  const nodes = visit(blank, journeys, graph);
   const linked = new Set(edges.flatMap((edge) => [edge.source, edge.destination]));
   return {
     explicit: true,

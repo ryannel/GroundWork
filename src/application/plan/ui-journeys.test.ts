@@ -1,26 +1,41 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
+import { quickCheckoutOnToday } from '@/../test/fixtures/acme/plans/core-checkout';
+import { giftWrap } from '@/../test/fixtures/acme/plans/journeys-gift-wrap';
+import { pauseOrders } from '@/../test/fixtures/acme/plans/pause-orders';
+import { coreShop } from '@/../test/fixtures/core-shop';
 import { derive, type Model } from '@/application/plan/derive';
 import { todayJourneys } from '@/application/plan/ui-journeys';
 import { todayScreenCatalogue } from '@/application/plan/ui-journeys-map';
 import { todayWireflows } from '@/application/plan/ui-journeys-wireflow';
 import type { Flow, Plan, Step } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+const PLANS: readonly (readonly [string, () => Plan])[] = [
+  ['quick-checkout', () => quickCheckoutOnToday().whole],
+  ['gift-wrap', giftWrap],
+  ['pause-orders', pauseOrders],
+  ['shop', coreShop],
+];
 
-const { readPlan } = await import('@/infrastructure/plan-store');
-
-const SLUGS = ['invoice-vat-number', 'delivery-promise', 'storefront-graph', 'stock-reservation'];
-
-/** A model of an alder-finch plan without its authored navigation, so the recorded order is what shows. */
-async function modelOf(slug: string, edit?: (plan: Plan) => void): Promise<Model> {
-  const { plan } = await readPlan('alder-finch', slug);
-  if (plan === null) throw new Error(`no plan ${slug}`);
-  delete plan.interactions;
-  delete plan.user_journeys;
-  edit?.(plan);
-  return derive(plan);
+/** A model of a plan without its authored navigation, so the recorded order is what shows. */
+function recorded(plan: Plan, edit?: (plan: Plan) => void): Model {
+  const copy = structuredClone(plan);
+  delete copy.interactions;
+  delete copy.user_journeys;
+  edit?.(copy);
+  return derive(copy);
 }
+/** Quick checkout on the richer Acme today, with the whole of today in it. */
+const checkout = (edit?: (plan: Plan) => void): Model =>
+  recorded(quickCheckoutOnToday().whole, edit);
+/** The shop with its screens and every step's screen taken out. */
+function unseen(): Model {
+  const plan = coreShop();
+  delete plan.screens;
+  for (const flow of plan.flows ?? []) for (const step of flow.steps) delete step.screen;
+  return recorded(plan);
+}
+const ROUTES = ['flow:view-product', 'flow:add-to-basket', 'flow:place-order'];
 
 const flowOf = (plan: Plan, id: string): Flow => {
   const flow = plan.flows?.find((f) => f.id === id);
@@ -34,28 +49,40 @@ const stepOf = (flow: Flow, i: number): Step => {
 };
 const pathsOf = (m: Model) =>
   todayJourneys(m).routes.map((r) => [r.id, r.stops.map((s) => s.screen)]);
+const routeOf = <R extends { readonly id: string }>(routes: readonly R[], id: string): R => {
+  const route = routes.find((r) => r.id === id);
+  if (route === undefined) throw new Error(`no route ${id}`);
+  return route;
+};
 
 describe('todayJourneys', () => {
-  it('keeps checkout and invoicing apart, with each flow’s background work intact', async () => {
-    const { routes, unlinked } = todayJourneys(await modelOf('invoice-vat-number'));
-    expect(routes.map((r) => r.id)).toEqual(['flow:checkout-address', 'flow:issue-invoice']);
+  it('keeps viewing, adding and ordering apart, with each flow’s background work intact', () => {
+    const { routes, unlinked } = todayJourneys(checkout());
+    expect(routes.map((r) => r.id)).toEqual(ROUTES);
     expect(routes.map((r) => r.stops.map((s) => s.screen))).toEqual([
-      ['scr:checkout-address'],
-      ['scr:invoice-pdf'],
+      ['scr:product-page'],
+      ['scr:product-page', 'scr:basket'],
+      ['scr:basket', 'scr:order-email', 'scr:confirmation'],
     ]);
-    const [checkout, invoicing] = routes;
-    expect(checkout?.stops[0]?.after.map((e) => e.step.action)).toEqual([
-      'Store the address',
+    const [view, add, order] = routes;
+    expect(view?.stops[0]?.during.map((e) => e.step.action)).toEqual([
+      'Load the product',
+      'Show the stock',
+    ]);
+    expect(add?.stops[0]?.after.map((e) => e.step.action)).toEqual(['Price the line']);
+    expect(order?.stops[0]?.after.map((e) => e.step.action)).toEqual([
       'Create the order',
+      'Take payment',
+      'Charge the card',
       'Announce the order',
     ]);
-    expect(invoicing?.stops[0]?.before[0]?.step.action).toBe('Take the order');
-    expect(invoicing?.stops[0]?.after.at(-1)?.step.action).toMatch(/Re-issue by hand/);
-    expect(unlinked).toEqual([]);
+    expect(order?.stops[1]?.before).toEqual([]);
+    expect(unlinked.map((s) => s.id)).toEqual(['scr:search-results']);
   });
 
-  it('numbers stops across routes with an offset', async () => {
-    const j = todayJourneys(await modelOf('delivery-promise'));
+  it('numbers stops across routes with an offset', () => {
+    const j = todayJourneys(checkout());
+    expect(j.routes.map((r) => r.offset)).toEqual([0, 1, 3]);
     let expected = 0;
     for (const route of j.routes) {
       expect(route.offset).toBe(expected);
@@ -64,14 +91,14 @@ describe('todayJourneys', () => {
     expect(j.stops).toHaveLength(expected);
   });
 
-  it('is not changed by proposal scenarios', async () => {
-    const expected = pathsOf(await modelOf('invoice-vat-number'));
+  it('is not changed by proposal scenarios', () => {
+    const expected = pathsOf(checkout());
     for (const flows of [
       [],
-      ['flow:issue-invoice', 'flow:checkout-address'],
-      ['flow:checkout-address', 'flow:future', 'flow:issue-invoice'],
+      ['flow:place-order', 'flow:view-product'],
+      ['flow:add-to-basket', 'flow:refund-order', 'flow:place-order'],
     ]) {
-      const m = await modelOf('invoice-vat-number', (plan) => {
+      const m = checkout((plan) => {
         const scenario = plan.problem.scenarios?.[0];
         if (scenario !== undefined) scenario.flows = flows;
       });
@@ -79,61 +106,67 @@ describe('todayJourneys', () => {
     }
   });
 
-  it('does not turn background work into a second stop on the same visible screen', async () => {
-    const m = await modelOf('invoice-vat-number', (plan) => {
-      stepOf(flowOf(plan, 'flow:checkout-address'), 2).screen = 'scr:checkout-address';
+  it('does not turn background work into a second stop on the same visible screen', () => {
+    const m = checkout((plan) => {
+      stepOf(flowOf(plan, 'flow:place-order'), 1).screen = 'scr:basket';
     });
-    const [route] = todayJourneys(m).routes;
-    expect(route?.stops).toHaveLength(1);
-    expect(route?.stops[0]?.during[0]?.step.action).toBe('Store the address');
-    expect(route?.stops[0]?.actions).toHaveLength(2);
+    const route = routeOf(todayJourneys(m).routes, 'flow:place-order');
+    expect(route.stops).toHaveLength(3);
+    expect(route.stops[0]?.during[0]?.step.action).toBe('Create the order');
+    expect(route.stops[0]?.actions).toHaveLength(2);
   });
 
-  it('keeps a revisit as its own stop', async () => {
-    const m = await modelOf('invoice-vat-number', (plan) => {
-      const flow = flowOf(plan, 'flow:checkout-address');
-      stepOf(flow, 1).screen = 'scr:invoice-pdf';
-      stepOf(flow, 2).screen = 'scr:checkout-address';
+  it('keeps a revisit as its own stop', () => {
+    const m = checkout((plan) => {
+      const flow = flowOf(plan, 'flow:add-to-basket');
+      stepOf(flow, 1).screen = 'scr:basket';
+      stepOf(flow, 2).screen = 'scr:product-page';
     });
-    const [route] = todayJourneys(m).routes;
-    expect(route?.stops.map((s) => s.screen)).toEqual([
-      'scr:checkout-address',
-      'scr:invoice-pdf',
-      'scr:checkout-address',
+    const route = routeOf(todayJourneys(m).routes, 'flow:add-to-basket');
+    expect(route.stops.map((s) => s.screen)).toEqual([
+      'scr:product-page',
+      'scr:basket',
+      'scr:product-page',
     ]);
-    expect(route?.stops[1]?.actions[0]?.action).toBe('Store the address');
+    expect(route.stops[1]?.actions[0]?.action).toBe('Price the line');
   });
 
-  it('keeps a screen with no recorded step visible, without a journey position', async () => {
-    const m = await modelOf('invoice-vat-number', (plan) => {
+  it('keeps a screen with no recorded step visible, without a journey position', () => {
+    const m = checkout((plan) => {
       plan.problem.scenarios?.splice(0);
-      delete stepOf(flowOf(plan, 'flow:issue-invoice'), 1).screen;
+      delete stepOf(flowOf(plan, 'flow:place-order'), 5).screen;
     });
     const c = todayScreenCatalogue(m);
-    expect(c.routes).toHaveLength(1);
-    expect(c.routes[0]?.stops).toHaveLength(1);
-    expect(c.unlinked[0]?.id).toBe('scr:invoice-pdf');
+    expect(c.routes).toHaveLength(3);
+    expect(routeOf(c.routes, 'flow:place-order').stops.map((s) => s.screen)).toEqual([
+      'scr:basket',
+      'scr:confirmation',
+    ]);
+    expect(c.unlinked.map((s) => s.id)).toEqual(['scr:order-email', 'scr:search-results']);
   });
 
-  it('keeps a proposed screen link out of today', async () => {
-    const m = await modelOf('invoice-vat-number', (plan) => {
-      delete stepOf(flowOf(plan, 'flow:issue-invoice'), 1).screen;
+  it('keeps a proposed screen link out of today', () => {
+    const m = checkout((plan) => {
+      delete stepOf(flowOf(plan, 'flow:place-order'), 5).screen;
+      delete stepOf(flowOf(plan, 'flow:view-product'), 0).screen;
+      delete stepOf(flowOf(plan, 'flow:view-product'), 2).screen;
       plan.changes?.[0]?.ops.push({
-        modify: 'flow:issue-invoice#render',
-        set: { screen: 'scr:invoice-pdf' },
+        modify: 'flow:place-order#email',
+        set: { screen: 'scr:order-email' },
       });
     });
+    expect(m.toBe.get('flow:place-order#email')).toMatchObject({ screen: 'scr:order-email' });
     const c = todayScreenCatalogue(m);
-    expect(c.routes.map((r) => r.id)).toEqual(['flow:checkout-address']);
-    expect(c.unlinked.map((s) => s.id)).toEqual(['scr:invoice-pdf']);
+    expect(c.routes.map((r) => r.id)).toEqual(['flow:add-to-basket', 'flow:place-order']);
+    expect(c.unlinked.map((s) => s.id)).toEqual(['scr:order-email', 'scr:search-results']);
   });
 });
 
 describe('todayScreenCatalogue', () => {
-  it.each(SLUGS)(
+  it.each(PLANS)(
     'groups every baseline screen of %s by serving app, keeping order',
-    async (slug) => {
-      const m = await modelOf(slug);
+    (_name, plan) => {
+      const m = recorded(plan());
       const c = todayScreenCatalogue(m);
       expect(c.screens).toEqual(m.asIs.screens);
       expect(c.groups.flatMap((g) => g.screens)).toHaveLength(c.screens.length);
@@ -151,15 +184,22 @@ describe('todayScreenCatalogue', () => {
     },
   );
 
-  it('leaves out the two new notification screens in Delivery', async () => {
-    const m = await modelOf('delivery-promise');
-    expect(todayScreenCatalogue(m).screens).toHaveLength(9);
-    expect(m.toBe.screens).toHaveLength(11);
-    expect(todayScreenCatalogue(m).routes.filter((r) => r.id === 'flow:checkout')).toHaveLength(1);
+  it('leaves out the new refund email', () => {
+    const m = checkout();
+    expect(todayScreenCatalogue(m).screens).toHaveLength(5);
+    expect(m.toBe.screens).toHaveLength(6);
+    expect(todayScreenCatalogue(m).screens.map((s) => s.id)).not.toContain('scr:refund-email');
+    expect(todayScreenCatalogue(m).groups.map((g) => g.service)).toEqual([
+      'svc:order-mailer',
+      'svc:shop-web',
+    ]);
+    expect(todayScreenCatalogue(m).routes.filter((r) => r.id === 'flow:place-order')).toHaveLength(
+      1,
+    );
   });
 
-  it('is empty for a plan without recorded screens', async () => {
-    expect(todayScreenCatalogue(await modelOf('stock-reservation'))).toEqual({
+  it('is empty for a plan without recorded screens', () => {
+    expect(todayScreenCatalogue(unseen())).toEqual({
       routes: [],
       screens: [],
       groups: [],
@@ -169,122 +209,134 @@ describe('todayScreenCatalogue', () => {
 });
 
 describe('todayWireflows', () => {
-  it('keeps every screen-linked step selectable, including same-screen updates', async () => {
-    const m = await modelOf('storefront-graph');
-    const browse = todayWireflows(m).routes.find((r) => r.id === 'flow:browse-product');
-    const stop = browse?.stops[0];
-    expect(browse?.stops).toHaveLength(1);
+  it('keeps every screen-linked step selectable, including same-screen updates', () => {
+    const browse = routeOf(todayWireflows(checkout()).routes, 'flow:view-product');
+    const stop = browse.stops[0];
+    expect(browse.stops).toHaveLength(1);
     expect(stop?.records.map((r) => r.stepId)).toEqual([
-      'flow:browse-product#open',
-      'flow:browse-product#render',
-      'flow:browse-product#reviews',
+      'flow:view-product#open',
+      'flow:view-product#stock',
     ]);
     expect(stop?.records[1]).toMatchObject({
-      region: 'scr:pdp#stock',
+      region: 'scr:product-page#stock',
       experienceKind: 'update',
       classificationInferred: true,
     });
-    expect(browse?.connectors).toEqual([]);
+    expect(browse.connectors).toEqual([]);
     expect(stop?.connector).toBeNull();
   });
 
-  it('expresses exact recorded boundaries and keeps intervening prose', async () => {
-    const m = await modelOf('delivery-promise');
-    const checkout = todayWireflows(m).routes.find((r) => r.id === 'flow:checkout');
-    const [payment, email] = checkout?.connectors ?? [];
-    expect(payment).toMatchObject({
+  it('expresses exact recorded boundaries and keeps intervening prose', () => {
+    const m = checkout();
+    const wire = todayWireflows(m);
+    const [basket] = routeOf(wire.routes, 'flow:add-to-basket').connectors;
+    expect(basket).toMatchObject({
       kind: 'recorded-order',
       label: 'Next recorded screen',
-      sourceStepId: 'flow:checkout#delivery',
-      destinationStepId: 'flow:checkout#pay',
-      sourceScreen: 'scr:checkout-delivery',
-      destinationScreen: 'scr:checkout-payment',
+      sourceStepId: 'flow:add-to-basket#add',
+      destinationStepId: 'flow:add-to-basket#show',
+      sourceScreen: 'scr:product-page',
+      destinationScreen: 'scr:basket',
     });
-    expect(payment?.steps.map((s) => s.stepId)).toEqual([
-      'flow:checkout#delivery',
-      'flow:checkout#quote',
-      'flow:checkout#partner-quote',
-      'flow:checkout#pay',
+    expect(basket?.steps.map((s) => s.stepId)).toEqual([
+      'flow:add-to-basket#add',
+      'flow:add-to-basket#price',
+      'flow:add-to-basket#show',
     ]);
-    const quote = m.asIs.get('flow:checkout#quote');
-    if (quote?.$type !== 'step') throw new Error('no step');
-    expect(payment?.notes).toContainEqual({
-      stepId: quote.id,
-      type: 'logic',
-      text: quote.logic,
-    });
-    expect(payment?.notes).toContainEqual({ stepId: quote.id, type: 'fails', text: quote.fails });
+    expect(basket?.notes).toEqual([]);
+    const [email, confirmation] = routeOf(wire.routes, 'flow:place-order').connectors;
     expect(email).toMatchObject({
       kind: 'output',
       label: 'Recorded output',
-      sourceStepId: 'flow:checkout#pay',
-      destinationStepId: 'flow:checkout#confirmation',
+      sourceStepId: 'flow:place-order#submit',
+      destinationStepId: 'flow:place-order#email',
+      sourceScreen: 'scr:basket',
+      destinationScreen: 'scr:order-email',
     });
-    expect(email?.notes.map((n) => n.text)).toContain('Only when the shopper chose financing.');
+    expect(email?.steps).toHaveLength(6);
+    const charge = m.asIs.get('flow:place-order#charge');
+    const card = m.asIs.get('flow:place-order#card');
+    if (charge?.$type !== 'step' || card?.$type !== 'step') throw new Error('no step');
+    expect(email?.notes).toContainEqual({ stepId: card.id, type: 'logic', text: card.logic });
+    expect(email?.notes).toContainEqual({ stepId: charge.id, type: 'fails', text: charge.fails });
+    expect(email?.notes.map((n) => n.text)).toContain('Only when the customer pays by card.');
+    expect(confirmation).toMatchObject({
+      kind: 'recorded-order',
+      sourceStepId: 'flow:place-order#email',
+      destinationStepId: 'flow:place-order#show',
+    });
   });
 
-  it('is baseline-only and does not turn inferred UI actions into proven controls', async () => {
-    const m = await modelOf('invoice-vat-number', (plan) => {
+  it('is baseline-only and does not turn inferred UI actions into proven controls', () => {
+    const m = checkout((plan) => {
       plan.changes?.[0]?.ops.push({
         add: 'step',
-        into: 'flow:checkout-address',
-        after: 'flow:checkout-address#form',
+        into: 'flow:add-to-basket',
+        after: 'flow:add-to-basket#add',
         value: {
-          id: 'flow:checkout-address#future-ui',
-          from: 'svc:storefront-web',
-          to: 'svc:storefront-bff',
-          via: 'api:bff-checkout-step',
-          action: 'Click the new business control',
-          screen: 'scr:checkout-address#address',
+          id: 'flow:add-to-basket#future-ui',
+          from: 'svc:shop-web',
+          to: 'svc:shop-bff',
+          via: 'api:bff-add-line',
+          action: 'Click the new gift control',
+          screen: 'scr:product-page#buy',
         },
       });
     });
+    expect(m.toBe.has('flow:add-to-basket#future-ui')).toBe(true);
     const wire = todayWireflows(m);
-    expect(wire.routes.map((r) => r.id)).toEqual(['flow:checkout-address', 'flow:issue-invoice']);
-    const record = wire.routes[0]?.stops[0]?.records[0];
-    expect(record).toMatchObject({
-      stepId: 'flow:checkout-address#form',
+    expect(wire.routes.map((r) => r.id)).toEqual(ROUTES);
+    const add = routeOf(wire.routes, 'flow:add-to-basket');
+    expect(add.stops[0]?.records).toHaveLength(1);
+    expect(add.stops[0]?.records[0]).toMatchObject({
+      stepId: 'flow:add-to-basket#add',
       experienceKind: 'action',
       classificationInferred: true,
-      action: 'Submit the address',
+      action: 'Add the line',
       logic: null,
     });
     expect(JSON.stringify(wire)).not.toContain('future-ui');
-    expect(wire.routes[0]?.connectors).toEqual([]);
-    expect(wire.routes[1]?.stops[0]?.records[0]?.experienceKind).toBe('output');
+    expect(routeOf(wire.routes, 'flow:view-product').connectors).toEqual([]);
+    const order = routeOf(wire.routes, 'flow:place-order');
+    expect(order.stops[1]?.records[0]?.experienceKind).toBe('output');
+    expect(order.stops[1]?.records[0]?.classificationInferred).toBe(false);
   });
 
-  it('keeps repeated visits and unlinked screens', async () => {
-    const m = await modelOf('invoice-vat-number', (plan) => {
-      const flow = flowOf(plan, 'flow:checkout-address');
-      stepOf(flow, 1).screen = 'scr:invoice-pdf';
-      stepOf(flow, 2).screen = 'scr:checkout-address';
-      delete stepOf(flowOf(plan, 'flow:issue-invoice'), 1).screen;
+  it('keeps repeated visits and unlinked screens', () => {
+    const m = checkout((plan) => {
+      const flow = flowOf(plan, 'flow:add-to-basket');
+      stepOf(flow, 1).screen = 'scr:order-email';
+      stepOf(flow, 2).screen = 'scr:product-page';
+      delete stepOf(flowOf(plan, 'flow:place-order'), 6).screen;
       plan.screens?.push({
         id: 'scr:loose',
         name: 'Loose screen',
-        service: 'svc:storefront-web',
+        service: 'svc:shop-web',
         kind: 'page',
       });
     });
     const wire = todayWireflows(m);
-    const route = wire.routes[0];
-    expect(route?.stops.map((s) => s.screen)).toEqual([
-      'scr:checkout-address',
-      'scr:invoice-pdf',
-      'scr:checkout-address',
+    const route = routeOf(wire.routes, 'flow:add-to-basket');
+    expect(route.stops.map((s) => s.screen)).toEqual([
+      'scr:product-page',
+      'scr:order-email',
+      'scr:product-page',
     ]);
-    expect(route?.stops.map((s) => s.records[0]?.stepId)).toEqual([
-      'flow:checkout-address#form',
-      'flow:checkout-address#store',
-      'flow:checkout-address#create',
+    expect(route.stops.map((s) => s.records[0]?.stepId)).toEqual([
+      'flow:add-to-basket#add',
+      'flow:add-to-basket#price',
+      'flow:add-to-basket#show',
     ]);
-    expect(route?.connectors.map((c) => c.kind)).toEqual(['output', 'recorded-order']);
-    expect(wire.unlinked.map((s) => s.id)).toEqual(['scr:loose']);
+    expect(route.connectors.map((c) => c.kind)).toEqual(['output', 'recorded-order']);
+    expect(wire.unlinked.map((s) => s.id)).toEqual([
+      'scr:confirmation',
+      'scr:search-results',
+      'scr:loose',
+    ]);
   });
 
-  it('is empty for a plan without recorded screens', async () => {
-    expect(todayWireflows(await modelOf('stock-reservation'))).toEqual({
+  it('is empty for a plan without recorded screens', () => {
+    expect(todayWireflows(unseen())).toEqual({
       routes: [],
       unlinked: [],
       stops: [],

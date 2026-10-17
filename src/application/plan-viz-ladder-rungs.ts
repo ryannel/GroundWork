@@ -65,11 +65,12 @@ interface Ends {
   readonly isApi: boolean;
 }
 
-const str = (x: unknown): string | undefined => (typeof x === 'string' && x !== '' ? x : undefined);
+const textOf = (x: unknown): string | undefined =>
+  typeof x === 'string' && x !== '' ? x : undefined;
 
 function providerName(model: Model, { from, to, isApi }: Ends): string {
   const key = isApi ? '$service' : 'producer';
-  const provider = str(prop(model.get(to), key)) ?? str(prop(model.get(from), key));
+  const provider = textOf(prop(model.get(to), key)) ?? textOf(prop(model.get(from), key));
   return provider === undefined ? 'The provider' : model.label(provider);
 }
 
@@ -93,8 +94,9 @@ function whatOf(model: Model, r: Rung, ends: Ends): Seg[] {
       { text: `(still ${isApi ? 'served' : 'published'})`, tone: 'still' },
     ];
   }
-  if (r.rung === 'contract')
+  if (r.rung === 'contract') {
     return [{ text: `${p} stops ${serve} ` }, { text: n.old, tone: 'strong' }];
+  }
   if (isConsumer(r.consumer)) {
     return [
       { text: model.label(r.consumer), tone: 'who', id: r.consumer },
@@ -123,7 +125,7 @@ function changeOf(p: string): OpLineView['change'] {
 /** The step an edit touches: the field it changes, when that field is named. */
 function stepOf(model: Model, o: Op): string {
   const op = (model.plan.changes ?? []).find((c) => c.id === o.changeId)?.ops[o.opIndex];
-  const target = str(prop(op, 'modify'));
+  const target = textOf(prop(op, 'modify'));
   return target?.includes('#') === true ? short(model.label(target), 36) : '';
 }
 
@@ -227,13 +229,13 @@ export function ladderView(model: Model, id: string): LadderView | null {
   const to = l.chain.at(-1);
   if (from === undefined || to === undefined || l.rungs.length === 0) return null;
   const ends: Ends = { from, to, isApi: id.startsWith('api:') };
-  const ret = retireMilestone(model, id);
+  const retirement = retireMilestone(model, id);
   const expand = l.rungs.find((r) => r.rung === 'expand');
   const timing: Timing = {
     expandMs: rungMilestone(model, expand?.workItems ?? []),
     lastMigrate: lastMigrateMs(model, l),
-    retireMs: ret.ms,
-    retireKind: ret.kind,
+    retireMs: retirement.ms,
+    retireKind: retirement.kind,
   };
   // A work item is drawn once, on the first rung it builds.
   const shown = new Set<string>();

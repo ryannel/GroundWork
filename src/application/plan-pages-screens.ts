@@ -55,8 +55,9 @@ function todayScreens(model: Model): ScreenRef[] {
 const SMALL_PLAN = 3;
 
 function proveScreens(model: Model): ScreenRef[] {
-  if ((model.plan.changes ?? []).length <= SMALL_PLAN)
+  if ((model.plan.changes ?? []).length <= SMALL_PLAN) {
     return [screen('coverage', 'How we prove it')];
+  }
   return [
     screen('e2e', 'End-to-end tests over the flows'),
     screen('contracts', 'Contract tests'),

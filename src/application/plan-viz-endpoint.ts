@@ -9,26 +9,29 @@ export interface Sig {
   readonly path: string;
 }
 
-const UPPER = /^[A-Z]+$/;
+const UPPER = /^[A-Z]+$/u;
 const GRAPHQL = new Set(['query', 'mutation', 'subscription']);
 
 function parsePart(part: string): Sig {
   const t = part.trim();
-  const gap = t.search(/\s/);
+  const gap = t.search(/\s/u);
   if (gap < 0) return { verbs: [], path: t };
   const word = t.slice(0, gap);
   const path = t.slice(gap).trim();
-  const verbs = word.split('|');
+  const verbs = [...new Set(word.split('|'))];
   if (verbs.every((v) => UPPER.test(v)) || GRAPHQL.has(word)) {
     return { verbs: GRAPHQL.has(word) ? [word] : verbs, path };
   }
   return { verbs: [], path: t };
 }
 
-/** "GET|PUT /a/{id}; PUT /b" is two signatures; a GraphQL "query product(sku)" keeps its word as the verb. */
+/**
+ * "GET|PUT /a/{id}; PUT /b" is two signatures; a GraphQL "query product(sku)" keeps its word as the verb.
+ * A verb written twice ("GET|POST|POST") is kept once.
+ */
 export function parseSig(sig?: string): Sig[] {
   return (sig ?? '')
-    .split(/;\s*/)
+    .split(/;\s*/u)
     .map(parsePart)
     .filter((s) => s.path !== '');
 }
@@ -42,8 +45,8 @@ export interface PathPart {
 
 /** A path cut into plain text and {params}, and the query it carries (dimmed). */
 export function pathParts(path: string): {
-  readonly parts: PathPart[];
-  readonly query: PathPart[];
+  readonly parts: readonly PathPart[];
+  readonly query: readonly PathPart[];
 } {
   const [head = '', ...rest] = path.split('?');
   const query = rest.join('?');
@@ -60,28 +63,36 @@ function cutParams(s: string, tag: string): PathPart[] {
       parts.push({ text: s.slice(at), param: false, key: `${tag}${String(at)}` });
       break;
     }
-    if (open > at)
+    if (open > at) {
       parts.push({ text: s.slice(at, open), param: false, key: `${tag}${String(at)}` });
+    }
     parts.push({ text: s.slice(open, close + 1), param: true, key: `${tag}${String(open)}` });
     at = close + 1;
   }
   return parts;
 }
 
-const NAME = /^[\w.-]+/;
+const NAME = /^[\w.-]+/u;
 
-function addUnique(into: string[], name: string | undefined): void {
-  if (name !== undefined && name !== '' && !into.includes(name)) into.push(name);
+function withUnique(into: readonly string[], name: string | undefined): readonly string[] {
+  return name !== undefined && name !== '' && !into.includes(name) ? [...into, name] : into;
 }
 
 /** The parameters a signature names: the `{id}`s of the path and the names after the `?`. */
-export function pathParams(sig: string | undefined): { path: string[]; query: string[] } {
-  const path: string[] = [];
-  const query: string[] = [];
+export function pathParams(sig: string | undefined): {
+  readonly path: readonly string[];
+  readonly query: readonly string[];
+} {
+  let path: readonly string[] = [];
+  let query: readonly string[] = [];
   for (const s of parseSig(sig)) {
     const [p = '', q = ''] = s.path.split('?');
-    for (const part of cutParams(p, 'p')) if (part.param) addUnique(path, part.text.slice(1, -1));
-    for (const item of q.split('&')) addUnique(query, NAME.exec(item.replace('{', ''))?.[0]);
+    for (const part of cutParams(p, 'p')) {
+      if (part.param) path = withUnique(path, part.text.slice(1, -1));
+    }
+    for (const item of q.split('&')) {
+      query = withUnique(query, NAME.exec(item.replace('{', ''))?.[0]);
+    }
   }
   return { path, query };
 }
@@ -90,7 +101,7 @@ export function pathParams(sig: string | undefined): { path: string[]; query: st
 export function copyablePath(ep: Pick<EndpointNode, 'sig'>): string {
   const first = parseSig(ep.sig)[0];
   const verb = first?.verbs[0];
-  return first !== undefined && verb !== undefined && /^[A-Z]/.test(verb) ? first.path : '';
+  return first !== undefined && verb !== undefined && /^[A-Z]/u.test(verb) ? first.path : '';
 }
 
 const graphOf = (model: Model, mode: Mode) => (mode === 'asIs' ? model.asIs : model.toBe);
@@ -98,7 +109,10 @@ const interfaceIn = (model: Model, mode: GraphMode, id: string): InterfaceNode |
   graphOf(model, mode).interfaces.find((i) => i.id === id);
 
 /** Puts each endpoint the plan removes back after the one that stood before it. */
-function withRemoved(list: EndpointNode[], before: readonly EndpointNode[]): EndpointNode[] {
+function withRemoved(
+  list: readonly EndpointNode[],
+  before: readonly EndpointNode[],
+): EndpointNode[] {
   const out = [...list];
   for (const [i, e] of before.entries()) {
     if (out.some((x) => x.id === e.id)) continue;
@@ -117,7 +131,7 @@ export function interfaceEndpoints(
   model: Model,
   ifcId: string,
   mode: Mode = 'diff',
-): EndpointNode[] {
+): readonly EndpointNode[] {
   const was = interfaceIn(model, 'asIs', ifcId)?.endpoints;
   const now = interfaceIn(model, 'toBe', ifcId)?.endpoints;
   if (mode === 'asIs') return was ?? now ?? [];
@@ -162,7 +176,7 @@ export function typedParams(
   });
   return asked.names.map((name) => {
     const type = fields.find((f) => f.name === name)?.type;
-    return { name, type: type === undefined ? null : type.replace(/\?$/, '') };
+    return { name, type: type === undefined ? null : type.replace(/\?$/u, '') };
   });
 }
 

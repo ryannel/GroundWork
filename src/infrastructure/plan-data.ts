@@ -52,7 +52,9 @@ export async function planFailure({ workspace, plan }: PlanParams): Promise<Plan
 }
 
 /** Every screen of every plan except the covers. */
-export async function screenPaths(): Promise<(PlanParams & { chapter: string; screen: string })[]> {
+export async function screenPaths(): Promise<
+  (PlanParams & { readonly chapter: string; readonly screen: string })[]
+> {
   const params = await planParams();
   const lists = await Promise.all(
     params.map(async (at) => {
@@ -83,7 +85,7 @@ async function load({ workspace, plan }: PlanParams): Promise<PlanData | null> {
   const found = findWorkspace(await readWorkspaces(), workspace);
   const loaded = found === null ? null : await readLoadedPlan(workspace, plan);
   if (found === null || loaded === null) return null;
-  const model = derive(loaded.plan, { status: loaded.status });
+  const model = derive(loaded.plan, { status: loaded.status, today: new Date() });
   return {
     workspaceName: found.name,
     model,

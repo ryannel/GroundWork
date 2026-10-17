@@ -1,6 +1,6 @@
 import type { Core, Indexed } from '@/application/plan/derive-core';
 import type { Register } from '@/application/plan/derive-register';
-import { isoDay, memo, str, tie } from '@/application/plan/derive-values';
+import { dayOf, isoDay, memo, textOf, tie } from '@/application/plan/derive-values';
 import { prop, strings, typeOf } from '@/application/plan/ids';
 import type { IssueStatus } from '@/domain/plan/plan-status';
 import { SIZE_WEIGHT } from '@/domain/plan/plan-vocab';
@@ -9,13 +9,49 @@ import type { Question, WorkItem } from '@/domain/plan/plan.generated';
 const LAST = '\uFFFF';
 const FAR = 1e9;
 
+export interface CriticalPath {
+  readonly path: readonly string[];
+  readonly weight: number;
+}
+
+export interface MilestoneViolation {
+  readonly workItem: string;
+  readonly dependsOn: string;
+  readonly milestone: string | undefined;
+  readonly dependsOnMilestone: string | undefined;
+}
+
+export interface IssueState {
+  readonly state: string;
+  readonly closed_at: string | null;
+  readonly url: string | null;
+}
+
+export interface Delivery {
+  readonly topoOrder: () => string[];
+  readonly criticalPath: () => CriticalPath;
+  readonly waves: () => string[][];
+  readonly milestoneViolations: () => MilestoneViolation[];
+  readonly blockersOf: (id: string) => string[];
+  readonly overdue: (
+    q: string | Pick<Question, 'decide_by' | 'status'>,
+    on?: Date | string,
+  ) => boolean;
+  readonly statusOf: (wiId: string) => IssueState | null;
+  readonly milestoneProgress: (msId: string) => { readonly done: number; readonly total: number };
+  readonly wiById: ReadonlyMap<string, WorkItem>;
+  readonly questions: readonly Indexed[];
+  /** The day the model was derived for; undefined when the caller gave none. */
+  readonly today: Date | undefined;
+}
+
 interface Work {
-  core: Core;
-  wiById: ReadonlyMap<string, WorkItem>;
-  msIndex: ReadonlyMap<string, number>;
-  msRank: (id: string | undefined) => number;
-  depsOf: (id: string) => string[];
-  before: (a: string, b: string) => number;
+  readonly core: Core;
+  readonly wiById: ReadonlyMap<string, WorkItem>;
+  readonly msIndex: ReadonlyMap<string, number>;
+  readonly msRank: (id: string | undefined) => number;
+  readonly depsOf: (id: string) => string[];
+  readonly before: (a: string, b: string) => number;
 }
 
 function workOf(core: Core): Work {
@@ -93,7 +129,7 @@ function heaviest(work: Work, best: ReadonlyMap<string, number>): string | null 
  * The heaviest chain of work items by size. A tie is broken on purpose, never by plan order: the item whose
  * milestone is due first (then the earlier milestone), then the lower id.
  */
-function criticalPathOf(work: Work, order: readonly string[]) {
+function criticalPathOf(work: Work, order: readonly string[]): CriticalPath {
   const { best, prev } = chains(work, order);
   const end = heaviest(work, best);
   const path: string[] = [];
@@ -123,7 +159,7 @@ function wavesOf({ depsOf }: Work, order: readonly string[]): string[][] {
 }
 
 /** Work items depending on a work item in a later milestone. */
-function violationsOf({ core, wiById, msIndex, msRank, depsOf }: Work) {
+function violationsOf({ core, wiById, msIndex, msRank, depsOf }: Work): MilestoneViolation[] {
   return core.workItems.flatMap((w) =>
     depsOf(w.id)
       .filter((d) => {
@@ -156,12 +192,12 @@ function blockScopeOf({ core, wiById }: Work, wiId: string): Set<string> {
   return out;
 }
 
-const decideBy = (e: Indexed): string => str(prop(e, 'decide_by')) ?? LAST;
+const decideBy = (e: Indexed): string => textOf(prop(e, 'decide_by')) ?? LAST;
 
 interface Gates {
-  scopeOf: (id: string) => Set<string> | null;
-  questions: Indexed[];
-  register: Register;
+  readonly scopeOf: (id: string) => Set<string> | null;
+  readonly questions: readonly Indexed[];
+  readonly register: Register;
 }
 
 /**
@@ -169,21 +205,23 @@ interface Gates {
  * or any entity those changes' ops target) and proposed decisions its changes rest on or that answer one of
  * those questions; for a milestone, the union over its items. Ordered by decide_by (undated last), then plan order.
  */
-function blockersOf({ core, ...gates }: Gates & { core: Core }, id: string): string[] {
-  const scope = gates.scopeOf(id);
+function blockersOf({ core, ...rest }: Gates & { readonly core: Core }, id: string): string[] {
+  const scope = rest.scopeOf(id);
   if (scope === null) return [];
-  const { register } = gates;
-  const qs = gates.questions.filter(
+  const { register } = rest;
+  const qs = rest.questions.filter(
     (q) => prop(q, 'status') !== 'resolved' && strings(prop(q, 'blocks')).some((b) => scope.has(b)),
   );
   const blocking = new Set(qs.map((q) => q.id));
   // a proposed decision is a gate too: one the item's changes rest on, or one that answers a blocking question
+  const gates = (d: Indexed): boolean =>
+    register.weightOf(d.id).ids.some((x) => scope.has(x)) ||
+    register.answersOf(d.id).some((q) => blocking.has(q.id));
   const decs = [...core.planIndex.values()].filter(
     (d) =>
       d.$type === 'decision' &&
-      (str(prop(d, 'status')) ?? 'proposed') === 'proposed' &&
-      (register.weightOf(d.id).ids.some((x) => scope.has(x)) ||
-        register.answersOf(d.id).some((q) => blocking.has(q.id))),
+      (textOf(prop(d, 'status')) ?? 'proposed') === 'proposed' &&
+      gates(d),
   );
   // a question a listed decision answers reads as part of it (the register folds it the same way)
   const order = [...qs.filter((q) => !decs.some((d) => d.id === prop(q, 'answered_by'))), ...decs];
@@ -203,8 +241,27 @@ function scopeFor(core: Core, blockScope: (wiId: string) => Set<string>, id: str
   return new Set([id, ...members.flatMap((w) => [...blockScope(w.id)])]);
 }
 
+/** GitHub issue state for a work item from the status map, else null. */
+function statusFrom(issueStatus: IssueStatus, wiId: string): IssueState | null {
+  const s = issueStatus[wiId];
+  return s
+    ? {
+        state: s.state === 'closed' ? 'closed' : 'open',
+        closed_at: s.closed_at ?? null,
+        url: s.url ?? null,
+      }
+    : null;
+}
+
+/** What delivery reads beyond the plan: the issue state of each work item, and the day it is. */
+export interface DeliveryInput {
+  readonly status: IssueStatus;
+  readonly today?: Date | string | undefined;
+}
+
 /** Work items, milestones and the questions and decisions that hold them up. */
-export function createDelivery(core: Core, register: Register, issueStatus: IssueStatus) {
+export function createDelivery(core: Core, register: Register, input: DeliveryInput): Delivery {
+  const { status: issueStatus, today } = input;
   const work = workOf(core);
   const { wiById } = work;
   const topoOrder = memo((): string[] => topoOrderOf(work));
@@ -222,28 +279,22 @@ export function createDelivery(core: Core, register: Register, issueStatus: Issu
     blockersOf({ core, scopeOf, questions, register }, id),
   );
 
-  /** An open question whose decide_by is before `today` (a Date or YYYY-MM-DD). Accepts a question or its id. */
+  /**
+   * An open question whose decide_by is before `on` (a Date or YYYY-MM-DD; the model's today when left out, and
+   * never overdue when neither is known). Accepts a question or its id.
+   */
   const overdue = (
     q: string | Pick<Question, 'decide_by' | 'status'>,
-    today: Date | string = new Date(),
+    on: Date | string | undefined = today,
   ): boolean => {
     const qq = typeof q === 'string' ? qById.get(q) : q;
-    const due = str(prop(qq, 'decide_by'));
-    if (due === undefined || due === '' || prop(qq, 'status') === 'resolved') return false;
-    return isoDay(due) < isoDay(today);
+    const due = textOf(prop(qq, 'decide_by'));
+    if (on === undefined || due === undefined || due === '') return false;
+    if (prop(qq, 'status') === 'resolved') return false;
+    return isoDay(due).localeCompare(isoDay(on)) < 0;
   };
 
-  /** GitHub issue state for a work item from the status map, else null. */
-  const statusOf = (wiId: string) => {
-    const s = issueStatus[wiId];
-    return s
-      ? {
-          state: s.state === 'closed' ? 'closed' : 'open',
-          closed_at: s.closed_at ?? null,
-          url: s.url ?? null,
-        }
-      : null;
-  };
+  const statusOf = (wiId: string): IssueState | null => statusFrom(issueStatus, wiId);
 
   /** Closed vs total work items in a milestone. */
   const milestoneProgress = memo((msId: string) => {
@@ -265,7 +316,6 @@ export function createDelivery(core: Core, register: Register, issueStatus: Issu
     milestoneProgress,
     wiById,
     questions,
+    today: dayOf(today),
   };
 }
-
-export type Delivery = ReturnType<typeof createDelivery>;

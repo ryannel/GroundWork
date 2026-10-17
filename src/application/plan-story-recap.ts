@@ -10,8 +10,8 @@ const MAX_POINTS = 3;
 /** A list of bare nouns ("Address, order, order.placed, PDF.") is a label, not something to remember. */
 export function isFragment(text: string): boolean {
   const items = text
-    .replaceAll(/[`*_]/g, '')
-    .replaceAll(/[.!]/g, '')
+    .replaceAll(/[`*_]/gu, '')
+    .replaceAll(/[.!]/gu, '')
     .split(',')
     .map((x) => x.trim());
   return items.length >= 3 && items.every((x) => x.split(' ').filter(Boolean).length <= 2);

@@ -15,12 +15,15 @@ const code = (text: string): string => `\`${text}\``;
 const HEAD_MAX = 84;
 
 /** A headline split in two: what fits on two display lines, and the rest as a lede. */
-export function fit(text: string, max = HEAD_MAX): { head: string; rest: string } {
+export function fit(
+  text: string,
+  max = HEAD_MAX,
+): { readonly head: string; readonly rest: string } {
   if (text.length <= max) return { head: text, rest: '' };
   for (const sep of [' (', '; ', ': ', ', ']) {
     const at = text.lastIndexOf(sep, max);
     if (at > 24) {
-      const rest = text.slice(at + sep.length).replace(/\)$/, '');
+      const rest = text.slice(at + sep.length).replace(/\)$/u, '');
       return { head: text.slice(0, at), rest: rest.charAt(0).toUpperCase() + rest.slice(1) };
     }
   }
@@ -35,12 +38,12 @@ const nameOf = (model: Model, id: string): string => {
 };
 
 interface Moves {
-  readonly gains: string[];
-  readonly other: string[];
+  readonly gains: readonly string[];
+  readonly other: readonly string[];
 }
 
 const list = (vs: readonly string[]): string => andList(vs.map(code));
-const STATE_WORD = /^(status|state)$/;
+const STATE_WORD = /^(?:status|state)$/u;
 
 function gainOf(name: string, added: readonly string[]): string[] {
   if (added.length === 0) return [];
@@ -59,8 +62,9 @@ function enumMove(model: Model, fid: string, name: string): Moves {
   const dropped = before !== null && after !== null ? before.filter((v) => !after.includes(v)) : [];
   const other: string[] = [];
   if (dropped.length > 0) other.push(`${code(name)} drops ${list(dropped)}`);
-  if (added.length === 0 && dropped.length === 0)
+  if (added.length === 0 && dropped.length === 0) {
     other.push(`${code(name)} becomes ${typeof d.after === 'string' ? code(d.after) : '`?`'}`);
+  }
   return { gains: gainOf(name, added), other };
 }
 
@@ -134,14 +138,18 @@ function whatHappens(model: Model, schemaId: string, w: WorstField): string {
   const prop = (key: string) => w.row.props.find((p) => p.prop === key);
   const type = prop('type');
   const required = prop('required');
-  if (w.status === 'removed' || w.status === 'deprecated')
+  if (w.status === 'removed' || w.status === 'deprecated') {
     return `${name} ${w.status === 'removed' ? 'loses' : 'deprecates'} ${f}`;
-  if (w.status === 'added')
+  }
+  if (w.status === 'added') {
     return `${name} gains ${w.row.field.required === true ? 'required ' : ''}${f}`;
-  if (type !== undefined && !(isEnum(type.before) && isEnum(type.after)))
-    return `${name}’s ${f} becomes ${w.row.field.type.replace(/\?$/, '')}`;
-  if (required !== undefined)
+  }
+  if (type !== undefined && !(isEnum(type.before) && isEnum(type.after))) {
+    return `${name}’s ${f} becomes ${w.row.field.type.replace(/\?$/u, '')}`;
+  }
+  if (required !== undefined) {
     return `${name}’s ${f} ${required.after === true ? 'becomes required' : 'may now be absent'}`;
+  }
   return `${name}’s ${f} changes`;
 }
 
@@ -172,8 +180,9 @@ export function recordClaim(model: Model, schemaId: string): string {
   const what = whatHappens(model, schemaId, w);
   if (w.unmoved.length > 0) {
     const stuck = `no change in this plan moves ${uniq(w.unmoved).length > 1 ? 'them' : 'it'}`;
-    if (w.status === 'removed')
+    if (w.status === 'removed') {
       return `Removing ${code(w.name)} breaks ${nameList(model, w.unmoved)}, and ${stuck}`;
+    }
     return `${what}, which breaks ${nameList(model, w.unmoved)}; ${stuck}`;
   }
   let tail = reasonOf(model, w);

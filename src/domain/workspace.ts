@@ -53,6 +53,8 @@ export interface Actor {
   readonly summary: string | null;
   /** The components they use, beyond those the flows they start already show. */
   readonly uses: readonly string[];
+  /** Whether they are the customer, whom the whole workspace serves: drawn apart on the map, not in a domain. */
+  readonly customer: boolean;
 }
 
 export interface Workspace {

@@ -58,11 +58,13 @@ function commitIs(screen: string, cut: Cut): boolean {
 function pageIs(page: Page, cut: Cut, screens: Screens): boolean {
   const { chapter, screen } = page;
   if (ALWAYS.has(chapter)) return true;
-  if (chapter === 'journey')
+  if (chapter === 'journey') {
     return JOURNEY_ALWAYS.has(screen) || any(screens.journey.get(screen) ?? [], cut);
+  }
   if (chapter === 'changes') return changeIs(screens.changes.get(screen), cut);
-  if (chapter === 'prove')
+  if (chapter === 'prove') {
     return screen === 'coverage' ? cut.changes.length > 0 : cut.tests.length > 0;
+  }
   if (chapter === 'build') return screen !== 'build-order' || cut.workItems.length > 0;
   return chapter === 'commit' && commitIs(screen, cut);
 }
@@ -100,14 +102,25 @@ function cutPages(model: Model, outline: Outline): TeamPages[] {
 }
 
 /** Where the screen at `href` falls in each team's pages. */
-export const teamPlaces = (teams: readonly TeamPages[], href: string) =>
+export const teamPlaces = (
+  teams: readonly TeamPages[],
+  href: string,
+): {
+  readonly id: string;
+  readonly name: string;
+  readonly at: number | null;
+  readonly of: number;
+}[] =>
   teams.map((t) => {
     const index = t.hrefs.indexOf(href);
     return { id: t.id, name: t.name, at: index === -1 ? null : index + 1, of: t.hrefs.length };
   });
 
 /** The screens each team's lens leaves out, by team id. */
-export const teamHidden = (outline: Outline, teams: readonly TeamPages[]) =>
+export const teamHidden = (
+  outline: Outline,
+  teams: readonly TeamPages[],
+): Readonly<Record<string, readonly string[]>> =>
   Object.fromEntries(
     teams.map((t) => {
       const kept = new Set(t.hrefs);

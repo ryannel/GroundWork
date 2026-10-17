@@ -5,116 +5,116 @@ import type { FlowNode, InteractionNode, ScreenNode } from '@/domain/plan/plan-g
 
 /** A step recorded on a screen, with its flow; a recorded-order visit adds where in the flow it fell. */
 export interface MapRecord extends RecordedStep {
-  flowId: string;
-  screen?: string;
-  region?: string | null;
-  experienceKind?: MomentKind;
-  classificationInferred?: boolean;
-  supportingSteps?: RecordedStep[];
-  stopIndex?: number;
-  visitIndex?: number;
+  readonly flowId: string;
+  readonly screen?: string;
+  readonly region?: string | null;
+  readonly experienceKind?: MomentKind;
+  readonly classificationInferred?: boolean;
+  readonly supportingSteps?: readonly RecordedStep[];
+  readonly stopIndex?: number;
+  readonly visitIndex?: number;
 }
 
 /** One screen, once, whatever journeys visit it. */
 export interface MapNode {
-  id: string;
-  screen: ScreenNode;
-  journeyIds: string[];
-  actors: (string | null)[];
-  records: MapRecord[];
+  readonly id: string;
+  readonly screen: ScreenNode;
+  readonly journeyIds: readonly string[];
+  readonly actors: readonly (string | null)[];
+  readonly records: readonly MapRecord[];
 }
 
 interface EdgeBase {
-  id: string;
-  flowId: string;
-  actor: string | null;
-  source: string;
-  destination: string;
-  sourceStepId: string | null;
-  destinationStepId: string | null;
-  kind: string;
-  label: string;
-  displayLabel: string;
-  labelSource: string;
-  labelEvidence: string;
-  region: string | null;
-  regionName: string | null;
-  steps: RecordedStep[];
-  notes: Note[];
+  readonly id: string;
+  readonly flowId: string;
+  readonly actor: string | null;
+  readonly source: string;
+  readonly destination: string;
+  readonly sourceStepId: string | null;
+  readonly destinationStepId: string | null;
+  readonly kind: string;
+  readonly label: string;
+  readonly displayLabel: string;
+  readonly labelSource: string;
+  readonly labelEvidence: string;
+  readonly region: string | null;
+  readonly regionName: string | null;
+  readonly steps: readonly RecordedStep[];
+  readonly notes: readonly Note[];
 }
 
 /** Two screens in recorded order. The label is authored; the link is only that the order was recorded. */
 export interface RecordedEdge extends EdgeBase {
-  relationship: 'recorded-order';
-  sourceStepId: string;
-  destinationStepId: string;
+  readonly relationship: 'recorded-order';
+  readonly sourceStepId: string;
+  readonly destinationStepId: string;
 }
 
 /** A navigation, update or output that an authored interaction states. */
 export interface InteractionEdge extends EdgeBase {
-  relationship: 'interaction';
-  interactionId: string;
-  interaction: InteractionNode;
-  sourceReference: string;
-  destinationReference: string;
+  readonly relationship: 'interaction';
+  readonly interactionId: string;
+  readonly interaction: InteractionNode;
+  readonly sourceReference: string;
+  readonly destinationReference: string;
   /** Several regions of the source screen start it, so it is drawn once from the screen. */
-  shared: boolean;
-  condition: string | null;
-  result: string | null;
-  trigger: InteractionNode['trigger'];
-  journeyIds: string[];
+  readonly shared: boolean;
+  readonly condition: string | null;
+  readonly result: string | null;
+  readonly trigger: InteractionNode['trigger'];
+  readonly journeyIds: readonly string[];
 }
 
 export type MapEdge = RecordedEdge | InteractionEdge;
 
 /** A journey that follows the recorded order of one flow. */
 export interface RecordedJourney {
-  explicit: false;
-  id: string;
-  name: string;
-  actor: string | null;
-  flow: FlowNode;
-  trigger: string | undefined;
-  outcome: string | undefined;
-  nodeIds: string[];
-  edgeIds: string[];
+  readonly explicit: false;
+  readonly id: string;
+  readonly name: string;
+  readonly actor: string | null;
+  readonly flow: FlowNode;
+  readonly trigger: string | undefined;
+  readonly outcome: string | undefined;
+  readonly nodeIds: readonly string[];
+  readonly edgeIds: readonly string[];
   /** Visits keep same-screen records and the work between them for inspection. */
-  stops: WireStop[];
+  readonly stops: readonly WireStop[];
 }
 
 /** A journey an author wrote as an ordered list of interactions. */
 export interface AuthoredJourney {
-  explicit: true;
-  id: string;
-  name: string;
-  actor: string | null;
-  interactionIds: string[];
-  edgeIds: string[];
-  nodeIds: string[];
-  pathNodeIds: string[];
+  readonly explicit: true;
+  readonly id: string;
+  readonly name: string;
+  readonly actor: string | null;
+  readonly interactionIds: readonly string[];
+  readonly edgeIds: readonly string[];
+  readonly nodeIds: readonly string[];
+  readonly pathNodeIds: readonly string[];
   /** The screens the journey can start on; more than one when it starts at a shared control. */
-  entranceIds: string[];
-  records: RecordedStep[];
-  stops: never[];
-  flow: null;
+  readonly entranceIds: readonly string[];
+  readonly records: readonly RecordedStep[];
+  readonly stops: readonly never[];
+  readonly flow: null;
 }
 
 export type MapJourney = RecordedJourney | AuthoredJourney;
 
 export interface ActorGroup {
-  actor: string | null;
-  journeyIds: string[];
-  nodeIds: string[];
+  readonly actor: string | null;
+  readonly journeyIds: readonly string[];
+  readonly nodeIds: readonly string[];
 }
 
 export interface ScreenMap {
   /** Whether the edges come from authored interactions rather than recorded order. */
-  explicit: boolean;
-  nodes: MapNode[];
-  edges: MapEdge[];
-  journeys: MapJourney[];
-  groups: ActorGroup[];
-  unlinked: ScreenNode[];
+  readonly explicit: boolean;
+  readonly nodes: readonly MapNode[];
+  readonly edges: readonly MapEdge[];
+  readonly journeys: readonly MapJourney[];
+  readonly groups: readonly ActorGroup[];
+  readonly unlinked: readonly ScreenNode[];
 }
 
 export const newNode = (screen: ScreenNode): MapNode => ({
@@ -127,7 +127,11 @@ export const newNode = (screen: ScreenNode): MapNode => ({
 
 /** Journeys grouped by who does them, with the screens they reach. */
 export function groupByActor(
-  journeys: readonly { id: string; actor: string | null; nodeIds: readonly string[] }[],
+  journeys: readonly {
+    readonly id: string;
+    readonly actor: string | null;
+    readonly nodeIds: readonly string[];
+  }[],
 ): ActorGroup[] {
   const groups = new Map<string | null, ActorGroup>();
   for (const journey of journeys) {
@@ -136,9 +140,14 @@ export function groupByActor(
       journeyIds: [],
       nodeIds: [],
     };
-    groups.set(journey.actor, group);
-    group.journeyIds.push(journey.id);
-    for (const id of journey.nodeIds) if (!group.nodeIds.includes(id)) group.nodeIds.push(id);
+    const fresh = journey.nodeIds.filter(
+      (id, i) => !group.nodeIds.includes(id) && journey.nodeIds.indexOf(id) === i,
+    );
+    groups.set(journey.actor, {
+      ...group,
+      journeyIds: [...group.journeyIds, journey.id],
+      nodeIds: [...group.nodeIds, ...fresh],
+    });
   }
   return [...groups.values()];
 }

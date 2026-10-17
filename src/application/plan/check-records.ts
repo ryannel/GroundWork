@@ -18,7 +18,7 @@ function checkRecordStores(ctx: CheckContext, rep: Report): void {
     for (const sch of list) {
       if (sch.kind !== 'record' || sch.store !== undefined) continue;
       const fresh = g === ctx.asIs && !touched(ctx, sch.id);
-      rep.err(
+      rep.error(
         fresh ? [...sch.$path, 'store'] : blame(ctx, sch.id, 'kind'),
         `${sch.id} is a record, so it needs a store; ${NEEDS_STORE}`,
       );
@@ -59,12 +59,12 @@ export function checkRecords(ctx: CheckContext, rep: Report): void {
   checkTopicsCarry(ctx, rep);
 }
 
-const typeBase = (t: string): string => t.trim().replace(/\?$/, '');
+const typeBase = (t: string): string => t.trim().replace(/\?$/u, '');
 
 interface FieldScope {
-  ctx: CheckContext;
-  rep: Report;
-  g: SystemGraph;
+  readonly ctx: CheckContext;
+  readonly rep: Report;
+  readonly g: SystemGraph;
 }
 
 function checkFieldRef(s: FieldScope, f: FieldNode, at: (prop: string) => PathSegment[]): void {
@@ -96,7 +96,7 @@ function checkFieldFacts(s: FieldScope, sch: SchemaNode): void {
         `${f.id} has a default but is optional, so the default is never used; remove default, or make the field required`,
       );
     }
-    if (/\?\s*$/.test(f.type) && f.required === true) {
+    if (/\?\s*$/u.test(f.type) && f.required === true) {
       s.rep.warn(
         at('type'),
         `${f.id} is typed ${f.type} (optional) but marked required; drop the "?" or set required: false`,
@@ -122,7 +122,7 @@ function stageOfServices(ctx: CheckContext): Map<string, string> {
 }
 
 interface SystemScope extends FieldScope {
-  stageOf: ReadonlyMap<string, string>;
+  readonly stageOf: ReadonlyMap<string, string>;
 }
 
 function checkSystem(s: SystemScope, sys: SystemNode): void {
@@ -135,7 +135,7 @@ function checkSystem(s: SystemScope, sys: SystemNode): void {
     );
   }
   for (const m of members.filter((x) => x.team !== sys.team)) {
-    s.rep.err(
+    s.rep.error(
       whereAt(s, m, 'system'),
       `${m.id} (team ${m.team}) is in ${sys.id} (team ${sys.team}); a system belongs to one team, so drop system from ${m.id} or fix its team`,
     );

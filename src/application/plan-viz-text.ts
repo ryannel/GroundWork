@@ -33,14 +33,14 @@ export const countWord = (n: number, one: string, many = `${one}s`): string =>
 
 /** The first sentence of a string of prose. */
 export function firstSentence(text: string | null | undefined): string {
-  const s = (text ?? '').replaceAll(/\s+/g, ' ').trim();
-  const end = s.search(/[!.?](?=\s|$)/);
+  const s = (text ?? '').replaceAll(/\s+/gu, ' ').trim();
+  const end = s.search(/[!.?](?=\s|$)/u);
   return end === -1 ? s : s.slice(0, end + 1);
 }
 
 /** The values of an `enum(a, b, c)` type string (a trailing `?` is allowed), else null. */
 export function enumValues(type: string | null | undefined): string[] | null {
-  const inner = /^\s*enum\((.*)\)\??\s*$/.exec(type ?? '')?.[1];
+  const inner = /^\s*enum\((.*)\)\??\s*$/u.exec(type ?? '')?.[1];
   return inner === undefined
     ? null
     : inner
@@ -52,21 +52,22 @@ export function enumValues(type: string | null | undefined): string[] | null {
 /** A title cut at a word, with citations and markdown marks read as plain words. */
 export function short(text: unknown, n = 40): string {
   const flat = (typeof text === 'string' ? text : '')
-    .replaceAll(/\[\[([^\]]{1,200})]]/g, '$1')
-    .replaceAll(/[*`]/g, '')
-    .replaceAll(/\s+/g, ' ')
+    .replaceAll(/\[\[([^\]]{1,200})\]\]/gu, '$1')
+    .replaceAll(/[*`]/gu, '')
+    .replaceAll(/\s+/gu, ' ')
     .trim();
   return cutAtWord(flat, n);
 }
 
-const ID = /^[a-z]+:[a-z0-9-]+(#[a-z0-9-]+)?$/;
+const ID = /^[a-z]+:[a-z0-9-]+(?:#[a-z0-9-]+)?$/u;
 
 /** A "was" value as words: ids become labels, lists join, objects read "from: Pricing · percent: 10". */
 export function wasText(model: Model, value: unknown): string {
   if (value === null || value === undefined || value === '') return '(none)';
   if (Array.isArray(value)) return value.map((x) => wasText(model, x)).join(', ');
   if (typeof value === 'object') {
-    return Object.entries(value)
+    const pairs: readonly (readonly [string, unknown])[] = Object.entries(value);
+    return pairs
       .filter(([, x]) => x !== null && x !== undefined)
       .map(([k, x]) => `${k}: ${wasText(model, x)}`)
       .join(' · ');

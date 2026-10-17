@@ -7,7 +7,7 @@ import type { Field } from '@/domain/plan/plan.generated';
 // What each cell of a field table says, as data the table draws: type with its old type struck, required with
 // what it was, the key badges, the note with what else changed.
 
-const baseType = (t: string): string => t.trim().replace(/\?$/, '').trim();
+const baseType = (t: string): string => t.trim().replace(/\?$/u, '').trim();
 
 const SCHEMA_NAMES = new WeakMap<Model, Map<string, string>>();
 
@@ -25,8 +25,8 @@ function schemaNames(model: Model): Map<string, string> {
 
 const element = (type: string): string =>
   baseType(type)
-    .replace(/\[]$/, '')
-    .replace(/^(?:list|array|set)<(.+)>$/i, '$1');
+    .replace(/\[\]$/u, '')
+    .replace(/^(?:list|array|set)<(.+)>$/iu, '$1');
 
 export interface TypeCell {
   readonly text: string;
@@ -40,7 +40,7 @@ export interface TypeCell {
 export function typeCell(
   model: Model,
   row: FieldRow,
-  ctx: { schemaId: string; depth: number },
+  ctx: { readonly schemaId: string; readonly depth: number },
 ): TypeCell {
   const before = row.props.find((p) => p.prop === 'type');
   const found = ctx.depth < 1 ? (schemaNames(model).get(element(row.field.type)) ?? null) : null;
@@ -132,7 +132,7 @@ function graphKeys(model: Model, f: Field, ctx: KeyContext): KeyBadge[] {
     });
   }
   for (const id of f.subgraphs ?? []) {
-    out.push({ key: id, text: model.label(id).replace(/ subgraph$/i, ''), id });
+    out.push({ key: id, text: model.label(id).replace(/ subgraph$/iu, ''), id });
   }
   if (f.auth !== undefined || f.cache_control?.scope === 'private') {
     out.push({

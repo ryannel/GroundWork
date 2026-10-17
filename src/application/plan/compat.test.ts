@@ -1,17 +1,18 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import { shop } from '@/../test/federation-kit';
+import { quickCheckoutOnToday } from '@/../test/fixtures/acme/plans/core-checkout';
+import { giftWrap } from '@/../test/fixtures/acme/plans/journeys-gift-wrap';
+import { pauseOrders } from '@/../test/fixtures/acme/plans/pause-orders';
+import { orderEventV2 } from '@/../test/fixtures/acme/plans/versions-order-event';
+import { coreShop } from '@/../test/fixtures/core-shop';
+import { modelOf } from '@/../test/plan-kit';
 import { fieldRule, type Roles } from '@/application/plan/compat-rules';
 import { derive } from '@/application/plan/derive';
+import type { Plan } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
-
-const { readPlan } = await import('@/infrastructure/plan-store');
-
-const open = async (slug: string) => {
-  const { plan } = await readPlan('alder-finch', slug);
-  return derive(plan!);
-};
+/** Quick checkout on the richer Acme today, with the whole of today in it. */
+const checkout = () => derive(quickCheckoutOnToday().whole);
 
 const roles = (o: Partial<Roles>): Roles => ({
   record: false,
@@ -65,43 +66,55 @@ describe('the field rule: who is broken by what', () => {
 });
 
 describe('compat on a plan', () => {
-  it('breaking means a reader this plan does not move; otherwise needs migration', async () => {
-    const m = await open('delivery-promise');
-    const lead = m.compat('sch:product#lead_time_text')!;
-    expect(lead.verdict).toBe('breaking');
-    expect(lead.who.some((w) => w.movedBy === null)).toBe(true);
-    const weight = m.compat('sch:product#weight_g')!;
-    expect(weight.verdict).toBe('migration');
-    expect(weight.who.length > 0 && weight.who.every((w) => w.movedBy !== null)).toBe(true);
-    const v2 = m.compat('msg:product-published');
-    expect(v2 !== null && v2.verdict !== 'safe').toBe(true);
-    expect(m.compat('sch:shipment')).toBeNull();
+  it('breaking means a reader this plan does not move; otherwise needs migration', () => {
+    const m = checkout();
+    const price = m.compat('sch:product#price_cents')!;
+    expect(price.verdict).toBe('breaking');
+    expect(price.who.some((w) => w.movedBy === null)).toBe(true);
+    expect(price.who.map((w) => w.svc)).toContain('svc:shop-bff');
+    const words = m.compat('sch:search-doc#words')!;
+    expect(words.verdict).toBe('migration');
+    expect(words.who.length > 0 && words.who.every((w) => w.movedBy !== null)).toBe(true);
+    const v1 = m.compat('msg:product-changed');
+    expect(v1 !== null && v1.verdict !== 'safe').toBe(true);
+    expect(v1?.who.find((w) => w.movedBy === null)?.svc).toBe('svc:shop-bff');
+    expect(m.compat('sch:order-placed-v1')).toBeNull();
   });
 
-  it('netDiff compares today with the plan, not the op log', async () => {
-    const m = await open('delivery-promise');
-    const rows = m.netDiff('sch:product').flatMap((r) => ('field' in r ? [r] : []));
-    const by = Object.fromEntries(rows.map((r) => [r.field, r]));
-    expect(by.weight_g?.status).toBe('modified');
-    expect(by.weight_g?.props.some((p) => p.prop === 'required')).toBe(true);
-    expect(by.delivery_promise?.status).toBe('added');
-    expect(['removed', 'deprecated']).toContain(by.lead_time_text?.status);
-    expect(m.netDiff('sch:shipment')).toHaveLength(0);
+  it('netDiff compares today with the plan, not the op log', () => {
+    const m = checkout();
+    const fields = (id: string) =>
+      Object.fromEntries(
+        m
+          .netDiff(id)
+          .flatMap((r) => ('field' in r ? [r] : []))
+          .map((r) => [r.field, r]),
+      );
+    const product = fields('sch:product');
+    expect(product.colour?.status).toBe('added');
+    expect(['removed', 'deprecated']).toContain(product.price_cents?.status);
+    expect(product.sku).toBeUndefined();
+    const doc = fields('sch:search-doc');
+    expect(doc.words?.status).toBe('modified');
+    expect(doc.words?.props.some((p) => p.prop === 'required')).toBe(true);
+    expect(m.netDiff('sch:order-placed-v1')).toHaveLength(0);
   });
 });
 
 describe('compat across every plan', () => {
-  it('judges every thing a plan touches without throwing, and only unsafe verdicts name who', async () => {
-    for (const slug of [
-      'delivery-promise',
-      'invoice-vat-number',
-      'stock-reservation',
-      'storefront-graph',
-    ]) {
-      const m = await open(slug);
+  it('judges every thing a plan touches without throwing, and only unsafe verdicts name who', () => {
+    const plans: readonly (readonly [string, Plan])[] = [
+      ['quick-checkout', quickCheckoutOnToday().whole],
+      ['gift-wrap', giftWrap()],
+      ['pause-orders', pauseOrders()],
+      ['order-event-v2', orderEventV2()],
+      ['shop', coreShop()],
+    ];
+    for (const [slug, plan] of plans) {
+      const m = modelOf(plan);
       for (const id of m.toBe.byId.keys()) {
         const c = m.compat(id);
-        if (c !== null && c.verdict === 'safe') expect(c.who, `${slug} ${id}`).toEqual([]);
+        expect(c?.verdict === 'safe' ? c.who : [], `${slug} ${id}`).toEqual([]);
         m.netDiff(id);
       }
     }

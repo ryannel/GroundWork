@@ -95,8 +95,9 @@ function relationsOf(
   keep: (id: string) => boolean,
 ): Relation[] {
   const out: Relation[] = [];
-  if (concept.part_of !== undefined && keep(concept.part_of))
+  if (concept.part_of !== undefined && keep(concept.part_of)) {
     out.push({ as: 'part of', to: concept.part_of });
+  }
   for (const r of concept.relates ?? []) if (keep(r.to)) out.push({ as: r.as, to: r.to });
   for (const other of all) {
     if (other.part_of === concept.id && keep(other.id)) out.push({ as: 'has', to: other.id });
@@ -125,7 +126,7 @@ export function conceptCards(domain: DomainView): ConceptCard[] {
   }));
 }
 
-const squash = (s: string): string => s.toLowerCase().replaceAll(/[^a-z0-9]/g, '');
+const squash = (s: string): string => s.toLowerCase().replaceAll(/[^a-z0-9]/gu, '');
 
 const systemsOf = (c: Concept): string[] => [
   ...new Set(
@@ -145,13 +146,16 @@ function cellOf(c: Concept, system: string): NameCell {
 }
 
 function secondNames(c: Concept): NameLine['names'] {
-  const byName = new Map<string, { as: string; at: string | null; systems: string[] }>();
+  const byName = new Map<
+    string,
+    { readonly as: string; readonly at: string | null; readonly systems: readonly string[] }
+  >();
   for (const a of c.aka ?? []) {
     if (a.as === '' || squash(a.as) === squash(c.name)) continue;
     const key = a.as.toLowerCase();
     const entry = byName.get(key) ?? { as: a.as, at: a.at ?? null, systems: [] };
-    if (a.in !== '' && !entry.systems.includes(a.in)) entry.systems.push(a.in);
-    byName.set(key, entry);
+    const isNewSystem = a.in !== '' && !entry.systems.includes(a.in);
+    byName.set(key, isNewSystem ? { ...entry, systems: [...entry.systems, a.in] } : entry);
   }
   return [...byName.values()];
 }

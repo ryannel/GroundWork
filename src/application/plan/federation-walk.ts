@@ -11,40 +11,34 @@ import {
   sharedKey,
 } from '@/application/plan/federation-index';
 import { parseTypeRef } from '@/application/plan/federation-parse';
-import {
-  newFetch,
-  ownersOf,
-  resolveIn,
-  warn,
-  type PlanCtx,
-} from '@/application/plan/federation-place';
-import type { Added, Fetch } from '@/application/plan/federation-plan-types';
+import { newFetch, ownersOf, resolveIn, type PlanCtx } from '@/application/plan/federation-place';
+import type { Fetch } from '@/application/plan/federation-plan-types';
 import type { TreeNode } from '@/application/plan/federation-tree';
 import { parentOf } from '@/application/plan/ids';
 import type { FieldNode, SchemaNode } from '@/domain/plan/plan-graph';
 
 /** Where a child is being placed: under node P (of type T), whose fetch is F. */
 interface Spot {
-  P: TreeNode;
-  T: SchemaNode;
-  F: Fetch;
+  readonly P: TreeNode;
+  readonly T: SchemaNode;
+  readonly F: Fetch;
   /** Fields of the type the providing field returns, resolvable in F's subgraph. */
-  provided: ReadonlySet<string>;
+  readonly provided: ReadonlySet<string>;
 }
 
 interface EntitySpec {
-  path: string;
-  sg: string;
-  type: SchemaNode;
-  after: string[];
-  intermediate?: boolean;
-  list: boolean;
+  readonly path: string;
+  readonly sg: string;
+  readonly type: SchemaNode;
+  readonly after: readonly string[];
+  readonly intermediate?: boolean;
+  readonly list: boolean;
 }
 
 function entityFetch(c: PlanCtx, spec: EntitySpec): Fetch {
   const after = uniq(spec.after).toSorted((x, y) => x.localeCompare(y));
   const key = `${spec.path}|${spec.sg}|${after.join(',')}`;
-  const hit = c.entityAt.get(key);
+  const hit = c.entityAt(key);
   if (hit !== undefined) return hit;
   const f = newFetch(c, {
     kind: 'entity',
@@ -55,23 +49,30 @@ function entityFetch(c: PlanCtx, spec: EntitySpec): Fetch {
     intermediate: spec.intermediate ?? false,
     list: spec.list,
   });
-  c.entityAt.set(key, f);
+  c.setEntityAt(key, f);
   return f;
 }
 
 function addKey(
   c: PlanCtx,
   F: Fetch,
-  at: { type: SchemaNode; key: ReturnType<typeof sharedKey>; parentPath: string },
+  at: {
+    readonly type: SchemaNode;
+    readonly key: ReturnType<typeof sharedKey>;
+    readonly parentPath: string;
+  },
 ): void {
   for (const name of at.key?.fields ?? []) {
     const fd = fieldNamed(at.type, name);
-    if (fd === null || F.fields.includes(fd.id)) continue;
-    F.fields.push(fd.id);
-    F.keyFields.push(fd.id);
-    const path = at.parentPath === '' ? name : `${at.parentPath}.${name}`;
-    const added: Added = { path, field: fd.id, fetch: F.id, reason: 'key' };
-    c.out.addedByRouter.push(added);
+    if (fd !== null && !c.current(F).fields.includes(fd.id)) {
+      c.updateFetch(F.id, (f) => ({
+        ...f,
+        fields: [...f.fields, fd.id],
+        keyFields: [...f.keyFields, fd.id],
+      }));
+      const path = at.parentPath === '' ? name : `${at.parentPath}.${name}`;
+      c.addByRouter({ path, field: fd.id, fetch: F.id, reason: 'key' });
+    }
   }
 }
 
@@ -79,7 +80,7 @@ function addKey(
 function keyHop(
   c: PlanCtx,
   spot: Spot,
-  target: { node: TreeNode; fd: FieldNode; sg: string },
+  target: { readonly node: TreeNode; readonly fd: FieldNode; readonly sg: string },
 ): Fetch | null {
   const { P, T, F } = spot;
   const S = F.subgraph;
@@ -95,7 +96,7 @@ function keyHop(
       (m) => m !== S && m !== Pk && sharedKey(T, [S, m]) !== null && sharedKey(T, [m, Pk]) !== null,
     );
   if (M === undefined) {
-    warn(c, {
+    c.warn({
       code: 'no-shared-key',
       message: `${T.name} cannot be reached from ${sgName(c.g, S)} by ${sgName(c.g, Pk)}: no shared key (${fieldLabel(c.g, target.fd.id)} at ${target.node.path})`,
       path: target.node.path,
@@ -115,7 +116,11 @@ function keyHop(
   return hop;
 }
 
-function nextProvided(c: PlanCtx, node: TreeNode, at: { spot: Spot; fd: FieldNode }): Set<string> {
+function nextProvided(
+  c: PlanCtx,
+  node: TreeNode,
+  at: { readonly spot: Spot; readonly fd: FieldNode },
+): Set<string> {
   const { spot, fd } = at;
   const own = fd.provides ?? [];
   const entity = keysOf(schemaNode(c.g, node.type)).length > 0;
@@ -125,7 +130,7 @@ function nextProvided(c: PlanCtx, node: TreeNode, at: { spot: Spot; fd: FieldNod
 function descend(
   c: PlanCtx,
   node: TreeNode,
-  at: { into: Fetch; spot: Spot; fd: FieldNode },
+  at: { readonly into: Fetch; readonly spot: Spot; readonly fd: FieldNode },
 ): Fetch {
   const T = schemaNode(c.g, node.type);
   if (node.children.length > 0 && T !== undefined) {
@@ -138,18 +143,21 @@ function descend(
 function place(c: PlanCtx, node: TreeNode, spot: Spot): Fetch | null {
   const fd = fieldNode(c.g, node.field);
   if (fd === undefined) return null;
-  const placed = c.placement.get(node);
+  const placed = c.placedIn(node);
   if (placed !== undefined) return placed;
-  if (c.busy.has(node)) return null; // a @requires cycle: the validator reports it
-  c.busy.add(node);
+  if (!c.enter(node)) return null; // a @requires cycle: the validator reports it
   try {
     return placeOnce(c, node, { spot, fd });
   } finally {
-    c.busy.delete(node);
+    c.leave(node);
   }
 }
 
-function placeOnce(c: PlanCtx, node: TreeNode, at: { spot: Spot; fd: FieldNode }): Fetch | null {
+function placeOnce(
+  c: PlanCtx,
+  node: TreeNode,
+  at: { readonly spot: Spot; readonly fd: FieldNode },
+): Fetch | null {
   const { spot, fd } = at;
   const { P, T, F, provided } = spot;
   const why = node.$router ?? undefined;
@@ -167,7 +175,7 @@ function placeOnce(c: PlanCtx, node: TreeNode, at: { spot: Spot; fd: FieldNode }
   ]);
   if (cand.includes(S)) return resolved(F);
   if (cand.length === 0) {
-    warn(c, {
+    c.warn({
       code: 'no-owner',
       message: `${fieldLabel(c.g, fd.id)} has no subgraph that resolves it; add subgraphs: [sg:…]`,
       path: node.path,
@@ -181,7 +189,7 @@ function placeOnce(c: PlanCtx, node: TreeNode, at: { spot: Spot; fd: FieldNode }
   });
   const Pk =
     cand.find((x) =>
-      c.out.fetches.some((f) => f.path === P.path && f.subgraph === x && f.kind === 'entity'),
+      c.fetches().some((f) => f.path === P.path && f.subgraph === x && f.kind === 'entity'),
     ) ?? cand[0];
   if (Pk === undefined) return null;
   const from = keyHop(c, spot, { node, fd, sg: Pk });
@@ -214,13 +222,17 @@ function synth(c: PlanCtx, fd: FieldNode, parent: TreeNode): TreeNode {
     children: [],
     $router: 'requires',
   };
-  c.out.routerNodes.push(node);
+  c.addRouterNode(node);
   return node;
 }
 
-function noteRequired(c: PlanCtx, made: Fetch, rec: { node: TreeNode; rid: string }): void {
-  made.requiredFields.push(rec.rid);
-  c.out.addedByRouter.push({
+function noteRequired(
+  c: PlanCtx,
+  made: Fetch,
+  rec: { readonly node: TreeNode; readonly rid: string },
+): void {
+  c.updateFetch(made.id, (f) => ({ ...f, requiredFields: [...f.requiredFields, rec.rid] }));
+  c.addByRouter({
     path: rec.node.path,
     field: rec.rid,
     fetch: made.id,
@@ -231,7 +243,7 @@ function noteRequired(c: PlanCtx, made: Fetch, rec: { node: TreeNode; rid: strin
 /** The required field is on the spot's own type. */
 function placeSibling(c: PlanCtx, rf: FieldNode, spot: Spot): Fetch | null {
   const have = spot.P.children.find((k) => k.field === rf.id);
-  if (have !== undefined) return c.placement.get(have) ?? place(c, have, spot);
+  if (have !== undefined) return c.placedIn(have) ?? place(c, have, spot);
   const node = synth(c, rf, spot.P);
   const made = place(c, node, spot);
   if (made !== null) noteRequired(c, made, { node, rid: rf.id });
@@ -239,20 +251,29 @@ function placeSibling(c: PlanCtx, rf: FieldNode, spot: Spot): Fetch | null {
 }
 
 /** The field of T through which the required field's type is reached, as a node under P (placed on demand). */
-function viaNode(c: PlanCtx, spot: Spot, via: FieldNode): { mid: TreeNode; at: Fetch | null } {
+function viaNode(
+  c: PlanCtx,
+  spot: Spot,
+  via: FieldNode,
+): { readonly mid: TreeNode; readonly at: Fetch | null } {
   const found = spot.P.children.find((k) => k.field === via.id);
-  if (found !== undefined)
-    return { mid: found, at: c.placement.get(found) ?? place(c, found, spot) };
+  if (found !== undefined) {
+    return { mid: found, at: c.placedIn(found) ?? place(c, found, spot) };
+  }
   const mid = synth(c, via, spot.P);
   const at = place(c, mid, spot);
   if (at !== null) {
-    c.out.addedByRouter.push({ path: mid.path, field: via.id, fetch: at.id, reason: 'requires' });
+    c.addByRouter({ path: mid.path, field: via.id, fetch: at.id, reason: 'requires' });
   }
   return { mid, at };
 }
 
 /** One level down: a field of T that returns the required field's type (stock { fc }). */
-function placeNested(c: PlanCtx, rf: FieldNode, at: { spot: Spot; by: FieldNode }): Fetch | null {
+function placeNested(
+  c: PlanCtx,
+  rf: FieldNode,
+  at: { readonly spot: Spot; readonly by: FieldNode },
+): Fetch | null {
   const { spot, by } = at;
   const target = schemaNode(c.g, parentOf(rf.id));
   const via = spot.T.fields.find(
@@ -262,7 +283,7 @@ function placeNested(c: PlanCtx, rf: FieldNode, at: { spot: Spot; by: FieldNode 
   const { mid, at: midAt } = viaNode(c, spot, via);
   if (midAt === null) return null;
   const have = mid.children.find((k) => k.field === rf.id);
-  if (have !== undefined) return c.placement.get(have) ?? null;
+  if (have !== undefined) return c.placedIn(have) ?? null;
   const leaf = synth(c, rf, mid);
   const made = place(c, leaf, { P: mid, T: target, F: midAt, provided: new Set() });
   if (made !== null) noteRequired(c, made, { node: leaf, rid: rf.id });
@@ -270,7 +291,11 @@ function placeNested(c: PlanCtx, rf: FieldNode, at: { spot: Spot; by: FieldNode 
 }
 
 /** A required field as if selected (marked 'requires'); returns the fetch that produces it. */
-function placeRequired(c: PlanCtx, rid: string, at: { spot: Spot; by: FieldNode }): Fetch | null {
+function placeRequired(
+  c: PlanCtx,
+  rid: string,
+  at: { readonly spot: Spot; readonly by: FieldNode },
+): Fetch | null {
   const rf = fieldNode(c.g, rid);
   if (rf === undefined || rid === at.by.id) return null;
   return parentOf(rid) === at.spot.T.id ? placeSibling(c, rf, at.spot) : placeNested(c, rf, at);

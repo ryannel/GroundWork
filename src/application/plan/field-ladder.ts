@@ -2,59 +2,59 @@ import type { Core } from '@/application/plan/derive-core';
 import type { Delivery } from '@/application/plan/derive-delivery';
 import type { LadderOp } from '@/application/plan/derive-ladder';
 import type { Owners } from '@/application/plan/derive-owners';
-import { memo, str, uniq } from '@/application/plan/derive-values';
+import { memo, textOf, uniq } from '@/application/plan/derive-values';
 import { formatPath, isRecord, prop, strings } from '@/application/plan/ids';
 import type { OpRecord, PropChange } from '@/domain/plan/plan-graph';
 
 type FieldKind = 'expand' | 'migrate' | 'retire';
 
 export interface FieldRung {
-  rung: 'expand' | 'migrate' | 'contract';
-  kind: FieldKind;
-  label: string;
+  readonly rung: 'expand' | 'migrate' | 'contract';
+  readonly kind: FieldKind;
+  readonly label: string;
   /** Only a message or endpoint ladder names the consumer a rung migrates. */
-  consumer?: undefined;
+  readonly consumer?: undefined;
   /** The share of requests the new subgraph takes (expand, migrate). */
-  percent?: number | null;
+  readonly percent?: number | null;
   /** The rollout steps the change authors for a progressive override ("10 % → 50 % → 100 %"). */
-  steps?: number[];
-  ops: LadderOp[];
-  changes: string[];
-  workItems: string[];
-  teams: string[];
+  readonly steps?: readonly number[];
+  readonly ops: readonly LadderOp[];
+  readonly changes: readonly string[];
+  readonly workItems: readonly string[];
+  readonly teams: readonly string[];
 }
 
 /** A graph field moving between subgraphs through @override: expand → migrate → contract. */
 export interface FieldLadder {
-  chain: string[];
-  from: string | null;
-  to: string | null;
-  rungs: FieldRung[];
-  retired: boolean;
+  readonly chain: readonly string[];
+  readonly from: string | null;
+  readonly to: string | null;
+  readonly rungs: readonly FieldRung[];
+  readonly retired: boolean;
 }
 
 interface FieldLadderParts {
-  owners: Owners;
-  delivery: Delivery;
-  opSummary: (changeId: string | undefined, opIndex: number) => string;
+  readonly owners: Owners;
+  readonly delivery: Delivery;
+  readonly opSummary: (changeId: string | undefined, opIndex: number) => string;
 }
 
 interface Ends {
-  from: string | null;
-  to: string | null;
+  readonly from: string | null;
+  readonly to: string | null;
 }
 
 interface Move {
-  kind: FieldKind | null;
-  gained: string[];
-  lost: string[];
-  ov: PropChange | undefined;
+  readonly kind: FieldKind | null;
+  readonly gained: readonly string[];
+  readonly lost: readonly string[];
+  readonly ov: PropChange | undefined;
   /** Where the override sends the field from, when the op sets one. */
-  ovFrom: string | null;
-  percent: number | null;
+  readonly ovFrom: string | null;
+  readonly percent: number | null;
 }
 
-const PERCENT = /\d{1,3} {0,2}%/g;
+const PERCENT = /\d{1,3} {0,2}%/gu;
 
 const without = (list: unknown, other: unknown): string[] =>
   strings(list).filter((x) => !strings(other).includes(x));
@@ -84,13 +84,13 @@ function moveOf(r: OpRecord): Move {
     gained,
     lost,
     ov,
-    ovFrom: str(prop(ov?.after, 'from')) ?? null,
+    ovFrom: textOf(prop(ov?.after, 'from')) ?? null,
     percent: percentOf(ov),
   };
 }
 
 /** Where the field moves from and to after this op. */
-function nextEnds(env: { core: Core; id: string }, m: Move, ends: Ends): Ends {
+function nextEnds(env: { readonly core: Core; readonly id: string }, m: Move, ends: Ends): Ends {
   const from = m.ovFrom ?? ends.from;
   let to = ends.to;
   if (m.gained.length > 0) to = m.gained[0] ?? null;
@@ -101,29 +101,28 @@ function nextEnds(env: { core: Core; id: string }, m: Move, ends: Ends): Ends {
 }
 
 /** The first "10 % → 50 % → 100 %" chain in a change's rollout text. */
-function rolloutSteps(core: Core, changeId: string | undefined): number[] {
-  const text = (str(prop(core.planIndex.get(changeId ?? ''), 'rollout')) ?? '').replaceAll(
+function rolloutSteps(core: Core, changeId: string | undefined): readonly number[] {
+  const text = (textOf(prop(core.planIndex.get(changeId ?? ''), 'rollout')) ?? '').replaceAll(
     '->',
     '→',
   );
-  const chains: { end: number; steps: number[] }[] = [];
+  const chains: { readonly end: number; readonly steps: readonly number[] }[] = [];
   for (const m of text.matchAll(PERCENT)) {
     const last = chains.at(-1);
     const joined = last !== undefined && text.slice(last.end, m.index).trim() === '→';
     const step = Number.parseInt(m[0], 10);
-    if (joined) {
-      last.steps.push(step);
-      last.end = m.index + m[0].length;
-    } else chains.push({ end: m.index + m[0].length, steps: [step] });
+    const end = m.index + m[0].length;
+    if (joined) chains[chains.length - 1] = { end, steps: [...last.steps, step] };
+    else chains.push({ end, steps: [step] });
   }
   return chains.find((c) => c.steps.length > 1)?.steps ?? [];
 }
 
 interface LabelFacts {
-  name: string;
-  ends: Ends;
-  move: Move;
-  steps: number[];
+  readonly name: string;
+  readonly ends: Ends;
+  readonly move: Move;
+  readonly steps: readonly number[];
 }
 
 function labelOf(core: Core, kind: FieldKind, f: LabelFacts): string {
@@ -146,9 +145,9 @@ function labelOf(core: Core, kind: FieldKind, f: LabelFacts): string {
 }
 
 function rungOf(
-  env: { core: Core; parts: FieldLadderParts },
+  env: { readonly core: Core; readonly parts: FieldLadderParts },
   r: OpRecord,
-  facts: LabelFacts & { kind: FieldKind },
+  facts: LabelFacts & { readonly kind: FieldKind },
 ): FieldRung {
   const { core, parts } = env;
   const { kind, ends, move, steps } = facts;
@@ -180,11 +179,10 @@ function rungOf(
 }
 
 function ladderOf(core: Core, parts: FieldLadderParts, id: string): FieldLadder {
-  const name = str(prop(core.sys(id), 'name')) ?? id.split('#')[1] ?? id;
+  const name = textOf(prop(core.sys(id), 'name')) ?? id.split('#')[1] ?? id;
   const rungs: FieldRung[] = [];
   let ends: Ends = { from: null, to: null };
-  for (const r of core.records) {
-    if (r.kind !== 'modify' || r.target !== id) continue;
+  for (const r of core.records.filter((x) => x.kind === 'modify' && x.target === id)) {
     const move = moveOf(r);
     ends = nextEnds({ core, id }, move, ends);
     if (move.kind === null) continue;
@@ -204,7 +202,12 @@ function movesField(core: Core, id: string): boolean {
   );
 }
 
-export function createFieldLadder(core: Core, parts: FieldLadderParts) {
+export interface FieldLadders {
+  readonly fieldLadder: (id: string) => FieldLadder;
+  readonly movesField: (id: string) => boolean;
+}
+
+export function createFieldLadder(core: Core, parts: FieldLadderParts): FieldLadders {
   const fieldLadder = memo((id: string): FieldLadder => ladderOf(core, parts, id));
   return { fieldLadder, movesField: (id: string): boolean => movesField(core, id) };
 }

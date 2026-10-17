@@ -20,7 +20,7 @@ import {
 } from '@/application/plan/delivery-work';
 import { buildRevision } from '@/application/plan/revision';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -192,7 +192,7 @@ describe('a live proposal and the work under way', () => {
 
   it('tags each work item the proposal moves; one impact per revision and delivery', async () => {
     const { revision, delivery } = await underway();
-    const spy = vi.fn(impactOf);
+    const spy = vi.fn<typeof impactOf>(impactOf);
     const work = proposalWork(revision, delivery, spy);
     expect(work?.version).toBe('1.1');
     expect(work?.byId.get('wi:skip')).toEqual({ effect: 'new', authored: true, note: null });

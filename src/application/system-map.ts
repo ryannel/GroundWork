@@ -83,7 +83,7 @@ function placesOf(workspace: Workspace): Map<string, Place> {
   return out;
 }
 
-function placeOf(id: string, system: SystemModel, where: Map<string, Place>): Place {
+function placeOf(id: string, system: SystemModel, where: ReadonlyMap<string, Place>): Place {
   const direct = where.get(id);
   if (direct !== undefined) return direct;
   const owner = system.model.ownerService(id);
@@ -94,9 +94,9 @@ function placeOf(id: string, system: SystemModel, where: Map<string, Place>): Pl
 // A nested fact (an endpoint, a field) is found in the file that holds its parent, so cite that.
 function sourcesFor(
   id: string,
-  around: { node: unknown; place: Place },
+  around: { readonly node: unknown; readonly place: Place },
   system: SystemModel,
-): { sources: Cited[]; sourcesOf: string | null } {
+): { readonly sources: readonly Cited[]; readonly sourcesOf: string | null } {
   const parent = prop(around.node, '$parent');
   const service = prop(around.node, '$service');
   const tries = [id, parent, service, around.place.component].filter(
@@ -104,8 +104,9 @@ function sourcesFor(
   );
   for (const each of tries) {
     const sources = system.attribution[each]?.sources ?? [];
-    if (sources.length > 0)
+    if (sources.length > 0) {
       return { sources: citedOf(sources), sourcesOf: each === id ? null : each };
+    }
   }
   return { sources: [], sourcesOf: null };
 }
@@ -146,8 +147,8 @@ function reposOf(workspace: Workspace, scans: readonly Scan[]): RepoState[] {
 
 /** Facts whose id, name or summary hold every word of the question, best first. */
 export function findIn(map: SystemMap, text: string, limit = 20): MapFact[] {
-  const words = text.toLowerCase().split(/\s+/).filter(Boolean);
-  const scored: { fact: MapFact; score: number }[] = [];
+  const words = text.toLowerCase().split(/\s+/u).filter(Boolean);
+  const scored: { readonly fact: MapFact; readonly score: number }[] = [];
   for (const fact of map.facts.values()) {
     const score = scoreOf(fact, words);
     if (score > 0) scored.push({ fact, score });
@@ -179,14 +180,12 @@ function scoreOf(fact: MapFact, words: readonly string[]): number {
 
 /** The facts read from a file, matched on the path inside the repo (a trailing part of it will do). */
 export function ownedBy(map: SystemMap, file: string, repo?: string): MapFact[] {
-  const wanted = file.replace(/^\.?\//, '');
+  const wanted = file.replace(/^\.?\//u, '');
+  const samePath = (path: string): boolean =>
+    path === wanted || path.endsWith(`/${wanted}`) || wanted.endsWith(path);
   return [...map.facts.values()].filter((fact) =>
     fact.sources.some(
-      (source) =>
-        (repo === undefined || source.repo === repo) &&
-        (source.path === wanted ||
-          source.path.endsWith(`/${wanted}`) ||
-          wanted.endsWith(source.path)),
+      (source) => (repo === undefined || source.repo === repo) && samePath(source.path),
     ),
   );
 }

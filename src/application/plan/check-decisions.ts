@@ -2,13 +2,13 @@ import type { Report } from '@/application/plan/check-context';
 import type { Decision, Plan, Question, Risk } from '@/domain/plan/plan.generated';
 
 interface Scope {
-  rep: Report;
-  byId: Map<string, Decision>;
-  recorded: Set<string>;
-  gate: (segs: (string | number)[], message: string) => void;
+  readonly rep: Report;
+  readonly byId: ReadonlyMap<string, Decision>;
+  readonly recorded: ReadonlySet<string>;
+  readonly gate: (segs: (string | number)[], message: string) => void;
 }
 
-function checkAccepted(s: Scope, x: Decision, at: (string | number)[]): void {
+function checkAccepted(s: Scope, x: Decision, at: readonly (string | number)[]): void {
   if (x.status !== 'accepted') return;
   if (x.decider === undefined) {
     s.rep.warn(
@@ -24,7 +24,7 @@ function checkAccepted(s: Scope, x: Decision, at: (string | number)[]): void {
   }
 }
 
-function checkProposed(s: Scope, x: Decision, at: (string | number)[]): void {
+function checkProposed(s: Scope, x: Decision, at: readonly (string | number)[]): void {
   if (x.status !== 'proposed' || !s.recorded.has(x.id)) return;
   if (x.decider === undefined || x.decide_by === undefined) {
     s.rep.warn(
@@ -38,10 +38,10 @@ function checkProposed(s: Scope, x: Decision, at: (string | number)[]): void {
   );
 }
 
-function checkSupersedes(s: Scope, x: Decision, at: (string | number)[]): void {
+function checkSupersedes(s: Scope, x: Decision, at: readonly (string | number)[]): void {
   for (const [j, sid] of (x.supersedes ?? []).entries()) {
     const old = s.byId.get(sid);
-    if (sid === x.id) s.rep.err([...at, 'supersedes', j], `${x.id} cannot supersede itself`);
+    if (sid === x.id) s.rep.error([...at, 'supersedes', j], `${x.id} cannot supersede itself`);
     else if (old !== undefined && old.status !== 'superseded') {
       s.rep.warn(
         [...at, 'supersedes', j],
@@ -62,12 +62,13 @@ function checkDecision(s: Scope, x: Decision, i: number): void {
 }
 
 function questionIsOpen(q: Question, by: Decision | undefined): boolean {
-  if (by !== undefined && by.status !== 'rejected' && by.status !== 'superseded')
+  if (by !== undefined && by.status !== 'rejected' && by.status !== 'superseded') {
     return by.status !== 'accepted';
+  }
   return q.status !== 'resolved';
 }
 
-function checkAnswered(s: Scope, q: Question, at: (string | number)[]): void {
+function checkAnswered(s: Scope, q: Question, at: readonly (string | number)[]): void {
   const by = q.answered_by === undefined ? undefined : s.byId.get(q.answered_by);
   if (q.status === 'resolved' && by !== undefined && by.status !== 'accepted') {
     s.rep.warn(
@@ -128,11 +129,12 @@ function checkRisk(s: Scope, r: Risk, i: number): void {
 
 function checkEmptyDecisionLists(plan: Plan, rep: Report): void {
   for (const [i, c] of (plan.changes ?? []).entries()) {
-    if (c.decisions?.length === 0)
+    if (c.decisions?.length === 0) {
       rep.warn(
         ['changes', i, 'decisions'],
         `${c.id} lists no decisions; name the decision it rests on, or drop the empty list`,
       );
+    }
   }
 }
 
@@ -152,7 +154,7 @@ export function checkDecisions(plan: Plan, rep: Report): void {
     byId: new Map(decisions.map((x) => [x.id, x])),
     recorded: new Set((plan.changes ?? []).flatMap((c) => c.decisions ?? [])),
     gate: (segs, message) => {
-      if (approved) rep.err(segs, message);
+      if (approved) rep.error(segs, message);
     },
   };
   for (const [i, x] of decisions.entries()) checkDecision(s, x, i);

@@ -11,73 +11,77 @@ export type StepState = '' | 'removed' | 'deprecated' | 'added' | 'modified';
 
 /** One step drawn on an arrow or inside a card. */
 export interface FlowItem {
-  i: number;
-  s: FlowStep;
-  text: string;
+  readonly i: number;
+  readonly s: FlowStep;
+  readonly text: string;
   /** The gateway's own call to a subgraph on behalf of the step. */
-  fan?: boolean;
-  letter?: string;
+  readonly fan?: boolean;
+  readonly letter?: string;
   /** A read or write of a record the step does not name as an end. */
-  implicit?: boolean;
-  refs?: string[];
+  readonly implicit?: boolean;
+  readonly refs?: readonly string[];
   /** Items of the same record access, folded into one label. */
-  members?: FlowItem[];
+  readonly members?: readonly FlowItem[];
 }
 
 /** A line of an arrow's label: the step it says, and whether it opens that step's text. */
 export interface LabelLine {
-  t: string;
-  first: boolean;
-  it: FlowItem;
+  readonly t: string;
+  readonly first: boolean;
+  readonly it: FlowItem;
 }
 
 export interface FlowEdge {
-  key: string;
-  from: string;
-  to: string;
-  kind: HopKind;
-  via: string | null;
-  items: FlowItem[];
+  readonly key: string;
+  readonly from: string;
+  readonly to: string;
+  readonly kind: HopKind;
+  readonly via: string | null;
+  readonly items: readonly FlowItem[];
   /** The steps of every arrow between the same two ends, kept on the one that carries their label; the others hold none. */
-  all: FlowItem[];
-  lines: LabelLine[];
+  readonly all: readonly FlowItem[];
+  readonly lines: readonly LabelLine[];
   /** The label's width and height. */
-  lw: number;
-  lh: number;
+  readonly lw: number;
+  readonly lh: number;
   /** A hop back to an earlier column. */
-  back: boolean;
+  readonly back: boolean;
 }
 
 export interface FlowNodeSpec {
-  id: string;
-  kind: NodeKind;
-  endpoints: { via: string; steps: number[] }[];
-  selfs: { i: number; s: FlowStep; lines: string[] }[];
-  events: string[];
-  sats: { id: string; e: FlowEdge; r: Rect }[];
+  readonly id: string;
+  readonly kind: NodeKind;
+  readonly endpoints: readonly { readonly via: string; readonly steps: readonly number[] }[];
+  readonly selfs: readonly {
+    readonly i: number;
+    readonly s: FlowStep;
+    readonly lines: readonly string[];
+  }[];
+  readonly events: readonly string[];
+  readonly sats: readonly { readonly id: string; readonly e: FlowEdge; readonly r: Rect }[];
   /** A store only one service uses: it sits under that service. */
-  sat: boolean;
-  x: number;
-  y: number;
-  w: number;
-  h: number;
+  readonly sat: boolean;
+  readonly x: number;
+  readonly y: number;
+  readonly w: number;
+  readonly h: number;
   /** The height with the satellites hung under it. */
-  fullH: number;
+  readonly fullH: number;
   /** A topic's pipe height, and its name in lines. */
-  ph: number;
-  nameLines: string[];
+  readonly ph: number;
+  readonly nameLines: readonly string[];
 }
 
 export interface FlowGraph {
-  nodes: Map<string, FlowNodeSpec>;
-  edges: Map<string, FlowEdge>;
-  sats: Map<string, FlowEdge>;
+  readonly nodes: ReadonlyMap<string, FlowNodeSpec>;
+  readonly edges: ReadonlyMap<string, FlowEdge>;
+  readonly sats: ReadonlyMap<string, FlowEdge>;
 }
 
 export interface GraphOptions {
-  mode: FlowMode;
+  readonly mode: FlowMode;
   /** Draw just these steps. */
-  only?: ReadonlySet<number> | undefined;
+  readonly only?: ReadonlySet<number> | undefined;
 }
 
 const SELF_WIDTH = 30;
@@ -107,7 +111,7 @@ function nodeKind(model: Model, id: string): NodeKind {
 }
 
 const hopKind = (via: string): HopKind => {
-  if (/^(api|gql):/.test(via)) return 'api';
+  if (/^(?:api|gql):/u.test(via)) return 'api';
   return via.startsWith('msg:') ? 'msg' : 'data';
 };
 
@@ -118,17 +122,27 @@ export function storeOf(model: Model, ref: string): string | null {
 }
 
 interface Ctx {
-  model: Model;
-  mode: FlowMode;
-  graph: FlowGraph;
+  readonly model: Model;
+  readonly mode: FlowMode;
 }
 
-function node(ctx: Ctx, id: string): FlowNodeSpec {
-  const known = ctx.graph.nodes.get(id);
-  if (known !== undefined) return known;
-  const made: FlowNodeSpec = {
+type Ends = readonly [string, string, HopKind, string | null];
+type SelfLine = FlowNodeSpec['selfs'][number];
+
+/** One thing a step adds to the graph, in the order it adds them. */
+type Touch =
+  | { readonly t: 'node'; readonly id: string }
+  | { readonly t: 'edge'; readonly ends: Ends; readonly item: FlowItem }
+  | { readonly t: 'endpoint'; readonly id: string; readonly via: string; readonly i: number }
+  | { readonly t: 'event'; readonly id: string; readonly via: string }
+  | { readonly t: 'self'; readonly id: string; readonly self: SelfLine };
+
+type EdgeTouch = Extract<Touch, { readonly t: 'edge' }>;
+
+function blankNode(model: Model, id: string): FlowNodeSpec {
+  return {
     id,
-    kind: nodeKind(ctx.model, id),
+    kind: nodeKind(model, id),
     endpoints: [],
     selfs: [],
     events: [],
@@ -142,77 +156,99 @@ function node(ctx: Ctx, id: string): FlowNodeSpec {
     ph: 0,
     nameLines: [],
   };
-  ctx.graph.nodes.set(id, made);
-  return made;
 }
 
-function addEdge(
-  ctx: Ctx,
-  [from, to, kind, via]: readonly [string, string, HopKind, string | null],
-  item: FlowItem,
-): void {
-  const key = `${from}>${to}|${via ?? ''}`;
-  const known = ctx.graph.edges.get(key);
-  if (known === undefined) {
-    const made: FlowEdge = {
-      key,
-      from,
-      to,
-      kind,
-      via,
-      items: [item],
-      all: [],
-      lines: [],
-      lw: 0,
-      lh: 0,
-      back: false,
-    };
-    ctx.graph.edges.set(key, made);
-  } else known.items.push(item);
+function touchNode(n: FlowNodeSpec, touch: Exclude<Touch, EdgeTouch>): FlowNodeSpec {
+  switch (touch.t) {
+    case 'endpoint': {
+      const row = n.endpoints.find((e) => e.via === touch.via);
+      const endpoints =
+        row === undefined
+          ? [...n.endpoints, { via: touch.via, steps: [touch.i] }]
+          : n.endpoints.map((e) => (e === row ? { ...e, steps: [...e.steps, touch.i] } : e));
+      return { ...n, endpoints };
+    }
+    case 'event': {
+      return n.events.includes(touch.via) ? n : { ...n, events: [...n.events, touch.via] };
+    }
+    case 'self': {
+      return { ...n, selfs: [...n.selfs, touch.self] };
+    }
+    default: {
+      return n;
+    }
+  }
+}
+
+const edgeKey = ([from, to, , via]: Ends): string => `${from}>${to}|${via ?? ''}`;
+
+function edgeWith(known: FlowEdge | undefined, { ends, item }: EdgeTouch): FlowEdge {
+  if (known !== undefined) return { ...known, items: [...known.items, item] };
+  const [from, to, kind, via] = ends;
+  return {
+    key: edgeKey(ends),
+    from,
+    to,
+    kind,
+    via,
+    items: [item],
+    all: [],
+    lines: [],
+    lw: 0,
+    lh: 0,
+    back: false,
+  };
 }
 
 // A step that calls an operation stays one step; the gateway's fan-out to the subgraphs is lettered (4a, 4b …).
-function addFan(ctx: Ctx, s: FlowStep, i: number): void {
+function fanTouches(ctx: Ctx, s: FlowStep, i: number): readonly Touch[] {
   const fan = ctx.model.fanoutOf(s.id, ctx.mode === 'asIs' ? 'asIs' : 'toBe');
   const seen = new Set<string>();
+  const out: Touch[] = [];
   for (const call of fan?.calls ?? []) {
     if (!call.fanout || call.from !== s.to || call.to === s.to || seen.has(call.to)) continue;
-    node(ctx, call.to);
-    const name = ctx.model.label(call.subgraph ?? call.to).replace(/ subgraph$/i, '');
+    const name = ctx.model.label(call.subgraph ?? call.to).replace(/ subgraph$/iu, '');
     const letter = String.fromCodePoint(97 + seen.size);
     seen.add(call.to);
-    addEdge(ctx, [s.to, call.to, 'api', null], { i, s, text: name, fan: true, letter });
+    out.push(
+      { t: 'node', id: call.to },
+      {
+        t: 'edge',
+        ends: [s.to, call.to, 'api', null],
+        item: { i, s, text: name, fan: true, letter },
+      },
+    );
   }
+  return out;
 }
 
 interface Hop {
-  s: FlowStep;
-  i: number;
-  kind: HopKind;
+  readonly s: FlowStep;
+  readonly i: number;
+  readonly kind: HopKind;
 }
 
-function addHop(ctx: Ctx, { s, i, kind }: Hop): void {
+function hopTouches(ctx: Ctx, { s, i, kind }: Hop): readonly Touch[] {
   // API hops land on an endpoint row of the provider; event hops name the event under the queue
-  if (kind === 'api') {
-    const { endpoints } = node(ctx, s.to);
-    const row = endpoints.find((e) => e.via === s.via);
-    if (row === undefined) endpoints.push({ via: s.via, steps: [i] });
-    else row.steps.push(i);
-  }
-  if (kind === 'msg') {
-    const queue = [s.from, s.to].find((x) => nodeKind(ctx.model, x) === 'topic');
-    const events = queue === undefined ? [] : node(ctx, queue).events;
-    if (!events.includes(s.via)) events.push(s.via);
-  }
-  addEdge(ctx, [s.from, s.to, kind, kind === 'api' ? s.via : null], { i, s, text: actionOf(s) });
-  if (s.via.startsWith('gql:')) addFan(ctx, s, i);
+  const queue = [s.from, s.to].find((x) => nodeKind(ctx.model, x) === 'topic');
+  const endpoint: readonly Touch[] =
+    kind === 'api' ? [{ t: 'endpoint', id: s.to, via: s.via, i }] : [];
+  const event: readonly Touch[] =
+    kind === 'msg' && queue !== undefined ? [{ t: 'event', id: queue, via: s.via }] : [];
+  const ends: Ends = [s.from, s.to, kind, kind === 'api' ? s.via : null];
+  return [
+    ...endpoint,
+    ...event,
+    { t: 'edge', ends, item: { i, s, text: actionOf(s) } },
+    ...(s.via.startsWith('gql:') ? fanTouches(ctx, s, i) : []),
+  ];
 }
 
-type Access = Map<string, string[]>;
+type Access = ReadonlyMap<string, readonly string[]>;
 
-function accesses(model: Model, s: FlowStep): { writes: Access; reads: Access } {
-  const writes: Access = new Map();
-  const reads: Access = new Map();
+function accesses(model: Model, s: FlowStep): { readonly writes: Access; readonly reads: Access } {
+  const writes = new Map<string, readonly string[]>();
+  const reads = new Map<string, readonly string[]>();
   const outside = (store: string | null): store is string =>
     store !== null && store !== s.to && store !== s.from;
   for (const ref of s.writes ?? []) {
@@ -228,16 +264,37 @@ function accesses(model: Model, s: FlowStep): { writes: Access; reads: Access } 
 
 // Records a step reads or writes in a store that is not one of its ends: a dotted hop from the acting service
 // (an API's provider does the reading and writing; on an event hop, the service end does).
-function addRecords(ctx: Ctx, { s, i, kind }: Hop): void {
+function recordTouches(ctx: Ctx, { s, i, kind }: Hop): readonly Touch[] {
   const isSvc = (id: string) => nodeKind(ctx.model, id) === 'service';
   const actor = kind === 'api' || (isSvc(s.to) && !isSvc(s.from)) ? s.to : s.from;
   const { writes, reads } = accesses(ctx.model, s);
-  for (const [store, refs] of [...writes, ...reads]) {
-    node(ctx, store);
+  return [...writes, ...reads].flatMap(([store, refs]): readonly Touch[] => {
     const names = [...new Set(refs.map((r) => ctx.model.label(r.split('#')[0] ?? r)))];
     const text = `${writes.has(store) ? 'writes' : 'reads'} ${names.join(', ')}`;
-    addEdge(ctx, [actor, store, 'data', null], { i, s, text, refs, implicit: true });
-  }
+    return [
+      { t: 'node', id: store },
+      { t: 'edge', ends: [actor, store, 'data', null], item: { i, s, text, refs, implicit: true } },
+    ];
+  });
+}
+
+function selfLines(ctx: Ctx, s: FlowStep): readonly string[] {
+  const note = stateNote(stepState(ctx.model, ctx.mode, s));
+  return [...wrapText(actionOf(s), SELF_WIDTH, 2), ...(note === '' ? [] : [note])];
+}
+
+function stepTouches(ctx: Ctx, s: FlowStep, i: number): readonly Touch[] {
+  const kind = s.via !== '' && s.via !== 'internal' ? hopKind(s.via) : 'data';
+  const own: readonly Touch[] =
+    s.from === s.to
+      ? [{ t: 'self', id: s.from, self: { i, s, lines: selfLines(ctx, s) } }]
+      : hopTouches(ctx, { s, i, kind });
+  return [
+    { t: 'node', id: s.from },
+    { t: 'node', id: s.to },
+    ...own,
+    ...recordTouches(ctx, { s, i, kind }),
+  ];
 }
 
 // A store only one service touches (and never as a step's end) sits right under that service.
@@ -249,43 +306,44 @@ function satelliteEdge(graph: FlowGraph, n: FlowNodeSpec): FlowEdge | undefined 
   return touching.length === 1 && only?.to === n.id && from?.kind === 'service' ? only : undefined;
 }
 
-function seatSatellites(graph: FlowGraph): void {
-  for (const n of graph.nodes.values()) {
-    const e = satelliteEdge(graph, n);
-    if (e !== undefined) graph.sats.set(n.id, e);
+function seatSatellites(
+  nodes: ReadonlyMap<string, FlowNodeSpec>,
+  edges: ReadonlyMap<string, FlowEdge>,
+): FlowGraph {
+  const whole: FlowGraph = { nodes, edges, sats: new Map() };
+  const sats = new Map<string, FlowEdge>();
+  for (const n of nodes.values()) {
+    const e = satelliteEdge(whole, n);
+    if (e !== undefined) sats.set(n.id, e);
   }
-  for (const [id, e] of graph.sats) {
-    graph.edges.delete(e.key);
-    const store = graph.nodes.get(id);
-    if (store !== undefined) store.sat = true;
-    graph.nodes.get(e.from)?.sats.push({ id, e, r: { x: 0, y: 0, w: 0, h: 0 } });
-  }
-}
-
-function addStep(ctx: Ctx, s: FlowStep, i: number): void {
-  node(ctx, s.from);
-  node(ctx, s.to);
-  const kind = s.via !== '' && s.via !== 'internal' ? hopKind(s.via) : 'data';
-  if (s.from === s.to) node(ctx, s.from).selfs.push({ i, s, lines: [] });
-  else addHop(ctx, { s, i, kind });
-  addRecords(ctx, { s, i, kind });
+  const hung = [...sats].map(([id, e]) => ({ id, e, r: { x: 0, y: 0, w: 0, h: 0 } }));
+  const seated = [...nodes].map(([id, n]): readonly [string, FlowNodeSpec] => [
+    id,
+    { ...n, sat: n.sat || sats.has(id), sats: [...n.sats, ...hung.filter((h) => h.e.from === id)] },
+  ]);
+  const satKeys = new Set([...sats.values()].map((e) => e.key));
+  return {
+    nodes: new Map(seated),
+    edges: new Map([...edges].filter(([key]) => !satKeys.has(key))),
+    sats,
+  };
 }
 
 /** The systems a flow touches and the hops between them, before anything is placed. */
 export function buildGraph(model: Model, flowId: string, opts: GraphOptions): FlowGraph | null {
   const steps = flowSteps(model, flowId, opts.mode);
   if (steps.length === 0) return null;
-  const graph: FlowGraph = { nodes: new Map(), edges: new Map(), sats: new Map() };
-  const ctx: Ctx = { model, mode: opts.mode, graph };
-  for (const [i, s] of steps.entries()) {
-    if (opts.only === undefined || opts.only.has(i)) addStep(ctx, s, i);
+  const ctx: Ctx = { model, mode: opts.mode };
+  const touches = [...steps.entries()]
+    .filter(([i]) => opts.only === undefined || opts.only.has(i))
+    .flatMap(([i, s]) => stepTouches(ctx, s, i));
+  const nodes = new Map<string, FlowNodeSpec>();
+  const edges = new Map<string, FlowEdge>();
+  for (const touch of touches) {
+    if (touch.t === 'edge') {
+      const key = edgeKey(touch.ends);
+      edges.set(key, edgeWith(edges.get(key), touch));
+    } else nodes.set(touch.id, touchNode(nodes.get(touch.id) ?? blankNode(model, touch.id), touch));
   }
-  seatSatellites(graph);
-  for (const n of graph.nodes.values()) {
-    for (const self of n.selfs) {
-      const note = stateNote(stepState(model, opts.mode, self.s));
-      self.lines = [...wrapText(actionOf(self.s), SELF_WIDTH, 2), ...(note === '' ? [] : [note])];
-    }
-  }
-  return graph;
+  return seatSatellites(nodes, edges);
 }

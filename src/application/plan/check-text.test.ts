@@ -1,13 +1,17 @@
 import { describe, expect, it, vi } from 'vitest';
 
+import { giftWrap } from '@/../test/fixtures/acme/plans/journeys-gift-wrap';
+import { pauseOrders } from '@/../test/fixtures/acme/plans/pause-orders';
+import { orderEventV2 } from '@/../test/fixtures/acme/plans/versions-order-event';
+import { shopGraph } from '@/../test/fixtures/journeys-shop-graph';
+import { acme } from '@/../test/workspace-kit';
 import { weekdayProblems } from '@/application/plan/check-text';
 import { validatePlan } from '@/application/plan/validate-plan';
 import type { Plan } from '@/domain/plan/plan.generated';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
-const { readPlan } = await import('@/infrastructure/plan-store');
 
 describe('weekdayProblems', () => {
   it('knows 9 Oct 2026 is a Friday and 4 Oct 2026 a Sunday', () => {
@@ -41,7 +45,7 @@ const atSummary = (p: Plan) => validatePlan(p).errors.filter((e) => e.path === '
 describe('validate: weekdays', () => {
   it('reports a wrong weekday at the prose that says it', async () => {
     const hit = atSummary(await withProse('Anna sees *Get it by Thu 9 Oct* on the page.'))[0];
-    expect(hit?.message).toMatch(/says Thu, but 2026-10-09 is a Friday/);
+    expect(hit?.message).toMatch(/says Thu, but 2026-10-09 is a Friday/u);
   });
   it('takes the year of meta.date for dates without one', async () => {
     const p = await withProse('Thu 9 Oct');
@@ -82,25 +86,34 @@ describe('team colours', () => {
   });
 });
 
-describe('the alder-finch plans', () => {
-  const slugs = ['delivery-promise', 'invoice-vat-number', 'stock-reservation', 'storefront-graph'];
+const PLANS: Readonly<Record<string, () => Plan>> = {
+  'gift-wrap': giftWrap,
+  'pause-orders': pauseOrders,
+  'order-event-v2': orderEventV2,
+  shop: shopGraph,
+};
 
-  it.each(slugs)('%s: no weekday disagrees with its date', async (slug) => {
-    const { plan } = await readPlan('alder-finch', slug);
-    expect(plan).not.toBeNull();
-    const errors = plan === null ? [] : validatePlan(plan).errors;
-    expect(errors.filter((e) => /says \w+, but/.test(e.message))).toEqual([]);
+describe('the fixture plans', () => {
+  it.each(Object.keys(PLANS))('%s: no weekday disagrees with its date', (slug) => {
+    const plan = PLANS[slug]?.();
+    expect(plan).toBeDefined();
+    const errors = plan === undefined ? [] : validatePlan(plan).errors;
+    expect(errors.filter((e) => /says \w+, but/u.test(e.message))).toEqual([]);
   });
 
-  it('gives every team a slot, the same across plans', async () => {
-    const seen = new Map<string, number | undefined>();
-    for (const slug of slugs) {
-      const { plan } = await readPlan('alder-finch', slug);
-      for (const t of plan?.teams ?? []) {
-        expect(Number.isInteger(t.colour), `${slug}: ${t.id} has no colour`).toBe(true);
-        if (seen.has(t.id)) expect(t.colour, `${t.id} changes colour`).toBe(seen.get(t.id));
+  it('gives every team the slot the workspace gives it, the same across plans', () => {
+    const slots = new Map(acme().workspace.teams.map((t) => [t.id, t.colour ?? undefined]));
+    const onAcme = [giftWrap(), pauseOrders(), orderEventV2()];
+    const seen = new Map<string, number | null | undefined>();
+    for (const plan of onAcme) {
+      for (const t of plan.teams) {
+        expect(t.colour ?? undefined, `${plan.meta.id}: ${t.id}`).toBe(slots.get(t.id));
+        expect(t.colour, `${t.id} changes colour`).toBe(seen.has(t.id) ? seen.get(t.id) : t.colour);
         seen.set(t.id, t.colour);
       }
     }
+    expect([...seen.keys()].toSorted((a, b) => a.localeCompare(b))).toEqual(
+      [...slots.keys()].toSorted((a, b) => a.localeCompare(b)),
+    );
   });
 });

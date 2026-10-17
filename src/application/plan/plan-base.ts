@@ -178,7 +178,7 @@ export function onBase(
   raw: Readonly<Record<string, unknown>>,
   base: PlanBase,
   scope: ReadonlySet<string> | null,
-): { doc: Record<string, unknown>; issues: Issue[] } {
+): { readonly doc: Record<string, unknown>; readonly issues: readonly Issue[] } {
   const known = indexOf(base);
   const issues: Issue[] = [];
   const { context, ...rest } = raw;

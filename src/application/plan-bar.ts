@@ -62,14 +62,18 @@ function stateOf(entry: RevisionEntry, inForce: string | null): BarVersion['stat
 function versionsOf(model: Model, outline: Outline): BarVersions | null {
   const ledger = ledgerOf(model.plan);
   const own = model.plan.meta.version;
-  if (ledger.length === 0)
+  if (ledger.length === 0) {
     return own === undefined ? null : { label: `v${own}`, items: [], historyHref: null };
+  }
   const inForce = ledger.findLast((r) => r.status === 'approved')?.version ?? null;
   const label = (id: string): string => chipName(chipInfo(model, id));
   const items = ledger.toReversed().map((entry): BarVersion => ({
     version: entry.version,
     state: stateOf(entry, inForce),
-    date: shortDate((entry.status === 'approved' ? entry.approved_on : undefined) ?? entry.date),
+    date: shortDate(
+      (entry.status === 'approved' ? entry.approved_on : undefined) ?? entry.date,
+      model.today,
+    ),
     summary: plainTitle(entry.summary, label),
     href: pageHref(outline, 'versions', versionKey(entry.version)),
   }));

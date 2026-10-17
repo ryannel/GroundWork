@@ -4,7 +4,7 @@ import { derive } from '@/application/plan/derive';
 
 import { chipInfo, chipName, questionTitle, statusWord } from './plan-chips';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -57,7 +57,7 @@ describe('chipInfo', () => {
   it('says a new thing is new', () => {
     const info = chipInfo(model, 'sch:pause-request');
     expect(info.status).toBe('added');
-    expect(chipName(info)).toMatch(/\(new\)$/);
+    expect(chipName(info)).toMatch(/\(new\)$/u);
     expect(chipName(chipInfo(model, 'svc:subs'))).toBe('service: Subscriptions');
     expect(statusWord('existing')).toBe('unchanged');
   });

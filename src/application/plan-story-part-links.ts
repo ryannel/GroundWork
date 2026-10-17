@@ -29,8 +29,8 @@ const isTopic = (model: Model, id: string): boolean => {
 };
 
 interface Hub {
-  producers: Edge[];
-  consumers: Edge[];
+  readonly producers: readonly Edge[];
+  readonly consumers: readonly Edge[];
 }
 
 /** Message edges run producer, topic, consumer; a direct edge with no topic is both. */
@@ -38,25 +38,25 @@ function hubs(model: Model, edges: readonly Edge[]): Map<string, Hub> {
   const byVia = new Map<string, Hub>();
   for (const e of edges) {
     const hub = byVia.get(e.via ?? '') ?? { producers: [], consumers: [] };
-    byVia.set(e.via ?? '', hub);
-    if (isTopic(model, e.to)) hub.producers.push(e);
-    else if (isTopic(model, e.from)) hub.consumers.push(e);
-    else {
-      hub.producers.push(e);
-      hub.consumers.push(e);
-    }
+    const produces = isTopic(model, e.to) || !isTopic(model, e.from);
+    const consumes = !isTopic(model, e.to);
+    byVia.set(e.via ?? '', {
+      producers: produces ? [...hub.producers, e] : hub.producers,
+      consumers: consumes ? [...hub.consumers, e] : hub.consumers,
+    });
   }
   return byVia;
 }
 
 interface Rows {
-  readonly dependsOnYou: Connection[];
-  readonly youDependOn: Connection[];
+  readonly dependsOnYou: readonly Connection[];
+  readonly youDependOn: readonly Connection[];
 }
 
 /** One hub: each effective consumer paired with each producer of the same event. */
 function messageRows(mine: ReadonlySet<string>, via: string, hub: Hub): Rows {
-  const rows: Rows = { dependsOnYou: [], youDependOn: [] };
+  const dependsOnYou: Connection[] = [];
+  const youDependOn: Connection[] = [];
   const producers = [...new Set(hub.producers.map((e) => e.from))];
   const pairs = hub.consumers.flatMap((consumer) =>
     producers.filter((p) => p !== consumer.to).map((producer) => ({ consumer, producer })),
@@ -67,13 +67,13 @@ function messageRows(mine: ReadonlySet<string>, via: string, hub: Hub): Rows {
       consumer.status === 'existing' || consumer.status === undefined ? own : consumer.status;
     const row = { via, kind: 'msg', status } as const;
     if (mine.has(producer) && !mine.has(consumer.to)) {
-      rows.dependsOnYou.push({ ...row, other: consumer.to, verb: 'listens to' });
+      dependsOnYou.push({ ...row, other: consumer.to, verb: 'listens to' });
     }
     if (mine.has(consumer.to) && !mine.has(producer)) {
-      rows.youDependOn.push({ ...row, other: producer, verb: 'publishes' });
+      youDependOn.push({ ...row, other: producer, verb: 'publishes' });
     }
   }
-  return rows;
+  return { dependsOnYou, youDependOn };
 }
 
 function callRows(mine: ReadonlySet<string>, e: Edge): Rows {
@@ -106,7 +106,7 @@ export function connections(model: Model, services: readonly string[]): Connecti
     ),
   ].map(([via, hub]) => messageRows(mine, via, hub));
   const all = [...messages, ...edges.filter((e) => e.kind === 'api').map((e) => callRows(mine, e))];
-  const sorted = (pick: (r: Rows) => Connection[]): Connection[] =>
+  const sorted = (pick: (r: Rows) => readonly Connection[]): Connection[] =>
     unique(all.flatMap(pick)).toSorted((a, b) => rank(a) - rank(b));
   return { dependsOnYou: sorted((r) => r.dependsOnYou), youDependOn: sorted((r) => r.youDependOn) };
 }

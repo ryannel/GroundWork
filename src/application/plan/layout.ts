@@ -4,33 +4,33 @@ import type { PlanNode, SystemGraph } from '@/domain/plan/plan-graph';
 import type { Team } from '@/domain/plan/plan.generated';
 
 export interface Lane {
-  id: string;
-  team: string | null;
-  label: string;
+  readonly id: string;
+  readonly team: string | null;
+  readonly label: string;
 }
 
 export interface LayoutNode {
-  id: string;
-  type: 'service' | 'store';
-  lane: number;
-  col: number;
-  row: number;
-  under: string | null;
+  readonly id: string;
+  readonly type: 'service' | 'store';
+  readonly lane: number;
+  readonly col: number;
+  readonly row: number;
+  readonly under: string | null;
 }
 
 export interface Layout {
-  lanes: Lane[];
-  nodes: LayoutNode[];
-  byId: Map<string, LayoutNode>;
-  cols: Record<string, number>;
+  readonly lanes: readonly Lane[];
+  readonly nodes: readonly LayoutNode[];
+  readonly byId: ReadonlyMap<string, LayoutNode>;
+  readonly cols: Record<string, number>;
 }
 
 export interface LayoutInput {
-  asIs: SystemGraph;
-  toBe: SystemGraph;
-  sys: (id: string) => PlanNode | undefined;
-  unionIds: string[];
-  teams: Team[];
+  readonly asIs: SystemGraph;
+  readonly toBe: SystemGraph;
+  readonly sys: (id: string) => PlanNode | undefined;
+  readonly unionIds: readonly string[];
+  readonly teams: readonly Team[];
 }
 
 const isEvent = (n: PlanNode | undefined): boolean =>
@@ -65,7 +65,7 @@ const teamOf = (sys: LayoutInput['sys'], id: string | undefined): string | null 
   return n?.$type === 'service' ? n.team : null;
 };
 
-function laneTeamsOf(input: LayoutInput, services: string[]): string[] {
+function laneTeamsOf(input: LayoutInput, services: readonly string[]): string[] {
   const teams: string[] = [];
   for (const svc of services) {
     const t = teamOf(input.sys, svc);
@@ -80,7 +80,11 @@ function laneTeamsOf(input: LayoutInput, services: string[]): string[] {
   return teams;
 }
 
-function lanesOf(input: LayoutInput, services: string[], topics: string[]): Lane[] {
+function lanesOf(
+  input: LayoutInput,
+  services: readonly string[],
+  topics: readonly string[],
+): Lane[] {
   const lanes: Lane[] = laneTeamsOf(input, services).map((t) => ({
     id: t,
     team: t,
@@ -101,7 +105,7 @@ function lanesOf(input: LayoutInput, services: string[], topics: string[]): Lane
 }
 
 /** Services on row 0 of their team's lane, one column each. */
-function placeServices(input: LayoutInput, services: string[], grid: Grid): void {
+function placeServices(input: LayoutInput, services: readonly string[], grid: Grid): void {
   for (const svc of services) {
     const lane = grid.laneIndex.get(teamOf(input.sys, svc) ?? '');
     if (lane === undefined) continue;
@@ -112,9 +116,11 @@ function placeServices(input: LayoutInput, services: string[], grid: Grid): void
 /** Stores that are not events sit under their owning service, one row each. */
 function placeStores(input: LayoutInput, grid: Grid): void {
   const rowsUnder = new Map<string, number>();
-  for (const id of input.unionIds) {
+  const stores = input.unionIds.flatMap((id) => {
     const n = input.sys(id);
-    if (n?.$type !== 'store' || isEvent(n)) continue;
+    return n?.$type === 'store' && !isEvent(n) ? [{ id, n }] : [];
+  });
+  for (const { id, n } of stores) {
     const owner = grid.positions.get(n.owner);
     if (owner === undefined) continue;
     const row = (rowsUnder.get(n.owner) ?? 0) + 1;
@@ -124,15 +130,15 @@ function placeStores(input: LayoutInput, grid: Grid): void {
 }
 
 interface Grid {
-  laneIndex: Map<string, number>;
-  positions: Map<string, LayoutNode>;
-  nodes: LayoutNode[];
-  columns: Map<number, number>;
-  nextCol: (lane: number) => number;
-  put: (node: LayoutNode) => void;
+  readonly laneIndex: ReadonlyMap<string, number>;
+  readonly positions: ReadonlyMap<string, LayoutNode>;
+  readonly nodes: readonly LayoutNode[];
+  readonly columns: ReadonlyMap<number, number>;
+  readonly nextCol: (lane: number) => number;
+  readonly put: (node: LayoutNode) => void;
 }
 
-function newGrid(lanes: Lane[]): Grid {
+function newGrid(lanes: readonly Lane[]): Grid {
   const columns = new Map<number, number>();
   const nodes: LayoutNode[] = [];
   const positions = new Map<string, LayoutNode>();
@@ -182,7 +188,7 @@ export function layoutOf(input: LayoutInput): Layout {
 }
 
 /** The grid layout of the whole system, worked out once. */
-export function createLayout(core: Core) {
+export function createLayout(core: Core): { readonly layout: () => Layout } {
   const layout = memo((): Layout =>
     layoutOf({
       asIs: core.asIs,

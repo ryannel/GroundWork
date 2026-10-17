@@ -24,7 +24,7 @@ export interface Block {
 
 export interface Placed {
   /** Every card, part, topic and store by id; a part folded into its system maps to the system's box. */
-  readonly nodes: Map<string, Box>;
+  readonly nodes: ReadonlyMap<string, Box>;
   readonly blocks: readonly (readonly Block[])[];
   readonly w: number;
   readonly h: number;
@@ -34,7 +34,9 @@ export interface Placed {
 interface Walk {
   readonly ctx: Context;
   readonly cols: Columns;
-  readonly nodes: Map<string, Box>;
+  readonly nodes: ReadonlyMap<string, Box>;
+  /** Records where a card, part, topic or store is drawn. */
+  readonly put: (id: string, box: Box) => void;
   readonly satsOf: ReadonlyMap<string, readonly string[]>;
   /** Systems the reader has flipped from what the layer toggle says. */
   readonly flip: ReadonlySet<string>;
@@ -72,15 +74,15 @@ interface At {
 /** A system card: each part inset inside it, or listed on it when folded. */
 function placeSystem(walk: Walk, unit: string, at: At): Box {
   const parts = walk.cols.membersOf(unit);
-  const frame = systemBox(walk.ctx, unit, { ...at, parts });
-  walk.nodes.set(unit, frame);
+  const open = systemBox(walk.ctx, unit, { ...at, parts });
   if (walk.expandParts === walk.flip.has(unit)) {
-    frame.list = true;
-    frame.h = listedHeight(frame);
-    for (const id of parts) walk.nodes.set(id, frame);
+    const listed = { ...open, list: true };
+    const frame = { ...listed, h: listedHeight(listed) };
+    for (const id of [unit, ...parts]) walk.put(id, frame);
     return frame;
   }
-  let y = at.y + frame.head;
+  let y = at.y + open.head;
+  const placedParts: (readonly [string, Box])[] = [];
   for (const id of parts) {
     const part = {
       ...serviceBox(walk.ctx, id, {
@@ -92,10 +94,12 @@ function placeSystem(walk: Walk, unit: string, at: At): Box {
       }),
       sys: unit,
     };
-    walk.nodes.set(id, part);
+    placedParts.push([id, part]);
     y += part.h + PART_GAP;
   }
-  frame.h = y - PART_GAP + 9 - at.y;
+  const frame = { ...open, h: y - PART_GAP + 9 - at.y };
+  walk.put(unit, frame);
+  for (const [id, box] of placedParts) walk.put(id, box);
   return frame;
 }
 
@@ -106,7 +110,7 @@ function placeSats(walk: Walk, unit: string, block: Box): number {
     y += SG;
     const sat = satBox(walk.ctx, id, { block, y, unit });
     const host = sat.host === null ? null : (walk.nodes.get(sat.host)?.id ?? sat.host);
-    walk.nodes.set(id, { ...sat, host });
+    walk.put(id, { ...sat, host });
     y += sat.h;
   }
   return y;
@@ -116,7 +120,7 @@ function placeUnit(
   walk: Walk,
   unit: string,
   at: At & { readonly prevCompact: boolean },
-): { block: Box; bottom: number; compact: boolean } {
+): { readonly block: Box; readonly bottom: number; readonly compact: boolean } {
   if (walk.cols.partsOf.has(unit)) {
     const block = placeSystem(walk, unit, at);
     return { block, bottom: placeSats(walk, unit, block), compact: false };
@@ -128,11 +132,15 @@ function placeUnit(
     !(walk.ctx.show.ifs && walk.ctx.agg.rowsOf.has(unit));
   const y = compact && at.prevCompact ? at.y - (VGAP - 10) : at.y;
   const block = serviceBox(walk.ctx, unit, { x: at.x, y, w: CW, col: at.col, compact });
-  walk.nodes.set(unit, block);
+  walk.put(unit, block);
   return { block, bottom: placeSats(walk, unit, block), compact };
 }
 
-function placeColumn(walk: Walk, c: number, top: number): { blocks: Block[]; end: number } {
+function placeColumn(
+  walk: Walk,
+  c: number,
+  top: number,
+): { readonly blocks: readonly Block[]; readonly end: number } {
   const blocks: Block[] = [];
   let y = top;
   let prevCompact = false;
@@ -152,22 +160,26 @@ export function placeBoxes(ctx: Context, cols: Columns, flip: ReadonlySet<string
     ctx,
     cols,
     nodes,
+    put: (id, box) => {
+      nodes.set(id, box);
+    },
     satsOf: satsByUnit(ctx, cols),
     flip,
     expandParts: ctx.show.parts,
   };
   const top = ctx.input.stages.length > 0 ? 46 : PAD + 8;
   const placed = cols.cols.map((_, c) => placeColumn(walk, c, top));
-  for (const box of nodes.values()) {
-    for (const r of box.more)
-      box.rows.push({
-        id: r.id,
-        label: r.label,
-        eps: new Set(),
-        n: 0,
-        cy: box.moreY,
-        hidden: true,
-      });
+  for (const [id, box] of nodes) {
+    if (box.more.length === 0) continue;
+    const hidden = box.more.map((r) => ({
+      id: r.id,
+      label: r.label,
+      eps: new Set<string>(),
+      n: 0,
+      cy: box.moreY,
+      hidden: true,
+    }));
+    nodes.set(id, { ...box, rows: [...box.rows, ...hidden] });
   }
   return {
     nodes,

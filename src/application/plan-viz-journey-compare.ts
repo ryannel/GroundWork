@@ -73,13 +73,9 @@ function cellsOf(ctx: Ctx, item: Evidence | null): Cells {
   const side = sideOf(mode);
   const here = item === null ? undefined : item[side];
   const property = item?.property ?? null;
-  const shown =
-    item?.kind === 'step' &&
-    property !== null &&
-    STEP_PROPS.has(property) &&
-    typeof here === 'string' &&
-    here !== '' &&
-    here === prop(stepIn(row, mode), property);
+  const stepProperty = item?.kind === 'step' && property !== null && STEP_PROPS.has(property);
+  const written = typeof here === 'string' && here !== '';
+  const shown = stepProperty && written && here === prop(stepIn(row, mode), property);
   if (shown) {
     const other = sideContent(ctx, item, sideOf(otherMode(mode)));
     return { kind: 'counterpart', shown: mode, property, other };
@@ -102,16 +98,15 @@ function deprecationReasons(model: Model, id: string): string[] {
 const lengthOf = (value: unknown): number => (Array.isArray(value) ? value.length : 0);
 
 /** A single related field changed: say so beside the step rather than behind a fold. */
-const isCompactRelated = (principal: Evidence | null): boolean =>
-  principal?.kind === 'record' &&
-  principal.property === 'fields' &&
-  Array.isArray(principal.before) &&
-  Array.isArray(principal.after) &&
-  Math.max(lengthOf(principal.before), lengthOf(principal.after)) === 1;
+const isCompactRelated = (principal: Evidence | null): boolean => {
+  if (principal?.kind !== 'record' || principal.property !== 'fields') return false;
+  const lists = Array.isArray(principal.before) && Array.isArray(principal.after);
+  return lists && Math.max(lengthOf(principal.before), lengthOf(principal.after)) === 1;
+};
 
 function leadOf(
   ctx: Ctx,
-  flags: { deprecated: boolean; hidden: boolean },
+  flags: { readonly deprecated: boolean; readonly hidden: boolean },
   principal: Evidence | null,
 ): Lead {
   const { model, row, mode } = ctx;

@@ -11,22 +11,24 @@ export interface MapScope {
 }
 
 interface Senders {
-  readonly from: Map<string, Set<string>>;
-  readonly to: Map<string, Set<string>>;
+  readonly from: ReadonlyMap<string, ReadonlySet<string>>;
+  readonly to: ReadonlyMap<string, ReadonlySet<string>>;
 }
 
-const add = (map: Map<string, Set<string>>, key: string, value: string): void => {
-  map.set(key, new Set([...(map.get(key) ?? []), value]));
-};
+const withValue = (
+  map: ReadonlyMap<string, ReadonlySet<string>>,
+  key: string,
+  value: string,
+): ReadonlySet<string> => new Set([...(map.get(key) ?? []), value]);
 
 /** Who sends and who receives each message, through whatever topic carries it. */
 function sendersOf(edges: readonly MapEdgeIn[], topics: ReadonlySet<string>): Senders {
-  const from = new Map<string, Set<string>>();
-  const to = new Map<string, Set<string>>();
+  const from = new Map<string, ReadonlySet<string>>();
+  const to = new Map<string, ReadonlySet<string>>();
   for (const e of edges) {
     if (e.kind !== 'msg' || e.via === null) continue;
-    if (topics.has(e.to)) add(from, e.via, e.from);
-    if (topics.has(e.from)) add(to, e.via, e.to);
+    if (topics.has(e.to)) from.set(e.via, withValue(from, e.via, e.from));
+    if (topics.has(e.from)) to.set(e.via, withValue(to, e.via, e.to));
   }
   return { from, to };
 }

@@ -20,8 +20,8 @@ export type Derived = ReturnType<typeof derive>;
 type Summarise = (changeId: string, index: number, op: unknown) => string;
 
 export interface Summaries {
-  from: Summarise;
-  to: Summarise;
+  readonly from: Summarise;
+  readonly to: Summarise;
 }
 
 function modifyText(op: Rec): string {
@@ -62,12 +62,12 @@ export const summariser =
   };
 
 interface IndexedOp {
-  index: number;
-  op: unknown;
+  readonly index: number;
+  readonly op: unknown;
 }
 
 /** Ops in `a` but not `b`, compared as a multiset of canonical forms. */
-function opsMinus(a: unknown[], b: unknown[]): IndexedOp[] {
+function opsMinus(a: readonly unknown[], b: readonly unknown[]): IndexedOp[] {
   const pool = new Map<string, number>();
   for (const op of b) pool.set(canonical(op), (pool.get(canonical(op)) ?? 0) + 1);
   const out: IndexedOp[] = [];
@@ -81,17 +81,21 @@ function opsMinus(a: unknown[], b: unknown[]): IndexedOp[] {
 }
 
 interface Edit {
-  index: number;
-  fromIndex: number;
-  op: unknown;
-  prev: unknown;
+  readonly index: number;
+  readonly fromIndex: number;
+  readonly op: unknown;
+  readonly prev: unknown;
 }
 
 /** Pair removed and added ops that target the same thing (same verb and target): an op edited in place. */
 function pairEdits(
-  plus: IndexedOp[],
-  minus: IndexedOp[],
-): { added: IndexedOp[]; removed: IndexedOp[]; edited: Edit[] } {
+  plus: readonly IndexedOp[],
+  minus: readonly IndexedOp[],
+): {
+  readonly added: readonly IndexedOp[];
+  readonly removed: readonly IndexedOp[];
+  readonly edited: readonly Edit[];
+} {
   const byLabel = new Map<string, IndexedOp[]>();
   for (const m of minus) {
     const k = itemLabel(m.op);
@@ -120,9 +124,9 @@ function opFields(a: unknown, b: unknown): string[] {
 }
 
 interface ChangePair {
-  id: string;
-  now: Rec;
-  before: Rec | undefined;
+  readonly id: string;
+  readonly now: Rec;
+  readonly before: Rec | undefined;
 }
 
 function changeOps({ id, now, before }: ChangePair, sum: Summaries): ChangeOps | null {

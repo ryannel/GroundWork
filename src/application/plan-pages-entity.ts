@@ -138,7 +138,7 @@ const changesOf = (model: Model, id: string): EntityChange[] =>
 
 /** Prose with its [[id]] citations written out as names, to compare with the name. */
 const plain = (model: Model, text: string): string =>
-  text.replaceAll(/\[\[([\w:#.-]+)\]\]/g, (_, id: string) =>
+  text.replaceAll(/\[\[([\w:#.-]+)\]\]/gu, (_, id: string) =>
     model.get(id) === undefined ? id : model.label(id),
   );
 
@@ -164,7 +164,7 @@ function teamGroups(model: Model, id: string): EntityGroup[] {
 /** The ids it points at, less its owners, which the header already names. */
 function usesOf(
   model: Model,
-  links: readonly { label: string; ids: readonly string[] }[],
+  links: readonly { readonly label: string; readonly ids: readonly string[] }[],
   owner: readonly EntityRef[],
 ) {
   const owners = new Set(owner.map((o) => o.id));

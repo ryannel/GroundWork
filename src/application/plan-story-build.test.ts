@@ -1,51 +1,74 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
+import {
+  ORDER_NOTES_DONE,
+  ORDER_NOTES_UNDER_WAY,
+  orderNotes,
+} from '@/../test/fixtures/acme/plans/chapters-order-notes';
+import { sameDay } from '@/../test/fixtures/acme/plans/chapters-same-day';
+import { modelOf } from '@/../test/plan-kit';
 import { buildSummary } from '@/application/plan-viz-milestone';
-import { PLANS } from '@/features/plan/chapters/chapter-kit';
+import type { IssueStatus } from '@/domain/plan/plan-status';
+import type { Plan } from '@/domain/plan/plan.generated';
 
 import { orderHeadline, waveViews, workHeadline } from './plan-story-build';
 
-vi.mock('server-only', () => ({}));
-
-const { planData } = await import('@/infrastructure/plan-data');
-
-async function read(plan: string) {
-  const data = await planData({ workspace: 'alder-finch', plan });
-  if (data === null) throw new Error(`no ${plan}`);
-  const sum = buildSummary(data.model);
-  return { model: data.model, sum };
+function read(plan: Plan, status: IssueStatus = {}) {
+  const model = modelOf(plan, { status });
+  return { model, sum: buildSummary(model, model.today) };
 }
 
-const HEADLINES: Readonly<Record<string, readonly [string, string]>> = {
-  'delivery-promise': [
-    'M1 waits on Fulfilment’s Build the Promise service; the critical path then runs through Checkout and Orders.',
-    'Fulfilment carries the critical path: 3 of 20 work items, one XL.',
+const CASES: readonly (readonly [string, Plan, IssueStatus, readonly [string, string]])[] = [
+  [
+    'a draft',
+    sameDay(),
+    {},
+    [
+      'M1 waits on Catalogue’s Index the same-day flag; the critical path then runs through Web.',
+      'Catalogue carries the critical path: 2 of 7 work items, one XL.',
+    ],
   ],
-  'invoice-vat-number': [
-    'Storefront, Billing and Checkout have work left for M1 (due 16 Oct); 2 of 5 done. The critical path runs through Billing.',
-    'Storefront, Billing and Checkout have the 3 work items still to do.',
+  [
+    'an approved plan not started',
+    orderNotes(),
+    {},
+    [
+      'Orders and Web have work left for M1 (due 12 Jun); 0 of 5 done. The critical path runs through Orders and Web.',
+      'Orders and Web have the 5 work items still to do.',
+    ],
   ],
-  'stock-reservation': [
-    'Delivered: all 7 work items done; the last milestone closed 27 Aug.',
-    'Fulfilment built most of it: 5 of 7 work items.',
+  [
+    'a plan in delivery',
+    orderNotes(),
+    ORDER_NOTES_UNDER_WAY,
+    [
+      'Web has work left for M1 (due 12 Jun); 2 of 5 done. The critical path runs through Web.',
+      'Web and Orders have the 3 work items still to do.',
+    ],
   ],
-  'storefront-graph': [
-    'M1 waits on Storefront’s Cache purger; the critical path then runs through Fulfilment and Product management.',
-    'Storefront carries the critical path: 5 of 14 work items.',
+  [
+    'a delivered plan',
+    orderNotes(),
+    ORDER_NOTES_DONE,
+    [
+      'Delivered: all 5 work items done; the last milestone closed 27 May.',
+      'Orders built most of it: 3 of 5 work items.',
+    ],
   ],
-};
+];
 
 describe('build headlines', () => {
-  it.each(PLANS)('says one claim for the order and one for the work in %s', async (plan) => {
-    const { model, sum } = await read(plan);
-    expect([orderHeadline(model, sum, model.waves()), workHeadline(model, sum)]).toEqual(
-      HEADLINES[plan],
-    );
-  });
+  it.each(CASES)(
+    'says one claim for the order and one for the work in %s',
+    (_, plan, status, want) => {
+      const { model, sum } = read(plan, status);
+      expect([orderHeadline(model, sum, model.waves()), workHeadline(model, sum)]).toEqual(want);
+    },
+  );
 
-  it('puts every work item in one wave and completes each milestone once before delivery', async () => {
-    for (const plan of PLANS) {
-      const { model, sum } = await read(plan);
+  it('puts every work item in one wave and completes each milestone once before delivery', () => {
+    for (const [, plan, status] of CASES) {
+      const { model, sum } = read(plan, status);
       const views = waveViews(model, sum, false);
       expect(views.flatMap((v) => v.ids).toSorted((a, b) => a.localeCompare(b))).toEqual(
         sum.items.map((w) => w.id).toSorted((a, b) => a.localeCompare(b)),
@@ -57,14 +80,14 @@ describe('build headlines', () => {
     }
   });
 
-  it('says a wave can start now once the plan is approved', async () => {
-    const { model, sum } = await read('delivery-promise');
+  it('says a wave can start now once the plan is approved', () => {
+    const { model, sum } = read(sameDay());
     expect(waveViews(model, sum, true)[0]?.hint).toBe('Can start now');
     expect(waveViews(model, sum, true)[1]?.hint).toBe('Starts when wave 1 is done');
   });
 
-  it('folds a finished wave', async () => {
-    const { model, sum } = await read('stock-reservation');
+  it('folds a finished wave', () => {
+    const { model, sum } = read(orderNotes(), ORDER_NOTES_DONE);
     expect(waveViews(model, sum, true).every((v) => v.finished)).toBe(true);
     expect(waveViews(model, sum, true)[0]?.label).toBe('Wave 1 · done');
   });

@@ -5,33 +5,33 @@ import type { Field, Schema, Step } from '@/domain/plan/plan.generated';
 
 /** A field the revision adds, edits or removes, with its verdict from the one compatibility rule. */
 export interface FieldDelta {
-  schema: string;
-  name: string;
-  kind: 'added' | 'edited' | 'removed';
-  before: Field | null;
-  after: Field | null;
-  keys: string[];
+  readonly schema: string;
+  readonly name: string;
+  readonly kind: 'added' | 'edited' | 'removed';
+  readonly before: Field | null;
+  readonly after: Field | null;
+  readonly keys: readonly string[];
   /** Only its note or description changes. */
-  cosmetic: boolean;
-  verdict: Verdict;
+  readonly cosmetic: boolean;
+  readonly verdict: Verdict;
   /** A reader the revision does not move is affected. */
-  breaking: boolean;
-  stored: boolean;
+  readonly breaking: boolean;
+  readonly stored: boolean;
 }
 
 /** A schema whose shape changes: its own field deltas, or the holder it reaches them through. */
 export interface Shaped {
-  direct: FieldDelta[];
-  via?: { field: string; of: string };
+  readonly direct: readonly FieldDelta[];
+  readonly via?: { readonly field: string; readonly of: string };
 }
 
-export type Shape = Map<string, Shaped>;
+export type Shape = ReadonlyMap<string, Shaped>;
 
 /** The two planned systems of a revision, and the shape that changes between them. */
 export interface Sides {
-  A: Planned;
-  B: Planned;
-  shape: Shape;
+  readonly A: Planned;
+  readonly B: Planned;
+  readonly shape: Shape;
 }
 
 type VerdictOf = (id: string) => Verdict;
@@ -94,19 +94,19 @@ function holders(B: Planned, shape: Shape): [string, Shaped][] {
     if (shape.has(id)) continue;
     const field = (s.fields ?? []).find((f) => names.has(typeName(f.type)));
     const of = field === undefined ? undefined : names.get(typeName(field.type));
-    if (field !== undefined && of !== undefined)
+    if (field !== undefined && of !== undefined) {
       found.push([id, { direct: [], via: { field: field.name, of } }]);
+    }
   }
   return found;
 }
 
 /** Schemas whose shape changes in B, directly or by holding one that does. */
 export function shapes(B: Planned, deltas: readonly FieldDelta[]): Shape {
-  const out: Shape = new Map();
+  const out = new Map<string, Shaped>();
   for (const d of deltas.filter((x) => !x.cosmetic)) {
     const shaped = out.get(d.schema) ?? { direct: [] };
-    shaped.direct.push(d);
-    out.set(d.schema, shaped);
+    out.set(d.schema, { ...shaped, direct: [...shaped.direct, d] });
   }
   for (let more = holders(B, out); more.length > 0; more = holders(B, out)) {
     for (const [id, s] of more) out.set(id, s);
@@ -115,7 +115,11 @@ export function shapes(B: Planned, deltas: readonly FieldDelta[]): Shape {
 }
 
 /** The fields that actually change, following holders down. */
-export function rootFields(shape: Shape, id: string, seen = new Set<string>()): FieldDelta[] {
+export function rootFields(
+  shape: Shape,
+  id: string,
+  seen = new Set<string>(),
+): readonly FieldDelta[] {
   const s = shape.get(id);
   if (s === undefined || seen.has(id)) return [];
   seen.add(id);

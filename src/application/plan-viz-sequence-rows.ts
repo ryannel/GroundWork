@@ -4,15 +4,28 @@ import type { SequenceRow } from '@/application/plan/flow-sequence';
 // tree, a frame holding the cells and frames it encloses.
 
 export type Draft =
-  | { type: 'group'; tab: string }
-  | { type: 'else'; text: string }
-  | { type: 'enter'; to: string; label: string }
-  | { type: 'trigger'; text: string }
-  | { type: 'reply'; from: string; to: string; label: string; ref: string }
-  | { type: 'step'; i: number; row: Extract<SequenceRow, { kind: 'step' }>; see: string | null };
+  | { readonly type: 'group'; readonly tab: string }
+  | { readonly type: 'else'; readonly text: string }
+  | { readonly type: 'enter'; readonly to: string; readonly label: string }
+  | { readonly type: 'trigger'; readonly text: string }
+  | {
+      readonly type: 'reply';
+      readonly from: string;
+      readonly to: string;
+      readonly label: string;
+      readonly ref: string;
+    }
+  | {
+      readonly type: 'step';
+      readonly i: number;
+      readonly row: Extract<SequenceRow, { readonly kind: 'step' }>;
+      readonly see: string | null;
+    };
 
 export type Entry =
-  { t: 'open'; frame: 'fails' | 'group' } | { t: 'close' } | { t: 'cell'; draft: Draft };
+  | { readonly t: 'open'; readonly frame: 'fails' | 'group' }
+  | { readonly t: 'close' }
+  | { readonly t: 'cell'; readonly draft: Draft };
 
 const groupTab = (beat: string | null, shared: string | null): string =>
   [beat, shared === null ? '' : 'from the same event source']
@@ -75,8 +88,8 @@ export interface FrameOf<C> {
 export type Item<C> = C | FrameOf<C>;
 
 interface Open<C> {
-  frame: 'fails' | 'group';
-  items: Item<C>[];
+  readonly frame: 'fails' | 'group';
+  readonly items: readonly Item<C>[];
 }
 
 /** The list as a tree: each cell drawn by `draw` (given its number), each frame holding what it encloses. */
@@ -84,21 +97,28 @@ export function treeOf<C>(
   entries: readonly Entry[],
   draw: (draft: Draft, k: number) => C,
 ): Item<C>[] {
-  const root: Open<C> = { frame: 'group', items: [] };
-  const stack: Open<C>[] = [root];
-  const top = (): Open<C> => stack.at(-1) ?? root;
+  const root: Item<C>[] = [];
+  const lists: Item<C>[][] = [root];
+  const frames: Open<C>['frame'][] = ['group'];
+  const top = (): Item<C>[] => lists.at(-1) ?? root;
+  const open = (frame: Open<C>['frame']): void => {
+    lists.push([]);
+    frames.push(frame);
+  };
+  const close = (): void => {
+    if (lists.length <= 1) return;
+    const items = lists.pop();
+    const frame = frames.pop();
+    if (items !== undefined && frame !== undefined) top().push({ kind: 'frame', frame, items });
+  };
   let k = 0;
   for (const e of entries) {
-    if (e.t === 'open') {
-      stack.push({ frame: e.frame, items: [] });
-    } else if (e.t === 'close') {
-      const done = stack.length > 1 ? stack.pop() : undefined;
-      if (done !== undefined)
-        top().items.push({ kind: 'frame', frame: done.frame, items: done.items });
-    } else {
-      top().items.push(draw(e.draft, k));
+    if (e.t === 'open') open(e.frame);
+    else if (e.t === 'close') close();
+    else {
+      top().push(draw(e.draft, k));
       k += 1;
     }
   }
-  return root.items;
+  return root;
 }

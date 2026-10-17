@@ -38,16 +38,16 @@ export const isNarrow = (screen: Pick<ScreenNode, 'device'> | undefined): boolea
 export function assetUrl(base: string, path: string | null | undefined): string {
   if (path === null || path === undefined || path === '') return '';
   if (path.startsWith('data:') || path.includes('://') || path.startsWith('//')) return path;
-  return `${base}${path.replace(/^\.?\//, '')}`;
+  return `${base}${path.replace(/^\.?\//u, '')}`;
 }
+
+const isScreen = (node: unknown): node is ScreenNode => prop(node, '$type') === 'screen';
 
 /** The screen as one side of the plan has it (either, when no side is asked for). */
 export function screenIn(model: Model, id: string, mode?: ScreenMode): ScreenNode | undefined {
   const node = mode === undefined ? model.get(id) : (model[mode].get(id) ?? model.get(id));
   return isScreen(node) ? node : undefined;
 }
-
-const isScreen = (node: unknown): node is ScreenNode => prop(node, '$type') === 'screen';
 
 /** A percentage kept within the picture. */
 export const percent = (value: unknown): number =>
@@ -162,6 +162,13 @@ export interface FigureOptions {
   readonly ghosts?: readonly RegionRow[];
 }
 
+const boxed = (at: Box): Box => ({
+  x: percent(at.x),
+  y: percent(at.y),
+  w: percent(at.w),
+  h: percent(at.h),
+});
+
 const NOTES: Readonly<Partial<Record<ElementStatus, string>>> = {
   added: 'new',
   modified: 'changes',
@@ -195,8 +202,9 @@ export function figureOf(model: Model, scrId: string, opts: FigureOptions): Figu
   if (screen === undefined) return null;
   const regions: FigureRegion[] = [];
   for (const region of screen.regions) {
-    if (region.at !== undefined && region.id !== '')
+    if (region.at !== undefined && region.id !== '') {
       regions.push(figureRegion(model, region, opts));
+    }
   }
   const ghosts = (opts.ghosts ?? []).flatMap((row) =>
     row.at === null
@@ -222,13 +230,6 @@ export function figureOf(model: Model, scrId: string, opts: FigureOptions): Figu
     ghosts,
   };
 }
-
-const boxed = (at: Box): Box => ({
-  x: percent(at.x),
-  y: percent(at.y),
-  w: percent(at.w),
-  h: percent(at.h),
-});
 
 /** One screen of a journey: where it is reached and, in a stepper, which stop reaches it first. */
 export interface StripLeg {
@@ -258,7 +259,7 @@ export interface StripOptions {
 /** The screens of a flow in the order its steps reach them, for a strip of thumbnails. */
 export function stripLegs(
   model: Model,
-  legs: readonly { screen: string; stepIds: readonly string[] }[],
+  legs: readonly { readonly screen: string; readonly stepIds: readonly string[] }[],
   opts: StripOptions,
 ): StripLeg[] {
   const current = new Set(opts.currentStepIds);
@@ -278,7 +279,7 @@ export function stripLegs(
 }
 
 /** Where a step happens: its screen, and the region when it names one. */
-const placeOf = (at: string): { screen: string; region: string | null } => ({
+const placeOf = (at: string): { readonly screen: string; readonly region: string | null } => ({
   screen: at.split('#')[0] ?? at,
   region: at.includes('#') ? at : null,
 });
@@ -287,15 +288,17 @@ const placeOf = (at: string): { screen: string; region: string | null } => ({
 export function stopScreens(
   steps: readonly { readonly screen?: string | null | undefined }[],
   stop: Pick<StopRef, 'indices'> | undefined,
-): { screen: string; regions: string[] }[] {
-  const out: { screen: string; regions: string[] }[] = [];
+): { readonly screen: string; readonly regions: readonly string[] }[] {
+  const out: { readonly screen: string; readonly regions: readonly string[] }[] = [];
   for (const i of stop?.indices ?? []) {
     const at = steps[i]?.screen ?? '';
     if (at === '') continue;
     const { screen, region } = placeOf(at);
     const last = out.at(-1);
     if (last?.screen !== screen) out.push({ screen, regions: region === null ? [] : [region] });
-    else if (region !== null && !last.regions.includes(region)) last.regions.push(region);
+    else if (region !== null && !last.regions.includes(region)) {
+      out[out.length - 1] = { screen, regions: [...last.regions, region] };
+    }
   }
   return out;
 }
@@ -305,7 +308,7 @@ export function screenLinks(
   model: Model,
   scrId: string,
   opts: { readonly base: string; readonly mode?: ScreenMode | undefined },
-): { figma: string | null; mockup: string | null } {
+): { readonly figma: string | null; readonly mockup: string | null } {
   const mode = opts.mode ?? 'toBe';
   const screen = screenIn(model, scrId, mode);
   // The walking mockup is one file per plan; a screen the plan touches without its own falls back to it.
@@ -365,7 +368,7 @@ export function comparablePictures(
   model: Model,
   scrId: string,
   base: string,
-): { today: string; plan: string } | null {
+): { readonly today: string; readonly plan: string } | null {
   const today = assetUrl(base, screenIn(model, scrId, 'asIs')?.image);
   const plan = assetUrl(base, screenIn(model, scrId, 'toBe')?.image);
   return today === '' || plan === '' ? null : { today, plan };

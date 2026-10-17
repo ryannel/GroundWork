@@ -55,8 +55,8 @@ function asksOf(open: readonly Deciding[]): string {
   ]);
 }
 
-const dueClause = (first: Deciding | undefined, lead: string): string =>
-  first?.decide_by === undefined ? '' : `${lead}${shortDate(first.decide_by)}`;
+const dueClause = (first: Deciding | undefined, lead: string, today: Date | undefined): string =>
+  first?.decide_by === undefined ? '' : `${lead}${shortDate(first.decide_by, today)}`;
 
 /** What the plan waits on, counted: "Billing owes two answers and one decision the plan waits on; the first is due 16 Oct." */
 function owesLine(model: Model, open: readonly Deciding[]): string {
@@ -66,12 +66,12 @@ function owesLine(model: Model, open: readonly Deciding[]): string {
   const names = [...new Set(open.flatMap((e) => e.decider ?? []))].map((d) => teamName(model, d));
   if (names.length > 0 && names.length <= 3) {
     const verb = names.length === 1 ? 'owes' : 'owe';
-    const due = dueClause(first, '; the first is due ');
+    const due = dueClause(first, '; the first is due ', model.today);
     return `${andList(names)} ${verb} ${asks} the plan waits on${due}.`;
   }
   const who = first?.decider === undefined ? 'One team' : teamName(model, first.decider);
   const teams = numWord(Math.max(names.length, 1));
-  return `${who} answers first${dueClause(first, ', by ')}; ${teams} teams owe ${asks} the plan waits on.`;
+  return `${who} answers first${dueClause(first, ', by ', model.today)}; ${teams} teams owe ${asks} the plan waits on.`;
 }
 
 export interface Also {
@@ -100,8 +100,9 @@ function alsoOpen(model: Model, open: readonly Deciding[]): Also[] {
     });
 }
 
-/** Open, dated and past its date. */
-export const isLate = (e: Deciding): boolean => metaOf(e).when?.late === true;
+/** Open, dated and past its date; never when today is not known. */
+export const isLate = (e: Deciding, today: Date | undefined): boolean =>
+  metaOf(e, today).when?.late === true;
 
 export interface AskWords {
   readonly headline: string;
@@ -115,6 +116,7 @@ interface Standing {
   readonly stage: Stage;
   readonly open: readonly Deciding[];
   readonly vote: VoteSummary;
+  readonly today: Date | undefined;
 }
 
 function approvedWords(model: Model, standing: Standing): AskWords {
@@ -122,11 +124,11 @@ function approvedWords(model: Model, standing: Standing): AskWords {
   const when = approvedOn(model);
   const version = model.plan.meta.version ?? 'this version';
   const approved = when === '' ? 'Approved.' : `Approved ${when}.`;
-  const closed = buildSummary(model).closed;
+  const closed = buildSummary(model, model.today).closed;
   const built = `Teams build from ${version}.`;
   let headline = `${approved} ${built}`;
   if (stage === 'delivered') {
-    headline = closed === null ? 'Delivered.' : `Delivered ${shortDate(closed)}.`;
+    headline = closed === null ? 'Delivered.' : `Delivered ${shortDate(closed, model.today)}.`;
   } else if (stage === 'in-delivery') headline = approved;
   const are = open.length === 1 ? 'item is' : 'items are';
   const lede = open.length === 0 ? '' : `${capital(numWord(open.length))} ${are} still open.`;
@@ -150,7 +152,7 @@ function overdueNote(late: number): string {
 }
 
 function closingOwed(standing: Standing): string {
-  const { open, vote } = standing;
+  const { open, vote, today } = standing;
   if (open.length === 0) {
     const allIn = vote.teams.length > 0 && vote.cast.length === vote.teams.length;
     return allIn
@@ -161,13 +163,13 @@ function closingOwed(standing: Standing): string {
     .flatMap((e) => e.decide_by ?? [])
     .toSorted((a, b) => a.localeCompare(b))
     .at(-1);
-  const when = last === undefined ? '' : ` (the last is due ${shortDate(last)})`;
+  const when = last === undefined ? '' : ` (the last is due ${shortDate(last, today)})`;
   return `They should hear about the open items above first${when}.`;
 }
 
 function owedWords(model: Model, standing: Standing, name: string): AskWords {
   const { open } = standing;
-  const late = open.filter(isLate).length;
+  const late = open.filter((e) => isLate(e, model.today)).length;
   const rule =
     'Only what blocks the plan, grouped by the team that decides. If nobody decides, the preferred answer shown applies.';
   return {
@@ -195,7 +197,7 @@ export function askOf(model: Model): Ask {
   const stage = planStage(model);
   const open = gatesOf(model);
   const vote = voteSummary(model);
-  const standing = { stage, open, vote };
+  const standing = { stage, open, vote, today: model.today };
   const title = model.plan.meta.title;
   const name = title === '' ? 'the plan' : `“${title}”`;
   const approved = isApproved(stage);

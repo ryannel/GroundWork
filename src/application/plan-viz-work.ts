@@ -61,7 +61,7 @@ export function wiState(model: Model, id: string): WorkState | null {
 export const issueNumber = (w: WorkItem): string =>
   w.github_issue === undefined ? '' : `#${String(w.github_issue)}`;
 
-const REPO = /^[\w.-]+\/[\w.-]+$/;
+const REPO = /^[\w.-]+\/[\w.-]+$/u;
 
 /** The work item's GitHub issue: the status file's link, else built from the repo and number. */
 export function issueUrl(model: Model, w: WorkItem): string | null {
@@ -115,16 +115,22 @@ export interface RevisionTag {
 const TAGGED = new Set(['rework', 'changes', 'new', 'drop']);
 
 /** The neutral tag a proposal puts on a work item, and why. */
-export function revisionTag(rev: RevisionTag): { text: string; why: string; pending: boolean } {
+export function revisionTag(rev: RevisionTag): {
+  readonly text: string;
+  readonly why: string;
+  readonly pending: boolean;
+} {
   const when = rev.when ?? 0;
   const word = EFFECT[rev.effect][when];
   const pending = rev.effect === 'new' && when === 0;
   const version = rev.version ?? 'the proposal';
   let why = 'Inferred from the changes it builds';
-  if (rev.authored)
+  if (rev.authored) {
     why = rev.note === null ? 'The proposal says so' : `The proposal says so: ${rev.note}`;
-  if (pending)
+  }
+  if (pending) {
     why = `Only in the proposed ${version}: not counted in delivery until it is approved`;
+  }
   if (!TAGGED.has(rev.effect)) return { text: word, why, pending };
   return { text: `${word} in ${version}${pending ? ' · not approved' : ''}`, why, pending };
 }

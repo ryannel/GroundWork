@@ -33,7 +33,7 @@ const pluralName = (name: string): string =>
   name.endsWith('s') ? name.toLowerCase() : plural(name.toLowerCase());
 
 function hubName(model: Model, hub: string): string {
-  const does = (text(prop(model.asIs.get(hub), 'does')).split(/[.;]/)[0] ?? '').trim();
+  const does = (text(prop(model.asIs.get(hub), 'does')).split(/[.;]/u)[0] ?? '').trim();
   const label = model.label(hub);
   if (does === '') return label;
   return `${label} (${does.charAt(0).toLowerCase()}${does.slice(1)})`;

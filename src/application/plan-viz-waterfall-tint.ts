@@ -8,58 +8,69 @@ import { modeKey, opPlan } from '@/application/plan-viz-waterfall-facts';
 // on its own marked as the gateway's. Everything between the names is copied as it was written.
 
 export interface TintToken {
-  text: string;
+  readonly text: string;
   /** The team's colour slot, for a field name some fetch answers. */
-  slot?: number;
+  readonly slot?: number;
   /** The gateway added this field itself (a key, or an @requires). */
-  router?: boolean;
+  readonly router?: boolean;
   /** Which subgraph and team answer it; set on every tinted name. */
-  title?: string;
+  readonly title?: string;
 }
 
 interface Owner {
-  team: string | null;
-  subgraph: string | null;
-  router: boolean;
+  readonly team: string | null;
+  readonly subgraph: string | null;
+  readonly router: boolean;
 }
 
 type Kind =
   'comment' | 'string' | 'spread' | 'inline' | 'sigil' | 'ident' | 'brace' | 'space' | 'other';
 
 // In the order they are tried: a comment or string before the punctuation it may contain, "... on T" before "...".
-const PATTERNS: readonly (readonly [Kind, string])[] = [
-  ['comment', String.raw`#[^\n]*`],
-  ['string', String.raw`"(?:[^"\\]|\\.)*"?`],
-  ['inline', String.raw`\.\.\. ?on [A-Za-z_]\w*`],
-  ['spread', String.raw`\.\.\.\w*`],
-  ['sigil', String.raw`[$@]\w+`],
-  ['ident', String.raw`[A-Za-z_]\w*`],
-  ['brace', '[(){}]'],
-  ['space', String.raw`\s+`],
-  ['other', String.raw`[\s\S]`],
+const PATTERNS: readonly (readonly [Kind, RegExp])[] = [
+  ['comment', /^#[^\n]*/u],
+  ['string', /^"(?:[^"\\]|\\.)*"?/u],
+  ['inline', /^\.\.\. ?on [A-Za-z_]\w*/u],
+  ['spread', /^\.\.\.\w*/u],
+  ['sigil', /^[$@]\w+/u],
+  ['ident', /^[A-Za-z_]\w*/u],
+  ['brace', /^[(){}]/u],
+  ['space', /^\s+/u],
 ];
-const LEXEME = new RegExp(PATTERNS.map(([kind, src]) => `(?<${kind}>${src})`).join('|'), 'g');
-const OPERATION = /^(?:query|mutation|subscription|fragment)$/;
+const OPERATION = /^(?:query|mutation|subscription|fragment)$/u;
 
 interface Lexeme {
-  kind: Kind;
-  text: string;
+  readonly kind: Kind;
+  readonly text: string;
+}
+
+/** The token at the start of the text; any one character that starts none is a token of its own. */
+function tokenAt(rest: string): Lexeme {
+  for (const [kind, pattern] of PATTERNS) {
+    const m = pattern.exec(rest);
+    if (m !== null) return { kind, text: m[0] };
+  }
+  return { kind: 'other', text: String.fromCodePoint(rest.codePointAt(0) ?? 0) };
 }
 
 function lex(text: string): Lexeme[] {
-  return [...text.matchAll(LEXEME)].map((m) => {
-    const kind = PATTERNS.find(([k]) => m.groups?.[k] !== undefined)?.[0] ?? 'other';
-    return { kind, text: m[0] };
-  });
+  const out: Lexeme[] = [];
+  let at = 0;
+  while (at < text.length) {
+    const next = tokenAt(text.slice(at));
+    out.push(next);
+    at += next.text.length;
+  }
+  return out;
 }
 
 /** Where the walk is: the response keys of the selection sets entered, and what was seen last. */
 interface Walk {
-  paren: number;
+  readonly paren: number;
   /** Null for the operation's own braces and for inline fragments, which add nothing to a path. */
-  stack: readonly (string | null)[];
-  last: string | null;
-  alias: string | null;
+  readonly stack: readonly (string | null)[];
+  readonly last: string | null;
+  readonly alias: string | null;
 }
 
 const START: Walk = { paren: 0, stack: [], last: null, alias: null };
@@ -76,7 +87,11 @@ function brace(w: Walk, ch: string): Walk {
 }
 
 /** The walk after a name, and the dotted path of the response key it is when it is a field's. */
-function named(w: Walk, word: string, aliased: boolean): { walk: Walk; path: string | null } {
+function named(
+  w: Walk,
+  word: string,
+  aliased: boolean,
+): { readonly walk: Walk; readonly path: string | null } {
   if (w.paren > 0) return { walk: w, path: null };
   if (w.stack.length === 0) {
     return { walk: OPERATION.test(word) ? { ...w, last: '__op' } : w, path: null };
@@ -94,7 +109,9 @@ function aliasFollows(lexemes: readonly Lexeme[], from: number): boolean {
 }
 
 /** Each lexeme, with the path of the field it names when it names one. */
-function walkDocument(lexemes: readonly Lexeme[]): { lexeme: Lexeme; path: string | null }[] {
+function walkDocument(
+  lexemes: readonly Lexeme[],
+): { readonly lexeme: Lexeme; readonly path: string | null }[] {
   let w = START;
   return lexemes.map((lexeme, i) => {
     if (lexeme.kind === 'brace') w = brace(w, lexeme.text);

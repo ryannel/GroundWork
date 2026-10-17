@@ -65,14 +65,14 @@ export const operationNode = (
 
 /** The parts of one graph in a built system graph. */
 export interface GraphIndex {
-  graph: GraphNode | null;
-  gateway: string | null;
+  readonly graph: GraphNode | null;
+  readonly gateway: string | null;
   /** Type name to its `kind: graph-type` schema. */
-  types: Map<string, SchemaNode>;
-  byId: Map<string, SchemaNode>;
-  roots: { query: SchemaNode | null; mutation: SchemaNode | null };
-  subgraphs: SubgraphNode[];
-  operations: OperationNode[];
+  readonly types: ReadonlyMap<string, SchemaNode>;
+  readonly byId: ReadonlyMap<string, SchemaNode>;
+  readonly roots: { readonly query: SchemaNode | null; readonly mutation: SchemaNode | null };
+  readonly subgraphs: readonly SubgraphNode[];
+  readonly operations: readonly OperationNode[];
 }
 
 const indexes = memoPerGraph<GraphIndex>();
@@ -126,7 +126,7 @@ export const isKeyField = (type: SchemaNode | null | undefined, name: string): b
 
 export const sgName = (g: SystemGraph, id: string): string => {
   const n = g.get(id);
-  return n !== undefined && 'name' in n ? n.name : id.replace(/^sg:/, '');
+  return n !== undefined && 'name' in n ? n.name : id.replace(/^sg:/u, '');
 };
 
 /** `Product.price` for a field id. */

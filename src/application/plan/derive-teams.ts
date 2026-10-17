@@ -2,26 +2,26 @@ import type { Core } from '@/application/plan/derive-core';
 import type { Delivery } from '@/application/plan/derive-delivery';
 import type { Owners } from '@/application/plan/derive-owners';
 import type { Register } from '@/application/plan/derive-register';
-import { memo, str, uniq } from '@/application/plan/derive-values';
+import { memo, textOf, uniq } from '@/application/plan/derive-values';
 import { citationsIn, parentOf, prop, strings, typeOf } from '@/application/plan/ids';
 import type { StepNode } from '@/domain/plan/plan-graph';
 import type { Plan, Question } from '@/domain/plan/plan.generated';
 
 interface TeamParts {
-  owners: Owners;
-  register: Register;
-  delivery: Delivery;
+  readonly owners: Owners;
+  readonly register: Register;
+  readonly delivery: Delivery;
 }
 
 const isOpenDecision = (core: Core, id: string): boolean =>
   typeOf(id) === 'decision' &&
-  (str(prop(core.planIndex.get(id), 'status')) ?? 'proposed') === 'proposed';
+  (textOf(prop(core.planIndex.get(id), 'status')) ?? 'proposed') === 'proposed';
 
 interface Taking {
-  core: Core;
-  delivery: Delivery;
-  fed: Set<string>;
-  shown: Set<string>;
+  readonly core: Core;
+  readonly delivery: Delivery;
+  readonly fed: (id: string) => void;
+  readonly shown: (id: string) => void;
 }
 
 /** Sorts what a question points at: decisions it feeds, and the changes (or the work that implements them) it bears on. */
@@ -29,20 +29,20 @@ function take(env: Taking, id: string | undefined, settled: boolean): void {
   if (id === undefined) return;
   const type = typeOf(id);
   if (type === 'decision') {
-    if (!settled || isOpenDecision(env.core, id)) env.fed.add(id);
+    if (!settled || isOpenDecision(env.core, id)) env.fed(id);
     return;
   }
   if (settled) return;
-  if (type === 'change') env.shown.add(id);
+  if (type === 'change') env.shown(id);
   else if (type === 'workItem') {
-    for (const c of env.delivery.wiById.get(id)?.implements ?? []) env.shown.add(c);
+    for (const c of env.delivery.wiById.get(id)?.implements ?? []) env.shown(c);
   }
 }
 
 /** The entity a citation path such as `changes[2]` points into. */
 function citingId(plan: Plan, path: string): string | undefined {
-  const m = /^(changes|decisions|work_items)\[(\d+)\]/.exec(path);
-  const lists: Record<string, readonly { id: string }[] | undefined> = {
+  const m = /^(changes|decisions|work_items)\[(\d+)\]/u.exec(path);
+  const lists: Record<string, readonly { readonly id: string }[] | undefined> = {
     changes: plan.changes,
     decisions: plan.decisions,
     work_items: plan.work_items,
@@ -104,25 +104,36 @@ function decidesOn(core: Core, parts: TeamParts, teamId: string): Set<string> {
       .filter((d) => d.decider === teamId && isOpenDecision(core, d.id))
       .map((d) => d.id),
   );
-  const env: Taking = { core, delivery: parts.delivery, fed: new Set(), shown: new Set() };
+  const fed = new Set<string>();
+  const shown = new Set<string>();
+  const env: Taking = {
+    core,
+    delivery: parts.delivery,
+    fed: (id) => {
+      fed.add(id);
+    },
+    shown: (id) => {
+      shown.add(id);
+    },
+  };
   for (const q of (plan.questions ?? []).filter((x) => x.decider === teamId)) {
     const settled = parts.register.questionState(q) === 'resolved';
     for (const id of questionTargets(plan, q, parts.register.citedBy)) take(env, id, settled);
   }
   for (const c of core.changes) {
-    if ((c.decisions ?? []).some((d) => own.has(d) || env.fed.has(d))) env.shown.add(c.id);
+    if ((c.decisions ?? []).some((d) => own.has(d) || fed.has(d))) shown.add(c.id);
   }
-  return screenScope(core, env.shown);
+  return screenScope(core, shown);
 }
 
-const flowSteps = (core: Core, id: string): StepNode[] => {
+const flowSteps = (core: Core, id: string): readonly StepNode[] => {
   const n = core.sys(id);
   return n?.$type === 'flow' ? n.steps : [];
 };
 
 interface Ownership {
-  services: string[];
-  owned: Set<string>;
+  readonly services: readonly string[];
+  readonly owned: ReadonlySet<string>;
 }
 
 function ownership(core: Core, owners: Owners, teamId: string): Ownership {
@@ -140,7 +151,11 @@ function ownership(core: Core, owners: Owners, teamId: string): Ownership {
 }
 
 /** The flows with a step on something the team owns, and those steps. */
-function flowsOf(core: Core, owners: Owners, [teamId, owned]: [string, ReadonlySet<string>]) {
+function flowsOf(
+  core: Core,
+  owners: Owners,
+  [teamId, owned]: readonly [string, ReadonlySet<string>],
+) {
   const touchesTeam = (s: StepNode): boolean =>
     [s.from, s.to].some((x) => owned.has(x)) ||
     owners.ownerTeam(s.id) === teamId ||
@@ -172,12 +187,35 @@ function workOf(core: Core, teamsOf: (chgId: string) => unknown[], teamId: strin
 }
 
 /** A team's cut of the plan: what it owns, what it touches, and what it has to decide. */
-export function createTeams(core: Core, parts: TeamParts) {
+export interface TeamCut {
+  readonly team: string;
+  readonly services: readonly string[];
+  readonly flows: readonly string[];
+  readonly steps: readonly string[];
+  readonly changes: readonly string[];
+  readonly tests: readonly string[];
+  readonly workItems: readonly string[];
+  readonly milestones: readonly string[];
+  readonly decisions: readonly string[];
+  readonly questions: readonly string[];
+  readonly risks: readonly string[];
+  readonly decides: ReadonlySet<string>;
+  readonly ids: ReadonlySet<string>;
+  readonly has: (id: string) => boolean;
+}
+
+export interface TeamQueries {
+  /** Owning teams of every op target of a change (first-appearance order). */
+  readonly teamsOf: (chgId: string) => string[];
+  readonly teamCut: (teamId: string) => TeamCut;
+}
+
+export function createTeams(core: Core, parts: TeamParts): TeamQueries {
   const { plan, records } = core;
   const { navigationTeams, ownerTeam } = parts.owners;
 
   /** Owning teams of every op target of a change (first-appearance order). */
-  const teamsOf = memo((chgId: string) =>
+  const teamsOf = memo((chgId: string): string[] =>
     uniq(
       records
         .filter((r) => r.changeId === chgId)
@@ -192,7 +230,7 @@ export function createTeams(core: Core, parts: TeamParts) {
 
   const decides = memo((teamId: string) => decidesOn(core, parts, teamId));
 
-  const teamCut = memo((teamId: string) => {
+  const teamCut = memo((teamId: string): TeamCut => {
     const { services, owned } = ownership(core, parts.owners, teamId);
     const { flows, steps } = flowsOf(core, parts.owners, [teamId, owned]);
     const { wis, chg, tst, ms, decs } = workOf(core, teamsOf, teamId);
