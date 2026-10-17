@@ -40,19 +40,26 @@ async function loaded(): Promise<SystemMap> {
 }
 
 // Where a cited file sits on this machine, when its repo is checked out under --checkouts.
-function local(source: Cited): Cited & { local?: string } {
+function local(source: Cited): Cited & { readonly local?: string } {
   if (values.checkouts === undefined) return source;
   const name = source.repo.split('/').at(-1) ?? source.repo;
   const file = path.join(values.checkouts, name, source.path);
   return existsSync(file) ? { ...source, local: file } : source;
 }
 
+function isCited(value: unknown): value is Cited {
+  if (typeof value !== 'object' || value === null) return false;
+  if (!('repo' in value) || !('path' in value)) return false;
+  return typeof value.repo === 'string' && typeof value.path === 'string';
+}
+
 function withLocal(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(withLocal);
   if (typeof value !== 'object' || value === null) return value;
-  const entries = Object.entries(value).map(([key, inner]): [string, unknown] =>
+  const pairs: readonly (readonly [string, unknown])[] = Object.entries(value);
+  const entries = pairs.map(([key, inner]): [string, unknown] =>
     key === 'sources' && Array.isArray(inner)
-      ? [key, inner.map((source: Cited) => local(source))]
+      ? [key, inner.map((source) => (isCited(source) ? local(source) : source))]
       : [key, withLocal(inner)],
   );
   return Object.fromEntries(entries);
@@ -70,7 +77,7 @@ async function answer(map: SystemMap, command: string, arg: string): Promise<unk
     }
     case 'show': {
       return (
-        shownIn(map, arg) ?? { error: `no fact ${arg}; try: find ${arg.replace(/^[a-z]+:/, '')}` }
+        shownIn(map, arg) ?? { error: `no fact ${arg}; try: find ${arg.replace(/^[a-z]+:/u, '')}` }
       );
     }
     case 'callers': {

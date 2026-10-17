@@ -2,6 +2,9 @@
 import path from 'node:path';
 
 import { cssModules } from './css-modules-rule.mjs';
+import { barrelExportsOnly, noJunkDrawerNames, routeExports, serverOnly } from './layer-rules.mjs';
+import { readonlyTypes } from './readonly-types-rule.mjs';
+import { linkPrefetch, onePerChoice } from './speed-rules.mjs';
 
 const rel = (context) => path.relative(context.cwd, context.filename).split(path.sep).join('/');
 
@@ -25,7 +28,7 @@ const clientFileNaming = {
   create(context) {
     return {
       Program(program) {
-        const isClientName = /\.client\.tsx$/.test(context.filename);
+        const isClientName = /\.client\.tsx$/u.test(context.filename);
         const directive = directiveOf(program, 'use client');
         if (directive && !isClientName) context.report({ node: directive, messageId: 'named' });
         if (!directive && isClientName) context.report({ node: program, messageId: 'missing' });
@@ -67,8 +70,8 @@ const appRouteFilesOnly = {
   },
   create(context) {
     const file = rel(context);
-    if (!file.startsWith('src/app/') || /\.(test|spec)\.tsx?$/.test(file)) return {};
-    const name = path.basename(file).replace(/\.(tsx?|mts)$/, '');
+    if (!file.startsWith('src/app/') || /\.(?:test|spec)\.tsx?$/u.test(file)) return {};
+    const name = path.basename(file).replace(/\.(?:tsx?|mts)$/u, '');
     if (ROUTE_FILES.has(name)) return {};
     return {
       Program(program) {
@@ -119,5 +122,12 @@ export default {
     'app-route-files-only': appRouteFilesOnly,
     'static-export-only': staticExportOnly,
     'css-modules': cssModules,
+    'route-exports': routeExports,
+    'server-only': serverOnly,
+    'barrel-exports-only': barrelExportsOnly,
+    'no-junk-drawer-names': noJunkDrawerNames,
+    'readonly-types': readonlyTypes,
+    'one-per-choice': onePerChoice,
+    'link-prefetch': linkPrefetch,
   },
 };

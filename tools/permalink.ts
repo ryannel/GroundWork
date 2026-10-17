@@ -10,29 +10,29 @@ import path from 'node:path';
 import { stringify } from 'yaml';
 
 export interface Ref {
-  path: string;
-  lines?: readonly [number, number];
-  symbol?: string;
+  readonly path: string;
+  readonly lines?: readonly [number, number];
+  readonly symbol?: string;
 }
 
 export interface Source extends Ref {
-  repo: string;
-  commit: string;
+  readonly repo: string;
+  readonly commit: string;
 }
 
-const LINES = /:(\d+)(?:-(\d+))?$/;
+const LINES = /:(\d+)(?:-(\d+))?$/u;
 
 // `org/name` for github.com, as system.yaml lists repos; `host/org/name` for any other host
 export function repoOf(remote: string): string | undefined {
-  const trimmed = remote.trim().replace(/\.git$/, '');
-  const scp = /^[\w.-]+@([\w.-]+):(.+)$/.exec(trimmed);
+  const trimmed = remote.trim().replace(/\.git$/u, '');
+  const scp = /^[\w.-]+@([\w.-]+):(.+)$/u.exec(trimmed);
   let host = scp?.[1];
   let name = scp?.[2];
   if (scp === null) {
     if (!URL.canParse(trimmed)) return undefined;
     const url = new URL(trimmed);
     host = url.hostname;
-    name = url.pathname.replace(/^\/+/, '');
+    name = url.pathname.replace(/^\/+/u, '');
   }
   if (host === undefined || name?.includes('/') !== true) return undefined;
   return host === 'github.com' ? name : `${host}/${name}`;
@@ -44,13 +44,14 @@ export function parseRef(text: string): Ref {
   const hasSymbol = at > 0 && tail !== '' && !tail.includes('/');
   const rest = hasSymbol ? text.slice(0, at) : text;
   const match = LINES.exec(rest);
-  const ref: Ref = { path: match === null ? rest : rest.slice(0, match.index) };
-  if (match?.[1] !== undefined) {
-    const from = Number(match[1]);
-    ref.lines = [from, match[2] === undefined ? from : Number(match[2])];
-  }
-  if (hasSymbol) ref.symbol = tail;
-  return ref;
+  const from = match?.[1] === undefined ? undefined : Number(match[1]);
+  return {
+    path: match === null ? rest : rest.slice(0, match.index),
+    ...(from === undefined
+      ? {}
+      : { lines: [from, match?.[2] === undefined ? from : Number(match[2])] }),
+    ...(hasSymbol ? { symbol: tail } : {}),
+  };
 }
 
 export function permalinkOf(source: Source): string {
@@ -64,16 +65,16 @@ export function sourcesYaml(sources: readonly Source[]): string {
   return `sources: ${stringify(sources, { collectionStyle: 'flow', flowCollectionPadding: false, lineWidth: 0 }).trim()}`;
 }
 
-function git(dir: string, args: readonly string[]): { ok: boolean; out: string } {
+function git(dir: string, args: readonly string[]): { readonly ok: boolean; readonly out: string } {
   const run = spawnSync('git', ['-C', dir, ...args], { encoding: 'utf8' });
   return { ok: run.status === 0, out: run.stdout.trim() };
 }
 
 interface Checkout {
-  dir: string;
-  root: string;
-  repo: string;
-  commit: string;
+  readonly dir: string;
+  readonly root: string;
+  readonly repo: string;
+  readonly commit: string;
 }
 
 function checkoutOf(dir: string): Checkout {
@@ -89,13 +90,21 @@ function checkoutOf(dir: string): Checkout {
 
 // a reference must name a file at HEAD and lines inside it, and a local edit would make the permalink lie;
 // a reference without lines cites the whole file, since every source carries lines
-function checked(checkout: Checkout, source: Source): { source: Source; problem?: string } {
+function checked(
+  checkout: Checkout,
+  source: Source,
+): { readonly source: Source; readonly problem?: string } {
   const blob = git(checkout.root, ['show', `HEAD:${source.path}`]);
   if (!blob.ok) return { source, problem: `${source.path} is not in ${checkout.repo} at HEAD` };
   const length = blob.out.split('\n').length;
   const lines = source.lines ?? [1, length];
-  const full: Source = { repo: source.repo, path: source.path, lines, commit: source.commit };
-  if (source.symbol !== undefined) full.symbol = source.symbol;
+  const full: Source = {
+    repo: source.repo,
+    path: source.path,
+    lines,
+    commit: source.commit,
+    ...(source.symbol === undefined ? {} : { symbol: source.symbol }),
+  };
   if (lines[0] > lines[1] || lines[1] > length) {
     const range = `${String(lines[0])}-${String(lines[1])}`;
     return { source: full, problem: `${source.path} has ${String(length)} lines; check ${range}` };
@@ -152,8 +161,9 @@ function main(argv: readonly string[]): void {
       : args.map((arg) => sourceOf(checkout, parseRef(arg)));
   const results = found.map((source) => checked(checkout, source));
   const sources = results.map((result) => result.source);
-  for (const { problem } of results)
+  for (const { problem } of results) {
     if (problem !== undefined) console.error(`warning: ${problem}`);
+  }
   console.log(
     urls ? sources.map((source) => permalinkOf(source)).join('\n') : sourcesYaml(sources),
   );

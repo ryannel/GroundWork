@@ -1,0 +1,39 @@
+name: Mutation
+
+# Plants small bugs in the pure-layer files a pull request changes and fails if too many go unnoticed by the tests
+# (stryker.config.mjs holds the threshold). Only changed files: a full run is tens of thousands of mutants.
+on:
+  pull_request:
+    paths:
+      - 'src/domain/**'
+      - 'src/application/**'
+      - 'src/shared/**'
+      - stryker.config.mjs
+      - vitest.mutation.config.ts
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  mutate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - run: npm run mutate:changed -- --base "origin/$BASE_REF"
+        env:
+          BASE_REF: ${{ github.base_ref }}
+      - if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: mutation-report
+          path: reports/mutation.html
+          if-no-files-found: ignore

@@ -10,9 +10,15 @@ export default defineConfig({
     projects: [
       {
         extends: true,
-        test: { name: 'unit', include: ['src/**/*.test.{ts,tsx}', 'tools/**/*.test.ts'] },
+        // threads start faster than the default forks; every file still gets a fresh module graph
+        test: {
+          name: 'unit',
+          pool: 'threads',
+          include: ['src/**/*.test.{ts,tsx}', 'tools/**/*.test.ts'],
+          setupFiles: ['test/fail-on-console-error.ts'],
+        },
       },
-      // slow: lints fixtures in a copy of the repo. Runs in check, pre-push and CI.
+      // slow: lints fixtures in a copy of the repo. Runs in check, pre-push and CI. Forks, as it calls chdir.
       { extends: true, test: { name: 'architecture', include: ['test/**/*.test.ts'] } },
     ],
     css: { modules: { classNameStrategy: 'non-scoped' } },

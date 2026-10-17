@@ -186,6 +186,138 @@ const CASES: readonly Case[] = [
     code: 'export const x = 1;\n',
     rule: 'unicorn/filename-case',
   },
+  {
+    name: 'no junk-drawer file names',
+    file: 'src/domain/utils.ts',
+    code: 'export const x = 1;\n',
+    rule: 'groundwork/no-junk-drawer-names',
+  },
+  {
+    name: 'no names that say nothing',
+    file: 'src/domain/bad-name.ts',
+    code: 'export function size(str: string): number {\n  return str.length;\n}\n',
+    rule: 'id-denylist',
+  },
+  {
+    name: 'no export *',
+    file: 'src/domain/bad-star.ts',
+    code: "export * from '@/domain/workspace';\n",
+    rule: 'no-restricted-syntax',
+  },
+  {
+    name: 'an index only re-exports',
+    file: 'src/features/barrel/index.ts',
+    code: 'export const x = 1;\n',
+    rule: 'groundwork/barrel-exports-only',
+  },
+  {
+    name: 'no todo comments',
+    file: 'src/domain/bad-todo.ts',
+    code: '// TODO: finish this\nexport const x = 1;\n',
+    rule: 'no-warning-comments',
+  },
+  // types
+  {
+    name: 'shared shapes are read-only',
+    file: 'src/domain/bad-mutable.ts',
+    code: 'export interface Box {\n  items: string[];\n}\n',
+    rule: 'groundwork/readonly-types',
+  },
+  {
+    name: 'no ts comments',
+    file: 'src/domain/bad-ts-comment.ts',
+    code: "// @ts-expect-error a string is not a number\nexport const x: number = 'a';\n",
+    rule: '@typescript-eslint/ban-ts-comment',
+  },
+  {
+    name: 'no eslint-disable comments',
+    file: 'src/domain/bad-disable.ts',
+    code: '// eslint-disable-next-line no-console\nconsole.log(1);\n\nexport const x = 1;\n',
+    rule: '@eslint-community/eslint-comments/no-use',
+  },
+  // pure layers
+  {
+    name: 'a pure layer does not read the clock',
+    file: 'src/domain/bad-clock.ts',
+    code: 'export const today = (): Date => new Date();\n',
+    rule: 'no-restricted-syntax',
+  },
+  {
+    name: 'a pure layer does not roll dice',
+    file: 'src/application/bad-chance.ts',
+    code: 'export const roll = (): number => Math.random();\n',
+    rule: 'no-restricted-syntax',
+  },
+  {
+    name: 'a pure layer does not touch the browser',
+    file: 'src/domain/bad-window.ts',
+    code: 'export const width = (): number => window.innerWidth;\n',
+    rule: 'no-restricted-globals',
+  },
+  // Next.js
+  {
+    name: 'a route exports only what Next reads',
+    file: 'src/app/extra/page.tsx',
+    code: 'export const label = 1;\n\nexport default function Page() {\n  return <p>a</p>;\n}\n',
+    rule: 'groundwork/route-exports',
+  },
+  {
+    name: 'no pages-router imports',
+    file: 'src/features/workspaces/bad-router.ts',
+    code: "import { useRouter } from 'next/router';\n\nexport const x = useRouter;\n",
+    rule: 'no-restricted-imports',
+  },
+  {
+    name: 'infrastructure is server-only',
+    file: 'src/infrastructure/bad-server.ts',
+    code: 'export const x = 1;\n',
+    rule: 'groundwork/server-only',
+  },
+  // security
+  {
+    name: 'no raw HTML in the DOM',
+    file: 'src/ui/bad-html.ts',
+    code: 'export function paint(node: HTMLElement, html: string): void {\n  node.innerHTML = html;\n}\n',
+    rule: 'no-unsanitized/property',
+  },
+  {
+    name: 'no dangerouslySetInnerHTML',
+    file: 'src/ui/bad-danger.tsx',
+    code: 'export function A({ html }: { readonly html: string }) {\n  return <p dangerouslySetInnerHTML={{ __html: html }} />;\n}\n',
+    rule: 'react/no-danger',
+  },
+  {
+    name: 'no shell commands',
+    file: 'src/infrastructure/bad-exec.ts',
+    code: "import 'server-only';\nimport { exec } from 'node:child_process';\n\nexport const run = exec;\n",
+    rule: 'no-restricted-imports',
+  },
+  {
+    name: 'the environment is read in one place',
+    file: 'src/infrastructure/bad-env.ts',
+    code: "import 'server-only';\n\nexport const home = (): string | undefined => process.env['HOME'];\n",
+    rule: 'no-restricted-properties',
+  },
+  {
+    name: 'no secrets in code',
+    file: 'src/domain/bad-secret.ts',
+    // Split here so this file holds no secret-looking string; the fixture written to disk does.
+    code: ['export const key = ', "'x7Kq9Lm2Np4Rs6Tv8Wy0", "Za1Bc3De5Fg7Hj9KlQ';\n"].join(''),
+    rule: 'no-secrets/no-secrets',
+  },
+  {
+    name: 'no regex that backtracks forever',
+    file: 'src/domain/bad-regex.ts',
+    code: 'export const slow = (text: string): boolean => /^(a+)+$/u.test(text);\n',
+    rule: 'regexp/no-super-linear-backtracking',
+  },
+  // tests
+  {
+    name: 'no focused tests',
+    file: 'src/domain/bad-focus.test.ts',
+    code: "import { expect, it } from 'vitest';\n\nit.only('adds', () => {\n  expect(1 + 1).toBe(2);\n});\n",
+    rule: 'vitest/no-focused-tests',
+  },
 ];
 
 let root = '';
@@ -222,9 +354,10 @@ afterAll(async () => {
 });
 
 describe('the lint config enforces the architecture', () => {
-  it.each(CASES)('$name', ({ file, rule }) => {
-    const rules = found.get(file);
-    if (rule === null) expect(rules).toEqual([]);
-    else expect(rules).toContain(rule);
+  it.each(CASES.filter(({ rule }) => rule === null))('$name', ({ file }) => {
+    expect(found.get(file)).toEqual([]);
+  });
+  it.each(CASES.filter(({ rule }) => rule !== null))('$name', ({ file, rule }) => {
+    expect(found.get(file)).toContain(rule);
   });
 });

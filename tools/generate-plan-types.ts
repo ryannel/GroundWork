@@ -48,12 +48,11 @@ function prepare(schema: JsonObject): JsonObject {
 
 // `type IdTeam = string` only adds a name; the lint rules ask for `string`
 function inlineStringAliases(source: string): string {
-  const alias = /^(?:\/\*\*(?:(?!\*\/)[\s\S])*\*\/\n)?export type (\w+) = string;\n/gm;
-  const names = [...source.matchAll(alias)].map((match) => match[1] ?? '');
-  let out = source.replaceAll(alias, '');
-  for (const name of names)
-    out = out.replaceAll(new RegExp(String.raw`\b${name}\b`, 'g'), 'string');
-  return out;
+  const alias = /^(?:\/\*\*(?:(?!\*\/)[\s\S])*\*\/\n)?export type (\w+) = string;\n/gmu;
+  const names = new Set([...source.matchAll(alias)].map((match) => match[1] ?? ''));
+  return source
+    .replaceAll(alias, '')
+    .replaceAll(/\b\w+\b/gu, (word) => (names.has(word) ? 'string' : word));
 }
 
 export async function generatePlanTypes(): Promise<string> {

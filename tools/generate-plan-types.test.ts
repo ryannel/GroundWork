@@ -10,5 +10,5 @@ it('the committed plan types are what the schema generates (run `npm run generat
     path.resolve(import.meta.dirname, '../src/domain/plan/plan.generated.ts'),
     'utf8',
   );
-  expect(await generatePlanTypes()).toBe(committed);
+  await expect(generatePlanTypes()).resolves.toBe(committed);
 });

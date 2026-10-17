@@ -10,26 +10,31 @@ import path from 'node:path';
 import { parse } from 'yaml';
 
 export interface Change {
-  status: string;
-  path: string;
-  from?: string;
+  readonly status: string;
+  readonly path: string;
+  readonly from?: string;
 }
 
 export interface IndexedFact {
-  id: string;
-  paths: string[];
+  readonly id: string;
+  readonly paths: readonly string[];
 }
 
 export interface WorkList {
-  reexplore: { id: string; paths: string[] }[];
-  explore: { path: string; why: string }[];
-  vanished: { id: string; paths: string[] }[];
-  renamed: { from: string; to: string; changed: boolean; facts: string[] }[];
-  unchanged: number;
+  readonly reexplore: readonly { readonly id: string; readonly paths: readonly string[] }[];
+  readonly explore: readonly { readonly path: string; readonly why: string }[];
+  readonly vanished: readonly { readonly id: string; readonly paths: readonly string[] }[];
+  readonly renamed: readonly {
+    readonly from: string;
+    readonly to: string;
+    readonly changed: boolean;
+    readonly facts: readonly string[];
+  }[];
+  readonly unchanged: number;
 }
 
 const NOISE =
-  /(?:^|\/)(?:package-lock\.json|yarn\.lock|pnpm-lock\.yaml|go\.sum|Cargo\.lock|poetry\.lock)$|\.(?:png|jpe?g|gif|svg|ico|webp|pdf)$/;
+  /(?:^|\/)(?:package-lock\.json|yarn\.lock|pnpm-lock\.yaml|go\.sum|Cargo\.lock|poetry\.lock)$|\.(?:png|jpe?g|gif|svg|ico|webp|pdf)$/u;
 
 // `git diff --name-status -z -M` output: status NUL path NUL, or R<score> NUL from NUL to NUL
 export function parseNameStatus(raw: string): Change[] {
@@ -64,12 +69,13 @@ export function changesBetween(
 
 function factsByPath(facts: readonly IndexedFact[]): Map<string, string[]> {
   const byPath = new Map<string, string[]>();
-  for (const fact of facts)
+  for (const fact of facts) {
     for (const file of fact.paths) byPath.set(file, [...(byPath.get(file) ?? []), fact.id]);
+  }
   return byPath;
 }
 
-function unexplored(change: Change): { path: string; why: string } | undefined {
+function unexplored(change: Change): { readonly path: string; readonly why: string } | undefined {
   if (NOISE.test(change.path)) return undefined;
   return {
     path: change.path,
@@ -79,41 +85,50 @@ function unexplored(change: Change): { path: string; why: string } | undefined {
 
 function readChanges(
   changes: readonly Change[],
-  byPath: ReadonlyMap<string, string[]>,
-  work: WorkList,
-): Set<string> {
+  byPath: ReadonlyMap<string, readonly string[]>,
+): Pick<WorkList, 'explore' | 'renamed'> & { readonly touched: ReadonlySet<string> } {
   const touched = new Set<string>();
+  const explore: { readonly path: string; readonly why: string }[] = [];
+  const renamed: WorkList['renamed'][number][] = [];
   for (const change of changes) {
     const ids = byPath.get(change.from ?? change.path) ?? [];
     const changed = change.status !== 'R100';
-    if (change.from !== undefined)
-      work.renamed.push({ from: change.from, to: change.path, changed, facts: ids });
+    if (change.from !== undefined) {
+      renamed.push({ from: change.from, to: change.path, changed, facts: ids });
+    }
     if (change.status === 'D' || !changed) continue;
     for (const id of ids) touched.add(id);
     const file = ids.length === 0 ? unexplored(change) : undefined;
-    if (file !== undefined) work.explore.push(file);
+    if (file !== undefined) explore.push(file);
   }
-  return touched;
+  return { touched, explore, renamed };
 }
 
 export function workList(changes: readonly Change[], facts: readonly IndexedFact[]): WorkList {
   const deleted = new Set(
     changes.filter((change) => change.status === 'D').map((change) => change.path),
   );
-  const work: WorkList = { reexplore: [], explore: [], vanished: [], renamed: [], unchanged: 0 };
-  const touched = readChanges(changes, factsByPath(facts), work);
-  for (const fact of facts) {
-    const gone = fact.paths.filter((file) => deleted.has(file));
-    if (gone.length > 0 && gone.length === fact.paths.length)
-      work.vanished.push({ id: fact.id, paths: gone });
-    else if (gone.length > 0 || touched.has(fact.id))
-      work.reexplore.push({ id: fact.id, paths: fact.paths });
-    else work.unchanged += 1;
-  }
-  return work;
+  const { touched, explore, renamed } = readChanges(changes, factsByPath(facts));
+  const goneOf = (fact: IndexedFact): readonly string[] =>
+    fact.paths.filter((file) => deleted.has(file));
+  const vanished = facts.flatMap((fact) => {
+    const gone = goneOf(fact);
+    return gone.length > 0 && gone.length === fact.paths.length
+      ? [{ id: fact.id, paths: gone }]
+      : [];
+  });
+  const reexplore = facts.flatMap((fact) => {
+    const gone = goneOf(fact);
+    const all = gone.length > 0 && gone.length === fact.paths.length;
+    return !all && (gone.length > 0 || touched.has(fact.id))
+      ? [{ id: fact.id, paths: fact.paths }]
+      : [];
+  });
+  const unchanged = facts.length - vanished.length - reexplore.length;
+  return { reexplore, explore, vanished, renamed, unchanged };
 }
 
-function git(dir: string, args: readonly string[]): { ok: boolean; out: string } {
+function git(dir: string, args: readonly string[]): { readonly ok: boolean; readonly out: string } {
   const run = spawnSync('git', ['-C', dir, ...args], {
     encoding: 'utf8',
     maxBuffer: 256 * 1024 * 1024,
@@ -167,13 +182,14 @@ function changesSince(
   dir: string,
   mark: Record<string, unknown>,
   to: string,
-): { changes: Change[]; rewritten: boolean } {
+): { readonly changes: readonly Change[]; readonly rewritten: boolean } {
   const head = String(mark.head);
-  if (git(dir, ['cat-file', '-e', `${head}^{commit}`]).ok)
+  if (git(dir, ['cat-file', '-e', `${head}^{commit}`]).ok) {
     return {
       changes: parseNameStatus(git(dir, ['diff', '--name-status', '-z', '-M', head, to]).out),
       rewritten: false,
     };
+  }
   const then = new Map(
     Object.entries(isRecord(mark.files) ? mark.files : {}).map(([k, v]) => [k, String(v)]),
   );
@@ -223,18 +239,24 @@ function main(argv: readonly string[]): void {
 }
 
 function summary(
-  work: WorkList & { repo: string; to: string; commits: number | undefined },
+  work: WorkList & {
+    readonly repo: string;
+    readonly to: string;
+    readonly commits: number | undefined;
+  },
 ): string {
   const count = String(work.commits);
   const plural = work.commits === 1 ? '' : 's';
   const since = work.commits === undefined ? 'history rewritten' : `${count} commit${plural}`;
   const lines = [`${work.repo} → ${work.to.slice(0, 7)} (${since})`];
-  for (const fact of work.reexplore)
+  for (const fact of work.reexplore) {
     lines.push(`  re-explore ${fact.id}  ${fact.paths.join(', ')}`);
+  }
   for (const file of work.explore) lines.push(`  explore    ${file.path}  (${file.why})`);
   for (const fact of work.vanished) lines.push(`  vanished   ${fact.id}  ${fact.paths.join(', ')}`);
-  for (const move of work.renamed)
+  for (const move of work.renamed) {
     lines.push(`  renamed    ${move.from} → ${move.to}  ${move.facts.join(', ')}`.trimEnd());
+  }
   lines.push(`  ${String(work.unchanged)} facts unchanged`);
   return lines.join('\n');
 }

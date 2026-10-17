@@ -8,3 +8,5 @@ next-env.d.ts
 .env*
 groundwork.local.yaml
 .workspaces
+reports
+.stryker-tmp

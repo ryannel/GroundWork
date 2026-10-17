@@ -1,0 +1,55 @@
+# Dependabot opens pull requests that bump dependencies; CI decides whether they can merge.
+# Security updates are opened as soon as an advisory lands, whatever the schedule below.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    # versions are pinned exactly, so bumps rewrite the pin rather than widening a range
+    versioning-strategy: increase
+    # a dependency joins the first group it matches, so the groups that must move together come first
+    groups:
+      eslint:
+        patterns:
+          [
+            'eslint',
+            'eslint-*',
+            '@eslint/*',
+            '@eslint-community/*',
+            'typescript-eslint',
+            '@typescript-eslint/*',
+          ]
+      # core pins the runner to its exact version. patches/ fixes the runner for that version, so a bump fails
+      # npm ci until the patch is dropped (fixed upstream: stryker-js#6210) or regenerated
+      stryker:
+        patterns: ['@stryker-mutator/*']
+      vitest:
+        patterns: ['vitest', '@vitest/*', '@vitejs/*']
+      react-next:
+        patterns:
+          ['next', 'react', 'react-dom', '@types/react', '@types/react-dom', 'eslint-config-next']
+      # then one pull request a week for the rest of the small bumps, so CI runs a few times rather than dozens
+      runtime-minor:
+        dependency-type: production
+        update-types: [minor, patch]
+      tooling-minor:
+        dependency-type: development
+        update-types: [minor, patch]
+    commit-message:
+      prefix: deps
+    labels: [dependencies]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      actions:
+        patterns: ['*']
+    commit-message:
+      prefix: ci
+    labels: [dependencies]

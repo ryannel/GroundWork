@@ -3,7 +3,7 @@
 import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 
-const LINTED = /\.(ts|tsx|mts|mjs)$/;
+const LINTED = /\.(?:ts|tsx|mts|mjs)$/u;
 
 function git(args: readonly string[]): string[] {
   return spawnSync('git', args, { encoding: 'utf8' })
@@ -19,7 +19,7 @@ function changedFiles(): string[] {
 }
 
 function componentsOf(css: string): string[] {
-  const base = css.replace(/\.module\.css$/, '');
+  const base = css.replace(/\.module\.css$/u, '');
   return [`${base}.tsx`, `${base}.client.tsx`].filter((file) => existsSync(file));
 }
 
@@ -36,6 +36,8 @@ const ESLINT_ARGS = [
   'content',
   '--cache-location',
   'node_modules/.cache/eslint/',
+  '--concurrency',
+  'auto',
   '--max-warnings',
   '0',
   '--no-warn-ignored',

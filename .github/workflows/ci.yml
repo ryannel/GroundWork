@@ -1,19 +1,77 @@
 name: CI
 
+# The jobs of `npm run check`, run side by side on separate runners, plus the build.
+# Only caches that check themselves are kept between runs (tsc's build info, prettier's per-file hashes, Next's
+# build cache). ESLint and type-coverage start cold: their typed results depend on other files, which their caches
+# do not track.
 on:
   push:
     branches: [main]
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
-  check:
+  audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
-      - run: npm run check
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - run: npm audit --omit=dev
+      - run: npm audit --audit-level=critical
+
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            node_modules/.cache/tsconfig.tsbuildinfo
+            node_modules/.cache/prettier.json
+          key: static-${{ hashFiles('package-lock.json', 'tsconfig.json') }}-${{ github.sha }}
+          restore-keys: static-${{ hashFiles('package-lock.json', 'tsconfig.json') }}-
+      - run: npm run check:static
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - run: npm run coverage
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .next/cache
+          key: next-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**') }}
+          restore-keys: next-${{ hashFiles('package-lock.json') }}-
       - run: npm run build
+      - run: npm run budget

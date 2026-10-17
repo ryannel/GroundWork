@@ -4,32 +4,30 @@ import { parse } from 'yaml';
 import { factsIn, findings, locate } from './sources';
 
 const COMMIT = '3f9c2e1a3f9c2e1a3f9c2e1a3f9c2e1a3f9c2e1a';
-const SOURCE = { repo: 'alder-finch/pricing', path: 'src/price.ts', lines: [3, 9], commit: COMMIT };
+const SOURCE = { repo: 'acme/pricing', path: 'src/price.ts', lines: [3, 9], commit: COMMIT };
 
 describe('locate', () => {
   it('accepts a source pinned to a commit', () => {
-    expect(locate(SOURCE, [])).toEqual(SOURCE);
+    expect(locate(SOURCE)).toEqual(SOURCE);
   });
 
   it('drops a github.com prefix so repos read as system.yaml lists them', () => {
-    expect(locate({ ...SOURCE, repo: 'github.com/alder-finch/pricing' }, [])?.repo).toBe(
-      'alder-finch/pricing',
+    expect(locate({ ...SOURCE, repo: 'github.com/acme/pricing' })).toHaveProperty(
+      'repo',
+      'acme/pricing',
     );
   });
 
   it('reads the older url form', () => {
     expect(
-      locate(
-        { url: `https://github.com/alder-finch/pricing/blob/${COMMIT}/src/price.ts#L3-L9` },
-        [],
-      ),
+      locate({ url: `https://github.com/acme/pricing/blob/${COMMIT}/src/price.ts#L3-L9` }),
     ).toEqual(SOURCE);
   });
 
   it('refuses a branch where a commit belongs', () => {
-    const problems: string[] = [];
-    expect(locate({ ...SOURCE, commit: 'main' }, problems)).toBeUndefined();
-    expect(problems).toHaveLength(1);
+    expect(locate({ ...SOURCE, commit: 'main' })).toEqual({
+      problem: 'acme/pricing src/price.ts: commit must be a full 40-character sha',
+    });
   });
 
   it('notes, without refusing, a source that cites no lines', () => {
@@ -44,9 +42,9 @@ describe('locate', () => {
   });
 
   it('refuses lines that run backwards', () => {
-    const problems: string[] = [];
-    expect(locate({ ...SOURCE, lines: [9, 3] }, problems)).toBeUndefined();
-    expect(problems).toEqual(['lines must be [from, to], counted from 1']);
+    expect(locate({ ...SOURCE, lines: [9, 3] })).toEqual({
+      problem: 'lines must be [from, to], counted from 1',
+    });
   });
 });
 

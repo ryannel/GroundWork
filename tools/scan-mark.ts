@@ -10,19 +10,19 @@ import path from 'node:path';
 import { stringify } from 'yaml';
 
 export interface Cited {
-  id: string;
-  path: string;
-  commit: string;
+  readonly id: string;
+  readonly path: string;
+  readonly commit: string;
 }
 
 export interface Mark {
-  repo: string;
-  branch: string;
-  head: string;
-  scanned_at: string;
-  scanner: string;
-  files: Record<string, string>;
-  facts: number;
+  readonly repo: string;
+  readonly branch: string;
+  readonly head: string;
+  readonly scanned_at: string;
+  readonly scanner: string;
+  readonly files: Record<string, string>;
+  readonly facts: number;
 }
 
 function git(dir: string, args: readonly string[], input?: string): string {
@@ -143,7 +143,7 @@ function main(argv: readonly string[]): void {
     repo,
     branch: option(argv, '--branch') ?? git(dir, ['rev-parse', '--abbrev-ref', 'HEAD']).trim(),
     head: git(dir, ['rev-parse', 'HEAD']).trim(),
-    scanned_at: new Date().toISOString().replace(/\.\d+Z$/, 'Z'),
+    scanned_at: new Date().toISOString().replace(/\.\d+Z$/u, 'Z'),
     scanner: option(argv, '--scanner') ?? 'groundwork-explore@1',
     files,
     facts: new Set(cited.map((source) => source.id)).size,

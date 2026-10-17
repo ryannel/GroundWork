@@ -15,24 +15,24 @@ import { parse } from 'yaml';
 type Json = Record<string, unknown>;
 
 export interface Located {
-  repo: string;
-  path: string;
-  commit: string;
-  lines?: readonly [number, number];
+  readonly repo: string;
+  readonly path: string;
+  readonly commit: string;
+  readonly lines?: readonly [number, number];
 }
 
 export interface Fact {
-  id: string;
-  file: string;
-  origin: string;
-  sources: Located[];
-  problems: string[];
-  stepsWithoutSources: number;
-  notes: string[];
+  readonly id: string;
+  readonly file: string;
+  readonly origin: string;
+  readonly sources: readonly Located[];
+  readonly problems: readonly string[];
+  readonly stepsWithoutSources: number;
+  readonly notes: readonly string[];
 }
 
-const COMMIT = /^[0-9a-f]{40}$/;
-const HASH_LINES = /^#L(\d+)(?:-L(\d+))?$/;
+const COMMIT = /^[0-9a-f]{40}$/u;
+const HASH_LINES = /^#L(\d+)(?:-L(\d+))?$/u;
 const GENERATED = new Set(['contracts.yaml', 'handlers.yaml']);
 const SIGNIFICANT = ['call', 'publish', 'read', 'write', 'if', 'each', 'parallel', 'retry', 'try'];
 const PATTERNS = [
@@ -45,71 +45,79 @@ function isObject(value: unknown): value is Json {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-function linesOf(value: unknown, problems: string[]): readonly [number, number] | undefined {
+/** Why a source cannot be read. */
+export interface Problem {
+  readonly problem: string;
+}
+
+const isProblem = (found: object): found is Problem => 'problem' in found;
+
+function linesOf(value: unknown): readonly [number, number] | Problem {
   const pair = Array.isArray(value) && value.length === 2 ? value.map(Number) : [];
   const [from = 0, to = 0] = pair;
   if (Number.isInteger(from) && Number.isInteger(to) && from >= 1 && from <= to) return [from, to];
-  problems.push('lines must be [from, to], counted from 1');
-  return undefined;
+  return { problem: 'lines must be [from, to], counted from 1' };
 }
 
 // the older form: a GitHub blob url
-function fromUrl(url: string, problems: string[]): Located | undefined {
-  if (!URL.canParse(url)) {
-    problems.push(`${url} is not a url`);
-    return undefined;
-  }
+function fromUrl(url: string): Located | Problem {
+  if (!URL.canParse(url)) return { problem: `${url} is not a url` };
   const { hostname, pathname, hash } = new URL(url);
   const [, owner, name, blob, commit = '', ...rest] = pathname.split('/');
   if (hostname !== 'github.com' || blob !== 'blob' || owner === undefined || name === undefined) {
-    problems.push(`${url} is not a GitHub file link`);
-    return undefined;
+    return { problem: `${url} is not a GitHub file link` };
   }
-  if (!COMMIT.test(commit)) {
-    problems.push(`${url} names a branch, not a commit`);
-    return undefined;
-  }
+  if (!COMMIT.test(commit)) return { problem: `${url} names a branch, not a commit` };
   const match = HASH_LINES.exec(hash);
-  const located: Located = { repo: `${owner}/${name}`, path: rest.join('/'), commit };
-  if (match?.[1] !== undefined) located.lines = [Number(match[1]), Number(match[2] ?? match[1])];
-  return located;
+  return {
+    repo: `${owner}/${name}`,
+    path: rest.join('/'),
+    commit,
+    ...(match?.[1] === undefined
+      ? {}
+      : { lines: [Number(match[1]), Number(match[2] ?? match[1])] }),
+  };
 }
 
-// a source as written, or undefined with the reason added to problems
-export function locate(source: unknown, problems: string[]): Located | undefined {
-  if (!isObject(source)) {
-    problems.push('a source must be { repo, path, lines, commit }');
-    return undefined;
-  }
+// a source as written, or the reason it cannot be read
+export function locate(source: unknown): Located | Problem {
+  if (!isObject(source)) return { problem: 'a source must be { repo, path, lines, commit }' };
   const { repo, path: file, commit, url } = source;
   if (typeof repo !== 'string' || typeof file !== 'string' || typeof commit !== 'string') {
-    if (typeof url === 'string') return fromUrl(url, problems);
-    problems.push('a source needs repo, path and commit');
-    return undefined;
+    if (typeof url === 'string') return fromUrl(url);
+    return { problem: 'a source needs repo, path and commit' };
   }
   if (!COMMIT.test(commit)) {
-    problems.push(`${repo} ${file}: commit must be a full 40-character sha`);
-    return undefined;
+    return { problem: `${repo} ${file}: commit must be a full 40-character sha` };
   }
-  const located = { repo: repo.replace(/^github\.com\//, ''), path: file, commit };
+  const located = { repo: repo.replace(/^github\.com\//u, ''), path: file, commit };
   if (source.lines === undefined) return located;
-  const lines = linesOf(source.lines, problems);
-  if (lines === undefined) return undefined;
-  return { ...located, lines };
+  const lines = linesOf(source.lines);
+  return isProblem(lines) ? lines : { ...located, lines };
 }
 
-function noteSources(fact: Fact, value: unknown): void {
-  if (!Array.isArray(value)) return;
-  for (const source of value) {
-    const located = locate(source, fact.problems);
-    if (located !== undefined) fact.sources.push(located);
-    if (isObject(source) && !('repo' in source))
-      fact.notes.push('a source is a bare url; rewrite it as { repo, path, lines, commit }');
-    else if (located !== undefined && located.lines === undefined)
-      fact.notes.push(
-        `${located.path}: cite the lines you read, or [1, <length>] for a whole file`,
-      );
+function noteOf(source: unknown, found: Located | Problem): readonly string[] {
+  if (isObject(source) && !('repo' in source)) {
+    return ['a source is a bare url; rewrite it as { repo, path, lines, commit }'];
   }
+  if (!isProblem(found) && found.lines === undefined) {
+    return [`${found.path}: cite the lines you read, or [1, <length>] for a whole file`];
+  }
+  return [];
+}
+
+function withSources(fact: Fact, value: unknown): Fact {
+  if (!Array.isArray(value)) return fact;
+  const read = value.map((source: unknown) => ({ source, found: locate(source) }));
+  return {
+    ...fact,
+    sources: [...fact.sources, ...read.flatMap(({ found }) => (isProblem(found) ? [] : [found]))],
+    problems: [
+      ...fact.problems,
+      ...read.flatMap(({ found }) => (isProblem(found) ? [found.problem] : [])),
+    ],
+    notes: [...fact.notes, ...read.flatMap(({ source, found }) => noteOf(source, found))],
+  };
 }
 
 function isUnanchoredStep(node: Json): boolean {
@@ -132,20 +140,34 @@ function factOf(node: Json, file: string, owner: Fact | undefined): Fact | undef
   };
 }
 
+const unanchored = (fact: Fact): Fact => ({
+  ...fact,
+  stepsWithoutSources: fact.stepsWithoutSources + 1,
+});
+
 export function factsIn(doc: unknown, file: string): Fact[] {
   const facts: Fact[] = [];
-  const visit = (node: unknown, owner?: Fact): void => {
+  const update = (at: number | undefined, change: (fact: Fact) => Fact): void => {
+    const fact = at === undefined ? undefined : facts[at];
+    if (at !== undefined && fact !== undefined) facts[at] = change(fact);
+  };
+  // where the fact that holds this node sits in facts: a new fact, or the owner
+  const holderAt = (node: Json, owner: number | undefined): number | undefined => {
+    const held = owner === undefined ? undefined : facts[owner];
+    const holder = factOf(node, file, held);
+    if (holder !== undefined && holder !== held) return facts.push(holder) - 1;
+    if (holder?.id.startsWith('h:') === true && isUnanchoredStep(node)) update(owner, unanchored);
+    return owner;
+  };
+  const visit = (node: unknown, owner?: number): void => {
     if (Array.isArray(node)) {
       for (const item of node) visit(item, owner);
       return;
     }
     if (!isObject(node)) return;
-    const holder = factOf(node, file, owner);
-    if (holder !== undefined && holder !== owner) facts.push(holder);
-    else if (holder?.id.startsWith('h:') === true && isUnanchoredStep(node))
-      holder.stepsWithoutSources += 1;
-    if (holder !== undefined) noteSources(holder, node.sources);
-    for (const [key, value] of Object.entries(node)) if (key !== 'sources') visit(value, holder);
+    const at = holderAt(node, owner);
+    update(at, (fact) => withSources(fact, node.sources));
+    for (const [key, value] of Object.entries(node)) if (key !== 'sources') visit(value, at);
   };
   visit(doc);
   return facts;
@@ -162,17 +184,23 @@ export async function workspaceFacts(workspace: string): Promise<Fact[]> {
   return facts;
 }
 
-export function findings(fact: Fact): { errors: string[]; warnings: string[] } {
-  const errors = fact.problems.map((problem) => `${fact.id}: ${problem}`);
+export function findings(fact: Fact): {
+  readonly errors: readonly string[];
+  readonly warnings: readonly string[];
+} {
+  const errors: string[] = fact.problems.map((problem) => `${fact.id}: ${problem}`);
   const warnings: string[] = [];
-  if (fact.origin === 'extracted' && fact.sources.length === 0 && fact.problems.length === 0)
+  if (fact.origin === 'extracted' && fact.sources.length === 0 && fact.problems.length === 0) {
     errors.push(`${fact.id}: extracted but cites no code; add sources with tools/permalink.ts`);
-  if (fact.origin === 'extracted')
+  }
+  if (fact.origin === 'extracted') {
     warnings.push(...fact.notes.map((note) => `${fact.id}: ${note}`));
-  if (fact.stepsWithoutSources > 0)
+  }
+  if (fact.stepsWithoutSources > 0) {
     warnings.push(
       `${fact.id}: ${String(fact.stepsWithoutSources)} call, publish, store or branch step(s) cite no code`,
     );
+  }
   return { errors, warnings };
 }
 
@@ -193,15 +221,17 @@ function fileLength(source: Located): number | undefined {
 function unreachable(facts: readonly Fact[]): string[] {
   const lengths = new Map<string, number | undefined>();
   const out: string[] = [];
-  for (const fact of facts)
+  for (const fact of facts) {
     for (const source of fact.sources) {
       const key = `${source.repo}@${source.commit}:${source.path}`;
       if (!lengths.has(key)) lengths.set(key, fileLength(source));
       const length = lengths.get(key);
       if (length === undefined) out.push(`${fact.id}: ${key} cannot be read`);
-      else if (source.lines !== undefined && source.lines[1] > length)
+      else if (source.lines !== undefined && source.lines[1] > length) {
         out.push(`${fact.id}: ${key} has ${String(length)} lines, not ${String(source.lines[1])}`);
+      }
     }
+  }
   return out;
 }
 
@@ -249,8 +279,9 @@ async function main(argv: readonly string[]): Promise<void> {
     return;
   }
   if (argv.includes('--missing')) {
-    for (const fact of facts.filter((f) => f.origin === 'extracted' && f.sources.length === 0))
+    for (const fact of facts.filter((f) => f.origin === 'extracted' && f.sources.length === 0)) {
       console.log(`${fact.file}\t${fact.id}`);
+    }
     return;
   }
   console.log(workspace);

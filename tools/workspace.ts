@@ -42,7 +42,7 @@ const HOME = process.cwd();
 const LOCAL = path.join(HOME, 'groundwork.local.yaml');
 const SKILLS = path.join(HOME, '.agents', 'skills');
 const LINKS = ['.agents/skills', '.claude/skills', '.github/skills'];
-const ID = /^[a-z0-9][a-z0-9-]*$/;
+const ID = /^[a-z0-9][a-z0-9-]*$/u;
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,
@@ -81,13 +81,15 @@ const where = (entry: LocalEntry): string => path.resolve(HOME, folderOf(entry))
 
 async function register(entry: LocalEntry): Promise<void> {
   const { workspaces, bundled } = await readLocal(HOME);
-  if (!workspaces.some((each) => where(each) === where(entry)))
+  if (!workspaces.some((each) => where(each) === where(entry))) {
     await writeLocal([...workspaces, entry], bundled);
+  }
   await registeredAt(HOME, { local: true });
 }
 
 /** Whether `given` names a repo to clone rather than a folder on this machine. */
-const isRepo = (given: string): boolean => given.includes('://') || /^[\w.-]+@[\w.-]+:/.test(given);
+const isRepo = (given: string): boolean =>
+  given.includes('://') || /^[\w.-]+@[\w.-]+:/u.test(given);
 
 function git(args: readonly string[], cwd = HOME): void {
   execFileSync('git', args, { cwd, stdio: 'inherit' });
@@ -144,8 +146,9 @@ async function remove(id: string): Promise<void> {
   if (folder === undefined) throw new Error(`no workspace ${id} is registered`);
   const { workspaces, bundled } = await readLocal(HOME);
   const kept = workspaces.filter((entry) => where(entry) !== folder);
-  if (kept.length === workspaces.length)
+  if (kept.length === workspaces.length) {
     throw new Error(`${id} is an example in workspaces/; set bundled: false to leave them out`);
+  }
   await writeLocal(kept, bundled);
   console.log(`no longer reading ${id}; its folder is still at ${folder}`);
 }
@@ -227,8 +230,9 @@ async function make(given: string): Promise<void> {
   if (!ID.test(id)) throw new Error(`--id ${id}: lower case letters, digits and hyphens`);
   const folder = path.resolve(given);
   const entries = await readdir(folder).catch(() => []);
-  if (entries.length > 0)
+  if (entries.length > 0) {
     throw new Error(`${folder} is not empty; to register a workspace repo, use add`);
+  }
   const taken = await registeredAt(HOME, { local: true });
   if (taken.has(id)) throw new Error(`workspace ${id} is already at ${taken.get(id) ?? ''}`);
   await mkdir(path.join(folder, 'domains'), { recursive: true });
@@ -246,6 +250,20 @@ async function make(given: string): Promise<void> {
 
 const count = (n: number, word: string): string => `${String(n)} ${word}${n === 1 ? '' : 's'}`;
 
+async function checkPlans(
+  workspace: string,
+): Promise<{ readonly slugs: readonly string[]; readonly broken: number }> {
+  const slugs = await listPlans(workspace);
+  const states = await Promise.all(slugs.map(async (slug) => readPlanState(workspace, slug)));
+  const broken = states.flatMap((state) => (state?.broken ? [state.broken] : []));
+  for (const plan of broken) {
+    for (const issue of plan.errors) {
+      console.error(`plans/${plan.slug}: ${issue.path}: ${issue.message}`);
+    }
+  }
+  return { slugs, broken: broken.length };
+}
+
 async function check(given: string): Promise<void> {
   const folder = path.resolve(given);
   process.env.GROUNDWORK_WORKSPACES = folder;
@@ -259,14 +277,9 @@ async function check(given: string): Promise<void> {
     for (const issue of today.warnings) console.warn(`today: ${issue.path}: ${issue.message}`);
     for (const issue of language) console.warn(`language: ${issue}`);
   }
-  const slugs = await listPlans(workspace.id);
-  const states = await Promise.all(slugs.map(async (slug) => readPlanState(workspace.id, slug)));
-  const broken = states.flatMap((state) => (state?.broken ? [state.broken] : []));
-  for (const plan of broken)
-    for (const issue of plan.errors)
-      console.error(`plans/${plan.slug}: ${issue.path}: ${issue.message}`);
+  const { slugs, broken } = await checkPlans(workspace.id);
   const systems = workspace.domains.reduce((sum, domain) => sum + domain.systems.length, 0);
-  const read = slugs.length - broken.length;
+  const read = slugs.length - broken;
   const counts = [
     count(workspace.domains.length, 'domain'),
     count(systems, 'system'),
@@ -279,7 +292,7 @@ async function check(given: string): Promise<void> {
     count(today.warnings.length + language.length, 'warning'),
   ];
   console.log(`${workspace.id}: ${counts.join(', ')}`);
-  if (broken.length > 0 || today.errors.length > 0) process.exitCode = 1;
+  if (broken > 0 || today.errors.length > 0) process.exitCode = 1;
 }
 
 async function list(): Promise<void> {

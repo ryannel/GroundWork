@@ -39,8 +39,9 @@ async function workspaceId(): Promise<string> {
 
 async function check(workspace: string, slug: string): Promise<void> {
   const reading = await readPlanBase(workspace, slug);
-  if (reading?.base.mode !== 'live')
+  if (reading?.base.mode !== 'live') {
     throw new Error(`${slug} has landed; it no longer reads today`);
+  }
   const read = await readPlan(workspace, slug);
   for (const issue of read.errors) console.error(`${issue.path}: ${issue.message}`);
   if (read.errors.length > 0) throw new Error(`${slug} does not fit today; fix it and check again`);

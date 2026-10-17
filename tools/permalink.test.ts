@@ -6,8 +6,8 @@ const COMMIT = '3f9c2e1a3f9c2e1a3f9c2e1a3f9c2e1a3f9c2e1a';
 
 describe('repoOf', () => {
   it('names a github.com repo as org/name, as system.yaml does', () => {
-    expect(repoOf('git@github.com:alder-finch/pricing.git')).toBe('alder-finch/pricing');
-    expect(repoOf('https://github.com/alder-finch/pricing.git\n')).toBe('alder-finch/pricing');
+    expect(repoOf('git@github.com:acme/pricing.git')).toBe('acme/pricing');
+    expect(repoOf('https://github.com/acme/pricing.git\n')).toBe('acme/pricing');
   });
 
   it('keeps the host for anything else', () => {
@@ -43,12 +43,12 @@ describe('permalinkOf', () => {
   it('pins the file to a commit and the lines', () => {
     expect(
       permalinkOf({
-        repo: 'alder-finch/pricing',
+        repo: 'acme/pricing',
         path: 'src/price.ts',
         lines: [10, 24],
         commit: COMMIT,
       }),
-    ).toBe(`https://github.com/alder-finch/pricing/blob/${COMMIT}/src/price.ts#L10-L24`);
+    ).toBe(`https://github.com/acme/pricing/blob/${COMMIT}/src/price.ts#L10-L24`);
   });
 });
 

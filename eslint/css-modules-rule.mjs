@@ -25,7 +25,7 @@ function classesIn(file) {
   return classes;
 }
 
-const pairName = (filename) => path.basename(filename).replace(/(\.client)?\.tsx?$/, '');
+const pairName = (filename) => path.basename(filename).replace(/(\.client)?\.tsx?$/u, '');
 
 function propertyName(member) {
   if (!member.computed && member.property.type === 'Identifier') return member.property.name;
@@ -95,12 +95,14 @@ export const cssModules = {
             continue;
           }
           used.add(name);
-          if (!classes.has(name))
+          if (!classes.has(name)) {
             context.report({ node: parent.property, messageId: 'missing', data: { name, source } });
+          }
         }
         for (const name of classes) {
-          if (!used.has(name))
+          if (!used.has(name)) {
             context.report({ node: node.source, messageId: 'unused', data: { name, source } });
+          }
         }
       },
     };

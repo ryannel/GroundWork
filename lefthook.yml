@@ -1,4 +1,4 @@
-# Checks staged files only, in parallel. CI runs the full, uncached `npm run check`.
+# Checks staged files only, in parallel. CI runs every part of `npm run check` cold, as parallel jobs.
 glob_matcher: doublestar
 
 pre-commit:
