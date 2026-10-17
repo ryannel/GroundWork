@@ -57,7 +57,7 @@ Done ticks and milestone progress come from `<workspace>/plans/<plan>/status.jso
   "wi:checkout-vat": {
     "state": "closed",
     "closed_at": "2026-09-30T14:12:00Z",
-    "url": "https://github.com/alder-finch/checkout/issues/41"
+    "url": "https://github.com/acme/checkout/issues/41"
   }
 }
 ```

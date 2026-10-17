@@ -3,8 +3,7 @@
 Every change in a plan is an op inside `changes[].ops`, against ids in the system model today.
 Each recipe below is copy-pasteable; the ids are illustrative, from a subscriptions example (billing,
 entitlements, a `subscription.status.changed` event). Swap in ids from your workspace's model (`npm run map --
-find <words>`). `workspaces/alder-finch/plans/delivery-promise/plan.yaml` is a full worked example of the ops (and
-`invoice-vat-number/plan.yaml` a small one).
+find <words>`). `test/fixtures/mini.yaml` is a small, complete plan that validates clean.
 
 Reminders:
 

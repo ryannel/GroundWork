@@ -66,5 +66,5 @@ The cookbook's §16–19 recipes are the patterns: expand, migrate, then remove.
 ## Words for the room
 
 operation, mutation, the graph, gateway, subgraph, owns a field, key, round trip, fetch, cache layer, edge, hit,
-miss, fills, emptied by, serves stale, private field, persisted operation, batched, surrogate key. The
-`storefront-graph` plan in alder-finch writes each out in `problem.glossary`.
+miss, fills, emptied by, serves stale, private field, persisted operation, batched, surrogate key. Write each
+out in the plan's `problem.glossary`.

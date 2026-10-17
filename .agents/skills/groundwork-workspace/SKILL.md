@@ -53,7 +53,9 @@ this machine has registered in `groundwork.local.yaml`, which is git-ignored, pl
 3. **Teams.** Ask which teams build and run the systems. Write each into `workspace.yaml` as `team:<id>` with its
    name, and its chat channel if they give one. Only the teams people name.
 4. **Actors.** Ask who uses what the teams build: customers, staff, partners, outside systems. Each is
-   `actor:<id>` with a name and a one-line summary; `uses` waits until there are systems to point at.
+   `actor:<id>` with a name and a one-line summary; `uses` waits until there are systems to point at. Mark the
+   people the business serves `customer: true`: the map draws them apart, and everyone else inside the domains
+   whose systems they use.
 5. **Code.** Ask for the GitHub organisations or repos. List them (`gh repo list <org> --limit 200 --json
 name,description,primaryLanguage,isArchived`), leave out archived and personal repos, and propose a first cut of
    domains and systems: a domain is a part of the business with its own language, a system is what one team runs

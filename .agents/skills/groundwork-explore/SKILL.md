@@ -28,7 +28,7 @@ One YAML file at the path you are given (normally `~/.cache/groundwork/fragments
 inside a workspace), shaped like the system model so the merge can place each entry:
 
 ```yaml
-repo: alder-finch/pricing
+repo: acme/pricing
 commit: 3f9c2e1a… # the full HEAD you read
 system: price-engine
 components: [...] # services, apps, jobs: id, name, type, tech, does, summary
@@ -52,7 +52,7 @@ merges and validates. Check the YAML parses.
 sources:
   [
     {
-      repo: alder-finch/pricing,
+      repo: acme/pricing,
       path: src/main/kotlin/pricing/PriceRoutes.kt,
       lines: [40, 88],
       commit: 3f9c2e1a…,

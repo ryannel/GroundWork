@@ -19,7 +19,7 @@ go in the fragment's `handlers:` list; the merge writes them to the system's `ha
   sources:
     [
       {
-        repo: alder-finch/pricing,
+        repo: acme/pricing,
         path: src/main/kotlin/pricing/PriceRoutes.kt,
         lines: [40, 88],
         commit: 3f9c…,
@@ -32,7 +32,7 @@ go in the fragment's `handlers:` list; the merge writes them to the system's `ha
       sources:
         [
           {
-            repo: alder-finch/pricing,
+            repo: acme/pricing,
             path: src/main/kotlin/pricing/PriceRepo.kt,
             lines: [12, 30],
             commit: 3f9c…,
@@ -47,7 +47,7 @@ go in the fragment's `handlers:` list; the merge writes them to the system's `ha
       sources:
         [
           {
-            repo: alder-finch/pricing,
+            repo: acme/pricing,
             path: src/main/kotlin/pricing/PriceRoutes.kt,
             lines: [61, 70],
             commit: 3f9c…,
@@ -58,7 +58,7 @@ go in the fragment's `handlers:` list; the merge writes them to the system's `ha
       sources:
         [
           {
-            repo: alder-finch/pricing,
+            repo: acme/pricing,
             path: src/main/kotlin/pricing/FxClient.kt,
             lines: [22, 35],
             commit: 3f9c…,
@@ -71,7 +71,7 @@ go in the fragment's `handlers:` list; the merge writes them to the system's `ha
       sources:
         [
           {
-            repo: alder-finch/pricing,
+            repo: acme/pricing,
             path: src/main/kotlin/pricing/FxClient.kt,
             lines: [36, 44],
             commit: 3f9c…,

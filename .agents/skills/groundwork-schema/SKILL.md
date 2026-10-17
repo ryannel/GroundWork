@@ -6,9 +6,8 @@ description: Ground rules for Groundwork's YAML - the system model (system.yaml,
 # Groundwork's model: the rules, not the fields
 
 Fields and enums: read `schema/plan.schema.json` (`$defs`); the system model and plans share it. Do not guess a
-key; objects are closed. One example per entity: `workspaces/alder-finch/domains/*/systems/*/` for the model, and
-`workspaces/alder-finch/plans/delivery-promise/plan.yaml` (large) or `invoice-vat-number/plan.yaml` (small) for
-plans. Copy-paste ops for every kind of change: [cookbook.md](cookbook.md). Every validator message ends with its
+key; objects are closed. For a complete small plan, read `test/fixtures/mini.yaml`; for a federated graph,
+`test/fixtures/shop.yaml`. Copy-paste ops for every kind of change: [cookbook.md](cookbook.md). Every validator message ends with its
 fix, so read the message. Types for the app are generated from the schema with `npm run generate`.
 
 ## Where things live

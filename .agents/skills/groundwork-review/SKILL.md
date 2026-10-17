@@ -68,11 +68,11 @@ changed in place, empty chapter), Major (unattributed or stale fact, newcomer qu
 owner, e2e or rollout), Minor (wording, glossary, story polish).
 
 ```markdown
-| #   | Sev     | Path                    | Finding                                     | Fix                                                                                                                                      |
-| --- | ------- | ----------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Blocker | services[2]             | The plan copies svc:billing from the model. | Delete it; `{ modify: svc:billing, set: { does: "…" } }` in chg:billing-skip-paused if it changes.                                       |
-| 2   | Major   | changes[0].ops[1]       | The new pause rule has no handler op.       | `{ modify: h:billing-run-invoice, append: { steps: [{ if: the subscription is paused, then: [{ return: skipped }] }] } }`                |
-| 3   | Major   | api:subs-cancel (model) | No source.                                  | Re-scan alder-finch/subscriptions, or `sources: [{ repo: acme/subscriptions, path: src/api/cancel.kt, lines: [20, 58], commit: <sha> }]` |
+| #   | Sev     | Path                    | Finding                                     | Fix                                                                                                                               |
+| --- | ------- | ----------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Blocker | services[2]             | The plan copies svc:billing from the model. | Delete it; `{ modify: svc:billing, set: { does: "…" } }` in chg:billing-skip-paused if it changes.                                |
+| 2   | Major   | changes[0].ops[1]       | The new pause rule has no handler op.       | `{ modify: h:billing-run-invoice, append: { steps: [{ if: the subscription is paused, then: [{ return: skipped }] }] } }`         |
+| 3   | Major   | api:subs-cancel (model) | No source.                                  | Re-scan acme/subscriptions, or `sources: [{ repo: acme/subscriptions, path: src/api/cancel.kt, lines: [20, 58], commit: <sha> }]` |
 ```
 
 End with the validator status, counts by severity, and the one fix that most improves the room's experience.

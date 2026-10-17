@@ -57,7 +57,7 @@ or removed.
 `<workspace>/plans/<plan>/mockups/walking.html` is one static page: a section per new screen
 (`<section data-screen="scr:…" id="scr:…">`), the new picture inside it, each region a hotspot linking to the
 screen the journey goes to next. The app serves it at `/<ws>/plans/<plan>/mockups/walking.html` and opens it at
-`#scr:…`. The three alder-finch plans with mockups are working examples.
+`#scr:…`.
 
 Plan Atlas scaffolded it with `tools/mockup.mjs`; Groundwork has no scaffold yet (TODO), so write it by hand,
 starting from an existing `walking.html`:

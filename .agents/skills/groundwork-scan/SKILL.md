@@ -140,7 +140,7 @@ Print it, and save it next to the fragments as `report.md`. Plain words first, i
 For each system with anything new, changed or vanished, write a short message to its team (from `team:` in
 `system.yaml`), in plain words they would use, no ids unless they help:
 
-> We re-read alder-finch/pricing at 8a1b4d0. Three things look different from what Groundwork said:
+> We re-read acme/pricing at 8a1b4d0. Three things look different from what Groundwork said:
 > Pricing now publishes "price published" when a promotion starts, not only when a list price changes.
 > The nightly rebuild no longer calls Search. Is that intended?
 > We could not tell who calls `POST /rates`: is that the FX service?
