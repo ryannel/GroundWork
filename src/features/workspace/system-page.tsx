@@ -29,24 +29,29 @@ interface SystemPageProps {
   readonly actions?: ReactNode;
 }
 
-function Section(props: {
+function Section({
+  title,
+  says,
+  children,
+}: {
   readonly title: string;
   readonly says: string;
   readonly children: ReactNode;
 }) {
   return (
     <section className={styles.section}>
-      <SectionHeading title={props.title}>
-        <p>{props.says}</p>
+      <SectionHeading title={title}>
+        <p>{says}</p>
       </SectionHeading>
-      {props.children}
+      {children}
     </section>
   );
 }
 
 function Repos({ repos }: { readonly repos: readonly RepoRow[] }) {
-  if (repos.length === 0)
+  if (repos.length === 0) {
     return <p className={styles.none}>No repo is named for this system yet.</p>;
+  }
   return (
     <ul className={styles.repos}>
       {repos.map((repo) => (

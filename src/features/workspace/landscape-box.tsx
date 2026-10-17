@@ -1,129 +1,107 @@
 import Link from 'next/link';
 
-import type { LandNode } from '@/application/landscape-map-types';
+import type { MapDomain, MapPerson } from '@/application/landscape-domains';
+import type { MapBox } from '@/application/landscape-domains-layout';
+import { plural } from '@/shared/text';
 
 import styles from './landscape-box.module.css';
 
 export type Lit = 'hot' | 'dim' | undefined;
 
-interface BoxProps {
-  readonly node: LandNode;
-  readonly lit: Lit;
-  readonly onToggle: (domain: string) => void;
-}
-
-function Head({ node }: { readonly node: LandNode }) {
-  return (
-    <>
-      <span className={styles.eyebrow}>{node.eyebrow}</span>
-      {node.href === null || node.kind === 'system' ? (
-        <span className={styles.name}>{node.name}</span>
-      ) : (
-        <Link className={styles.name} href={node.href}>
-          {node.name}
-        </Link>
-      )}
-    </>
-  );
-}
-
-function Body({ node, onToggle }: Pick<BoxProps, 'node' | 'onToggle'>) {
-  const text = node.text === null ? null : <span className={styles.text}>{node.text}</span>;
-  switch (node.kind) {
-    case 'domain': {
-      return (
-        <>
-          <button
-            aria-expanded={false}
-            aria-label={`Show the systems in ${node.name}`}
-            className={styles.cover}
-            onClick={() => {
-              onToggle(node.id);
-            }}
-            type="button"
-          />
-          <Head node={node} />
-          {text}
-          <span className={styles.foot}>
-            <span className={styles.dots}>
-              {node.dots.map((slot) => (
-                <span className={styles.team} data-team={slot} key={slot} />
-              ))}
-            </span>
-            <span className={styles.more}>Show systems</span>
-          </span>
-        </>
-      );
-    }
-    case 'frame': {
-      return (
-        <span className={styles.top}>
-          <span className={styles.titles}>
-            <Head node={node} />
-          </span>
-          <button
-            className={styles.fold}
-            onClick={() => {
-              onToggle(node.id);
-            }}
-            type="button"
-          >
-            Fold
-          </button>
-        </span>
-      );
-    }
-    case 'system': {
-      return (
-        <Link className={styles.card} href={node.href ?? '#'}>
-          <span className={styles.team} data-team={node.teamSlot} />
-          <Head node={node} />
-          {text}
-        </Link>
-      );
-    }
-    case 'external': {
-      return (
-        <button className={styles.card} data-inspect={node.id} type="button">
-          <Head node={node} />
-          {text}
-        </button>
-      );
-    }
-    case 'actor': {
-      return (
-        <>
-          <Head node={node} />
-          {text}
-        </>
-      );
-    }
-  }
+interface Picking {
+  /** The person whose journeys are open, if any. */
+  readonly picked: string | null;
+  readonly onPick: (person: string) => void;
 }
 
 /** Puts a box where the drawing says; it is moved with the DOM because a style prop is not allowed. */
-function placed(node: LandNode) {
-  return (el: HTMLDivElement | null): void => {
+function placed(box: MapBox) {
+  return (el: HTMLElement | null): void => {
     if (el === null) return;
-    el.style.setProperty('left', `${String(node.x)}px`);
-    el.style.setProperty('top', `${String(node.y)}px`);
-    el.style.setProperty('width', `${String(node.w)}px`);
-    el.style.setProperty('height', `${String(node.h)}px`);
+    el.style.setProperty('left', `${String(box.x)}px`);
+    el.style.setProperty('top', `${String(box.y)}px`);
+    el.style.setProperty('width', `${String(box.w)}px`);
+    el.style.setProperty('height', `${String(box.h)}px`);
   };
 }
 
-// One box on the landscape, drawn as HTML over the lines so its text wraps and its links and buttons work.
-// It sits outside the svg because WebKit does not scale or place HTML inside a foreignObject properly.
-export function LandscapeBox({ node, lit, onToggle }: BoxProps) {
+function PersonChip({ person, picked, onPick }: Picking & { readonly person: MapPerson }) {
+  return (
+    <li>
+      <button
+        aria-pressed={picked === person.id}
+        className={styles.chip}
+        data-shared={person.domains.length > 1 ? '' : undefined}
+        onClick={() => {
+          onPick(person.id);
+        }}
+        title={person.summary ?? person.name}
+        type="button"
+      >
+        {person.name}
+      </button>
+    </li>
+  );
+}
+
+interface DomainBoxProps extends Picking {
+  readonly box: MapBox;
+  readonly domain: MapDomain;
+  readonly people: readonly MapPerson[];
+  readonly lit: Lit;
+}
+
+// A domain on the map: its name and purpose, how many systems it runs, and the people who work in it as chips that
+// open their journeys. Drawn as HTML over the lines so its text wraps and its links and buttons work.
+export function DomainBox({ box, domain, people, lit, picked, onPick }: DomainBoxProps) {
   return (
     <div
       className={styles.box}
-      data-box={node.kind === 'frame' ? undefined : node.id}
-      data-kind={node.kind}
+      data-box={box.id}
+      data-kind="domain"
       data-lit={lit}
-      ref={placed(node)}
+      ref={placed(box)}
     >
-      <Body node={node} onToggle={onToggle} />
+      <span className={styles.eyebrow}>Domain · {plural(domain.systems, 'system')}</span>
+      <Link className={styles.name} href={domain.href}>
+        {domain.name}
+      </Link>
+      {domain.purpose === null ? null : <span className={styles.text}>{domain.purpose}</span>}
+      {people.length === 0 ? null : (
+        <ul aria-label={`People in ${domain.name}`} className={styles.chips}>
+          {people.map((person) => (
+            <PersonChip key={person.id} onPick={onPick} person={person} picked={picked} />
+          ))}
+        </ul>
+      )}
     </div>
+  );
+}
+
+interface CustomerBoxProps extends Picking {
+  readonly box: MapBox;
+  readonly person: MapPerson;
+  readonly lit: Lit;
+}
+
+/** The customer, apart from every domain: the one the whole workspace serves. */
+export function CustomerBox({ box, person, lit, picked, onPick }: CustomerBoxProps) {
+  return (
+    <button
+      aria-pressed={picked === person.id}
+      className={styles.box}
+      data-box={box.id}
+      data-kind="customer"
+      data-lit={lit}
+      onClick={() => {
+        onPick(person.id);
+      }}
+      ref={placed(box)}
+      type="button"
+    >
+      <span className={styles.eyebrow}>Customer</span>
+      <span className={styles.name}>{person.name}</span>
+      {person.summary === null ? null : <span className={styles.text}>{person.summary}</span>}
+    </button>
   );
 }

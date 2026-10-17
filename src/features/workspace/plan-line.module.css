@@ -1,0 +1,45 @@
+@layer components {
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 12rem;
+    gap: var(--s-4);
+    align-items: start;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    min-width: 0;
+  }
+
+  .domains {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-3);
+  }
+
+  .side,
+  .progress {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+  }
+
+  .side {
+    gap: var(--s-2);
+  }
+
+  .top {
+    display: flex;
+    gap: var(--s-2);
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  @media (width <= 48rem) {
+    .row {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}

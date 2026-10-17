@@ -23,8 +23,14 @@ interface WorkspaceShellProps {
 }
 
 // A workspace page in the same frame as a plan: the trail in the bar, the workspace down the left.
-export function WorkspaceShell(props: WorkspaceShellProps) {
-  const { nav, trail, title, overlays, actions, children } = props;
+export function WorkspaceShell({
+  nav,
+  trail,
+  title,
+  overlays,
+  actions,
+  children,
+}: WorkspaceShellProps) {
   return (
     <AppShell
       bar={

@@ -1,0 +1,21 @@
+@layer components {
+  .index {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    margin-top: var(--s-6);
+  }
+
+  .tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+
+  .tally {
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+    margin: 0;
+  }
+}

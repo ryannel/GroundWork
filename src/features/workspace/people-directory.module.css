@@ -1,0 +1,25 @@
+@layer components {
+  .pick {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--s-0) var(--s-3);
+  }
+
+  .name {
+    display: flex;
+    gap: var(--s-2);
+    align-items: baseline;
+  }
+
+  .count {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .domains {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-3);
+    margin-top: var(--s-1);
+  }
+}

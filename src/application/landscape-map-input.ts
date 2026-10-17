@@ -1,14 +1,11 @@
 import type { Model } from '@/application/plan/derive';
 import { prop } from '@/application/plan/ids';
 import { teamIndex } from '@/application/plan-viz-teams';
-import { todayJourneysOf } from '@/application/today-journeys';
-import { journeyHref } from '@/application/today-reader';
 import { domainHref, systemHref } from '@/application/workspace-paths';
 import { systemDoes, type Actor, type Domain, type Workspace } from '@/domain/workspace';
 
-// What the landscape canvas draws, worked out once on the server and handed whole to the client: who uses the
-// systems, the domains and their systems, the outside services, and every connection between components. The
-// client folds and unfolds domains and rolls the connections up to whatever is showing.
+// The workspace at component level: who uses the systems, the domains and their systems, the outside services, and
+// every connection between components. The map rolls it up to domains; a domain's diagram to its systems.
 
 export type LinkKind = 'use' | 'api' | 'msg' | 'data';
 
@@ -16,6 +13,7 @@ export interface MapActor {
   readonly id: string;
   readonly name: string;
   readonly summary: string | null;
+  readonly customer: boolean;
 }
 
 export interface MapSystem {
@@ -53,16 +51,6 @@ export interface MapLink {
   readonly via: string;
 }
 
-/** A journey or flow, as the component pairs its steps cross. */
-export interface MapPath {
-  readonly key: string;
-  readonly title: string;
-  readonly kind: 'journey' | 'flow';
-  readonly href: string;
-  readonly actor: string | null;
-  readonly pairs: readonly (readonly [string, string])[];
-}
-
 export interface LandscapeMapInput {
   readonly actors: readonly MapActor[];
   /** In the order work moves through them. */
@@ -71,25 +59,32 @@ export interface LandscapeMapInput {
   readonly links: readonly MapLink[];
   /** The `sys:` id each component sits in. */
   readonly homes: Readonly<Record<string, string>>;
-  readonly paths: readonly MapPath[];
 }
 
-const slug = (name: string): string => name.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-');
+const slug = (name: string): string => name.toLowerCase().replaceAll(/[^a-z0-9]+/gu, '-');
 
-/** The actor a flow names, matched to a listed actor by name, else made up from the name. */
-function actorIdOf(actors: readonly Actor[], name: string): string | null {
+/** The actor a flow names, by `actor:` id or matched to a listed actor by name, else made up from the name. */
+export function actorIdOf(actors: readonly Actor[], name: string): string | null {
   if (name === '' || name === 'System') return null;
+  if (name.startsWith('actor:')) return name;
   const known = actors.find((a) => a.name.toLowerCase() === name.toLowerCase());
   return known?.id ?? `actor:${slug(name)}`;
 }
 
 function actorsOf(workspace: Workspace, model: Model): MapActor[] {
-  const listed = workspace.actors.map((a) => ({ id: a.id, name: a.name, summary: a.summary }));
+  const listed = workspace.actors.map((a) => ({
+    id: a.id,
+    name: a.name,
+    summary: a.summary,
+    customer: a.customer,
+  }));
   const named = model.asIs.flows.map((f) => f.actor ?? '');
   const known = new Set(listed.map((a) => a.id));
   const extra = [...new Set(named)].flatMap((name) => {
     const id = actorIdOf(workspace.actors, name);
-    return id === null || known.has(id) ? [] : [{ id, name, summary: null }];
+    if (id === null || known.has(id)) return [];
+    known.add(id);
+    return [{ id, name: name.replace(/^actor:/u, ''), summary: null, customer: false }];
   });
   return [...listed, ...extra];
 }
@@ -152,32 +147,8 @@ function domainOf(workspace: Workspace, model: Model, domain: Domain): MapDomain
   };
 }
 
-function pathsOf(workspace: Workspace, model: Model, keys: readonly string[]): MapPath[] {
-  const flows = new Map(model.asIs.flows.map((f) => [f.id, f]));
-  const journeys = new Map(todayJourneysOf(model).map((j) => [j.key, j]));
-  return keys
-    .flatMap((key) => journeys.get(key) ?? [])
-    .map((j) => ({
-      key: j.key,
-      title: j.title,
-      kind: j.kind,
-      href: journeyHref(workspace.id, j.key),
-      actor: actorIdOf(workspace.actors, j.actor),
-      pairs: j.flows
-        .flatMap((id) => flows.get(id)?.steps ?? [])
-        .map((s) => [s.from, s.to] as const),
-    }));
-}
-
-/**
- * Everything the landscape canvas needs, from the workspace and its model of today. Only the journeys named by key,
- * the workspace's key journeys, can be lit on it.
- */
-export function landscapeMapInput(
-  workspace: Workspace,
-  model: Model,
-  keys: readonly string[],
-): LandscapeMapInput {
+/** Every person, domain, system and connection, from the workspace and its model of today. */
+export function landscapeMapInput(workspace: Workspace, model: Model): LandscapeMapInput {
   const ordered = workspace.domains
     .map((domain, at) => ({ domain, at, rank: stageRank(model, domain) }))
     .toSorted((a, b) => (a.rank === b.rank ? a.at - b.at : a.rank - b.rank))
@@ -197,6 +168,5 @@ export function landscapeMapInput(
     externals,
     links: [...actorLinks(workspace, model), ...componentLinks(model)],
     homes,
-    paths: pathsOf(workspace, model, keys),
   };
 }

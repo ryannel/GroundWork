@@ -29,7 +29,6 @@ export default async function WorkspaceRoute({ params }: { readonly params: Prom
       landscape={landscapeOf(workspace, today.model)}
       nav={workspaceNavOf(workspace, plans, { today: today.model })}
       overlays={<TodayOverlays depth={0} workspace={workspace} />}
-      plans={plans}
     />
   );
 }

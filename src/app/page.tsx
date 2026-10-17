@@ -12,5 +12,5 @@ export default async function HomePage() {
       ),
     ),
   );
-  return <WorkspaceLibrary library={libraryOf(workspaces, plans)} />;
+  return <WorkspaceLibrary library={libraryOf(workspaces, plans, new Date())} />;
 }

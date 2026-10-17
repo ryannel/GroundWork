@@ -7,18 +7,20 @@ import type { WorkspaceCard } from '@/application/workspace-library';
 import { WorkspaceLibrary } from './workspace-library';
 
 const card = (over: Partial<WorkspaceCard>): WorkspaceCard => ({
-  id: 'alder-finch',
-  name: 'Alder & Finch',
-  href: '/alder-finch/',
+  id: 'acme',
+  name: 'Acme',
+  href: '/acme/',
   description: 'The shop',
   isPrivate: false,
   facts: ['3 domains'],
-  domains: [{ id: 'web', name: 'Website', href: '/alder-finch/web/', systems: '4 systems' }],
+  domains: [
+    { id: 'storefront', name: 'Storefront', href: '/acme/storefront/', systems: '2 systems' },
+  ],
   plans: [
     {
       id: 'p',
       title: 'Show a delivery date',
-      href: '/alder-finch/plans/p/',
+      href: '/acme/plans/p/',
       group: 'delivery',
       note: '2 of five work items done',
       late: false,
@@ -43,18 +45,16 @@ describe('WorkspaceLibrary', () => {
       />,
     );
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Workspaces');
-    expect(screen.getByRole('link', { name: 'Alder & Finch' }).getAttribute('href')).toMatch(
-      /^\/alder-finch\/?$/,
-    );
-    expect(screen.getByRole('link', { name: /Website/ }).getAttribute('href')).toMatch(
-      /^\/alder-finch\/web\/?$/,
+    expect(screen.getByRole('link', { name: 'Acme' }).getAttribute('href')).toMatch(/^\/acme\/?$/u);
+    expect(screen.getByRole('link', { name: /Storefront/u }).getAttribute('href')).toMatch(
+      /^\/acme\/storefront\/?$/u,
     );
     expect(screen.getByText('In delivery')).toBeTruthy();
-    expect(screen.getByRole('link', { name: /Show a delivery date/ }).getAttribute('href')).toMatch(
-      /^\/alder-finch\/plans\/p\/?$/,
-    );
+    expect(
+      screen.getByRole('link', { name: /Show a delivery date/u }).getAttribute('href'),
+    ).toMatch(/^\/acme\/plans\/p\/?$/u);
     expect(screen.getByText('Private')).toBeTruthy();
-    expect(screen.getByText(/No plans yet/)).toBeTruthy();
+    expect(screen.getByText(/No plans yet/u)).toBeTruthy();
   });
 
   it('points to the workspace for plans it leaves out', () => {

@@ -8,6 +8,20 @@ import { Swatch } from '@/ui/swatch';
 
 import styles from './domain-diagram.module.css';
 
+const idle = (): void => {
+  // nothing to undo
+};
+
+/** Fits now and again whenever the element's width changes; returns the way to stop. */
+function watchWidth(el: HTMLElement, fit: () => void): () => void {
+  fit();
+  const watch = typeof ResizeObserver === 'function' ? new ResizeObserver(fit) : null;
+  watch?.observe(el);
+  return () => {
+    watch?.disconnect();
+  };
+}
+
 const READABLE = 720;
 const PAD = 16;
 
@@ -17,23 +31,17 @@ function useFit(
   size: { readonly w: number; readonly h: number },
 ) {
   const { w, h } = size;
-  useLayoutEffect(() => {
+  useLayoutEffect((): (() => void) | undefined => {
     const outer = frame.current;
     const inner = stage.current;
-    if (outer === null || inner === null) return;
+    if (outer === null || inner === null) return idle;
     inner.style.setProperty('--sw', `${String(w)}px`);
     inner.style.setProperty('--sh', `${String(h)}px`);
     const fit = (): void => {
       const s = Math.min(1, Math.max(outer.clientWidth, READABLE) / w);
       inner.style.setProperty('--fit', String(s));
     };
-    fit();
-    if (typeof ResizeObserver !== 'function') return;
-    const watch = new ResizeObserver(fit);
-    watch.observe(outer);
-    return () => {
-      watch.disconnect();
-    };
+    return watchWidth(outer, fit);
   }, [frame, stage, w, h]);
 }
 

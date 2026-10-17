@@ -4,3 +4,6 @@ export { DomainPage } from './domain-page';
 export { LandscapePage } from './landscape-page';
 export { SystemPage } from './system-page';
 export { WorkspaceShell } from './workspace-shell';
+export { PeoplePage } from './people-page';
+export { PlansPage } from './plans-page';
+export { LanguageOverview } from './language-overview';

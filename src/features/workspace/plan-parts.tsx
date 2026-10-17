@@ -1,5 +1,4 @@
-import type { PlanCard, PlanPart } from '@/application/plan-footprint';
-import { Badge } from '@/ui/badge';
+import type { PlanPart } from '@/application/plan-footprint';
 import { Card } from '@/ui/card';
 
 import styles from './plan-parts.module.css';
@@ -32,22 +31,6 @@ export function PlanParts({
               />
             )}
             <p className={styles.progress}>{progress(part)}</p>
-          </Card>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-// Every plan in the workspace, with where it stands.
-export function PlanCards({ plans }: { readonly plans: readonly PlanCard[] }) {
-  if (plans.length === 0) return <p className={styles.none}>No plans yet.</p>;
-  return (
-    <ul className={styles.cards}>
-      {plans.map((plan) => (
-        <li key={plan.id}>
-          <Card href={plan.href} title={plan.title}>
-            <Badge tone="accent">{plan.stage}</Badge>
           </Card>
         </li>
       ))}

@@ -8,9 +8,10 @@ import styles from './journey-cards.module.css';
 
 // The journeys and flows through a part of the workspace, each a card that opens its walk: who starts it, what
 // sets it off, what it ends with and the systems it crosses.
-export function JourneyCards({ cards }: { readonly cards: readonly JourneyCard[] }) {
-  if (cards.length === 0)
+function JourneyCards({ cards }: { readonly cards: readonly JourneyCard[] }) {
+  if (cards.length === 0) {
     return <p className={styles.none}>No journey or flow runs through here yet.</p>;
+  }
   return (
     <ul className={styles.cards}>
       {cards.map((card) => (

@@ -67,8 +67,7 @@ function Teams({ view }: { readonly view: DomainView }) {
 
 // One domain: its name, what it is for, how big it is and who runs it, then a tab for each way to read it. The
 // overview comes first; the flows, the map, the words and the interfaces each have their own address.
-export function DomainPage(props: DomainPageProps) {
-  const { view, nav, words = 0, children, overlays, actions } = props;
+export function DomainPage({ view, nav, words = 0, children, overlays, actions }: DomainPageProps) {
   return (
     <WorkspaceShell
       actions={actions}

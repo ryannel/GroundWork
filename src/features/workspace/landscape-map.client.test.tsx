@@ -1,93 +1,134 @@
 // @vitest-environment happy-dom
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 
-import type { LandscapeMapInput } from '@/application/landscape-map-input';
+import type { DomainMap } from '@/application/landscape-domains';
+import { drawDomainMap } from '@/application/landscape-domains-layout';
 
 import { LandscapeMap } from './landscape-map.client';
 
 afterEach(cleanup);
 
-const system = (id: string, name: string) => ({
-  id,
-  name,
-  does: `${name} work`,
-  href: `/w/${id}/`,
-  team: null,
-  teamSlot: 1,
-  parts: 2,
-});
-
-const input: LandscapeMapInput = {
-  actors: [{ id: 'actor:shopper', name: 'Shopper', summary: 'Buys things.' }],
+const map: DomainMap = {
+  people: [
+    {
+      id: 'actor:shopper',
+      name: 'Shopper',
+      summary: 'Buys things.',
+      customer: true,
+      domains: ['domain:shop'],
+    },
+    {
+      id: 'actor:picker',
+      name: 'Picker',
+      summary: null,
+      customer: false,
+      domains: ['domain:ship'],
+    },
+  ],
   domains: [
     {
       id: 'domain:shop',
       name: 'Shop',
       purpose: 'Sells.',
       href: '/w/shop/',
-      systems: [system('sys:cart', 'Cart')],
+      systems: 1,
+      people: [],
     },
     {
       id: 'domain:ship',
       name: 'Ship',
       purpose: null,
       href: '/w/ship/',
-      systems: [system('sys:wms', 'WMS')],
+      systems: 2,
+      people: ['actor:picker'],
+    },
+    { id: 'domain:pay', name: 'Pay', purpose: null, href: '/w/pay/', systems: 1, people: [] },
+  ],
+  links: [
+    {
+      id: 'actor:shopper|domain:shop',
+      a: 'actor:shopper',
+      b: 'domain:shop',
+      kinds: ['use'],
+      forward: true,
+      back: false,
+      vias: [],
+      leans: 'a',
+    },
+    {
+      id: 'domain:ship|domain:shop',
+      a: 'domain:ship',
+      b: 'domain:shop',
+      kinds: ['api'],
+      forward: false,
+      back: true,
+      vias: ['WMS API'],
+      leans: 'b',
     },
   ],
-  externals: [{ id: 'svc:carrier', name: 'Carrier', does: 'Delivers.', system: 'sys:wms' }],
-  links: [
-    { from: 'actor:shopper', to: 'svc:cart', kind: 'use', via: '' },
-    { from: 'svc:cart', to: 'svc:wms', kind: 'api', via: 'WMS API' },
-    { from: 'svc:wms', to: 'svc:carrier', kind: 'api', via: 'Carrier API' },
-  ],
-  homes: { 'svc:cart': 'sys:cart', 'svc:wms': 'sys:wms', 'svc:carrier': 'sys:wms' },
-  paths: [
+  journeys: [
     {
       key: 'buy',
       title: 'Buy',
       kind: 'journey',
       href: '/w/journeys/buy/',
       actor: 'actor:shopper',
-      pairs: [['svc:cart', 'svc:wms']],
+      domains: ['domain:shop', 'domain:ship'],
+      lines: ['actor:shopper|domain:shop', 'domain:ship|domain:shop'],
     },
   ],
 };
 
-const lit = (container: HTMLElement, value: string) =>
-  [...container.querySelectorAll(`[data-lit="${value}"]`)].length;
+const litOf = (text: string): string | undefined =>
+  screen.getAllByText(text)[0]!.closest<HTMLElement>('[data-lit]')?.dataset.lit;
 
 describe('LandscapeMap', () => {
-  it('opens and folds a domain, and lights what a box connects to', () => {
-    const { container } = render(<LandscapeMap input={input} />);
-    expect(screen.queryByRole('link', { name: /Cart/ })).toBeNull();
-    fireEvent.click(screen.getByRole('button', { name: 'Show the systems in Shop' }));
-    expect(screen.getByRole('link', { name: /Cart/ }).getAttribute('href')).toBe('/w/sys:cart');
-    fireEvent.pointerOver(screen.getByText('Shopper'));
-    expect(lit(container, 'hot')).toBeGreaterThan(0);
-    expect(screen.getByText('Carrier').closest<HTMLElement>('[data-lit]')?.dataset.lit).toBe('dim');
+  it('draws each domain with its people, the customer apart, and lights what a box connects to', () => {
+    const { container } = render(<LandscapeMap drawing={drawDomainMap(map)} map={map} />);
+    expect(screen.getByRole('link', { name: 'Shop' }).getAttribute('href')).toMatch(
+      /^\/w\/shop\/?$/u,
+    );
+    expect(screen.getByText('Domain · 2 systems')).toBeTruthy();
+    const ship = screen.getByRole('list', { name: 'People in Ship' });
+    expect(within(ship).getByRole('button', { name: 'Picker' })).toBeTruthy();
+    fireEvent.pointerOver(screen.getByText('Shop'));
+    expect(litOf('Shop')).toBe('hot');
+    expect(litOf('Pay')).toBe('dim');
+    expect(screen.getByText('WMS API')).toBeTruthy();
+    expect(
+      [...container.querySelectorAll('title')].some(
+        (t) => t.textContent === 'Shop to Ship: calls. WMS API',
+      ),
+    ).toBe(true);
     fireEvent.pointerLeave(screen.getByRole('img').parentElement!.parentElement!);
-    expect(lit(container, 'hot')).toBe(0);
-    fireEvent.click(screen.getByRole('button', { name: 'Fold' }));
-    expect(screen.queryByRole('link', { name: /Cart/ })).toBeNull();
+    expect(container.querySelectorAll('[data-lit="hot"]')).toHaveLength(0);
   });
 
-  it('opens every domain at once, and lights the way a journey takes', () => {
-    const { container } = render(<LandscapeMap input={input} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Open every domain' }));
-    expect(screen.getByRole('link', { name: /WMS/ })).toBeTruthy();
-    fireEvent.change(screen.getByLabelText('Light up'), { target: { value: 'buy' } });
-    expect(screen.getByRole('link', { name: 'Walk it' }).getAttribute('href')).toBe(
-      '/w/journeys/buy',
-    );
-    expect(screen.queryByText('WMS API')).toBeNull();
+  it('opens a person to list their journeys, lights one and links to its explorer', () => {
+    render(<LandscapeMap drawing={drawDomainMap(map)} map={map} />);
+    fireEvent.click(screen.getByRole('button', { name: /Shopper/u }));
+    const panel = screen.getByRole('region', { name: "Shopper's journeys" });
+    expect(within(panel).getByText('Uses Shop')).toBeTruthy();
+    expect(litOf('Pay')).toBe('dim');
+    fireEvent.click(within(panel).getByRole('button', { name: /^Buy/u }));
     expect(
-      [...container.querySelectorAll('title')].some((t) => t.textContent.includes('WMS API')),
-    ).toBe(true);
-    expect(screen.getByText('Carrier').closest<HTMLElement>('[data-lit]')?.dataset.lit).toBe('dim');
-    expect(lit(container, 'hot')).toBeGreaterThan(0);
-    fireEvent.click(screen.getByRole('button', { name: 'Fold every domain' }));
-    expect(screen.queryByRole('link', { name: /WMS/ })).toBeNull();
+      within(panel)
+        .getByRole('link', { name: /Explore this journey/u })
+        .getAttribute('href'),
+    ).toMatch(/^\/w\/journeys\/buy\/?$/u);
+    expect(litOf('Ship')).toBe('hot');
+    fireEvent.change(within(panel).getByRole('searchbox'), { target: { value: 'nothing' } });
+    expect(within(panel).getByText('Nothing matches.')).toBeTruthy();
+    fireEvent.click(within(panel).getByRole('button', { name: 'Close' }));
+    expect(screen.queryByRole('region', { name: "Shopper's journeys" })).toBeNull();
+  });
+
+  it('says how to name a journey for a person who starts none', () => {
+    render(<LandscapeMap drawing={drawDomainMap(map)} map={map} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Picker' }));
+    expect(screen.getByText(/No journey names Picker yet/u)).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Picker' }));
+    expect(screen.queryByText(/No journey names Picker yet/u)).toBeNull();
   });
 });
