@@ -28,14 +28,21 @@ export function field(p: Plan, typeId: string, name: string): Field {
 
 export const asIsOf = (p: Plan) => buildGraph(systemOf(p));
 
-export const fetchesOf = (plan: { fetches: { id: string; subgraph: string; after: string[] }[] }) =>
+export const fetchesOf = (plan: {
+  readonly fetches: readonly {
+    readonly id: string;
+    readonly subgraph: string;
+    readonly after: readonly string[];
+  }[];
+}) =>
   plan.fetches.map((f) => {
     const after = f.after.length > 0 ? ` after ${f.after.join(',')}` : '';
     return `${f.id} ${f.subgraph.replace('sg:', '')}${after}`;
   });
 
-export const states = (c: { layers: { store: string; state: string }[] }) =>
-  c.layers.map((l) => `${l.store.replace('st:', '')}:${l.state}`);
+export const states = (c: {
+  readonly layers: readonly { readonly store: string; readonly state: string }[];
+}) => c.layers.map((l) => `${l.store.replace('st:', '')}:${l.state}`);
 
 /** Validate a mutated shop and return its findings as "path: message" lines. */
 export function check(mutate?: Mutate) {
