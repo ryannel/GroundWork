@@ -5,16 +5,16 @@ import { PromiseScreen } from './promise-screen';
 import { ScenariosScreen } from './scenarios-screen';
 
 // Chapter 1: the problem in the evidence's own words, what is promised, and the scenarios it must make work.
-export function WhyChapter(props: BodyProps) {
-  switch (props.page.screen) {
+export function WhyChapter({ page, ...rest }: BodyProps) {
+  switch (page.screen) {
     case 'promise': {
-      return <PromiseScreen {...props} />;
+      return <PromiseScreen {...rest} page={page} />;
     }
     case 'scenarios': {
-      return <ScenariosScreen {...props} />;
+      return <ScenariosScreen {...rest} page={page} />;
     }
     default: {
-      return <ProblemScreen {...props} />;
+      return <ProblemScreen {...rest} page={page} />;
     }
   }
 }

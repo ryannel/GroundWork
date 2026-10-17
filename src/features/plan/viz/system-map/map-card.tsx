@@ -55,7 +55,7 @@ function Names({ node }: { readonly node: DrawnNode }) {
 function Kind({ node }: { readonly node: DrawnNode }) {
   const kind = kindOf(node.serviceKind);
   const plain = node.serviceKind === 'service' || node.serviceKind === '';
-  if (node.role.length > 0)
+  if (node.role.length > 0) {
     return (
       <>
         {plain ? null : <FlowGlyph glyph={kind.glyph} x={node.tx} y={node.nameEnd + 6} />}
@@ -71,6 +71,7 @@ function Kind({ node }: { readonly node: DrawnNode }) {
         ))}
       </>
     );
+  }
   if (node.compact) return null;
   return (
     <>

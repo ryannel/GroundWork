@@ -6,11 +6,11 @@ type Current = () => PaneView | null;
 const DRAG_START = 5;
 
 interface Drag {
-  id: number;
-  x: number;
-  y: number;
-  from: PaneView;
-  on: boolean;
+  readonly id: number;
+  readonly x: number;
+  readonly y: number;
+  readonly from: PaneView;
+  readonly on: boolean;
 }
 
 function bindWheel(el: HTMLElement, current: Current, move: Move): () => void {
@@ -44,7 +44,7 @@ function bindDrag(el: HTMLElement, current: Current, move: Move): () => void {
     const dx = event.clientX - drag.x;
     const dy = event.clientY - drag.y;
     if (!drag.on && Math.hypot(dx, dy) < DRAG_START) return;
-    drag.on = true;
+    drag = { ...drag, on: true };
     el.toggleAttribute('data-panning', true);
     move(panned(drag.from, drag.from.x + dx, drag.from.y + dy));
   };

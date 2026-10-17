@@ -27,9 +27,9 @@ function Card({
       <ScreenFigure base={base} caption id={card.id} link mode="asIs" model={model} size="sm" />
       {card.meta === '' ? null : <p className={styles.meta}>{card.meta}</p>}
       {summary === undefined || summary === '' ? null : (
-        <p className={styles.summary}>
+        <div className={styles.summary}>
           <ModelText model={model} text={summary} />
-        </p>
+        </div>
       )}
       {card.unlinked ? <p className={styles.unlinked}>No recorded journey link</p> : null}
     </article>

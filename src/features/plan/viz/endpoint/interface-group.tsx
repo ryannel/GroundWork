@@ -75,6 +75,8 @@ interface GroupProps {
   /** Every row open: the page's choice for three endpoints or fewer. */
   readonly open?: boolean;
   readonly flowHref?: string | undefined;
+  /** The model's address, to draw each closed row's body in the browser when it opens. */
+  readonly src?: string | undefined;
 }
 
 /** An interface: its head, then one row per endpoint. Nothing when it has none. */
@@ -85,10 +87,12 @@ export function InterfaceGroup({
   head = true,
   open = false,
   flowHref,
+  src,
 }: GroupProps) {
   const eps = interfaceEndpoints(model, ifc.id, mode);
   if (eps.length === 0) return null;
   const shared = sharedFacts(eps);
+  const lazy = src === undefined ? undefined : { src, ifc: ifc.id };
   return (
     <div className={styles.group}>
       {head ? <InterfaceHead eps={eps} ifc={ifc} mode={mode} model={model} /> : null}
@@ -98,6 +102,7 @@ export function InterfaceGroup({
             ep={e}
             flowHref={flowHref}
             key={e.id}
+            lazy={lazy}
             mode={mode}
             model={model}
             open={open}

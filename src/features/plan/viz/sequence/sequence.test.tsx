@@ -7,7 +7,7 @@ import { derive } from '@/application/plan/derive';
 
 import { Sequence } from './sequence';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const model = derive(sequencePlan());
 

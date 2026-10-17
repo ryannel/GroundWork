@@ -35,8 +35,9 @@ function Screen({
   base,
 }: Pick<ExperienceProps, 'model' | 'data' | 'mode' | 'base'>) {
   const { screen } = data;
-  if (screen.kind === 'none')
+  if (screen.kind === 'none') {
     return <p className={styles.note}>No screen is linked to these steps.</p>;
+  }
   if (screen.kind === 'missing') {
     return <p className={styles.note}>Screen details are unavailable in this view.</p>;
   }
@@ -80,12 +81,21 @@ function Onward({ data }: { readonly data: ExperienceData }) {
 }
 
 // A flow as the person sees it: the moments in order, the screen they are on, and the system work behind each.
-export function Experience(props: ExperienceProps) {
-  const { model, data, bare = false } = props;
+export function Experience({
+  model,
+  data,
+  bare = false,
+  tabMarks,
+  comparison,
+  base,
+  mode,
+  systemMarks,
+  stepper,
+}: ExperienceProps) {
   return (
     <section className={styles.experience}>
       {bare ? null : <p className={styles.topline}>{data.topline}</p>}
-      <ExperienceTabs marks={props.tabMarks} tabs={data.tabs} />
+      <ExperienceTabs marks={tabMarks} tabs={data.tabs} />
       <header className={styles.heading}>
         <span>
           {data.word}
@@ -94,20 +104,20 @@ export function Experience(props: ExperienceProps) {
         <h3>{data.title}</h3>
         {data.shows === '' ? null : <ModelText model={model} text={data.shows} />}
       </header>
-      {props.comparison}
+      {comparison}
       <div className={styles.body}>
         <div className={styles.screen}>
-          <Screen base={props.base} data={data} mode={props.mode} model={model} />
+          <Screen base={base} data={data} mode={mode} model={model} />
           <Onward data={data} />
         </div>
         <div>
           <ExperienceSystems
-            marks={props.systemMarks}
+            marks={systemMarks}
             model={model}
             place={data.key}
             systems={data.systems}
           />
-          {props.stepper}
+          {stepper}
         </div>
       </div>
     </section>

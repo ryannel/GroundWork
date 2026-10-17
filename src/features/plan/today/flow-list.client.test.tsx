@@ -7,7 +7,7 @@ import type { FlowEntry } from '@/application/today-flow-list';
 import { FlowList } from './flow-list.client';
 
 let path = '/w/d/s/';
-vi.mock('next/navigation', () => ({ usePathname: () => path }));
+vi.mock(import('next/navigation'), () => ({ usePathname: () => path }));
 
 afterEach(cleanup);
 
@@ -40,7 +40,7 @@ describe('FlowList', () => {
     render(<FlowList flows={many}>drawn</FlowList>);
     expect(screen.getAllByRole('heading').map((h) => h.textContent)).toEqual(['API 2', 'Worker 6']);
     expect(screen.getByRole('link', { current: 'page' }).textContent).toContain('price');
-    expect(screen.getByRole('link', { name: /quote/ }).textContent).toContain('2 of 4 steps here');
+    expect(screen.getByRole('link', { name: /quote/u }).textContent).toContain('2 of 4 steps here');
   });
 
   it('marks the flow whose page is open', () => {

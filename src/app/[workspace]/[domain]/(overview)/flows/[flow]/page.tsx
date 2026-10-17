@@ -5,6 +5,7 @@ import { domainPaths, flowSlug, workspaceHref } from '@/application/workspace-pa
 import { TodayFlow } from '@/features/plan';
 import { todayData } from '@/infrastructure/today-data';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
+import { NOTHING, orNothing } from '@/shared/static-params';
 
 interface Params {
   readonly workspace: string;
@@ -25,7 +26,7 @@ export async function generateStaticParams(): Promise<Params[]> {
       return (view?.flows ?? []).map((flow) => ({ ...path, flow: flowSlug(flow.id) }));
     }),
   );
-  return each.flat();
+  return orNothing(each.flat(), { workspace: NOTHING, domain: NOTHING, flow: NOTHING });
 }
 
 // One flow through the domain, beside the list of all of them.

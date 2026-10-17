@@ -71,8 +71,10 @@ function Tile({
   );
 }
 
+const NONE_STALE: NonNullable<VoteTilesProps['stale']> = [];
+
 /** One tile per team that rates: the score, five pips, a note, and a mark on a rating made before a proposal. */
-export function VoteTiles({ model, teams, stale = [], before = '' }: VoteTilesProps) {
+export function VoteTiles({ model, teams, stale = NONE_STALE, before = '' }: VoteTilesProps) {
   const list = voteTileList(model, teams ?? voteSummary(model).teams);
   return (
     <div className={styles.tiles}>

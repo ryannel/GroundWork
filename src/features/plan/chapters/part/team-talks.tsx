@@ -27,8 +27,9 @@ function Row({ model, row }: { readonly model: Model; readonly row: Connection }
 }
 
 function sameSummary(same: number, changed: number): string {
-  if (changed === 0)
+  if (changed === 0) {
     return `${capital(numWord(same))} ${same === 1 ? 'connection' : 'connections'}, none of them changing`;
+  }
   return `${capital(numWord(same))} more that ${same === 1 ? 'does not' : 'do not'} change`;
 }
 

@@ -27,7 +27,7 @@ export function RiskPicker({ grid, register }: RiskPickerProps) {
   const [picked, setPicked] = useState<Picked | null>(null);
   const latest = useRef<string | null>(null);
 
-  useEffect(() => {
+  useEffect((): (() => void) | undefined => {
     const el = root.current;
     if (el === null) return;
     const onClick = (event: MouseEvent): void => {

@@ -8,7 +8,7 @@ import { FlowDiagram } from './flow-diagram';
 import { FlowPane } from './flow-pane';
 import { RestNote } from './flow-rest';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -33,7 +33,7 @@ describe('FlowDiagram', () => {
       expect(open?.getAttribute('aria-label')).toBeTruthy();
     }
     expect(container.querySelector('svg')?.getAttribute('aria-label')).toMatch(
-      /^Flow diagram: .+, \d+ systems$/,
+      /^Flow diagram: .+, \d+ systems$/u,
     );
   });
 
@@ -57,19 +57,19 @@ describe('FlowDiagram', () => {
     );
     const edge = container.querySelector('[data-walk][data-from][data-to] path');
     expect(edge).not.toBeNull();
-    expect(screen.getAllByRole('button', { name: /^Step 1/ }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('button', { name: /^Step 1/u }).length).toBeGreaterThan(0);
   });
 
   it('opens a step in the inspector by default', () => {
     render(<FlowDiagram flowId="flow:price-purge" mode="toBe" model={model} />);
-    const row = screen.getAllByRole('button', { name: /^Step 2/ })[0];
+    const row = screen.getAllByRole('button', { name: /^Step 2/u })[0];
     expect(row?.dataset.inspect).toBe('flow:price-purge#consume');
     expect(row?.hasAttribute('data-step')).toBe(false);
   });
 
   it('hands the step number to a viewer when asked to go', () => {
     render(<FlowDiagram action="go" flowId="flow:price-purge" mode="toBe" model={model} />);
-    const row = screen.getAllByRole('button', { name: /^Step 2/ })[0];
+    const row = screen.getAllByRole('button', { name: /^Step 2/u })[0];
     expect(row?.dataset.step).toBe('1');
     expect(row?.hasAttribute('data-inspect')).toBe(false);
   });
@@ -95,7 +95,7 @@ describe('FlowDiagram', () => {
     const { container } = render(
       <FlowDiagram flowId="flow:price-purge" mode="toBe" model={model} only={new Set([1])} />,
     );
-    expect(screen.queryAllByRole('button', { name: /^Step 1:/ })).toHaveLength(0);
+    expect(screen.queryAllByRole('button', { name: /^Step 1:/u })).toHaveLength(0);
     expect(container.querySelectorAll('[data-node]').length).toBeGreaterThan(0);
   });
 });
@@ -103,8 +103,8 @@ describe('FlowDiagram', () => {
 describe('FlowPane', () => {
   it('puts the drawing in a zoom pane with its key', () => {
     render(<FlowPane flowId="flow:price-purge" mode="toBe" model={model} />);
-    expect(screen.getByRole('button', { name: /expand the flow/i })).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: /expand the flow/i }));
+    expect(screen.getByRole('button', { name: /expand the flow/iu })).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: /expand the flow/iu }));
     expect(screen.getByRole('note').textContent).toContain('event');
   });
 

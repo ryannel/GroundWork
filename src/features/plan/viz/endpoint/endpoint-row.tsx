@@ -10,6 +10,7 @@ import { StatusBadge } from '@/features/plan/common/status-badge';
 import { CompatBadge } from '@/features/plan/viz/compat/compat';
 
 import { CopyPath } from './copy-path.client';
+import { EndpointBody, type LazyEndpoint } from './endpoint-body.client';
 import { EndpointLines } from './endpoint-lines';
 import { EndpointSig } from './endpoint-parts';
 import styles from './endpoint-row.module.css';
@@ -24,6 +25,8 @@ export interface EndpointRowProps {
   readonly shared?: Shared;
   /** The page that draws the flows, for the "go" link beside each caller. */
   readonly flowHref?: string | undefined;
+  /** Draws the body in the browser when the row first opens, rather than in the page. Ignored when open. */
+  readonly lazy?: LazyEndpoint | undefined;
 }
 
 function Summary({
@@ -66,7 +69,13 @@ function Foot({ ep }: { readonly ep: EndpointNode }) {
       {(ep.sources ?? [])
         .filter((s) => s.url !== '')
         .map((s) => (
-          <a className={styles.source} href={s.url} key={s.url} rel="noopener" target="_blank">
+          <a
+            className={styles.source}
+            href={s.url}
+            key={s.url}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             <span aria-hidden="true">⎇</span> {sourceLabel(s)}
           </a>
         ))}
@@ -79,14 +88,17 @@ function Foot({ ep }: { readonly ep: EndpointNode }) {
   );
 }
 
+const NOTHING_SHARED: NonNullable<EndpointRowProps['shared']> = {};
+
 /** One endpoint, collapsed to a line (signature, summary, callers, errors, status) and opening to its body. */
 export function EndpointRow({
   model,
   ep,
   mode = 'diff',
   open = false,
-  shared = {},
+  shared = NOTHING_SHARED,
   flowHref,
+  lazy,
 }: EndpointRowProps) {
   const status = isRemoved(model, ep, mode) ? 'removed' : model.status(ep.id);
   const shown = mode === 'diff' ? status : null;
@@ -94,7 +106,11 @@ export function EndpointRow({
     <details className={styles.row} data-status={shown ?? 'existing'} open={open}>
       <Summary ep={ep} mode={mode} model={model} />
       <div className={styles.body}>
-        <EndpointLines ep={ep} flowHref={flowHref} mode={mode} model={model} shared={shared} />
+        {lazy === undefined || open ? (
+          <EndpointLines ep={ep} flowHref={flowHref} mode={mode} model={model} shared={shared} />
+        ) : (
+          <EndpointBody flowHref={flowHref} id={ep.id} lazy={lazy} mode={mode} shared={shared} />
+        )}
         <Foot ep={ep} />
       </div>
     </details>

@@ -74,13 +74,9 @@ function Meta({ st, today }: { readonly st: MilestoneState; readonly today: Date
  * "2 of 4 done" with a bar; all done "M1 done 1 Oct"; past its date and not done "due date passed"), what works when
  * it is done, and what it waits on. The chip form is the strip's: name and state only.
  */
-export function MilestoneCard({
-  model,
-  msId,
-  density = 'card',
-  today = new Date(),
-}: MilestoneCardProps) {
-  const st = msState(model, msId, today);
+export function MilestoneCard({ model, msId, density = 'card', today }: MilestoneCardProps) {
+  const now = today ?? new Date();
+  const st = msState(model, msId, now);
   if (st === null) return null;
   if (density === 'chip') return <StripForm model={model} st={st} />;
   const gates = model.blockersOf(msId);
@@ -100,7 +96,7 @@ export function MilestoneCard({
         </button>
         {st.title === '' ? null : <span className={styles.title}>{st.title}</span>}
       </header>
-      <Meta st={st} today={today} />
+      <Meta st={st} today={now} />
       {st.ms.exit === undefined ? null : (
         <div className={styles.exit}>
           <span className={styles.eyebrow}>What works</span>

@@ -5,9 +5,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { derive } from '@/application/plan/derive';
 
 import { EntityChip, EntityChips } from './entity-chip';
-import { ModelInline, ModelText } from './model-text';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -39,18 +38,5 @@ describe('EntityChips', () => {
     expect(screen.getAllByRole('button')).toHaveLength(2);
     const { container } = render(<EntityChips ids={[]} model={model} />);
     expect(container.innerHTML).toBe('');
-  });
-});
-
-describe('ModelText', () => {
-  it('draws citations as chips', () => {
-    render(<ModelText model={model} text={'Moves [[svc:subs]].\n\n- and [[svc:web]]'} />);
-    expect(screen.getAllByRole('button').map((b) => b.dataset.inspect)).toEqual([
-      'svc:subs',
-      'svc:web',
-    ]);
-    cleanup();
-    render(<ModelInline model={model} text="Only [[svc:web]]" />);
-    expect(screen.getByRole('button').dataset.inspect).toBe('svc:web');
   });
 });

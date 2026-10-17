@@ -31,7 +31,7 @@ function FlowDrawn({ model, id, today }: ThingExtrasProps) {
 function IssueState({ issue }: { readonly issue: IssuePreview }) {
   if (issue.state === null) return <Badge>not filed</Badge>;
   if (issue.state === 'open') return <Badge tone="accent">open</Badge>;
-  const on = issue.closedOn === null ? '' : ` ${shortDate(issue.closedOn)}`;
+  const on = issue.closedOn === null ? '' : ` ${shortDate(issue.closedOn, new Date())}`;
   return <Badge tone="added">{`closed${on}`}</Badge>;
 }
 
@@ -68,11 +68,11 @@ interface ThingExtrasProps {
 }
 
 /** A flow's drawing and a work item's issue, under its facts. */
-export function ThingExtras(props: ThingExtrasProps) {
+export function ThingExtras({ id, model, ...rest }: ThingExtrasProps) {
   return (
     <>
-      <FlowDrawn {...props} />
-      <Issue id={props.id} model={props.model} />
+      <FlowDrawn id={id} model={model} {...rest} />
+      <Issue id={id} model={model} />
     </>
   );
 }

@@ -25,8 +25,9 @@ export interface NotesProps {
 }
 
 const sourceNote = (n: number, today: boolean): string => {
-  if (n === 0)
+  if (n === 0) {
     return `Recorded in the ${today ? 'system model' : 'plan'}. No direct source is recorded for this step.`;
+  }
   const are = n === 1 ? 'source is' : 'sources are';
   return `${String(n)} direct ${are} recorded for this step.`;
 };
@@ -82,8 +83,8 @@ function Ahead({ model, flowId, stepId }: AheadProps) {
  * What a journey adds under a step: a disclosure of how the plan changes it, what the plan says about retiring it,
  * and the evidence for the step itself.
  */
-export function JourneyStepNotes(props: NotesProps) {
-  return props.today === true ? <TodayNotes {...props} /> : <PlanNotes {...props} />;
+export function JourneyStepNotes({ today, ...rest }: NotesProps) {
+  return today === true ? <TodayNotes {...rest} /> : <PlanNotes {...rest} />;
 }
 
 /** Outside any plan a step has only its evidence. */

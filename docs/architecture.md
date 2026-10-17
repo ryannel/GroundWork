@@ -18,6 +18,7 @@ user-facing app. Say "service" only when you mean that kind; say "component" whe
 
 ```
 <workspace>/workspace.yaml            format, teams, the people (actors) who use the systems, and key journeys
+  language.yaml                       the key terms the business has agreed on, anchored to the code
   domains/<domain>/domain.yaml
     language.yaml                     the domain's words: summary and concepts (system model)
     systems/<system>/system.yaml      purpose, components and what they talk to
@@ -34,7 +35,7 @@ schema/plan.schema.json               the plan format, checked with ajv (in Grou
 ### Where workspaces are
 
 A workspace is its own repo, holding both its model of today and its plans, so a plan and the model it rests on
-share one history. Groundwork keeps two examples in `workspaces/` (`alder-finch` and `personal`).
+share one history. Groundwork keeps one example in `workspaces/` (`personal`).
 `src/infrastructure/workspace-folders.ts` is the only code that knows where workspaces are, and every reader asks
 it for a workspace's folder by id:
 
@@ -45,7 +46,9 @@ it for a workspace's folder by id:
   git-ignored, one per checkout, so whoever clones Groundwork links the workspaces they want. An entry is a folder
   on this machine, or `repo: <url>` with an optional `folder:`, cloned into `.workspaces/<name>` (git-ignored)
   by `npm run workspace -- pull`; a listed repo that is not cloned yet is an error that says to pull.
-  `bundled: false` leaves the examples out. Tests ignore the file and read only the examples.
+  `bundled: false` leaves the examples out. Tests read no workspace on disk: they build Acme, a small typed
+  fixture in `test/fixtures/acme/`, with `test/workspace-kit.ts` and `test/plan-kit.ts`, and write it to a temp
+  folder when they test the readers.
 - A listed folder without a `workspace.yaml`, two folders with one id, or a local file with unknown keys is an
   error, never skipped. A workspace's id is the `id` in its `workspace.yaml`, whatever its folder is called.
 
@@ -70,6 +73,12 @@ what each other system calls it (`aka`). A word lives in the domain where it is 
 warns when it does not (`src/application/workspace-language.ts`). Every domain's words join today's
 `domain.concepts`, so plans and views read one language.
 
+The workspace's own `language.yaml` holds the **key terms**: the words the business has agreed on, in groups,
+each with what it means, its aliases, examples and the terms it relates to. Each key term is anchored (`anchors`)
+to where it lives in the code, a domain's word (`con:…`), a system or a domain, with how well the code's word fits
+(`same`, `renamed`, `close`, `clash` or `lives-in`). A key term may have no anchor yet. `check` warns when an
+anchor or relation points at nothing.
+
 - `src/domain/workspace-model.ts` has the types: `WorkspaceModel`, `Attribution` (origin and code sources by id,
   nested ids included) and `Scan` (a repo's high-water mark).
 - `src/infrastructure/workspace-model.ts` reads the files (each one optional), takes `origin` off, keeps the
@@ -77,36 +86,42 @@ warns when it does not (`src/application/workspace-language.ts`). Every domain's
   defined twice is an error.
 - `src/application/workspace-model.ts` `systemModelOf(workspace, model)` assembles one plan-shaped document with
   no changes (teams and colours from `workspace.yaml`, `sys:<system>` per system, components as services or
-  stores) and derives it, so every plan view can draw today. A test proves the alder-finch document has no
-  validation errors, draws every component and resolves every flow step.
+  stores) and derives it, so every plan view can draw today. A test proves the Acme test fixture's document has
+  no validation errors, draws every component and resolves every flow step.
 
 ### The landscape
 
-A workspace's front page draws one canvas (`src/features/workspace/landscape-map.client.tsx`). Folded, each
-domain is a box and the lines between them are the context map; open one and its systems take its place, as in a
-C4 system landscape. Components appear only on domain, system and plan pages.
+The Landscape is the workspace at its most zoomed out, in three pages: **Map** (`/[workspace]/`), **Language**
+(`/[workspace]/language/`) and **People** (`/[workspace]/people/`). Only domains and people appear; systems and
+components belong to the domain and system pages, and teams are not shown.
 
-- People sit in a band along the top, outside services (external components) along the bottom, each placed
-  under the middle of what it connects to. Actors are listed in `workspace.yaml` (`actor:` ids, with the
-  systems they `use`); flow actors other than "System" are added.
-- The page leads with the plans, then the canvas, then a handful of **key journeys**, the only journeys at this
-  level: a real estate runs thousands of flows, which belong to the domains and systems they run through.
-  `src/application/key-journeys.ts` suggests up to six from the model, each next one the journey reaching the most
-  systems not yet reached, preferring those a person starts. A `key_journeys:` list of user journey or flow ids in
-  `workspace.yaml` replaces the suggestion. Only key journeys can be lit on the canvas.
-- `landscape-map-input.ts` gathers the boxes and component links from today's model; `landscape-map-rollup.ts`
-  rolls every link up to whatever box shows its ends, so a line between two folded domains stands for all the
-  calls, events and reads between them.
-- `landscape-map-layout.ts` places the boxes; an open domain is one column of systems. `landscape-map-route.ts`
-  runs lines square: through the channel under the people or over the outside services, and through the corridor
-  beside an open domain, so no line crosses a system. `landscape-map-path.ts` gives each line its own lane in
-  every channel and corridor; the layout is drawn twice, the second time with room for the lanes the first
-  needed.
-- Resting on a box or line lights what it connects to and names what the lines carry; "Light up" lights the
-  boxes and lines a journey or flow crosses.
+- The Map (`src/features/workspace/landscape-map.client.tsx`) is a context map. Each domain is a box with its
+  purpose, how many systems it runs and the people who work in it as chips. The customer (an actor with
+  `customer: true` in `workspace.yaml`) sits apart on the left. Domains run left to right by reliance: the ones the
+  customer uses, then the ones those call or hear events from. One curved line between two domains stands for
+  everything that runs between them.
+- A person works in the domains whose systems they `use`. A person's journeys are the user journeys and flows
+  whose `actor` names them. Picking a person lights where their journeys go and lists them, to search. Picking one
+  lights just that journey and links to its explorer. Resting on a domain lights what it connects to and names
+  what the lines carry.
+- `src/application/landscape-domains.ts` rolls the model up to domains, people, lines and journeys.
+  `landscape-domains-layout.ts` places the boxes in columns (loops broken where first met, each column ordered by
+  where its neighbours sit). `landscape-domains-lines.ts` draws the curves, spreading where lines meet a box so
+  they do not cross there.
+- Language lists the key terms in their groups, with how well each fits the code, then every domain's words
+  from the scan; search and a domain filter narrow both. Picking one opens it beside the list (`?term=`): what
+  it means, its aliases and examples, where it lives (domain › system › component), what the code calls it and
+  what it relates to (`src/application/language-page.ts`). A scan seeds the words; people polish the key terms. People lists everyone, customers first, with their domains and
+  journeys.
 
 ### Plans
 
+- Plans have their own index, `/[workspace]/plans/` (`src/features/workspace/plans-page.tsx`), built to find one
+  among hundreds: search by words, cut by domain or stage, sort, fifty rows at a time. The cut travels in the
+  address (`?q=`, `?domain=`, `?stage=`, `?sort=`). `src/application/plan-index.ts` reads each plan as a row: the
+  domains it lands in (those holding a component it changes, or a repo its work goes to), its stage (draft, in
+  review, approved, then in delivery and delivered from its work items) and its date. The rail counts the plans
+  and links to the index; it does not list them.
 - Plan types live in `src/domain/plan/`. `plan.generated.ts` is generated from `schema/plan.schema.json` by
   `npm run generate`; a test fails if it is stale. Generated files are exempt from size limits only.
 - Everything worked out from a plan (the derived layer: graph, journeys, impact, delivery, diffs) lives in
@@ -135,7 +150,11 @@ C4 system landscape. Components appear only on domain, system and plan pages.
 | Route                                               | Page                                 |
 | --------------------------------------------------- | ------------------------------------ |
 | `/`                                                 | the workspaces                       |
-| `/[workspace]/`                                     | the landscape of one workspace       |
+| `/design/`                                          | every piece of the design system     |
+| `/[workspace]/`                                     | the map of one workspace             |
+| `/[workspace]/language/`                            | key terms and the words in the code  |
+| `/[workspace]/people/`                              | the people who use the systems       |
+| `/[workspace]/plans/`                               | every plan, to search and filter     |
 | `/[workspace]/[domain]/`                            | one domain                           |
 | `/[workspace]/[domain]/flows/[flow]/`               | one domain, with one flow open       |
 | `/[workspace]/[domain]/[system]/`                   | one system                           |
@@ -144,12 +163,13 @@ C4 system landscape. Components appear only on domain, system and plan pages.
 | `/[workspace]/journeys/[key]/`                      | one journey, walked step by step     |
 | `/[workspace]/reference/`                           | the kinds of thing the systems hold  |
 | `/[workspace]/reference/[kind]/`                    | the catalogue of one kind            |
-| `/[workspace]/things/[thing]/`                      | one thing as it runs today           |
+| `/[workspace]/things/?id=<token>`                   | one thing as it runs today           |
 | `/[workspace]/model.json`                           | the workspace today, for the browser |
+| `/[workspace]/attribution.json`                     | who said each fact, for thing pages  |
 | `/[workspace]/assets/[...file]`                     | the workspace's images               |
 | `/[workspace]/plans/[plan]/`                        | a plan's cover                       |
 | `/[workspace]/plans/[plan]/[chapter]/[screen]/`     | one screen of a plan                 |
-| `/[workspace]/plans/[plan]/things/[thing]/`         | one thing of a plan, as a page       |
+| `/[workspace]/plans/[plan]/things/?id=<token>`      | one thing of a plan, as a page       |
 | `/[workspace]/plans/[plan]/plan.json`               | the checked plan, for the browser    |
 | `/[workspace]/plans/[plan]/revisions/[v]/plan.json` | an earlier version, for the browser  |
 | `/[workspace]/plans/[plan]/assets/[...file]`        | a plan's diagrams and images         |
@@ -163,7 +183,7 @@ only user journeys are cards, at most six, with a link to them all. That link is
 and flow as one line, to be narrowed by words or by domain, never as cards. The sidebar counts every journey but names only
 the key ones, and the one being read.
 
-`plans`, `things`, `assets`, `journeys` and `reference` are reserved and cannot be domain ids, `flows` cannot be
+`plans`, `things`, `assets`, `journeys`, `reference`, `language` and `people` are reserved and cannot be domain ids, `flows` cannot be
 a system id, and `assets`,
 `mockups`, `things` and `revisions` cannot be
 chapters. Screens render on the server. The step, lens and open inspector are client state in the URL. Entity chips render as
@@ -181,13 +201,16 @@ with its path, and the way back to the workspace. Its other screens are not buil
 it out until it is fixed; its `plan.json` holds only `{ errors }`.
 
 Every thing the inspector can show, except the parts of one (fields, steps and regions), also has its own page at
-`things/<token>/`, built by `topThingIds`. It shows the same body as the inspector, with the others of its kind
-down the side, the pager and keys stepping through them, Copy link and the today / with-this-plan switch. The
-inspector's bar links to it with Open as page.
+`things/?id=<token>` (`thingAt`). That is one page per plan, and one per workspace, not one per thing: the build
+draws the shell, and the browser reads `?id=`, takes the model it fetches anyway and draws the thing, so the export
+does not grow with the model. It shows the same body as the inspector, with the others of its kind down the side,
+the pager and keys stepping through them, Copy link and the today / with-this-plan switch. The inspector's bar
+links to it with Open as page. Read today, the code evidence comes from `attribution.json`, kept out of
+`model.json` because every page fetches that.
 
 The workspace's own pages read today, outside any plan. They fetch `/<workspace>/model.json`, the system model
 as a plan-shaped document with no work and so no status, and pass the inspector, palette, hover cards and keys a
-`Reader` (`todayReaderOf`): where the model is, where thing pages live (`/<workspace>/things/`) and what images
+`Reader` (`todayReaderOf`): where the model is, where the thing page lives (`/<workspace>/things/`) and what images
 resolve against (`/<workspace>/`, so `assets/x.svg` is served from the workspace's `assets/`). A plan builds its
 own `Reader` with `planReaderOf`. Read today, there is no today / with-this-plan switch, no versions, no
 status and no "in this plan"; a thing's page there also says where it sits (domain › system › component), what it
@@ -289,15 +312,26 @@ tools ──▶ infrastructure, application, domain, shared
 | `src/app`             | Next.js routes: load with infrastructure, compute with application, render a feature | all of the above                            | react, next                           |
 | `tools`               | Command-line tools                                                                   | infrastructure, application, domain, shared | `node:*`, yaml                        |
 
-- Features are reached only through their `index.ts`. A feature never imports another feature; move what they
+- Features are reached only through their `index.ts`, and an `index.ts` only re-exports by name
+  (`export { x } from`): no code, no `export *`. A feature never imports another feature; move what they
   share to `ui`, `application` or `shared`.
+- `domain`, `application` and `shared` are pure: the same input gives the same answer. They do not read the
+  clock (`new Date()`, `Date.now()`), roll dice (`Math.random()`) or touch the world (`window`, `document`,
+  `fetch`, `process`, timers…). The caller passes today in.
+- Every file in `src/infrastructure` imports `server-only`. Only `src/infrastructure/workspace-folders.ts`,
+  tools and configs read `process.env`.
+- No junk-drawer names: no file called `utils`, `helpers`, `common`, `misc`, `lib`, `core`, `manager`…
 - `src/app` contains only Next.js route files (`page`, `layout`, `not-found`…) and `globals.css`.
 - A file outside these folders is an error.
 - Imports across folders use `@/`, never `../`.
 
 ## Next.js
 
-- Static export only: no `'use server'`, no `revalidate`, no dynamic rendering.
+- Static export only: no `'use server'`, no `revalidate`, no dynamic rendering. Nothing that needs a server or
+  the pages router: no `next/headers`, `next/server`, `next/cache`, `next/router`, `next/head`,
+  `next/document`, `next/legacy/image` or `next/dist/*`.
+- A route file exports only what Next.js reads (`default`, `metadata`, `generateMetadata`,
+  `generateStaticParams`, `viewport`…) and types.
 - Server components by default. A client component lives in `*.client.tsx` and starts with `'use client'`; the
   name shows the boundary at every import.
 - Internal links use `next/link`. Styles are CSS modules. No `style` props: use a class or a data attribute.
@@ -307,9 +341,46 @@ tools ──▶ infrastructure, application, domain, shared
 - Only `src/app/layout.tsx` imports `globals.css`, which holds the design tokens. Stylelint rejects raw colours,
   sizes, spacing, radii and shadows anywhere else.
 
+### The design system
+
+`src/ui` decides how things look; a feature decides only where they go. Every piece has a specimen at
+`/design/`, which says what it is for. When a feature needs something that is not there, add it to `src/ui`
+with a specimen, rather than styling it in the feature.
+
+- Words use `Text` and `TextLink` (tone, size, weight, mono, caps, clamp), not a feature's own `color` or
+  `font-*`.
+- Controls use `Button`, `SearchField`, `Select` and `FilterChips`, not a raw `<button>`, `<input>` or
+  `<select>`. Rows of one kind use `List` and `ListItem`; tables use `DataTable`; progress uses `ProgressBar`.
+- Common layouts use `Stack` (one under another), `Cluster` (side by side, wrapping) and `SplitView` (a long
+  list with the picked thing open in a panel beside it), so most features need no CSS module at all.
+- A feature's CSS module holds layout: `display`, grid, flex, gap, margins, padding, sizes and position. Colour,
+  background, borders, radii, fonts, shadows, cursors and `::-webkit-*` styling belong in `src/ui`.
+
+`npm run design:drift` holds the line while older features move across. It counts, per file in
+`src/features`, the CSS declarations about looks and the raw controls, plus the rule bodies copied between
+stylesheets, and fails if any count rises above `tools/design-drift.baseline.json`. When a count falls, run
+`npm run design:drift -- --update` and commit the smaller baseline, so it cannot creep back.
+
+### Speed
+
+A page should feel instant. A static page ships what it draws twice, as HTML and as the payload React hydrates
+from, so drawing what the reader has not asked for costs every reader on every visit.
+
+- One page per kind of record, not per record. A thing page reads `?id=` and draws from `plan.json` or
+  `model.json` in the browser, so a plan with a thousand things still exports one page.
+- Draw once, and let the client change what it shows. Do not hand a client component a drawing for every
+  choice (every lens, team or tab); `groundwork/one-per-choice` rejects it. Files still on the debt list in
+  `eslint.config.mjs` come off it as they are fixed.
+- Prefetch only what the reader reaches for. Use `IntentLink` for long lists of links; `next/link`'s
+  `prefetch` prop is rejected by `groundwork/link-prefetch`.
+- A route whose list can be empty (no plans, no pictures) uses `orNothing` from `src/shared/static-params.ts`,
+  because a static export refuses a route that lists no addresses.
+- `npm run budget`, after a build, fails if any exported page weighs more than 1 MB and lists the heaviest.
+
 ## Code
 
-- TypeScript strict, plus `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes`; typed lint rules
+- TypeScript strict, plus `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes` and
+  `noUncheckedSideEffectImports`; typed lint rules
   (`strictTypeChecked`).
 - No `as` casts outside tests: parse with zod at the edge, narrow everywhere else. No enums, namespaces or
   classes (except errors). Switches over unions are exhaustive.
@@ -317,6 +388,52 @@ tools ──▶ infrastructure, application, domain, shared
 - Small pieces: 300 lines a file, 60 a function (120 for a component), 3 parameters, depth 3, complexity 12.
 - kebab-case file names. Tests sit next to the code as `*.test.ts(x)`; component tests use jsdom.
 - knip fails on unused files, exports and dependencies. Coverage of domain, application and shared stays at 90%.
+- No `any`, written or inferred: type coverage outside tests is 100% (`npm run typecoverage`, strict), which
+  also catches `any` leaking out of library types. `ts-reset.d.ts` closes the common leaks (`JSON.parse`,
+  `.json()`, `Array.isArray`, `.filter(Boolean)`, storage, `Map`); narrow what is left to `unknown`. The one
+  way out is `// type-coverage:ignore-next-line`, and an ignore that hides nothing fails.
+- Tests must notice wrong code, not just run it. Mutation testing (Stryker) plants small bugs in the domain,
+  application and shared files a pull request touches, and fails if fewer than 75% of them make a test fail.
+  Touching an old file brings it under the bar too, so the score rises as the code is worked on.
+- Data is read-only. Every property, index signature, array, tuple, `Map` and `Set` in a type, interface or
+  parameter is `readonly` (`groundwork/readonly-types`, which fixes itself). Build new values with `map`,
+  `filter`, spreads and `toSorted`; mutate only a local working variable you then return. Props are read-only.
+- Exported functions in `.ts` files write their return type. Methods in types are written as properties.
+- No escape hatches. Inline ESLint config is switched off (`noInlineConfig`), so `eslint-disable` does nothing
+  and is itself an error; `@ts-ignore`, `@ts-expect-error` and `@ts-nocheck` are errors. To change a rule,
+  change `eslint.config.mjs`, where it is reviewed.
+- Clean code: no names that say nothing (`tmp`, `str`, `ret`, `val`, `res`, `cb`, `err`…), no `TODO` or
+  `FIXME` comments, no commented-out code, no `else` after `return`, no `++`, no `for…in`, at most three
+  operators in one condition, at most 15 imports of values per file. Components destructure their props in
+  the signature, and handlers are named `handleX` and passed as `onX`.
+- Security: no `eval`, `new Function`, `innerHTML` and friends (`no-unsanitized`), `dangerouslySetInnerHTML`
+  (except the theme script in the root layout), `javascript:` URLs, `target="_blank"` without `rel`, regexes
+  built from strings, or regexes that backtrack super-linearly; every regex has the `u` flag. Child processes
+  run with an argument list (`execFile`, `spawn`), never `exec` or `shell: true`. `no-secrets` rejects
+  high-entropy strings. CodeQL (`security-extended`) scans every push, and CI fails on any production
+  dependency advisory and on a critical one in development.
+- Tests: no `.only` or `.skip`, no `expect` inside a condition, mocks are typed, React tests query through
+  `screen`.
+
+### Rules we chose not to turn on
+
+Each was measured against the code. They cost more than they catch:
+
+- `id-length`, `@typescript-eslint/no-magic-numbers`, `explicit-function-return-type` on components: thousands
+  of hits on short loop names, layout numbers and JSX return types, with nothing found.
+- `security/detect-object-injection`: hundreds of false alarms on typed record lookups; `noUncheckedIndexedAccess`
+  and the readonly types already guard them. `security/detect-unsafe-regex`: replaced by the more exact
+  `regexp/no-super-linear-*`. `security/detect-non-literal-fs-filename`: the layers already confine `fs` to
+  infrastructure.
+- `noPropertyAccessFromIndexSignature`: 2,000+ hits of `record.key` that read better than `record['key']`.
+- `react/no-multi-comp`, `react/jsx-props-no-spreading`: small private sub-components and prop pass-through
+  are how the design system stays small.
+- `sonarjs/assertions-in-tests`, `sonarjs/no-dead-store`, `sonarjs/no-redundant-assignments`: repeat
+  `vitest/expect-expect` and `no-useless-assignment` at several times the cost. `sonarjs/aws-*` and
+  `@typescript-eslint/no-unsafe-enum-assignment` cannot fire (no CDK code; enums are banned). Together these
+  were a third of lint time.
+- `testing-library/no-node-access` and `no-container`: the design system styles state with data attributes,
+  which tests read off the nodes.
 
 ## Checks
 
@@ -324,11 +441,27 @@ tools ──▶ infrastructure, application, domain, shared
 | ----------------------------------- | ------------------------------------------------------------------------------------------------- | --------------------------- |
 | `npm run lint:changed`              | ESLint on changed and new files, and the component behind any changed CSS module                  | while working               |
 | `npm test` / `npm run test:changed` | unit tests (all, or those touched by changes)                                                     | while working               |
+| `npm run mutate:changed`            | mutation tests of the changed pure-layer files (`--base <ref>` to compare with a branch)          | while working, pull request |
 | pre-commit hook                     | ESLint, Stylelint and Prettier on staged files, `tsc`, and the tests related to them, in parallel | each commit                 |
-| `npm run check`                     | typecheck, lint, styles, format, cycles (dpdm), knip and all tests with coverage, in parallel     | pre-push hook               |
-| CI                                  | `npm run check` from cold, then `npm run build`                                                   | every push and pull request |
+| `npm run design:drift`              | fails if a feature styles looks or draws raw controls more than the baseline allows               | while working               |
+| `npm run budget`                    | after a build, fails if any exported page weighs more than 1 MB                                   | after a build, CI           |
+| `npm run check:static`              | typecheck, type coverage, styles, design drift, format, cycles and knip                           | part of `check`             |
+| `npm run check`                     | `check:static`, lint, and all tests with coverage                                                 | pre-push hook               |
+| CI                                  | `npm audit`, `check:static`, lint, tests and the build, as parallel jobs from cold                | every push and pull request |
+| Mutation                            | `npm run mutate:changed` against the pull request's base; the report is attached to the run       | PRs touching pure layers    |
+| CodeQL                              | `security-extended` queries over the TypeScript and the workflows                                 | every push, PR and weekly   |
+| Dependabot                          | grouped pull requests for npm and Actions bumps; security fixes as soon as an advisory lands      | weekly                      |
+
+`npm run mutate` runs every pure-layer file: about 50,000 mutants, hours of work. It keeps its results in
+`reports/stryker-incremental.json` and reruns only what changed since. `patches/` fixes Stryker's Vitest runner
+for Vitest 5 (stryker-js#6210); `npm ci` applies it, and fails if the runner is bumped, until the patch is
+dropped or remade.
 
 ESLint, Stylelint, Prettier and `tsc` keep caches in `node_modules/.cache`, so a rerun only rechecks what
 changed. A cached lint can miss an error that a change in one file causes in another; `tsc`, the pre-push check
 and CI catch it. Import cycles are checked by dpdm rather than `import/no-cycle`, which walks the whole graph for
 every file.
+
+For speed, ESLint lints across all cores (`--concurrency auto`) and Vitest runs unit test files in threads
+rather than forks (the architecture tests need forks to `chdir`). Each file still gets its own module graph:
+tests mock modules, so sharing one would leak mocks.

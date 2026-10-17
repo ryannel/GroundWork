@@ -11,6 +11,7 @@ import { SystemPage } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
 import { readLoadedPlans } from '@/infrastructure/workspace-plans';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
+import { NOTHING, orNothing } from '@/shared/static-params';
 
 interface Params {
   readonly workspace: string;
@@ -21,7 +22,11 @@ interface Params {
 export const dynamicParams = false;
 
 export async function generateStaticParams(): Promise<Params[]> {
-  return systemPaths(await readWorkspaces());
+  return orNothing(systemPaths(await readWorkspaces()), {
+    workspace: NOTHING,
+    domain: NOTHING,
+    system: NOTHING,
+  });
 }
 
 // The system page is a layout, so its flows can be pages of their own: picking one fetches only that flow.

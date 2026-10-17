@@ -8,7 +8,7 @@ export function stepTarget(
   action: StepAction,
   step: number | null,
   ref: string,
-): { inspect: string; step: number | undefined } {
+): { readonly inspect: string; readonly step: number | undefined } {
   return { inspect: ref, step: action === 'go' && step !== null ? step : undefined };
 }
 

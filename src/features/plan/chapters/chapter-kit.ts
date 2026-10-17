@@ -3,13 +3,6 @@ import type { ChapterKey, Outline } from '@/application/plan-pages';
 import type { VersionsData } from '@/application/plan-story-versions-data';
 import type { BodyProps } from '@/features/plan/screen-bodies';
 
-export const PLANS = [
-  'delivery-promise',
-  'invoice-vat-number',
-  'stock-reservation',
-  'storefront-graph',
-] as const;
-
 /** For tests: every screen of one chapter of a loaded plan, as the body gets it. */
 export function bodiesIn(
   data: { readonly model: Model; readonly outline: Outline } | null,

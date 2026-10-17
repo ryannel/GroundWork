@@ -2,6 +2,8 @@
 
 import { useState, type ReactNode } from 'react';
 
+import { SearchField } from '@/ui/search-field';
+
 import styles from './field-grid.module.css';
 
 export interface GridRow {
@@ -89,18 +91,14 @@ export function FieldGrid({ head, rows, foldLabels, columns, filter }: FieldGrid
   return (
     <>
       {filter ? (
-        <label className={styles.filter}>
-          <span aria-hidden="true">⌕</span>
-          <input
-            aria-label="Filter fields"
-            onChange={(e) => {
-              setQuery(e.target.value);
-            }}
+        <div className={styles.filter}>
+          <SearchField
+            label="Filter fields"
+            onChange={setQuery}
             placeholder="Filter fields"
-            type="search"
             value={query}
           />
-        </label>
+        </div>
       ) : null}
       <div className={styles.scroll}>
         <table className={styles.table}>

@@ -1,14 +1,19 @@
 // @vitest-environment happy-dom
-import { act, cleanup, fireEvent, render } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { filterRows } from './catalogue-filter';
 import { Catalogue } from './catalogue.client';
 
-vi.mock('next/navigation', () => ({
-  useSearchParams: () => new URLSearchParams(globalThis.location.search),
-  useRouter: () => ({ push: vi.fn() }),
-}));
+vi.mock(import('next/navigation'), async (original) => {
+  const actual = await original();
+  return {
+    ...actual,
+    useSearchParams: () => new actual.ReadonlyURLSearchParams(globalThis.location.search),
+    useRouter: () =>
+      ({ push: vi.fn<(href: string) => void>() }) as unknown as ReturnType<typeof actual.useRouter>,
+  };
+});
 
 const TEAMS = { 'team:a': 'Team A', 'team:b': 'Team B' };
 
@@ -69,12 +74,10 @@ describe('Catalogue', () => {
   const bodies = { asis: <p data-search="old">old</p>, tobe: <p data-search="new">new</p> };
 
   it('shows the first mode and switches with ?show=', async () => {
-    const { container, getByLabelText } = render(
-      <Catalogue bodies={bodies} noun="things" teams={TEAMS} />,
-    );
+    const { container } = render(<Catalogue bodies={bodies} noun="things" teams={TEAMS} />);
     expect(container.textContent).toContain('old');
+    fireEvent.click(screen.getByLabelText('With this plan'));
     await act(async () => {
-      fireEvent.click(getByLabelText('With this plan'));
       await Promise.resolve();
     });
     expect(globalThis.location.search).toBe('?show=tobe');
@@ -89,39 +92,33 @@ describe('Catalogue', () => {
 
   it('cuts to the lens team, says so, and lets go of it', async () => {
     globalThis.history.replaceState(null, '', '/?team=a');
-    const { container, getByText } = render(
-      <Catalogue bodies={{ diff: page }} noun="things" teams={TEAMS} />,
-    );
+    const { container } = render(<Catalogue bodies={{ diff: page }} noun="things" teams={TEAMS} />);
     expect(container.textContent).toContain('Team A’s');
     expect(rowsOf(container).find((r) => r.dataset.search === 'beta two')?.hidden).toBe(true);
+    fireEvent.click(screen.getByText('Show everyone'));
     await act(async () => {
-      fireEvent.click(getByText('Show everyone'));
       await Promise.resolve();
     });
     expect(globalThis.location.search).toBe('');
   });
 
   it('counts the matches while words are typed and clears them on Escape', async () => {
-    const { container, getByRole } = render(
-      <Catalogue bodies={{ diff: page }} noun="things" teams={TEAMS} />,
-    );
-    const box = getByRole('searchbox');
+    const { container } = render(<Catalogue bodies={{ diff: page }} noun="things" teams={TEAMS} />);
+    const box = screen.getByRole('searchbox');
+    fireEvent.change(box, { target: { value: 'gamma' } });
     await act(async () => {
-      fireEvent.change(box, { target: { value: 'gamma' } });
       await Promise.resolve();
     });
     expect(container.textContent).toContain('1 of 3');
+    fireEvent.keyDown(box, { key: 'Escape' });
     await act(async () => {
-      fireEvent.keyDown(box, { key: 'Escape' });
       await Promise.resolve();
     });
     expect((box as HTMLInputElement).value).toBe('');
   });
 
   it('leaves the box off when the rows carry no words', () => {
-    const { queryByRole } = render(
-      <Catalogue bodies={{ diff: <p>x</p> }} noun="things" search={false} teams={TEAMS} />,
-    );
-    expect(queryByRole('searchbox')).toBeNull();
+    render(<Catalogue bodies={{ diff: <p>x</p> }} noun="things" search={false} teams={TEAMS} />);
+    expect(screen.queryByRole('searchbox')).toBeNull();
   });
 });

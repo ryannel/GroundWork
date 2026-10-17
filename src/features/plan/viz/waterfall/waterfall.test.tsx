@@ -7,7 +7,7 @@ import { derive } from '@/application/plan/derive';
 import { TintedDocument } from './tinted-document';
 import { Waterfall } from './waterfall';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 const { shop } = await import('@/../test/federation-kit');
@@ -75,7 +75,7 @@ describe('Waterfall', () => {
     const { container } = render(<Waterfall id="gql:product-page" kase="hit" model={model} />);
     const edge = body(container, 'hit')?.querySelector<HTMLElement>('li[data-kind="cache"]');
     expect(edge?.dataset.state).toBe('hit');
-    expect(edge?.textContent).toMatch(/hit/);
+    expect(edge?.textContent).toMatch(/hit/u);
     const blocked = render(<Waterfall id="gql:cart-summary" mode="asIs" model={cart} />);
     expect(blocked.container.querySelector('li[data-state="blocked"] s')).not.toBeNull();
     expect(blocked.container.textContent).toContain('is private, so it is for one person');

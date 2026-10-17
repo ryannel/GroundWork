@@ -91,8 +91,9 @@ function Round({
   readonly title: string;
 }) {
   const [only] = round;
-  if (round.length === 1 && only !== undefined)
+  if (round.length === 1 && only !== undefined) {
     return <FetchNode f={only} model={model} plan={plan} />;
+  }
   return (
     <li className={styles.group}>
       <span className={styles.kw} title={title}>

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { pageHref, planHref, type Outline } from '@/application/plan-pages';
+import { pageHref, type Outline } from '@/application/plan-pages';
 import type { ChangeBody } from '@/application/plan-pages-screens-changes';
 import { contractClaim } from '@/application/plan-story-changes-claims';
 import { screenClaim } from '@/application/plan-story-changes-flows';
@@ -11,90 +11,13 @@ import { andList } from '@/application/plan-viz-ladder-order';
 import { ScreenHead } from '@/features/plan/chapters/screen-head';
 import { ModelInline } from '@/features/plan/common/model-text';
 import type { BodyProps } from '@/features/plan/screen-bodies';
-import { Ladder } from '@/features/plan/viz/ladder/ladder';
-import { BeforeAfter } from '@/features/plan/viz/screens/before-after';
 
-import { Block, Decisions, JourneyLink } from './changes-kit';
-import { RetiredList, SequenceNotes, ShapesList } from './contracts-parts';
+import { Decisions } from './changes-kit';
 import { FlowPanel } from './flow-screen';
-import { RecordTable } from './record-screen';
+import { Inline } from './reach-blocks';
 import styles from './small-screens.module.css';
 
 type Model = BodyProps['model'];
-
-function Records({ model, ids }: { readonly model: Model; readonly ids: readonly string[] }) {
-  if (ids.length === 0) return null;
-  return (
-    <Block title="Records that change">
-      <div className={styles.stack}>
-        {bySeverity(model, ids).map((id) => (
-          <RecordTable id={id} key={id} model={model} />
-        ))}
-      </div>
-    </Block>
-  );
-}
-
-function Screens({
-  model,
-  outline,
-  ids,
-}: {
-  readonly model: Model;
-  readonly outline: Outline;
-  readonly ids: readonly string[];
-}) {
-  if (ids.length === 0) return null;
-  return (
-    <Block title={ids.length === 1 ? 'The screen that changes' : 'The screens that change'}>
-      {ids.map((id) => (
-        <div className={styles.stack} key={id}>
-          <h4 className={styles.claim}>{screenClaim(model, id)}</h4>
-          <BeforeAfter
-            base={planHref(outline)}
-            focus={model
-              .screenDiff(id)
-              .regions.filter((r) => r.status !== 'existing')
-              .map((r) => r.id)}
-            id={id}
-            model={model}
-          />
-          <JourneyLink label={model.label(id)} model={model} outline={outline} screenId={id} />
-        </div>
-      ))}
-    </Block>
-  );
-}
-
-function Contracts({ model, reach }: { readonly model: Model; readonly reach: Reach }) {
-  return (
-    <>
-      {reach.ladders.map((id) => {
-        const sum = ladderSummary(model, id);
-        return (
-          <div className={styles.stack} key={id}>
-            <SequenceNotes model={model} seq={sum?.sequence ?? null} />
-            <Block title={sum?.sequence?.sentences[0] ?? sum?.headline ?? model.label(id)}>
-              <Ladder id={id} model={model} />
-            </Block>
-          </div>
-        );
-      })}
-      <RetiredList ids={reach.retired} model={model} />
-      <ShapesList ids={reach.shapes} model={model} />
-    </>
-  );
-}
-
-function Inline({ model, outline, reach }: BodyProps & { readonly reach: Reach }) {
-  return (
-    <>
-      <Records ids={reach.records} model={model} />
-      <Screens ids={reach.screens} model={model} outline={outline} />
-      <Contracts model={model} reach={reach} />
-    </>
-  );
-}
 
 function LedgerLink({ outline }: { readonly outline: Outline }) {
   if (!outline.pages.some((p) => p.chapter === 'ref' && p.screen === 'ledger')) return null;
@@ -117,8 +40,8 @@ function claimOf(model: Model, reach: Reach): string | null {
     : null;
 }
 
-type SmallFlow = Extract<ChangeBody, { kind: 'small-flow' }>;
-type More = Extract<ChangeBody, { kind: 'more' }>;
+type SmallFlow = Extract<ChangeBody, { readonly kind: 'small-flow' }>;
+type More = Extract<ChangeBody, { readonly kind: 'more' }>;
 
 /** A flow that changes, and everything its steps reach that changes with it. */
 export function SmallFlowScreen({ body, ...props }: BodyProps & { readonly body: SmallFlow }) {

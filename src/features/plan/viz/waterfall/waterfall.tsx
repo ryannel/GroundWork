@@ -8,9 +8,9 @@ import styles from './waterfall.module.css';
 
 type WaterfallProps = Readonly<
   WaterfallOptions & {
-    model: Model;
+    readonly model: Model;
     /** The operation, by id. */
-    id: string;
+    readonly id: string;
   }
 >;
 

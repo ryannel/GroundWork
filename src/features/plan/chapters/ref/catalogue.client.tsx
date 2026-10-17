@@ -71,11 +71,13 @@ function Live({ noun, bodies, teams, search = true }: CatalogueProps) {
   useEffect(() => {
     if (root.current === null) return;
     const t = filterRows(root.current, query, lens);
-    if (count.current !== null)
+    if (count.current !== null) {
       count.current.textContent =
         query.trim() === '' ? '' : `${String(t.shown)} of ${String(t.inLens)}`;
-    if (tally.current !== null)
+    }
+    if (tally.current !== null) {
       tally.current.textContent = `${String(t.inLens)} of ${String(t.total)}`;
+    }
     if (none.current !== null) none.current.hidden = t.shown > 0 || t.total === 0;
   }, [show, lens, query]);
   return (
@@ -131,10 +133,10 @@ function Live({ noun, bodies, teams, search = true }: CatalogueProps) {
 }
 
 /** A catalogue's controls and its page: the mode in `?show=`, the team lens in `?team=`, and a filter box. */
-export function Catalogue(props: CatalogueProps) {
+export function Catalogue({ bodies, ...rest }: CatalogueProps) {
   return (
-    <Suspense fallback={<div className={styles.body}>{firstBody(props.bodies)}</div>}>
-      <Live {...props} />
+    <Suspense fallback={<div className={styles.body}>{firstBody(bodies)}</div>}>
+      <Live bodies={bodies} {...rest} />
     </Suspense>
   );
 }

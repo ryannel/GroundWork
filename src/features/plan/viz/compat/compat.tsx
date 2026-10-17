@@ -1,5 +1,11 @@
 import type { Model } from '@/application/plan/derive';
-import { compatBadgeView, WHO_SHOWN, whoView, type WhoEntry } from '@/application/plan-viz-compat';
+import {
+  compatBadgeView,
+  WHO_SHOWN,
+  whoKey,
+  whoView,
+  type WhoEntry,
+} from '@/application/plan-viz-compat';
 import { EntityChip } from '@/features/plan/common/entity-chip';
 
 import styles from './compat.module.css';
@@ -48,7 +54,7 @@ function Line({
       <span className={styles.key}>{label}</span>
       <span className={styles.list}>
         {entries.slice(0, WHO_SHOWN).map((e) => (
-          <span className={styles.item} key={`${e.svc}${e.where?.id ?? ''}`}>
+          <span className={styles.item} key={whoKey(e)}>
             <EntityChip id={e.svc} model={model} status="existing" />
             {brief || e.where === null ? null : (
               <>

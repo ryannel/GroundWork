@@ -7,6 +7,7 @@ export function shapeData(node: DrawnNode) {
   return {
     'data-state': node.state,
     'data-touched': node.touched,
+    'data-touch-steps': node.touchSteps.join(' '),
     'data-lens-off': node.lensOff,
   };
 }

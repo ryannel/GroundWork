@@ -33,10 +33,10 @@ export function StillOpen({
             {e.decider === undefined ? null : <TeamTag model={model} teamId={e.decider} />}
             {e.decide_by === undefined ? null : (
               <span className={styles.faint}>
-                decide by <time dateTime={e.decide_by}>{shortDate(e.decide_by)}</time>
+                decide by <time dateTime={e.decide_by}>{shortDate(e.decide_by, model.today)}</time>
               </span>
             )}
-            {isLate(e) ? <Badge tone="removed">overdue</Badge> : null}
+            {isLate(e, model.today) ? <Badge tone="removed">overdue</Badge> : null}
           </li>
         ))}
       </ul>

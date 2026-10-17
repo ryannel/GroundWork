@@ -1,61 +1,49 @@
 // @vitest-environment happy-dom
 import { cleanup, fireEvent, render } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
+import { shop } from '@/../test/federation-kit';
+import { contractsPlans } from '@/../test/fixtures/acme/plans/contracts-plans';
+import { reworkCheckout } from '@/../test/fixtures/acme/plans/contracts-rework-checkout';
+import { modelOf } from '@/../test/plan-kit';
 import { screenCatalogue } from '@/application/plan-viz-screen-catalogue';
-import { PLANS } from '@/features/plan/chapters/chapter-kit';
 
 import { ScreenCatalogue } from './screen-catalogue';
-
-vi.mock('server-only', () => ({}));
-const { planData } = await import('@/infrastructure/plan-data');
-
-async function modelOf(plan: string) {
-  const data = await planData({ workspace: 'alder-finch', plan });
-  if (data === null) throw new Error(`no plan ${plan}`);
-  return data.model;
-}
 
 afterEach(cleanup);
 
 describe('ScreenCatalogue', () => {
-  it('draws the screens of each plan once, or nothing when none are recorded', async () => {
-    let drawn = 0;
-    for (const plan of PLANS) {
-      const model = await modelOf(plan);
-      const view = screenCatalogue(model);
-      const { container } = render(<ScreenCatalogue base="/x/" model={model} />);
-      if (view === null) {
-        expect(container.textContent).toBe('');
-        continue;
-      }
-      drawn += 1;
-      const boxes = container.querySelectorAll('[data-journeys]');
-      expect(boxes.length).toBeGreaterThan(0);
-      const ids = view.groups.flatMap((g) => g.clusters.flatMap((c) => c.screens.map((s) => s.id)));
-      expect(new Set(ids).size).toBe(ids.length);
-      expect(container.querySelector('details')?.textContent).toContain('Screens and documents');
-      cleanup();
-    }
-    expect(drawn).toBeGreaterThan(0);
+  it.each(contractsPlans())('draws the screens of %s once', (_, plan) => {
+    const model = modelOf(plan);
+    const view = screenCatalogue(model);
+    const { container } = render(<ScreenCatalogue base="/x/" model={model} />);
+    const ids =
+      view?.groups.flatMap((g) => g.clusters.flatMap((c) => c.screens.map((s) => s.id))) ?? [];
+    expect(ids.length).toBeGreaterThan(0);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(container.querySelectorAll('[data-journeys]').length).toBeGreaterThan(0);
+    expect(container.querySelector('details')?.textContent).toContain('Screens and documents');
   });
 
-  it('lights the picked journey and dims the rest', async () => {
-    for (const plan of PLANS) {
-      const model = await modelOf(plan);
-      const view = screenCatalogue(model);
-      const journey = view?.journeys[0];
-      if (view === null || journey === undefined) continue;
-      const { container } = render(<ScreenCatalogue base="/x/" model={model} />);
-      const select = container.querySelector('select');
-      expect(select).not.toBeNull();
-      if (select === null) return;
-      fireEvent.change(select, { target: { value: journey.id } });
-      expect(container.querySelector('[data-lit]')).not.toBeNull();
-      fireEvent.change(select, { target: { value: '' } });
-      expect(container.querySelector('[data-lit]')).toBeNull();
-      expect(container.querySelector('[data-dim]')).toBeNull();
-      return;
-    }
+  it('draws nothing when no screens are recorded', () => {
+    const plan = shop();
+    plan.screens = [];
+    for (const flow of plan.flows ?? []) for (const step of flow.steps) delete step.screen;
+    const { container } = render(<ScreenCatalogue base="/x/" model={modelOf(plan)} />);
+    expect(container.textContent).toBe('');
+  });
+
+  it('lights the picked journey and dims the rest', () => {
+    const model = modelOf(reworkCheckout());
+    const journey = screenCatalogue(model)?.journeys[0];
+    expect(journey?.id).toBe('uj:buy');
+    const { container } = render(<ScreenCatalogue base="/x/" model={model} />);
+    const select = container.querySelector('select');
+    if (select === null) throw new Error('no journey picker');
+    fireEvent.change(select, { target: { value: 'uj:buy' } });
+    expect(container.querySelector('[data-lit]')).not.toBeNull();
+    fireEvent.change(select, { target: { value: '' } });
+    expect(container.querySelector('[data-lit]')).toBeNull();
+    expect(container.querySelector('[data-dim]')).toBeNull();
   });
 });

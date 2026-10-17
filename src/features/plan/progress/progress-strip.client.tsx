@@ -71,16 +71,16 @@ function Strip({
   );
 }
 
-function Lensed(props: StripProps) {
-  return <Strip crumb={props.crumb} team={teamOf(props.teams, useLens())} />;
+function Lensed({ crumb, teams }: StripProps) {
+  return <Strip crumb={crumb} team={teamOf(teams, useLens())} />;
 }
 
 // A line above the screen: the chapter and screen, the step a walk stands on, and while reading as one team,
 // where this screen falls in its pages and the way back to the whole plan.
-export function ProgressStrip(props: StripProps) {
+export function ProgressStrip({ crumb, teams }: StripProps) {
   return (
-    <Suspense fallback={<Strip crumb={props.crumb} team={null} />}>
-      <Lensed {...props} />
+    <Suspense fallback={<Strip crumb={crumb} team={null} />}>
+      <Lensed crumb={crumb} teams={teams} />
     </Suspense>
   );
 }

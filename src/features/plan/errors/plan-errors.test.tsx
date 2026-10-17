@@ -32,7 +32,7 @@ describe('PlanErrors', () => {
   it('says one error in the singular and caps a long list', () => {
     const many = Array.from({ length: 70 }, (_, i) => ({ path: `p${String(i)}`, message: 'm' }));
     render(<PlanErrors {...at} errors={[many[0] ?? { path: '', message: '' }]} warnings={many} />);
-    expect(screen.getByRole('heading', { level: 1 }).textContent).toMatch(/has 1 error and/);
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toMatch(/has 1 error and/u);
     expect(screen.getByText('And 11 more.')).toBeTruthy();
   });
 });

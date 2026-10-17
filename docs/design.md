@@ -119,7 +119,7 @@ Outside a plan, the pages teach how the systems work today. Inside a plan, they 
 - **Order of a page.** Say what is true, show who runs it and what it works with, then the map, then the journeys
   that cross it, then the parts and the code.
 - **Click to inspect, open to read.** A click on a card, line or chip opens the inspector. The inspector's "Open
-  page" goes to the thing's page under `/<ws>/things/`. Domain and system names go to their scoped pages.
+  page" goes to the thing's page, `/<ws>/things/?id=<token>`. Domain and system names go to their scoped pages.
 - **No plan words in today.** Today pages show no status, versions, pins or "added/removed" marks.
 - **Journeys and reference.** `/<ws>/journeys/` walks each user journey and flow step by step, with the same keys
   and held-steady page as a plan's walk. `/<ws>/reference/` lists the APIs, events, stores and screens as they

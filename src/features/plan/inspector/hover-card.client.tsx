@@ -41,8 +41,11 @@ function place(card: HTMLElement, target: HTMLElement): void {
 
 function useCard(src: string, target: HTMLElement | null): EntityCard | null {
   const id = target?.dataset.inspect ?? null;
-  const [read, setRead] = useState<{ id: string; card: EntityCard | null } | null>(null);
-  useEffect(() => {
+  const [read, setRead] = useState<{
+    readonly id: string;
+    readonly card: EntityCard | null;
+  } | null>(null);
+  useEffect((): (() => void) | undefined => {
     if (id === null) return;
     let live = true;
     void pendingModel(src).model.then((model) => {

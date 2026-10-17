@@ -19,7 +19,7 @@ export function ScreenLinks({ model, id, base, mode }: ScreenLinksProps) {
   return (
     <div className={styles.links}>
       {figma === null ? null : (
-        <a className={styles.link} href={figma} rel="noopener" target="_blank">
+        <a className={styles.link} href={figma} rel="noopener noreferrer" target="_blank">
           Design in Figma ↗
         </a>
       )}
@@ -27,7 +27,7 @@ export function ScreenLinks({ model, id, base, mode }: ScreenLinksProps) {
         <a
           className={styles.link}
           href={mockup}
-          rel="noopener"
+          rel="noopener noreferrer"
           target="_blank"
           title="A static, clickable version of the new screens"
         >

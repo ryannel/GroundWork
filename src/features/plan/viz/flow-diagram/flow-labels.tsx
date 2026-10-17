@@ -33,8 +33,9 @@ function Row({
       data-implicit={row.implicit}
       data-state={row.state}
       data-walk={row.walk}
+      data-walk-steps={row.steps.join(' ')}
     >
-      {row.num !== null && row.first && !row.implicit ? (
+      {row.number !== null && row.first && !row.implicit ? (
         <>
           <circle
             className={styles.badge}
@@ -43,7 +44,7 @@ function Row({
             r={row.lettered ? LETTERED_BADGE : BADGE}
           />
           <text className={styles.number} x={label.x + BADGE} y={row.y + 0.5}>
-            {row.num}
+            {row.number}
           </text>
         </>
       ) : null}

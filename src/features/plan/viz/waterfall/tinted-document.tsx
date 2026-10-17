@@ -11,7 +11,9 @@ interface TintedDocumentProps {
 }
 
 /** Each run of text with where it starts in the document, which is its own key. */
-function located(tokens: readonly TintToken[]): { at: number; token: TintToken }[] {
+function located(
+  tokens: readonly TintToken[],
+): { readonly at: number; readonly token: TintToken }[] {
   let at = 0;
   return tokens.map((token) => {
     const here = at;

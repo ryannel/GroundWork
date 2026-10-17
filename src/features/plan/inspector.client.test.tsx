@@ -6,7 +6,7 @@ import { planReaderOf } from '@/application/plan-pages-things';
 
 import { Inspector } from './inspector.client';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 const plan = await loadFixture('mini.yaml');
@@ -27,6 +27,19 @@ const chip = (id: string) => (
   </button>
 );
 
+// React draws what a suspended tree was waiting for only inside an awaited act, so the step that suspends runs in one.
+async function inAct(
+  step: () => void,
+  wait = async (): Promise<void> => {
+    await Promise.resolve();
+  },
+) {
+  await act(async () => {
+    step();
+    await wait();
+  });
+}
+
 describe('Inspector', () => {
   it('opens the thing a chip names and puts it in the address', async () => {
     render(
@@ -36,9 +49,8 @@ describe('Inspector', () => {
       </>,
     );
     expect(screen.queryByRole('heading')).toBeNull();
-    await act(async () => {
+    await inAct(() => {
       fireEvent.click(screen.getByText('svc:subs'));
-      await Promise.resolve();
     });
     expect(globalThis.location.hash).toBe('#i-svc-subs');
     const heading = await screen.findByRole('heading', { level: 2 }, { timeout: 4000 });
@@ -48,17 +60,19 @@ describe('Inspector', () => {
   it('hops to a thing inside the panel, steps back and closes', async () => {
     globalThis.history.pushState(null, '', '/#i-flow-cancel');
     render(<Inspector reader={planReaderOf(at, 'plan.json')} />);
-    expect(await screen.findByRole('heading', { level: 2 })).toBeTruthy();
+    await expect(screen.findByRole('heading', { level: 2 })).resolves.toBeTruthy();
     const hop = screen.getAllByRole('button').find((b) => b.dataset.inspect === 'svc:subs');
     if (hop === undefined) throw new Error('no chip to hop to');
     fireEvent.click(hop);
     expect(globalThis.location.hash).toBe('#i-svc-subs');
-    expect(screen.getByRole('button', { name: /back to the previous/i })).toBeTruthy();
-    expect(await screen.findByRole('heading', { level: 2, name: 'Subscriptions' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: /back to the previous/iu })).toBeTruthy();
+    await expect(
+      screen.findByRole('heading', { level: 2, name: 'Subscriptions' }),
+    ).resolves.toBeTruthy();
     const crumbs = screen.getByRole('navigation', { name: 'What you opened' });
     expect(crumbs.querySelector('button')?.title).toBe('Cancel a subscription');
+    fireEvent.keyDown(document, { key: 'Escape' });
     await act(async () => {
-      fireEvent.keyDown(document, { key: 'Escape' });
       await Promise.resolve();
     });
   });
@@ -66,12 +80,12 @@ describe('Inspector', () => {
   it('says so when the plan has no such thing', async () => {
     globalThis.history.pushState(null, '', '/#i-svc-nope');
     render(<Inspector reader={planReaderOf(at, 'plan.json')} />);
-    expect(await screen.findByText(/nothing called svc:nope/i)).toBeTruthy();
+    await expect(screen.findByText(/nothing called svc:nope/iu)).resolves.toBeTruthy();
   });
 
   it('switches between today and with the plan, and copies a link', async () => {
     const copied: string[] = [];
-    const writeText = vi.fn(async (text: string) => {
+    const writeText = vi.fn<(text: string) => Promise<void>>(async (text: string) => {
       copied.push(text);
       await Promise.resolve();
     });
@@ -83,13 +97,13 @@ describe('Inspector', () => {
     expect(today).toHaveProperty('checked', false);
     fireEvent.click(today);
     expect(screen.getByRole('radio', { name: 'today' })).toHaveProperty('checked', true);
+    fireEvent.click(screen.getByRole('button', { name: /copy a link/iu }));
     await act(async () => {
-      fireEvent.click(screen.getByRole('button', { name: /copy a link/i }));
       await Promise.resolve();
     });
     expect(writeText).toHaveBeenCalledOnce();
     expect(copied).toEqual([globalThis.location.href]);
-    expect(await screen.findByText('Copied')).toBeTruthy();
+    await expect(screen.findByText('Copied')).resolves.toBeTruthy();
   });
 
   it('shows a card while the pointer rests on a chip', async () => {
@@ -106,7 +120,9 @@ describe('Inspector', () => {
     await act(async () => {
       await vi.advanceTimersByTimeAsync(400);
     });
-    expect(await screen.findByText('Click to inspect', {}, { timeout: 4000 })).toBeTruthy();
+    await expect(
+      screen.findByText('Click to inspect', {}, { timeout: 4000 }),
+    ).resolves.toBeTruthy();
     expect(screen.getByText('Subscriptions')).toBeTruthy();
     fireEvent.pointerOut(target, { pointerType: 'mouse' });
     expect(screen.queryByText('Click to inspect')).toBeNull();

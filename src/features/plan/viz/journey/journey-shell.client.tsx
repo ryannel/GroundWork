@@ -15,7 +15,10 @@ export interface ModeView {
   /** The ids of the steps this view draws, in order. */
   readonly steps: readonly string[];
   /** The viewer for this view; null when the view has no steps. */
-  readonly shell: Pick<FlowShellProps, 'stops' | 'keys' | 'tools' | 'sideFirst'> | null;
+  readonly shell: Pick<
+    FlowShellProps,
+    'stops' | 'keys' | 'tools' | 'sideFirst' | 'diagram' | 'sequence'
+  > | null;
   readonly outline: readonly OutlineItem[];
   /** For each step or flow this view lacks, what to say. */
   readonly absences: Readonly<
@@ -79,8 +82,15 @@ export interface JourneyViewProps {
 }
 
 /** The journey drawn at a place someone else keeps. */
-export function JourneyView(props: JourneyViewProps) {
-  const { modes, mode, stepId, onMode, onStep, flow, asIsOnly = false } = props;
+export function JourneyView({
+  modes,
+  mode,
+  stepId,
+  onMode,
+  onStep,
+  flow,
+  asIsOnly = false,
+}: JourneyViewProps) {
   const view = modes[mode];
   return (
     <div>

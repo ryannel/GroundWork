@@ -84,8 +84,9 @@ function Since({
   readonly model: Model;
   readonly prose: Extract<Written, { readonly key: 'since' }>;
 }) {
-  if (prose.lines.length === 0)
+  if (prose.lines.length === 0) {
     return <p className={styles.faint}>Nothing has been proposed on it.</p>;
+  }
   return (
     <ul className={styles.list}>
       {prose.lines.map((line) => (

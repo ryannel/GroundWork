@@ -113,13 +113,15 @@ function Row({
   );
 }
 
+const NO_HIGHLIGHT: NonNullable<StoreGridProps['highlight']> = [];
+
 /** Which systems read and write which stores: a system per row, a store per column. */
 export function StoreGrid({
   model,
   mode = 'asIs',
   lens = null,
   compact = false,
-  highlight = [],
+  highlight = NO_HIGHLIGHT,
 }: StoreGridProps) {
   const view = storeGridView(model, { mode, compact });
   if (view === null) return <p className={styles.none}>No databases or caches in this plan.</p>;

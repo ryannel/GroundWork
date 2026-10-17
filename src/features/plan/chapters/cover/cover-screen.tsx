@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import type { Model } from '@/application/plan/derive';
 import type { Outline } from '@/application/plan-pages';
-import { coverOf } from '@/application/plan-story-cover';
+import { coverOf, statsOf, teamsWithWork } from '@/application/plan-story-cover';
 import { baseLine } from '@/application/plan-story-cover-base';
 import type { AskLine, AskLink } from '@/application/plan-story-cover-standing';
 import { teamName } from '@/application/plan-viz-teams';
@@ -44,7 +44,7 @@ function Ask({
 }
 
 function Stats({ model }: { readonly model: Model }) {
-  const { stats } = coverOf(model);
+  const stats = statsOf(model);
   if (stats.length === 0) return null;
   return (
     <dl className={styles.stats}>
@@ -68,7 +68,7 @@ function Stats({ model }: { readonly model: Model }) {
 }
 
 function Door({ model, outline }: { readonly model: Model; readonly outline: Outline }) {
-  const { teams } = coverOf(model);
+  const teams = teamsWithWork(model);
   const part = outline.pages.find((p) => p.chapter === 'cover' && p.screen === 'part');
   if (part === undefined || teams.length === 0) return null;
   return (
@@ -94,8 +94,8 @@ function Door({ model, outline }: { readonly model: Model; readonly outline: Out
 
 // What ships and why, what the room is asked to do now, and a door to each team's part.
 export function CoverScreen({ model, outline, base }: BodyProps) {
-  const cover = coverOf(model);
-  const line = base === undefined ? null : baseLine(base, (id) => model.label(id));
+  const cover = coverOf(model, new Date().toISOString().slice(0, 10));
+  const line = base === undefined ? null : baseLine(base, (id) => model.label(id), model.today);
   return (
     <>
       <PageHeader

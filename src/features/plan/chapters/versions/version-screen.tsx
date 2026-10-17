@@ -2,7 +2,7 @@ import type { Model } from '@/application/plan/derive';
 import type { RevisionStep } from '@/application/plan/revision-types';
 import { type Outline, type Page, planHref } from '@/application/plan-pages';
 import type { VersionsData } from '@/application/plan-story-versions-data';
-import { type Section, versionView } from '@/application/plan-story-versions-view';
+import { type Section, sectionKey, versionView } from '@/application/plan-story-versions-view';
 import { ScreenHead } from '@/features/plan/chapters/screen-head';
 import { ModelInline } from '@/features/plan/common/model-text';
 
@@ -94,7 +94,7 @@ export function VersionScreen({
         </p>
       </ScreenHead>
       {view.sections.map((section) => (
-        <Body ctx={ctx} key={section.key} section={section} />
+        <Body ctx={ctx} key={sectionKey(section)} section={section} />
       ))}
     </div>
   );

@@ -8,6 +8,7 @@ import { TodayCatalogue, TodayOverlays, TodaySearch } from '@/features/plan';
 import { WorkspaceShell } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
+import { NOTHING, orNothing } from '@/shared/static-params';
 
 interface Params {
   readonly workspace: string;
@@ -26,7 +27,7 @@ export async function generateStaticParams(): Promise<Params[]> {
         : referenceOf(data.today.model).map(({ kind }) => ({ workspace: id, kind }));
     }),
   );
-  return lists.flat();
+  return orNothing(lists.flat(), { workspace: NOTHING, kind: NOTHING });
 }
 
 export default async function CatalogueRoute({ params }: { readonly params: Promise<Params> }) {

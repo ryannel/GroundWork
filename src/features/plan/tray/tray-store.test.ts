@@ -74,7 +74,7 @@ describe('pins', () => {
   it('ticks off the pins seen, telling listeners only when something changed', () => {
     const plan = fresh();
     addPins(plan, ['a', 'b'], '/');
-    const heard = vi.fn();
+    const heard = vi.fn<() => void>();
     const stop = subscribe(heard);
     markSeen(plan, (p) => p.id === 'a');
     markSeen(plan, (p) => p.id === 'a');
@@ -94,7 +94,7 @@ describe('pins', () => {
 
 describe('the tray', () => {
   it('opens and closes', () => {
-    const heard = vi.fn();
+    const heard = vi.fn<() => void>();
     const stop = subscribe(heard);
     setTrayOpen(true);
     setTrayOpen(true);

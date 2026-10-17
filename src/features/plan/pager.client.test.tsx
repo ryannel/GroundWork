@@ -37,7 +37,7 @@ const AROUND: Neighbours = {
 describe('Pager', () => {
   it('names the chapter the next screen opens', () => {
     render(<Pager neighbours={{ ...AROUND, opens: WHY }} />);
-    const next = screen.getByRole('link', { name: /chapter 1/i });
+    const next = screen.getByRole('link', { name: /chapter 1/iu });
     expect(next.textContent).toContain('Next · Chapter 1');
     expect(next.textContent).toContain('Why');
   });
@@ -48,8 +48,8 @@ describe('Pager', () => {
     );
     expect(screen.getByText('That is the whole plan.')).toBeTruthy();
     const back = screen.getByRole('link', { name: 'Back to the workspace' });
-    expect(back.getAttribute('href')).toMatch(/^\/w\/?$/);
-    expect(screen.getByRole('link', { name: /browse the reference/i })).toBeTruthy();
+    expect(back.getAttribute('href')).toMatch(/^\/w\/?$/u);
+    expect(screen.getByRole('link', { name: /browse the reference/iu })).toBeTruthy();
   });
 });
 
@@ -67,6 +67,6 @@ describe('ChapterBoundary', () => {
     );
     quiet.mockRestore();
     expect(screen.getByText('This screen could not be drawn.')).toBeTruthy();
-    expect(screen.getByText(/stopped it: No such team\. The other/)).toBeTruthy();
+    expect(screen.getByText(/stopped it: No such team\. The other/u)).toBeTruthy();
   });
 });

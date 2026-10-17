@@ -12,7 +12,11 @@ interface FlowStopInput {
 const clamp = (i: number, count: number): number => Math.max(0, Math.min(i, count - 1));
 
 /** The stop the reader is on, kept here or by a parent, and the ways to move it. */
-export function useFlowStop({ count, start = 0, stop, onStop }: FlowStopInput) {
+export function useFlowStop({ count, start = 0, stop, onStop }: FlowStopInput): {
+  readonly current: number;
+  readonly go: (i: number) => void;
+  readonly move: (by: -1 | 1) => void;
+} {
   const [own, setOwn] = useState(start);
   const current = clamp(stop ?? own, count);
   const go = useCallback(

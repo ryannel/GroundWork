@@ -15,7 +15,10 @@ export async function generateStaticParams(): Promise<Params[]> {
   return workspaces.map((workspace) => ({ workspace: workspace.id }));
 }
 
-export async function GET(_request: Request, { params }: { readonly params: Promise<Params> }) {
+export async function GET(
+  _request: Request,
+  { params }: { readonly params: Promise<Params> },
+): Promise<Response> {
   const { workspace } = await params;
   const data = await todayData(workspace);
   if (data === null) return new Response('No such workspace', { status: 404 });

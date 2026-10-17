@@ -19,8 +19,9 @@ const STATE_TONE = {
 } as const;
 
 function VersionMenu({ versions }: { readonly versions: BarVersions }) {
-  if (versions.items.length === 0 || versions.historyHref === null)
+  if (versions.items.length === 0 || versions.historyHref === null) {
     return <span className={styles.version}>{versions.label}</span>;
+  }
   return (
     <Menu button={<span className={styles.mono}>{versions.label}</span>} label="Version history">
       <p className={styles.menuHead}>Version history</p>

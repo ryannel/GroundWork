@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { type RefObject, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { applyFolds, keepFolds } from '@/features/plan/kept';
 
@@ -34,8 +34,13 @@ function gapOf(box: HTMLElement, was: Mark): { readonly shift: number; readonly 
   };
 }
 
+export interface Steady {
+  readonly root: RefObject<HTMLDivElement | null>;
+  readonly before: () => void;
+}
+
 /** Holds the walk still across moves: put `root` on the walk, and call `before` just ahead of each move. */
-export function useSteady() {
+export function useSteady(): Steady {
   const root = useRef<HTMLDivElement>(null);
   const mark = useRef<Mark | null>(null);
   const settling = useRef<{ readonly was: Mark; readonly until: number } | null>(null);

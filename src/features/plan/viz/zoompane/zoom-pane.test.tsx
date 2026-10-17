@@ -22,7 +22,7 @@ describe('ZoomPane', () => {
       </ZoomPane>,
     );
     expect(screen.getByTestId('drawing')).toBeTruthy();
-    expect(screen.getByRole('button', { name: /expand the diagram/i }).textContent).toContain(
+    expect(screen.getByRole('button', { name: /expand the diagram/iu }).textContent).toContain(
       '7 stages',
     );
     expect(screen.queryByRole('group', { name: 'Zoom' })).toBeNull();
@@ -36,8 +36,9 @@ describe('ZoomPane', () => {
     );
     expect(screen.getByTestId('drawing').closest('[data-scrolls]')).not.toBeNull();
     expect(screen.getByText('Stages')).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: /expand/i }));
-    expect(screen.getByTestId('drawing').closest('[data-scrolls]')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: /expand/iu }));
+    const drawn = screen.getByTestId('drawing');
+    expect(drawn.closest('[data-scrolls]')).toBeNull();
     expect(screen.queryByText('Stages')).toBeNull();
   });
 
@@ -47,7 +48,7 @@ describe('ZoomPane', () => {
         {drawing}
       </ZoomPane>,
     );
-    fireEvent.click(screen.getByRole('button', { name: /expand/i }));
+    fireEvent.click(screen.getByRole('button', { name: /expand/iu }));
     expect(screen.getByRole('region', { name: 'Diagram, full screen' })).toBeTruthy();
     expect(screen.getByRole('group', { name: 'Zoom' })).toBeTruthy();
     fireEvent.keyDown(globalThis as unknown as Window, { key: 'Escape' });
@@ -60,7 +61,7 @@ describe('ZoomPane', () => {
         {drawing}
       </ZoomPane>,
     );
-    fireEvent.click(screen.getByRole('button', { name: /expand/i }));
+    fireEvent.click(screen.getByRole('button', { name: /expand/iu }));
     const percent = (): string => screen.getByRole('button', { name: 'Actual size' }).textContent;
     const before = percent();
     fireEvent.click(screen.getByTitle('Zoom in (+)'));
@@ -86,7 +87,7 @@ describe('ZoomPane', () => {
         {drawing}
       </ZoomPane>,
     );
-    fireEvent.click(screen.getByRole('button', { name: /expand/i }));
+    fireEvent.click(screen.getByRole('button', { name: /expand/iu }));
     expect(screen.getByText('Lines')).toBeTruthy();
     expect(screen.queryByRole('group', { name: 'Zoom' })).toBeNull();
   });

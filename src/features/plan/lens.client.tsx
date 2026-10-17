@@ -3,6 +3,8 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useRef, type ReactNode } from 'react';
 
+import { replaceAddress } from '@/ui/address-bar';
+
 // The team lens and the catalogue mode live in the address as `?team=` and `?show=`, so a cut can be shared and
 // the page it applies to stays one static file. The server renders the whole page for everyone; these read the
 // search on the client and show the matching cut.
@@ -25,7 +27,7 @@ export function setParam(name: string, value: string | null): void {
   const url = new URL(globalThis.location.href);
   if (value === null) url.searchParams.delete(name);
   else url.searchParams.set(name, value);
-  globalThis.history.replaceState(globalThis.history.state, '', url);
+  replaceAddress(url);
 }
 
 interface ByLensProps {
@@ -44,10 +46,10 @@ function Pick({ everyone, teams }: ByLensProps) {
 }
 
 // The page for the team in the address, or for everyone. Static output holds the page for everyone.
-export function ByLens(props: ByLensProps) {
+export function ByLens({ everyone, ...rest }: ByLensProps) {
   return (
-    <Suspense fallback={props.everyone}>
-      <Pick {...props} />
+    <Suspense fallback={everyone}>
+      <Pick everyone={everyone} {...rest} />
     </Suspense>
   );
 }
@@ -81,16 +83,18 @@ function Dimmed({ children, slots }: DimProps) {
 }
 
 // A page that only dims the other teams' rows for a lens: drawn once, dimmed on the client, so the file stays small.
-export function DimByLens(props: DimProps) {
+export function DimByLens({ children, slots }: DimProps) {
   return (
-    <Suspense fallback={props.children}>
-      <Dimmed {...props} />
+    <Suspense fallback={children}>
+      <Dimmed slots={slots}>{children}</Dimmed>
     </Suspense>
   );
 }
 
-const isModified = (event: MouseEvent): boolean =>
-  event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
+const anyModifier = (event: MouseEvent): boolean =>
+  event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
+
+const isModified = (event: MouseEvent): boolean => event.button !== 0 || anyModifier(event);
 
 /** Where a plain click on this link should go with the lens kept, or null when it is not a plan link. */
 export function carried(link: HTMLAnchorElement, lens: string): string | null {
@@ -114,7 +118,7 @@ export function LensCarry() {
 function Carry() {
   const lens = useLens();
   const router = useRouter();
-  useEffect(() => {
+  useEffect((): (() => void) | undefined => {
     if (lens === null) return;
     const onClick = (event: MouseEvent): void => {
       const link = event.target instanceof Element ? event.target.closest('a') : null;

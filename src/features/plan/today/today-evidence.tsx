@@ -44,8 +44,9 @@ function Line({
 export function TodayEvidence({ model, id, evidence, sources }: TodayEvidenceProps) {
   const cited = new Set(evidence.map((line) => line.href));
   const others = sources.filter((source) => !cited.has(source.href));
-  if (evidence.length === 0 && others.length === 0)
+  if (evidence.length === 0 && others.length === 0) {
     return <p className={styles.none}>No code is cited for it yet.</p>;
+  }
   return (
     <ul className={styles.list}>
       {evidence.map((line) => (

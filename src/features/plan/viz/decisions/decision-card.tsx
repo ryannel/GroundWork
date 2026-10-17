@@ -94,7 +94,7 @@ export function DecisionCard({ model, e }: DecisionCardProps) {
       <ChipRow ids={ties.risks} label="Risks accepted with it" model={model} />
       <ChipRow ids={ties.answers} label="Questions it answers" model={model} />
       <ChipRow ids={ties.waiting} label="Waiting on this" model={model} />
-      <MetaLine meta={metaOf(e)} model={model} />
+      <MetaLine meta={metaOf(e, model.today)} model={model} />
     </article>
   );
 }

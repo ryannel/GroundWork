@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 /** Marks every mention of the open thing on the page, outside the inspector, so the reader sees where it sits. */
 export function usePicked(id: string | null): void {
-  useEffect(() => {
+  useEffect((): (() => void) | undefined => {
     if (id === null) return;
     const marked = [...document.querySelectorAll(`[data-inspect="${CSS.escape(id)}"]`)].filter(
       (el): el is HTMLElement =>

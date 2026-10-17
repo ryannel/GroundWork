@@ -24,6 +24,8 @@ interface PlanPageProps {
   readonly base?: BaseInfo;
 }
 
+const NO_PLANS: NonNullable<PlanPageProps['plans']> = [];
+
 /** A plan's cover, or one of its screens, inside the viewer shell. Null when the screen is not in the plan. */
 export function PlanPage({
   model,
@@ -32,7 +34,7 @@ export function PlanPage({
   chapter = 'cover',
   screen = 'cover',
   versions = null,
-  plans = [],
+  plans = NO_PLANS,
   base,
 }: PlanPageProps) {
   const page = outline.pages.find((p) => p.chapter === chapter && p.screen === screen);

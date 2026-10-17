@@ -56,10 +56,10 @@ function AskItem({ model, e }: ItemProps) {
           ) : (
             <>
               <span className={styles.faint}>decide by</span>
-              <time dateTime={e.decide_by}>{shortDate(e.decide_by)}</time>
+              <time dateTime={e.decide_by}>{shortDate(e.decide_by, model.today)}</time>
             </>
           )}
-          {isLate(e) ? <Badge tone="removed">overdue</Badge> : null}
+          {isLate(e, model.today) ? <Badge tone="removed">overdue</Badge> : null}
         </span>
       </div>
       {waiting.length === 0 ? null : (

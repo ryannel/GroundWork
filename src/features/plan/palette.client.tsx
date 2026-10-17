@@ -23,7 +23,7 @@ const STEPS: Readonly<Record<string, number | undefined>> = { ArrowDown: 1, Arro
 
 /** The label with the query's first word marked where it first appears. */
 function Marked({ label, query }: { readonly label: string; readonly query: string }) {
-  const word = query.trim().split(/\s+/)[0] ?? '';
+  const word = query.trim().split(/\s+/u)[0] ?? '';
   const at = word === '' ? -1 : label.toLowerCase().indexOf(word.toLowerCase());
   if (at < 0) return <span>{label}</span>;
   return (
@@ -195,7 +195,9 @@ export function PaletteButton() {
   return (
     <button
       className={styles.trigger}
-      onClick={() => globalThis.dispatchEvent(new Event(PALETTE_EVENT))}
+      onClick={() => {
+        globalThis.dispatchEvent(new Event(PALETTE_EVENT));
+      }}
       type="button"
     >
       Search <Kbd keys="/" />

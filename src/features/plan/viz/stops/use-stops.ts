@@ -70,7 +70,7 @@ export function useStops(stops: readonly StopName[]): {
   }, []);
 
   const many = stops.length > 1;
-  useEffect(() => {
+  useEffect((): (() => void) | undefined => {
     if (!many) return;
     return holdKeys({
       move: (by) => {

@@ -14,6 +14,8 @@ interface RowProps {
   /** The step a viewer goes to when the row is picked. */
   readonly go?: number | undefined;
   readonly walk?: 'current' | 'walked' | '';
+  /** The step's index, so its walk can follow whichever stop a viewer shows. */
+  readonly at?: number | undefined;
   readonly status?: string;
   readonly isNew?: boolean;
   readonly act?: ReactNode;
@@ -27,6 +29,7 @@ export function Row({
   n,
   go,
   walk = '',
+  at,
   status = 'existing',
   isNew = false,
   act,
@@ -40,6 +43,7 @@ export function Row({
       data-status={status}
       data-step={go}
       data-walk={walk === '' ? undefined : walk}
+      data-walk-at={at}
     >
       <div className={styles.gut}>
         <Gutter marks={gut} />

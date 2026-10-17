@@ -18,7 +18,7 @@ const LEDE =
 
 // 7.1: what leads the build, the waves it comes in, and the graph behind them.
 export function OrderScreen({ model, outline, page }: BodyProps) {
-  const sum = buildSummary(model);
+  const sum = buildSummary(model, model.today);
   const waves = model.waves();
   const headline = orderHeadline(model, sum, waves);
   const head = { chapter: 'build', headline, model, outline, page } as const;

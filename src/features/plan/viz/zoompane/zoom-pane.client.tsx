@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode, useRef } from 'react';
+import { type ReactNode, createContext, use, useRef } from 'react';
 
 import { type Bounds, type ZoomCommand, zoomPercent } from '@/application/plan-viz-zoompane';
 
@@ -38,7 +38,24 @@ export interface ZoomPaneProps {
   readonly children: ReactNode;
 }
 
-const ZOOMS: readonly { command: ZoomCommand; title: string; text: string }[] = [
+/**
+ * What a viewer that walks one drawing stop by stop has lit, in place of the pane's own `focus`; undefined outside
+ * such a viewer.
+ */
+export const StopFocus = createContext<Bounds | null | undefined>(undefined);
+
+function useStopFocus<T extends { readonly focus?: Bounds | null }>(own: T): T {
+  const focus = use(StopFocus);
+  return focus === undefined ? own : { ...own, focus };
+}
+
+type PaneSettings = Omit<ZoomPaneProps, 'children' | 'inline' | 'label' | 'legend'>;
+
+const ZOOMS: readonly {
+  readonly command: ZoomCommand;
+  readonly title: string;
+  readonly text: string;
+}[] = [
   { command: 'out', title: 'Zoom out (−)', text: '−' },
   { command: 'reset', title: 'Actual size (1)', text: '' },
   { command: 'in', title: 'Zoom in (+)', text: '+' },
@@ -134,7 +151,7 @@ function Expand({ full, what, more, onToggle }: ExpandProps) {
   );
 }
 
-function specOf(props: ZoomPaneProps) {
+function specOf(props: PaneSettings) {
   return {
     w: props.w,
     h: props.h,
@@ -149,16 +166,17 @@ function Tools({
   props,
   pane,
 }: {
-  readonly props: ZoomPaneProps;
+  readonly props: PaneSettings;
   readonly pane: ReturnType<typeof useZoomPane>;
 }) {
+  const { command: handleCommand } = pane;
   return (
     <div className={styles.tools}>
       {props.tools}
       {pane.full && props.scroll !== true ? (
         <ZoomTools
           focusable={(props.focus ?? null) !== null}
-          onCommand={pane.command}
+          onCommand={handleCommand}
           percent={zoomPercent(pane.view)}
         />
       ) : null}
@@ -191,38 +209,37 @@ function Notes({ partial, zoomable }: { readonly partial: boolean; readonly zoom
 
 // A diagram panel that expands to fill the screen, to zoom and pan: the flow diagram, the system map. The drawing
 // is its children; the panel is told the drawn size and, optionally, where the selection is.
-export function ZoomPane(props: ZoomPaneProps) {
+export function ZoomPane({ children, inline, label, legend, ...own }: ZoomPaneProps) {
+  const settings = useStopFocus(own);
   const box = useRef<HTMLDivElement>(null);
   const pan = useRef<HTMLDivElement>(null);
-  const spec = specOf(props);
+  const spec = specOf(settings);
   const pane = useZoomPane(spec, { box, pan });
   const zoomable = pane.full && !spec.scroll;
   // read rather than panned, or wide and in the page: the drawing keeps its size and the box scrolls
-  const scrolls = spec.scroll || (props.wide === true && !pane.full);
+  const scrolls = spec.scroll || (settings.wide === true && !pane.full);
   return (
     <section
-      aria-label={pane.full ? (props.label ?? 'Diagram, full screen') : undefined}
+      aria-label={pane.full ? (label ?? 'Diagram, full screen') : undefined}
       className={styles.shell}
       data-full={pane.full ? '' : undefined}
       data-scroll={spec.scroll ? '' : undefined}
     >
-      <Tools pane={pane} props={props} />
-      {pane.full || props.inline === undefined ? null : (
-        <div className={styles.inline}>{props.inline}</div>
-      )}
+      <Tools pane={pane} props={settings} />
+      {pane.full || inline === undefined ? null : <div className={styles.inline}>{inline}</div>}
       <div className={styles.view} ref={box}>
         <div className={styles.pan} ref={pan}>
           {scrolls ? (
             <ScrollCue note tall={!spec.scroll}>
-              {props.children}
+              {children}
             </ScrollCue>
           ) : (
-            props.children
+            children
           )}
         </div>
       </div>
       <Notes partial={pane.partial} zoomable={zoomable} />
-      {props.legend === undefined ? null : <div className={styles.legend}>{props.legend}</div>}
+      {legend === undefined ? null : <div className={styles.legend}>{legend}</div>}
     </section>
   );
 }

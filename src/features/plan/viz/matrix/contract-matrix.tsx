@@ -117,8 +117,9 @@ function List({ model, rows }: { readonly model: Model; readonly rows: readonly 
 const MANY_PROVIDERS = 5;
 
 function Body({ model, f }: { readonly model: Model; readonly f: ContractFindings }) {
-  if (f.rows.length === 0)
+  if (f.rows.length === 0) {
     return <p className={styles.empty}>No contract-level tests in this plan.</p>;
+  }
   if (f.providers.length > MANY_PROVIDERS) return <List model={model} rows={f.rows} />;
   return <Grid model={model} providers={f.providers} rows={f.rows} />;
 }

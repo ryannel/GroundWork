@@ -109,8 +109,11 @@ interface Ctx {
   readonly props: FieldTableProps;
 }
 
+const newHere = (r: FieldRow, shape: Shape): boolean =>
+  shape.diff && r.status === 'added' && !shape.wholly;
+
 const statusIn = (r: FieldRow, shape: Shape): ElementStatus =>
-  shape.marked || (shape.diff && r.status === 'added' && !shape.wholly) ? r.status : 'existing';
+  shape.marked || newHere(r, shape) ? r.status : 'existing';
 
 function gridRow(r: FieldRow, fold: number, ctx: Ctx): GridRow {
   const { props, shape } = ctx;
@@ -171,26 +174,26 @@ function rowsOf(model: Model, p: FieldTableProps): FieldRow[] {
  * The only way a schema's fields are drawn: in the inspector, on the entity page, in Reference, in the story and
  * inside an endpoint or event. One column set for every kind of schema.
  */
-export function FieldTable(props: FieldTableProps) {
-  const { model, schemaId, head = false } = props;
-  const mode = props.mode ?? 'diff';
+export function FieldTable({ head = false, ...table }: FieldTableProps) {
+  const { model, schemaId, fold, changeKey } = table;
+  const mode = table.mode ?? 'diff';
   if (schemaOf(model, schemaId, mode) === undefined) return null;
-  const rows = rowsOf(model, props);
-  const shape = shapeOf(model, rows, props);
+  const rows = rowsOf(model, table);
+  const shape = shapeOf(model, rows, table);
   const keyOrder = [...new Set(rows.flatMap((r) => r.changes))];
   const ctx: Ctx = {
     keys: keyContext(model, schemaId, mode),
     shape,
-    order: props.changeKey === true ? keyOrder : null,
-    props,
+    order: changeKey === true ? keyOrder : null,
+    props: table,
   };
-  const groups = foldGroups(rows, { fold: props.fold, diff: shape.diff, marked: shape.marked });
+  const groups = foldGroups(rows, { fold, diff: shape.diff, marked: shape.marked });
   const sizes = Array.from(
     { length: Math.max(0, ...groups) },
     (_, i) => groups.filter((g) => g === i + 1).length,
   );
-  const word = props.fold === 'existing' ? 'existing' : 'unchanged';
-  const caption = captionOf(model, props, { shape, count: rows.length });
+  const word = fold === 'existing' ? 'existing' : 'unchanged';
+  const caption = captionOf(model, table, { shape, count: rows.length });
   return (
     <div
       className={styles.table}
@@ -219,9 +222,7 @@ export function FieldTable(props: FieldTableProps) {
           rows={rows.map((r, i) => gridRow(r, groups[i] ?? 0, ctx))}
         />
       )}
-      {shape.changes && props.changeKey === true ? (
-        <ChangeKey model={model} order={keyOrder} />
-      ) : null}
+      {shape.changes && changeKey === true ? <ChangeKey model={model} order={keyOrder} /> : null}
     </div>
   );
 }

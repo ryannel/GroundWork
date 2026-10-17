@@ -1,8 +1,9 @@
 // @vitest-environment happy-dom
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
-import { derive } from '@/application/plan/derive';
+import { dispatchDate } from '@/../test/fixtures/acme/plans/work-dispatch';
+import { modelOf } from '@/../test/plan-kit';
 import {
   bySeverity,
   cellOf,
@@ -18,16 +19,12 @@ import { RiskMatrix } from '@/features/plan/viz/risks/risk-matrix';
 import { RiskPicker } from '@/features/plan/viz/risks/risk-picker.client';
 import { RiskRegister } from '@/features/plan/viz/risks/risk-register';
 
-vi.mock('server-only', () => ({}));
-
 afterEach(cleanup);
 
-async function withRisks() {
-  const { readPlan } = await import('@/infrastructure/plan-store');
-  const loaded = await readPlan('alder-finch', 'delivery-promise');
-  const plan = loaded.plan!;
-  const team = plan.work_items![0]!.team;
-  const model = derive({
+function withRisks() {
+  const plan = dispatchDate();
+  const team = 'team:catalogue';
+  const model = modelOf({
     ...plan,
     decisions: [{ id: 'dec:open', title: 'Open one', status: 'proposed' }],
     risks: [
@@ -54,8 +51,8 @@ async function withRisks() {
 }
 
 describe('risk reading', () => {
-  it('scores, shades and words a risk', async () => {
-    const { model } = await withRisks();
+  it('scores, shades and words a risk', () => {
+    const { model } = withRisks();
     const [small, big, gone] = model.plan.risks!;
     expect([sev(small!), sev(big!), sev(gone!)]).toEqual([1, 9, 6]);
     expect([1, 3, 6, 9].map(shade)).toEqual([1, 2, 3, 4]);
@@ -70,18 +67,19 @@ describe('risk reading', () => {
     ]);
   });
 
-  it('holds acceptance until its decision is approved', async () => {
-    const { model, team } = await withRisks();
+  it('holds acceptance until its decision is approved', () => {
+    const { model, team } = withRisks();
     const [small, big] = model.plan.risks!;
     expect(handlingOf(model, small!)).toBe('owned');
     expect(handlingOf(model, big!)).toBe('accepted if D1 is approved');
     expect(riskFacts(model, big!)).toBe(
       `R2|high x high|accepted if D1 is approved|${model.label(team)}`,
     );
+    expect(riskFacts(model, big!)).toBe('R2|high x high|accepted if D1 is approved|Catalogue');
   });
 
-  it('puts each risk in its cell, likeliest at the top', async () => {
-    const { model } = await withRisks();
+  it('puts each risk in its cell, likeliest at the top', () => {
+    const { model } = withRisks();
     const grid = riskGrid(model.plan.risks!);
     expect(grid).toHaveLength(3);
     expect(grid[0]![2]!.risks.map((r) => r.id)).toEqual(['risk:big']);
@@ -91,8 +89,8 @@ describe('risk reading', () => {
 });
 
 describe('RiskMatrix', () => {
-  it('draws a numbered dot per risk and says what a hollow one is', async () => {
-    const { model } = await withRisks();
+  it('draws a numbered dot per risk and says what a hollow one is', () => {
+    const { model } = withRisks();
     const ids = model.plan.risks!.map((r) => r.id);
     const { container } = render(<RiskMatrix ids={ids} model={model} />);
     const dots = [...container.querySelectorAll<HTMLElement>('button[data-inspect]')];
@@ -103,8 +101,8 @@ describe('RiskMatrix', () => {
     expect(container.textContent).toContain('A hollow dot is a resolved risk.');
   });
 
-  it('fills the focus dot, fades the rest and drops the note when small', async () => {
-    const { model } = await withRisks();
+  it('fills the focus dot, fades the rest and drops the note when small', () => {
+    const { model } = withRisks();
     const ids = model.plan.risks!.map((r) => r.id);
     const { container } = render(<RiskMatrix focus="risk:big" ids={ids} model={model} size="sm" />);
     expect(container.querySelectorAll('[data-focus="self"]')).toHaveLength(1);
@@ -112,16 +110,16 @@ describe('RiskMatrix', () => {
     expect(container.textContent).not.toContain('hollow');
   });
 
-  it('draws nothing for a single risk', async () => {
-    const { model } = await withRisks();
+  it('draws nothing for a single risk', () => {
+    const { model } = withRisks();
     const { container } = render(<RiskMatrix ids={['risk:big']} model={model} />);
     expect(container.firstChild).toBeNull();
   });
 });
 
 describe('RiskRegister', () => {
-  it('lists open risks biggest first and folds the resolved ones', async () => {
-    const { model } = await withRisks();
+  it('lists open risks biggest first and folds the resolved ones', () => {
+    const { model } = withRisks();
     const ids = model.plan.risks!.map((r) => r.id);
     const { container } = render(<RiskRegister ids={ids} model={model} />);
     const tables = container.querySelectorAll('table');
@@ -133,8 +131,8 @@ describe('RiskRegister', () => {
     expect(container.querySelector('details')?.textContent).toContain('Gone now.');
   });
 
-  it('shows no folds when nothing is resolved', async () => {
-    const { model } = await withRisks();
+  it('shows no folds when nothing is resolved', () => {
+    const { model } = withRisks();
     const { container } = render(<RiskRegister ids={['risk:big']} model={model} />);
     expect(container.querySelector('details')).toBeNull();
     expect(container.querySelectorAll('table')).toHaveLength(1);
@@ -147,8 +145,8 @@ const shownRows = (root: HTMLElement) =>
   );
 
 describe('RiskPicker', () => {
-  async function picker() {
-    const { model } = await withRisks();
+  function picker() {
+    const { model } = withRisks();
     const ids = model.plan.risks!.map((r) => r.id);
     return render(
       <RiskPicker
@@ -163,16 +161,16 @@ describe('RiskPicker', () => {
     expect(cellOf({})).toBe('low low');
   });
 
-  it('gives a button only to the cells with risks', async () => {
-    const { container } = await picker();
+  it('gives a button only to the cells with risks', () => {
+    const { container } = picker();
     expect(
       [...container.querySelectorAll<HTMLElement>('[data-pick]')].map((b) => b.dataset.pick),
     ).toEqual(['high high', 'med high', 'low low']);
-    expect(screen.getByText(/Pick a cell/)).toBeTruthy();
+    expect(screen.getByText(/Pick a cell/u)).toBeTruthy();
   });
 
-  it('filters the register to a cell, counts it, and clears', async () => {
-    const { container } = await picker();
+  it('filters the register to a cell, counts it, and clears', () => {
+    const { container } = picker();
     fireEvent.click(container.querySelector('[data-pick="high high"]')!);
     expect(shownRows(container).map((tr) => tr.textContent)).toEqual([
       expect.stringContaining('A big one.'),
@@ -193,8 +191,8 @@ describe('RiskPicker', () => {
     expect(screen.queryByText('Clear filter')).toBeNull();
   });
 
-  it('opens a fold when its risk is picked and clears on a second click', async () => {
-    const { container } = await picker();
+  it('opens a fold when its risk is picked and clears on a second click', () => {
+    const { container } = picker();
     const gone = container.querySelector<HTMLElement>('[data-pick="med high"]')!;
     fireEvent.click(gone);
     expect(container.querySelector('details')?.open).toBe(true);

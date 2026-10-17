@@ -9,6 +9,7 @@ import { TodayOverlays, TodaySearch } from '@/features/plan';
 import { DomainPage } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
+import { NOTHING, orNothing } from '@/shared/static-params';
 
 interface Params {
   readonly workspace: string;
@@ -18,7 +19,7 @@ interface Params {
 export const dynamicParams = false;
 
 export async function generateStaticParams(): Promise<Params[]> {
-  return domainPaths(await readWorkspaces());
+  return orNothing(domainPaths(await readWorkspaces()), { workspace: NOTHING, domain: NOTHING });
 }
 
 interface Props {

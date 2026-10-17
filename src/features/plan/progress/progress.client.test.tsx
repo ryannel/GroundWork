@@ -7,9 +7,13 @@ import { holdKeys } from '@/features/plan/walk-keys';
 import { ProgressStrip, teamOf } from './progress-strip.client';
 import { cutRail } from './rail-cut.client';
 
-vi.mock('next/navigation', () => ({
-  useSearchParams: () => new URLSearchParams(globalThis.location.search),
-}));
+vi.mock(import('next/navigation'), async (original) => {
+  const actual = await original();
+  return {
+    ...actual,
+    useSearchParams: () => new actual.ReadonlyURLSearchParams(globalThis.location.search),
+  };
+});
 
 beforeEach(() => {
   globalThis.history.replaceState(null, '', '/');

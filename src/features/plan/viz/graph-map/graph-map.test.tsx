@@ -1,26 +1,17 @@
 // @vitest-environment happy-dom
 import { cleanup, fireEvent, render } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
-import { PLANS } from '@/features/plan/chapters/chapter-kit';
+import { contractsPlans, shopRetiringPricing } from '@/../test/fixtures/acme/plans/contracts-plans';
+import { modelOf } from '@/../test/plan-kit';
 
 import { CacheTable } from './cache-table';
 import { GraphMap } from './graph-map';
 import { GraphPicture } from './graph-picture';
 import { OwnershipGrid } from './ownership-grid';
 
-vi.mock('server-only', () => ({}));
-
-const { planData } = await import('@/infrastructure/plan-data');
-
-async function modelOf(plan: string) {
-  const data = await planData({ workspace: 'alder-finch', plan });
-  if (data === null) throw new Error(`no plan ${plan}`);
-  return data.model;
-}
-
-const model = await modelOf('storefront-graph');
-const graph = 'graph:storefront';
+const model = modelOf(shopRetiringPricing());
+const graph = 'graph:shop';
 
 afterEach(cleanup);
 
@@ -100,11 +91,9 @@ describe('CacheTable', () => {
     expect(container.querySelector('a[href^="/flows/"]')).not.toBeNull();
   });
 
-  it.each(PLANS)('draws the caches of %s, or says there are none', async (plan) => {
-    const m = await modelOf(plan);
-    const { container, unmount } = render(<CacheTable model={m} />);
+  it.each(contractsPlans())('draws the caches of %s, or says there are none', (_, plan) => {
+    const { container } = render(<CacheTable model={modelOf(plan)} />);
     expect(container.textContent).not.toBe('');
-    unmount();
   });
 });
 

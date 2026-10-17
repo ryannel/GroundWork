@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { CHEAT_EVENT } from './cheat-sheet.client';
@@ -7,11 +7,15 @@ import { PlanKeys } from './keys.client';
 import { PeekToday } from './peek.client';
 import { PLANS_EVENT } from './plan-switch.client';
 
-const push = vi.fn();
-vi.mock('next/navigation', () => ({
-  useSearchParams: () => new URLSearchParams(),
-  useRouter: () => ({ push }),
-}));
+const push = vi.fn<(href: string) => void>();
+vi.mock(import('next/navigation'), async (original) => {
+  const actual = await original();
+  return {
+    ...actual,
+    useSearchParams: () => new actual.ReadonlyURLSearchParams(),
+    useRouter: () => ({ push }) as unknown as ReturnType<typeof actual.useRouter>,
+  };
+});
 
 afterEach(() => {
   cleanup();
@@ -75,14 +79,10 @@ describe('PlanKeys', () => {
       </>,
     );
     const root = (): Element | null => container.querySelector('[data-peek]');
-    act(() => {
-      fireEvent.keyDown(globalThis.window, { key: 'Alt', altKey: true });
-    });
+    fireEvent.keyDown(globalThis.window, { key: 'Alt', altKey: true });
     expect(root()).not.toBeNull();
     expect(screen.getByRole('status').textContent).toContain('Let go of');
-    act(() => {
-      fireEvent.keyUp(globalThis.window, { key: 'Alt' });
-    });
+    fireEvent.keyUp(globalThis.window, { key: 'Alt' });
     expect(root()).toBeNull();
     fireEvent.click(screen.getByRole('button', { name: 'Show today' }));
     expect(root()).not.toBeNull();

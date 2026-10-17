@@ -1,15 +1,19 @@
 // @vitest-environment happy-dom
-import { act, cleanup, fireEvent, render } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import Link from 'next/link';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { ByLens, DimByLens, LensCarry, carried, dimTo, setParam } from './lens.client';
 
-const push = vi.fn();
-vi.mock('next/navigation', () => ({
-  useSearchParams: () => new URLSearchParams(globalThis.location.search),
-  useRouter: () => ({ push }),
-}));
+const push = vi.fn<(href: string) => void>();
+vi.mock(import('next/navigation'), async (original) => {
+  const actual = await original();
+  return {
+    ...actual,
+    useSearchParams: () => new actual.ReadonlyURLSearchParams(globalThis.location.search),
+    useRouter: () => ({ push }) as unknown as ReturnType<typeof actual.useRouter>,
+  };
+});
 
 beforeEach(() => {
   push.mockReset();
@@ -58,11 +62,12 @@ describe('ByLens', () => {
 const dimmed = (root: HTMLElement) =>
   [...root.querySelectorAll('[data-facts-of], article, span')].map((e) => e.matches('[data-dim]'));
 
-const click = async (a: HTMLElement, init: MouseEventInit = {}) =>
-  act(async () => {
-    fireEvent.click(a, init);
+const click = async (a: HTMLElement, init: MouseEventInit = {}) => {
+  fireEvent.click(a, init);
+  await act(async () => {
     await Promise.resolve();
   });
+};
 
 describe('dimming', () => {
   const rows = (
@@ -110,33 +115,33 @@ describe('carried', () => {
 describe('LensCarry', () => {
   it('keeps the lens on a plain click on a plan link', async () => {
     globalThis.history.replaceState(null, '', '/?team=a');
-    const { getByText } = render(
+    render(
       <>
         <LensCarry />
         <Link href="/w/plans/p/why/problem">go</Link>
       </>,
     );
-    await click(getByText('go'));
+    await click(screen.getByText('go'));
     expect(push).toHaveBeenCalledWith('/w/plans/p/why/problem?team=a');
   });
 
   it('does nothing without a lens, or with a modifier key', async () => {
-    const { getByText } = render(
+    render(
       <>
         <LensCarry />
         <Link href="/w/plans/p/why/problem">go</Link>
       </>,
     );
-    await click(getByText('go'));
+    await click(screen.getByText('go'));
     cleanup();
     globalThis.history.replaceState(null, '', '/?team=a');
-    const again = render(
+    render(
       <>
         <LensCarry />
         <Link href="/w/plans/p/why/problem">go</Link>
       </>,
     );
-    await click(again.getByText('go'), { metaKey: true });
+    await click(screen.getByText('go'), { metaKey: true });
     expect(push).not.toHaveBeenCalled();
   });
 });

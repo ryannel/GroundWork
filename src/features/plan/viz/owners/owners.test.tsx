@@ -1,61 +1,67 @@
 // @vitest-environment happy-dom
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
-import { derive } from '@/application/plan/derive';
+import { dispatchDate } from '@/../test/fixtures/acme/plans/work-dispatch';
+import { modelOf } from '@/../test/plan-kit';
 import { OwnershipTable } from '@/features/plan/viz/owners/ownership-table';
-
-vi.mock('server-only', () => ({}));
 
 afterEach(cleanup);
 
-async function load() {
-  const { readPlan } = await import('@/infrastructure/plan-store');
-  const loaded = await readPlan('alder-finch', 'delivery-promise');
-  return loaded.plan!;
-}
+const load = dispatchDate;
 
 const facts = (container: HTMLElement, team: string): string =>
   container.querySelector<HTMLElement>(`[data-facts-of="own:${team}"]`)!.dataset.facts!;
 const flagged = (el: Element): boolean => el.hasAttribute(`data-dim`);
 
 describe('OwnershipTable', () => {
-  it('has a row per team and a column per kind of thing', async () => {
-    const model = derive(await load());
+  it('has a row per team and a column per kind of thing', () => {
+    const model = modelOf(load());
     const teams = model.plan.teams.map((t) => t.id);
     const { container } = render(<OwnershipTable model={model} teamIds={teams} />);
     expect(container.querySelectorAll('thead th')).toHaveLength(10);
+    expect(teams).toHaveLength(4);
     expect(container.querySelectorAll('[data-facts-of]')).toHaveLength(teams.length);
     expect(container.textContent).toContain('events published');
-    expect(container.textContent).toContain('#team-fulfilment');
-    expect(facts(container, 'team:fulfilment').split('|')).toHaveLength(9);
+    expect(container.textContent).toContain('#team-orders');
+    expect(facts(container, 'team:catalogue').split('|')).toEqual([
+      '4',
+      '3',
+      '1',
+      '2',
+      '4',
+      '4',
+      '3',
+      '0',
+      'not yet',
+    ]);
   });
 
-  it('opens a count to show its names as chips', async () => {
-    const model = derive(await load());
-    const { container } = render(<OwnershipTable model={model} teamIds={['team:fulfilment']} />);
+  it('opens a count to show its names as chips', () => {
+    const model = modelOf(load());
+    const { container } = render(<OwnershipTable model={model} teamIds={['team:catalogue']} />);
     expect(container.querySelector('section')).toBeNull();
-    fireEvent.click(screen.getByRole('button', { name: /^Work items: / }));
+    fireEvent.click(screen.getByRole('button', { name: /^Work items: /u }));
     const panel = container.querySelector('section')!;
-    expect(panel.querySelector('[data-inspect="wi:promise-service"]')).not.toBeNull();
+    expect(panel.querySelector('[data-inspect="wi:publish-v2"]')).not.toBeNull();
   });
 
-  it('starts every count open on the team page, with the name unlinked', async () => {
-    const model = derive(await load());
+  it('starts every count open on the team page, with the name unlinked', () => {
+    const model = modelOf(load());
     const { container } = render(
-      <OwnershipTable expand link={false} model={model} teamIds={['team:fulfilment']} />,
+      <OwnershipTable expand link={false} model={model} teamIds={['team:catalogue']} />,
     );
     expect(container.querySelectorAll('section').length).toBeGreaterThan(3);
-    expect(container.querySelector('tbody [data-inspect="team:fulfilment"]')).toBeNull();
+    expect(container.querySelector('tbody [data-inspect="team:catalogue"]')).toBeNull();
   });
 
-  it('shows a faint dot for nothing, and dims the teams outside the lens', async () => {
-    const model = derive(await load());
+  it('shows a faint dot for nothing, and dims the teams outside the lens', () => {
+    const model = modelOf(load());
     const { container } = render(
       <OwnershipTable
-        lens="team:fulfilment"
+        lens="team:catalogue"
         model={model}
-        teamIds={['team:legal', 'team:fulfilment']}
+        teamIds={['team:payments', 'team:catalogue']}
       />,
     );
     const rows = container.querySelectorAll('tbody tr');
@@ -64,19 +70,19 @@ describe('OwnershipTable', () => {
     expect(container.querySelector('[title="No work items"]')).not.toBeNull();
   });
 
-  it('says the confidence, and flags a low one', async () => {
-    const plan = await load();
-    const model = derive({
+  it('says the confidence, and flags a low one', () => {
+    const plan = load();
+    const model = modelOf({
       ...plan,
-      commitment: [{ team: 'team:fulfilment', confidence: 2 }],
+      commitment: [{ team: 'team:catalogue', confidence: 2 }],
     });
-    const { container } = render(<OwnershipTable model={model} teamIds={['team:fulfilment']} />);
-    expect(facts(container, 'team:fulfilment').endsWith('|2 of 5')).toBe(true);
+    const { container } = render(<OwnershipTable model={model} teamIds={['team:catalogue']} />);
+    expect(facts(container, 'team:catalogue').endsWith('|2 of 5')).toBe(true);
     expect(container.querySelector('[data-low]')!.textContent).toBe('2 of 5');
   });
 
-  it('says so when there are no teams', async () => {
-    render(<OwnershipTable model={derive(await load())} teamIds={[]} />);
+  it('says so when there are no teams', () => {
+    render(<OwnershipTable model={modelOf(load())} teamIds={[]} />);
     expect(screen.getByText('No teams in this plan.')).toBeTruthy();
   });
 });

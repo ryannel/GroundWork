@@ -51,8 +51,9 @@ function watch(set: (el: HTMLElement | null) => void): () => void {
   };
   const onFocus = (event: FocusEvent): void => {
     const el = event.target;
-    if (el instanceof HTMLElement && el.matches(':focus-visible'))
+    if (el instanceof HTMLElement && el.matches(':focus-visible')) {
       card.show(targetIn(el), FOCUS_MS);
+    }
   };
   const onKey = (event: KeyboardEvent): void => {
     if (event.key === 'Escape') card.hide();

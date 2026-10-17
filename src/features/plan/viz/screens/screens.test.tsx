@@ -13,7 +13,7 @@ import { ScreenCard } from './screen-card';
 import { ScreenFigure } from './screen-figure';
 import { ScreenLinks } from './screen-links';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -199,7 +199,7 @@ describe('JourneyStrip', () => {
   });
 
   it('reports the stop a leg stands for', () => {
-    const onGoto = vi.fn();
+    const onGoto = vi.fn<(stop: number) => void>();
     render(
       <JourneyStrip
         base={base}
@@ -210,7 +210,7 @@ describe('JourneyStrip', () => {
         stops={[{ stepIds: ['flow:browse#open'], indices: [0] }]}
       />,
     );
-    fireEvent.click(screen.getByTitle(/go to this step/));
+    fireEvent.click(screen.getByTitle(/go to this step/u));
     expect(onGoto).toHaveBeenCalledWith(0);
   });
 });

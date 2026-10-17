@@ -17,9 +17,17 @@ export interface BeforeAfterProps {
   readonly proposed?: ProposedMarks | null;
 }
 
+const NO_FOCUS: NonNullable<BeforeAfterProps['focus']> = [];
+
 // Today | with this plan for a screen the plan touches. Regions are numbered alike on both pictures and in the
 // region list; one the plan removes is outlined dashed on today's picture and ghosted on the new one.
-export function BeforeAfter({ model, id, base, focus = [], proposed = null }: BeforeAfterProps) {
+export function BeforeAfter({
+  model,
+  id,
+  base,
+  focus = NO_FOCUS,
+  proposed = null,
+}: BeforeAfterProps) {
   const diff = model.screenDiff(id);
   if (diff.before === null && diff.after === null) return null;
   const rows = regionsOf(model, id, { mode: 'toBe', status: true });

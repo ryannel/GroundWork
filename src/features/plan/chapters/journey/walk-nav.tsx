@@ -46,11 +46,11 @@ function Side({ walk, place, onGo, by, many }: NavProps & { readonly by: -1 | 1 
 }
 
 /** The step before and after this one across the whole scenario, crossing into the next flow at a flow's end. */
-export function WalkNav(props: NavProps) {
+export function WalkNav({ walk, place, onGo, many }: NavProps) {
   return (
-    <nav aria-label={`Steps in this ${whole(props.walk, props.many)}`} className={styles.nav}>
-      <Side {...props} by={-1} />
-      <Side {...props} by={1} />
+    <nav aria-label={`Steps in this ${whole(walk, many)}`} className={styles.nav}>
+      <Side by={-1} many={many} onGo={onGo} place={place} walk={walk} />
+      <Side by={1} many={many} onGo={onGo} place={place} walk={walk} />
     </nav>
   );
 }

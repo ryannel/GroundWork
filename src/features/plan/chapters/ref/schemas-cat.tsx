@@ -65,65 +65,65 @@ function Status({ model, show, s }: RowProps) {
   ) : null;
 }
 
-function RecordRow(p: RowProps) {
+function RecordRow({ model, show, s }: RowProps) {
   return (
-    <tr {...attrs(p)}>
+    <tr {...attrs({ model, show, s })}>
       <Cell label="record">
-        <RefChip id={p.s.id} model={p.model} quiet={p.show !== 'diff'} />
+        <RefChip id={s.id} model={model} quiet={show !== 'diff'} />
       </Cell>
       <Cell label="size">
-        <Size {...p} />
+        <Size model={model} show={show} s={s} />
       </Cell>
       <Cell label="what it holds" wide>
-        <ModelInline model={p.model} text={p.s.summary ?? ''} />
+        <ModelInline model={model} text={s.summary ?? ''} />
       </Cell>
-      <Status {...p} />
+      <Status model={model} show={show} s={s} />
     </tr>
   );
 }
 
-function BodyRow(p: RowProps) {
-  const by = schemaFacts(p.model, p.show, p.s).carriedBy;
+function BodyRow({ model, show, s }: RowProps) {
+  const by = schemaFacts(model, show, s).carriedBy;
   return (
-    <tr {...attrs(p)}>
+    <tr {...attrs({ model, show, s })}>
       <Cell label="schema">
-        <RefChip id={p.s.id} model={p.model} quiet={p.show !== 'diff'} />
+        <RefChip id={s.id} model={model} quiet={show !== 'diff'} />
       </Cell>
-      <Cell label="kind">{KIND[p.s.kind] ?? p.s.kind}</Cell>
+      <Cell label="kind">{KIND[s.kind] ?? s.kind}</Cell>
       <Cell label="size">
-        <Size {...p} />
+        <Size model={model} show={show} s={s} />
       </Cell>
       <Cell label="carried by">
-        <RefChips ids={by} model={p.model} quiet={p.show !== 'diff'} />
+        <RefChips ids={by} model={model} quiet={show !== 'diff'} />
       </Cell>
       <Cell label="what it holds" wide>
-        <ModelInline model={p.model} text={p.s.summary ?? ''} />
+        <ModelInline model={model} text={s.summary ?? ''} />
       </Cell>
-      <Status {...p} />
+      <Status model={model} show={show} s={s} />
     </tr>
   );
 }
 
-function GraphRow(p: RowProps) {
-  const g = graphTypeFacts(p.model, p.show, p.s.id);
-  const quiet = p.show !== 'diff';
+function GraphRow({ model, show, s }: RowProps) {
+  const g = graphTypeFacts(model, show, s.id);
+  const quiet = show !== 'diff';
   return (
-    <tr {...attrs(p)}>
+    <tr {...attrs({ model, show, s })}>
       <Cell label="type">
-        <RefChip id={p.s.id} model={p.model} quiet={quiet} />
-        {p.s.root === undefined ? null : <small>root {p.s.root}</small>}
+        <RefChip id={s.id} model={model} quiet={quiet} />
+        {s.root === undefined ? null : <small>root {s.root}</small>}
       </Cell>
       <Cell label="key">{g.keys.length === 0 ? '—' : g.keys.join(' · ')}</Cell>
       <Cell label="fields">
-        <Size {...p} />
+        <Size model={model} show={show} s={s} />
       </Cell>
       <Cell label="owned by">
-        <RefChips ids={g.contributors} model={p.model} quiet={quiet} />
+        <RefChips ids={g.contributors} model={model} quiet={quiet} />
       </Cell>
       <Cell label="selected by">
-        <RefChips ids={g.operations} model={p.model} quiet={quiet} />
+        <RefChips ids={g.operations} model={model} quiet={quiet} />
       </Cell>
-      <Status {...p} />
+      <Status model={model} show={show} s={s} />
     </tr>
   );
 }

@@ -22,7 +22,7 @@ const SIGNS: Readonly<Record<string, string>> = {
 };
 
 /** A diff line as the reader says it: the summary without a sign the derive layer may have put in front. */
-const unsigned = (summary: string): string => summary.replace(/^[+~×−-]\s+/, '');
+const unsigned = (summary: string): string => summary.replace(/^[+~×−-]\s+/u, '');
 
 // What the thing is, who owns it, and what the plan does to it, in a few lines. Today's view shows it as it is.
 // It already says what a hover card would, so its chips show none.

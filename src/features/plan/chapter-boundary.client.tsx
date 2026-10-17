@@ -30,11 +30,12 @@ export class ChapterBoundary extends Component<BoundaryProps, BoundaryState> {
   override state: BoundaryState = { failed: null };
 
   static getDerivedStateFromError(error: unknown): BoundaryState {
-    return { failed: (error instanceof Error ? error.message : String(error)).replace(/\.$/, '') };
+    return { failed: (error instanceof Error ? error.message : String(error)).replace(/\.$/u, '') };
   }
 
   override render(): ReactNode {
     const { failed } = this.state;
-    return failed === null ? this.props.children : <Failed failed={failed} />;
+    const { children } = this.props;
+    return failed === null ? children : <Failed failed={failed} />;
   }
 }

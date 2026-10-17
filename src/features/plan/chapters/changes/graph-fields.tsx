@@ -13,7 +13,7 @@ import styles from './graph-fields.module.css';
 const uniq = <T,>(xs: readonly T[]): T[] => [...new Set(xs)];
 
 /** The operations that select a field: today's for a field that goes (it is what the removal affects), both otherwise. */
-function selecting(model: Model, field: FieldChange): string[] {
+function selecting(model: Model, field: FieldChange): readonly string[] {
   const asIs = model.operationsSelecting(field.id, 'asIs');
   if (field.status === 'removed') return asIs;
   return uniq([...asIs, ...model.operationsSelecting(field.id, 'toBe')]);

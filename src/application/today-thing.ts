@@ -28,11 +28,12 @@ export interface TodayPlace {
 }
 
 function holderOf(workspace: Workspace, component: string) {
-  for (const domain of workspace.domains)
+  for (const domain of workspace.domains) {
     for (const system of domain.systems) {
       const found = system.components.find((c) => c.id === component);
       if (found !== undefined) return { domain, system, component: found };
     }
+  }
   return null;
 }
 

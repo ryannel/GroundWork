@@ -23,7 +23,12 @@ const LAYERS: readonly (readonly [Layer, string, string])[] = [
 
 const same = (a: MapShow, b: MapShow): boolean => LAYERS.every(([k]) => a[k] === b[k]);
 
-function Button(props: {
+function Button({
+  on,
+  label,
+  title,
+  onPick,
+}: {
   readonly on: boolean;
   readonly label: string;
   readonly title?: string;
@@ -31,13 +36,13 @@ function Button(props: {
 }) {
   return (
     <button
-      aria-pressed={props.on}
+      aria-pressed={on}
       className={styles.button}
-      onClick={props.onPick}
-      title={props.title}
+      onClick={onPick}
+      title={title}
       type="button"
     >
-      {props.label}
+      {label}
     </button>
   );
 }

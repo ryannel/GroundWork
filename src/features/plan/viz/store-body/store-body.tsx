@@ -50,9 +50,10 @@ function Block({
 function Glance({ model, id, mode }: Required<StoreProps>) {
   const g = storeGlance(model, id, mode);
   if (g === null) return null;
-  const parts: { key: string; node: ReactNode }[] = [];
-  if (g.tech !== null && g.tech !== '')
+  const parts: { readonly key: string; readonly node: ReactNode }[] = [];
+  if (g.tech !== null && g.tech !== '') {
     parts.push({ key: 'tech', node: <span className={styles.mono}>{g.tech}</span> });
+  }
   if (g.owner !== null) {
     parts.push({
       key: 'owner',
@@ -64,8 +65,9 @@ function Glance({ model, id, mode }: Required<StoreProps>) {
     });
   }
   if (g.records > 0) parts.push({ key: 'records', node: countOf(g.records, 'record') });
-  if (g.readers > 0)
+  if (g.readers > 0) {
     parts.push({ key: 'readers', node: `read by ${countOf(g.readers, 'other service')}` });
+  }
   return (
     <Block title="At a glance">
       <div className={styles.glance}>

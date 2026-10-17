@@ -6,19 +6,19 @@ import { RegisterScreen } from './register-screen';
 import { RisksScreen } from './risks-screen';
 
 /** Chapter 8, what we commit to: the choices, the risks, the rest of the register, and what is still to settle. */
-export function CommitChapter(props: BodyProps) {
-  switch (props.page.screen) {
+export function CommitChapter({ page, ...rest }: BodyProps) {
+  switch (page.screen) {
     case 'choices': {
-      return <ChoicesScreen {...props} />;
+      return <ChoicesScreen {...rest} page={page} />;
     }
     case 'risks': {
-      return <RisksScreen {...props} />;
+      return <RisksScreen {...rest} page={page} />;
     }
     case 'register': {
-      return <RegisterScreen {...props} />;
+      return <RegisterScreen {...rest} page={page} />;
     }
     default: {
-      return <AskScreen {...props} />;
+      return <AskScreen {...rest} page={page} />;
     }
   }
 }

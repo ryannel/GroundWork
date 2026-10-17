@@ -1,11 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { type ReactNode, type RefObject, useEffect, useRef, useState } from 'react';
 
 import { countOf } from '@/application/plan-viz-text';
 import type { FlowEntry } from '@/application/today-flow-list';
+import { IntentLink } from '@/ui/intent-link.client';
 
 import styles from './flow-list.module.css';
 
@@ -18,9 +18,11 @@ interface FlowListProps {
   readonly children: ReactNode;
 }
 
-const trimmed = (path: string): string => path.replace(/\/$/, '');
+const trimmed = (path: string): string => path.replace(/\/$/u, '');
 
-function groupsOf(flows: readonly FlowEntry[]): { entry: string; flows: FlowEntry[] }[] {
+function groupsOf(
+  flows: readonly FlowEntry[],
+): { readonly entry: string; readonly flows: readonly FlowEntry[] }[] {
   const groups = new Map<string, FlowEntry[]>();
   for (const flow of flows) groups.set(flow.entry, [...(groups.get(flow.entry) ?? []), flow]);
   return [...groups].map(([entry, each]) => ({ entry, flows: each }));
@@ -46,8 +48,9 @@ function useList(list: RefObject<HTMLDivElement | null>, chosen: string): void {
     const row = box?.querySelector<HTMLElement>('[aria-current="page"]') ?? null;
     if (box === null || row === null) return;
     const top = row.offsetTop - box.offsetTop;
-    if (top < box.scrollTop || top + row.offsetHeight > box.scrollTop + box.clientHeight)
+    if (top < box.scrollTop || top + row.offsetHeight > box.scrollTop + box.clientHeight) {
       box.scrollTo({ top: top - box.clientHeight / 2 });
+    }
   }, [list, chosen]);
   useEffect(() => {
     const box = list.current;
@@ -65,7 +68,7 @@ export function FlowList({ flows, children }: FlowListProps) {
   const list = useRef<HTMLDivElement>(null);
   useList(list, chosen);
   if (flows.length < 2) return <div className={styles.read}>{children}</div>;
-  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const words = query.toLowerCase().split(/\s+/u).filter(Boolean);
   const shown = flows.filter((flow) => words.every((word) => flow.terms.includes(word)));
   return (
     <div className={styles.flows}>
@@ -92,11 +95,11 @@ export function FlowList({ flows, children }: FlowListProps) {
               <ul className={styles.rows}>
                 {group.flows.map((flow) => (
                   <li key={flow.id}>
-                    <Link
+                    <IntentLink
                       aria-current={flow.id === chosen ? 'page' : undefined}
                       className={styles.row}
                       href={flow.href}
-                      prefetch={false}
+
                       scroll={false}
                     >
                       <span className={styles.name}>{flow.name}</span>
@@ -105,7 +108,7 @@ export function FlowList({ flows, children }: FlowListProps) {
                           ? countOf(flow.steps, 'step')
                           : `${String(flow.here)} of ${countOf(flow.steps, 'step')} here`}
                       </span>
-                    </Link>
+                    </IntentLink>
                   </li>
                 ))}
               </ul>

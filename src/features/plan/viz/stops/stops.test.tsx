@@ -9,7 +9,7 @@ import { leaveFor, walkBeside, walkMove } from '@/features/plan/walk-keys';
 
 import { Stops } from './stops.client';
 
-vi.mock('next/navigation', () => ({ usePathname: () => '/w/plans/p/today/system/' }));
+vi.mock(import('next/navigation'), () => ({ usePathname: () => '/w/plans/p/today/system/' }));
 
 const STOPS = [
   { key: 'owners', title: 'Who owns what', headline: 'Eleven teams own it.', lede: 'Owners.' },
@@ -84,17 +84,17 @@ describe('a screen read in stops', () => {
         <Pager neighbours={NEIGHBOURS} />
       </>,
     );
-    const next = screen.getByRole('button', { name: /next step/i });
+    const next = screen.getByRole('button', { name: /next step/iu });
     expect(next.textContent).toContain('Who calls whom');
-    expect(screen.queryByRole('button', { name: /previous step/i })).toBeNull();
+    expect(screen.queryByRole('button', { name: /previous step/iu })).toBeNull();
     fireEvent.click(next);
     expect(screen.getByText('Checkout calls three.')).toBeTruthy();
-    expect(screen.getByRole('button', { name: /previous step/i }).textContent).toContain(
+    expect(screen.getByRole('button', { name: /previous step/iu }).textContent).toContain(
       'Who owns what',
     );
-    fireEvent.click(screen.getByRole('button', { name: /next step/i }));
-    expect(screen.queryByRole('button', { name: /next step/i })).toBeNull();
-    expect(screen.getByRole('link', { name: /what people see today/i })).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: /next step/iu }));
+    expect(screen.queryByRole('button', { name: /next step/iu })).toBeNull();
+    expect(screen.getByRole('link', { name: /what people see today/iu })).toBeTruthy();
   });
 });
 

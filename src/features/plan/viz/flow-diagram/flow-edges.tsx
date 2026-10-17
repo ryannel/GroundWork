@@ -42,6 +42,7 @@ export function FlowEdges({ edges }: FlowEdgesProps) {
           data-steps={e.steps.join(' ')}
           data-to={e.to}
           data-walk={e.walk}
+          data-walk-steps={e.steps.join(' ')}
         >
           <path className={styles.line} d={e.d} />
           <path className={styles.head} d={e.head} />

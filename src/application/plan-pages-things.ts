@@ -7,7 +7,9 @@ import { idToToken } from './plan-pages-hash';
 import type { Reader } from './today-reader';
 
 // Every thing the inspector can open, bar the parts of a thing, also has a page of its own at
-// /<workspace>/plans/<plan>/things/<token>/, beside the others of its kind: the services with the services.
+// /<workspace>/plans/<plan>/things/?id=<token>, beside the others of its kind: the services with the services.
+// One page serves them all: the browser reads the id and draws the thing from the model it fetched, so the
+// export does not grow with the model.
 
 const CHILD_TYPES = new Set(['field', 'step', 'region']);
 
@@ -54,7 +56,10 @@ export function siblingsOf(model: Model, id: string): string[] {
 }
 
 /** A thing's page under a base that ends in a slash: a plan's things/, or a workspace's. */
-export const thingAt = (base: string, id: string): string => `${base}${idToToken(id)}/`;
+export const thingAt = (base: string, id: string): string => `${base}?id=${idToToken(id)}`;
+
+/** The screen name of the page that shows one thing at a time. */
+export const THINGS_SCREEN = 'things';
 
 export function thingHref(at: PlanAddress, id: string): string {
   return thingAt(`${planHref(at)}things/`, id);
@@ -102,9 +107,6 @@ export function thingNeighbours(model: Model, outline: Outline, id: string): Nei
   };
 }
 
-/** The address segment of every thing with a page, for the static routes. */
-export const thingTokens = (model: Model): string[] => topThingIds(model).map(idToToken);
-
-/** The thing a page's address segment names, or null. */
+/** The thing a page's `?id=` names, or null. */
 export const thingByToken = (model: Model, token: string): string | null =>
   topThingIds(model).find((id) => idToToken(id) === token) ?? null;

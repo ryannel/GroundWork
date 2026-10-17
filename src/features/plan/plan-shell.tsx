@@ -5,24 +5,28 @@ import { planBarOf } from '@/application/plan-bar';
 import type { PlanCard } from '@/application/plan-footprint';
 import { neighboursOf, type Neighbours, type Outline, type Page } from '@/application/plan-pages';
 import { crumbOf, teamHidden, teamPages, teamPlaces } from '@/application/plan-pages-team';
-import { planReaderOf } from '@/application/plan-pages-things';
 import { workspaceHref } from '@/application/workspace-paths';
 import { AppBar } from '@/ui/app-bar';
 import { AppShell } from '@/ui/app-shell';
 import { RailToggle } from '@/ui/rail-drawer.client';
 
 import { ChapterRail } from './chapter-rail';
-import { CheatSheet } from './cheat-sheet.client';
-import { Inspector } from './inspector.client';
-import { PlanKeys } from './keys.client';
-import { LensCarry } from './lens.client';
 import { Pager } from './pager.client';
 import { PeekToday } from './peek.client';
 import { PlanActions } from './plan-bar';
 import { planJsonOf } from './plan-model';
+import { PlanOverlays } from './plan-overlays';
 import { PlanSwitch } from './plan-switch.client';
 import { ProgressStrip } from './progress/progress-strip.client';
-import { ChangesAhead } from './tray/changes-ahead.client';
+
+const NO_NEIGHBOURS: Neighbours = {
+  previous: null,
+  next: null,
+  previousChapter: null,
+  nextChapter: null,
+  opens: null,
+  end: null,
+};
 
 interface PlanShellProps {
   readonly model: Model;
@@ -31,8 +35,9 @@ interface PlanShellProps {
   readonly workspaceName: string;
   /** Every plan of the workspace, for the switcher. */
   readonly plans: readonly PlanCard[];
-  /** What the pager and the arrow keys step to, when not the screens either side. */
-  readonly neighbours?: Neighbours;
+  /** What the pager and the arrow keys step to, when not the screens either side; null when the page draws its
+   * own, as the things page does once it knows which thing it shows. */
+  readonly neighbours?: Neighbours | null;
   readonly children: ReactNode;
 }
 
@@ -45,7 +50,7 @@ export function PlanShell({
   neighbours: given,
   children,
 }: PlanShellProps) {
-  const neighbours = given ?? neighboursOf(outline, page);
+  const neighbours = given === undefined ? neighboursOf(outline, page) : given;
   const src = planJsonOf(page);
   const bar = planBarOf(model, outline);
   const teams = teamPages(model, outline);
@@ -65,30 +70,18 @@ export function PlanShell({
         </AppBar>
       }
       overlays={
-        <>
-          <Inspector
-            reader={planReaderOf({ workspace: outline.workspace, slug: outline.slug }, src)}
-          />
-          <LensCarry />
-          <CheatSheet />
-          <ChangesAhead
-            here={page.href}
-            plan={{ workspace: outline.workspace, slug: outline.slug }}
-            src={src}
-          />
-          <PlanKeys
-            next={neighbours.next?.href ?? null}
-            nextChapter={neighbours.nextChapter?.href ?? null}
-            previous={neighbours.previous?.href ?? null}
-            previousChapter={neighbours.previousChapter?.href ?? null}
-          />
-        </>
+        <PlanOverlays
+          neighbours={neighbours ?? NO_NEIGHBOURS}
+          outline={outline}
+          page={page}
+          src={src}
+        />
       }
       rail={<ChapterRail hidden={teamHidden(outline, teams)} outline={outline} page={page} />}
     >
       <ProgressStrip crumb={crumbOf(outline, page)} teams={teamPlaces(teams, page.href)} />
       {page.chapter === 'changes' ? <PeekToday key={page.href}>{children}</PeekToday> : children}
-      <Pager neighbours={neighbours} />
+      {neighbours === null ? null : <Pager neighbours={neighbours} />}
     </AppShell>
   );
 }

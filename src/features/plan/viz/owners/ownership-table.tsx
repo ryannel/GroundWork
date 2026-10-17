@@ -65,7 +65,7 @@ function Body({
 
 function countCell(
   model: Model,
-  c: OwnerColumn & { key: OwnerKey },
+  c: OwnerColumn & { readonly key: OwnerKey },
   lists: OwnerLists,
 ): DetailCell {
   const ids = lists[c.key];

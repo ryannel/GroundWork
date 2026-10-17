@@ -46,7 +46,10 @@ interface WalkInput {
 }
 
 /** The reader's place on the walk, and the ways to move it. */
-export function useWalk(input: WalkInput) {
+export function useWalk(input: WalkInput): {
+  readonly place: Place;
+  readonly go: (next: Place) => void;
+} {
   const { walk, before, today = false } = input;
   const [place, setPlace] = useState(() => placeFromAddress(walk, input));
   const latest = useRef(place);

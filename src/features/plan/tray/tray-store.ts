@@ -23,15 +23,12 @@ export function planOfPath(path: string): string | null {
   return slug === undefined || slug === '' ? null : `${workspace}/${slug}`;
 }
 
-const isPin = (x: unknown): x is Pin =>
-  typeof x === 'object' &&
-  x !== null &&
-  'id' in x &&
-  typeof x.id === 'string' &&
-  'from' in x &&
-  typeof x.from === 'string' &&
-  'seen' in x &&
-  typeof x.seen === 'boolean';
+function isPin(x: unknown): x is Pin {
+  if (typeof x !== 'object' || x === null) return false;
+  if (!('id' in x) || typeof x.id !== 'string') return false;
+  if (!('from' in x) || typeof x.from !== 'string') return false;
+  return 'seen' in x && typeof x.seen === 'boolean';
+}
 
 function emit(): void {
   for (const listener of listeners) listener();

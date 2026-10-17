@@ -67,7 +67,7 @@ function Heading({
   return (
     <h3 className={styles.title}>
       <span className={styles.num}>
-        {narration.group ? 'Steps' : 'Step'} {narration.num}
+        {narration.group ? 'Steps' : 'Step'} {narration.number}
       </span>
       <span>{narration.text}</span>
       {mark === undefined ? null : (
@@ -79,13 +79,16 @@ function Heading({
   );
 }
 
+const NO_CHANGES: NonNullable<StepCardProps['changes']> = [];
+const NO_DECISIONS: NonNullable<StepCardProps['decisions']> = [];
+
 // The card for the stop the reader is on: what happens, between whom, what it touches, and how it can fail.
 export function StepCard({
   model,
   narration,
   mode,
-  changes = [],
-  decisions = [],
+  changes = NO_CHANGES,
+  decisions = NO_DECISIONS,
   marks,
   reasons,
 }: StepCardProps) {

@@ -4,10 +4,10 @@ import { OrderScreen } from './order-screen';
 import { WorkScreen } from './work-screen';
 
 /** Chapter 7, how we build it: the build order, then the work by team. */
-export function BuildChapter(props: BodyProps) {
-  return props.page.screen === 'work-by-team' ? (
-    <WorkScreen {...props} />
+export function BuildChapter({ page, ...rest }: BodyProps) {
+  return page.screen === 'work-by-team' ? (
+    <WorkScreen {...rest} page={page} />
   ) : (
-    <OrderScreen {...props} />
+    <OrderScreen {...rest} page={page} />
   );
 }

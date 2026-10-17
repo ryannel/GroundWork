@@ -99,14 +99,15 @@ function Rows({ src, at, pins }: Omit<RowsProps, 'here'>) {
 }
 
 function usePanel(open: boolean, box: RefObject<HTMLDivElement | null>): void {
-  useEffect(() => {
+  useEffect((): (() => void) | undefined => {
     if (!open) return;
     const onKey = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') setTrayOpen(false);
     };
     const onDown = (event: PointerEvent): void => {
-      if (event.target instanceof Node && box.current?.contains(event.target) !== true)
+      if (event.target instanceof Node && box.current?.contains(event.target) !== true) {
         setTrayOpen(false);
+      }
     };
     document.addEventListener('keydown', onKey);
     document.addEventListener('pointerdown', onDown);

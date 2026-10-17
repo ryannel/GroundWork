@@ -14,7 +14,7 @@ import { Badge, type BadgeTone } from '@/ui/badge';
 import { PartSection } from './part-section';
 import styles from './team-steps.module.css';
 
-const KIND: Readonly<Record<StepKind, { tone: BadgeTone; word: string }>> = {
+const KIND: Readonly<Record<StepKind, { readonly tone: BadgeTone; readonly word: string }>> = {
   new: { tone: 'added', word: 'new step' },
   differently: { tone: 'modified', word: 'works differently' },
   rerouted: { tone: 'modified', word: 'calls differently' },
@@ -106,7 +106,7 @@ export function LandsIn({
   const rest = otherChanges(model, part);
   if (part.steps.length === 0 && rest.length === 0) return null;
   const flows = [...group(part.steps)];
-  const isNew = ([flow]: [string, unknown]): boolean => model.status(flow) === 'added';
+  const isNew = ([flow]: readonly [string, unknown]): boolean => model.status(flow) === 'added';
   const added = flows.filter(isNew);
   const existing = flows.filter((f) => !isNew(f));
   return (

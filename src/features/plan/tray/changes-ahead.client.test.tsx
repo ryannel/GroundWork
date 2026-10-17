@@ -11,8 +11,10 @@ import { clearPins, pinsOf, setTrayOpen } from './tray-store';
 
 const model = derive(shop());
 const settled = Object.assign(Promise.resolve(model), { status: 'fulfilled', value: model });
-vi.mock('@/features/plan/plan-model', () => ({ pendingModel: () => ({ model: settled }) }));
-vi.mock('next/navigation', () => ({ usePathname: () => '/acme/plans/shop/journey/browse/' }));
+vi.mock(import('@/features/plan/plan-model'), () => ({ pendingModel: () => ({ model: settled }) }));
+vi.mock(import('next/navigation'), () => ({
+  usePathname: () => '/acme/plans/shop/journey/browse/',
+}));
 
 const plan = { workspace: 'acme', slug: 'shop' };
 const contracts = '/acme/plans/shop/changes/contracts/';
@@ -41,8 +43,8 @@ describe('the changes-ahead tray', () => {
       '/acme/plans/shop/journey/browse/',
     ]);
     expect(screen.getByRole('button', { name: '◇ 2 changes ahead' })).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: '◇ Changes ahead' }));
     await act(async () => {
-      fireEvent.click(screen.getByRole('button', { name: '◇ Changes ahead' }));
       await settled;
     });
     const link = screen.getByRole('link', { name: '4.2 Interfaces that get a new version' });
@@ -53,8 +55,8 @@ describe('the changes-ahead tray', () => {
 
   it('ticks a pin off once the screen that shows its change is read', async () => {
     render(<PinAhead ids={['sch:gql-product']} reasons={[]} />);
+    render(<ChangesAhead here={contracts} plan={plan} src="plan.json" />);
     await act(async () => {
-      render(<ChangesAhead here={contracts} plan={plan} src="plan.json" />);
       await settled;
     });
     expect(screen.getByRole('button', { name: 'All 1 planned changes seen ✓' })).toBeTruthy();

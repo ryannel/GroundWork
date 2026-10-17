@@ -14,8 +14,9 @@ export function applyFolds(box: HTMLElement): void {
 
 function toggle(event: Event): void {
   const el = event.target;
-  if (el instanceof HTMLDetailsElement && el.dataset.keep !== undefined)
+  if (el instanceof HTMLDetailsElement && el.dataset.keep !== undefined) {
     folds.set(el.dataset.keep, el.open);
+  }
 }
 
 /** Remembers the folds the reader opens and closes inside the box; returns the way to stop. */

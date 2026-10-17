@@ -11,7 +11,7 @@ const termsOf = (query: string): string[] =>
   query
     .trim()
     .toLowerCase()
-    .split(/\s+/)
+    .split(/\s+/u)
     .filter((t) => t !== '');
 
 const inCut = (row: HTMLElement, lens: string | null): boolean => {

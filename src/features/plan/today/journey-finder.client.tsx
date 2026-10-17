@@ -1,10 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 
 import { countOf } from '@/application/plan-viz-text';
 import type { JourneyIndex, JourneyRow } from '@/application/today-journey-index';
+import { IntentLink } from '@/ui/intent-link.client';
 
 import styles from './journey-finder.module.css';
 
@@ -14,11 +14,11 @@ function Row({ row }: { readonly row: JourneyRow }) {
   const who = row.actor === '' ? row.through : `${row.actor} · ${row.through}`;
   return (
     <li>
-      <Link className={styles.row} href={row.href} prefetch={false}>
+      <IntentLink className={styles.row} href={row.href}>
         <span className={styles.title}>{row.title}</span>
         <span className={styles.claim}>{row.claim}</span>
         <span className={styles.who}>{who}</span>
-      </Link>
+      </IntentLink>
     </li>
   );
 }
@@ -28,7 +28,7 @@ function Row({ row }: { readonly row: JourneyRow }) {
 export function JourneyFinder({ index }: { readonly index: JourneyIndex }) {
   const [query, setQuery] = useState('');
   const [domain, setDomain] = useState(ANY);
-  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const words = query.toLowerCase().split(/\s+/u).filter(Boolean);
   const fits = (row: JourneyRow): boolean =>
     (domain === ANY || row.domains.includes(domain)) &&
     words.every((word) => row.terms.includes(word));

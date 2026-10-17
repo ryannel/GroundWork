@@ -25,7 +25,7 @@ export function FilterableGroups({ groups, filter }: Props) {
   const [query, setQuery] = useState('');
   const words = query
     .toLowerCase()
-    .split(/\s+/)
+    .split(/\s+/u)
     .filter((w) => w !== '');
   const shown = groups
     .map((g) => ({ ...g, rows: g.rows.filter((r) => words.every((w) => r.search.includes(w))) }))

@@ -1,4 +1,5 @@
 import { hashFor, inspectedIn } from '@/application/plan-pages-hash';
+import { historyState } from '@/ui/address-bar';
 
 // The open inspector is the address hash (#i-svc-orders), so the browser's own history is the inspector's:
 // opening or hopping pushes an entry, Back steps out, and a copied address reopens the same thing.
@@ -24,14 +25,14 @@ export const serverOpenId = (): null => null;
 
 /** How many entries back the page without the panel is; null when the address was pasted or reloaded cold. */
 function depth(): number | null {
-  const state: unknown = globalThis.history.state;
+  const state = historyState();
   if (typeof state !== 'object' || state === null || !('inspector' in state)) return null;
   return typeof state.inspector === 'number' ? state.inspector : null;
 }
 
 /** The things opened before this one, oldest first, for the crumbs. */
 export function trail(): readonly string[] {
-  const state: unknown = globalThis.history.state;
+  const state = historyState();
   if (typeof state !== 'object' || state === null || !('trail' in state)) return [];
   return Array.isArray(state.trail)
     ? state.trail.filter((x: unknown): x is string => typeof x === 'string')

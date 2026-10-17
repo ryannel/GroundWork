@@ -24,8 +24,8 @@ export interface PaneSpec {
 }
 
 interface Panel {
-  vw: number;
-  vh: number;
+  readonly vw: number;
+  readonly vh: number;
 }
 
 type Framed = 'auto' | 'fit' | 'focus';
@@ -42,7 +42,7 @@ function autoView(spec: PaneSpec, panel: Panel, framed: Framed): PaneView {
 /** The panel's size, kept up to date while it is expanded. */
 function usePanelSize(box: RefObject<HTMLDivElement | null>, active: boolean): Panel | null {
   const [panel, setPanel] = useState<Panel | null>(null);
-  useLayoutEffect(() => {
+  useLayoutEffect((): (() => void) | undefined => {
     const el = box.current;
     if (!active || el === null) return;
     const measure = (): void => {
@@ -84,15 +84,16 @@ interface KeyActions {
 /** + − 0 1 F zoom, Esc closes (unless the inspector is open: that closes first). */
 function useZoomKeys(on: boolean, actions: KeyActions) {
   const { command, close, zoomable, focusable } = actions;
-  useEffect(() => {
+  useEffect((): (() => void) | undefined => {
     if (!on) return;
     const onKey = (event: KeyboardEvent): void => {
       if (event.altKey || event.metaKey || event.ctrlKey) return;
       if (
         event.target instanceof Element &&
         event.target.closest('input, textarea, select, [contenteditable]') !== null
-      )
+      ) {
         return;
+      }
       if (event.key === 'Escape') {
         if (openId() === null) close();
         return;
@@ -109,6 +110,14 @@ function useZoomKeys(on: boolean, actions: KeyActions) {
   }, [close, command, focusable, on, zoomable]);
 }
 
+export interface ZoomPaneState {
+  readonly full: boolean;
+  readonly view: PaneView | null;
+  readonly partial: boolean;
+  readonly toggle: (on: boolean) => void;
+  readonly command: (command: ZoomCommand) => void;
+}
+
 /**
  * The state of a pan and zoom panel: whether it fills the screen, and where the drawing sits in it. The view is
  * worked out from the drawing, the panel and what the reader last asked for, so a redraw keeps a fitted or
@@ -116,8 +125,11 @@ function useZoomKeys(on: boolean, actions: KeyActions) {
  */
 export function useZoomPane(
   spec: PaneSpec,
-  refs: { box: RefObject<HTMLDivElement | null>; pan: RefObject<HTMLDivElement | null> },
-) {
+  refs: {
+    readonly box: RefObject<HTMLDivElement | null>;
+    readonly pan: RefObject<HTMLDivElement | null>;
+  },
+): ZoomPaneState {
   const [full, setFull] = useState(false);
   const [framed, setFramed] = useState<Framed>('auto');
   const [moved, setMoved] = useState<PaneView | null>(null);
@@ -129,7 +141,7 @@ export function useZoomPane(
     latest.current = view;
   });
   useTransform(refs.pan, view, { vw: spec.w, vh: spec.h });
-  useEffect(() => {
+  useEffect((): (() => void) | undefined => {
     const el = refs.box.current;
     if (!active || el === null) return;
     return bindGestures(el, () => latest.current, setMoved);

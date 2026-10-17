@@ -127,6 +127,8 @@ function Row({ model, row, n, lit, numbered, proposed, status, mode }: RowProps)
   );
 }
 
+const NO_FOCUS: NonNullable<RegionListProps['focus']> = [];
+
 // The regions of a screen: name, what it shows, what it reads. With `status` on the list also holds the regions
 // the plan removes, struck and last, and says what the plan does to each region's words.
 export function RegionList({
@@ -134,7 +136,7 @@ export function RegionList({
   id,
   mode = 'toBe',
   status = mode !== 'asIs',
-  focus = [],
+  focus = NO_FOCUS,
   numbered = status,
   proposed = null,
 }: RegionListProps) {

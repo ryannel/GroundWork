@@ -58,7 +58,7 @@ function TeamSection({
 
 // 7.3: each team's work, in build order, and the work as GitHub issues to copy.
 export function WorkScreen({ model, outline, page }: BodyProps) {
-  const sum = buildSummary(model);
+  const sum = buildSummary(model, model.today);
   const head = {
     chapter: 'build',
     headline: workHeadline(model, sum),

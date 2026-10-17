@@ -39,7 +39,7 @@ function Row({
         {label === undefined || e.decide_by === undefined ? null : (
           <>
             <span className={styles.when}>{label}</span>
-            <time dateTime={e.decide_by}>{shortDate(e.decide_by)}</time>
+            <time dateTime={e.decide_by}>{shortDate(e.decide_by, model.today)}</time>
           </>
         )}
         {e.decider === undefined ? null : <TeamTag model={model} teamId={e.decider} />}

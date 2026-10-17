@@ -21,12 +21,13 @@ function Part({ seg }: { readonly seg: Seg }) {
 }
 
 function When({ when }: Pick<RungView, 'when'>) {
-  if (when === null)
+  if (when === null) {
     return (
       <span className={styles.when} data-none="">
         no milestone
       </span>
     );
+  }
   return (
     <span className={styles.when} data-late={when.late ? '' : undefined} title={when.title}>
       {when.late ? '⚠ ' : ''}

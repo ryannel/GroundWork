@@ -10,7 +10,7 @@ import { Legend, type LegendItem } from '@/ui/legend';
 import { DagFigure } from './dag-figure';
 import styles from './dag.module.css';
 
-interface DagProps extends DagOptions {
+interface DagProps extends Omit<DagOptions, 'today'> {
   readonly model: Model;
 }
 
@@ -35,7 +35,7 @@ function legendItems(dag: NonNullable<ReturnType<typeof dagOf>>): LegendItem[] {
 
 /** The work items' dependency graph: drawn at reading size in a pane that scrolls sideways and expands, with its key. */
 export function Dag({ model, byMilestone, lens }: DagProps) {
-  const dag = dagOf(model, { byMilestone, lens });
+  const dag = dagOf(model, { byMilestone, lens, today: new Date() });
   if (dag === null) return <p className={styles.none}>No work items in this plan.</p>;
   const waiting =
     dag.violations.length === 1

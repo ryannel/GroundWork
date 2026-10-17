@@ -1,0 +1,41 @@
+@layer components {
+  .muted {
+    color: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .fold {
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-3);
+    background: var(--bg-0);
+  }
+
+  .summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: baseline;
+    padding: var(--s-3);
+    font-size: var(--fs-14);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .waterfalls {
+    display: grid;
+    gap: var(--s-5);
+    padding: var(--s-3);
+  }
+
+  .op {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .opHead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2);
+  }
+}

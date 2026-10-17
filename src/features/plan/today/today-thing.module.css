@@ -1,22 +1,4 @@
 @layer components {
-  .top {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-3);
-    align-items: center;
-    margin-bottom: var(--s-4);
-    font-size: var(--fs-12);
-  }
-
-  .back {
-    color: var(--accent-fg);
-  }
-
-  .count {
-    flex: 1;
-    color: var(--fg-3);
-  }
-
   .layout {
     display: grid;
     grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
@@ -32,19 +14,6 @@
     display: grid;
     gap: var(--s-4);
     min-width: 0;
-  }
-
-  .place {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2);
-    align-items: center;
-    color: var(--fg-3);
-    font-size: var(--fs-13);
-
-    & a {
-      color: var(--accent-fg);
-    }
   }
 
   .section {

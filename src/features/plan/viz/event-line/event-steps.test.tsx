@@ -7,7 +7,7 @@ import { walkBeside, walkMove } from '@/features/plan/walk-keys';
 import { EventSteps } from './event-steps.client';
 import { closeLast, showEvent } from './show-event';
 
-vi.mock('next/navigation', () => ({ usePathname: () => '/w/plans/p/ref/events/' }));
+vi.mock(import('next/navigation'), () => ({ usePathname: () => '/w/plans/p/ref/events/' }));
 
 const EVENTS = [
   { key: 'msg:a', title: 'a.made' },

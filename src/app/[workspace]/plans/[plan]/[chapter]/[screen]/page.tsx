@@ -4,6 +4,7 @@ import { findPage } from '@/application/plan-pages';
 import { PlanPage } from '@/features/plan';
 import { planData, screenPaths, type PlanParams } from '@/infrastructure/plan-data';
 import { planRevision } from '@/infrastructure/plan-revision';
+import { NOTHING, orNothing } from '@/shared/static-params';
 
 interface Params extends PlanParams {
   readonly chapter: string;
@@ -13,7 +14,12 @@ interface Params extends PlanParams {
 export const dynamicParams = false;
 
 export async function generateStaticParams(): Promise<Params[]> {
-  return screenPaths();
+  return orNothing(await screenPaths(), {
+    workspace: NOTHING,
+    plan: NOTHING,
+    chapter: NOTHING,
+    screen: NOTHING,
+  });
 }
 
 export default async function PlanScreenRoute({ params }: { readonly params: Promise<Params> }) {

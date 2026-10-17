@@ -118,7 +118,7 @@ export function LedgerRow({
       open={open}
     >
       <summary className={styles.summary}>
-        <span className={styles.num}>{row.num}</span>
+        <span className={styles.num}>{row.number}</span>
         <span className={styles.main}>
           <span className={styles.title}>
             <ModelInline model={model} text={row.title} />

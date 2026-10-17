@@ -6,7 +6,7 @@ import { derive } from '@/application/plan/derive';
 
 import { GraphEstimate } from './graph-estimate';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 

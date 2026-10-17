@@ -11,10 +11,10 @@ interface ValueProps {
   readonly value: unknown;
 }
 
-const ENTITY = /^(?:flow|scr|svc|api|gql|sch|msg|st|chg|dec):/;
+const ENTITY = /^(?:flow|scr|svc|api|gql|sch|msg|st|chg|dec):/u;
 
 /** Each value with a key of its own, though two may be alike. */
-function keyed(values: readonly unknown[]): { key: string; value: unknown }[] {
+function keyed(values: readonly unknown[]): { readonly key: string; readonly value: unknown }[] {
   const seen = new Map<string, number>();
   return values.map((value) => {
     const base = JSON.stringify(value);

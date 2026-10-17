@@ -4,7 +4,6 @@ import { testsByLevel, walksText } from '@/application/plan-story-ref-rows';
 import { LEVEL_MEANS, levelWord } from '@/application/plan-viz-tests';
 import type { Test } from '@/domain/plan/plan.generated';
 import { TeamTag } from '@/features/plan/common/team-dot';
-import { ByLens } from '@/features/plan/lens.client';
 import { PyramidStrip } from '@/features/plan/viz/matrix/pyramid-strip';
 
 import {
@@ -60,7 +59,6 @@ function TestRow({ model, t }: { readonly model: Model; readonly t: Test }) {
 /** What proves each change, by level. */
 export function TestsCat({ model, teams }: CatProps) {
   const levels = testsByLevel(model.plan.tests ?? []);
-  const ids = model.plan.teams.map((t) => t.id);
   return (
     <Pages
       empty="This plan records no tests."
@@ -71,13 +69,7 @@ export function TestsCat({ model, teams }: CatProps) {
         levels.length === 0
           ? []
           : [
-              <ByLens
-                everyone={<PyramidStrip model={model} />}
-                key="pyramid"
-                teams={Object.fromEntries(
-                  ids.map((id) => [id, <PyramidStrip key={id} lens={id} model={model} />]),
-                )}
-              />,
+              <PyramidStrip key="pyramid" lensed model={model} />,
               ...levels.map(({ level, tests }) => (
                 <Group
                   count={tests.length}

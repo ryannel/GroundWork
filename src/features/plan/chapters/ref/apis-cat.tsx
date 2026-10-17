@@ -17,10 +17,12 @@ function Interface({
   model,
   show,
   id,
+  src,
 }: {
   readonly model: Model;
   readonly show: Show;
   readonly id: string;
+  readonly src: string;
 }) {
   const ifc = poolOf(model.asIs.interfaces, model.toBe.interfaces, show).find((i) => i.id === id);
   if (ifc === undefined) return null;
@@ -43,13 +45,13 @@ function Interface({
         ),
       )}
     >
-      <InterfaceGroup ifc={ifc} mode={viewOf(show)} model={model} />
+      <InterfaceGroup ifc={ifc} mode={viewOf(show)} model={model} src={src} />
     </div>
   );
 }
 
 /** Every endpoint, grouped by the interface that serves it. */
-export function ApisCat({ model, teams, today }: CatProps) {
+export function ApisCat({ model, teams, today, src }: CatProps) {
   return (
     <Pages
       today={today}
@@ -59,7 +61,7 @@ export function ApisCat({ model, teams, today }: CatProps) {
       noun="interfaces"
       render={(show) =>
         poolOf(model.asIs.interfaces, model.toBe.interfaces, show).map((i) => (
-          <Interface id={i.id} key={i.id} model={model} show={show} />
+          <Interface id={i.id} key={i.id} model={model} show={show} src={src} />
         ))
       }
       teams={teams}

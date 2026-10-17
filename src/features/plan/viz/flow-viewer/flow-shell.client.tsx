@@ -1,18 +1,23 @@
 'use client';
 
-import { type ReactNode, useRef, useState } from 'react';
+import { type ReactNode, useLayoutEffect, useRef, useState } from 'react';
 
 import type { FlowView } from '@/application/plan-viz-flow-key';
+import type { Bounds } from '@/application/plan-viz-zoompane';
 import { keepChoice, keptChoice } from '@/features/plan/kept';
+import { StopFocus } from '@/features/plan/viz/zoompane/zoom-pane.client';
 
 import styles from './flow-shell.module.css';
 import { FlowStepper, type StepperStop } from './flow-stepper';
+import { paintStop } from './paint-stop';
 import { useFlowStop } from './use-flow-stop';
 import { useStepClicks } from './use-step-clicks';
 
 export interface StopView extends StepperStop {
-  readonly diagram: ReactNode;
-  readonly sequence: ReactNode;
+  /** The steps the stop lights. */
+  readonly indices: readonly number[];
+  /** What the lit steps take up on the diagram, for its Focus. */
+  readonly focus: Bounds | null;
   /** The screens the flow passes through, with this stop's lit. */
   readonly strip: ReactNode;
   /** What the stop says: the experience, or the step card. */
@@ -21,6 +26,9 @@ export interface StopView extends StepperStop {
 
 export interface FlowShellProps {
   readonly stops: readonly StopView[];
+  /** The flow's drawing and its sequence, each drawn once; the shell lights the stop it shows. */
+  readonly diagram: ReactNode;
+  readonly sequence: ReactNode;
   /** The views the reader may pick between. */
   readonly views: readonly FlowView[];
   readonly view?: FlowView | undefined;
@@ -85,12 +93,15 @@ function Toolbar({ keys, views, shown, onPick, tools }: ToolbarProps) {
   );
 }
 
-function FoldNav(props: {
+function FoldNav({
+  current,
+  count,
+  onGo,
+}: {
   readonly current: number;
   readonly count: number;
   readonly onGo: (stop: number) => void;
 }) {
-  const { current, count, onGo } = props;
   return (
     <nav aria-label="Stops in this flow" className={styles.foldNav}>
       <button
@@ -115,9 +126,30 @@ function FoldNav(props: {
   );
 }
 
+interface StageProps {
+  readonly at: StopView;
+  readonly drawing: ReactNode;
+  readonly anchor: boolean;
+}
+
+/** The drawing shown, with the stop lit before the browser paints whenever the stop or the drawing changes. */
+function Stage({ at, drawing, anchor }: StageProps) {
+  const drawn = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    if (drawn.current !== null) paintStop(drawn.current, at.indices);
+  }, [at, drawing]);
+  return (
+    <div className={styles.stage} data-walk-anchor={anchor ? '' : undefined} ref={drawn}>
+      <StopFocus value={at.focus}>{drawing}</StopFocus>
+    </div>
+  );
+}
+
 // The viewer's moving parts: which stop and which view are shown. Everything drawn arrives ready-made.
 export function FlowShell({
   stops,
+  diagram,
+  sequence,
   views,
   view = 'diagram',
   keys,
@@ -153,9 +185,7 @@ export function FlowShell({
     />
   );
   const stage = (
-    <div className={styles.stage} data-walk-anchor={fold === undefined ? '' : undefined}>
-      {shown === 'diagram' ? at.diagram : at.sequence}
-    </div>
+    <Stage anchor={fold === undefined} at={at} drawing={shown === 'diagram' ? diagram : sequence} />
   );
   if (fold !== undefined) {
     return (

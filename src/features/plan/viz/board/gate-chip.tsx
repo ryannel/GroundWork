@@ -8,7 +8,7 @@ import styles from './gate-chip.module.css';
 
 /** An open question, or a proposed decision, as a chip: its number, title, who decides, by when, and whether it is late. */
 export function GateChip({ model, id }: { readonly model: Model; readonly id: string }) {
-  const gate = gateOf(model, id);
+  const gate = gateOf(model, id, new Date());
   if (gate === null) return null;
   return (
     <button

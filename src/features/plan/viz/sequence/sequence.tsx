@@ -29,6 +29,9 @@ interface SequenceProps {
   readonly action?: StepAction;
 }
 
+const NO_MARKERS: NonNullable<SequenceProps['markers']> = {};
+const NO_NOTES: NonNullable<SequenceProps['notes']> = {};
+
 // A flow as a sequence drawing: a column for each participant, a row for each step, time running down. Rows hold the
 // step's arrow, its words and the records it touches; frames show what can fail and what happens together.
 export function Sequence({
@@ -37,9 +40,9 @@ export function Sequence({
   mode = 'toBe',
   step,
   spans = false,
-  markers = {},
+  markers = NO_MARKERS,
   markerTitle = 'Planned changes. Click to add it to Changes ahead.',
-  notes = {},
+  notes = NO_NOTES,
   action = 'inspect',
 }: SequenceProps) {
   const view = sequenceView(model, flowId, { mode, step, spans, markers, markerTitle });

@@ -16,20 +16,23 @@ const onClick = (event: MouseEvent): void => {
   if (target !== undefined) open(target);
 };
 
+const isPress = (event: KeyboardEvent): boolean => event.key === 'Enter' || event.key === ' ';
+
+const isChip = (el: EventTarget | null): el is HTMLElement =>
+  el instanceof HTMLElement &&
+  el.getAttribute('role') === 'button' &&
+  el.dataset.inspect !== undefined;
+
 const onKey = (event: KeyboardEvent): void => {
   const el = event.target;
-  if (
-    (event.key === 'Enter' || event.key === ' ') &&
-    el instanceof HTMLElement &&
-    el.getAttribute('role') === 'button' &&
-    el.dataset.inspect !== undefined
-  ) {
+  if (isPress(event) && isChip(el) && el.dataset.inspect !== undefined) {
     event.preventDefault();
     open(el.dataset.inspect);
     return;
   }
-  if (event.key === 'Escape' && openId() !== null && !document.querySelector('dialog[open]'))
+  if (event.key === 'Escape' && openId() !== null && !document.querySelector('dialog[open]')) {
     close();
+  }
 };
 
 const loading = (reader: Reader): string =>

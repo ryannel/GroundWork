@@ -49,6 +49,7 @@ export function Cell({ env, cell }: { readonly env: SeqEnv; readonly cell: SeqCe
       return (
         <Row
           act={<Act env={env} step={cell} />}
+          at={cell.index}
           go={env.action === 'go' ? cell.index : undefined}
           gut={cell.gut}
           isNew={cell.isNew}

@@ -9,11 +9,10 @@ import {
   thingHome,
   thingHref,
   thingNeighbours,
-  thingTokens,
   topThingIds,
 } from './plan-pages-things';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 
@@ -50,7 +49,7 @@ describe('thing pages', () => {
 
   it('gives each thing an address under things/', () => {
     expect(thingHref(outline, 'flow:cancel#request')).toBe(
-      '/shop/plans/mini/things/flow-cancel.request/',
+      '/shop/plans/mini/things/?id=flow-cancel.request',
     );
   });
 
@@ -62,14 +61,12 @@ describe('thing pages', () => {
   it('steps to the thing before and after among its siblings', () => {
     const near = thingNeighbours(model, outline, 'svc:subs');
     expect(near.previous?.title).toBe('Web app');
-    expect(near.next?.href).toBe('/shop/plans/mini/things/svc-billing/');
+    expect(near.next?.href).toBe('/shop/plans/mini/things/?id=svc-billing');
     expect(thingNeighbours(model, outline, 'svc:web').previous).toBeNull();
     expect(thingNeighbours(model, outline, 'svc:analytics').next).toBeNull();
   });
 
-  it('names each page by a token that leads back to its thing', () => {
-    const tokens = thingTokens(model);
-    expect(tokens).toContain('svc-subs');
+  it('names each thing by a token that leads back to it', () => {
     expect(thingByToken(model, 'svc-subs')).toBe('svc:subs');
     expect(thingByToken(model, 'svc-nope')).toBeNull();
   });

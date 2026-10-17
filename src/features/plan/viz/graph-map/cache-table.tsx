@@ -174,8 +174,9 @@ export function CacheTable({
   purgeHref,
 }: CacheTableProps) {
   const rows = cacheTable(model, { mode, diff });
-  if (rows.length === 0)
+  if (rows.length === 0) {
     return <p className={styles.none}>No caches are recorded on this graph.</p>;
+  }
   return (
     <ScrollCue note>
       <table className={styles.table}>

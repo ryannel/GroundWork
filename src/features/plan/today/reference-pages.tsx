@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 import type { Model } from '@/application/plan/derive';
 import { teamNames } from '@/application/plan-story-ref';
-import { referenceKindHref } from '@/application/today-reader';
+import { referenceKindHref, todayReaderOf } from '@/application/today-reader';
 import { type ReferenceKind, referenceOf } from '@/application/today-reference';
 import { workspaceHref } from '@/application/workspace-paths';
 import { ApisCat } from '@/features/plan/chapters/ref/apis-cat';
@@ -82,7 +82,13 @@ export function TodayCatalogue({
       <PageHeader description={entry.headline} title={entry.title}>
         <p>{entry.lede}</p>
       </PageHeader>
-      <Cat base={workspaceHref(workspace)} model={model} teams={teamNames(model)} today />
+      <Cat
+        base={workspaceHref(workspace)}
+        model={model}
+        src={todayReaderOf(workspace, 2).modelSrc}
+        teams={teamNames(model)}
+        today
+      />
     </>
   );
 }

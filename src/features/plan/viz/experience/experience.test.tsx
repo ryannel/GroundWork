@@ -13,7 +13,7 @@ import { Experience } from './experience';
 import { LinkedScreenBlock } from './linked-screen';
 import { SystemStepper } from './system-stepper';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const model = derive(sequencePlan());
 const flow = 'flow:rich';
@@ -65,7 +65,7 @@ describe('Experience', () => {
       anchor: 0,
       indices: [0, 1],
     };
-    const data = experienceOf(model, [acting, ...moments], {
+    const data = experienceOf(model, [acting, ...moments.slice(1)], {
       current: 0,
       steps,
       stops,
@@ -75,7 +75,7 @@ describe('Experience', () => {
     if (data === null) throw new Error('no moment');
     const { container } = render(<Experience base={base} data={data} mode="toBe" model={model} />);
     expect(container.querySelector('svg')).not.toBeNull();
-    expect(screen.getByRole('button', { name: /Trace the system work/ }).dataset.step).toBe('2');
+    expect(screen.getByRole('button', { name: /Trace the system work/u }).dataset.step).toBe('2');
     const next = screen.getByText('Next in the recorded flow').closest('button');
     expect(next?.dataset.step).toBe(String(data.next?.stop));
   });
@@ -140,8 +140,8 @@ describe('LinkedScreenBlock and SystemStepper', () => {
     if (moment === undefined) throw new Error('no moment');
     const { prev, next } = systemNav({ ...moment, indices: [0, 1, 2] }, stops, 1);
     const { container, rerender } = render(<SystemStepper next={next} prev={prev} />);
-    expect(screen.getByRole('button', { name: /Previous system step/ }).dataset.step).toBe('1');
-    expect(screen.getByRole('button', { name: /Next system step/ }).dataset.step).toBe('3');
+    expect(screen.getByRole('button', { name: /Previous system step/u }).dataset.step).toBe('1');
+    expect(screen.getByRole('button', { name: /Next system step/u }).dataset.step).toBe('3');
     rerender(<SystemStepper next={null} prev={null} />);
     expect(container.textContent).toBe('');
   });

@@ -46,7 +46,10 @@ function Loud({ word }: { readonly word: string }) {
   );
 }
 
-function emptyCell(row: CoverageData, level: string): { state: string; node: ReactNode } {
+function emptyCell(
+  row: CoverageData,
+  level: string,
+): { readonly state: string; readonly node: ReactNode } {
   const word = levelWord(level);
   if (row.gaps.includes('untested') || (row.gaps.includes('no-e2e') && level === 'e2e')) {
     return { state: 'loud', node: <Loud word={word} /> };

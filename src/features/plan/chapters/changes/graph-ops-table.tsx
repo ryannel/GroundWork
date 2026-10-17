@@ -55,10 +55,12 @@ function RoundTrips({ row }: { readonly row: OpImpact }) {
 
 function Routes({ model, row }: { readonly model: Model; readonly row: OpImpact }) {
   const name = (id: string): string => subgraphLabel(model, id);
-  if (row.before === null)
+  if (row.before === null) {
     return <>{(row.after?.subgraphs ?? []).map((id) => name(id)).join(', ')}</>;
-  if (row.added.length === 0 && row.removed.length === 0)
+  }
+  if (row.added.length === 0 && row.removed.length === 0) {
     return <span className={styles.same}>same subgraphs</span>;
+  }
   const [gained] = row.added;
   const [lost] = row.removed;
   if (
@@ -66,7 +68,7 @@ function Routes({ model, row }: { readonly model: Model; readonly row: OpImpact 
     lost !== undefined &&
     row.added.length === 1 &&
     row.removed.length === 1
-  )
+  ) {
     return (
       <>
         <s className={styles.was}>{name(lost)}</s>
@@ -74,6 +76,7 @@ function Routes({ model, row }: { readonly model: Model; readonly row: OpImpact 
         {name(gained)}
       </>
     );
+  }
   return (
     <>
       {[

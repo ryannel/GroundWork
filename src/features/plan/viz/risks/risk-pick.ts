@@ -18,10 +18,12 @@ const keyOf = (cell: HTMLElement): string =>
 
 /** Presses the picked cell's button and dims every other cell. */
 function markGrid(root: HTMLElement, cell: string | null): void {
-  for (const button of root.querySelectorAll<HTMLElement>('[data-pick]'))
+  for (const button of root.querySelectorAll<HTMLElement>('[data-pick]')) {
     button.setAttribute('aria-pressed', String(cell !== null && button.dataset.pick === cell));
-  for (const c of root.querySelectorAll<HTMLElement>('[data-likelihood][data-impact]'))
+  }
+  for (const c of root.querySelectorAll<HTMLElement>('[data-likelihood][data-impact]')) {
     mark(c, 'data-dim', cell !== null && keyOf(c) !== cell);
+  }
 }
 
 /** Hides a group whose rows are all filtered out, and opens a fold whose rows are the ones picked. */

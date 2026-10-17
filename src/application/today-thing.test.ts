@@ -8,7 +8,7 @@ import { thingAt } from './plan-pages-things';
 import { todayReaderOf } from './today-reader';
 import { codeEvidenceOf, originWord, todayPlaceOf, todayScreensOf } from './today-thing';
 
-vi.mock('server-only', () => ({}));
+vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 const model = derive(await loadFixture('mini.yaml'), { status: {} });
@@ -100,7 +100,9 @@ describe('codeEvidenceOf', () => {
 
 describe('today’s pages', () => {
   it('links things under the workspace and offers its pages in the palette', () => {
-    expect(thingAt(todayReaderOf('shop', 2).thingBase, 'svc:subs')).toBe('/shop/things/svc-subs/');
+    expect(thingAt(todayReaderOf('shop', 2).thingBase, 'svc:subs')).toBe(
+      '/shop/things/?id=svc-subs',
+    );
     expect(todayScreensOf(shop).map((s) => s.label)).toEqual([
       'Landscape',
       'Members',

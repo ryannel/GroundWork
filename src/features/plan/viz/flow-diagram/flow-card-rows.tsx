@@ -28,7 +28,13 @@ export function CardRows({ w, endpoints, selfs, action }: RowsProps) {
         </g>
       ))}
       {selfs.map((s) => (
-        <g key={s.id} className={styles.self} data-state={s.state} data-walk={s.walk}>
+        <g
+          key={s.id}
+          className={styles.self}
+          data-state={s.state}
+          data-walk={s.walk}
+          data-walk-steps={s.step}
+        >
           <rect className={styles.num} height={14} rx={3} width={14} x={14} y={s.cy - 7} />
           <text className={styles.numText} x={21} y={s.cy + 0.5}>
             {s.step + 1}

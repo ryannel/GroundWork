@@ -17,6 +17,8 @@ export interface CatProps {
   readonly teams: Readonly<Record<string, string>>;
   /** Read outside any plan: one page as the system runs today, with no switch and no status. */
   readonly today?: boolean | undefined;
+  /** The model's address relative to the page, for what a catalogue draws only when it is opened. */
+  readonly src: string;
 }
 
 /** The attributes a row carries so the filter box and the team lens can find it. */
@@ -241,8 +243,15 @@ interface PagesProps {
 }
 
 /** A catalogue in the shell: one page per mode, or one page for all. */
-export function Pages(props: PagesProps) {
-  const { noun, teams, render, empty, modes, search = true, today = false } = props;
+export function Pages({
+  noun,
+  teams,
+  render,
+  empty,
+  modes,
+  search = true,
+  today = false,
+}: PagesProps) {
   const body = (show: Show): ReactNode => {
     const blocks = render(show);
     return blocks.length === 0 ? <Empty>{empty}</Empty> : blocks;

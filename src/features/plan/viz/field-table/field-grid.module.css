@@ -93,20 +93,6 @@
 
   .filter {
     display: flex;
-    gap: var(--s-2);
-    align-items: center;
     margin-bottom: var(--s-2);
-    padding: var(--s-1) var(--s-3);
-    border: 1px solid var(--line-2);
-    border-radius: var(--r-2);
-    color: var(--fg-3);
-  }
-
-  .filter input {
-    flex: 1;
-    border: 0;
-    background: none;
-    color: var(--fg-1);
-    font: inherit;
   }
 }

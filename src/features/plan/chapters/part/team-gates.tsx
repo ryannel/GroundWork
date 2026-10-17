@@ -37,7 +37,9 @@ function Gate({
     <li className={styles.gate}>
       <EntityChip id={gate.id} label={gateTitle(gate)} model={model} />
       <span className={styles.meta}>
-        {gate.decide_by === undefined ? 'no date' : `decide by ${shortDate(gate.decide_by)}`}
+        {gate.decide_by === undefined
+          ? 'no date'
+          : `decide by ${shortDate(gate.decide_by, model.today)}`}
         {who && gate.decider !== undefined ? ` · ${teamName(model, gate.decider)} decides` : ''}
       </span>
       {held.length === 0 ? null : (
@@ -117,7 +119,9 @@ export function BeforeApproval({ model, team, part }: GatesProps) {
   const count =
     part.decides.length + part.waitsOn.length + part.risksOn.length + part.alsoOpen.length;
   if (count === 0 && !showVote) return null;
-  const late = part.decides.some((e) => e.decide_by !== undefined && e.decide_by < today());
+  const late = part.decides.some(
+    (e) => e.decide_by !== undefined && e.decide_by.localeCompare(today()) < 0,
+  );
   return (
     <PartSection title={approved ? 'Still open' : 'Before approval'} warn={part.low || late}>
       <Groups model={model} part={part} team={team} />

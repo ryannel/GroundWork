@@ -8,6 +8,7 @@ import { TodayJourney, TodayOverlays, TodaySearch } from '@/features/plan';
 import { WorkspaceShell } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
+import { NOTHING, orNothing } from '@/shared/static-params';
 
 interface Params {
   readonly workspace: string;
@@ -26,7 +27,7 @@ export async function generateStaticParams(): Promise<Params[]> {
         : todayJourneysOf(data.today.model).map(({ key }) => ({ workspace: id, key }));
     }),
   );
-  return lists.flat();
+  return orNothing(lists.flat(), { workspace: NOTHING, key: NOTHING });
 }
 
 export default async function JourneyRoute({ params }: { readonly params: Promise<Params> }) {

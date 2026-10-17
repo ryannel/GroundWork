@@ -38,7 +38,7 @@ function keyOf(outside: string | null): readonly LegendItem[] {
 
 function MapPane({ input, focus, outside }: MapPaneProps) {
   const map = useSystemMap(input, focus);
-  const { drawing } = map;
+  const { drawing, fold: handleFold, setTarget: handleTrace } = map;
   if (drawing === null) return null;
   return (
     <ZoomPane
@@ -55,8 +55,8 @@ function MapPane({ input, focus, outside }: MapPaneProps) {
       <MapFigure
         drawing={drawing}
         filter={map.filter}
-        onFold={map.fold}
-        onTrace={map.setTarget}
+        onFold={handleFold}
+        onTrace={handleTrace}
         trace={map.trace}
       />
     </ZoomPane>
