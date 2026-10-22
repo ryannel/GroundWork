@@ -105,9 +105,10 @@ interface ToolsProps {
   readonly domains: readonly IndexDomain[];
   readonly byDomain: ReadonlyMap<string, number>;
   readonly total: number;
+  readonly here: string | undefined;
 }
 
-function Tools({ filters, change, domains, byDomain, total }: ToolsProps) {
+function Tools({ filters, change, domains, byDomain, total, here }: ToolsProps) {
   return (
     <div className={styles.tools}>
       <SearchField
@@ -118,20 +119,22 @@ function Tools({ filters, change, domains, byDomain, total }: ToolsProps) {
         placeholder={`Find among ${plural(total, 'plan')}`}
         value={filters.query}
       />
-      <Select
-        label="Domain"
-        onChange={(domain) => {
-          change({ domain });
-        }}
-        options={[
-          { value: '', label: 'Every domain' },
-          ...domains.map((d) => ({
-            value: d.id,
-            label: `${d.name} (${String(byDomain.get(d.id) ?? 0)})`,
-          })),
-        ]}
-        value={filters.domain}
-      />
+      {here === undefined ? (
+        <Select
+          label="Domain"
+          onChange={(domain) => {
+            change({ domain });
+          }}
+          options={[
+            { value: '', label: 'Every domain' },
+            ...domains.map((d) => ({
+              value: d.id,
+              label: `${d.name} (${String(byDomain.get(d.id) ?? 0)})`,
+            })),
+          ]}
+          value={filters.domain}
+        />
+      ) : null}
       <Select
         label="Sort"
         onChange={(sort) => {
@@ -147,6 +150,8 @@ function Tools({ filters, change, domains, byDomain, total }: ToolsProps) {
 interface IndexProps {
   readonly rows: readonly PlanRow[];
   readonly domains: readonly IndexDomain[];
+  /** The domain being read, when these are one domain's plans: no domain filter then. */
+  readonly here?: string;
 }
 
 // Every plan, to find one among hundreds: search their words, cut them to a domain or a stage, sort, and read
@@ -164,7 +169,7 @@ function FromAddress(props: IndexProps) {
   return <Index {...props} start={fromAddress(params)} />;
 }
 
-function Index({ rows, domains, start }: IndexProps & { readonly start: Filters }) {
+function Index({ rows, domains, here, start }: IndexProps & { readonly start: Filters }) {
   const [filters, setFilters] = useState<Filters>(start);
   const [limit, setLimit] = useState(PAGE);
   const change = (next: Partial<Filters>): void => {
@@ -192,6 +197,7 @@ function Index({ rows, domains, start }: IndexProps & { readonly start: Filters 
         change={change}
         domains={domains}
         filters={filters}
+        here={here}
         total={rows.length}
       />
       <FilterChips
@@ -234,6 +240,7 @@ function Index({ rows, domains, start }: IndexProps & { readonly start: Filters 
         <List>
           {shown.slice(0, limit).map((row) => (
             <PlanLine
+              here={here}
               key={row.id}
               nameOf={nameOf}
               onDomain={(id) => {

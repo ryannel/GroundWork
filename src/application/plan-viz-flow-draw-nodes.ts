@@ -11,7 +11,8 @@ import type {
 } from '@/application/plan-viz-flow-drawn';
 import { clipText, shortTopic } from '@/application/plan-viz-flow-geometry';
 import { type FlowNodeSpec, actionOf, stepState, storeOf } from '@/application/plan-viz-flow-graph';
-import { HEAD, MONO, ROW, sigOf } from '@/application/plan-viz-flow-size';
+import { HEAD, MONO, ROW, sigOf, tagWidth } from '@/application/plan-viz-flow-size';
+import { callWords, protocolOf } from '@/application/plan-viz-protocol';
 import { teamIndex } from '@/application/plan-viz-teams';
 import { plainTitle } from '@/shared/plain-text';
 
@@ -39,11 +40,16 @@ function endpointsOf(ctx: DrawCtx, n: FlowNodeSpec): DrawnEndpoint[] {
     const summary = prop(ctx.model.get(ep.via), 'summary');
     const words =
       typeof summary === 'string' ? plainTitle(summary, (id) => ctx.model.label(id)) : '';
+    const protocol = protocolOf(ctx.model, ep.via);
+    const head = callWords(ctx.model, ep.via) ?? 'API';
+    const tag = tagWidth(ctx.model, ep.via);
     return {
       via: ep.via,
-      text: clipText(sig, Math.floor((n.w - 30) / MONO)),
-      title: words === '' ? `API: ${sig}` : `API: ${sig} — ${words}`,
-      aria: `API: ${sig}`,
+      protocol,
+      tagW: tag,
+      text: clipText(sig, Math.floor((n.w - 30 - tag) / MONO)),
+      title: words === '' ? `${head}: ${sig}` : `${head}: ${sig} — ${words}`,
+      aria: `${head}: ${sig}`,
       added: plan(ctx) && ctx.model.status(ep.via) === 'added',
       cy: HEAD + k * ROW + ROW / 2,
     };

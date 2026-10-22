@@ -1,9 +1,10 @@
-export { CatalogueList } from './catalogue-list';
+export { CatalogueList, SystemCatalogues } from './catalogue-list';
 export { DomainOverview } from './domain-overview';
-export { DomainPage } from './domain-page';
+export { DomainPage, DomainTab } from './domain-page';
 export { LandscapePage } from './landscape-page';
 export { SystemPage } from './system-page';
 export { WorkspaceShell } from './workspace-shell';
 export { PeoplePage } from './people-page';
-export { PlansPage } from './plans-page';
-export { LanguageOverview } from './language-overview';
+export { DomainPlans, PlansPage } from './plans-page';
+export { DomainLanguage, LanguageOverview } from './language-overview';
+export { DomainTarget } from './domain-target';

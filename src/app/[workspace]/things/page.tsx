@@ -18,6 +18,7 @@ export async function generateStaticParams(): Promise<Params[]> {
   return workspaces.map(({ id }) => ({ workspace: id }));
 }
 
+// A thing is looked up like the reference, so the rail opens there rather than on the map.
 export default async function TodayThingRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id } = await params;
   const data = await todayData(id);
@@ -26,7 +27,7 @@ export default async function TodayThingRoute({ params }: { readonly params: Pro
   return (
     <WorkspaceShell
       actions={<TodaySearch />}
-      nav={workspaceNavOf(workspace, plans, { today: today.model })}
+      nav={workspaceNavOf(workspace, plans, { section: 'reference', today: today.model })}
       overlays={<TodayOverlays depth={1} workspace={workspace} />}
       title="Things"
       trail={[

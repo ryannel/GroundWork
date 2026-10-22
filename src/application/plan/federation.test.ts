@@ -163,9 +163,18 @@ describe('queryPlan', () => {
     ).toBe(true);
   });
 
+  it('reaches a subgraph by a key it lists when the one before resolves the key fields', () => {
+    const p = shop();
+    byId(p.schemas, 'sch:gql-product').keys![1]!.in = ['sg:reviews'];
+    const plan = queryPlan(asIsOf(p), 'gql:search-reviews');
+    expect(fetchesOf(plan)).toEqual(['f1 search', 'f2 product after f1', 'f3 reviews after f2']);
+    expect(plan.warnings).toEqual([]);
+  });
+
   it('warns and plans no fetch when no key is shared', () => {
     const p = shop();
     byId(p.schemas, 'sch:gql-product').keys![1]!.in = ['sg:reviews'];
+    field(p, 'sch:gql-product', 'id').subgraphs = ['sg:reviews'];
     const plan = queryPlan(asIsOf(p), 'gql:search-reviews');
     expect(fetchesOf(plan)).toEqual(['f1 search']);
     expect(plan.warnings[0]?.message).toMatch(

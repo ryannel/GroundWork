@@ -16,6 +16,7 @@ import {
   permalinkOf,
   type Scan,
   type SystemContracts,
+  type TargetArchitecture,
   type WorkspaceModel,
 } from '@/domain/workspace-model';
 
@@ -63,6 +64,7 @@ const EMPTY_CONTRACTS: Omit<SystemContracts, 'system'> = {
   screens: [],
   graphs: [],
   subgraphs: [],
+  handlers: [],
   operations: [],
 };
 
@@ -544,6 +546,43 @@ function languages(): DomainLanguage[] {
   ];
 }
 
+/** Where Orders is heading: an order is paid before it is announced. */
+function targets(): TargetArchitecture[] {
+  return [
+    {
+      domain: 'orders',
+      summary: 'Every order is paid before [[sys:ordering]] tells anyone about it.',
+      stages: [
+        {
+          id: 'order',
+          name: 'Order',
+          term: 'term:order',
+          owners: ['sys:ordering'],
+          summary: 'Recorded by [[svc:order-api]].',
+          from: [],
+        },
+        {
+          id: 'payment',
+          name: 'Payment',
+          term: null,
+          owners: ['sys:payments'],
+          summary: null,
+          from: ['order'],
+        },
+      ],
+      shifts: [
+        {
+          id: 'pay-first',
+          name: 'Pay before announcing',
+          today: 'The order is announced as soon as it is recorded.',
+          target: 'The order is announced once [[svc:payments]] has taken the money.',
+          cites: ['st:order-events'],
+        },
+      ],
+    },
+  ];
+}
+
 function keyTerms(): KeyTerms {
   return {
     summary: 'The words Acme agrees on.',
@@ -576,6 +615,7 @@ const scans = (): Scan[] => [
     scanner: 'groundwork-explore',
     files: { 'src/main/kotlin/orders/OrderController.kt': '1a2b3c4d' },
     facts: 9,
+    checked: null,
   },
 ];
 
@@ -628,6 +668,7 @@ export function acmeModel(): WorkspaceModel {
       stages: stages(),
     },
     languages: languages(),
+    targets: targets(),
     keyTerms: keyTerms(),
     flows: flows(),
     journeys: journeys(),

@@ -21,7 +21,7 @@
 
   .line {
     fill: none;
-    stroke: var(--edge-strong);
+    stroke: var(--edge);
     stroke-width: 1.5;
 
     .edge[data-kind='msg'] & {
@@ -43,6 +43,18 @@
     }
   }
 
+  .tag {
+    fill: var(--fg-3);
+    font-size: var(--fs-12);
+    paint-order: stroke;
+    stroke: var(--bg-1);
+    stroke-width: 3;
+
+    .edge[data-trace='hot'] & {
+      fill: var(--fg-1);
+    }
+  }
+
   .reach {
     fill: none;
     stroke: transparent;
@@ -51,7 +63,7 @@
   }
 
   .head {
-    fill: var(--edge-strong);
+    fill: var(--edge);
 
     .edge[data-noted='true'] & {
       fill: var(--fg-3);

@@ -43,6 +43,11 @@
     font-size: var(--fs-13);
   }
 
+  .more {
+    display: grid;
+    gap: var(--s-3);
+  }
+
   .parts {
     display: grid;
     gap: var(--s-2) var(--s-3);
@@ -57,35 +62,5 @@
     & dd {
       margin: 0;
     }
-  }
-
-  .offers,
-  .tree {
-    display: grid;
-    gap: var(--s-1);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .tree {
-    margin-block-start: var(--s-1);
-    padding-inline-start: var(--s-4);
-    border-inline-start: 1px solid var(--line-2);
-  }
-
-  .line {
-    &[data-depth='1'] {
-      padding-inline-start: var(--s-4);
-    }
-
-    &[data-depth='2'],
-    &[data-depth='3'] {
-      padding-inline-start: var(--s-8);
-    }
-  }
-
-  .verb {
-    color: var(--fg-2);
   }
 }

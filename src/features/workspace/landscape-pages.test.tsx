@@ -59,7 +59,7 @@ describe('PeoplePage', () => {
     render(<PeoplePage map={domainMapOf(workspace, model)} />);
     expect(screen.getByText('4 people, 1 customer')).toBeTruthy();
     const names = screen.getAllByRole('button', { pressed: false }).map((b) => b.textContent);
-    expect(names[0]).toMatch(/^CustomerCustomer/u);
+    expect(names[0]).toMatch(/^CustomerFinds/u);
     fireEvent.click(screen.getByRole('button', { name: /^Customer/u }));
     const panel = screen.getByRole('region', { name: "Customer's journeys" });
     expect(

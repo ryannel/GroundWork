@@ -1,6 +1,7 @@
 import type { Model } from '@/application/plan/derive';
 import { type Narration, caseWords } from '@/application/plan-viz-flow-narration';
 import { ModelText } from '@/features/plan/common/model-text';
+import { TintedDocument } from '@/features/plan/viz/waterfall/tinted-document';
 import { Waterfall } from '@/features/plan/viz/waterfall/waterfall';
 
 import styles from './step-more.module.css';
@@ -13,10 +14,18 @@ interface MoreProps {
 
 function Calls({ model, narration, mode }: MoreProps) {
   return narration.calls.map((c) => (
-    <details className={styles.fold} data-keep="behind-call" key={c.stepId}>
-      <summary>Behind this call · {caseWords(c.kase)}</summary>
-      <Waterfall compact id={c.via} kase={c.kase} mode={mode} model={model} stepId={c.stepId} />
-    </details>
+    <div className={styles.call} key={c.stepId}>
+      <details className={styles.fold} data-keep="the-query">
+        <summary>
+          The query · what the client sends, each field coloured by the team that answers it
+        </summary>
+        <TintedDocument id={c.via} mode={mode} model={model} />
+      </details>
+      <details className={styles.fold} data-keep="behind-call">
+        <summary>Behind this call · {caseWords(c.kase)}</summary>
+        <Waterfall compact id={c.via} kase={c.kase} mode={mode} model={model} stepId={c.stepId} />
+      </details>
+    </div>
   ));
 }
 
@@ -47,10 +56,15 @@ function Fails({ model, narration }: Pick<MoreProps, 'model' | 'narration'>) {
   );
 }
 
+function nounOf(via: string | null): string {
+  if (via?.startsWith('msg:') === true) return 'event';
+  return via?.startsWith('gql:') === true ? 'query' : 'API';
+}
+
 function Actions({ narration }: Pick<MoreProps, 'narration'>) {
   const [via] = narration.vias;
   const open = narration.vias.length === 1 && via !== undefined ? via : null;
-  const noun = open?.startsWith('msg:') === true ? 'event' : 'API';
+  const noun = nounOf(open);
   return (
     <div className={styles.actions}>
       {open === null ? null : (

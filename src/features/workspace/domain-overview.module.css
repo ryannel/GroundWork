@@ -2,18 +2,4 @@
   .section + .section {
     margin-top: var(--s-10);
   }
-
-  .more {
-    margin-top: var(--s-3);
-    color: var(--fg-2);
-    font-size: var(--fs-13);
-
-    & > summary {
-      cursor: pointer;
-    }
-
-    & > summary + * {
-      margin-top: var(--s-3);
-    }
-  }
 }

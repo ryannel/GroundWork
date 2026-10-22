@@ -9,13 +9,11 @@ import { z } from 'zod';
 import type { Issue } from '@/application/plan/check-context';
 import { isRecord } from '@/application/plan/ids';
 import { collectionsOf, type PlanBase } from '@/application/plan/plan-base';
-import { systemModelOf } from '@/application/workspace-model';
-import { findWorkspace } from '@/application/workspace-paths';
 
 import { checkPlanData } from './plan-validator';
+import { readToday } from './today-model';
 import { workspaceFolder } from './workspace-folders';
-import { readWorkspaceModel } from './workspace-model';
-import { readWorkspaces } from './workspace-store';
+import { untilEdited } from './workspace-memo';
 
 // plans/<slug>/base.yaml        a landed plan's today, kept as it stood: landed_on and the collections
 // plans/<slug>/base.lock.json   what the things the plan's ops lean on said when it was last checked
@@ -38,29 +36,21 @@ const lockFile = z.strictObject({
 
 export const issueKey = (issue: Issue): string => `${issue.path}\n${issue.message}`;
 
-const todays = new Map<string, Promise<BaseReading | null>>();
+const remembered = untilEdited<BaseReading | null>();
 
-async function readTodayBase(workspace: string, root?: string): Promise<BaseReading | null> {
-  if ((await workspaceFolder(workspace, root)) === null) return null;
-  const found = findWorkspace(await readWorkspaces(root), workspace);
-  if (found === null) return null;
-  const today = systemModelOf(found, await readWorkspaceModel(found, root));
-  const check = await checkPlanData(today.plan);
-  const own = new Set([...check.errors, ...check.warnings].map(issueKey));
-  return {
-    base: { collections: collectionsOf(today.plan), mode: 'live', landedOn: null },
-    own,
-  };
-}
-
-/** The workspace's model of today as a base, read once per build. Null when there is no such workspace. */
+/** The workspace's model of today as a base, read once until a file changes. Null when there is no such workspace. */
 async function todayBase(workspace: string, root?: string): Promise<BaseReading | null> {
-  const key = `${root ?? ''}\n${workspace}`;
-  const known = todays.get(key);
-  if (known !== undefined) return known;
-  const reading = readTodayBase(workspace, root);
-  todays.set(key, reading);
-  return reading;
+  return remembered(root, workspace, async () => {
+    const found = await readToday(workspace, root);
+    if (found === null) return null;
+    const { today } = found;
+    const check = await checkPlanData(today.plan);
+    const own = new Set([...check.errors, ...check.warnings].map(issueKey));
+    return {
+      base: { collections: collectionsOf(today.plan), mode: 'live', landedOn: null },
+      own,
+    };
+  });
 }
 
 async function readText(file: string): Promise<string | null> {

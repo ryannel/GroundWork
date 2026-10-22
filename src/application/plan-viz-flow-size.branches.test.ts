@@ -9,7 +9,15 @@ import type {
   FlowItem,
   FlowNodeSpec,
 } from '@/application/plan-viz-flow-graph';
-import { HEAD, labelEdges, ROW, sigOf, sizeNodes } from '@/application/plan-viz-flow-size';
+import {
+  HEAD,
+  labelEdges,
+  ROW,
+  sigOf,
+  sizeNodes,
+  TAG_CH,
+  TAG_PAD,
+} from '@/application/plan-viz-flow-size';
 
 const model = modelOf(acme().today.plan);
 
@@ -110,7 +118,8 @@ describe('sizeNodes', () => {
         endpoints: [{ via: 'api:search-query', steps: [0, 1, 2, 3, 4, 5, 6] }],
       }),
     );
-    const want = Math.ceil(30 + 'GET /search?q={words}'.length * 6.6 + 7 * 17);
+    const tag = 'REST'.length * TAG_CH + TAG_PAD;
+    const want = Math.ceil(30 + tag + 'GET /search?q={words}'.length * 6.6 + 7 * 17);
     expect(card.w).toBe(Math.min(300, Math.max(212, want)));
     const wide = sized(
       node({

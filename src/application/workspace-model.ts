@@ -6,7 +6,9 @@ import type { Plan, Service, Store } from '@/domain/plan/plan.generated';
 import {
   type Component,
   type ComponentType,
+  type CodeHome,
   type System,
+  systemDoes,
   systemsOf,
   type Workspace,
 } from '@/domain/workspace';
@@ -17,6 +19,7 @@ import type {
   KeyTerms,
   Scan,
   SystemContracts,
+  TargetArchitecture,
   WorkspaceModel,
 } from '@/domain/workspace-model';
 
@@ -29,6 +32,8 @@ export interface SystemModel {
   readonly scans: readonly Scan[];
   /** Each domain's words, from its language.yaml. */
   readonly languages: readonly DomainLanguage[];
+  /** Where each domain is heading, from its target.yaml. */
+  readonly targets: readonly TargetArchitecture[];
   /** The words the business has agreed on, from language.yaml at the root. */
   readonly keyTerms: KeyTerms;
 }
@@ -56,6 +61,7 @@ export function systemModelOf(workspace: Workspace, model: WorkspaceModel): Syst
     attribution: model.attribution,
     scans: model.scans,
     languages: model.languages,
+    targets: model.targets,
     keyTerms: model.keyTerms,
   };
 }
@@ -83,6 +89,7 @@ function systemPlanOf(workspace: Workspace, model: WorkspaceModel): Plan {
       id: `sys:${system.id}`,
       name: system.name,
       team: teamOf(system),
+      ...(systemDoes(system) === '' ? {} : { does: systemDoes(system) }),
       ...(system.repos.length === 0 ? {} : { sources: system.repos.map(repoSource) }),
     })),
     services: parts.flatMap(({ services }) => services),
@@ -97,12 +104,14 @@ function systemPlanOf(workspace: Workspace, model: WorkspaceModel): Plan {
     graphs: each.flatMap(({ graphs }) => graphs),
     subgraphs: each.flatMap(({ subgraphs }) => subgraphs),
     operations: each.flatMap(({ operations }) => operations),
+    handlers: each.flatMap(({ handlers }) => handlers),
   };
 }
 
 // A system's repos are the evidence that its components belong together.
-function repoSource(repo: string): { readonly url: string } {
-  return { url: repo.includes('://') ? repo : `https://github.com/${repo}` };
+function repoSource({ repo, path }: CodeHome): { readonly url: string } {
+  const base = repo.includes('://') ? repo : `https://github.com/${repo}`;
+  return { url: path === null ? base : `${base}/tree/HEAD/${path}` };
 }
 
 function teamOf(system: System): string {
@@ -139,6 +148,7 @@ function serviceOf(
     system: `sys:${system.id}`,
     kind: detail?.kind ?? SERVICE_KIND[component.type] ?? 'service',
     ...plainWords(component),
+    ...(component.infrastructure === true ? { infrastructure: true } : {}),
     ...(detail?.summary === undefined ? {} : { summary: detail.summary }),
     ...(detail?.sources === undefined ? {} : { sources: [...detail.sources] }),
   };

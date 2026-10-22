@@ -1,3 +1,4 @@
+import { Icon } from './icon';
 import styles from './search-field.module.css';
 
 interface SearchFieldProps {
@@ -10,15 +11,20 @@ interface SearchFieldProps {
 /** A box to type words into, to narrow a list. */
 export function SearchField({ label, value, onChange, placeholder }: SearchFieldProps) {
   return (
-    <input
-      aria-label={label}
-      className={styles.field}
-      onChange={(event) => {
-        onChange(event.target.value);
-      }}
-      placeholder={placeholder}
-      type="search"
-      value={value}
-    />
+    <span className={styles.box}>
+      <span className={styles.icon}>
+        <Icon name="search" />
+      </span>
+      <input
+        aria-label={label}
+        className={styles.field}
+        onChange={(event) => {
+          onChange(event.target.value);
+        }}
+        placeholder={placeholder}
+        type="search"
+        value={value}
+      />
+    </span>
   );
 }

@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { typeOf } from '@/application/plan/ids';
+import { TYPE_WORDS } from '@/domain/plan/plan-vocab';
 
 import { planHref, type Neighbours, type Outline, type Page, type PlanAddress } from './plan-pages';
 import { catalogueOf } from './plan-pages-entity-where';
@@ -53,6 +54,24 @@ export function siblingsOf(model: Model, id: string): string[] {
   const type = typeOf(id);
   const parent = parentOf(id);
   return thingIds(model).filter((x) => typeOf(x) === type && parentOf(x) === parent);
+}
+
+/** Where a thing sits among its kind: its siblings, and "Endpoint 3 of 12" and "Every endpoint" to say so.
+ * Null for an id of no known kind. */
+export function placeAmongOf(
+  model: Model,
+  id: string,
+): { readonly siblings: readonly string[]; readonly count: string; readonly every: string } | null {
+  const type = typeOf(id);
+  if (type === null) return null;
+  const siblings = siblingsOf(model, id);
+  const word = TYPE_WORDS[type];
+  const count = `${word} ${String(siblings.indexOf(id) + 1)} of ${String(siblings.length)}`;
+  return {
+    siblings,
+    count: `${count.charAt(0).toUpperCase()}${count.slice(1)}`,
+    every: `Every ${word}`,
+  };
 }
 
 /** A thing's page under a base that ends in a slash: a plan's things/, or a workspace's. */

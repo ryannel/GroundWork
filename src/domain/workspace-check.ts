@@ -1,4 +1,4 @@
-import { componentsOf, systemsOf, type Workspace } from './workspace';
+import { componentsOf, homeLabel, systemsOf, type Workspace } from './workspace';
 
 export interface WorkspaceProblems {
   readonly errors: readonly string[];
@@ -22,8 +22,9 @@ export function checkWorkspace(workspace: Workspace): WorkspaceProblems {
       (id) => `component ${id}: the id is used twice`,
     ),
     ...repeated(
-      systemsOf(workspace).flatMap((system) => system.repos),
-      (repo) => `repo ${repo}: listed by two systems; a repo belongs to one system`,
+      systemsOf(workspace).flatMap((system) => system.repos.map(homeLabel)),
+      (home) =>
+        `repo ${home}: listed by two systems; when systems share a repo, give each its own folder of it with path:`,
     ),
     ...repeated(
       workspace.actors.map((actor) => actor.id),

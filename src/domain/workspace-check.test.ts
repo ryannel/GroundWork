@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import type { System, Workspace } from './workspace';
+import { homeOf, repoNamesOf, type System, type Workspace } from './workspace';
 import { checkWorkspace } from './workspace-check';
 import { domainLinks, systemLinks } from './workspace-links';
 
@@ -8,7 +8,7 @@ const system = (id: string, overrides: Partial<System> = {}): System => ({
   id,
   name: id,
   team: 'team:a',
-  repos: [`org/${id}`],
+  repos: [{ repo: `org/${id}`, path: null }],
   components: [{ id: `${id}:c`, name: 'C', type: 'service', tech: null, does: null, talksTo: [] }],
   ...overrides,
 });
@@ -52,7 +52,7 @@ describe('checkWorkspace', () => {
   it('finds the rules that span files', () => {
     const talker = system('t', {
       team: 'team:x',
-      repos: ['org/s'],
+      repos: [{ repo: 'org/s', path: null }],
       components: [
         {
           id: 's:c',
@@ -81,7 +81,7 @@ describe('checkWorkspace', () => {
       'domain plans: the id is used twice',
       'system s: the id is used twice',
       'component s:c: the id is used twice',
-      'repo org/s: listed by two systems; a repo belongs to one system',
+      'repo org/s: listed by two systems; when systems share a repo, give each its own folder of it with path:',
       'system t: team team:x is not in workspace.yaml',
       'system s: no team owns it',
       'component s:c: talks to gone, which no system holds',
@@ -97,6 +97,39 @@ describe('checkWorkspace', () => {
     expect(
       checkWorkspace(workspace([{ id: 'd', name: 'D', purpose: null, systems: [] }])).warnings,
     ).toEqual(['domain d: has no systems yet']);
+  });
+});
+
+const sharing = (b: System['repos']): Workspace =>
+  workspace([
+    {
+      id: 'd',
+      name: 'D',
+      purpose: null,
+      systems: [
+        system('a', { repos: [{ repo: 'org/mono', path: null }] }),
+        system('b', { repos: b }),
+        system('c', { repos: [{ repo: 'org/mono', path: 'dgs/c' }] }),
+      ],
+    },
+  ]);
+
+describe('a repo shared by folder', () => {
+  it('lets systems share a repo when each holds its own folder', () => {
+    expect(checkWorkspace(sharing([{ repo: 'org/mono', path: 'dgs/b' }])).errors).toEqual([]);
+    expect(checkWorkspace(sharing([{ repo: 'org/mono', path: 'dgs/c' }])).errors).toEqual([
+      'repo org/mono/dgs/c: listed by two systems; when systems share a repo, give each its own folder of it with path:',
+    ]);
+  });
+
+  it('gives a file to the system with the deepest folder that holds it', () => {
+    const map = sharing([{ repo: 'org/mono', path: 'dgs' }]);
+    expect(homeOf(map, 'org/mono', 'dgs/c/schema.gql')?.system).toBe('c');
+    expect(homeOf(map, 'org/mono', 'dgs/cart/schema.gql')?.system).toBe('b');
+    expect(homeOf(map, 'org/mono', 'dgs')?.system).toBe('b');
+    expect(homeOf(map, 'org/mono', 'router.yaml')?.system).toBe('a');
+    expect(homeOf(map, 'org/other', 'x')).toBeNull();
+    expect(repoNamesOf(map.domains[0]!.systems[0]!)).toEqual(['org/mono']);
   });
 });
 

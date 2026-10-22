@@ -1,4 +1,5 @@
 import type { PlanPart } from '@/application/plan-footprint';
+import { Callout } from '@/ui/callout';
 import { Card } from '@/ui/card';
 
 import styles from './plan-parts.module.css';
@@ -11,12 +12,22 @@ const progress = (part: PlanPart): string =>
 // The plans that would change a domain or a system, with how far their work here has got.
 export function PlanParts({
   parts,
-  where,
+  name,
 }: {
   readonly parts: readonly PlanPart[];
-  readonly where: string;
+  /** What the plans would change, named in the call to make the first one. */
+  readonly name: string;
 }) {
-  if (parts.length === 0) return <p className={styles.none}>No plan changes {where} yet.</p>;
+  if (parts.length === 0) {
+    return (
+      <Callout title={`No plan changes ${name} yet`}>
+        <p>
+          To make the first, ask your agent: <q>Use groundwork-plan to plan a change to {name}.</q>{' '}
+          It reads the map and the code, asks what you want, and writes the plan into the workspace.
+        </p>
+      </Callout>
+    );
+  }
   return (
     <ul className={styles.cards}>
       {parts.map((part) => (

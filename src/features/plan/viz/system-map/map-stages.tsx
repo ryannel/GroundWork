@@ -17,11 +17,12 @@ function scrollToStage(from: HTMLElement, id: string): void {
 
 /** A button for each stage that scrolls the map to it, for a map wider than the page. */
 export function MapStages({ bands }: { readonly bands: readonly DrawnBand[] }) {
-  if (bands.length < 2) return null;
+  const stages = bands.flatMap((b) => (b.stage === null ? [] : [{ ...b, stage: b.stage }]));
+  if (stages.length < 2) return null;
   return (
     <div aria-label="Stages: scroll the map to one" className={styles.stages} role="group">
       <span className={styles.label}>Stages</span>
-      {bands.map((b) => (
+      {stages.map((b) => (
         <button
           className={styles.stage}
           key={b.id}

@@ -59,6 +59,6 @@ describe('WorkspaceLibrary', () => {
 
   it('points to the workspace for plans it leaves out', () => {
     render(<WorkspaceLibrary library={{ cards: [card({ morePlans: 3 })] }} />);
-    expect(screen.getByText('3 more on the workspace page →')).toBeTruthy();
+    expect(screen.getByText('3 more plans →')).toBeTruthy();
   });
 });

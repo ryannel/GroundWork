@@ -14,7 +14,7 @@ export function WorkspaceLibrary({ library }: WorkspaceLibraryProps) {
   return (
     <AppShell bar={<AppBar title="Workspaces" />}>
       <PageHeader
-        description="Each workspace holds the systems a company runs and the plans that change them."
+        description="Each workspace holds a set of systems and the plans that change them."
         title="Workspaces"
       />
       <ul className={styles.list}>

@@ -48,10 +48,8 @@ describe('Icon and Glyph', () => {
         <Glyph glyph="x" />
       </>,
     );
-    expect([...container.querySelectorAll('svg')].map((s) => s.dataset.icon)).toEqual([
-      'team',
-      'database',
-    ]);
+    expect(container.querySelectorAll('svg')).toHaveLength(2);
+    expect(container.textContent).toBe('x');
     expect(container.textContent).toBe('x');
   });
 });

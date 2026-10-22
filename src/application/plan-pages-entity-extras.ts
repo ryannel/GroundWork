@@ -53,3 +53,22 @@ export function flowDrawingOf(model: Model, id: string, today: boolean): FlowDra
   if (flow === undefined || flow.steps.length === 0) return null;
   return { flowId: id, mode, mermaid: flowToMermaid(model, id, { mode }) };
 }
+
+export interface OperationDocument {
+  readonly mode: 'asIs' | 'toBe';
+  /** The query as written, to copy. */
+  readonly text: string;
+}
+
+/** A GraphQL operation's query, from the plan when it changes it, else as it runs today. */
+export function operationDocumentOf(
+  model: Model,
+  id: string,
+  today: boolean,
+): OperationDocument | null {
+  if (!id.startsWith('gql:')) return null;
+  const mode = today || !model.toBe.byId.has(id) ? 'asIs' : 'toBe';
+  const op = (mode === 'asIs' ? model.asIs : model.toBe).byId.get(id);
+  if (op?.$type !== 'operation' || op.document.trim() === '') return null;
+  return { mode, text: op.document };
+}

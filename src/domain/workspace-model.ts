@@ -1,10 +1,11 @@
 // The system model: how the systems of a workspace work today. It sits beside the structure
-// (domains/<d>/systems/<s>/system.yaml) as contracts.yaml per system, story.yaml, flows/ and journeys/,
+// (domains/<d>/systems/<s>/system.yaml) as contracts.yaml and handlers.yaml per system, story.yaml, flows/ and journeys/,
 // and is read in plan shape so the plan views can draw it.
 import type {
   Concept,
   Flow,
   Graph,
+  Handler,
   Interaction,
   Interface,
   Message,
@@ -60,6 +61,8 @@ export interface SystemContracts {
   readonly graphs: readonly Graph[];
   readonly subgraphs: readonly Subgraph[];
   readonly operations: readonly Operation[];
+  /** What runs when its endpoints are called or its messages arrive, from handlers.yaml beside the contracts. */
+  readonly handlers: readonly Handler[];
 }
 
 export interface Story {
@@ -74,6 +77,41 @@ export interface DomainLanguage {
   /** The domain told in its own words. */
   readonly summary: string | null;
   readonly concepts: readonly Concept[];
+}
+
+/** One step of the flow a domain is heading for: a thing of the business, and who should own it. */
+export interface TargetStage {
+  /** Unique within the domain's target.yaml. */
+  readonly id: string;
+  readonly name: string;
+  /** The key term it is (term:…), when the business has agreed a word for it. */
+  readonly term: string | null;
+  /** The systems or components that should own it: sys:… or a component id. */
+  readonly owners: readonly string[];
+  /** Markdown; may cite [[id]]. */
+  readonly summary: string | null;
+  /** The stages it is made from, by id. */
+  readonly from: readonly string[];
+}
+
+/** One place where today differs from the target, and which way it is moving. */
+export interface TargetShift {
+  readonly id: string;
+  readonly name: string;
+  /** What is true today. Markdown; may cite [[id]]. */
+  readonly today: string;
+  /** Where it is heading. Markdown; may cite [[id]]. */
+  readonly target: string;
+  /** Where the difference shows in today's model. */
+  readonly cites: readonly string[];
+}
+
+/** Where a domain is heading, written by people. From domains/<domain>/target.yaml. */
+export interface TargetArchitecture {
+  readonly domain: string;
+  readonly summary: string | null;
+  readonly stages: readonly TargetStage[];
+  readonly shifts: readonly TargetShift[];
 }
 
 /** How closely a scanned word or a system matches a key term. */
@@ -129,12 +167,25 @@ export interface Scan {
   /** Blob sha per file that produced facts. */
   readonly files: Readonly<Record<string, string>>;
   readonly facts: number;
+  /** The last time tools/scan-status.ts asked the remote how far the branch had moved past `head`, if ever. */
+  readonly checked: ScanCheck | null;
+}
+
+export interface ScanCheck {
+  readonly at: string;
+  readonly tip: string;
+  /** Commits between `head` and `tip`, or null when they were not counted. */
+  readonly behind: number | null;
+  /** Of those commits, how many touch each folder a system lists, by folder; empty when not counted. */
+  readonly folders: Readonly<Record<string, number>>;
 }
 
 export interface WorkspaceModel {
   readonly story: Story;
   /** One per domain that has a language.yaml, in domain order. */
   readonly languages: readonly DomainLanguage[];
+  /** One per domain that has a target.yaml, in domain order. */
+  readonly targets: readonly TargetArchitecture[];
   /** The business's agreed words, above the domains. Empty when the workspace has no language.yaml. */
   readonly keyTerms: KeyTerms;
   readonly flows: readonly Flow[];
@@ -148,7 +199,7 @@ export interface WorkspaceModel {
 /** A GitHub permalink for a code source: blob/<commit>/<path>#L<from>-L<to>. */
 export function permalinkOf(source: CodeSource): string {
   const host = source.repo.split('/').length > 2 ? source.repo : `github.com/${source.repo}`;
-  const base = `https://${host}/blob/${source.commit}/${source.path}`;
+  const base = `https://${host}/blob/${source.commit}/${encodeURI(source.path)}`;
   if (source.lines === undefined) return base;
   const [from, to] = source.lines;
   return from === to ? `${base}#L${String(from)}` : `${base}#L${String(from)}-L${String(to)}`;

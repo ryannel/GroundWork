@@ -58,7 +58,7 @@ function eventsOf(model: Model, scope: ModelScope): CatalogueRow[] {
         note:
           to.length === 0
             ? `From ${model.label(m.producer)}; no one listens yet`
-            : `From ${model.label(m.producer)} to`,
+            : `From ${model.label(m.producer)}`,
         items: refs(model, to),
       };
     });

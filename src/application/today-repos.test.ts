@@ -20,6 +20,7 @@ const scan = (scannedAt: string): Scan => ({
   scanner: 'test',
   files: {},
   facts: 3,
+  checked: null,
 });
 
 describe('how fresh a system reading is', () => {
@@ -44,13 +45,94 @@ describe('how fresh a system reading is', () => {
   });
 });
 
+const checked = (tip: string, behind: number | null): Scan => ({
+  ...scan('2025-05-03T10:00:00Z'),
+  checked: { at: '2025-05-10T10:00:00Z', tip, behind, folders: {} },
+});
+
+describe('how far the code has moved since', () => {
+  it('says nothing until someone has checked the remote', () => {
+    const { workspace, today } = acme([scan('2025-05-03T10:00:00Z')]);
+    expect(reposOf(workspace, today, 'products')[0]?.moved).toBeNull();
+  });
+
+  it('counts the commits the branch has moved past the reading', () => {
+    const { workspace, today } = acme([checked('99aa88bb', 12)]);
+    expect(reposOf(workspace, today, 'products')[0]?.moved).toBe(
+      '12 commits behind, checked 10 May 2025',
+    );
+  });
+
+  it('says up to date when the tip is the commit read', () => {
+    const { workspace, today } = acme([checked('7a8b9c0d1e2f', 0)]);
+    expect(reposOf(workspace, today, 'products')[0]?.moved).toBe('Up to date, checked 10 May 2025');
+  });
+
+  it('says the code moved on when nobody counted how far', () => {
+    const { workspace, today } = acme([checked('99aa88bb', null)]);
+    expect(reposOf(workspace, today, 'products')[0]?.moved).toMatch(
+      /^The code has moved on since/u,
+    );
+  });
+});
+
+// Search holds cmd/products of the products repo, so the facts read from there are Search's.
+function shared(scans: readonly Scan[] = []) {
+  const { workspace, model } = acmeKit();
+  const split = {
+    ...workspace,
+    domains: workspace.domains.map((domain) => ({
+      ...domain,
+      systems: domain.systems.map((system) =>
+        system.id === 'search'
+          ? { ...system, repos: [...system.repos, { repo: 'acme/products', path: 'cmd/products' }] }
+          : system,
+      ),
+    })),
+  };
+  return { workspace: split, today: systemModelOf(split, { ...model, scans }) };
+}
+
+const touching = (folders: Readonly<Record<string, number>>): Scan => ({
+  ...checked('99aa88bb', 12),
+  checked: { at: '2025-05-10T10:00:00Z', tip: '99aa88bb', behind: 12, folders },
+});
+
+function folderMoved(folders: Readonly<Record<string, number>>): string | null | undefined {
+  const { workspace, today } = shared([touching(folders)]);
+  return reposOf(workspace, today, 'search').find((r) => r.repo.endsWith('cmd/products'))?.moved;
+}
+
+describe('a repo that systems share by folder', () => {
+  it('gives the folder its own row, and its facts to the system that holds it', () => {
+    const { workspace, today } = shared();
+    const folder = reposOf(workspace, today, 'search').find((r) => r.repo.endsWith('cmd/products'));
+    expect(folder).toMatchObject({
+      repo: 'acme/products/cmd/products',
+      href: 'https://github.com/acme/products/tree/HEAD/cmd/products',
+    });
+    expect(folder?.cited).toMatch(/^\d+ facts? cites? its code$/u);
+    expect(reposOf(workspace, today, 'products')[0]?.cited).toBe('No fact cites its code yet');
+  });
+
+  it('says whether the new commits touch the folder', () => {
+    expect(folderMoved({ 'cmd/products': 0 })).toBe(
+      'Up to date: none of the 12 commits since touch this folder, checked 10 May 2025',
+    );
+    expect(folderMoved({ 'cmd/products': 1 })).toBe(
+      '1 of the 12 commits since touches this folder, checked 10 May 2025',
+    );
+    expect(folderMoved({})).toBe('12 commits behind, checked 10 May 2025');
+  });
+});
+
 describe('component cards', () => {
   it('teaches what each component of a system offers, calls and keeps', () => {
     const { workspace, today } = acme();
     const cards = componentCardsOf(today.model, systemScopeOf(workspace, 'products')!);
     const products = cards.find((card) => card.chip.id === 'svc:products')!;
     expect(products.kind).toMatch(/^Service/u);
-    expect(products.offers.map((offer) => offer.chip.id)).toEqual([
+    expect(products.offers.map((offer) => offer.id)).toEqual([
       'api:products-get',
       'api:products-update',
     ]);

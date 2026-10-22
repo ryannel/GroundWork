@@ -26,23 +26,22 @@ describe('SystemMap', () => {
       const { container } = render(<SystemMap model={model} />);
       const svg = container.querySelector('svg[aria-label^="System map"]');
       expect(svg).not.toBeNull();
-      press(container, 'Full');
+      press(container, 'Components');
       const cards = container.querySelectorAll('[data-node] button[data-inspect]');
       expect(cards.length).toBeGreaterThanOrEqual(model.asIs.services.length);
     },
   );
 
-  it('switches between overview and full, and toggles the layers', () => {
+  it('switches between systems and components', () => {
     const model = modelOf(stagedDeliveryTime());
     const { container } = render(<SystemMap model={model} />);
-    press(container, 'Full');
-    expect(pressed(container, 'Full')?.getAttribute('aria-pressed')).toBe('true');
+    press(container, 'Components');
+    expect(pressed(container, 'Components')?.getAttribute('aria-pressed')).toBe('true');
     const full = container.querySelectorAll('[data-node]').length;
-    press(container, 'Overview');
-    expect(pressed(container, 'Overview')?.getAttribute('aria-pressed')).toBe('true');
+    press(container, 'Systems');
+    expect(pressed(container, 'Systems')?.getAttribute('aria-pressed')).toBe('true');
     expect(container.querySelectorAll('[data-node]').length).toBeLessThan(full);
-    press(container, 'Stores');
-    expect(pressed(container, 'Stores')?.getAttribute('aria-pressed')).toBe('true');
+    press(container, 'Components');
     expect(container.querySelector('[data-kind="store"]')).not.toBeNull();
   });
 
@@ -75,7 +74,7 @@ describe('SystemMap', () => {
   it('folds and unfolds a system', () => {
     const model = modelOf(stagedDeliveryTime());
     const { container } = render(<SystemMap model={model} />);
-    press(container, 'Full');
+    press(container, 'Components');
     const fold = container.querySelector('button[aria-expanded="true"]');
     if (fold === null) throw new Error('no system to fold');
     const before = container.querySelectorAll('[data-node]').length;

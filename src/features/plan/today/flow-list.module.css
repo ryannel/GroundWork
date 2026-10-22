@@ -1,11 +1,12 @@
 @layer components {
+  /* Beside a 900px drawing the list leaves it room; below that, the list sits above it. */
   .flows {
     display: grid;
     grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
     gap: var(--s-5);
     align-items: start;
 
-    @media (width < 900px) {
+    @media (width < 1280px) {
       grid-template-columns: minmax(0, 1fr);
     }
   }
@@ -18,24 +19,8 @@
     gap: var(--s-2);
     min-width: 0;
 
-    @media (width < 900px) {
+    @media (width < 1280px) {
       position: static;
-    }
-  }
-
-  .find {
-    width: 100%;
-    padding: var(--s-2) var(--s-3);
-    border: 1px solid var(--line-2);
-    border-radius: var(--r-2);
-    background: var(--node-bg);
-    color: var(--fg-1);
-    font: inherit;
-    font-size: var(--fs-13);
-
-    &:focus-visible {
-      outline: 2px solid var(--focus);
-      outline-offset: 1px;
     }
   }
 
@@ -51,8 +36,8 @@
     background: var(--bg-1);
     overscroll-behavior: contain;
 
-    @media (width < 900px) {
-      max-height: 40vh;
+    @media (width < 1280px) {
+      max-height: 16rem;
     }
   }
 

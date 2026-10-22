@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 
 import { domainViewOf } from '@/application/workspace-domain';
 import { FlowList } from '@/features/plan';
+import { DomainTab } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
 
 interface Params {
@@ -21,5 +22,14 @@ export default async function DomainFlowsLayout({ params, children }: Props) {
   const data = await todayData(id);
   const view = data === null ? null : domainViewOf(data.workspace, data.today.model, domain);
   if (data === null || view === null) notFound();
-  return <FlowList flows={view.flows}>{children}</FlowList>;
+  return (
+    <>
+      <DomainTab
+        says={`The work that runs through ${view.name}, busiest first. Pick one to step through its drawing, or read it as a sequence.`}
+        title="Flows"
+        view={view}
+      />
+      <FlowList flows={view.flows}>{children}</FlowList>
+    </>
+  );
 }

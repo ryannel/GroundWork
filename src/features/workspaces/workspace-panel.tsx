@@ -47,21 +47,21 @@ export function WorkspacePanel({ card }: WorkspacePanelProps) {
           <h3 className={styles.label}>Plans</h3>
           {card.plans.length === 0 ? (
             <p className={styles.empty}>
-              No plans yet. A plan is a folder under <code>workspaces/{card.id}/plans/</code>.
+              No plans yet. Each plan is a folder under <code>plans/</code> in the workspace.
             </p>
           ) : (
             <PlanList plans={card.plans} />
           )}
           {card.morePlans === 0 ? null : (
             <Link className={styles.more} href={card.href}>
-              {card.morePlans} more on the workspace page →
+              {card.morePlans} more {card.morePlans === 1 ? 'plan' : 'plans'} →
             </Link>
           )}
         </section>
       </div>
       <footer className={styles.foot}>
         <Link className={styles.open} href={card.href}>
-          Open the landscape →
+          Open {card.name} →
         </Link>
       </footer>
     </article>

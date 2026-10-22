@@ -1,7 +1,7 @@
 import type { Trace, TraceTarget } from '@/application/plan-viz-system-map-trace';
 import type { SystemMapDrawing } from '@/application/plan-viz-system-map-types';
 
-import { MapBands } from './map-bands';
+import { MapBands, MapOutside } from './map-bands';
 import { MapEdges } from './map-edges';
 import styles from './map-figure.module.css';
 import { MapNode } from './map-node';
@@ -62,6 +62,7 @@ export function MapFigure({ drawing, filter, trace, onTrace, onFold }: MapFigure
       width={drawing.w}
     >
       <MapBands bands={drawing.bands} h={drawing.h} />
+      <MapOutside h={drawing.h} outside={drawing.outside} w={drawing.w} />
       <MapTrunks lit={trace?.trunks ?? null} trunks={drawing.trunks} />
       {systems.map(card)}
       <MapEdges filter={filter} lines={drawing.lines} lit={trace?.lines ?? null} />

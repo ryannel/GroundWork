@@ -52,12 +52,32 @@ function partHint(model: Model, id: string, word: string): string {
   return `${which} of ${model.label(owner)}`;
 }
 
+const systemField = (node: ReturnType<Model['get']>): string | null =>
+  node !== undefined && 'system' in node && typeof node.system === 'string' ? node.system : null;
+
+/** The system a thing belongs to, by name, so "cart price" finds Price's cart endpoints. */
+function systemOf(model: Model, id: string): string | null {
+  const system = systemField(model.get(id)) ?? systemField(model.get(model.ownerService(id)));
+  return system === null || system === id || model.get(system) === undefined
+    ? null
+    : model.label(system);
+}
+
+/** The words a thing is found by beyond its name: an endpoint's method and path. */
+function extraWords(model: Model, id: string): string {
+  const node = model.get(id);
+  return node !== undefined && 'sig' in node && typeof node.sig === 'string' ? node.sig : '';
+}
+
 const thingEntry = (model: Model, id: string): PaletteEntry => {
   const type = typeOf(id);
   const word = type === null ? '' : typeWord(type, model.get(id));
   const part = type !== null && PART_TYPES.has(type);
   const label = model.label(id);
-  const hint = part ? partHint(model, id, word) : word;
+  const system = part ? null : systemOf(model, id);
+  const hint = part
+    ? partHint(model, id, word)
+    : [word, system].filter((w) => w !== null).join(' · ');
   return {
     kind: part ? 'part' : 'thing',
     group: type ?? '',
@@ -65,7 +85,7 @@ const thingEntry = (model: Model, id: string): PaletteEntry => {
     label,
     hint,
     glyph: glyphOf(id),
-    haystack: `${label} ${id} ${hint}`.toLowerCase(),
+    haystack: `${label} ${id} ${hint} ${extraWords(model, id)}`.toLowerCase(),
   };
 };
 

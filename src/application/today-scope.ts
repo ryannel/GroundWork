@@ -23,12 +23,15 @@ export function chipRefOf(model: Model, id: string): ChipRef {
   return { id, label, glyph, mono };
 }
 
-/** The domain name ("Website") under each `sys:` id, for the cards of a map. */
-function placesOf(workspace: Workspace): Record<string, string> {
+/** The domain name ("Website") under each `sys:` id, for the cards of a map. Inside a domain the page already
+ * says where it is, so its own systems carry no name. */
+function placesOf(workspace: Workspace, scope: ModelScope): Record<string, string> {
+  const home = (systems: readonly { readonly id: string }[]): boolean =>
+    scope.kind !== 'workspace' && systems.some((system) => scope.focus.has(`sys:${system.id}`));
   return Object.fromEntries(
-    workspace.domains.flatMap((domain) =>
-      domain.systems.map((system) => [`sys:${system.id}`, domain.name]),
-    ),
+    workspace.domains
+      .filter((domain) => !home(domain.systems))
+      .flatMap((domain) => domain.systems.map((system) => [`sys:${system.id}`, domain.name])),
   );
 }
 
@@ -36,7 +39,7 @@ function placesOf(workspace: Workspace): Record<string, string> {
 export function mapScopeOf(workspace: Workspace, scope: ModelScope): MapScope {
   return {
     focus: scope.kind === 'workspace' ? null : [...scope.focus],
-    places: placesOf(workspace),
+    places: placesOf(workspace, scope),
   };
 }
 

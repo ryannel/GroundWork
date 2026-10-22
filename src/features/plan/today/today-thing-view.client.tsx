@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { Suspense, use } from 'react';
+import { Suspense, use, useSyncExternalStore } from 'react';
 
 import { thingByToken } from '@/application/plan-pages-things';
 import type { Workspace } from '@/domain/workspace';
@@ -58,17 +58,28 @@ function TodayThingRead({ workspace, modelSrc, attributionSrc }: TodayThingViewP
   );
 }
 
+function ignore(): void {
+  // Nothing to stop: the answer never changes once in the browser.
+}
+
+function still(): () => void {
+  return ignore;
+}
+
 /** Today's one page for its things: the thing `?id=` names, drawn in the browser. */
 export function TodayThingView(props: TodayThingViewProps) {
+  // The model is fetched from beside the page, an address only the browser knows, so the server draws the wait.
+  const inBrowser = useSyncExternalStore(
+    still,
+    () => true,
+    () => false,
+  );
+  const loading = (
+    <Text as="p" tone="muted">
+      Loading…
+    </Text>
+  );
   return (
-    <Suspense
-      fallback={
-        <Text as="p" tone="muted">
-          Loading…
-        </Text>
-      }
-    >
-      <TodayThingRead {...props} />
-    </Suspense>
+    <Suspense fallback={loading}>{inBrowser ? <TodayThingRead {...props} /> : loading}</Suspense>
   );
 }

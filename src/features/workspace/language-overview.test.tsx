@@ -3,9 +3,9 @@ import { cleanup, fireEvent, render, screen, within } from '@testing-library/rea
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { acme } from '@/../test/workspace-kit';
-import { languagePageOf } from '@/application/language-page';
+import { domainLanguageOf, languagePageOf } from '@/application/language-page';
 
-import { LanguageOverview } from './index';
+import { DomainLanguage, LanguageOverview } from './index';
 
 vi.mock(import('next/navigation'), async (original) => {
   const actual = await original();
@@ -82,5 +82,19 @@ describe('LanguageOverview', () => {
     });
     expect(screen.queryByRole('region', { name: 'Selling' })).toBeNull();
     expect(screen.getByText(/0 words/u)).toBeDefined();
+  });
+});
+
+describe('DomainLanguage', () => {
+  it('reads like the workspace page, narrowed to the domain, with no domain filter', () => {
+    const { workspace, model } = acme();
+    const page = languagePageOf(workspace, model.languages, model.keyTerms);
+    render(<DomainLanguage page={domainLanguageOf(page, 'orders', 'What **orders** say.')} />);
+    expect(screen.getByText('orders').tagName).toBe('STRONG');
+    expect(screen.getByRole('searchbox')).toBeTruthy();
+    expect(screen.queryByRole('combobox', { name: 'Domain' })).toBeNull();
+    expect(rowNames('Words in the code')).toHaveLength(
+      page.words.filter((w) => w.domains.includes('orders')).length,
+    );
   });
 });

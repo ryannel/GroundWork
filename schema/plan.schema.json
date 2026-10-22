@@ -682,6 +682,10 @@
           "type": "string",
           "description": "its role in plain words a newcomer understands: what it does for the business, \u2264 10 words, sentence case, no jargon or code names. Shown on the system map card"
         },
+        "infrastructure": {
+          "type": "boolean",
+          "description": "true for plumbing every system leans on and no business data comes from (feature flags, sign-in, error tracking, schema registries); the system map hides it until the reader asks"
+        },
         "summary": {
           "type": "string",
           "description": "markdown; may cite [[id]]"

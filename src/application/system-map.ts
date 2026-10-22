@@ -3,7 +3,13 @@
 import { prop } from '@/application/plan/ids';
 import type { SystemModel } from '@/application/workspace-model';
 import { systemsOf, type Workspace } from '@/domain/workspace';
-import { type CodeSource, type Origin, permalinkOf, type Scan } from '@/domain/workspace-model';
+import {
+  type CodeSource,
+  type Origin,
+  permalinkOf,
+  type Scan,
+  type ScanCheck,
+} from '@/domain/workspace-model';
 
 export interface Cited {
   readonly repo: string;
@@ -27,13 +33,17 @@ export interface MapFact {
   readonly sourcesOf: string | null;
 }
 
-/** How current the map is for one repo: the commit it was last read at, or null when never scanned. */
+/** How current the map is for one repo, or one folder of it: the commit it was last read at, or null when never scanned. */
 export interface RepoState {
   readonly repo: string;
+  /** The folder the system holds, or null for the whole repo. */
+  readonly path: string | null;
   readonly system: string;
   readonly head: string | null;
   readonly branch: string | null;
   readonly scannedAt: string | null;
+  /** What tools/scan-status.ts last saw on the remote, or null when it has not looked. */
+  readonly checked: ScanCheck | null;
 }
 
 export interface SystemMap {
@@ -132,14 +142,16 @@ function citedOf(sources: readonly CodeSource[]): Cited[] {
 function reposOf(workspace: Workspace, scans: readonly Scan[]): RepoState[] {
   const byRepo = new Map(scans.map((scan) => [scan.repo, scan]));
   return systemsOf(workspace).flatMap((system) =>
-    system.repos.map((repo) => {
+    system.repos.map(({ repo, path }) => {
       const scan = byRepo.get(repo);
       return {
         repo,
+        path,
         system: system.id,
         head: scan?.head ?? null,
         branch: scan?.branch ?? null,
         scannedAt: scan?.scannedAt ?? null,
+        checked: scan?.checked ?? null,
       };
     }),
   );

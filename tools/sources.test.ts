@@ -24,6 +24,11 @@ describe('locate', () => {
     ).toEqual(SOURCE);
   });
 
+  it('decodes the path of a url, so a file named [id] is found', () => {
+    const url = `https://github.com/acme/pricing/blob/${COMMIT}/app/%5Bid%5D/page.tsx#L1`;
+    expect(locate({ url })).toHaveProperty('path', 'app/[id]/page.tsx');
+  });
+
   it('refuses a branch where a commit belongs', () => {
     expect(locate({ ...SOURCE, commit: 'main' })).toEqual({
       problem: 'acme/pricing src/price.ts: commit must be a full 40-character sha',

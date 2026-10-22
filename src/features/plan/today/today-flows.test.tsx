@@ -22,6 +22,13 @@ describe('TodayFlow', () => {
     expect(container.textContent).toBe('');
   });
 
+  it('names the flow above its drawing', () => {
+    render(<TodayFlow base="/w/" id="flow:browse" model={shop} />);
+    expect(screen.getAllByRole('heading', { level: 3 })[0]?.textContent).toBe(
+      shop.label('flow:browse'),
+    );
+  });
+
   it('keeps the view the reader picked for the next flow', () => {
     const first = render(<TodayFlow base="/w/" id="flow:price-purge" model={shop} />);
     fireEvent.click(screen.getByRole('button', { name: 'Sequence' }));

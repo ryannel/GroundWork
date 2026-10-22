@@ -142,6 +142,10 @@ Ids are what plans, flows and journeys point at, so a re-scan must give the same
 - **One component per independently owned unit.** A repo that hosts several teams' code (a federation monorepo, a
   gateway with per-team modules) becomes one component per module, owner from the CODEOWNERS line for its path.
   Raise a question when that owner is not the system's team.
+- **Storage is a store, not a component.** A bucket, object store or warehouse a system keeps its own data in (S3,
+  Blob Storage, a data lake) is a store (`kind: bucket` or `warehouse`), not an `external` component, and reading or
+  writing it is a `read`/`write` step on a schema, not a `call`. An external component is another party's service
+  the system asks for something.
 - **Libraries are not components.** An in-process package belongs to the component that links it; mention it in
   that component's `summary`.
 - **Every topic gets a message**, with producer, consumers and payload, or drop the topic.

@@ -4,6 +4,11 @@
     gap: var(--s-8);
   }
 
+  .systems {
+    display: grid;
+    gap: var(--s-12);
+  }
+
   .block {
     display: grid;
     gap: var(--s-2);

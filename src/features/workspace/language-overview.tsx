@@ -48,3 +48,15 @@ export function LanguageOverview({ page }: { readonly page: LanguagePage }) {
     </>
   );
 }
+
+/** One domain's words, read the same way as the workspace's: its summary, then the terms and words to search. */
+export function DomainLanguage({ page }: { readonly page: LanguagePage }) {
+  return (
+    <>
+      {page.summary === null || page.summary === '' ? null : <Markdown text={page.summary} />}
+      <Suspense fallback={null}>
+        <LanguageDirectory page={page} />
+      </Suspense>
+    </>
+  );
+}

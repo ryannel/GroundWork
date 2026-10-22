@@ -1,7 +1,7 @@
 import { derive, type Model } from '@/application/plan/derive';
 import type { IssueStatus } from '@/domain/plan/plan-status';
 import type { Plan } from '@/domain/plan/plan.generated';
-import type { Workspace } from '@/domain/workspace';
+import { repoNamesOf, type Workspace } from '@/domain/workspace';
 import { componentHomes } from '@/domain/workspace-links';
 import { plural } from '@/shared/text';
 
@@ -82,7 +82,7 @@ export function partsFor(
     const model = derive(input.plan, { status: input.status });
     const touches = componentsTouched(model, found.id, workspace);
     const items = (input.plan.work_items ?? []).filter(
-      (item) => item.repo !== undefined && found.repos.includes(item.repo),
+      (item) => item.repo !== undefined && repoNamesOf(found).includes(item.repo),
     );
     if (touches.length === 0 && items.length === 0) return [];
     return [

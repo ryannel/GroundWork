@@ -47,11 +47,18 @@ function checkRoots(s: Scope, gr: GraphNode): void {
   }
 }
 
-/** A gateway's GraphQL interface carries operations, not endpoints. */
+/** A gateway's GraphQL interface carries operations, not endpoints; the one its own pipeline handler starts on
+ * may stay. */
 function checkGatewayInterface(s: Scope, gr: GraphNode): void {
   if (!s.g.operations.some((o) => o.graph === gr.id)) return;
-  for (const i of s.g.interfaces) {
-    if (i.service !== gr.gateway || i.protocol !== 'graphql' || i.endpoints.length === 0) continue;
+  const handled = new Set(s.g.handlers.map((h) => h.on));
+  const listing = s.g.interfaces.filter(
+    (i) =>
+      i.service === gr.gateway &&
+      i.protocol === 'graphql' &&
+      !i.endpoints.every((e) => handled.has(e.id)),
+  );
+  for (const i of listing) {
     s.warn(
       s.at(i, 'endpoints'),
       `${i.id} is the GraphQL interface of ${gr.id}'s gateway but lists endpoints; model them as operations (gql:…) and remove the endpoints`,

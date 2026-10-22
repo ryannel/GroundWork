@@ -11,6 +11,8 @@ import type {
 
 export const CW = 184;
 export const G = 56;
+/** The gap on a map read system by system, wide enough to name what each line carries. */
+export const WIDE_G = 128;
 export const PAD = 16;
 export const VGAP = 24;
 export const LINE = 15;
@@ -25,10 +27,11 @@ const MAXROWS = 4;
 const SH = 24;
 const SH2 = 36;
 const NAME_CH = 21;
-const ROLE_CH = 26;
+const ROLE_CH = 24;
 export const ROLE_LINE = 14;
-export const SYS_NAME = 38;
-export const PART_ROW = 17;
+export const SYS_NAME = 26;
+/** The foot of a folded system card: its team, then its size. */
+const SYS_FOOT = 40;
 const MONO = 6.3;
 const SAT_CH = {
   topic: Math.floor((CW - SIN - 34) / MONO),
@@ -187,22 +190,22 @@ export function serviceBox(ctx: Context, id: string, at: CardAt): Box {
   };
 }
 
-/** A system's frame: eyebrow, name and role; the height is set once the parts are placed or listed. */
+/** A system's frame: name and role; the height is set once its parts are placed, or it is folded. */
 export function systemBox(
   ctx: Context,
   id: string,
   at: Pick<CardAt, 'x' | 'y' | 'col'> & { readonly parts: readonly string[] },
 ): Box {
   const lines = wrapText(ctx.label(id), NAME_CH, 2);
-  const role = roleLines(ctx.nodes.get(id)?.does ?? '', ROLE_CH, 3);
+  const role = roleLines(ctx.nodes.get(id)?.does ?? '', ROLE_CH, 2);
   const nameEnd = SYS_NAME + (lines.length - 1) * LINE;
   const head = nameEnd + (role.length > 0 ? 2 + role.length * ROLE_LINE : 0) + 12;
   return { ...BLANK, ...at, id, kind: 'system', w: CW, h: head, head, lines, role, nameEnd };
 }
 
-/** A frame folded to one card lists its parts. */
-export function listedHeight(frame: Box): number {
-  return frame.head + frame.parts.length * PART_ROW + 4;
+/** A frame folded to one card: its head, then a foot naming its team and size. */
+export function foldedHeight(frame: Box): number {
+  return frame.head + SYS_FOOT;
 }
 
 function satText(ctx: Context, id: string): Pick<Box, 'lines' | 'role' | 'top' | 'h'> {

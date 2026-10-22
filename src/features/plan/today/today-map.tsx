@@ -3,6 +3,7 @@ import type { Model } from '@/application/plan/derive';
 import { systemStops } from '@/application/plan-story-today-system';
 import { systemMapInput } from '@/application/plan-viz-system-map-input';
 import { scopeMapInput } from '@/application/plan-viz-system-map-scope';
+import { tieredMapInput } from '@/application/plan-viz-system-map-tiers';
 import { mapScopeOf, outsideOf } from '@/application/today-scope';
 import type { Workspace } from '@/domain/workspace';
 import { StopUnder } from '@/features/plan/chapters/today/stop-under';
@@ -23,7 +24,8 @@ const unplanned = (line: string): string =>
 // The map of today for one scope. On the landscape it is read in stops: who owns what, the calls, the events and
 // the stores. In a domain or a system it holds only what is there and what is one step away, marked as outside.
 export function TodayMap({ model, workspace, scope }: TodayMapProps) {
-  const input = scopeMapInput(systemMapInput(model), mapScopeOf(workspace, scope));
+  const tiered = tieredMapInput(systemMapInput(model), model, workspace);
+  const input = scopeMapInput(tiered, mapScopeOf(workspace, scope));
   if (input.services.length === 0) return null;
   const map = <SystemMapView input={input} outside={outsideOf(scope)} />;
   if (scope.kind !== 'workspace') return map;

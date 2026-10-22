@@ -11,8 +11,11 @@ import {
   stateNote,
   stepState,
 } from '@/application/plan-viz-flow-graph';
+import { protocolOf } from '@/application/plan-viz-protocol';
 
 const CARD_W = 212;
+export const TAG_CH = 6.6;
+export const TAG_PAD = 16;
 export const HEAD = 46;
 export const ROW = 22;
 const STORE_W = 168;
@@ -33,8 +36,21 @@ const EVENT_LINE = 16;
 
 /** How an endpoint reads on its row: its signature, else its name. */
 export function sigOf(model: Model, via: string): string {
-  const sig = prop(model.get(via), 'sig');
-  return typeof sig === 'string' ? sig : model.label(via);
+  const n = model.get(via);
+  const sig = prop(n, 'sig');
+  if (typeof sig === 'string') return sig;
+  const name = prop(n, 'name');
+  const kind = prop(n, 'kind');
+  if (n?.$type === 'operation' && typeof name === 'string' && typeof kind === 'string') {
+    return `${kind} ${name}`;
+  }
+  return model.label(via);
+}
+
+/** The room a row's protocol tag takes, before its signature. */
+export function tagWidth(model: Model, via: string): number {
+  const proto = protocolOf(model, via);
+  return proto === null ? 0 : proto.length * TAG_CH + TAG_PAD;
 }
 
 /** The height of a port on a node's left edge: an endpoint row of a card, or the middle of a pipe or cylinder. */
@@ -51,7 +67,10 @@ function sizeCard(model: Model, n: FlowNodeSpec): Size {
   // a card widens (to 300) before an endpoint signature is clipped
   const need = Math.max(
     0,
-    ...n.endpoints.map((ep) => 30 + sigOf(model, ep.via).length * MONO + ep.steps.length * 17),
+    ...n.endpoints.map(
+      (ep) =>
+        30 + tagWidth(model, ep.via) + sigOf(model, ep.via).length * MONO + ep.steps.length * 17,
+    ),
   );
   const selfH = n.selfs.reduce((t, sf) => t + ROW + (sf.lines.length - 1) * SELF_LINE, 0);
   const busy = n.endpoints.length > 0 || n.selfs.length > 0;

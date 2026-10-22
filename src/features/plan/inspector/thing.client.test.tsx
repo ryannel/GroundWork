@@ -80,7 +80,7 @@ async function show(id: string, reader: Reader = planReaderOf(at, 'plan.json')):
 describe('Thing', () => {
   it('links to the thing’s own page', async () => {
     await show('svc:subs');
-    const link = await screen.findByRole('link', { name: 'Open as page' });
+    const link = await screen.findByRole('link', { name: 'Open page →' });
     expect(link.getAttribute('href')).toBe('/w/plans/p/things?id=svc-subs');
   });
 
@@ -117,10 +117,16 @@ describe('Thing', () => {
 
   it('reads today with no versions, no switch and its own page under the workspace', async () => {
     await show('svc:subs', todayReaderOf('w', 0));
-    const link = await screen.findByRole('link', { name: 'Open as page' });
+    const link = await screen.findByRole('link', { name: 'Open page →' });
     expect(link.getAttribute('href')).toBe('/w/things?id=svc-subs');
     expect(screen.queryByRole('combobox', { name: 'As at' })).toBeNull();
     expect(screen.queryByRole('radio')).toBeNull();
     expect(document.body.textContent).not.toMatch(/\bplan\b/iu);
+  });
+
+  it('can still be closed when the model cannot be loaded', async () => {
+    await show('svc:subs', planReaderOf(at, 'revisions/gone/plan.json'));
+    await expect(screen.findByText('The plan could not be loaded.')).resolves.toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Close the inspector' })).toBeTruthy();
   });
 });

@@ -71,7 +71,7 @@ function fromUrl(url: string): Located | Problem {
   const match = HASH_LINES.exec(hash);
   return {
     repo: `${owner}/${name}`,
-    path: rest.join('/'),
+    path: decodeURIComponent(rest.join('/')),
     commit,
     ...(match?.[1] === undefined
       ? {}

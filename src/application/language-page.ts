@@ -240,3 +240,25 @@ export function languagePageOf(
     labels: Object.fromEntries([...keys.map(([, d]) => d), ...words].map((d) => [d.id, d.name])),
   };
 }
+
+/**
+ * The same page, narrowed to one domain: the key terms that live in it and its own words, under its own summary.
+ * Every detail stays, so a side panel can still open a word from another domain.
+ */
+export function domainLanguageOf(
+  page: LanguagePage,
+  domain: string,
+  summary: string | null,
+): LanguagePage {
+  const here = (r: TermRow) => r.domains.includes(domain);
+  return {
+    ...page,
+    summary,
+    source: null,
+    groups: page.groups
+      .map((g) => ({ ...g, terms: g.terms.filter(here) }))
+      .filter((g) => g.terms.length > 0),
+    words: page.words.filter(here),
+    domains: page.domains.filter((d) => d.id === domain),
+  };
+}

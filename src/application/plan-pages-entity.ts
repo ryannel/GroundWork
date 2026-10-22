@@ -11,6 +11,7 @@ import {
   type EntitySection,
   type EntitySource,
 } from './plan-pages-entity-read';
+import { systemGroups } from './plan-pages-entity-system';
 import { mentionsOf } from './plan-pages-entity-where';
 
 // What the inspector shows for one thing in a plan: what it is, who owns it, what it says, what it points at,
@@ -223,7 +224,14 @@ export function entityView(model: Model, id: string): EntityView | null {
     facts: read.facts,
     image: read.image,
     sources: read.sources,
-    uses: [...usesOf(model, read.links, owner), ...(type === 'team' ? teamGroups(model, id) : [])],
+    uses: [
+      ...usesOf(model, read.links, owner),
+      ...(type === 'team' ? teamGroups(model, id) : []),
+      ...systemGroups(model, id).map((g) => ({
+        label: g.label,
+        refs: g.ids.map((i) => refOf(model, i)),
+      })),
+    ],
     changes: changesOf(model, id),
     usedBy: usedByOf(model, id),
     mentionedIn: mentions.ids.map((i) => refOf(model, i)),

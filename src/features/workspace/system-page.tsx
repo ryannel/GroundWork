@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 
+import { type DomainNav, sectionId } from '@/application/domain-nav';
 import type { PlanPart } from '@/application/plan-footprint';
 import type { RepoRow } from '@/application/today-repos';
-import type { NavGroup } from '@/application/workspace-nav';
 import type { SystemView } from '@/application/workspace-system';
 import { Facts } from '@/ui/facts';
 import { PageHeader } from '@/ui/page-header';
@@ -18,7 +18,7 @@ import { WorkspaceShell } from './workspace-shell';
 
 interface SystemPageProps {
   readonly view: SystemView;
-  readonly nav: readonly NavGroup[];
+  readonly nav: DomainNav;
   /** The map of the system's components and their neighbours, drawn by the route. */
   readonly map?: ReactNode;
   /** The flows through the system, step by step, drawn by the route. */
@@ -39,7 +39,7 @@ function Section({
   readonly children: ReactNode;
 }) {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} id={sectionId(title)}>
       <SectionHeading title={title}>
         <p>{says}</p>
       </SectionHeading>
@@ -60,6 +60,7 @@ function Repos({ repos }: { readonly repos: readonly RepoRow[] }) {
             {repo.repo}
           </a>
           <span className={styles.read}>{repo.read}</span>
+          {repo.moved === null ? null : <span className={styles.cited}>{repo.moved}</span>}
           <span className={styles.cited}>{repo.cited}</span>
         </li>
       ))}
@@ -78,6 +79,9 @@ function Drawn({ view, map, flows }: Pick<SystemPageProps, 'view' | 'map' | 'flo
           {map}
         </Section>
       )}
+      <Section says="The systems just outside it, and which way the work goes." title="Edges">
+        <NeighbourList name={view.name} neighbours={view.neighbours} />
+      </Section>
       {flows === undefined || flows === null || view.flows.length === 0 ? null : (
         <Section
           says="The work that runs through it, most steps here first. Step through each flow on the drawing, or read it as a sequence."
@@ -90,38 +94,30 @@ function Drawn({ view, map, flows }: Pick<SystemPageProps, 'view' | 'map' | 'flo
   );
 }
 
-// One system, in the order a newcomer learns it: its job and owner, the plans that would change it, how fresh our
-// reading of its code is, where it ends, the map, the flows through it, each component, the data it keeps, and the
-// user journeys that pass through it.
+// One system, in the order a newcomer learns it: its job and owner, the plans that would change it, the map and
+// where it ends, the flows through it, each component, the data it keeps and the user journeys that pass through
+// it. Where its code lives, and how fresh our reading of it is, comes last.
 export function SystemPage({ view, nav, map, flows, parts, overlays, actions }: SystemPageProps) {
   return (
     <WorkspaceShell
       actions={actions}
-      nav={nav}
+      nav={nav.groups}
+      navTop={nav.top}
       overlays={overlays}
       title={view.name}
       trail={[{ label: 'Workspaces', href: '/' }, ...view.trail]}
     >
-      <PageHeader description={view.headline} meta={<Facts items={view.facts} />} title={view.name}>
-        <p className={styles.about}>{view.about}.</p>
-      </PageHeader>
-      {parts === undefined ? null : (
-        <Section says="What may change here." title="Plans">
-          <PlanParts parts={parts} where="this system" />
-        </Section>
-      )}
-      <Section
-        says="Where its code lives, and whether what this page says has been read from it."
-        title="Code"
-      >
-        <Repos repos={view.repos} />
-      </Section>
-      <Section says="The systems just outside it, and which way the work goes." title="Edges">
-        <NeighbourList name={view.name} neighbours={view.neighbours} />
+      <PageHeader
+        description={view.headline}
+        meta={<Facts items={[view.about, ...view.facts]} />}
+        title={view.name}
+      />
+      <Section says="What may change here." title="Plans">
+        <PlanParts name={view.name} parts={parts ?? []} />
       </Section>
       <Drawn flows={flows} map={map} view={view} />
       <Section
-        says="What each component does, what it is called on, what it calls, what it announces and hears, and what it keeps."
+        says="What each component does. Open the line under one for what it answers, calls, announces, hears and keeps."
         title="Components"
       >
         <ComponentCards cards={view.components} />
@@ -139,6 +135,12 @@ export function SystemPage({ view, nav, map, flows, parts, overlays, actions }: 
         title="User journeys"
       >
         <JourneysHere all={view.allJourneys} cards={view.journeys} />
+      </Section>
+      <Section
+        says="Where its code lives, and whether what this page says has been read from it."
+        title="Code"
+      >
+        <Repos repos={view.repos} />
       </Section>
     </WorkspaceShell>
   );

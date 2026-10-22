@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import type { PlanRow } from '@/application/plan-index';
 
-import { PlansPage } from './index';
+import { DomainPlans, PlansPage } from './index';
 
 let search = '';
 vi.mock(import('next/navigation'), () => ({
@@ -101,5 +101,21 @@ describe('PlansPage', () => {
   it('says how to write a plan when there are none', () => {
     render(<PlansPage domains={domains} rows={[]} />);
     expect(screen.getByText('No plans yet')).toBeTruthy();
+  });
+});
+
+describe('DomainPlans', () => {
+  it('lists one domain’s plans with no domain filter, naming where else each lands', () => {
+    const sales = rows.filter((r) => r.domains.includes('sales'));
+    render(<DomainPlans domains={domains} here="sales" rows={sales} />);
+    expect(titles()).toEqual(['New prices', 'VAT on invoices']);
+    expect(screen.queryByRole('combobox', { name: 'Domain' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Sales' })).toBeNull();
+    expect(screen.getByText('Also lands in Stock')).toBeTruthy();
+  });
+
+  it('says so when no plan reaches the domain', () => {
+    render(<DomainPlans domains={domains} here="sales" rows={[]} />);
+    expect(screen.getByText('No plan reaches this domain yet.')).toBeTruthy();
   });
 });

@@ -3,6 +3,12 @@
     font-size: var(--fs-12);
   }
 
+  .call {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+
   .fold summary {
     color: var(--fg-2);
     cursor: pointer;

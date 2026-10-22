@@ -115,11 +115,26 @@ export const keyIns = (type: SchemaNode | null | undefined, fieldName: string | 
   ),
 ];
 
-/** A key both subgraphs list for the type, else null. */
+/** Whether subgraph `sg` can hand over field `name` of the type: it holds a key with it, or resolves it. */
+const resolves = (type: SchemaNode | null | undefined, name: string, sg: string): boolean =>
+  keyIns(type, name).includes(sg) || (fieldNamed(type, name)?.subgraphs ?? []).includes(sg);
+
+/**
+ * A key the router can use to go from `pair[0]` to `pair[1]`: one the second lists, whose fields the
+ * first either lists as a key too or resolves (federation needs no matching @key on the side it leaves).
+ */
 export const sharedKey = (
   type: SchemaNode | null | undefined,
   pair: readonly [string, string],
-): Key | null => keysOf(type).find((k) => k.in.includes(pair[0]) && k.in.includes(pair[1])) ?? null;
+): Key | null => {
+  const [from, to] = pair;
+  const usable = keysOf(type).filter((k) => k.in.includes(to));
+  return (
+    usable.find((k) => k.in.includes(from)) ??
+    usable.find((k) => k.fields.every((name) => resolves(type, name, from))) ??
+    null
+  );
+};
 
 export const isKeyField = (type: SchemaNode | null | undefined, name: string): boolean =>
   keysOf(type).some((k) => k.fields.includes(name));

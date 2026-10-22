@@ -6,7 +6,7 @@ export { TodayThingView } from './today/today-thing-view.client';
 export { TodayJourneys } from './today/journey-index';
 export { TodayJourney } from './today/journey-walk';
 export { TodayCatalogue, TodayReference } from './today/reference-pages';
+export { TargetMap } from './today/target-map';
 export { TodayMap } from './today/today-map';
 export { FlowList } from './today/flow-list.client';
 export { TodayFlow } from './today/today-flows';
-export { TodayLanguage } from './today/today-language';

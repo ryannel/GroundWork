@@ -20,7 +20,22 @@ export function CardRows({ w, endpoints, selfs, action }: RowsProps) {
       {endpoints.map((ep) => (
         <g key={`${ep.via}@${String(ep.cy)}`} className={styles.endpoint} data-added={ep.added}>
           <circle className={styles.port} cx={0} cy={ep.cy} r={6} />
-          <text className={styles.sig} x={16} y={ep.cy + 0.5}>
+          {ep.protocol === null ? null : (
+            <g>
+              <rect
+                className={styles.num}
+                height={14}
+                rx={3}
+                width={ep.tagW - 4}
+                x={14}
+                y={ep.cy - 7}
+              />
+              <text className={styles.numText} x={14 + (ep.tagW - 4) / 2} y={ep.cy + 0.5}>
+                {ep.protocol}
+              </text>
+            </g>
+          )}
+          <text className={styles.sig} x={16 + ep.tagW} y={ep.cy + 0.5}>
             {ep.text}
           </text>
           <title>{ep.title}</title>

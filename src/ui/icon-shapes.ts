@@ -1,6 +1,6 @@
 // Line drawings on a 16 by 16 grid, stroked in currentColor, one per kind of thing.
 
-interface Shape {
+export interface Shape {
   readonly tag: 'rect' | 'circle' | 'ellipse' | 'path';
   readonly attrs: Readonly<Record<string, string>>;
 }
@@ -124,5 +124,9 @@ export const ICON_SHAPES = {
   lock: [
     { tag: 'rect', attrs: { x: '3.5', y: '7', width: '9', height: '6.5', rx: '1.2' } },
     { tag: 'path', attrs: { d: 'M5.5 7V5a2.5 2.5 0 0 1 5 0v2' } },
+  ],
+  search: [
+    { tag: 'circle', attrs: { cx: '7', cy: '7', r: '4.5' } },
+    { tag: 'path', attrs: { d: 'M10.4 10.4 14 14' } },
   ],
 } satisfies Readonly<Record<string, readonly Shape[]>>;

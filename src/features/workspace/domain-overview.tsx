@@ -1,23 +1,17 @@
 import type { ReactNode } from 'react';
 
-import type { DomainDiagram } from '@/application/domain-diagram';
-import type { PlanPart } from '@/application/plan-footprint';
 import type { DomainView } from '@/application/workspace-domain';
 import { SectionHeading } from '@/ui/section-heading';
 
-import { DomainDiagramView } from './domain-diagram.client';
 import styles from './domain-overview.module.css';
+import { DomainHeader } from './domain-page';
 import { FlowsPreview, LanguagePreview, type WordsPreview } from './domain-previews';
 import { DomainSystems } from './domain-systems';
 import { JourneysHere } from './journey-cards';
 import { NeighbourList } from './neighbour-list';
-import { PlanParts } from './plan-parts';
 
 interface DomainOverviewProps {
   readonly view: DomainView;
-  readonly diagram: DomainDiagram;
-  /** The plans landing on the domain's systems. */
-  readonly parts: readonly PlanPart[];
   /** The words the domain owns; null when it has written none down. */
   readonly words?: WordsPreview | null;
 }
@@ -38,33 +32,23 @@ function Section({ id, title, says, children }: SectionProps) {
   );
 }
 
-function Diagram({ view, diagram }: Pick<DomainOverviewProps, 'view' | 'diagram'>) {
-  return (
-    <Section
-      says="Who uses each system and which calls which. Point at a box to light its lines; dashed boxes sit in other domains."
-      title="How the systems work together"
-    >
-      <DomainDiagramView diagram={diagram} />
-      <details className={styles.more}>
-        <summary>Read the systems outside the domain as a list</summary>
-        <NeighbourList name={view.name} neighbours={view.neighbours} />
-      </details>
-    </Section>
-  );
-}
-
-// The first tab of a domain: what may change, how its systems fit together, each system, the busiest flows and the
-// words it owns. Each part is short and leads to its own tab for the rest.
-export function DomainOverview({ view, diagram, parts, words = null }: DomainOverviewProps) {
+// The first page of a domain: how big it is and who runs it, each system, the systems just outside it, the busiest flows and the
+// words it owns. Each part is short and leads to its own page for the rest; Plans lists what may change.
+export function DomainOverview({ view, words = null }: DomainOverviewProps) {
   return (
     <>
-      <Section says="What may change here, and how far each plan has got." title="Plans">
-        <PlanParts parts={parts} where="this domain" />
-      </Section>
-      <Diagram diagram={diagram} view={view} />
+      <DomainHeader view={view} />
       <Section id="systems" title="Systems">
         <DomainSystems systems={view.systems} />
       </Section>
+      {view.neighbours.reaches.length + view.neighbours.reachedBy.length === 0 ? null : (
+        <Section
+          says="The systems just outside the domain, and which way the work goes."
+          title="Edges"
+        >
+          <NeighbourList name={view.name} neighbours={view.neighbours} />
+        </Section>
+      )}
       {view.flows.length === 0 ? null : (
         <Section says="The flows with the most steps here." title="Busiest flows">
           <FlowsPreview flows={view.flows} href={`${view.href}flows/`} />

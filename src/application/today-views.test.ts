@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { acme as acmeKit } from '@/../test/workspace-kit';
 import { keyJourneysOf } from '@/application/key-journeys';
-import { domainScopeOf, workspaceScopeOf } from '@/application/model-scope';
+import { domainScopeOf, systemScopeOf, workspaceScopeOf } from '@/application/model-scope';
 import { catalogueOf } from '@/application/today-catalogue';
 import { todayJourneysOf } from '@/application/today-journeys';
 import { mapScopeOf, outsideOf } from '@/application/today-scope';
@@ -66,6 +66,14 @@ describe('scopes', () => {
     expect(mapScopeOf(workspace, storefront).places['sys:products']).toBe('Catalogue');
     expect(outsideOf(storefront)).toBe('outside this domain, one step away');
     expect(domainScopeOf(workspace, 'nowhere')).toBeNull();
+  });
+
+  it("names a neighbour's domain only when it lies outside the system's own", () => {
+    const { workspace } = acme();
+    const shop = workspace.domains.find((d) => d.id === 'storefront')!;
+    const places = mapScopeOf(workspace, systemScopeOf(workspace, 'shop')!).places;
+    expect(Object.keys(places).some((key) => places[key] === shop.name)).toBe(false);
+    expect(places['sys:products']).toBe('Catalogue');
   });
 
   it('keeps only what the components in a domain own in its catalogue', () => {

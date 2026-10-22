@@ -3,11 +3,13 @@ import {
   flowDrawingOf,
   issuePreviewOf,
   type IssuePreview,
+  operationDocumentOf,
 } from '@/application/plan-pages-entity-extras';
 import { shortDate } from '@/application/plan-viz-state';
 import { CopyButton } from '@/features/plan/viz/board/copy-button.client';
 import { CopyMermaid } from '@/features/plan/viz/flow-viewer/copy-mermaid.client';
 import { Sequence } from '@/features/plan/viz/sequence/sequence';
+import { TintedDocument } from '@/features/plan/viz/waterfall/tinted-document';
 import { Badge } from '@/ui/badge';
 
 import styles from './thing-extras.module.css';
@@ -23,6 +25,22 @@ function FlowDrawn({ model, id, today }: ThingExtrasProps) {
       <Sequence flowId={drawing.flowId} mode={drawing.mode} model={model} />
       <div className={styles.tools}>
         <CopyMermaid text={drawing.mermaid} />
+      </div>
+    </details>
+  );
+}
+
+function Query({ model, id, today }: ThingExtrasProps) {
+  const doc = operationDocumentOf(model, id, today);
+  if (doc === null) return null;
+  return (
+    <details className={styles.extra} open>
+      <summary className={styles.summary}>
+        {doc.mode === 'asIs' ? 'The query as it runs today' : 'The query with this plan'}
+      </summary>
+      <TintedDocument id={id} mode={doc.mode} model={model} />
+      <div className={styles.tools}>
+        <CopyButton text={doc.text}>Copy the query</CopyButton>
       </div>
     </details>
   );
@@ -67,11 +85,12 @@ interface ThingExtrasProps {
   readonly today: boolean;
 }
 
-/** A flow's drawing and a work item's issue, under its facts. */
+/** A flow's drawing, an operation's query and a work item's issue, under its facts. */
 export function ThingExtras({ id, model, ...rest }: ThingExtrasProps) {
   return (
     <>
       <FlowDrawn id={id} model={model} {...rest} />
+      <Query id={id} model={model} {...rest} />
       <Issue id={id} model={model} />
     </>
   );

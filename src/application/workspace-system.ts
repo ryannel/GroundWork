@@ -26,7 +26,7 @@ export interface SystemView {
   readonly trail: readonly { readonly label: string; readonly href: string }[];
   readonly name: string;
   readonly headline: string;
-  /** "Run by the Checkout team, in the Website domain" */
+  /** "Run by the Checkout team"; the trail already says which domain. */
   readonly about: string;
   readonly facts: readonly string[];
   readonly repos: readonly RepoRow[];
@@ -69,7 +69,7 @@ export function systemViewOf(
     name: system.name,
     headline:
       does === '' ? `${system.name} is a system in ${domain.name}.` : claimOf(system.name, does),
-    about: `${team === null ? 'No team runs it yet' : runBy(team.name)}, in the ${domain.name} domain`,
+    about: team === null ? 'No team runs it yet' : runBy(team.name),
     facts: [
       plural(system.components.length, 'component'),
       plural(system.repos.length, 'repo'),

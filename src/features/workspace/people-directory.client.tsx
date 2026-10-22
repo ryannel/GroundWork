@@ -74,7 +74,7 @@ export function PeopleDirectory({ map }: { readonly map: DomainMap }) {
                     <Text size="lg" tone="strong" weight="strong">
                       {p.name}
                     </Text>
-                    {p.customer ? (
+                    {p.customer && !/customer/iu.test(p.name) ? (
                       <Text caps mono size="sm" tone="accent">
                         Customer
                       </Text>

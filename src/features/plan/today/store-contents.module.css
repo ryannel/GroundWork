@@ -1,0 +1,31 @@
+@layer components {
+  .item {
+    display: grid;
+    gap: var(--s-2);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    padding: var(--s-2) var(--s-3);
+
+    &:not([open]) {
+      gap: 0;
+    }
+  }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    cursor: pointer;
+    list-style: none;
+
+    &::before {
+      color: var(--fg-3);
+      content: '▸';
+    }
+
+    [open] > &::before {
+      content: '▾';
+    }
+  }
+}

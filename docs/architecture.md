@@ -21,13 +21,15 @@ user-facing app. Say "service" only when you mean that kind; say "component" whe
   language.yaml                       the key terms the business has agreed on, anchored to the code
   domains/<domain>/domain.yaml
     language.yaml                     the domain's words: summary and concepts (system model)
+    target.yaml                       where the domain is heading: its target architecture (people)
     systems/<system>/system.yaml      purpose, components and what they talk to
     systems/<system>/contracts.yaml   what its components offer and keep (system model)
+    systems/<system>/handlers.yaml    what runs when its endpoints and messages are reached (system model)
   story.yaml                          summary and stages across domains (system model)
   flows/<flow>.yaml                   one flow per file (system model)
   journeys/<journey>.yaml             a user journey and its interactions (system model)
   assets/                             screen drawings cited by journeys
-  scans/<org>/<repo>.yaml             the commit each repo was last read at
+  scans/<org>/<repo>.yaml             the commit each repo was last read at, and how far it has moved since
   plans/<plan>/plan.yaml              revisions/, status.json, assets/, mockups/
 schema/plan.schema.json               the plan format, checked with ajv (in Groundwork, not the workspace)
 ```
@@ -65,7 +67,8 @@ How the systems work today, beside the structure. Every entry is in plan shape (
 symbol?}`; the permalink is derived, never stored (a bare `{url}` is still read, for docs and dashboards).
 `contracts.yaml` holds a system's stores, interfaces, schemas, messages, screens, graphs, subgraphs and
 operations, plus `components:` detail (kind, summary, sources) for components named in `system.yaml`. The
-structure stays the source of a component's name, tech and what it does.
+structure stays the source of a component's name, tech and what it does. `handlers.yaml`, beside it, holds the
+system's handlers (`handlers:`), each a fact like any other; the model reads them into `SystemContracts.handlers`.
 
 A system is a bounded context: one team and one language. A domain's `language.yaml` holds the words its systems
 use, each a concept with what it means, where it is born (`born_in`, a component, so its home system follows) and
@@ -79,8 +82,16 @@ to where it lives in the code, a domain's word (`con:…`), a system or a domain
 (`same`, `renamed`, `close`, `clash` or `lives-in`). A key term may have no anchor yet. `check` warns when an
 anchor or relation points at nothing.
 
+A domain's `target.yaml` is its **target architecture**: where the domain is heading, not what runs today and
+not a plan. It holds a summary, `stages` (the things the business makes, in order, each with an optional key
+`term`, the systems or components that should `own` it and the stages it is made `from`) and `shifts` (what is
+true `today`, what the `target` is, and the ids that show it). Stage and shift ids are local; owners, cites and
+`[[id]]`s point into today's model, and `check` warns when they do not (`src/application/workspace-target.ts`).
+People write it; the scan never does. The domain's Target architecture tab draws it.
+
 - `src/domain/workspace-model.ts` has the types: `WorkspaceModel`, `Attribution` (origin and code sources by id,
-  nested ids included) and `Scan` (a repo's high-water mark).
+  nested ids included) and `Scan` (a repo's high-water mark: `head` from `tools/scan-mark.ts`, and `checked`, the tip and commits
+  behind that `tools/scan-status.ts --record` last saw).
 - `src/infrastructure/workspace-model.ts` reads the files (each one optional), takes `origin` off, keeps the
   sources as attribution, turns them into permalinks and checks each entry against its plan `$def`. An id
   defined twice is an error.
@@ -111,7 +122,9 @@ components belong to the domain and system pages, and teams are not shown.
 - Language lists the key terms in their groups, with how well each fits the code, then every domain's words
   from the scan; search and a domain filter narrow both. Picking one opens it beside the list (`?term=`): what
   it means, its aliases and examples, where it lives (domain › system › component), what the code calls it and
-  what it relates to (`src/application/language-page.ts`). A scan seeds the words; people polish the key terms. People lists everyone, customers first, with their domains and
+  what it relates to (`src/application/language-page.ts`). A domain's Language tab is the same page narrowed to
+  the domain (`domainLanguageOf`): its own summary, the key terms that live in it and its words, with no domain
+  filter. A scan seeds the words; people polish the key terms. People lists everyone, customers first, with their domains and
   journeys.
 
 ### Plans
@@ -122,6 +135,8 @@ components belong to the domain and system pages, and teams are not shown.
   domains it lands in (those holding a component it changes, or a repo its work goes to), its stage (draft, in
   review, approved, then in delivery and delivered from its work items) and its date. The rail counts the plans
   and links to the index; it does not list them.
+- A domain's Plans page, `/[workspace]/[domain]/plans/`, is the same index narrowed to the plans that reach the
+  domain (`domainPlanRowsOf`), with no domain filter; each row names the other domains it also lands in.
 - Plan types live in `src/domain/plan/`. `plan.generated.ts` is generated from `schema/plan.schema.json` by
   `npm run generate`; a test fails if it is stale. Generated files are exempt from size limits only.
 - Everything worked out from a plan (the derived layer: graph, journeys, impact, delivery, diffs) lives in
@@ -156,6 +171,7 @@ components belong to the domain and system pages, and teams are not shown.
 | `/[workspace]/people/`                              | the people who use the systems       |
 | `/[workspace]/plans/`                               | every plan, to search and filter     |
 | `/[workspace]/[domain]/`                            | one domain                           |
+| `/[workspace]/[domain]/target/`                     | one domain's target architecture     |
 | `/[workspace]/[domain]/flows/[flow]/`               | one domain, with one flow open       |
 | `/[workspace]/[domain]/[system]/`                   | one system                           |
 | `/[workspace]/[domain]/[system]/flows/[flow]/`      | one system, with one flow open       |
@@ -178,10 +194,62 @@ components belong to the domain and system pages, and teams are not shown.
 A domain page and a system page are each a layout, and each flow through them is a page under it, so a domain
 can run hundreds of flows: the page carries only the flow being read, and choosing another fetches just that
 flow. The flow's address is its id without `flow:`. The domain's layout sits in the route group `(overview)` so
-it does not wrap its systems' pages. Both pages put their plans first; their flows are a searchable list, and
+it does not wrap its systems' pages. A system page puts its plans first, and always shows the section: with none,
+it says so and invites the reader to ask the agent for the first. A domain's overview leaves plans to its Plans
+page. Their flows are a searchable list, and
 only user journeys are cards, at most six, with a link to them all. That link is the journeys index, which lists every journey
 and flow as one line, to be narrowed by words or by domain, never as cards. The sidebar counts every journey but names only
 the key ones, and the one being read.
+
+The sidebar has two shapes. Across the workspace it reads in three sections: Overview (the landscape, opening to
+its map, language and people, and the plans), Domains (one link each, counting its systems) and Look up (the
+journeys and the reference); `src/application/workspace-nav.ts` builds it. Inside a domain, on its pages and its
+systems' pages, the sidebar steps into the domain (`src/application/domain-nav.ts`): a link back to the
+workspace, the domain's name, its pages (overview, plans, flows, map, language, interfaces; the domain page has no
+tabs), then its systems. The system being read opens to the sections of its page, each an anchor, in the page's
+order: plans, map, edges, flows, components, data, user journeys and code. `RailSpy`
+(`src/ui/nav-rail-spy.client.tsx`) marks the section being read as the page scrolls.
+
+A system page puts what it is for and how it fits before what it is made of: the drawing and its edges come before
+its components, and its code comes last. Each component card says what the component does and folds the rest
+(the endpoints it answers, what it calls, listens to and keeps) behind a line of counts. Neighbours in the same
+domain never repeat the domain's name, on the edges or the map.
+
+A domain's Map is the one drawing of how its systems fit; its overview no longer draws them. A domain can hold
+hundreds of parts, so when its story names no stages the map reads system by system
+(`src/application/plan-viz-system-map-columns.ts`): each system sits in the column of its tier, and opens folded
+to one card. A folded card names the system, says what it does, and ends with
+its team and its size (`10 parts · 7 stores`); it lists no parts, because a system can hold too many. A system in
+the domain never repeats the domain's name. Systems of other domains never mix with the domain's own: they sit in
+a band ruled off beneath them (`src/application/plan-viz-system-map-outside.ts`), each under the column of its tier
+so its lines stay short, grouped under the name of its domain. The toolbar
+switches between Systems and Components and filters the lines (calls, events, data); the reader can also unfold one
+system to see its parts. A system's own page keeps a column per step.
+
+Each column of a domain's map is one tier, read left to right the way a request travels
+(`plan-viz-system-map-roles.ts`): Channels, Gateway, Forward-facing, Back end and Upstream sources. A person may
+put a system in a tier with `tier:` in its system.yaml; otherwise the model implies it
+(`plan-viz-system-map-tiers.ts`): the system holding a graph's gateway is the gateway, a system serving one of its
+subgraphs is forward-facing, a system nothing else on the map calls or tells, but which calls out, is a channel, and
+the rest are back end. An outside party (an external component) that only its own system talks to stays inside
+that system, as one of its details; one that several systems talk to stands on its own in Upstream sources, as a
+one-line card (`sharedOutside`, in `plan-viz-system-map-columns.ts`). The gateway is drawn asking every subgraph it composes, even where no flow walks
+that call, so the fan-out reads at a glance. Empty tiers draw no column.
+A map read by tier draws one line for each pair of cards (`plan-viz-system-map-merge.ts`), from the one that needs
+the data to the one that has it: a caller to what it calls, a listener to who tells it, a reader to the store. The
+columns sit wide apart so each line can carry a short tag at its arrow naming the data it carries (`Product +2`):
+the schema each call answers with, else its interface, and each event by name (`carries`, in
+`plan-viz-system-map-input.ts`). Its tip lists every one, with how many calls. At rest the lines are faint and untagged, so the map shows only who talks to
+whom; pointing at a card traces its lines and shows their tags. Clicking a card opens it in the inspector, which
+lists the systems it gets data from and gives data to, and the map keeps that card traced until another is opened
+(`use-system-map.ts` follows the inspector's open id). A component marked `infrastructure: true` in its
+system.yaml (feature flags, sign-in, error tracking) is plumbing no business data comes from, so the map leaves it
+and its lines out until the reader presses Infrastructure (`plan-viz-system-map-infra.ts`).
+
+Each domain tab draws its own header (`DomainTab`, in `domain-page.tsx`): the tab's name as the title, under the
+domain in the trail, and a line on how to read it. The overview alone keeps the domain's name, purpose, numbers and
+teams (`DomainHeader`), so the map, flows and other tabs start straight away. Each flow read beside the list is
+titled with its name.
 
 `plans`, `things`, `assets`, `journeys`, `reference`, `language` and `people` are reserved and cannot be domain ids, `flows` cannot be
 a system id, and `assets`,
@@ -196,6 +264,14 @@ plan's, with the arrow keys, steady layout and remembered sections, but as-is on
 comparison or rollout notes. The reference lists only the kinds with entries and shows each catalogue with no
 `?show` modes and no status.
 
+A thing's page answers what a reader looking something up needs next. An endpoint or message with handlers says
+what happens when it is called or arrives (`src/application/today-handler.ts`, drawn by `handler-story.tsx`): the
+systems and stores it reaches, then each step in order with its forks, loops, retries and failures, each call
+opening to what the callee does in turn, four deep, stopping at a handler already shown. A store lists what it holds
+(`today-store.ts`): a database its tables, each opening to its columns; a topic its messages, with what each carries,
+who announces it and who hears it. The palette names the system each thing belongs to and finds an endpoint by its
+method and path, so "price cart v5" finds it.
+
 A plan that fails to load or has errors still gets its cover, which shows `PlanErrors`: each error and warning
 with its path, and the way back to the workspace. Its other screens are not built, and the workspace's lists leave
 it out until it is fixed; its `plan.json` holds only `{ errors }`.
@@ -205,14 +281,18 @@ Every thing the inspector can show, except the parts of one (fields, steps and r
 draws the shell, and the browser reads `?id=`, takes the model it fetches anyway and draws the thing, so the export
 does not grow with the model. It shows the same body as the inspector, with the others of its kind down the side,
 the pager and keys stepping through them, Copy link and the today / with-this-plan switch. The inspector's bar
-links to it with Open as page. Read today, the code evidence comes from `attribution.json`, kept out of
+links to it with Open as page; a system opened read today links to its own system page instead (`Reader.pages`, from
+`systemPagesOf`). The inspector shows a system's neighbours (Gets data from, Gives data to), parts, stores and flows
+(`systemGroups`), naming at most six of each. Read today, the code evidence comes from `attribution.json`, kept out of
 `model.json` because every page fetches that.
 
 The workspace's own pages read today, outside any plan. They fetch `/<workspace>/model.json`, the system model
 as a plan-shaped document with no work and so no status, and pass the inspector, palette, hover cards and keys a
 `Reader` (`todayReaderOf`): where the model is, where the thing page lives (`/<workspace>/things/`) and what images
 resolve against (`/<workspace>/`, so `assets/x.svg` is served from the workspace's `assets/`). A plan builds its
-own `Reader` with `planReaderOf`. Read today, there is no today / with-this-plan switch, no versions, no
+own `Reader` with `planReaderOf`. A layout that wraps pages at several depths (a domain's overview and its map, a
+system and its flows) leaves the depth out of `TodayOverlays`, and `TodayReaders` reads it from the open address.
+Read today, there is no today / with-this-plan switch, no versions, no
 status and no "in this plan"; a thing's page there also says where it sits (domain › system › component), what it
 works with, the flows it takes part in and the code that says so, with who said it and the commit.
 

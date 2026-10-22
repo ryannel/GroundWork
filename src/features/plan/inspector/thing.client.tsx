@@ -25,13 +25,19 @@ export function Thing({ id, reader }: ThingProps) {
   const [, startTransition] = useTransition();
   const shown =
     version === null ? head : use(pendingModel(revisionSrc(reader.modelSrc, version)).model);
-  const page = useMemo(
-    () => (head !== null && topThingIds(head).includes(id) ? thingAt(reader.thingBase, id) : null),
-    [head, reader.thingBase, id],
-  );
+  const page = useMemo(() => {
+    const own = reader.pages?.[id];
+    if (own !== undefined) return own;
+    return head !== null && topThingIds(head).includes(id) ? thingAt(reader.thingBase, id) : null;
+  }, [head, reader, id]);
   if (head === null) {
     const what = reader.mode === 'plan' ? 'The plan' : 'How the systems work today';
-    return <p className={styles.note}>{`${what} could not be loaded.`}</p>;
+    return (
+      <>
+        <InspectorBar id={id} model={null} />
+        <p className={styles.note}>{`${what} could not be loaded.`}</p>
+      </>
+    );
   }
   const jump = (next: string | null): void => {
     startTransition(() => {

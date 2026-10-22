@@ -59,8 +59,8 @@ export function InspectorBar({ id, model, page = null }: InspectorBarProps) {
         </span>
       </nav>
       {page === null ? null : (
-        <Link className={styles.open} href={page} title="Open it as a page of its own">
-          Open as page
+        <Link className={styles.open} href={page} title={`Open ${label(id)} as a page of its own`}>
+          Open page →
         </Link>
       )}
       <CopyLink label="Copy a link to what is open" />

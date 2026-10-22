@@ -1,8 +1,6 @@
 import { roundPath, type Point } from '@/application/plan-viz-flow-geometry';
 import { CW, type Box } from '@/application/plan-viz-system-map-boxes';
-import type { Columns } from '@/application/plan-viz-system-map-columns';
 import { colX, type Placed } from '@/application/plan-viz-system-map-geometry';
-import type { Aggregate, Link } from '@/application/plan-viz-system-map-links';
 import type { LineKind } from '@/application/plan-viz-system-map-types';
 
 // The line between two cards: where it leaves and lands, and the gaps it passes through on the way.
@@ -18,6 +16,8 @@ export interface Merged {
   readonly hostA: string;
   readonly hostB: string;
   readonly row: string | null;
+  /** Every kind of line folded into this one; a map read by tier draws one line per pair of cards. */
+  readonly kinds: ReadonlySet<LineKind>;
   readonly vias: ReadonlySet<string>;
   readonly flows: ReadonlySet<string>;
   readonly parts: ReadonlySet<string>;
@@ -40,67 +40,6 @@ export interface Route {
 
 const OFFS = [0, -5, 5, -10, 10];
 const round = (n: number): number => Math.round(n * 100) / 100;
-
-interface Seen {
-  readonly agg: Aggregate;
-  readonly nodes: ReadonlyMap<string, Box>;
-}
-
-function startOf(seen: Seen, l: Link, row: string | null): Merged {
-  const shown = (id: string): string => seen.nodes.get(id)?.id ?? id;
-  const host = (id: string): string => seen.agg.hostOfSat.get(id) ?? id;
-  return {
-    key: `${l.kind}|${shown(l.a)}|${shown(l.b)}|${row ?? ''}`,
-    kind: l.kind,
-    a: l.a,
-    b: l.b,
-    shownA: shown(l.a),
-    shownB: shown(l.b),
-    hostA: shown(host(l.a)),
-    hostB: shown(host(l.b)),
-    row,
-    vias: new Set(),
-    flows: new Set(),
-    parts: new Set(),
-    read: false,
-    write: false,
-    noted: l.flags.has('hand') && !l.flags.has('walked'),
-  };
-}
-
-function joined(prev: Merged, l: Link): Merged {
-  return {
-    ...prev,
-    vias: new Set([...prev.vias, ...l.vias]),
-    flows: new Set([...prev.flows, ...l.flows]),
-    parts: new Set([...prev.parts, `${l.a}|${l.b}`]),
-    read: prev.read || l.flags.has('read'),
-    write: prev.write || l.flags.has('write'),
-    noted: prev.noted && l.flags.has('hand') && !l.flags.has('walked'),
-  };
-}
-
-/** Lines are drawn between what is on screen: a folded system's parts share its card, so their lines merge. */
-export function mergeLinks(
-  agg: Aggregate,
-  cols: Columns,
-  nodes: ReadonlyMap<string, Box>,
-): { readonly live: readonly Merged[]; readonly inner: readonly Link[] } {
-  const inner: Link[] = [];
-  const merged = new Map<string, Merged>();
-  for (const l of agg.links.filter((x) => nodes.has(x.a) && nodes.has(x.b))) {
-    if (cols.isInternal(l)) {
-      inner.push(l);
-      continue;
-    }
-    const row =
-      l.row !== null && nodes.get(l.b)?.rows.some((r) => r.id === l.row) === true ? l.row : null;
-    const start = startOf({ agg, nodes }, l, row);
-    const next = joined(merged.get(start.key) ?? start, l);
-    merged.set(start.key, next);
-  }
-  return { live: [...merged.values()], inner };
-}
 
 interface Pre {
   readonly line: Merged;
@@ -195,6 +134,7 @@ function gapsOf(placed: Placed): Gap[][] {
 
 /** Hands out the gaps between cards and the brackets beside a column, spreading the lines that share one. */
 interface Pass {
+  readonly gap: number;
   /** The height to cross a column at, near the height the line wants. */
   readonly cross: (col: number, want: number) => number;
   /** How many brackets already sit beside the column. */
@@ -208,6 +148,7 @@ function passOver(placed: Placed): Pass {
   const used = new Map<Gap, number>();
   const brackets = new Map<number, number>();
   return {
+    gap: placed.gap,
     cross: (col, want) => {
       const [first, ...rest] = gaps[col] ?? [];
       if (first === undefined) return want;
@@ -245,7 +186,7 @@ function threaded(
     (_, k) => r.from.col + dir * (k + 1),
   );
   for (const c of between) {
-    const x0 = colX(c);
+    const x0 = colX(c, pass.gap);
     const gy = pass.cross(c, e.sy + (e.ty - e.sy) * ((x0 + CW / 2 - e.sx) / (e.tx - e.sx)));
     lowest = Math.max(lowest, gy);
     const [near, far] = dir > 0 ? [x0 - 6, x0 + CW + 6] : [x0 + CW + 6, x0 - 6];
@@ -281,7 +222,7 @@ function pathFor(
     return { d: curved(pts), tx, lowest };
   }
   const n = pass.bracket(r.from.col);
-  const bx = colX(r.from.col) + CW + 12 + (n % 5) * 6;
+  const bx = colX(r.from.col, pass.gap) + CW + 12 + (n % 5) * 6;
   return {
     d: roundPath(
       [

@@ -4,7 +4,7 @@ import type { Concept } from '@/domain/plan/plan.generated';
 import type { Workspace } from '@/domain/workspace';
 import type { DomainLanguage, KeyTerm, KeyTerms } from '@/domain/workspace-model';
 
-import { languagePageOf } from './language-page';
+import { domainLanguageOf, languagePageOf } from './language-page';
 import { placesOf } from './language-places';
 
 const workspace: Workspace = {
@@ -162,5 +162,25 @@ describe('languagePageOf, for loose and unanchored terms', () => {
       'What a customer means to buy.',
     );
     expect(page.words.find((w) => w.id === 'con:ghost')?.domains).toStrictEqual([]);
+  });
+});
+
+describe('domainLanguageOf', () => {
+  const page = domainLanguageOf(
+    languagePageOf(workspace, languages, keyTerms),
+    'sales',
+    'Selling.',
+  );
+
+  it('keeps only the key terms and words that live in the domain, under its own summary', () => {
+    expect(page.summary).toBe('Selling.');
+    expect(page.source).toBeNull();
+    expect(page.groups.map((g) => g.id)).toEqual(['selling', 'other']);
+    expect(page.groups.flatMap((g) => g.terms).every((t) => t.domains.includes('sales'))).toBe(
+      true,
+    );
+    expect(page.groups.flatMap((g) => g.terms).map((t) => t.id)).not.toContain('term:none');
+    expect(page.words.every((w) => w.domains.includes('sales'))).toBe(true);
+    expect(page.domains.map((d) => d.id)).toEqual(['sales']);
   });
 });

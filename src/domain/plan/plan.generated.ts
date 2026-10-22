@@ -422,6 +422,10 @@ export interface Service {
    */
   does?: string;
   /**
+   * true for plumbing every system leans on and no business data comes from (feature flags, sign-in, error tracking, schema registries); the system map hides it until the reader asks
+   */
+  infrastructure?: boolean;
+  /**
    * markdown; may cite [[id]]
    */
   summary?: string;

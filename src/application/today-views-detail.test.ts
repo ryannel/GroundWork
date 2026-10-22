@@ -54,7 +54,7 @@ describe('a system with little written about it', () => {
     const today = systemModelOf(workspace, model);
     const view = systemViewOf(bare, today, { domain: 'storefront', system: 'shop' })!;
     expect(view.about).toMatch(/^No team runs it yet/u);
-    expect(view.about).toMatch(/Storefront/u);
+    expect(view.about).not.toMatch(/Storefront/u);
   });
 });
 
@@ -83,6 +83,7 @@ describe('the map in words, for a thin workspace', () => {
           scanner: 'test',
           files: {},
           facts: 1,
+          checked: null,
         },
       ],
     };

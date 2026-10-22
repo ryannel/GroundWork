@@ -4,5 +4,10 @@
     width: 1em;
     height: 1em;
     vertical-align: -0.125em;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 }

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 
-import { domainViewOf } from '@/application/workspace-domain';
-import { CatalogueList } from '@/features/workspace';
+import { domainViewOf, systemCataloguesOf } from '@/application/workspace-domain';
+import { DomainTab, SystemCatalogues } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
 
 interface Params {
@@ -9,7 +9,7 @@ interface Params {
   readonly domain: string;
 }
 
-// The calls the domain answers, the events it announces and the data it keeps.
+// The calls the domain answers, the events it announces and the data it keeps, one system at a time.
 export default async function DomainInterfacesRoute({
   params,
 }: {
@@ -19,5 +19,14 @@ export default async function DomainInterfacesRoute({
   const data = await todayData(id);
   const view = data === null ? null : domainViewOf(data.workspace, data.today.model, domain);
   if (data === null || view === null) notFound();
-  return <CatalogueList catalogue={view.catalogue} />;
+  return (
+    <>
+      <DomainTab
+        says={`What ${view.name} offers everyone else, system by system: the calls it answers, the events it announces and the data it keeps. Open a row for what sits under it.`}
+        title="Interfaces"
+        view={view}
+      />
+      <SystemCatalogues systems={systemCataloguesOf(data.workspace, data.today.model, domain)} />
+    </>
+  );
 }

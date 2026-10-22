@@ -1,10 +1,12 @@
 import type { Model } from '@/application/plan/derive';
 import { prop } from '@/application/plan/ids';
+import { callWords } from '@/application/plan-viz-protocol';
 import type {
   MapEdgeIn,
   MapNodeIn,
   MapRefIn,
   MapStageIn,
+  MapSystemIn,
   SystemMapInput,
 } from '@/application/plan-viz-system-map-types';
 import { teamIndex, teamOf } from '@/application/plan-viz-teams';
@@ -26,6 +28,17 @@ function nodeIn(model: Model, id: string, teamId: string | null): MapNodeIn {
   };
 }
 
+/** How big each system is: its services, and the stores and topics those services own. */
+function systemsIn(model: Model): MapSystemIn[] {
+  const { services, stores, systems } = model.asIs;
+  const home = new Map(services.map((s) => [s.id, s.system ?? null]));
+  return systems.map((s) => ({
+    ...nodeIn(model, s.id, orNull(text(s.team))),
+    parts: services.filter((x) => x.system === s.id).length,
+    stores: stores.filter((x) => home.get(x.owner) === s.id).length,
+  }));
+}
+
 function refOf(model: Model, id: string): MapRefIn | null {
   const entity = model.asIs.get(id);
   if (entity === undefined) return null;
@@ -40,6 +53,13 @@ function refOf(model: Model, id: string): MapRefIn | null {
 function interfaceOf(model: Model, via: string): string {
   const parent = text(prop(model.asIs.get(via), '$parent'));
   return parent !== '' && model.asIs.has(parent) ? parent : via;
+}
+
+/** The data a call answers with, the event a message is, or the store read; else the interface it belongs to. */
+function carriedBy(model: Model, via: string): string {
+  const response = text(prop(model.asIs.get(via), 'response'));
+  if (response !== '') return model.label(response.split('#')[0] ?? response);
+  return model.label(via.startsWith('api:') ? interfaceOf(model, via) : via);
 }
 
 function stagesIn(model: Model): MapStageIn[] {
@@ -103,20 +123,30 @@ export function systemMapInput(model: Model, lens: string | null = null): System
   const edges = edgesIn(model);
   const refs = stageRefs(model);
   const interfaces: Record<string, string> = {};
-  for (const e of edges) if (e.via !== null) interfaces[e.via] = interfaceOf(model, e.via);
+  const calls: Record<string, string> = {};
+  const carries: Record<string, string> = {};
+  for (const e of edges) {
+    if (e.via === null) continue;
+    interfaces[e.via] = interfaceOf(model, e.via);
+    carries[e.via] = carriedBy(model, e.via);
+    const words = callWords(model, e.via);
+    if (words !== null) calls[e.via] = words;
+  }
   const ids = [
     ...[...services, ...stores, ...systems].map((n) => n.id),
     ...edges.flatMap((e) => [e.from, e.to, e.via ?? '']).filter((id) => id !== ''),
     ...Object.keys(refs),
     ...Object.values(interfaces),
+    ...flows.map((f) => f.id),
     ...[...services, ...stores, ...systems].map((n) => teamOf(model, n.id) ?? ''),
   ].filter((id) => id !== '');
   return {
     services: services.map((s) => ({
       ...nodeIn(model, s.id, teamOf(model, s.id)),
       system: s.system ?? null,
+      ...(s.infrastructure === true ? { infrastructure: true } : {}),
     })),
-    systems: systems.map((s) => nodeIn(model, s.id, orNull(text(s.team)))),
+    systems: systemsIn(model),
     stores: stores.map((s) => ({
       ...nodeIn(model, s.id, teamOf(model, s.id)),
       topic: TOPICS.has(s.kind),
@@ -138,6 +168,8 @@ export function systemMapInput(model: Model, lens: string | null = null): System
     stageOf: stageColumns(model),
     refs,
     interfaceOf: interfaces,
+    callWords: calls,
+    carries,
     labels: labelsOf(model, ids),
     lens,
     focus: null,

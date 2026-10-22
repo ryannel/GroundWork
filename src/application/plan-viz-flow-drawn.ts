@@ -90,6 +90,10 @@ export interface DrawnEdge {
 
 export interface DrawnEndpoint {
   readonly via: string;
+  /** How the call travels, "GraphQL" or "REST"; null when the model does not say. */
+  readonly protocol: string | null;
+  /** The room the protocol tag takes before the signature. */
+  readonly tagW: number;
   /** The signature, clipped to the card. */
   readonly text: string;
   readonly title: string;

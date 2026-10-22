@@ -47,7 +47,7 @@ const shop: Workspace = {
           id: 'price',
           name: 'Price',
           team: 'team:a',
-          repos: ['shop/price'],
+          repos: [{ repo: 'shop/price', path: null }],
           components: [
             component('api', [
               { to: 'db', via: 'data' },
@@ -155,7 +155,7 @@ describe('systemViewOf', () => {
     const { workspace, today } = acme();
     const view = systemViewOf(workspace, today, { domain: 'storefront', system: 'shop' })!;
     expect(view.headline).toBe('Shop: The website the customer shops on.');
-    expect(view.about).toBe('Run by the Web team, in the Storefront domain');
+    expect(view.about).toBe('Run by the Web team');
     expect(view.trail.map((step) => step.href)).toEqual(['/acme/', '/acme/storefront/']);
     expect(view.repos).toEqual([expect.objectContaining({ repo: 'acme/shop', scanned: false })]);
     expect(view.repos[0]?.read).toMatch(/^Not scanned yet/u);
@@ -163,8 +163,7 @@ describe('systemViewOf', () => {
     expect(view.components.map((c) => c.chip.id)).toEqual(['svc:shop-bff', 'svc:shop-web']);
     const bff = view.components.find((c) => c.chip.id === 'svc:shop-bff')!;
     expect(bff.calls.length).toBeGreaterThan(0);
-    expect(bff.offers.map((o) => o.chip.id)).toEqual(['api:bff-place-order']);
-    expect(bff.offers.every((o) => o.calls.length === 0)).toBe(true);
+    expect(bff.offers.map((o) => o.id)).toEqual(['api:bff-place-order']);
     expect(view.data.map((d) => d.head.id)).toEqual(['st:basket-cache']);
     expect(systemViewOf(workspace, today, { domain: 'orders', system: 'ordering' })?.headline).toBe(
       'Ordering records orders and tells people about them.',
@@ -190,9 +189,9 @@ describe('a small workspace', () => {
     expect(near.reaches).toEqual([
       expect.objectContaining({ id: 'search', place: 'Find domain', how: 'messages and calls' }),
     ]);
-    expect(near.reachedBy.map((n) => [n.id, n.how])).toEqual([
-      ['cart', 'calls'],
-      ['search', 'messages'],
+    expect(near.reachedBy.map((n) => [n.id, n.how, n.place])).toEqual([
+      ['cart', 'calls', ''],
+      ['search', 'messages', 'Find domain'],
     ]);
   });
 });

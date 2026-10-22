@@ -88,6 +88,7 @@ describe('readWorkspaceModel', () => {
         'scanner: groundwork-explore@1',
         'files: { "src/price/PriceController.java": 9ab0 }',
         'facts: 214',
+        'checked: { at: 2025-06-08T09:00:00Z, tip: 8a1b4d0, behind: 37, folders: { dgs/price: 2 } }',
       ].join('\n'),
     );
     const model = await readWorkspaceModel(workspace, path.dirname(folder));
@@ -103,10 +104,40 @@ describe('readWorkspaceModel', () => {
         scanner: 'groundwork-explore@1',
         files: { 'src/price/PriceController.java': '9ab0' },
         facts: 214,
+        checked: {
+          at: '2025-06-08T09:00:00Z',
+          tip: '8a1b4d0',
+          behind: 37,
+          folders: { 'dgs/price': 2 },
+        },
       },
     ]);
     expect(model.attribution).toEqual({});
     expect(componentsOf(workspace).length).toBeGreaterThan(6);
+  });
+
+  it('reads what runs when a system is called from handlers.yaml beside its contracts', async () => {
+    const { workspace } = await acme();
+    const folder = await bareWorkspace(scratch, workspace.id);
+    const [domain] = workspace.domains;
+    const [system] = domain?.systems ?? [];
+    const at = path.join(folder, 'domains', domain!.id, 'systems', system!.id);
+    await mkdir(at, { recursive: true });
+    await writeFile(
+      path.join(at, 'handlers.yaml'),
+      [
+        'handlers:',
+        '  - id: h:orders-create',
+        '    on: api:orders-create',
+        '    component: svc:ordering',
+        '    origin: curated',
+        '    steps: [{ does: Saves the order }]',
+      ].join('\n'),
+    );
+    const model = await readWorkspaceModel(workspace, path.dirname(folder));
+    const read = model.contracts.find((c) => c.system === system!.id);
+    expect(read?.handlers.map(({ id }) => id)).toEqual(['h:orders-create']);
+    expect(model.attribution['h:orders-create']).toEqual({ origin: 'curated', sources: [] });
   });
 
   it('refuses a fact without an origin', async () => {

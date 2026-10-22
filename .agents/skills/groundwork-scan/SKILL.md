@@ -34,8 +34,10 @@ only the fallback.
 ## Steps
 
 1. **List the repos.** Read every `system.yaml` in the workspace (or the systems you were given) and collect
-   `repos:` with the system, domain and `team` each belongs to. A repo listed by two systems is one explorer whose
-   facts are split by component; say so in the brief.
+   `repos:` with the system, domain and `team` each belongs to. An entry is `org/name`, or
+   `{ repo: org/name, path: dgs/pricing }` when systems share a repo and each holds a folder of it. A shared repo
+   is one explorer whose facts are split by folder: a file belongs to the system listing the deepest folder that
+   holds it, and the system listing the whole repo takes the rest. Say so in the brief.
 
 2. **Get the code.** Clone or update each repo outside the Groundwork repo, without blobs you will not read:
 
@@ -152,14 +154,22 @@ next scan would overwrite.
 
 ## Staleness
 
-A repo's mark is behind when its `head` is older than the tip of its branch:
+A repo's mark is behind when its `head` is older than the tip of its branch. Ask every repo the workspace lists
+at once:
 
 ```bash
-git ls-remote https://github.com/<org>/<name>.git refs/heads/<branch>
+node tools/scan-status.ts <workspace>            # never scanned, up to date, or "37 commits behind (3f9c2e1 → 8a1b4d0)"
+node tools/scan-status.ts <workspace> --record   # also writes `checked: { at, tip, behind, folders }` into each mark
 ```
 
-Say it as "as of 3f9c2e1, 37 commits behind" (`git rev-list --count <head>..origin/<branch>` in the clone). The
-app says the same, and `npm run map -- repos` lists the commit each repo was read at. Suggest `--since` for those repos.
+It asks the remote with `git ls-remote`, counts commits in the clone under the scan cache when there is one, and
+falls back to the default branch when a mark's branch no longer exists (`--record` corrects the mark's branch).
+A shared repo has one mark, since one scan reads it at one commit, but `folders` counts the new commits that
+touch each listed folder: when only `dgs/pricing` moved, re-read that folder for Price and leave the rest.
+It never moves `head`. With `checked` recorded, a system page says "37 commits behind, checked 20 October 2026"
+under each repo, and `MAP.md` has a Since column. Start a `--since` scan from the repos it lists as behind, and a
+full scan of the ones never scanned. `scan-mark` reads the branch from the clone, or from `origin/HEAD` when the
+checkout is detached.
 
 ## TODO: `tools/scan-merge.ts`
 

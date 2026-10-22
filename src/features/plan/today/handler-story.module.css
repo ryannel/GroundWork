@@ -1,0 +1,119 @@
+@layer components {
+  .reach {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: var(--s-2) var(--s-4);
+    align-items: center;
+    margin: 0;
+
+    & dt {
+      color: var(--fg-3);
+      font-size: var(--fs-13);
+    }
+
+    & dd {
+      margin: 0;
+    }
+  }
+
+  .handler {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .body {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .summary {
+    color: var(--fg-2);
+  }
+
+  .steps {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .step {
+    padding: var(--s-1) 0;
+  }
+
+  .what {
+    display: grid;
+    gap: var(--s-1);
+    min-width: 0;
+  }
+
+  .line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+
+  .guards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    font-size: var(--fs-13);
+  }
+
+  .branch {
+    display: grid;
+    gap: var(--s-2);
+    border-left: 2px solid var(--line-1);
+    padding-left: var(--s-3);
+  }
+
+  .deeper {
+    border-left: 2px solid var(--accent);
+    padding-left: var(--s-3);
+
+    &[open] {
+      padding-bottom: var(--s-2);
+    }
+  }
+
+  .more {
+    color: var(--accent);
+    cursor: pointer;
+    font-size: var(--fs-13);
+  }
+
+  .code {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover {
+      color: var(--fg-1);
+    }
+  }
+
+  .fails {
+    display: grid;
+    gap: var(--s-1);
+  }
+
+  .failList {
+    display: grid;
+    gap: var(--s-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .unread {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+  }
+}

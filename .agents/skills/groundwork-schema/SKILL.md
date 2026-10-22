@@ -19,7 +19,10 @@ fix, so read the message. Types for the app are generated from the schema with `
   flows/<flow>.yaml                      one curated walk across components per file        people
   journeys/<journey>.yaml                user journeys and interactions                     people
   domains/<d>/domain.yaml                name, purpose                                      people
-  domains/<d>/systems/<s>/system.yaml    name, team, repos, components (names, does)        people
+  domains/<d>/target.yaml                target architecture: summary, stages, shifts        people
+  domains/<d>/systems/<s>/system.yaml    name, team, repos (or folders of one), components  people
+                                         and tier: channel|gateway|forward|backend|upstream;
+                                         a component may say infrastructure: true
   domains/<d>/systems/<s>/contracts.yaml stores, interfaces, schemas, messages, screens     the scan
   domains/<d>/systems/<s>/handlers.yaml  what runs on each endpoint, message, job, action    the scan
   scans/<org>/<name>.yaml                each repo's high-water mark                        tools/scan-mark.ts

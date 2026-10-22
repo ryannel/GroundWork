@@ -2,6 +2,7 @@ import 'server-only';
 
 import { z } from 'zod';
 
+import { SYSTEM_TIERS } from '@/domain/workspace';
 import {
   RESERVED_PAGES,
   RESERVED_SYSTEM_PAGES,
@@ -18,6 +19,7 @@ const componentFile = z.strictObject({
   type: z.enum(['service', 'website', 'database', 'queue', 'job', 'library', 'external']),
   tech: z.string().optional(),
   does: z.string().optional(),
+  infrastructure: z.boolean().optional(),
   talks_to: z
     .array(z.strictObject({ to: id, via: z.enum(['api', 'message', 'data']) }))
     .default([]),
@@ -27,8 +29,21 @@ export const systemFile = z.strictObject({
   id: id.refine((value) => !RESERVED_SYSTEM_PAGES.includes(value), RESERVED),
   name: z.string(),
   purpose: z.string().optional(),
+  tier: z.enum(SYSTEM_TIERS).optional(),
   team: id.optional(),
-  repos: z.array(z.string()).default([]),
+  repos: z
+    .array(
+      z.union([
+        z.string(),
+        z.strictObject({
+          repo: z.string(),
+          path: z
+            .string()
+            .regex(/^[^/].*[^/]$|^[^/]$/u, 'a folder inside the repo, with no slash at either end'),
+        }),
+      ]),
+    )
+    .default([]),
   components: z.array(componentFile).default([]),
 });
 

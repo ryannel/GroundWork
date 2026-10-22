@@ -16,19 +16,32 @@ export interface Reader {
   readonly assetBase: string;
   /** The plan being read, in plan mode: its screens are where a thing appears. */
   readonly plan?: { readonly workspace: string; readonly slug: string };
+  /** Pages of their own beside the thing pages, by id: a system's page under its domain. */
+  readonly pages?: Readonly<Record<string, string>>;
 }
 
-/** How deep a page is below /<workspace>/: the landscape is 0, a domain 1, a system 2, a journey 2. */
-export type Depth = 0 | 1 | 2 | 3;
+// A page's depth is how far it sits below /<workspace>/: the landscape is 0, a domain 1, its map 2, a system's
+// flow 4.
+const todayModelSrc = (depth: number): string => `${'../'.repeat(depth)}model.json`;
 
-const todayModelSrc = (depth: Depth): string => `${'../'.repeat(depth)}model.json`;
+/** How deep a pathname is below /<workspace>/, for a layout that wraps pages at several depths. */
+export function depthIn(workspace: string, pathname: string): number {
+  const parts = pathname.split('/').filter((part) => part !== '');
+  const at = parts.indexOf(workspace);
+  return at === -1 ? 0 : parts.length - at - 1;
+}
 
-export function todayReaderOf(workspace: string, depth: Depth): Reader {
+export function todayReaderOf(
+  workspace: string,
+  depth: number,
+  pages: Readonly<Record<string, string>> = {},
+): Reader {
   return {
     mode: 'today',
     modelSrc: todayModelSrc(depth),
     thingBase: `/${workspace}/things/`,
     assetBase: `/${workspace}/`,
+    pages,
   };
 }
 

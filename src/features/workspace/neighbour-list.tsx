@@ -12,7 +12,8 @@ function Side({ title, list }: { readonly title: string; readonly list: readonly
       <ul className={styles.list}>
         {list.map((n) => (
           <li key={n.id}>
-            <Link href={n.href}>{n.name}</Link> <span className={styles.place}>{n.place}</span>{' '}
+            <Link href={n.href}>{n.name}</Link>{' '}
+            {n.place === '' ? null : <span className={styles.place}>{n.place}</span>}{' '}
             <span className={styles.how}>{n.how}</span>
           </li>
         ))}

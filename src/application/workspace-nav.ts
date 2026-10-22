@@ -5,30 +5,31 @@ import { keyJourneysOf } from './key-journeys';
 import { todayJourneysOf } from './today-journeys';
 import { journeyHref, journeysHref, referenceHref, referenceKindHref } from './today-reader';
 import { referenceOf } from './today-reference';
-import {
-  domainHref,
-  languageHref,
-  peopleHref,
-  plansHref,
-  systemHref,
-  workspaceHref,
-} from './workspace-paths';
+import { domainHref, languageHref, peopleHref, plansHref, workspaceHref } from './workspace-paths';
 
 export interface NavItem {
   readonly href: string;
   readonly title: string;
   readonly current: boolean;
+  readonly count?: string;
+  /** Its own parts, listed under it. */
+  readonly items?: readonly NavItem[];
 }
 
 export interface NavGroup {
   readonly key: string;
-  readonly marker: string;
+  readonly marker?: string;
   readonly title: string;
   readonly href: string;
   readonly count?: string;
   readonly current: boolean;
   readonly open: boolean;
-  readonly side?: boolean;
+  /** Starts a section of the rail, under this heading. */
+  readonly heading?: string;
+  /** Lists its items without a head of its own. */
+  readonly bare?: boolean;
+  /** Which item is open is read from the address, as the rail is drawn once for every page under it. */
+  readonly byPath?: boolean;
   readonly items: readonly NavItem[];
 }
 
@@ -51,7 +52,7 @@ function landscapeGroup(workspace: string, here: NavHere): NavGroup {
   const people = here.section === 'people';
   return {
     key: 'landscape',
-    marker: '◦',
+    heading: 'Overview',
     title: 'Landscape',
     href: workspaceHref(workspace),
     current: map,
@@ -64,44 +65,43 @@ function landscapeGroup(workspace: string, here: NavHere): NavGroup {
   };
 }
 
-// The workspace as a rail: its landscape first, then each domain opening to its systems, then its plans apart.
+// The workspace as a rail in three sections: an overview (the landscape and the plans), the domains, and what to
+// look up (the journeys and the reference). Stepping into a domain swaps this rail for the domain's own.
 export function workspaceNavOf(
   workspace: Workspace,
   plans: readonly unknown[],
   here: NavHere,
 ): NavGroup[] {
-  const landscape = landscapeGroup(workspace.id, here);
-  const domains = workspace.domains.map((domain, index): NavGroup => {
-    const current = domain.id === here.domain;
-    return {
-      key: `domain:${domain.id}`,
-      marker: String(index + 1),
-      title: domain.name,
-      href: domainHref(workspace.id, domain.id),
-      count: String(domain.systems.length),
-      current,
-      open: current,
-      items: domain.systems.map((system) => ({
-        href: systemHref({ workspace: workspace.id, domain: domain.id, system: system.id }),
-        title: system.name,
-        current: current && system.id === here.system,
-      })),
-    };
-  });
-  const today = [journeysGroup(workspace, here), referenceGroup(workspace.id, here)];
   // A workspace can hold hundreds of plans, so the rail counts them and the index finds them.
   const planGroup: NavGroup = {
     key: 'plans',
-    marker: 'P',
     title: 'Plans',
     href: plansHref(workspace.id),
     ...(plans.length === 0 ? {} : { count: String(plans.length) }),
     current: here.section === 'plans',
     open: false,
-    side: true,
     items: [],
   };
-  return [landscape, ...domains, ...today, planGroup];
+  const domains = workspace.domains.map((domain, index): NavGroup => {
+    const current = domain.id === here.domain;
+    return {
+      key: `domain:${domain.id}`,
+      ...(index === 0 ? { heading: 'Domains' } : {}),
+      title: domain.name,
+      href: domainHref(workspace.id, domain.id),
+      count: String(domain.systems.length),
+      current,
+      open: false,
+      items: [],
+    };
+  });
+  return [
+    landscapeGroup(workspace.id, here),
+    planGroup,
+    ...domains,
+    journeysGroup(workspace, here),
+    referenceGroup(workspace.id, here),
+  ];
 }
 
 // The journeys group counts them all but names only the key ones, and the one being read: a workspace can run
@@ -117,7 +117,7 @@ function journeysGroup(workspace: Workspace, here: NavHere): NavGroup {
   const named = reading === undefined || key.includes(reading) ? key : [...key, reading];
   return {
     key: 'journeys',
-    marker: 'J',
+    heading: 'Look up',
     title: 'Journeys',
     href: journeysHref(workspace.id),
     ...(journeys.length === 0 ? {} : { count: String(journeys.length) }),
@@ -136,7 +136,6 @@ function referenceGroup(workspace: string, here: NavHere): NavGroup {
   const kinds = here.today === undefined ? [] : referenceOf(here.today);
   return {
     key: 'reference',
-    marker: 'R',
     title: 'Reference',
     href: referenceHref(workspace),
     current,

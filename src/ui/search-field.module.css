@@ -1,9 +1,25 @@
 @layer components {
-  .field {
-    flex: 1 1 20rem;
+  .box {
+    position: relative;
+    display: block;
     width: 100%;
     max-width: 32rem;
-    padding: var(--s-2) var(--s-3);
+  }
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: var(--s-3);
+    display: flex;
+    color: var(--fg-3);
+    font-size: var(--fs-13);
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
+
+  .field {
+    width: 100%;
+    padding: var(--s-2) var(--s-3) var(--s-2) calc(var(--s-3) + 1em + var(--s-2));
     border: 1px solid var(--line-2);
     border-radius: var(--r-2);
     background: var(--node-bg);
@@ -15,5 +31,9 @@
       outline: 2px solid var(--focus);
       outline-offset: 1px;
     }
+  }
+
+  .box:focus-within .icon {
+    color: var(--fg-1);
   }
 }

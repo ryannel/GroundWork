@@ -77,7 +77,7 @@ function catalogue(): Domain {
         name: 'Products',
         purpose: 'Keeps every product and its details.',
         team: 'team:catalogue',
-        repos: ['acme/products'],
+        repos: [{ repo: 'acme/products', path: null }],
         components: [
           component({
             id: 'svc:products',
@@ -117,7 +117,7 @@ function catalogue(): Domain {
         name: 'Search',
         purpose: null,
         team: 'team:catalogue',
-        repos: ['acme/search'],
+        repos: [{ repo: 'acme/search', path: null }],
         components: [
           component({
             id: 'svc:search-indexer',
@@ -157,7 +157,7 @@ function orders(): Domain {
         name: 'Ordering',
         purpose: 'Records orders and tells people about them.',
         team: 'team:orders',
-        repos: ['acme/ordering'],
+        repos: [{ repo: 'acme/ordering', path: null }],
         components: [
           component({
             id: 'svc:order-api',
@@ -202,7 +202,7 @@ function orders(): Domain {
         name: 'Payments',
         purpose: null,
         team: 'team:payments',
-        repos: ['acme/payments'],
+        repos: [{ repo: 'acme/payments', path: null }],
         components: [
           component({
             id: 'svc:payments',
@@ -235,7 +235,7 @@ function storefront(): Domain {
         name: 'Accounts',
         purpose: null,
         team: 'team:web',
-        repos: ['acme/accounts'],
+        repos: [{ repo: 'acme/accounts', path: null }],
         components: [
           component({
             id: 'svc:accounts',
@@ -257,7 +257,7 @@ function storefront(): Domain {
         name: 'Shop',
         purpose: 'The website the customer shops on.',
         team: 'team:web',
-        repos: ['acme/shop'],
+        repos: [{ repo: 'acme/shop', path: null }],
         components: [
           component({
             id: 'svc:shop-bff',

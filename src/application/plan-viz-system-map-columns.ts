@@ -1,4 +1,8 @@
+import { G, WIDE_G } from '@/application/plan-viz-system-map-boxes';
 import type { Aggregate, Link } from '@/application/plan-viz-system-map-links';
+import { outsideOf, ownFirst, type Outside } from '@/application/plan-viz-system-map-outside';
+import { partTiers } from '@/application/plan-viz-system-map-part-tiers';
+import { roleIndex, type RoleSpan, roleSpansOf } from '@/application/plan-viz-system-map-roles';
 import type { SystemMapInput } from '@/application/plan-viz-system-map-types';
 
 // Which column each card sits in, and in what order down the column.
@@ -16,6 +20,12 @@ export interface Columns {
   readonly membersOf: (unit: string) => readonly string[];
   /** Units with a line to or from at least one other. */
   readonly linked: ReadonlySet<string>;
+  /** The room between columns: wider when read system by system, so each line can say what it carries. */
+  readonly gap: number;
+  /** The role each run of columns plays, when read system by system; empty otherwise. */
+  readonly roles: readonly RoleSpan[];
+  /** The cards of other domains, drawn in a band beneath the domain's own. */
+  readonly outside: Outside;
 }
 
 const hostOf = (agg: Aggregate, id: string): string => agg.hostOfSat.get(id) ?? id;
@@ -72,8 +82,25 @@ function ranks(
   return settle(start, ids.length);
 }
 
+/** A map about more than one system, with no stages, reads system by system: each tier takes one column, its
+ * systems open folded, as a domain can hold hundreds of parts. */
+export function bySystem(input: SystemMapInput): boolean {
+  if (input.stages.length > 0 || input.focus === null) return false;
+  const focus = new Set(input.focus);
+  return input.systems.filter((s) => focus.has(s.id)).length > 1;
+}
+
+/** Each part in the column of its tier, so the map reads the way a request travels. */
+function tierColumns(input: SystemMapInput): ReadonlyMap<string, number> {
+  const tiers = partTiers(input);
+  return new Map(
+    input.services.map((s) => [s.id, roleIndex(tiers.part.get(s.id) ?? tiers.system(s.system))]),
+  );
+}
+
 function stageColumns(input: SystemMapInput, agg: Aggregate): ReadonlyMap<string, number> {
   const ids = input.services.map((s) => s.id);
+  if (bySystem(input)) return tierColumns(input);
   if (input.stages.length === 0) {
     const dir = agg.links
       .filter((l) => l.kind !== 'data')
@@ -113,10 +140,16 @@ function systemParts(
   col: ReadonlyMap<string, number>,
 ): Map<string, string[]> {
   const known = new Set(input.systems.map((s) => s.id));
+  const tiered = bySystem(input);
   const parts = new Map<string, string[]>();
+  const tiers = partTiers(input);
+  // a part in another tier from its system's (a shared outside party, a foundation) stands on its own
+  const joins = (svc: SystemMapInput['services'][number], sys: string): boolean =>
+    known.has(sys) && (!tiered || tiers.part.get(svc.id) === tiers.system(sys));
   for (const svc of input.services) {
-    if (svc.system === null || !known.has(svc.system)) continue;
-    parts.set(svc.system, [...(parts.get(svc.system) ?? []), svc.id]);
+    if (svc.system !== null && joins(svc, svc.system)) {
+      parts.set(svc.system, [...(parts.get(svc.system) ?? []), svc.id]);
+    }
   }
   for (const [sys, ids] of parts) {
     if (new Set(ids.map((id) => col.get(id))).size !== 1) parts.delete(sys);
@@ -237,9 +270,24 @@ export function layoutColumns(input: SystemMapInput, agg: Aggregate): Columns {
   const nbU = neighbours(units, bothIn(pairs, new Map(units.map((u) => [u, 0]))));
   const cols: string[][] = used.map(() => []);
   for (const u of units) cols[colOfU(u)]?.push(u);
+  const systems = bySystem(input);
+  const outside = outsideOf(input, systems, membersOf);
   const sorted = orderColumns(input, { cols, nbU, colOfU }, membersOf).map((list) =>
-    providersFirst(list, aboveOf(agg, { unitOf, isInternal, colOfU })),
+    ownFirst(providersFirst(list, aboveOf(agg, { unitOf, isInternal, colOfU })), outside),
   );
   const linked = new Set(units.filter((u) => (nbU.get(u)?.size ?? 0) > 0));
-  return { cols: sorted, used, partsOf, sysOf, unitOf, isInternal, colOfU, membersOf, linked };
+  return {
+    cols: sorted,
+    used,
+    partsOf,
+    sysOf,
+    unitOf,
+    isInternal,
+    colOfU,
+    membersOf,
+    linked,
+    gap: systems ? WIDE_G : G,
+    roles: systems ? roleSpansOf(used) : [],
+    outside,
+  };
 }

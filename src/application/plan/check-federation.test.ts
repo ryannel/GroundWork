@@ -224,6 +224,21 @@ describe('validator checks 15–22', () => {
         { id: 'api:graph-product', sig: 'POST /graphql' },
       ];
     }, /if:graph is the GraphQL interface of graph:shop's gateway but lists endpoints; model them as operations/u);
+    const kept = check((p) => {
+      byId(p.interfaces, 'if:graph').endpoints = [{ id: 'api:graph-run', sig: 'POST /graphql' }];
+      Object.assign(p, {
+        handlers: [
+          {
+            id: 'h:gateway-run',
+            on: 'api:graph-run',
+            component: 'svc:gateway',
+            summary: 'The gateway plans and fetches each operation.',
+            steps: [{ does: 'Plans the operation' }],
+          },
+        ],
+      });
+    });
+    expect(has(kept.warnings, /lists endpoints/u), "the gateway's own pipeline").toBe(false);
   });
 });
 

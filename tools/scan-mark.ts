@@ -112,6 +112,16 @@ function filesOf(
   return files;
 }
 
+// The branch the clone follows: the checked-out one, or the remote's default when HEAD is detached (as the scan
+// leaves it after `checkout --detach origin/<branch>`).
+function branchOf(dir: string): string {
+  const current = git(dir, ['rev-parse', '--abbrev-ref', 'HEAD']).trim();
+  if (current !== '' && current !== 'HEAD') return current;
+  const remote = git(dir, ['symbolic-ref', '--short', 'refs/remotes/origin/HEAD']).trim();
+  const branch = remote.replace(/^origin\//u, '');
+  return branch === '' ? 'HEAD' : branch;
+}
+
 function main(argv: readonly string[]): void {
   const valued = new Set(['--branch', '--scanner']);
   const [workspace, repo, dir] = argv.filter(
@@ -141,7 +151,7 @@ function main(argv: readonly string[]): void {
   const files = filesOf(cited, shas);
   const mark: Mark = {
     repo,
-    branch: option(argv, '--branch') ?? git(dir, ['rev-parse', '--abbrev-ref', 'HEAD']).trim(),
+    branch: option(argv, '--branch') ?? branchOf(dir),
     head: git(dir, ['rev-parse', 'HEAD']).trim(),
     scanned_at: new Date().toISOString().replace(/\.\d+Z$/u, 'Z'),
     scanner: option(argv, '--scanner') ?? 'groundwork-explore@1',

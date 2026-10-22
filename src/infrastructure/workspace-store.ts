@@ -10,14 +10,19 @@ import type { Domain, System, Workspace } from '@/domain/workspace';
 import { checkWorkspace } from '@/domain/workspace-check';
 
 import { workspaceFolders } from './workspace-folders';
+import { untilEdited } from './workspace-memo';
 import { domainFile, systemFile, workspaceFile } from './workspace-schema';
+
+const remembered = untilEdited<readonly Workspace[]>();
 
 // <workspace>/workspace.yaml          the workspace's own repo; see workspace-folders for where it is
 //   domains/<domain>/domain.yaml
 //     systems/<system>/system.yaml
 export async function readWorkspaces(root?: string): Promise<readonly Workspace[]> {
-  const found = await workspaceFolders(root);
-  return Promise.all([...found.values()].map(async (folder) => readWorkspace(folder)));
+  return remembered(root, 'workspaces', async () => {
+    const found = await workspaceFolders(root);
+    return Promise.all([...found.values()].map(async (folder) => readWorkspace(folder)));
+  });
 }
 
 async function readWorkspace(folder: string): Promise<Workspace> {
@@ -69,8 +74,11 @@ async function readSystem(folder: string): Promise<System> {
     id: file.id,
     name: file.name,
     purpose: file.purpose ?? null,
+    ...(file.tier === undefined ? {} : { tier: file.tier }),
     team: file.team ?? null,
-    repos: file.repos,
+    repos: file.repos.map((home) =>
+      typeof home === 'string' ? { repo: home, path: null } : { repo: home.repo, path: home.path },
+    ),
     components: file.components.map((component) => ({
       id: component.id,
       name: component.name,
@@ -78,6 +86,7 @@ async function readSystem(folder: string): Promise<System> {
       tech: component.tech ?? null,
       does: component.does ?? null,
       talksTo: component.talks_to,
+      ...(component.infrastructure === true ? { infrastructure: true } : {}),
     })),
   };
 }

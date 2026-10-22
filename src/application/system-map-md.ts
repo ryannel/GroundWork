@@ -1,7 +1,7 @@
 // MAP.md: the system model in one page an agent reads first. One line per domain, system and component,
 // where each lives in code, how current that is, and how to ask for more.
 import type { MapFact, SystemMap } from '@/application/system-map';
-import type { Component, System } from '@/domain/workspace';
+import { type Component, homeLabel, type System } from '@/domain/workspace';
 
 const ENTRY_TYPES = new Set(['endpoint', 'message', 'operation', 'interaction', 'handler']);
 
@@ -38,10 +38,11 @@ function reposSection(map: SystemMap): string[] {
   return [
     '## Repos',
     '',
-    '| Repo | System | Read at |',
-    '| --- | --- | --- |',
+    '| Repo | System | Read at | Since |',
+    '| --- | --- | --- | --- |',
     ...map.repos.map(
-      (repo) => `| ${repo.repo} | ${repo.system} | ${readAt(repo.head, repo.scannedAt)} |`,
+      (repo) =>
+        `| ${homeLabel(repo)} | ${repo.system} | ${readAt(repo.head, repo.scannedAt)} | ${movedAt(repo)} |`,
     ),
     '',
   ];
@@ -57,8 +58,17 @@ function readAt(head: string | null, at: string | null): string {
   return at === null ? short : `${short} (${at})`;
 }
 
+function movedAt(repo: SystemMap['repos'][number]): string {
+  const { head, checked } = repo;
+  if (head === null || checked === null) return 'not checked';
+  if (checked.tip === head) return `up to date (${checked.at})`;
+  const by = checked.behind === null ? 'moved on' : `${String(checked.behind)} commits behind`;
+  return `${by} at ${checked.tip.slice(0, 7)} (${checked.at})`;
+}
+
 function systemSection(map: SystemMap, system: System, team: string): string[] {
-  const repos = system.repos.length === 0 ? 'no repo listed' : system.repos.join(', ');
+  const repos =
+    system.repos.length === 0 ? 'no repo listed' : system.repos.map(homeLabel).join(', ');
   return [
     `### ${system.name} (\`${system.id}\`)`,
     '',

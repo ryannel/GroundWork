@@ -2,6 +2,7 @@ import type { PlanRow } from '@/application/plan-index';
 import { plural } from '@/shared/text';
 import { Callout } from '@/ui/callout';
 import { PageHeader } from '@/ui/page-header';
+import { Text } from '@/ui/text';
 
 import { PlansIndex, type IndexDomain } from './plans-index.client';
 
@@ -32,4 +33,21 @@ export function PlansPage({ rows, domains }: PlansPageProps) {
       )}
     </>
   );
+}
+
+interface DomainPlansProps extends PlansPageProps {
+  /** The domain being read. */
+  readonly here: string;
+}
+
+// What may change in one domain: the plans that reach it, found and cut like the workspace's.
+export function DomainPlans({ rows, domains, here }: DomainPlansProps) {
+  if (rows.length === 0) {
+    return (
+      <Text as="p" tone="muted">
+        No plan reaches this domain yet.
+      </Text>
+    );
+  }
+  return <PlansIndex domains={domains} here={here} rows={rows} />;
 }

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import type { NavGroup } from '@/application/workspace-nav';
 import { AppBar } from '@/ui/app-bar';
 import { AppShell } from '@/ui/app-shell';
-import { NavRail } from '@/ui/nav-rail';
+import { NavRail, type RailTop } from '@/ui/nav-rail';
 import { RailToggle } from '@/ui/rail-drawer.client';
 
 export interface Crumb {
@@ -13,6 +13,8 @@ export interface Crumb {
 
 interface WorkspaceShellProps {
   readonly nav: readonly NavGroup[];
+  /** Inside a domain: the way back to the workspace and the domain's name. */
+  readonly navTop?: RailTop;
   readonly trail: readonly Crumb[];
   readonly title: string;
   /** What floats over the page: the inspector, the palette, the keys. */
@@ -25,6 +27,7 @@ interface WorkspaceShellProps {
 // A workspace page in the same frame as a plan: the trail in the bar, the workspace down the left.
 export function WorkspaceShell({
   nav,
+  navTop,
   trail,
   title,
   overlays,
@@ -39,7 +42,7 @@ export function WorkspaceShell({
         </AppBar>
       }
       overlays={overlays}
-      rail={<NavRail groups={nav} label="Workspace" />}
+      rail={<NavRail groups={nav} label="Workspace" top={navTop} />}
     >
       {children}
     </AppShell>

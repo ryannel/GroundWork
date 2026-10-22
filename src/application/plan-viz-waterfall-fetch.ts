@@ -50,8 +50,9 @@ function readsOf(f: Fetch, ctx: FetchContext): FetchReadView[] {
     } else if (row?.state === 'miss') mark = { kind: 'miss', glyph: null, text: 'miss' };
     return { store, kind: 'cache', skipped: false, mark };
   });
-  const vias = f.vias.map((v): FetchReadView => ({
-    store: v.via,
+  // two fields can reach the same endpoint; the endpoint is read once
+  const vias = [...new Set(f.vias.map((v) => v.via))].map((via): FetchReadView => ({
+    store: via,
     kind: 'via',
     skipped: viaSkipped,
     mark: null,

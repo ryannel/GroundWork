@@ -11,13 +11,6 @@
     }
   }
 
-  .eyebrow {
-    fill: var(--fg-2);
-    font-family: var(--font-mono);
-    font-size: var(--fs-12);
-    letter-spacing: 0.08em;
-  }
-
   .name {
     fill: var(--fg-1);
     font-size: var(--fs-13);
@@ -32,16 +25,6 @@
   .divider {
     stroke: var(--line-2);
     stroke-width: 1;
-  }
-
-  .part {
-    cursor: pointer;
-  }
-
-  .partName {
-    fill: var(--fg-1);
-    font-size: var(--fs-12);
-    dominant-baseline: middle;
   }
 
   .chevron {

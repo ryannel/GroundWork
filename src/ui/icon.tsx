@@ -1,6 +1,6 @@
-import { createElement } from 'react';
+import { createElement, type ReactNode } from 'react';
 
-import { ICON_SHAPES } from './icon-shapes';
+import { ICON_SHAPES, type Shape } from './icon-shapes';
 import styles from './icon.module.css';
 
 export type IconName = keyof typeof ICON_SHAPES;
@@ -44,25 +44,19 @@ const BY_GLYPH: Readonly<Record<string, IconName>> = {
 /** The drawing for a text glyph, or null when it has none. */
 export const iconOf = (glyph: string): IconName | null => BY_GLYPH[glyph] ?? null;
 
-// A small line drawing in the current text colour. Decorative: the word beside it carries the meaning.
+/** The shapes of an icon, as children that need no keys: they never change, and a key would ship in every page. */
+export function iconShapes(name: IconName): ReactNode[] {
+  const shapes: readonly Shape[] = ICON_SHAPES[name];
+  return shapes.map((shape) => createElement(shape.tag, shape.attrs));
+}
+
+// A small line drawing in the current text colour. Decorative: the word beside it carries the meaning. Stroke
+// and fill come from the class, not attributes, because a page can hold hundreds of these.
 export function Icon({ name }: { readonly name: IconName }) {
-  return (
-    <svg
-      aria-hidden="true"
-      className={styles.icon}
-      data-icon={name}
-      fill="none"
-      focusable="false"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.4"
-      viewBox="0 0 16 16"
-    >
-      {ICON_SHAPES[name].map((shape) =>
-        createElement(shape.tag, { key: Object.values(shape.attrs).join(' '), ...shape.attrs }),
-      )}
-    </svg>
+  return createElement(
+    'svg',
+    { 'aria-hidden': true, className: styles.icon, viewBox: '0 0 16 16' },
+    ...iconShapes(name),
   );
 }
 

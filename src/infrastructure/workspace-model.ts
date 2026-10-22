@@ -14,6 +14,7 @@ import type {
   Scan,
   Story,
   SystemContracts,
+  TargetArchitecture,
   WorkspaceModel,
 } from '@/domain/workspace-model';
 
@@ -21,19 +22,23 @@ import { workspaceFolder } from './workspace-folders';
 import { type Reading, readingOf } from './workspace-model-facts';
 import {
   contractsFile,
+  handlersFile,
   journeyFile,
   keyTermsFile,
   languageFile,
   scanFile,
   storyFile,
+  targetFile,
 } from './workspace-model-schema';
 
 // workspaces/<workspace>/story.yaml                 summary, stages (and concepts that belong to no domain)
 //   language.yaml                                   the key terms the whole business agrees on
 //   domains/<domain>/language.yaml                  the domain's summary and concepts
+//   domains/<domain>/target.yaml                    where the domain is heading
 //   flows/<flow>.yaml                               one flow per file
 //   journeys/<journey>.yaml                         a user journey and its interactions
 //   domains/<domain>/systems/<system>/contracts.yaml what the system's components offer and keep
+//   domains/<domain>/systems/<system>/handlers.yaml  what runs when they are called
 //   scans/<org>/<name>.yaml                         the commit each repo was last read at
 // Every file is optional; a workspace with none has an empty model.
 export async function readWorkspaceModel(
@@ -62,9 +67,10 @@ export async function readWorkspaceModel(
     })),
   );
   // Files are read side by side, then checked in a fixed order so ids are claimed the same way every time.
-  const [languageTexts, contractsRaw] = await Promise.all([
+  const [languageTexts, contractsRaw, handlersRaw] = await Promise.all([
     Promise.all(languageFiles.map(async ({ file }) => readFile(file, 'utf8').catch(() => null))),
     Promise.all(systemFiles.map(async ({ file }) => readOptional(file))),
+    Promise.all(systemFiles.map(async ({ file }) => readOptional(handlersBeside(file)))),
   ]);
   const readLanguages = await Promise.all(
     languageFiles.map(async ({ domain, file }, i) =>
@@ -74,13 +80,19 @@ export async function readWorkspaceModel(
   const languages = readLanguages.flatMap((language) => (language === null ? [] : [language]));
   const contracts = await Promise.all(
     systemFiles.map(async ({ system, file }, i) =>
-      readContracts({ system, file, raw: contractsRaw[i] }, reading),
+      readContracts({ system, file, raw: contractsRaw[i], handlers: handlersRaw[i] }, reading),
     ),
   );
   const scans = await readEach(path.join(folder, 'scans'), scanOf);
+  const targets = await Promise.all(
+    workspace.domains.map(async (domain) =>
+      readTarget(domain.id, path.join(folder, 'domains', domain.id, 'target.yaml')),
+    ),
+  );
   return {
     story,
     languages,
+    targets: targets.flatMap((target) => (target === null ? [] : [target])),
     keyTerms,
     flows,
     journeys: journeys.flatMap(({ journey }) => (journey === undefined ? [] : [journey])),
@@ -153,6 +165,22 @@ async function readLanguage(
   };
 }
 
+async function readTarget(domain: string, file: string): Promise<TargetArchitecture | null> {
+  const raw = await readFile(file, 'utf8').catch(() => null);
+  if (raw === null) return null;
+  const data = parsed(file, targetFile, parse(raw) ?? {});
+  return {
+    domain,
+    summary: data.summary ?? null,
+    stages: data.stages.map((stage) => ({
+      ...stage,
+      term: stage.term ?? null,
+      summary: stage.summary ?? null,
+    })),
+    shifts: data.shifts,
+  };
+}
+
 async function readJourney(
   raw: unknown,
   file: string,
@@ -166,11 +194,27 @@ async function readJourney(
   return { journey, interactions };
 }
 
+function handlersBeside(contracts: string): string {
+  return path.join(path.dirname(contracts), 'handlers.yaml');
+}
+
 async function readContracts(
-  { system, file, raw }: { readonly system: string; readonly file: string; readonly raw: unknown },
+  {
+    system,
+    file,
+    raw,
+    handlers,
+  }: {
+    readonly system: string;
+    readonly file: string;
+    readonly raw: unknown;
+    readonly handlers: unknown;
+  },
   reading: Reading,
 ): Promise<SystemContracts> {
   const data = parsed(file, contractsFile, raw);
+  const handlersAt = handlersBeside(file);
+  const ran = parsed(handlersAt, handlersFile, handlers);
   const here = reading.in(file);
   const all = async <T>(entries: readonly unknown[], def: string) => here.facts<T>(def, entries);
   return {
@@ -184,6 +228,7 @@ async function readContracts(
     graphs: await all(data.graphs, 'graph'),
     subgraphs: await all(data.subgraphs, 'subgraph'),
     operations: await all(data.operations, 'operation'),
+    handlers: await reading.in(handlersAt).facts('handler', ran.handlers),
   };
 }
 
@@ -197,6 +242,15 @@ function scanOf(raw: unknown, file: string): Scan {
     scanner: data.scanner,
     files: data.files,
     facts: data.facts,
+    checked:
+      data.checked === undefined
+        ? null
+        : {
+            at: data.checked.at,
+            tip: data.checked.tip,
+            behind: data.checked.behind ?? null,
+            folders: data.checked.folders,
+          },
   };
 }
 

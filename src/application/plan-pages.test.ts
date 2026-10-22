@@ -206,7 +206,7 @@ describe('footprints', () => {
             id: 'subscriptions',
             name: 'Subscriptions',
             team: null,
-            repos: ['acme/subs'],
+            repos: [{ repo: 'acme/subs', path: null }],
             components: [
               {
                 id: 'svc:subs',
@@ -222,7 +222,7 @@ describe('footprints', () => {
             id: 'quiet',
             name: 'Quiet',
             team: null,
-            repos: ['acme/quiet'],
+            repos: [{ repo: 'acme/quiet', path: null }],
             components: [],
           },
         ],

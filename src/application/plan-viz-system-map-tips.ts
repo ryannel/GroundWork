@@ -63,7 +63,59 @@ function viaWords(ctx: Context, l: Merged): string {
   return `\n${words.join('\n')}${l.vias.size > 6 ? more(l.vias.size - 6) : ''}`;
 }
 
-/** What a line says on hover: who calls what, in which flows. */
+/** How a line's calls travel, " by GraphQL query", when the model says for every one of them. */
+function howWords(ctx: Context, l: Pick<Merged, 'vias'>): string {
+  const words = new Set([...l.vias].map((v) => ctx.input.callWords?.[v] ?? ''));
+  if (words.size !== 1 || words.has('')) return '';
+  return [...words].join('');
+}
+
+/** The data a line carries, by name, most used first: "Product", "Price changed". */
+export function carried(
+  ctx: Context,
+  l: Pick<Merged, 'vias'>,
+): readonly (readonly [string, number])[] {
+  const count = new Map<string, number>();
+  for (const v of l.vias) {
+    const name = ctx.input.carries?.[v] ?? ctx.label(v);
+    count.set(name, (count.get(name) ?? 0) + 1);
+  }
+  return [...count].toSorted((x, y) => (y[1] === x[1] ? x[0].localeCompare(y[0]) : y[1] - x[1]));
+}
+
+const times = (n: number, noun: string): string => (n === 1 ? noun : `${String(n)} ${noun}s`);
+
+function carriedLines(ctx: Context, l: Merged): string {
+  const calls = { ...l, vias: new Set([...l.vias].filter((v) => !v.startsWith('msg:'))) };
+  const events = { ...l, vias: new Set([...l.vias].filter((v) => v.startsWith('msg:'))) };
+  const lines = [
+    ...carried(ctx, calls).map(([name, n]) => `${name} · ${times(n, 'call')}`),
+    ...carried(ctx, events).map(([name]) => `${name} · event`),
+  ];
+  const extra = lines.length > 8 ? more(lines.length - 8) : '';
+  return lines.length === 0 ? '' : `\n${lines.slice(0, 8).join('\n')}${extra}`;
+}
+
+function pairHead(ctx: Context, l: Merged): string {
+  const a = ctx.label(l.shownA);
+  const b = ctx.label(l.shownB);
+  if (l.kinds.has('api')) {
+    const how = howWords(ctx, l);
+    const by = how === '' ? '' : ` by ${how}`;
+    return `${a} gets data from ${b}${by}`;
+  }
+  if (l.kinds.has('msg')) return `${a} listens to ${b}`;
+  return `${a} ${innerWord(l)} ${b}`;
+}
+
+/** A line read system by system: who gets data from whom, and what that data is. */
+export function pairTip(ctx: Context, l: Merged): string {
+  const flows = l.flows.size > 0 ? `\nIn: ${[...l.flows].map((f) => ctx.label(f)).join(', ')}` : '';
+  const hand = l.noted ? '\nShown on its stage; no flow uses it yet.' : '';
+  return `${pairHead(ctx, l)}${carriedLines(ctx, l)}${flows}${hand}`;
+}
+
+/** What a line says on hover: who calls what, how, in which flows. */
 export function lineTip(ctx: Context, l: Merged): string {
   const merged = l.parts.size > 1;
   const a = ctx.label(merged ? l.shownA : l.a);
@@ -72,7 +124,9 @@ export function lineTip(ctx: Context, l: Merged): string {
   const hand = l.noted ? '\nShown on its stage; no flow uses it yet.' : '';
   if (l.kind === 'api') {
     const on = l.row === null ? '' : `${ctx.label(l.row)} on `;
-    return `${a} calls ${on}${b}${viaWords(ctx, l)}${flows}${hand}`;
+    const how = howWords(ctx, l);
+    const by = how === '' ? '' : ` by ${how}`;
+    return `${a} calls ${on}${b}${by}${viaWords(ctx, l)}${flows}${hand}`;
   }
   const named = l.vias.size > 0 ? `: ${[...l.vias].map((v) => ctx.label(v)).join(', ')}` : '';
   if (l.kind === 'msg') return `${a} → ${b}${named}${flows}${hand}`;

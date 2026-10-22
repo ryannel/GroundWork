@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import type { Workspace } from '@/domain/workspace';
 
-import { planRowOf, planRowsOf } from './plan-index';
+import { domainPlanRowsOf, planRowOf, planRowsOf } from './plan-index';
 
 vi.mock(import('server-only'), () => ({}));
 
@@ -14,7 +14,7 @@ const system = (id: string, repo: string, components: string[]) => ({
   id,
   name: id,
   team: null,
-  repos: [repo],
+  repos: [{ repo, path: null }],
   components: components.map((c) => ({
     id: c,
     name: c,
@@ -89,5 +89,18 @@ describe('the plans index', () => {
       dated('c', 'Alpha', '2026-01-01'),
     ]);
     expect(rows.map((r) => r.id)).toEqual(['c', 'b', 'a']);
+  });
+});
+
+describe('domainPlanRowsOf', () => {
+  it('keeps the plans that reach the domain', () => {
+    const plans = [dated('a', 'One', '2026-01-01')];
+    const reached = planRowsOf(workspace, plans)[0]!.domains;
+    for (const domain of ['sales', 'stock']) {
+      expect(domainPlanRowsOf(workspace, plans, domain)).toHaveLength(
+        reached.includes(domain) ? 1 : 0,
+      );
+    }
+    expect(reached.length).toBeLessThan(2);
   });
 });

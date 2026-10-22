@@ -55,6 +55,10 @@ export const contractsFile = z.strictObject({
   operations: entries,
 });
 
+export const handlersFile = z.strictObject({
+  handlers: entries,
+});
+
 export const storyFile = z.strictObject({
   summary: z.string().optional(),
   concepts: entries,
@@ -64,6 +68,39 @@ export const storyFile = z.strictObject({
 export const languageFile = z.strictObject({
   summary: z.string().optional(),
   concepts: entries,
+});
+
+const localId = z.string().regex(/^[a-z0-9-]+$/u, 'an id in target.yaml is lower-case-with-dashes');
+
+/** domains/<domain>/target.yaml: where the domain is heading, written by people. */
+export const targetFile = z.strictObject({
+  summary: z.string().optional(),
+  stages: z
+    .array(
+      z.strictObject({
+        id: localId,
+        name: z.string(),
+        term: z
+          .string()
+          .regex(/^term:[a-z0-9-]+$/u, 'term is a key term id')
+          .optional(),
+        owners: z.array(z.string()).default([]),
+        summary: z.string().optional(),
+        from: z.array(localId).default([]),
+      }),
+    )
+    .default([]),
+  shifts: z
+    .array(
+      z.strictObject({
+        id: localId,
+        name: z.string(),
+        today: z.string(),
+        target: z.string(),
+        cites: z.array(z.string()).default([]),
+      }),
+    )
+    .default([]),
 });
 
 const example = z.strictObject({
@@ -114,4 +151,12 @@ export const scanFile = z.strictObject({
   scanner: z.string(),
   files: z.record(z.string(), z.string()).default({}),
   facts: z.number().int().min(0),
+  checked: z
+    .strictObject({
+      at: z.union([z.string(), z.date().transform((date) => date.toISOString())]),
+      tip: z.string().regex(/^[0-9a-f]{7,40}$/u, 'tip is a sha'),
+      behind: z.number().int().min(0).optional(),
+      folders: z.record(z.string(), z.number().int().min(0)).default({}),
+    })
+    .optional(),
 });

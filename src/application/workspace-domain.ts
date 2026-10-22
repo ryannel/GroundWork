@@ -1,4 +1,4 @@
-import { domainScopeOf } from '@/application/model-scope';
+import { domainScopeOf, systemScopeOf } from '@/application/model-scope';
 import type { Model } from '@/application/plan/derive';
 import { teamIndex } from '@/application/plan-viz-teams';
 import { type Catalogue, catalogueOf } from '@/application/today-catalogue';
@@ -6,7 +6,7 @@ import { type FlowEntry, flowEntriesOf } from '@/application/today-flow-list';
 import { type Neighbours, neighboursOf } from '@/application/today-neighbours';
 import { journeysHref } from '@/application/today-reader';
 import { type JourneyCard, journeyCardsOf } from '@/application/today-scope';
-import { type Domain, type Workspace, systemDoes } from '@/domain/workspace';
+import { type Domain, homeLabel, systemDoes, type Workspace } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
 import { roleOf } from './workspace-landscape';
@@ -137,9 +137,42 @@ export function domainViewOf(workspace: Workspace, model: Model, id: string): Do
       does: systemDoes(system),
       team: teamCard(workspace, model, system.team),
       components: system.components.length,
-      repos: system.repos,
+      repos: system.repos.map(homeLabel),
     })),
     neighbours,
     catalogue,
   };
+}
+
+/** One system's part of the domain's interfaces. */
+export interface SystemCatalogue {
+  readonly id: string;
+  readonly name: string;
+  readonly href: string;
+  readonly catalogue: Catalogue;
+}
+
+const isEmpty = ({ apis, events, data }: Catalogue): boolean =>
+  apis.length + events.length + data.length === 0;
+
+/** What each of a domain's systems answers, announces and keeps; systems with none are left out. */
+export function systemCataloguesOf(
+  workspace: Workspace,
+  model: Model,
+  id: string,
+): SystemCatalogue[] {
+  const domain = workspace.domains.find((each) => each.id === id);
+  return (domain?.systems ?? []).flatMap((system) => {
+    const scope = systemScopeOf(workspace, system.id);
+    const catalogue = scope === null ? null : catalogueOf(model, scope);
+    if (catalogue === null || isEmpty(catalogue)) return [];
+    return [
+      {
+        id: system.id,
+        name: system.name,
+        href: systemHref({ workspace: workspace.id, domain: id, system: system.id }),
+        catalogue,
+      },
+    ];
+  });
 }

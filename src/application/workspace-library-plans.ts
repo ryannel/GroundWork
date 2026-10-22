@@ -81,7 +81,7 @@ function noteOf(model: Model, group: PlanGroup, today: Date): Note {
   if (group === 'delivered' && summary.closed !== null) {
     return { note: `Finished ${shortDate(summary.closed, today)}`, late: false };
   }
-  if (group === 'approved') return { note: 'Approved; no work started', late: false };
+  if (group === 'approved') return { note: 'Ready to start', late: false };
   return { note: 'Being written', late: false };
 }
 

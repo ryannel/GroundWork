@@ -1,25 +1,10 @@
 import type { ModelScope } from '@/application/model-scope';
 import type { Model } from '@/application/plan/derive';
-import type { CallTree } from '@/application/plan/derive-handlers';
 import { offeredBy } from '@/application/today-catalogue';
 import { type ChipRef, chipRefOf } from '@/application/today-scope';
 
-// Each component of a system as a card that teaches it: what it is, what it is called on and what each call sets
-// off, what it calls, what it announces and listens to, and the data it keeps or uses.
-
-/** One step a handler takes, indented by how far below the entry it is. */
-export interface CallLine {
-  readonly key: string;
-  readonly depth: number;
-  readonly chip: ChipRef;
-  readonly says: string;
-}
-
-export interface Offer {
-  readonly chip: ChipRef;
-  /** What answering it sets off, when the code's handlers are known; empty when they are not. */
-  readonly calls: readonly CallLine[];
-}
+// Each component of a system as a card that teaches it: what it is, what it is called on, what it calls, what it
+// announces and listens to, and the data it keeps or uses.
 
 export interface ComponentCard {
   readonly chip: ChipRef;
@@ -27,7 +12,8 @@ export interface ComponentCard {
   readonly kind: string;
   readonly does: string;
   readonly summary: string;
-  readonly offers: readonly Offer[];
+  /** The calls it answers; each opens in the inspector with what answering it sets off. */
+  readonly offers: readonly ChipRef[];
   readonly calls: readonly ChipRef[];
   readonly announces: readonly ChipRef[];
   readonly listens: readonly ChipRef[];
@@ -36,23 +22,7 @@ export interface ComponentCard {
   readonly uses: readonly ChipRef[];
 }
 
-const DEEPEST = 3;
-const VERBS = { call: 'calls', publish: 'announces', read: 'reads', write: 'writes' } as const;
 const capital = (words: string): string => `${words.charAt(0).toUpperCase()}${words.slice(1)}`;
-
-function linesOf(model: Model, trees: readonly CallTree[], depth: number): CallLine[] {
-  return trees.flatMap((tree) =>
-    tree.links.flatMap((link, index) => [
-      {
-        key: `${tree.handler}:${String(index)}:${String(depth)}`,
-        depth,
-        chip: chipRefOf(model, link.target),
-        says: link.does ?? capital(VERBS[link.kind]),
-      },
-      ...(depth < DEEPEST ? linesOf(model, link.next, depth + 1) : []),
-    ]),
-  );
-}
 
 const unique = (ids: readonly string[]): string[] => [...new Set(ids)];
 
@@ -86,10 +56,7 @@ function cardOf(model: Model, id: string): ComponentCard {
     kind: [capital(node?.kind ?? 'service'), node?.tech ?? ''].filter((x) => x !== '').join(' · '),
     does: node?.does ?? '',
     summary: node?.summary ?? '',
-    offers: offeredBy(model, id).map((via) => ({
-      chip: chipRefOf(model, via),
-      calls: linesOf(model, model.callTree(via, { mode: 'asIs', depth: DEEPEST }), 0),
-    })),
+    offers: chips(offeredBy(model, id)),
     calls: chips(parts.calls),
     announces: chips(parts.announces),
     listens: chips(parts.listens),

@@ -32,7 +32,8 @@ function litOf(lit: ReadonlySet<string> | null, key: string): 'hot' | 'dim' | un
   return lit.has(key) ? 'hot' : 'dim';
 }
 
-/** The lines between cards: solid for a call, dashed for an event, dotted for data; each opens what it carries. */
+/** The lines between cards: solid for a call, dashed for an event, dotted for data; each opens what it carries.
+ * A line says what it carries only while it is traced, so the map at rest shows who talks to whom and no more. */
 export function MapEdges({ lines, filter, lit }: MapEdgesProps) {
   return (
     <g className={styles.edges}>
@@ -43,13 +44,23 @@ export function MapEdges({ lines, filter, lit }: MapEdgesProps) {
           data-dim={l.dim}
           data-kind={l.kind}
           data-line={l.key}
-          data-muted={filter !== 'all' && filter !== l.kind}
+          data-muted={filter !== 'all' && !l.kinds.includes(filter)}
           data-noted={l.noted}
           data-trace={litOf(lit, l.key)}
         >
           <path className={styles.reach} d={l.d} />
           <path className={styles.line} d={l.d} />
           <Head line={l} />
+          {l.tag === null || lit?.has(l.key) !== true ? null : (
+            <text
+              className={styles.tag}
+              textAnchor={l.into === 1 ? 'end' : 'start'}
+              x={l.tx - l.into * (HEAD + 4)}
+              y={l.ty - 5}
+            >
+              {l.tag}
+            </text>
+          )}
           <title>{l.tip}</title>
           <Hit
             h={BUTTON}

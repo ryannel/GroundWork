@@ -6,6 +6,7 @@ import type { IssueStatus } from '@/domain/plan/plan-status';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 import { listPlans, readPlan, readStatus } from './plan-store';
+import { untilEdited } from './workspace-memo';
 
 /** A plan that passed the schema and its cross-references, with the GitHub state of its work items. */
 export interface LoadedPlan {
@@ -28,11 +29,21 @@ export type PlanState =
   | { readonly loaded: LoadedPlan; readonly broken: null }
   | { readonly loaded: null; readonly broken: BrokenPlan };
 
-/** The plan at plans/<slug>, loaded or broken; null when there is none. */
+const remembered = untilEdited<PlanState | null>();
+
+/** The plan at plans/<slug>, loaded or broken; null when there is none. Read once until a file changes. */
 export async function readPlanState(
   workspace: string,
   slug: string,
   root?: string,
+): Promise<PlanState | null> {
+  return remembered(root, `${workspace}\n${slug}`, async () => readState(workspace, slug, root));
+}
+
+async function readState(
+  workspace: string,
+  slug: string,
+  root: string | undefined,
 ): Promise<PlanState | null> {
   const slugs = await listPlans(workspace, root);
   if (!slugs.includes(slug)) return null;

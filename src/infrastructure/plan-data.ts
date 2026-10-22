@@ -7,6 +7,7 @@ import { outlineOf, screenParams, type Outline } from '@/application/plan-pages'
 import { findWorkspace } from '@/application/workspace-paths';
 
 import { listPlans } from './plan-store';
+import { untilEdited } from './workspace-memo';
 import { readLoadedPlan, readLoadedPlans, readPlanState, type BrokenPlan } from './workspace-plans';
 import { readWorkspaces } from './workspace-store';
 
@@ -67,18 +68,15 @@ export async function screenPaths(): Promise<
   return lists.flat();
 }
 
-const cached = new Map<string, Promise<PlanData | null>>();
-const cards = new Map<string, Promise<PlanCard[]>>();
+const remembered = untilEdited<PlanData | null>();
+const cards = untilEdited<PlanCard[]>();
 
-/** The workspace's plans as cards, read once per build. */
+/** The workspace's plans as cards, read once until a file changes. */
 async function planCards(workspace: string): Promise<PlanCard[]> {
-  const known = cards.get(workspace);
-  if (known !== undefined) return known;
-  const pending = readLoadedPlans(workspace).then((plans) =>
-    plans.map((loaded) => planCardOf(workspace, loaded)),
-  );
-  cards.set(workspace, pending);
-  return pending;
+  return cards(undefined, workspace, async () => {
+    const plans = await readLoadedPlans(workspace);
+    return plans.map((loaded) => planCardOf(workspace, loaded));
+  });
 }
 
 async function load({ workspace, plan }: PlanParams): Promise<PlanData | null> {
@@ -95,12 +93,7 @@ async function load({ workspace, plan }: PlanParams): Promise<PlanData | null> {
   };
 }
 
-/** A plan worked out once per build, however many of its pages ask. Null for an unknown plan. */
+/** A plan worked out once until a file changes, however many of its pages ask. Null for an unknown plan. */
 export async function planData(at: PlanParams): Promise<PlanData | null> {
-  const key = `${at.workspace}/${at.plan}`;
-  const known = cached.get(key);
-  if (known !== undefined) return known;
-  const pending = load(at);
-  cached.set(key, pending);
-  return pending;
+  return remembered(undefined, `${at.workspace}/${at.plan}`, async () => load(at));
 }

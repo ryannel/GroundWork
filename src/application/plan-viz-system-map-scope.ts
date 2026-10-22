@@ -1,4 +1,10 @@
-import type { MapEdgeIn, MapNodeIn, SystemMapInput } from '@/application/plan-viz-system-map-types';
+import { bySystem } from '@/application/plan-viz-system-map-columns';
+import type {
+  MapEdgeIn,
+  MapNodeIn,
+  MapSystemIn,
+  SystemMapInput,
+} from '@/application/plan-viz-system-map-types';
 
 // A map of part of the landscape: the components in view, and one hop out the ones they call, are called by,
 // message or keep data with. Everything further away is left out, so the layout stays as small as the scope.
@@ -52,22 +58,46 @@ function keptEdges(input: SystemMapInput, focus: ReadonlySet<string>): MapEdgeIn
   return input.edges.filter((e) => touches(e, focus, senders));
 }
 
-function placed<T extends MapNodeIn>(node: T, places: MapScope['places']): T {
+/** Calls and events between two neighbours already on the map, each in a different system: without them a
+ * neighbour such as a graph router looks as if it reached nothing it does reach. Adds no new system. */
+function between(input: SystemMapInput, kept: readonly MapEdgeIn[]): MapEdgeIn[] {
+  const systemOf = new Map(input.services.map((s) => [s.id, s.system ?? '']));
+  const sys = (id: string): string => systemOf.get(id) ?? '';
+  const shown = new Set(kept.flatMap((e) => [sys(e.from), sys(e.to)]).filter((id) => id !== ''));
+  const taken = new Set(kept);
+  const across = (e: MapEdgeIn): boolean =>
+    sys(e.from) !== sys(e.to) && shown.has(sys(e.from)) && shown.has(sys(e.to));
+  return input.edges.filter((e) => !taken.has(e) && e.kind !== 'data' && across(e));
+}
+
+type Where = 'everywhere' | 'in' | 'out';
+
+/** Where a system lives, said only where the page does not: on the landscape when it says nothing of itself, and
+ * on every card outside the focus ("Shopping · shows the price breakdown"). */
+function placed<T extends MapNodeIn>(node: T, places: MapScope['places'], where: Where): T {
   const place = places[node.id];
-  return node.does === '' && place !== undefined ? { ...node, does: place } : node;
+  if (place === undefined || where === 'in') return node;
+  if (node.does === '') return { ...node, does: place };
+  return where === 'out' ? { ...node, does: `${place} · ${node.does}` } : node;
+}
+
+function whereOf(scope: MapScope, focus: ReadonlySet<string>, id: string): Where {
+  if (scope.focus === null) return 'everywhere';
+  return focus.has(id) ? 'in' : 'out';
 }
 
 /** The input narrowed to the scope; the whole input, with each system's place said, when there is no focus. */
 export function scopeMapInput(input: SystemMapInput, scope: MapScope): SystemMapInput {
-  const systems = input.systems.map((s) => placed(s, scope.places));
-  if (scope.focus === null) return { ...input, systems };
   const focus = new Set(scope.focus);
-  const edges = keptEdges(input, focus);
+  const systems = input.systems.map((s) => placed(s, scope.places, whereOf(scope, focus, s.id)));
+  if (scope.focus === null) return { ...input, systems };
+  const near = keptEdges(input, focus);
+  const edges = [...near, ...between(input, near)];
   const kept = new Set([...focus, ...edges.flatMap((e) => [e.from, e.to])]);
   const services = input.services.filter((s) => kept.has(s.id));
   const held = new Set(services.map((s) => s.system));
   const shown = new Set(services.map((s) => s.id));
-  return {
+  const scoped = {
     ...input,
     services,
     systems: systems.filter((s) => focus.has(s.id) || held.has(s.id)),
@@ -81,4 +111,14 @@ export function scopeMapInput(input: SystemMapInput, scope: MapScope): SystemMap
     stageOf: Object.fromEntries(Object.entries(input.stageOf).filter(([id]) => shown.has(id))),
     focus: [...focus],
   };
+  return bySystem(scoped)
+    ? { ...scoped, systems: scoped.systems.map((s) => homed(s, input, scope)) }
+    : scoped;
+}
+
+/** On a map read system by system, another domain's system says its domain once, over its band, not on its card. */
+function homed(node: MapSystemIn, input: SystemMapInput, scope: MapScope): MapSystemIn {
+  const place = scope.places[node.id];
+  const own = input.systems.find((s) => s.id === node.id);
+  return place === undefined || own === undefined ? node : { ...node, does: own.does, place };
 }

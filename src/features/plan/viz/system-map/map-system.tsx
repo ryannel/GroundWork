@@ -1,10 +1,8 @@
 import { clipText } from '@/application/plan-viz-flow-geometry';
-import { LINE, PART_ROW, ROLE_LINE, SYS_NAME } from '@/application/plan-viz-system-map-boxes';
-import type { DrawnNode, DrawnPart } from '@/application/plan-viz-system-map-types';
-import { FlowGlyph } from '@/features/plan/viz/flow-diagram/flow-glyph';
+import { LINE, ROLE_LINE, SYS_NAME } from '@/application/plan-viz-system-map-boxes';
+import type { DrawnNode } from '@/application/plan-viz-system-map-types';
 import { Hit } from '@/features/plan/viz/flow-diagram/flow-hit';
 
-import { kindOf } from './map-kind';
 import { MapStripe } from './map-stripe';
 import styles from './map-system.module.css';
 
@@ -42,32 +40,27 @@ function Fold({ node, onFold }: MapSystemProps) {
   );
 }
 
-function PartRow({
-  part,
-  at,
-  w,
-}: {
-  readonly part: DrawnPart;
-  readonly at: number;
-  readonly w: number;
-}) {
+/** A folded card's foot: the team that owns it, then how big the system is. */
+function Foot({ node }: { readonly node: DrawnNode }) {
+  const y = node.head + 17;
   return (
-    <g className={styles.part}>
-      <FlowGlyph glyph={kindOf(part.kind).glyph} x={20} y={at - 5} />
-      <text className={styles.partName} x={34} y={at + 0.5}>
-        {clipText(part.label, 24)}
+    <>
+      <line className={styles.divider} x1={16} x2={node.w - 12} y1={node.head} y2={node.head} />
+      {node.owner === '' ? null : (
+        <text className={styles.role} x={20} y={y}>
+          {clipText(node.owner, 26)}
+        </text>
+      )}
+      <text className={styles.role} x={20} y={node.owner === '' ? y : y + ROLE_LINE}>
+        {node.size}
       </text>
-      <title>{part.tip}</title>
-      <Hit h={PART_ROW} inspect={part.id} label={part.tip} w={w} x={0} y={at - PART_ROW / 2} />
-    </g>
+    </>
   );
 }
 
-/** A system: components built and run as one. Open, its parts are cards inside the frame; folded, it lists them. */
+/** A system: components built and run as one. Open, its parts are cards inside the frame; folded, it says what
+ * the system is for, who owns it and how big it is, and the inspector names what is inside. */
 export function MapSystem({ node, onFold }: MapSystemProps) {
-  const count = node.partCount;
-  const first = node.head;
-  const eyebrow = `${String(count)}-PART SYSTEM`;
   return (
     <>
       <rect
@@ -79,10 +72,6 @@ export function MapSystem({ node, onFold }: MapSystemProps) {
       />
       <MapStripe h={node.h} r={4.5} slot={node.teamSlot} />
       <Hit h={node.h} inspect={node.id} label={node.name} w={node.w} x={0} y={0} />
-      <FlowGlyph glyph="⧉" x={20} y={9} />
-      <text className={styles.eyebrow} x={34} y={14.5}>
-        {node.lens === 'out' ? 'OUTSIDE' : eyebrow}
-      </text>
       {node.lines.map((t, i) => (
         <text key={t} className={styles.name} x={20} y={SYS_NAME + i * LINE}>
           {t}
@@ -94,14 +83,7 @@ export function MapSystem({ node, onFold }: MapSystemProps) {
         </text>
       ))}
       <Fold node={node} onFold={onFold} />
-      {node.folded ? (
-        <>
-          <line className={styles.divider} x1={16} x2={node.w - 12} y1={first - 5} y2={first - 5} />
-          {node.parts.map((p, i) => (
-            <PartRow key={p.id} at={first + i * PART_ROW + PART_ROW / 2 - 1} part={p} w={node.w} />
-          ))}
-        </>
-      ) : null}
+      {node.folded ? <Foot node={node} /> : null}
     </>
   );
 }

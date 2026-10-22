@@ -15,18 +15,4 @@
     gap: var(--s-4);
     min-width: 0;
   }
-
-  .section {
-    display: grid;
-    gap: var(--s-2);
-    border-top: 1px solid var(--line-1);
-    padding-top: var(--s-3);
-  }
-
-  .heading {
-    margin: 0;
-    color: var(--fg-2);
-    font-size: var(--fs-14);
-    font-weight: 600;
-  }
 }

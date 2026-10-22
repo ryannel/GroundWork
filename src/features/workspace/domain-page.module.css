@@ -2,7 +2,7 @@
   .meta {
     display: grid;
     gap: var(--s-3);
-    margin-top: var(--s-2);
+    margin-bottom: var(--s-10);
   }
 
   .teams {
@@ -23,17 +23,5 @@
     border-radius: var(--r-pill);
     color: var(--fg-2);
     font-size: var(--fs-12);
-  }
-
-  .tabs {
-    position: sticky;
-    z-index: var(--z-raised);
-    top: var(--topbar-h);
-    margin-top: calc(var(--s-8) * -1 + var(--s-4));
-    background: var(--bg-0);
-  }
-
-  .body {
-    padding-top: var(--s-6);
   }
 }

@@ -69,3 +69,15 @@ export function systemPaths(
 export function findWorkspace(workspaces: readonly Workspace[], id: string): Workspace | null {
   return workspaces.find((workspace) => workspace.id === id) ?? null;
 }
+
+/** Each system's page, by its `sys:` id, for the inspector to open. */
+export function systemPagesOf(workspace: Workspace): Record<string, string> {
+  return Object.fromEntries(
+    workspace.domains.flatMap((domain) =>
+      domain.systems.map((system) => [
+        `sys:${system.id}`,
+        systemHref({ workspace: workspace.id, domain: domain.id, system: system.id }),
+      ]),
+    ),
+  );
+}

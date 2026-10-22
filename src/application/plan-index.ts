@@ -50,7 +50,9 @@ function domainsOf(workspace: Workspace, model: Model): string[] {
     .flatMap((id) => (id === null ? [] : [homes.get(id)?.domain ?? []].flat()));
   const repos = new Set((model.plan.work_items ?? []).flatMap((item) => item.repo ?? []));
   const worked = workspace.domains
-    .filter((domain) => domain.systems.some((system) => system.repos.some((r) => repos.has(r))))
+    .filter((domain) =>
+      domain.systems.some((system) => system.repos.some((r) => repos.has(r.repo))),
+    )
     .map((domain) => domain.id);
   const reached = new Set([...touched, ...worked]);
   return workspace.domains.map((d) => d.id).filter((id) => reached.has(id));
@@ -81,4 +83,13 @@ export function planRowsOf(workspace: Workspace, plans: readonly PlanInput[]): P
       const byDate = (b.date ?? '').localeCompare(a.date ?? '');
       return byDate === 0 ? a.title.localeCompare(b.title) : byDate;
     });
+}
+
+/** The plans that reach one domain, newest first. */
+export function domainPlanRowsOf(
+  workspace: Workspace,
+  plans: readonly PlanInput[],
+  domain: string,
+): PlanRow[] {
+  return planRowsOf(workspace, plans).filter((row) => row.domains.includes(domain));
 }

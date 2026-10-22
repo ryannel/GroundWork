@@ -62,7 +62,8 @@ name,description,primaryLanguage,isArchived`), leave out archived and personal r
    for it. Read CODEOWNERS and READMEs for owners. Show the cut to the people and change it until they agree; do
    not write it before they do.
 6. **Write the skeleton.** Per agreed domain, `domains/<domain>/domain.yaml` (`id`, `name`, `purpose`); per
-   system, `systems/<system>/system.yaml` with `id`, `name`, `team` and `repos`, and no components yet.
+   system, `systems/<system>/system.yaml` with `id`, `name`, `team` and `repos`, and no components yet. When
+   teams share a repo (a monorepo), each system lists its own folder: `{ repo: org/name, path: services/x }`.
 7. **Check it.** `npm run workspace -- check ../<id>-groundwork`, then restart `npm run dev` (Next does not watch
    folders outside its checkout) and open `/<id>/`.
 8. **Commit** in the workspace repo. Make a GitHub repo for it only when asked

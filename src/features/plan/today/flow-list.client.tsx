@@ -6,6 +6,7 @@ import { type ReactNode, type RefObject, useEffect, useRef, useState } from 'rea
 import { countOf } from '@/application/plan-viz-text';
 import type { FlowEntry } from '@/application/today-flow-list';
 import { IntentLink } from '@/ui/intent-link.client';
+import { SearchField } from '@/ui/search-field';
 
 import styles from './flow-list.module.css';
 
@@ -74,14 +75,10 @@ export function FlowList({ flows, children }: FlowListProps) {
     <div className={styles.flows}>
       <nav aria-label="Flows" className={styles.side}>
         {flows.length > SEARCHABLE ? (
-          <input
-            aria-label="Find a flow"
-            className={styles.find}
-            onChange={(event) => {
-              setQuery(event.target.value);
-            }}
+          <SearchField
+            label="Find a flow"
+            onChange={setQuery}
             placeholder={`Find among ${countOf(flows.length, 'flow')}`}
-            type="search"
             value={query}
           />
         ) : null}

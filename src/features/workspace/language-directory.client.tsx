@@ -79,7 +79,9 @@ export function LanguageDirectory({ page }: { readonly page: LanguagePage }) {
             placeholder="Find a word or what it means"
             value={query}
           />
-          <Select label="Domain" onChange={setDomain} options={options} value={domain} />
+          {page.domains.length > 1 ? (
+            <Select label="Domain" onChange={setDomain} options={options} value={domain} />
+          ) : null}
         </Cluster>
         {groups.map((g) =>
           g.terms.length === 0 ? null : (
@@ -91,7 +93,10 @@ export function LanguageDirectory({ page }: { readonly page: LanguagePage }) {
         )}
         <Stack as="section" gap={3} label="Words in the code">
           <SectionHeading title="Words in the code">
-            What each domain&apos;s code calls things, from the scan: {plural(found.length, 'word')}
+            {page.domains.length > 1
+              ? 'What each domain’s code calls things'
+              : 'What the code calls things'}
+            , from the scan: {plural(found.length, 'word')}
           </SectionHeading>
           <Rows chosen={term} onPick={pick} rows={found} />
           {found.length > SHOWN ? (

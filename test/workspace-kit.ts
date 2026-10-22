@@ -92,6 +92,16 @@ function filesOf(workspace: Workspace, model: WorkspaceModel): Record<string, un
       ]),
     ),
     ...Object.fromEntries(model.flows.map((flow) => [`flows/${slugOf(flow.id)}.yaml`, fact(flow)])),
+    ...Object.fromEntries(
+      model.targets.map((target) => [
+        `domains/${target.domain}/target.yaml`,
+        set({
+          summary: target.summary,
+          stages: target.stages.map(set),
+          shifts: target.shifts.map(set),
+        }),
+      ]),
+    ),
     ...journeyFiles(model, fact),
     ...contractsFiles(workspace, model, fact),
     ...Object.fromEntries(
@@ -136,7 +146,7 @@ function structureFiles(workspace: Workspace): Record<string, unknown> {
         name: system.name,
         purpose: system.purpose,
         team: system.team,
-        repos: system.repos,
+        repos: system.repos.map((home) => (home.path === null ? home.repo : home)),
         components: system.components.map(({ talksTo, ...component }) =>
           set({ ...component, talks_to: talksTo }),
         ),

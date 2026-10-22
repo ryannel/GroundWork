@@ -4,24 +4,15 @@ import styles from './map-toolbar.module.css';
 import type { Layer, LineFilter, SystemMapState } from './use-system-map';
 
 const LINES: readonly (readonly [LineFilter, string])[] = [
-  ['all', 'All'],
+  ['all', 'All lines'],
   ['api', 'Calls'],
   ['msg', 'Events'],
   ['data', 'Data'],
 ];
 
-const LAYERS: readonly (readonly [Layer, string, string])[] = [
-  ['parts', 'System parts', 'Each part of a system as its own card'],
-  ['ifs', 'Interfaces', 'The interfaces a call lands on'],
-  [
-    'topics',
-    'Topics',
-    'Topics under their owner; hidden, an event runs from publisher to listener',
-  ],
-  ['stores', 'Stores', 'Stores under their keeper; hidden, a read lands on the keeper'],
-];
+const LAYERS: readonly Layer[] = ['parts', 'ifs', 'topics', 'stores'];
 
-const same = (a: MapShow, b: MapShow): boolean => LAYERS.every(([k]) => a[k] === b[k]);
+const same = (a: MapShow, b: MapShow): boolean => LAYERS.every((k) => a[k] === b[k]);
 
 function Button({
   on,
@@ -47,30 +38,29 @@ function Button({
   );
 }
 
-/** What the map shows: how much detail, which lines, and which layers. */
+/** What the map shows, in one row: systems or each component, which lines, and whether infrastructure shows. */
 export function MapToolbar({ map }: { readonly map: SystemMapState }) {
   return (
     <div aria-label="Map controls" className={styles.toolbar} role="toolbar">
       <div aria-label="Detail" className={styles.group} role="group">
         <Button
-          label="Overview"
+          label="Systems"
           on={same(map.show, SHOW_OVERVIEW)}
           onPick={() => {
             map.setShow(SHOW_OVERVIEW);
           }}
-          title="Systems as one card each; no interfaces, topics or stores"
+          title="Each system as one card; open one to see its parts"
         />
         <Button
-          label="Full"
+          label="Components"
           on={same(map.show, SHOW_ALL)}
           onPick={() => {
             map.setShow(SHOW_ALL);
           }}
-          title="Every part, interface, topic and store"
+          title="Every component, interface, topic and store"
         />
       </div>
       <div aria-label="Lines" className={styles.group} role="group">
-        <span className={styles.label}>Lines</span>
         {LINES.map(([kind, label]) => (
           <Button
             key={kind}
@@ -82,20 +72,18 @@ export function MapToolbar({ map }: { readonly map: SystemMapState }) {
           />
         ))}
       </div>
-      <div aria-label="Show" className={styles.group} role="group">
-        <span className={styles.label}>Show</span>
-        {LAYERS.map(([layer, label, title]) => (
+      {map.infra.count === 0 ? null : (
+        <div aria-label="Infrastructure" className={styles.group} role="group">
           <Button
-            key={layer}
-            label={label}
-            on={map.show[layer]}
+            label={`Infrastructure · ${String(map.infra.count)}`}
+            on={map.infra.shown}
             onPick={() => {
-              map.toggleLayer(layer);
+              map.toggleInfra();
             }}
-            title={title}
+            title="Feature flags, sign-in, error tracking and the like: hidden until asked for"
           />
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

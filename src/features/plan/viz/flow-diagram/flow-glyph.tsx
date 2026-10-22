@@ -1,7 +1,6 @@
 import { createElement } from 'react';
 
-import { iconOf } from '@/ui/icon';
-import { ICON_SHAPES } from '@/ui/icon-shapes';
+import { iconOf, iconShapes } from '@/ui/icon';
 
 import styles from './flow-glyph.module.css';
 
@@ -18,15 +17,13 @@ export interface FlowGlyphProps {
 export function FlowGlyph({ glyph, x, y }: FlowGlyphProps) {
   const name = iconOf(glyph);
   if (name === null) return null;
-  return (
-    <g
-      aria-hidden="true"
-      className={styles.glyph}
-      transform={`translate(${String(x)} ${String(y)}) scale(${String(SCALE)})`}
-    >
-      {ICON_SHAPES[name].map((shape) =>
-        createElement(shape.tag, { key: Object.values(shape.attrs).join(' '), ...shape.attrs }),
-      )}
-    </g>
+  return createElement(
+    'g',
+    {
+      'aria-hidden': true,
+      className: styles.glyph,
+      transform: `translate(${String(x)} ${String(y)}) scale(${String(SCALE)})`,
+    },
+    ...iconShapes(name),
   );
 }

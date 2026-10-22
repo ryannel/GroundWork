@@ -26,6 +26,7 @@ import { stringify } from 'yaml';
 
 import { languageWarnings } from '@/application/workspace-language';
 import { systemModelOf } from '@/application/workspace-model';
+import { targetWarnings } from '@/application/workspace-target';
 import { listPlans } from '@/infrastructure/plan-store';
 import { checkPlanData } from '@/infrastructure/plan-validator';
 import {
@@ -174,6 +175,7 @@ The systems ${name} runs today, and the plans that change them, for [Groundwork]
 - \`workspace.yaml\`: the teams and the actors who use the systems.
 - \`domains/<domain>/systems/<system>/\`: each system, its components and its contracts, read from the code.
 - \`flows/\`, \`journeys/\`, \`story.yaml\` and each domain's \`language.yaml\`: how the systems work together today, and the words they use.
+- \`domains/<domain>/target.yaml\`: where each domain is heading, its target architecture.
 - \`scans/<org>/<repo>.yaml\`: the commit each code repo was last read at.
 - \`plans/<plan>/\`: the plans, each put onto today's model.
 
@@ -270,9 +272,12 @@ async function check(given: string): Promise<void> {
   const [workspace] = await readWorkspaces();
   if (workspace === undefined) throw new Error(`${folder}: no workspace read`);
   const model = await readWorkspaceModel(workspace);
-  const today = await checkPlanData(systemModelOf(workspace, model).plan);
+  const system = systemModelOf(workspace, model);
+  const today = await checkPlanData(system.plan);
   for (const issue of today.errors) console.error(`today: ${issue.path}: ${issue.message}`);
   const language = languageWarnings(workspace, model);
+  const target = targetWarnings(system);
+  for (const issue of target) console.warn(`target: ${issue}`);
   if (values.warnings) {
     for (const issue of today.warnings) console.warn(`today: ${issue.path}: ${issue.message}`);
     for (const issue of language) console.warn(`language: ${issue}`);
@@ -289,7 +294,8 @@ async function check(given: string): Promise<void> {
       'concept',
     ),
     `${String(read)} of ${count(slugs.length, 'plan')} read`,
-    count(today.warnings.length + language.length, 'warning'),
+    count(model.targets.length, 'target'),
+    count(today.warnings.length + language.length + target.length, 'warning'),
   ];
   console.log(`${workspace.id}: ${counts.join(', ')}`);
   if (broken > 0 || today.errors.length > 0) process.exitCode = 1;

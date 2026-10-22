@@ -1,13 +1,9 @@
-import type { ReactNode } from 'react';
-
 import type { Model } from '@/application/plan/derive';
-import { typeOf } from '@/application/plan/ids';
 import { entityView, type EntityGroup, type EntityView } from '@/application/plan-pages-entity';
-import { siblingsOf } from '@/application/plan-pages-things';
+import { placeAmongOf } from '@/application/plan-pages-things';
 import { assetUrl } from '@/application/plan-viz-screens';
 import { todayReaderOf } from '@/application/today-reader';
 import { codeEvidenceOf, todayPlaceOf } from '@/application/today-thing';
-import { TYPE_WORDS } from '@/domain/plan/plan-vocab';
 import type { Workspace } from '@/domain/workspace';
 import type { Attribution } from '@/domain/workspace-model';
 import { EntityDetails, EntityGroups } from '@/features/plan/inspector/entity-details';
@@ -16,7 +12,9 @@ import { EntityPlaces } from '@/features/plan/inspector/entity-places';
 import { ThingExtras } from '@/features/plan/inspector/thing-extras';
 import { ThingRegister } from '@/features/plan/thing-page/thing-register';
 
+import { ThingInside } from './thing-inside';
 import { TodayEvidence } from './today-evidence';
+import { Section } from './today-section';
 import styles from './today-thing.module.css';
 import { Place, TopLine } from './today-wayfinding';
 
@@ -29,15 +27,6 @@ interface TodayThingProps {
 }
 
 const FLOW_GROUPS = new Set(['Flows that use it', 'Steps that use it']);
-
-function Section({ title, children }: { readonly title: string; readonly children: ReactNode }) {
-  return (
-    <section className={styles.section}>
-      <h2 className={styles.heading}>{title}</h2>
-      {children}
-    </section>
-  );
-}
 
 const split = (view: EntityView) => {
   const links: EntityGroup[] = [
@@ -52,27 +41,21 @@ const split = (view: EntityView) => {
  * it and the code that says so. Null for no such thing. Put it inside WorkspaceShell. */
 export function TodayThing({ workspace, model, attribution, id }: TodayThingProps) {
   const view = entityView(model, id);
-  const type = typeOf(id);
-  if (view === null || type === null) return null;
+  const among = placeAmongOf(model, id);
+  if (view === null || among === null) return null;
   const reader = todayReaderOf(workspace.id, 1);
   const place = todayPlaceOf(workspace, model, id);
-  const siblings = siblingsOf(model, id);
   const { links, flows } = split(view);
-  const count = `${TYPE_WORDS[type]} ${String(siblings.indexOf(id) + 1)} of ${String(siblings.length)}`;
   return (
     <>
-      <TopLine
-        count={count.charAt(0).toUpperCase() + count.slice(1)}
-        place={place}
-        workspaceId={workspace.id}
-      />
+      <TopLine count={among.count} place={place} workspaceId={workspace.id} />
       <div className={styles.layout}>
         <ThingRegister
           base={reader.thingBase}
           id={id}
           model={model}
-          siblings={siblings}
-          title={`Every ${TYPE_WORDS[type]}`}
+          siblings={among.siblings}
+          title={among.every}
         />
         <article className={styles.article}>
           <EntityHead heading="h1" today view={view} />
@@ -88,6 +71,7 @@ export function TodayThing({ workspace, model, attribution, id }: TodayThingProp
               <EntityGroups groups={links} />
             </Section>
           )}
+          <ThingInside id={id} model={model} />
           <ThingExtras id={id} model={model} today />
           {flows.length === 0 ? null : (
             <Section title="Where it takes part">
