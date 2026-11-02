@@ -169,9 +169,19 @@ Protocol-only API groups show the protocol badge and "API", not an invented endp
 Plan and landscape system maps share `src/ui/canvas/system-card.tsx`: a System label and icon, the name,
 purpose and component count, and an explicit Expand action. The name also expands; the plan's Details
 action opens its inspector separately. Expanded systems use the shared canvas boundary and header with
-Collapse. Plan columns reserve 128 pixels above their components for that header and keep their stage
+Collapse. The expanded heading spans the boundary, with a divider above the components; it has no inset
+card or selection stripe. Plan headings name how many components they contain. Plan columns reserve
+128 pixels above their components for that header and keep their stage
 arrangement. System counts include the model's services, stores and topics; a plan's count describes its
 own model, which can cover less than the landscape. Landscape cards retain their other named activities.
+Plan maps with authored stages offer two arrangements over the same scope: Value flow follows those
+stages; System structure groups every component by its recorded system, including systems that span
+several stages. The structural projection uses the shared system layout to place connected groups and
+retains unassigned components without inventing a system. Resources remain inside their expanded system;
+internal connections appear when their endpoints are visible. Overview / All components controls detail
+separately. Each arrangement remembers its expanded systems and detail, while connection and platform
+filters carry between them. Guided stops change the connection filter without resetting the arrangement.
+Only the selected arrangement is drawn. Maps without authored stages keep their existing structural layout.
 API and resource row anchors retain the enclosing card as a routing obstacle; only outer system
 boundaries are ignored, so return paths cannot cut through their destination card.
 The pure overview helpers live in `src/application/area-map/`; the API inspector is under
@@ -506,7 +516,7 @@ its team and its size (`17 components`); it lists no components, because a syste
 the domain never repeats the domain's name. Systems of other domains never mix with the domain's own: they sit in
 a band ruled off beneath them (`src/application/plan-viz-system-map-outside.ts`), each under the column of its tier
 so its lines stay short, grouped under the name of its domain. The toolbar
-switches between Systems and Components and filters the lines (calls, events, data); the reader can also unfold one
+switches between Overview and All components and filters the lines (calls, events, data); the reader can also unfold one
 system to see its parts. A system's own page keeps a column per step.
 
 Each column of a domain's map is one tier, read left to right the way a request travels

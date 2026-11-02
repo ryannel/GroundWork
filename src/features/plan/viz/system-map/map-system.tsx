@@ -39,7 +39,7 @@ export function MapSystem({ node, onFold }: MapSystemProps) {
               inspect={node.id}
               name={node.name}
               onCollapse={handleToggle}
-              purpose={node.role.join(' ')}
+              purpose={`Contains ${node.size}`}
             />
           }
         />

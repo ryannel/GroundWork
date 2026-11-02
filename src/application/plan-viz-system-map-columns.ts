@@ -85,6 +85,7 @@ function ranks(
 /** A map about more than one system, with no stages, reads system by system: each tier takes one column, its
  * systems open folded, as a domain can hold hundreds of parts. */
 export function bySystem(input: SystemMapInput): boolean {
+  if (input.arrangement === 'structure') return true;
   if (input.stages.length > 0 || input.focus === null) return false;
   const focus = new Set(input.focus);
   return input.systems.filter((s) => focus.has(s.id)).length > 1;
@@ -99,6 +100,7 @@ function tierColumns(input: SystemMapInput): ReadonlyMap<string, number> {
 }
 
 function stageColumns(input: SystemMapInput, agg: Aggregate): ReadonlyMap<string, number> {
+  if (input.arrangement === 'structure') return new Map(Object.entries(input.stageOf));
   const ids = input.services.map((s) => s.id);
   if (bySystem(input)) return tierColumns(input);
   if (input.stages.length === 0) {
@@ -140,7 +142,7 @@ function systemParts(
   col: ReadonlyMap<string, number>,
 ): Map<string, string[]> {
   const known = new Set(input.systems.map((s) => s.id));
-  const tiered = bySystem(input);
+  const tiered = bySystem(input) && input.arrangement !== 'structure';
   const parts = new Map<string, string[]>();
   const tiers = partTiers(input);
   // a part in another tier from its system's (a shared outside party, a foundation) stands on its own
@@ -287,7 +289,7 @@ export function layoutColumns(input: SystemMapInput, agg: Aggregate): Columns {
     membersOf,
     linked,
     gap: systems ? WIDE_G : G,
-    roles: systems ? roleSpansOf(used) : [],
+    roles: systems && input.arrangement !== 'structure' ? roleSpansOf(used) : [],
     outside,
   };
 }

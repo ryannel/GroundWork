@@ -294,7 +294,7 @@ export function drawSystemMap(
   const ctx = contextOf(input, options.show, agg);
   const cols = layoutColumns(input, agg);
   const placed = placeBoxes(ctx, cols, options.flip ?? new Set());
-  const { live, inner } = mergeLinks(agg, cols, placed.nodes);
+  const { live, inner } = mergeLinks(agg, cols, placed.nodes, input.arrangement === 'structure');
   const { routes, h } = routeAll(live, placed.nodes, placed);
   const kit: Kit = { ctx, agg, cols, ...lensOf(ctx, agg, cols), landed: landedOf(routes), inner };
   const boxes = [...new Set(placed.nodes.values())];

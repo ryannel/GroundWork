@@ -1,89 +1,97 @@
-import { type MapShow, SHOW_ALL, SHOW_OVERVIEW } from '@/application/plan-viz-system-map-types';
+import type { ReactNode } from 'react';
 
-import styles from './map-toolbar.module.css';
-import type { Layer, LineFilter, SystemMapState } from './use-system-map';
+import { SHOW_ALL, SHOW_OVERVIEW } from '@/application/plan-viz-system-map-types';
+import { Button } from '@/ui/button';
+import { FilterChips } from '@/ui/filter-chips';
+import { Cluster, Stack } from '@/ui/stack';
+import { Text } from '@/ui/text';
 
-const LINES: readonly (readonly [LineFilter, string])[] = [
-  ['all', 'All lines'],
-  ['api', 'Calls'],
-  ['msg', 'Events'],
-  ['data', 'Data'],
+import type { LineFilter, SystemMapState } from './use-system-map';
+
+const LINES: readonly { readonly value: LineFilter; readonly label: string }[] = [
+  { value: 'all', label: 'All connections' },
+  { value: 'api', label: 'Calls' },
+  { value: 'msg', label: 'Events' },
+  { value: 'data', label: 'Data' },
 ];
 
-const LAYERS: readonly Layer[] = ['parts', 'ifs', 'topics', 'stores'];
-
-const same = (a: MapShow, b: MapShow): boolean => LAYERS.every((k) => a[k] === b[k]);
-
-function Button({
-  on,
+function ControlGroup({
   label,
-  title,
-  onPick,
+  children,
 }: {
-  readonly on: boolean;
   readonly label: string;
-  readonly title?: string;
-  readonly onPick: () => void;
+  readonly children: ReactNode;
 }) {
   return (
-    <button
-      aria-pressed={on}
-      className={styles.button}
-      onClick={onPick}
-      title={title}
-      type="button"
-    >
-      {label}
-    </button>
+    <Stack gap={1}>
+      <Text size="sm" tone="faint" caps>
+        {label}
+      </Text>
+      {children}
+    </Stack>
   );
 }
 
-/** What the map shows, in one row: systems or each component, which lines, and whether infrastructure shows. */
+/** Arrangement, detail and connections are separate choices over the same model. */
 export function MapToolbar({ map }: { readonly map: SystemMapState }) {
+  const handleView = map.setView;
+  const handleFilter = map.setFilter;
+  const handleInfra = map.toggleInfra;
   return (
-    <div aria-label="Map controls" className={styles.toolbar} role="toolbar">
-      <div aria-label="Detail" className={styles.group} role="group">
-        <Button
-          label="Systems"
-          on={same(map.show, SHOW_OVERVIEW)}
-          onPick={() => {
-            map.setShow(SHOW_OVERVIEW);
-          }}
-          title="Each system as one card; open one to see its parts"
-        />
-        <Button
-          label="Components"
-          on={same(map.show, SHOW_ALL)}
-          onPick={() => {
-            map.setShow(SHOW_ALL);
-          }}
-          title="Every component, interface, topic and store"
-        />
-      </div>
-      <div aria-label="Lines" className={styles.group} role="group">
-        {LINES.map(([kind, label]) => (
-          <Button
-            key={kind}
-            label={label}
-            on={map.filter === kind}
-            onPick={() => {
-              map.setFilter(kind);
+    <Stack gap={2}>
+      <Cluster gap={3} align="start" label="Map controls">
+        {map.hasValueFlow ? (
+          <ControlGroup label="View">
+            <FilterChips
+              label="Map view"
+              value={map.view}
+              onChange={handleView}
+              choices={[
+                { value: 'flow', label: 'Value flow' },
+                { value: 'structure', label: 'System structure' },
+              ]}
+            />
+          </ControlGroup>
+        ) : null}
+        <ControlGroup label="Detail">
+          <FilterChips
+            label="Map detail"
+            value={map.show.parts ? 'components' : 'overview'}
+            choices={[
+              { value: 'overview', label: 'Overview' },
+              { value: 'components', label: 'All components' },
+            ]}
+            onChange={(value) => {
+              map.setShow(value === 'overview' ? SHOW_OVERVIEW : SHOW_ALL);
             }}
           />
-        ))}
-      </div>
-      {map.infra.count === 0 ? null : (
-        <div aria-label="Infrastructure" className={styles.group} role="group">
-          <Button
-            label={`Infrastructure · ${String(map.infra.count)}`}
-            on={map.infra.shown}
-            onPick={() => {
-              map.toggleInfra();
-            }}
-            title="Feature flags, sign-in, error tracking and the like: hidden until asked for"
+        </ControlGroup>
+        <ControlGroup label="Connections">
+          <FilterChips
+            label="Connection kind"
+            value={map.filter}
+            choices={LINES}
+            onChange={handleFilter}
           />
-        </div>
-      )}
-    </div>
+        </ControlGroup>
+        {map.infra.count === 0 ? null : (
+          <ControlGroup label="Supporting services">
+            <Button
+              label={`${map.infra.shown ? 'Hide' : 'Show'} platform services`}
+              pressed={map.infra.shown}
+              onClick={handleInfra}
+              size="sm"
+            >
+              Platform · {map.infra.count}
+            </Button>
+          </ControlGroup>
+        )}
+      </Cluster>
+      <Text size="sm" tone="muted">
+        {map.view === 'flow'
+          ? 'Follow the plan’s stages from left to right. A system can contribute to several stages.'
+          : 'Components are grouped by their recorded system. Expand a system to explore it.'}
+      </Text>
+    </Stack>
   );
 }

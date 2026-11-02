@@ -71,6 +71,8 @@ export interface MapRefIn {
 }
 
 export interface SystemMapInput {
+  /** An explicit structural projection groups components by their recorded system, independently of stages. */
+  readonly arrangement?: 'structure';
   readonly services: readonly MapServiceIn[];
   readonly systems: readonly MapSystemIn[];
   readonly stores: readonly MapSatelliteIn[];

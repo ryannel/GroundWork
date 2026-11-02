@@ -87,13 +87,16 @@ export function mergeLinks(
   agg: Aggregate,
   cols: Columns,
   nodes: ReadonlyMap<string, Box>,
+  internalDetails = false,
 ): { readonly live: readonly Merged[]; readonly inner: readonly Link[] } {
   const seen = { agg, nodes };
   const merged = new Map<string, Merged>();
   const prevOf = (key: string): Merged | undefined => merged.get(key);
   const shown = agg.links.filter((x) => nodes.has(x.a) && nodes.has(x.b));
   const inner = shown.filter((l) => cols.isInternal(l));
-  for (const l of shown.filter((x) => !cols.isInternal(x))) {
+  const visible = (line: Link): boolean =>
+    !cols.isInternal(line) || (internalDetails && nodes.get(line.a) !== nodes.get(line.b));
+  for (const l of shown.filter(visible)) {
     const next = cols.roles.length > 0 ? paired(seen, prevOf, l) : single(seen, prevOf, l);
     merged.set(next.key, next);
   }

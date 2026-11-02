@@ -14,7 +14,10 @@ const KEY: readonly LegendItem[] = [
   { label: 'call', line: 'solid' },
   { label: 'event', line: 'dashed' },
   { label: 'data', line: 'dotted' },
-  { label: 'Hover a card to trace it · click to keep it traced and read it' },
+  {
+    label:
+      'Hover to trace connections · select a component for details · expand a system to explore it',
+  },
 ];
 
 function focusOf(stop: string | null): LineFilter {
@@ -69,5 +72,5 @@ interface SystemMapViewProps {
 export function SystemMapView({ input, outside }: SystemMapViewProps) {
   const stop = useStopFocus();
   const focus = focusOf(stop);
-  return <MapPane focus={focus} input={input} key={focus} outside={outside ?? null} />;
+  return <MapPane focus={focus} input={input} outside={outside ?? null} />;
 }

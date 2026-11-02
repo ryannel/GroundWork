@@ -106,14 +106,11 @@
   }
 
   .boundaryHeader[data-dense] .name {
-    font-size: var(--fs-13);
+    font-size: var(--fs-16);
   }
 
   .boundaryHeader[data-dense] .purpose {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    white-space: normal;
+    white-space: nowrap;
     line-height: 1.25;
   }
 

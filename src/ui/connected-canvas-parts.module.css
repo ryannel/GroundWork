@@ -105,7 +105,10 @@
   .boundaryHeader {
     box-sizing: border-box;
     height: 100%;
-    padding: var(--s-2);
+    padding: var(--s-3);
+    border-bottom: 1px solid var(--line-2);
+    border-radius: var(--r-4) var(--r-4) 0 0;
+    background: var(--bg-2);
   }
 
   .systemScope {
@@ -162,16 +165,15 @@
     }
 
     .boundary {
-      fill: color-mix(in srgb, var(--system-colour) 2%, transparent);
-      stroke: color-mix(in srgb, var(--system-colour) 80%, transparent);
+      fill: color-mix(in srgb, var(--system-colour) 3%, var(--bg-2));
+      stroke: color-mix(in srgb, var(--system-colour) 45%, var(--line-3));
       stroke-width: 2px;
       stroke-dasharray: none;
     }
 
     .boundaryHeader {
-      border-left: 4px solid var(--system-colour);
-      border-radius: var(--r-2);
-      background: color-mix(in srgb, var(--system-colour) 5%, var(--node-bg));
+      border-bottom-color: var(--system-line);
+      background: color-mix(in srgb, var(--system-colour) 7%, var(--bg-2));
     }
   }
 }

@@ -104,9 +104,9 @@ export function CanvasBoundary({
       <foreignObject
         height={headerHeight}
         pointerEvents="auto"
-        width={width - 32}
-        x={x + 16}
-        y={y + 10}
+        width={width - 2}
+        x={x + 1}
+        y={y + 1}
       >
         <div className={styles.boundaryHeader}>{header}</div>
       </foreignObject>

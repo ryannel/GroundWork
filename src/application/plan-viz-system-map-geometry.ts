@@ -83,11 +83,13 @@ interface At {
 /** A system card: each part inset inside it, or folded to one card. */
 function placeSystem(walk: Walk, unit: string, at: At): Box {
   const parts = walk.cols.membersOf(unit);
+  const structural = walk.ctx.input.arrangement === 'structure';
   const open = systemBox(walk.ctx, unit, { ...at, parts });
   if (walk.expandParts === walk.flip.has(unit)) {
     const listed = { ...open, list: true };
     const frame = { ...listed, h: foldedHeight(listed) };
-    for (const id of [unit, ...parts]) walk.put(id, frame);
+    const resources = structural ? (walk.satsOf.get(unit) ?? []) : [];
+    for (const id of [unit, ...parts, ...resources]) walk.put(id, frame);
     return frame;
   }
   let y = at.y + open.head;
@@ -109,17 +111,27 @@ function placeSystem(walk: Walk, unit: string, at: At): Box {
   const frame = { ...open, h: y - PART_GAP + 9 - at.y };
   walk.put(unit, frame);
   for (const [id, box] of placedParts) walk.put(id, box);
+  if (structural) {
+    const bottom = placeSats(walk, unit, { ...frame, h: frame.h - 9 }, true);
+    const containing = { ...frame, h: bottom - at.y + 9 };
+    walk.put(unit, containing);
+    return containing;
+  }
   return frame;
 }
 
 /** The topics and stores under a card, each a little below the last; returns where the block ends. */
-function placeSats(walk: Walk, unit: string, block: Box): number {
+function placeSats(walk: Walk, unit: string, block: Box, within = false): number {
   let y = block.y + block.h;
   for (const id of walk.satsOf.get(unit) ?? []) {
     y += SG;
     const sat = satBox(walk.ctx, id, { block, y, unit });
     const host = sat.host === null ? null : (walk.nodes.get(sat.host)?.id ?? sat.host);
-    walk.put(id, { ...sat, host });
+    walk.put(id, {
+      ...sat,
+      host,
+      ...(within ? { x: block.x + SYS_IN, w: CW - SYS_IN - 8, sys: unit, trunk: null } : {}),
+    });
     y += sat.h;
   }
   return y;
@@ -132,7 +144,9 @@ function placeUnit(
 ): { readonly block: Box; readonly bottom: number; readonly compact: boolean } {
   if (walk.cols.partsOf.has(unit)) {
     const block = placeSystem(walk, unit, at);
-    return { block, bottom: placeSats(walk, unit, block), compact: false };
+    const bottom =
+      walk.ctx.input.arrangement === 'structure' ? block.y + block.h : placeSats(walk, unit, block);
+    return { block, bottom, compact: false };
   }
   // a service with nothing drawn to or under it is a one-line card, as is an outside party on a tiered map
   const upstream = walk.cols.roles.length > 0 && walk.ctx.nodes.get(unit)?.kind === 'external';

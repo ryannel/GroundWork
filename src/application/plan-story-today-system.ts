@@ -12,13 +12,6 @@ const isTopic = (kind: string): boolean => kind === 'topic' || kind === 'queue';
 
 const lower = (n: number): string => numWord(n);
 
-function readLine(model: Model): string {
-  const { stages } = model.domain();
-  if (stages.length === 0) return 'Read left to right: who calls or feeds whom.';
-  const named = stages.map((s, i) => `${String(i + 1)} ${s.name}`).join(' → ');
-  return `Read left to right through the stages, ${named}.`;
-}
-
 interface Tally {
   readonly team: string;
   readonly name: string;
@@ -67,7 +60,7 @@ function ownersStop(model: Model): StopView {
     title: 'Who owns what',
     focus: 'all',
     headline: ownersHeadline(model.asIs.services.length, per),
-    lede: `${readLine(model)} Each card is a component in its team’s colour; its topics and stores sit underneath.`,
+    lede: 'Expand a system to see its components. Team colours show who owns each component.',
     below: teamsBelow(model, per),
   };
 }
