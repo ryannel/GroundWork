@@ -1,0 +1,126 @@
+{
+  "format": "scan-scope/v1",
+  "id": "spring-write-async",
+  "repo": "volvo-cars/cds-ecom-customer-service",
+  "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+  "ref": "HEAD",
+  "files": [
+    {
+      "path": "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/CustomerController.java",
+      "language": "java",
+      "environment": "server"
+    },
+    {
+      "path": "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/impl/CustomerControllerImpl.java",
+      "language": "java",
+      "environment": "server"
+    },
+    {
+      "path": "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/impl/CustomerApiService.java",
+      "language": "java",
+      "environment": "server"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerService.java",
+      "language": "java",
+      "environment": "server"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerRepository.java",
+      "language": "java",
+      "environment": "server"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/Customer.java",
+      "language": "java",
+      "environment": "server"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerSavePostProcessor.java",
+      "language": "java",
+      "environment": "server"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/analytics/AnalyticsEventService.java",
+      "language": "java",
+      "environment": "server"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/messaging/CustomerEventService.java",
+      "language": "java",
+      "environment": "server"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customerarchive/CustomerArchiveService.java",
+      "language": "java",
+      "environment": "server"
+    }
+  ],
+  "questions": [
+    {
+      "id": "equal-save-and-order",
+      "profile": "endpoint",
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerService.java",
+      "symbol": "saveAndPostProcess",
+      "checks": [
+        {
+          "kind": "control",
+          "text": "updatedCustomer.equals(previousCustomer)"
+        },
+        {
+          "kind": "call",
+          "text": "customerValidatorService.validate"
+        },
+        {
+          "kind": "call",
+          "text": "customerRepository.save"
+        },
+        {
+          "kind": "call",
+          "text": "savePostProcessor.postProcess"
+        }
+      ]
+    },
+    {
+      "id": "async-publication-and-completion",
+      "profile": "endpoint",
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/analytics/AnalyticsEventService.java",
+      "symbol": "publishAnalyticsEvent",
+      "checks": [
+        {
+          "kind": "control",
+          "text": "kafkaTemplate == null"
+        },
+        {
+          "kind": "call",
+          "text": "send(message)"
+        },
+        {
+          "kind": "return",
+          "text": "kafkaTemplate"
+        }
+      ]
+    },
+    {
+      "id": "archive-failure-window",
+      "profile": "endpoint",
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customerarchive/CustomerArchiveService.java",
+      "symbol": "moveCustomerToArchivedCollection",
+      "checks": [
+        {
+          "kind": "call",
+          "text": "upsertCustomerArchive"
+        },
+        {
+          "kind": "call",
+          "text": "deleteCustomer"
+        },
+        {
+          "kind": "call",
+          "text": "addFailed"
+        }
+      ]
+    }
+  ],
+  "workspace": "volvo-cars"
+}

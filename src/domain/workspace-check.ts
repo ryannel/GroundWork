@@ -54,6 +54,7 @@ export const RESERVED_PAGES: readonly string[] = [
   'assets',
   'language',
   'people',
+  'areas',
 ];
 
 /** Page names at the top of the app, beside the workspaces at /<workspace>/, so no workspace may take one. */

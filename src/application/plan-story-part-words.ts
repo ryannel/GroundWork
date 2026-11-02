@@ -61,15 +61,12 @@ function buildsSentence(model: Model, team: string, p: TeamPart): string {
 const firstDated = (gates: readonly Deciding[]): Deciding | undefined =>
   gates.find((e) => e.decide_by !== undefined) ?? gates[0];
 
-function decidesSentence(
-  name: string,
-  decides: readonly Deciding[],
-  today: Date | undefined,
-): string {
+function decidesSentence(name: string, decides: readonly Deciding[], model: Model): string {
+  const today = model.today;
   const first = firstDated(decides);
   if (first === undefined) return '';
   if (decides.length === 1) {
-    return `${name} decides one thing the plan waits on${byDate(first.decide_by, today, ',')}: ${asClause(gateTitle(first))}`;
+    return `${name} decides one thing the plan waits on${byDate(first.decide_by, today, ',')}: ${asClause(gateTitle(first, model))}`;
   }
   const when = first.decide_by === undefined ? '' : `; the first${byDate(first.decide_by, today)}`;
   return `${name} decides ${numWord(decides.length)} things the plan waits on${when}.`;
@@ -101,8 +98,8 @@ function nothingChanges(model: Model, name: string, p: TeamPart): string {
   return `This plan asks nothing of ${name}.`;
 }
 
-function lowHeadline(name: string, p: TeamPart): string {
-  const why = reasonOf(p.vote?.note);
+function lowHeadline(name: string, p: TeamPart, model: Model): string {
+  const why = reasonOf(p.vote?.note, undefined, model);
   const reason = why === '' ? '' : `: ${why}`;
   return `${name} is not confident (${String(p.vote?.confidence)} of 5)${reason}.`;
 }
@@ -110,8 +107,8 @@ function lowHeadline(name: string, p: TeamPart): string {
 /** The headline: the team's single most important fact (vote under 3, decides a gate, builds, its steps change, nothing). */
 export function headlineOf(model: Model, team: string, p: TeamPart): string {
   const name = teamName(model, team);
-  if (p.low) return lowHeadline(name, p);
-  if (p.decides.length > 0) return decidesSentence(name, p.decides, model.today);
+  if (p.low) return lowHeadline(name, p, model);
+  if (p.decides.length > 0) return decidesSentence(name, p.decides, model);
   if (p.work.length > 0) return buildsSentence(model, team, p);
   const touched = p.steps.filter((s) => s.kind !== 'differently' || !s.sameCall);
   if (touched.length === 0) return nothingChanges(model, name, p);

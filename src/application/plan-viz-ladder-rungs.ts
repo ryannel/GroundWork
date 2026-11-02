@@ -137,7 +137,7 @@ function opLines(model: Model, r: Rung): OpLineView[] {
     const lines = shown.map((p, i): OpLineView => {
       const step =
         o.summary.startsWith('via') || p.trimStart().startsWith('via') ? stepOf(model, o) : '';
-      const text = plainLine(unsigned(p));
+      const text = plainLine(unsigned(p), model);
       return {
         key: `${String(oi)}-${String(i)}`,
         change: changeOf(p),

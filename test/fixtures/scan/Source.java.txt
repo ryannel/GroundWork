@@ -1,0 +1,15 @@
+class Source {
+  @PostMapping("/items")
+  Object save(String input) {
+    if (((input == null))) { throw new IllegalArgumentException(); }
+    repository.save(input);
+    return run(input);
+  }
+  @Async
+  void run(String input) {
+    CompletableFuture.runAsync(() -> publish(input));
+  }
+  void parameterised() { values.forEach(value -> publish(value)); }
+  // A name is not a write proof; parser does not execute this method.
+  void fake() { String text = "repository.save(input)"; }
+}

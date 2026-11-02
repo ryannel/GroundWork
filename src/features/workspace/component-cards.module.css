@@ -37,30 +37,4 @@
     margin: 0;
     color: var(--fg-1);
   }
-
-  .summary {
-    color: var(--fg-2);
-    font-size: var(--fs-13);
-  }
-
-  .more {
-    display: grid;
-    gap: var(--s-3);
-  }
-
-  .parts {
-    display: grid;
-    gap: var(--s-2) var(--s-3);
-    grid-template-columns: max-content 1fr;
-    margin: 0;
-    font-size: var(--fs-13);
-
-    & dt {
-      color: var(--fg-3);
-    }
-
-    & dd {
-      margin: 0;
-    }
-  }
 }

@@ -1,6 +1,5 @@
 import 'server-only';
 
-import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { parse } from 'yaml';
@@ -11,6 +10,7 @@ import { isRecord } from '@/application/plan/ids';
 import { type BaseInfo, driftOf, NO_BASE, onBase, scopeOf } from '@/application/plan/plan-base';
 import type { Fanout } from '@/domain/plan/plan-graph';
 import type { IssueStatus } from '@/domain/plan/plan-status';
+import { pathIn, listFolder, readText, readTextIfAny } from '@/infrastructure/disk';
 
 import { type BaseReading, issueKey, readPlanBase, readPlanLock } from './plan-base-store';
 import { checkPlanData, type PlanCheck } from './plan-validator';
@@ -28,7 +28,7 @@ async function planFolder(
   slug: string,
 ): Promise<string> {
   const folder = await workspaceFolder(workspace, root);
-  return path.join(folder ?? path.join(root ?? '', '.no-such-workspace', workspace), 'plans', slug);
+  return pathIn(folder ?? pathIn(root ?? '', '.no-such-workspace', workspace), 'plans', slug);
 }
 
 const statusFile = z.record(
@@ -41,7 +41,7 @@ const statusFile = z.record(
 );
 
 async function folders(folder: string): Promise<string[]> {
-  const entries = await readdir(folder, { withFileTypes: true }).catch(() => []);
+  const entries = await listFolder(folder);
   return entries
     .filter((e) => e.isDirectory())
     .map((e) => e.name)
@@ -66,7 +66,12 @@ async function readRaw(
   file: string,
 ): Promise<{ readonly data: unknown } | { readonly error: Issue }> {
   try {
-    return { data: parse(await readFile(file, 'utf8'), { prettyErrors: true, uniqueKeys: true }) };
+    return {
+      data: parse(await readText(file), {
+        prettyErrors: true,
+        uniqueKeys: true,
+      }),
+    };
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     return { error: { path: '(root)', message } };
@@ -78,8 +83,8 @@ async function versionsOf(at: At): Promise<unknown[]> {
   const folder = await planFolder(at.root, at.workspace, at.slug);
   const versions = await listRevisions(at.workspace, at.slug, at.root);
   const files = [
-    path.join(folder, 'plan.yaml'),
-    ...versions.map((version) => path.join(folder, 'revisions', `${version}.yaml`)),
+    pathIn(folder, 'plan.yaml'),
+    ...versions.map((version) => pathIn(folder, 'revisions', `${version}.yaml`)),
   ];
   const raws = await Promise.all(files.map(readRaw));
   return raws.flatMap((raw) => ('data' in raw ? [raw.data] : []));
@@ -161,7 +166,7 @@ export async function readPlan(
 ): Promise<PlanRead> {
   const { root } = options;
   const folder = await planFolder(root, workspace, slug);
-  return readPlanFile(path.join(folder, 'plan.yaml'), { workspace, slug, root }, options.fanout);
+  return readPlanFile(pathIn(folder, 'plan.yaml'), { workspace, slug, root }, options.fanout);
 }
 
 /** The versions that have a plans/<slug>/revisions/<version>.yaml snapshot. */
@@ -171,8 +176,9 @@ export async function listRevisions(
   root?: string,
 ): Promise<string[]> {
   const folder = await planFolder(root, workspace, slug);
-  const entries = await readdir(path.join(folder, 'revisions')).catch(() => []);
+  const entries = await listFolder(pathIn(folder, 'revisions'));
   return entries
+    .map((entry) => entry.name)
     .filter((name) => name.endsWith('.yaml'))
     .map((name) => name.slice(0, -'.yaml'.length))
     .toSorted((a, b) => a.localeCompare(b));
@@ -186,7 +192,7 @@ export async function readRevision(
   const { root } = options;
   const folder = await planFolder(root, at.workspace, at.slug);
   return readPlanFile(
-    path.join(folder, 'revisions', `${path.basename(at.version)}.yaml`),
+    pathIn(folder, 'revisions', `${path.basename(at.version)}.yaml`),
     { workspace: at.workspace, slug: at.slug, root },
     options.fanout,
   );
@@ -198,8 +204,8 @@ export async function readStatus(
   slug: string,
   root?: string,
 ): Promise<IssueStatus> {
-  const file = path.join(await planFolder(root, workspace, slug), 'status.json');
-  const text = await readFile(file, 'utf8').catch(() => null);
+  const file = pathIn(await planFolder(root, workspace, slug), 'status.json');
+  const text = await readTextIfAny(file);
   if (text === null) return {};
   const result = statusFile.safeParse(JSON.parse(text));
   if (!result.success) throw new Error(`${file}: ${result.error.message}`);

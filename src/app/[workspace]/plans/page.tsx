@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { planRowsOf } from '@/application/plan-index';
@@ -7,18 +8,12 @@ import { TodayOverlays, TodaySearch } from '@/features/plan';
 import { PlansPage, WorkspaceShell } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
 import { readLoadedPlans } from '@/infrastructure/workspace-plans';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
 
 interface Params {
   readonly workspace: string;
 }
 
-export const dynamicParams = false;
-
-export async function generateStaticParams(): Promise<Params[]> {
-  const workspaces = await readWorkspaces();
-  return workspaces.map(({ id }) => ({ workspace: id }));
-}
+export const metadata: Metadata = { title: 'Plans' };
 
 export default async function PlansRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id } = await params;

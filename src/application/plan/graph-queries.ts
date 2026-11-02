@@ -83,7 +83,7 @@ export interface ServiceLink {
 
 const writersOf = (st: StoreNode): string[] => [
   ...new Set([
-    st.owner,
+    ...(st.owner === undefined ? [] : [st.owner]),
     ...(st.access ?? []).filter((a) => a.mode.includes('write')).map((a) => a.svc),
   ]),
 ];

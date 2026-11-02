@@ -7,13 +7,10 @@ const isTest = (file) => /\.(?:test|spec)\.tsx?$/u.test(file);
 // What a Next.js route file may export. Anything else is logic that belongs in a feature or application.
 const ROUTE_EXPORTS = new Set([
   'default',
-  'generateStaticParams',
   'generateMetadata',
   'metadata',
   'generateViewport',
   'viewport',
-  'dynamicParams',
-  'dynamic',
   'GET',
   'generateSitemaps',
   'generateImageMetadata',

@@ -1,0 +1,2496 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://groundwork.local/schema/knowledge-v2",
+  "title": "KnowledgeDocument",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/KnowledgeBundle"
+    },
+    {
+      "$ref": "#/$defs/KnowledgeSnapshot"
+    },
+    {
+      "$ref": "#/$defs/QueryRequest"
+    },
+    {
+      "$ref": "#/$defs/QueryResponse"
+    }
+  ],
+  "$defs": {
+    "Evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "evidence"
+        },
+        "repo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lines": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "basis": {
+          "enum": [
+            "source",
+            "test_assertion"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "repo",
+        "commit",
+        "path",
+        "lines",
+        "basis"
+      ]
+    },
+    "Artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "artifact"
+        },
+        "coordinate": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceCommit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "correspondence": {
+          "enum": [
+            "declared",
+            "candidate",
+            "verified"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "digest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "coordinate",
+        "version",
+        "sourceCommit",
+        "correspondence",
+        "evidence",
+        "digest"
+      ]
+    },
+    "Resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "resolution"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requestedArtifact": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "basis": {
+          "enum": [
+            "source_local",
+            "artifact_verified",
+            "unresolved"
+          ]
+        },
+        "target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "binding": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "requestedArtifact",
+        "basis",
+        "target",
+        "candidates",
+        "evidence",
+        "binding"
+      ]
+    },
+    "Implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "implementation"
+        },
+        "logicalId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entry": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "logicalId",
+        "scope",
+        "entry",
+        "parameters",
+        "evidence"
+      ]
+    },
+    "Operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "operation"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "enum": [
+            "entry",
+            "compute",
+            "branch",
+            "call",
+            "return",
+            "throw",
+            "opaque"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resolution": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "parameter": {
+                "type": "string",
+                "minLength": 1
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "parameter",
+              "value"
+            ]
+          }
+        },
+        "result": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "exit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "httpStatus": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "action",
+        "label",
+        "resolution",
+        "bindings",
+        "result",
+        "exit",
+        "httpStatus",
+        "evidence"
+      ]
+    },
+    "Transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "transition"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "from": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        },
+        "on": {
+          "type": "string",
+          "minLength": 1
+        },
+        "condition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "from",
+        "to",
+        "on",
+        "condition",
+        "values",
+        "evidence"
+      ]
+    },
+    "Value": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "value"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "definition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "enum": [
+            "parameter",
+            "definition",
+            "field",
+            "constant"
+          ]
+        },
+        "representation": {
+          "$ref": "#/$defs/Representation"
+        },
+        "shape": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "accessPath": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "definition",
+        "label",
+        "role",
+        "representation",
+        "shape",
+        "evidence",
+        "accessPath"
+      ]
+    },
+    "ValueFlow": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "flow"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "from": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        },
+        "at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transform": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "from",
+        "to",
+        "at",
+        "transform",
+        "evidence",
+        "gaps",
+        "assumptions"
+      ]
+    },
+    "Shape": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "shape"
+        },
+        "representation": {
+          "$ref": "#/$defs/Representation"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "enum": [
+                  "declared",
+                  "candidate"
+                ]
+              },
+              "wireTag": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "optional": {
+                "type": "boolean"
+              },
+              "shape": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "name",
+              "type",
+              "status"
+            ]
+          }
+        },
+        "completeness": {
+          "enum": [
+            "partial",
+            "closed"
+          ]
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "wireType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "encoding": {
+          "enum": [
+            "protobuf",
+            "json",
+            "messagepack_lz4",
+            "relational"
+          ]
+        },
+        "reservedTags": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "uniqueItems": true
+        },
+        "reservedNames": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "container": {
+          "enum": [
+            "object",
+            "array"
+          ]
+        },
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "representation",
+        "label",
+        "fields",
+        "completeness",
+        "gaps",
+        "evidence"
+      ]
+    },
+    "Effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "effect"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "effect": {
+          "enum": [
+            "read",
+            "write",
+            "call",
+            "publish"
+          ]
+        },
+        "resource": {
+          "type": "string",
+          "minLength": 1
+        },
+        "modality": {
+          "enum": [
+            "source_declared",
+            "source_traced"
+          ]
+        },
+        "representation": {
+          "enum": [
+            "logical",
+            "physical"
+          ]
+        },
+        "selection": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "payload": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "operation",
+        "effect",
+        "resource",
+        "modality",
+        "representation",
+        "selection",
+        "payload",
+        "evidence"
+      ]
+    },
+    "Gap": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "gap"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "obligation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "obligation",
+        "reason",
+        "action",
+        "evidence"
+      ]
+    },
+    "Coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "coverage"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "obligation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "examined",
+            "partial",
+            "not_examined"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "obligation",
+        "status",
+        "scope",
+        "gaps",
+        "evidence"
+      ]
+    },
+    "Claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "claim"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis": {
+          "enum": [
+            "source_declared",
+            "source_traced",
+            "test_asserted"
+          ]
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "statement",
+        "basis",
+        "inputs",
+        "assumptions",
+        "evidence"
+      ]
+    },
+    "Derivation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "derivation"
+        },
+        "output": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "output",
+        "rule",
+        "inputs"
+      ]
+    },
+    "KnowledgeRecord": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Evidence"
+        },
+        {
+          "$ref": "#/$defs/Artifact"
+        },
+        {
+          "$ref": "#/$defs/Resolution"
+        },
+        {
+          "$ref": "#/$defs/Implementation"
+        },
+        {
+          "$ref": "#/$defs/Operation"
+        },
+        {
+          "$ref": "#/$defs/Transition"
+        },
+        {
+          "$ref": "#/$defs/Value"
+        },
+        {
+          "$ref": "#/$defs/ValueFlow"
+        },
+        {
+          "$ref": "#/$defs/Shape"
+        },
+        {
+          "$ref": "#/$defs/Effect"
+        },
+        {
+          "$ref": "#/$defs/Gap"
+        },
+        {
+          "$ref": "#/$defs/Coverage"
+        },
+        {
+          "$ref": "#/$defs/Claim"
+        },
+        {
+          "$ref": "#/$defs/Derivation"
+        },
+        {
+          "$ref": "#/$defs/SourceRevision"
+        },
+        {
+          "$ref": "#/$defs/Entry"
+        },
+        {
+          "$ref": "#/$defs/Resource"
+        },
+        {
+          "$ref": "#/$defs/ArtifactSourceBinding"
+        },
+        {
+          "$ref": "#/$defs/StorageWrite"
+        },
+        {
+          "$ref": "#/$defs/ChannelBinding"
+        },
+        {
+          "$ref": "#/$defs/DeliveryPolicy"
+        },
+        {
+          "$ref": "#/$defs/Subscription"
+        },
+        {
+          "$ref": "#/$defs/Handoff"
+        },
+        {
+          "$ref": "#/$defs/ConsistencyBoundary"
+        },
+        {
+          "$ref": "#/$defs/Milestone"
+        }
+      ]
+    },
+    "KnowledgeBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "enum": [
+            "groundwork-knowledge/v1",
+            "groundwork-knowledge/v2"
+          ]
+        },
+        "workspace": {
+          "type": "string",
+          "minLength": 1
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/KnowledgeRecord"
+          }
+        }
+      },
+      "required": [
+        "format",
+        "workspace",
+        "records"
+      ]
+    },
+    "KnowledgeSnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "enum": [
+            "groundwork-snapshot/v1",
+            "groundwork-snapshot/v2"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bundles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "interpretations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "rules": {
+          "enum": [
+            "knowledge-query/v1",
+            "knowledge-query/v2"
+          ]
+        }
+      },
+      "required": [
+        "format",
+        "id",
+        "bundles",
+        "interpretations",
+        "rules"
+      ]
+    },
+    "QueryRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "enum": [
+            "groundwork-query/v1",
+            "groundwork-query/v2"
+          ]
+        },
+        "snapshot": {
+          "type": "string",
+          "minLength": 1
+        },
+        "query": {
+          "enum": [
+            "trace",
+            "value",
+            "outcome",
+            "effects",
+            "impact",
+            "continuations",
+            "consistency",
+            "records"
+          ]
+        },
+        "entry": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "context": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "outcome": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "changed": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "representation": {
+          "$ref": "#/$defs/Representation"
+        },
+        "candidates": {
+          "const": "exclude"
+        },
+        "maxNodes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "environment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "maxRecords": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5000
+        },
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "omit": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "format",
+        "snapshot",
+        "query",
+        "entry",
+        "value",
+        "context",
+        "outcome",
+        "changed",
+        "representation",
+        "candidates",
+        "maxNodes"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "query": {
+                "const": "value"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "context": {
+                "maxItems": 0,
+                "type": "array"
+              },
+              "value": {
+                "const": null
+              },
+              "representation": {
+                "const": "constructed"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "query": {
+                "const": "outcome"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "outcome": {
+                "type": "integer",
+                "minimum": 100,
+                "maximum": 599
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "outcome": {
+                "const": null
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "query": {
+                "const": "impact"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "changed": {
+                "minItems": 1,
+                "type": "array"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "changed": {
+                "type": "array",
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "format": {
+                "const": "groundwork-query/v2"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "environment",
+              "maxRecords",
+              "ids"
+            ],
+            "properties": {
+              "environment": {},
+              "maxRecords": {},
+              "ids": {}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "query": {
+                "const": "records"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "ids": {
+                "type": "array",
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "ids": {
+                "type": "array",
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "QueryNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "record": {
+          "type": "string",
+          "minLength": 1
+        },
+        "context": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "record",
+        "context",
+        "label"
+      ]
+    },
+    "QueryEdge": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "from": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        },
+        "on": {
+          "type": "string",
+          "minLength": 1
+        },
+        "condition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "assumption": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "record": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "on",
+        "condition",
+        "assumption",
+        "evidence",
+        "record"
+      ]
+    },
+    "Frontier": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "enum": [
+            "version_unresolved",
+            "opaque",
+            "cycle",
+            "query_limit",
+            "representation_unresolved",
+            "binding_unresolved",
+            "unhandled_exception",
+            "support_limit"
+          ]
+        },
+        "detail": {
+          "type": "string",
+          "minLength": 1
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "at",
+        "reason",
+        "detail",
+        "references"
+      ]
+    },
+    "QueryResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "enum": [
+            "groundwork-result/v1",
+            "groundwork-result/v2"
+          ]
+        },
+        "snapshot": {
+          "type": "string",
+          "minLength": 1
+        },
+        "queryVersion": {
+          "enum": [
+            "knowledge-query/v1",
+            "knowledge-query/v2"
+          ]
+        },
+        "request": {
+          "$ref": "#/$defs/QueryRequest"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/QueryNode"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/QueryEdge"
+          }
+        },
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "coverage": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "frontiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Frontier"
+          }
+        },
+        "limitsHit": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "maxNodes",
+              "maxRecords"
+            ]
+          }
+        },
+        "feasibility": {
+          "const": "not_checked"
+        },
+        "exhaustive": {
+          "const": false
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/KnowledgeRecord"
+          }
+        },
+        "traversalComplete": {
+          "type": "boolean"
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "statement": {
+                "type": "string"
+              },
+              "support": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "assumptions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "statement",
+              "support",
+              "assumptions"
+            ]
+          }
+        },
+        "nextRequest": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/QueryRequest"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "format",
+        "snapshot",
+        "queryVersion",
+        "request",
+        "nodes",
+        "edges",
+        "claims",
+        "evidence",
+        "coverage",
+        "frontiers",
+        "limitsHit",
+        "feasibility",
+        "exhaustive",
+        "records",
+        "traversalComplete",
+        "findings"
+      ]
+    },
+    "SourceRevision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "source_revision"
+        },
+        "repo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "repo",
+        "commit"
+      ]
+    },
+    "Entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "entry"
+        },
+        "logicalId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implementation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "logicalId",
+        "method",
+        "path",
+        "implementation",
+        "evidence"
+      ]
+    },
+    "Resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "resource"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "technology": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaredDatabase": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "physicalLocation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "shapes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "address": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "basis": {
+              "const": "source_declared"
+            },
+            "connectionSetting": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "database": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "table": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "container": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "path": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "key": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "basis",
+            "connectionSetting",
+            "database",
+            "table",
+            "container",
+            "path",
+            "key"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "label",
+        "technology",
+        "declaredDatabase",
+        "physicalLocation",
+        "shapes",
+        "gaps",
+        "evidence"
+      ]
+    },
+    "ArtifactSourceBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "artifact_source_binding"
+        },
+        "artifact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "exact",
+            "candidate"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "artifact",
+        "source",
+        "status",
+        "evidence"
+      ]
+    },
+    "Representation": {
+      "enum": [
+        "source",
+        "constructed",
+        "wire",
+        "persisted"
+      ]
+    },
+    "StorageWrite": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "storage_write"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "effect": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stagedAt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "enum": [
+            "insert",
+            "upsert",
+            "replace"
+          ]
+        },
+        "acknowledgement": {
+          "enum": [
+            "normal_return",
+            "success_result",
+            "ignored_result"
+          ]
+        },
+        "atomicity": {
+          "enum": [
+            "store_call_only",
+            "unknown"
+          ]
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1
+              },
+              "transform": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "path",
+              "value",
+              "transform"
+            ]
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "acknowledgedAt": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "effect",
+        "stagedAt",
+        "acknowledgedAt",
+        "mode",
+        "acknowledgement",
+        "atomicity",
+        "fields",
+        "gaps",
+        "evidence",
+        "condition"
+      ]
+    },
+    "ChannelBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "channel_binding"
+        },
+        "resource": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "namespace": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "channel": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "environment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis": {
+          "const": "committed_configuration"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "resource",
+        "source",
+        "namespace",
+        "channel",
+        "environment",
+        "profile",
+        "basis",
+        "conditions",
+        "gaps",
+        "evidence"
+      ]
+    },
+    "DeliveryPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "delivery_policy"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "awaited": {
+          "type": "boolean"
+        },
+        "brokerPersistenceRequired": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "offsetCommit": {
+          "enum": [
+            "unresolved",
+            "explicit",
+            "automatic"
+          ]
+        },
+        "retryLimit": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "deduplication": {
+          "enum": [
+            "entity_upsert",
+            "none_in_inspected_scope",
+            "unknown"
+          ]
+        },
+        "deduplicationKeys": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "ordering": {
+          "const": "not_established"
+        },
+        "deliveryGuarantee": {
+          "const": "not_established"
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "operation",
+        "awaited",
+        "brokerPersistenceRequired",
+        "offsetCommit",
+        "retryLimit",
+        "deduplication",
+        "deduplicationKeys",
+        "ordering",
+        "deliveryGuarantee",
+        "gaps",
+        "evidence"
+      ]
+    },
+    "Subscription": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "subscription"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "binding": {
+          "type": "string",
+          "minLength": 1
+        },
+        "header": {
+          "type": "string",
+          "minLength": 1
+        },
+        "messageType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "payload": {
+          "type": "string",
+          "minLength": 1
+        },
+        "group": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "binding",
+        "header",
+        "messageType",
+        "payload",
+        "group",
+        "policy",
+        "gaps",
+        "evidence"
+      ]
+    },
+    "Handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "handoff"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "effect": {
+          "type": "string",
+          "minLength": 1
+        },
+        "binding": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subscription": {
+          "type": "string",
+          "minLength": 1
+        },
+        "messageType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "wireShape": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "source_matched",
+            "unresolved"
+          ]
+        },
+        "awaitsConsumer": {
+          "const": false
+        },
+        "partitionKey": {
+          "enum": [
+            "null",
+            "value",
+            "unknown"
+          ]
+        },
+        "keyValue": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "from": {
+                "type": "string",
+                "minLength": 1
+              },
+              "to": {
+                "type": "string",
+                "minLength": 1
+              },
+              "transform": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "from",
+              "to",
+              "transform"
+            ]
+          }
+        },
+        "correlation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1
+              },
+              "header": {
+                "type": "string",
+                "minLength": 1
+              },
+              "purpose": {
+                "enum": [
+                  "trace_correlation",
+                  "entity_identity",
+                  "message_identity"
+                ]
+              },
+              "consumerUse": {
+                "enum": [
+                  "not_read_in_inspected_processor",
+                  "mapped",
+                  "unresolved"
+                ]
+              }
+            },
+            "required": [
+              "value",
+              "header",
+              "purpose",
+              "consumerUse"
+            ]
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "compatibility": {
+          "enum": [
+            "source_schema_match",
+            "unresolved"
+          ]
+        },
+        "typeHeader": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "effect",
+        "binding",
+        "subscription",
+        "messageType",
+        "wireShape",
+        "policy",
+        "status",
+        "awaitsConsumer",
+        "partitionKey",
+        "keyValue",
+        "bindings",
+        "correlation",
+        "gaps",
+        "evidence",
+        "compatibility",
+        "typeHeader"
+      ]
+    },
+    "ConsistencyBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "consistency_boundary"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "order": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "coordination": {
+          "enum": [
+            "separate_calls",
+            "outbox",
+            "unknown"
+          ]
+        },
+        "sharedTransaction": {
+          "const": "not_established"
+        },
+        "failureWindow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "effects",
+        "order",
+        "coordination",
+        "sharedTransaction",
+        "failureWindow",
+        "gaps",
+        "evidence"
+      ]
+    },
+    "Milestone": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "milestone"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stage": {
+          "enum": [
+            "local_persistence",
+            "publication_attempt",
+            "broker_receipt",
+            "broker_persisted_report",
+            "consumer_effect",
+            "http_response"
+          ]
+        },
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resource": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis": {
+          "const": "conditional_source_path"
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "owner",
+        "operation",
+        "stage",
+        "condition",
+        "resource",
+        "meaning",
+        "basis",
+        "gaps",
+        "evidence"
+      ]
+    }
+  }
+}

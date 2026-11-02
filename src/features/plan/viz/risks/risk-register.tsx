@@ -1,6 +1,5 @@
 import type { Model } from '@/application/plan/derive';
 import { ROAM_GLOSS } from '@/application/plan-risk-words';
-import { searchText } from '@/application/plan-story-ref';
 import {
   bySeverity,
   cellOf,
@@ -13,6 +12,7 @@ import {
   statementOf,
 } from '@/application/plan-viz-risks';
 import { teamName } from '@/application/plan-viz-teams';
+import { searchText } from '@/application/reference/model';
 import type { Risk } from '@/domain/plan/plan.generated';
 import { NamedChip, NamedChips } from '@/features/plan/common/named-chip';
 import { TeamTag } from '@/features/plan/common/team-dot';
@@ -40,7 +40,7 @@ function rowOf(model: Model, r: Risk) {
   return {
     key: r.id,
     search: searchText(
-      statementOf(r),
+      statementOf(r, model),
       numberOfRisk(model, r),
       handlingOf(model, r),
       levelsText(r),
@@ -60,7 +60,7 @@ function rowOf(model: Model, r: Risk) {
       ),
       what: (
         <button className={styles.statement} data-inspect={r.id} type="button">
-          {statementOf(r)}
+          {statementOf(r, model)}
         </button>
       ),
       levels: levelsText(r),

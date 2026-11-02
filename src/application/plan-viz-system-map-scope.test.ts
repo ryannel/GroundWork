@@ -35,6 +35,40 @@ const call = (from: string, to: string) => ({
 const places = { 'sys:ordering': 'Orders domain', 'sys:shop': 'Storefront domain' };
 
 describe('a scoped system map', () => {
+  it('does not ship labels and contracts from unrelated parts of the workspace', () => {
+    const { input } = shared();
+    const extra = {
+      ...input,
+      labels: { ...input.labels, 'api:unrelated': 'Unrelated contract' },
+      interfaceOf: { ...input.interfaceOf, 'api:unrelated': 'if:unrelated' },
+      callWords: { ...input.callWords, 'api:unrelated': 'REST call' },
+      carries: { ...input.carries, 'api:unrelated': 'Unrelated data' },
+    };
+    const scoped = scopeMapInput(extra, { focus: ['svc:payments'], places: {} });
+    expect(scoped.labels).not.toHaveProperty('api:unrelated');
+    expect(scoped.interfaceOf).not.toHaveProperty('api:unrelated');
+    expect(scoped.callWords).not.toHaveProperty('api:unrelated');
+    expect(scoped.carries).not.toHaveProperty('api:unrelated');
+    expect(scoped.labels['svc:payments']).toBe(input.labels['svc:payments']);
+    const fullLookups = {
+      ...input,
+      ...scoped,
+      refs: input.refs,
+      labels: input.labels,
+      interfaceOf: input.interfaceOf,
+      ...(input.callWords === undefined ? {} : { callWords: input.callWords }),
+      ...(input.carries === undefined ? {} : { carries: input.carries }),
+    };
+    expect(drawSystemMap(scoped, { show: SHOW_ALL })).toEqual(
+      drawSystemMap(fullLookups, { show: SHOW_ALL }),
+    );
+    expect(drawSystemMap(scoped, { show: SHOW_ALL })).toEqual(
+      drawSystemMap(scopeMapInput(input, { focus: ['svc:payments'], places: {} }), {
+        show: SHOW_ALL,
+      }),
+    );
+  });
+
   it('keeps the focus and what it talks to, and leaves the rest out', () => {
     const { workspace, input } = shared();
     const scope = systemScopeOf(workspace, 'payments')!;
@@ -145,9 +179,21 @@ describe('a folded system card', () => {
       show: SHOW_OVERVIEW,
     });
     const card = (id: string) => drawing?.nodes.find((n) => n.id === id);
-    expect(card('sys:payments')).toMatchObject({ folded: true, size: '2 parts' });
+    expect(card('sys:payments')).toMatchObject({ folded: true, size: '2 components' });
     expect(card('sys:payments')?.owner).not.toBe('');
     expect(card('sys:ordering')?.role.join(' ')).toMatch(/^Orders domain/u);
     expect(card('sys:payments')?.role.join(' ')).not.toMatch(/domain/u);
+    const withResources = drawSystemMap(
+      {
+        ...input,
+        systems: input.systems.map((system) =>
+          system.id === 'sys:payments' ? { ...system, stores: 3 } : system,
+        ),
+      },
+      { show: SHOW_OVERVIEW },
+    );
+    expect(withResources?.nodes.find((node) => node.id === 'sys:payments')?.size).toBe(
+      '5 components',
+    );
   });
 });

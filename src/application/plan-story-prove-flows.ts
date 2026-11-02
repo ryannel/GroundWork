@@ -1,6 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { flowSteps } from '@/application/plan/flow-steps';
-import { refLabel } from '@/application/plan/ref-label';
+import { labelsOf, refLabel } from '@/application/plan/ref-label';
 import { andList } from '@/application/plan-viz-ladder-order';
 import { numWord } from '@/application/plan-viz-text';
 import type { FlowNode } from '@/domain/plan/plan-graph';
@@ -14,11 +14,12 @@ type Bracket = ReturnType<Model['spans']>[number];
 
 export const capital = (text: string): string => text.charAt(0).toUpperCase() + text.slice(1);
 
-export const flowName = (f: Pick<FlowNode, 'id' | 'name'>): string =>
-  plainTitle(f.name === '' ? f.id : f.name, refLabel);
+export const flowName = (f: Pick<FlowNode, 'id' | 'name'>, model?: Model): string =>
+  plainTitle(f.name === '' ? f.id : f.name, model === undefined ? refLabel : labelsOf(model));
 
 /** A flow's name inside a sentence: its title is an imperative (“Issue the invoice”), so it is quoted. */
-export const quoted = (f: Pick<FlowNode, 'id' | 'name'>): string => `“${flowName(f)}”`;
+export const quoted = (f: Pick<FlowNode, 'id' | 'name'>, model?: Model): string =>
+  `“${flowName(f, model)}”`;
 
 export interface WalkedFlow {
   readonly flow: FlowNode;

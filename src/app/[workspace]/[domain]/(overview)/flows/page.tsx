@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { domainViewOf } from '@/application/workspace-domain';
@@ -11,6 +12,8 @@ interface Params {
 }
 
 // The domain's busiest flow, read first.
+export const metadata: Metadata = { title: 'Flows' };
+
 export default async function DomainFlowsRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id, domain } = await params;
   const data = await todayData(id);

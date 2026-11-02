@@ -5,6 +5,7 @@ import { PageHeader } from '@/ui/page-header';
 import { SectionHeading } from '@/ui/section-heading';
 
 import { DesignControls } from './design-controls.client';
+import { DiagramsSection } from './design-diagrams';
 import { LayoutSection } from './design-layout';
 import styles from './design-page.module.css';
 import { HoldersSection, StatusSection, WordsSection } from './design-sections';
@@ -28,6 +29,7 @@ export function DesignPage() {
         </section>
         <StatusSection />
         <HoldersSection />
+        <DiagramsSection />
         <LayoutSection />
       </div>
     </AppShell>

@@ -2,7 +2,7 @@
 
 import { Suspense, useSyncExternalStore } from 'react';
 
-import { LENS_PARAM, setParam, useLens } from '@/features/plan/lens.client';
+import { useLens, useSetLens } from '@/features/plan/lens.client';
 import { walkHere, watchWalk } from '@/features/plan/walk-keys';
 
 import styles from './progress-strip.module.css';
@@ -30,6 +30,7 @@ export const teamOf = (teams: readonly TeamPlace[], lens: string | null): TeamPl
 
 function TeamWords({ team }: { readonly team: TeamPlace }) {
   const name = possessive(team.name);
+  const setLens = useSetLens();
   return (
     <span className={styles.team}>
       <span>
@@ -40,7 +41,7 @@ function TeamWords({ team }: { readonly team: TeamPlace }) {
       <button
         className={styles.full}
         onClick={() => {
-          setParam(LENS_PARAM, null);
+          setLens(null);
         }}
         type="button"
       >

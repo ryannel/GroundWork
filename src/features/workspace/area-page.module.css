@@ -1,0 +1,7 @@
+@layer components {
+  .activities,
+  .section {
+    margin-top: var(--s-10);
+    scroll-margin-top: calc(var(--topbar-h) + var(--s-4));
+  }
+}

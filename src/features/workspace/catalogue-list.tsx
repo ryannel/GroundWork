@@ -4,6 +4,8 @@ import type { Catalogue, CatalogueRow } from '@/application/today-catalogue';
 import type { SystemCatalogue } from '@/application/workspace-domain';
 import { plural } from '@/shared/text';
 import { SectionHeading } from '@/ui/section-heading';
+import { Cluster } from '@/ui/stack';
+import { TextLink } from '@/ui/text';
 
 import styles from './catalogue-list.module.css';
 import { RefChip, RefChips } from './ref-chip';
@@ -37,7 +39,15 @@ function Row({ row, item }: { readonly row: CatalogueRow; readonly item: string 
           <span className={styles.count}>{plural(row.items.length, item)}</span>
         </summary>
         <div className={styles.items}>
-          <RefChips chips={row.items} />
+          <RefChips chips={row.items.slice(0, 6)} />
+          {row.items.length > 6 ? (
+            <RefChip
+              chip={{
+                ...row.head,
+                label: `All ${String(row.items.length)} — open ${row.head.label}`,
+              }}
+            />
+          ) : null}
         </div>
       </details>
     </li>
@@ -114,13 +124,27 @@ const tally = ({ apis, events, data }: Catalogue): string =>
   ].join(' · ');
 
 // A domain's interfaces, one system at a time: a system is what a reader looks for, and its components follow.
-export function SystemCatalogues({ systems }: { readonly systems: readonly SystemCatalogue[] }) {
+export function SystemCatalogues({
+  systems,
+  selected,
+}: {
+  readonly systems: readonly SystemCatalogue[];
+  readonly selected?: string;
+}) {
   if (systems.length === 0) {
     return <p className={styles.none}>Nothing here is called, announced or kept yet.</p>;
   }
+  const chosen = systems.find((system) => system.id === selected) ?? systems[0];
   return (
     <div className={styles.systems}>
-      {systems.map((system) => (
+      <Cluster label="Choose a system">
+        {systems.map((system) => (
+          <TextLink key={system.id} href={`?system=${encodeURIComponent(system.id)}`}>
+            {system.name}
+          </TextLink>
+        ))}
+      </Cluster>
+      {(chosen === undefined ? [] : [chosen]).map((system) => (
         <section className={styles.block} id={system.id} key={system.id}>
           <SectionHeading title={system.name}>
             <p>

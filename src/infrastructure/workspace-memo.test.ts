@@ -68,6 +68,39 @@ describe('untilEdited', () => {
     expect(reads()).toBe(1);
   });
 
+  it("ignores a workspace's generated explorer and evidence folders", async () => {
+    const remember = untilEdited<string>();
+    const { reads, read } = counted();
+    await mkdir(path.join(root, 'acme', 'explorer'), { recursive: true });
+    await mkdir(path.join(root, 'acme', 'evidence'), { recursive: true });
+    await remember(root, 'k', read);
+    await writeFile(path.join(root, 'acme', 'explorer', 'manifest.json'), '{}\n');
+    await writeFile(path.join(root, 'acme', 'evidence', 'index.json'), '{}\n');
+    await remember(root, 'k', read);
+    expect(reads()).toBe(1);
+  });
+
+  it('still stamps folders named evidence below a workspace root', async () => {
+    const remember = untilEdited<string>();
+    const { reads, read } = counted();
+    await mkdir(path.join(root, 'acme', 'domains', 'evidence'), { recursive: true });
+    await remember(root, 'k', read);
+    await writeFile(path.join(root, 'acme', 'domains', 'evidence', 'domain.yaml'), 'id: e\n');
+    await remember(root, 'k', read);
+    expect(reads()).toBe(2);
+  });
+
+  it('replaces a cached value when its external revision changes', async () => {
+    let day = '2026-10-29';
+    const remember = untilEdited<string>(() => day);
+    const { reads, read } = counted();
+    await remember(root, 'k', read);
+    await remember(root, 'k', read);
+    day = '2026-10-30';
+    await expect(remember(root, 'k', read)).resolves.toBe('read 2');
+    expect(reads()).toBe(2);
+  });
+
   it('tries again after a read fails', async () => {
     const remember = untilEdited<string>();
     await expect(remember(root, 'k', broken)).rejects.toThrow('broken');

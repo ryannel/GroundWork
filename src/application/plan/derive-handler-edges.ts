@@ -82,11 +82,6 @@ interface TalksTo {
   readonly handler?: string;
 }
 
-const isTopic = (g: SystemGraph, id: string): boolean => {
-  const n = g.get(id);
-  return n?.$type === 'store' && (n.kind === 'topic' || n.kind === 'queue');
-};
-
 function talksTo(g: SystemGraph, e: HandlerEdge): TalksTo[] {
   const base = { from: e.from, handler: e.handler };
   if (e.kind === 'call') {
@@ -98,7 +93,7 @@ function talksTo(g: SystemGraph, e: HandlerEdge): TalksTo[] {
     const consumers = m?.$type === 'message' ? (m.consumers ?? []) : [];
     return consumers.map((c) => ({ ...base, to: c, via: e.target, kind: 'msg' }));
   }
-  if (e.to === null || !g.has(e.to) || isTopic(g, e.to)) return [];
+  if (e.to === null || g.get(e.to)?.$type !== 'store') return [];
   return [{ ...base, to: e.to, kind: 'data', read: e.kind === 'read', write: e.kind === 'write' }];
 }
 

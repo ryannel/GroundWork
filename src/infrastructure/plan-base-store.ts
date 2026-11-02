@@ -1,14 +1,12 @@
 import 'server-only';
 
-import { readFile } from 'node:fs/promises';
-import path from 'node:path';
-
 import { parse } from 'yaml';
 import { z } from 'zod';
 
 import type { Issue } from '@/application/plan/check-context';
 import { isRecord } from '@/application/plan/ids';
 import { collectionsOf, type PlanBase } from '@/application/plan/plan-base';
+import { pathIn, readTextIfAny } from '@/infrastructure/disk';
 
 import { checkPlanData } from './plan-validator';
 import { readToday } from './today-model';
@@ -53,10 +51,6 @@ async function todayBase(workspace: string, root?: string): Promise<BaseReading 
   });
 }
 
-async function readText(file: string): Promise<string | null> {
-  return readFile(file, 'utf8').catch(() => null);
-}
-
 /** What a plan is put onto: its kept copy once landed, otherwise today. Null outside a workspace. */
 export async function readPlanBase(
   workspace: string,
@@ -65,8 +59,8 @@ export async function readPlanBase(
 ): Promise<BaseReading | null> {
   const folder = await workspaceFolder(workspace, root);
   if (folder === null) return null;
-  const file = path.join(folder, 'plans', slug, 'base.yaml');
-  const text = await readText(file);
+  const file = pathIn(folder, 'plans', slug, 'base.yaml');
+  const text = await readTextIfAny(file);
   if (text === null) return todayBase(workspace, root);
   const data: unknown = parse(text, { uniqueKeys: true });
   if (!isRecord(data)) throw new Error(`${file}: a base must be a mapping`);
@@ -85,8 +79,8 @@ export async function readPlanLock(
 ): Promise<PlanLock | null> {
   const folder = await workspaceFolder(workspace, root);
   if (folder === null) return null;
-  const file = path.join(folder, 'plans', slug, 'base.lock.json');
-  const text = await readText(file);
+  const file = pathIn(folder, 'plans', slug, 'base.lock.json');
+  const text = await readTextIfAny(file);
   if (text === null) return null;
   const result = lockFile.safeParse(JSON.parse(text));
   if (!result.success) throw new Error(`${file}: ${result.error.message}`);

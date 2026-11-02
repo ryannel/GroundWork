@@ -1,137 +1,48 @@
 ---
 name: groundwork-schema
-description: Ground rules for Groundwork's YAML - the system model (system.yaml, contracts.yaml, handlers.yaml, flows, journeys) and plans as overlays on it - what is authored and what is derived, and an op cookbook for every kind of change, including ops on handlers. Use when writing or fixing any workspace file or plan, writing add/modify/deprecate/remove ops (add a field, insert a step, add a branch to a handler, version a message, migrate a consumer, retire, grant store access), or resolving validator errors and warnings.
+description: Author or validate Groundwork scan evidence, execution bundles, workspace YAML and plan overlays using the appropriate schema and provenance rules.
 ---
 
-# Groundwork's model: the rules, not the fields
+# Groundwork schema rules
 
-Fields and enums: read `schema/plan.schema.json` (`$defs`); the system model and plans share it. Do not guess a
-key; objects are closed. For a complete small plan, read `test/fixtures/mini.yaml`; for a federated graph,
-`test/fixtures/shop.yaml`. Copy-paste ops for every kind of change: [cookbook.md](cookbook.md). Every validator message ends with its
-fix, so read the message. Types for the app are generated from the schema with `npm run generate`.
+Choose the contract that the requested artefact actually uses. The formats below are separate; producing
+scan evidence or an execution proof does not migrate the application. Read schema definitions for the
+records being changed rather than copying field names across formats.
 
-## Where things live
+| Artefact                                                                   | Authoritative contract                                                      | Read when needed                                          |
+| -------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------- |
+| Question-led source evidence                                               | `schema/scan.schema.json`; `npm run generate:scan`                          | [Pipeline](../../../docs/scan-pipeline.md)                |
+| LLM interpretation of purpose, actors, actions, journeys and relationships | `schema/scan-interpretation.schema.json`; `npm run generate:interpretation` | [Interpretation](interpretation.md)                       |
+| Existing runtime/execution proof                                           | `schema/knowledge.schema.json`; `npm run generate:knowledge`                | [Canonical records](canonical-execution.md)               |
+| Production workspace model or plan overlay                                 | `schema/plan.schema.json`; `npm run generate`                               | [Legacy YAML](legacy-yaml.md), [op cookbook](cookbook.md) |
 
-```
-<workspace>/
-  workspace.yaml                         teams, name                                        people
-  story.yaml                             summary, stages, concepts                          people
-  flows/<flow>.yaml                      one curated walk across components per file        people
-  journeys/<journey>.yaml                user journeys and interactions                     people
-  domains/<d>/domain.yaml                name, purpose                                      people
-  domains/<d>/target.yaml                target architecture: summary, stages, shifts        people
-  domains/<d>/systems/<s>/system.yaml    name, team, repos (or folders of one), components  people
-                                         and tier: channel|gateway|forward|backend|upstream;
-                                         a component may say infrastructure: true
-  domains/<d>/systems/<s>/contracts.yaml stores, interfaces, schemas, messages, screens     the scan
-  domains/<d>/systems/<s>/handlers.yaml  what runs on each endpoint, message, job, action    the scan
-  scans/<org>/<name>.yaml                each repo's high-water mark                        tools/scan-mark.ts
-  plans/<plan>/plan.yaml                 changes, context, reasoning                        people
-  plans/<plan>/base.lock.json            what an open plan fitted in today                  npm run plan:base -- check
-  plans/<plan>/base.yaml                 a shipped plan's frozen today                      npm run plan:base -- land
-  MAP.md                                 the agents' map                                    npm run map -- md
-```
+## Evidence and interpretation
 
-The levels are workspace › domain › system › component, and nothing else. A component is a service, website,
-app, job or external party (`svc:`), or a store (`st:`).
+Keep records closed, references kind-checked and source anchors pinned to repository, full commit, path and
+range. Preserve technical component identity independently of teams and domain/system grouping. Source
+DTOs, candidate library revisions and policy declarations do not establish effective wire, deployment or
+authorisation behaviour.
 
-## Ground rules
+Use typed control/value relations and parsed atoms for source proofs; display syntax or an operation name
+cannot supply a missing relation. Required question slots must retain honest partial, unresolved or
+not-examined outcomes. Known absence needs a complete scoped search. Validation of shape and references
+is distinct from source verification and semantic coverage.
 
-1. **The model is today; a plan is an overlay.** The system model describes production as it runs now, with no
-   plan present. A plan lists what changes as ops in `changes[].ops`, and in `context` any ids it relies on but
-   does not otherwise name. It never copies today: an open plan reads today live, drawing the part its ops,
-   prose and `context` name, and a landed plan reads the `base.yaml` frozen when it shipped.
-2. **Ops**: `add`, `modify` (`set` / `append` / `drop`), `deprecate` (+ `replaced_by`), `remove`. They apply in
-   ledger order (changes top to bottom, ops top to bottom). An op may target any id in the plan's today,
-   or one added earlier in the ledger. An op that targets an id added later is an error.
-3. **Ids**: `<prefix>:<kebab-slug>`; flow steps `flow:<slug>#<slug>`; fields `sch:<slug>#<field_name>`. Unique
-   across the workspace, meaningful, never numbered, never renamed. Quote ids containing `#`. Extracted ids
-   follow the natural-key rules in [groundwork-explore](../groundwork-explore/SKILL.md#stable-ids) so a re-scan
-   keeps them.
-4. **Every object is closed** (`additionalProperties: false`): an unknown key is an error. There is no colour,
-   position, order, status or count field; those are derived.
-5. **Markdown fields** may cite `[[id]]`; the validator checks the id exists. Dates are quoted `"YYYY-MM-DD"`.
-6. **Every fact says where it came from.** `origin: extracted | seeded | curated`. Extracted facts carry
-   `sources: [{ repo, path, lines: [from, to], commit, symbol? }]`; the permalink is derived, never stored alone
-   (the older `{ url }` form still reads, with a warning). Handlers carry sources per handler and per significant
-   step. `node tools/sources.ts <workspace>` checks it. Ops carry no sources: put them in the `add` value or
-   on the change.
-7. **Draft is forgiving.** While `meta.status: draft`, missing tests, work items and store access are warnings
-   prefixed `draft:`. At `review` and `approved` they are errors.
-8. **Handlers are step trees.** `handlers: [{ id: h:…, on, component, summary, sources, origin, steps, fails }]`.
-   `on` is `api:…`, `msg:…`, `ui:…` or `job:<cron or name>`. Steps are `does`, `call` (an `api:` id), `publish`
-   (a `msg:` id), `read`/`write` (a schema or field, `from`/`to` a store), `if`/`then`/`else`, `each`/`do`,
-   `parallel`, `retry`/`times`/`do`, `try`/`catch`, `return` and `wait`, each optionally with `does`, `when`,
-   `async`, `sources` and `origin`. Conditions are plain words. Full guide:
-   [handlers.md](../groundwork-explore/handlers.md). Connections (who calls whom, when, from which entrypoint) and
-   call trees are derived from handlers.
-9. **Flows are the curated story; handlers are the truth beneath.** A flow step `from A to B via api:x` should
-   match a `call: api:x` in one of A's handlers; the scan report lists the ones that do not.
-10. **Implementation narrative is optional, not derived.** `execution.summary`, `execution.paths[]` (`name`,
-    optional `summary`, `steps: [{ label, detail }]`) and `execution.caveats[]` explain the proposed mechanism
-    before the build order. Link entities with `[[id]]`; never invent a second copy of today.
-11. **Every call the plan rests on is a decision.** If prose treats something as chosen (a store, a default, a
-    rollout order, what is out of scope), record it in `decisions[]` with `status` (`proposed` · `accepted` ·
-    `deferred` · `rejected` · `superseded`), `decider` (a team), `decided_on` once accepted or `decide_by` while
-    open, `reversibility` (`one-way` records `options` with `why_not`), `consequences`, and `supersedes` when it
-    replaces another. Point each change at its decisions with `changes[].decisions`. A question a decision
-    settles takes `answered_by: dec:…`; a risk the plan lives with is `roam: accepted` with `accepted_by: dec:…`.
-12. **Components and stores say what they are for.** `does` is the role in plain words (at most ten words,
-    sentence case, no code names), shown under the name. `system.yaml` may override the scan's `does`. One
-    component per independently owned unit: split a shared host (a federation monorepo's subgraphs) per owner.
-    Libraries are never components.
-13. **Every topic says what goes on it, every component has a line.** A `kind: topic|queue` store needs a
-    `messages[]` entry with `topic:` pointing at it. A component must call, be called, or share a topic or store
-    with another.
-14. **Screens are entities; the new look is an op.** Today's screens live in the model with their screenshot and
-    `regions[]` (`shows`, `reads`, an `at` box in percent). A change sets the new look
-    (`modify: scr:x set: { image, figma, mockup }`) and adds, modifies or removes regions. Before and after are
-    derived. Pictures are files, never data URIs; the walking mockup is `plans/<plan>/mockups/walking.html`. See
-    [groundwork-mockup](../groundwork-mockup/SKILL.md) and the
-    [granular journeys](../groundwork-mockup/journey-granularity.md) rules for user-facing flows.
-15. **A graph is three arrays, a schema kind and a cache layer**: `graphs`, `subgraphs`, `operations`, types as
-    `schemas` with `kind: graph-type`, and caches as stores with a `layer`. See
-    [groundwork-graph](../groundwork-graph/SKILL.md).
-16. **Say what a field is when the code says so**: `key: true`, `ref: sch:other[#field]`, `default`, `unique`; a
-    message takes `key:`. Write them from the schema, migration or producer code, never to fill a table.
+The LLM should make useful contextual interpretations even when intent cannot be established absolutely.
+Keep these in the separate sidecar with **Inferred** labels, confidence, reasoning, limitations and actual
+input provenance. An inference never substitutes for an unclosed source or runtime obligation.
 
-## What is derived (never author it)
+## Freshness and contract changes
 
-| Derived                                                          | From                                                                                                                 |
-| ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| status per entity, before and after, the to-be system            | ops applied in ledger order over the plan's today                                                                    |
-| a plan's today                                                   | the model's entities the plan names (ops, prose, `context`), and everything they name in turn, landed plans excepted |
-| drift                                                            | ops whose targets changed or vanished since `base.lock.json`                                                         |
-| connections, call trees, who calls whom and when                 | handler steps (`call`, `publish`, `read`, `write`, their guards and loops)                                           |
-| edges, the components × stores grid, layout, lanes, team colours | flow steps, handlers, store `owner` and `access`                                                                     |
-| migration ladder (expand, migrate, deprecate, retire)            | `supersedes`, `deprecate`, `remove`, implementing work items                                                         |
-| coverage and gaps                                                | `tests[].proves`, `level`, `walks`, step `via`                                                                       |
-| critical path, build waves, milestone-order violations           | `depends_on`, `size`, `milestone`                                                                                    |
-| blockers, overdue questions, the decision register               | `questions[].blocks`, `decide_by`, decisions and their citations                                                     |
-| done ticks and milestone progress                                | `plans/<plan>/status.json`, never the plan                                                                           |
-| query plans, fan-out, cache paths, blast radius                  | operation documents, graph-type fields, subgraphs, caches                                                            |
-| journey strips, before and after pictures, screens that change   | screens, step `screen`, ops on `scr:` ids                                                                            |
-| staleness ("as of 3f9c2e1, 37 commits behind")                   | `scans/<org>/<name>.yaml` against the repo's branch                                                                  |
+Capture source baselines and analysis fingerprints. Name the observed reference, observation time and
+local/remote authority; unavailable observations cannot become unchanged results or deployment freshness.
+Invalidate dependent facts, negative searches and interpretations when inputs change. Reuse compatible
+source indexes; incomplete dependency closure widens analysis conservatively.
 
-Never write `status: new`, `seq`, colours, positions, "changed" flags, counts, a "before" copy of a step, or a copy
-of something the model already holds.
+When a real scan exposes an expressiveness or validator gap, use the
+[learning loop](../groundwork-scan/learning.md). Change the owning contract and reusable reader/writer,
+regenerate types and test invalid as well as valid cases. Preserve versioned snapshots and explicit migration
+boundaries. Do not add unchecked fields, weaken a proof requirement or edit curated data to pass validation.
 
-## What the validator checks
-
-The app validates on load (`src/infrastructure/plan-validator.ts` and `src/application/plan/check-*.ts`; the
-model through `src/domain/workspace-check.ts`), and `npm run workspace -- check <workspace>` reads a workspace the same way. In short:
-
-1. Schema shape; id pattern per kind; ids unique; step ids start with their flow id.
-2. No dangling references, including `[[id]]`, op targets, and every id in a handler (`on`, `component`, `call`,
-   `publish`, `read`, `write`, `from`, `to`).
-3. `add` ids are new; `modify`, `deprecate` and `remove` targets exist at that point in the ledger.
-4. `kind: record` needs `store`; `field`, `endpoint`, `step` and `region` adds need `into`.
-5. Reads and writes need store ownership or access for the acting component (draft: warning).
-6. Every change has a test and a work item (draft: warning); work items implement changes and their tests prove
-   them; `depends_on` is acyclic and never into a later milestone.
-7. Decisions, questions and risks have deciders, dates and options as rule 11 says.
-8. Screens: regions inside the picture; a step's `screen` belongs to its `from` or `to`; pictures exist on disk.
-9. Revisions (`meta.revisions`): versions ascend, only the last may be `proposed`; revise through
-   [groundwork-revise](../groundwork-revise/SKILL.md).
-10. Graphs, subgraphs, operations and caches compose (see [groundwork-graph](../groundwork-graph/SKILL.md)).
-11. Attribution: an extracted fact without sources is an error (`node tools/sources.ts`).
+Legacy rules, including handler trees, derived fields and graph rule 15, live in
+[legacy YAML](legacy-yaml.md#ground-rules); they apply to that format rather than to every scan record.

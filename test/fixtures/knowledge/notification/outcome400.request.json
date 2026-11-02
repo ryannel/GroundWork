@@ -1,0 +1,16 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "42ddbf1d91d53ebf3d4d4eea552a9c828ed354b17799e55c53edef11805397ab",
+  "query": "outcome",
+  "entry": "notification-187bfb5-constraints/entry",
+  "value": null,
+  "context": [],
+  "outcome": 400,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 100,
+  "environment": "source-declared",
+  "maxRecords": 500,
+  "ids": []
+}

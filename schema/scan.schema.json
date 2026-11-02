@@ -1,0 +1,7465 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://groundwork.local/schema/scan-v1",
+  "title": "ScanDocument",
+  "$defs": {
+    "Support": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "ReasonCode": {
+      "enum": [
+        "unsupported",
+        "ambiguous",
+        "missing_dependency",
+        "budget",
+        "missing_evidence"
+      ]
+    },
+    "SupportedValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        },
+        "closure": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "value",
+        "support"
+      ]
+    },
+    "Answer": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "state": {
+              "const": "supported"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 0
+            },
+            "support": {
+              "$ref": "#/$defs/Support"
+            },
+            "closure": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "state",
+            "value",
+            "support"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "state": {
+              "const": "unresolved"
+            },
+            "reason": {
+              "$ref": "#/$defs/ReasonCode"
+            },
+            "gap": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "state",
+            "reason",
+            "gap"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "state": {
+              "const": "not_examined"
+            },
+            "obligation": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "state",
+            "obligation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "state": {
+              "const": "not_applicable"
+            },
+            "rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "support": {
+              "$ref": "#/$defs/Support"
+            }
+          },
+          "required": [
+            "state",
+            "rule",
+            "support"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "state": {
+              "const": "conflicting"
+            },
+            "alternatives": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/SupportedValue"
+              },
+              "minItems": 2
+            }
+          },
+          "required": [
+            "state",
+            "alternatives"
+          ]
+        }
+      ]
+    },
+    "Source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "source"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "blob": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lines": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "host": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority": {
+          "enum": [
+            "declared",
+            "tested",
+            "observed"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "repo",
+        "path",
+        "commit",
+        "blob",
+        "lines",
+        "host",
+        "authority"
+      ]
+    },
+    "Rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "rule"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "concerns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Concern"
+          },
+          "minItems": 1
+        },
+        "applicability": {
+          "enum": [
+            "extraction",
+            "inapplicable"
+          ]
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "version",
+        "concerns",
+        "applicability",
+        "prerequisites"
+      ]
+    },
+    "Derivation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "derivation"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sources": {
+          "$ref": "#/$defs/Support"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "rule",
+        "sources",
+        "inputs",
+        "dependencies"
+      ]
+    },
+    "Gap": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "gap"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "$ref": "#/$defs/ReasonCode"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "reason",
+        "description"
+      ]
+    },
+    "Concern": {
+      "enum": [
+        "control",
+        "inputs",
+        "outputs",
+        "calls",
+        "storage",
+        "failures",
+        "asynchronous",
+        "controls",
+        "actor_conditions",
+        "visible_outcomes",
+        "execution_mapping",
+        "freshness"
+      ]
+    },
+    "Obligation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "obligation"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "const": "questions/v1"
+        },
+        "profile": {
+          "enum": [
+            "endpoint",
+            "action"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "concern": {
+          "$ref": "#/$defs/Concern"
+        },
+        "allowedInapplicabilityRules": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "version",
+        "profile",
+        "scope",
+        "concern",
+        "allowedInapplicabilityRules"
+      ]
+    },
+    "QuestionReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "receipt"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile": {
+          "enum": [
+            "endpoint",
+            "action"
+          ]
+        },
+        "obligations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "obligation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "answer": {
+                "$ref": "#/$defs/Answer"
+              }
+            },
+            "required": [
+              "obligation",
+              "answer"
+            ]
+          },
+          "minItems": 1
+        },
+        "authority": {
+          "enum": [
+            "declared",
+            "tested",
+            "observed"
+          ]
+        },
+        "closure": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "scope",
+        "profile",
+        "obligations",
+        "answers",
+        "authority"
+      ]
+    },
+    "ShapeField": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "presence": {
+          "enum": [
+            "required",
+            "optional"
+          ]
+        },
+        "nullable": {
+          "type": "boolean"
+        },
+        "shape": {
+          "$ref": "#/$defs/Shape"
+        }
+      },
+      "required": [
+        "name",
+        "presence",
+        "nullable",
+        "shape"
+      ]
+    },
+    "Shape": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "scalar"
+            },
+            "name": {
+              "enum": [
+                "string",
+                "number",
+                "integer",
+                "boolean",
+                "null"
+              ]
+            },
+            "spelling": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "name",
+            "spelling"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "literal"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "spelling": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "value",
+            "spelling"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "enum"
+            },
+            "values": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "minItems": 1
+            },
+            "spelling": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "values",
+            "spelling"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "object"
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ShapeField"
+              },
+              "minItems": 0
+            },
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "spelling": {
+              "type": "string",
+              "minLength": 1
+            },
+            "enforcement": {
+              "enum": [
+                "source",
+                "wire",
+                "persisted"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "fields",
+            "additionalProperties",
+            "spelling",
+            "enforcement"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "array"
+            },
+            "item": {
+              "$ref": "#/$defs/Shape"
+            },
+            "spelling": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "item",
+            "spelling"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "map"
+            },
+            "key": {
+              "$ref": "#/$defs/Shape"
+            },
+            "value": {
+              "$ref": "#/$defs/Shape"
+            },
+            "spelling": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "key",
+            "value",
+            "spelling"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "tuple"
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Shape"
+              },
+              "minItems": 0
+            },
+            "spelling": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "items",
+            "spelling"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "union"
+            },
+            "alternatives": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Shape"
+              },
+              "minItems": 2
+            },
+            "spelling": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "alternatives",
+            "spelling"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "reference"
+            },
+            "target": {
+              "type": "string",
+              "minLength": 1
+            },
+            "spelling": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "target",
+            "spelling"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "unresolved"
+            },
+            "reason": {
+              "$ref": "#/$defs/ReasonCode"
+            },
+            "spelling": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "reason",
+            "spelling"
+          ]
+        }
+      ]
+    },
+    "Predicate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "expression": {
+          "type": "string",
+          "minLength": 1
+        },
+        "polarity": {
+          "type": "boolean"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "expression",
+        "polarity",
+        "inputs"
+      ]
+    },
+    "ReturnValue": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "void"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "value"
+            },
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "kind",
+            "values"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "tuple"
+            },
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "kind",
+            "values"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "task"
+            },
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "kind",
+            "values"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "unresolved"
+            },
+            "gap": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "gap"
+          ]
+        }
+      ]
+    },
+    "Operation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "control"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "predicate": {
+              "$ref": "#/$defs/Predicate"
+            },
+            "otherwise": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 0
+            },
+            "consequent": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 0
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "source",
+            "predicate",
+            "consequent",
+            "otherwise"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "call"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "target": {
+              "$ref": "#/$defs/Answer"
+            },
+            "arguments": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 0
+            },
+            "waiting": {
+              "enum": [
+                "sync",
+                "awaited",
+                "detached",
+                "returned"
+              ]
+            },
+            "result": {
+              "type": "string",
+              "minLength": 1
+            },
+            "callee": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "source",
+            "target",
+            "arguments",
+            "waiting",
+            "callee"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "await"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "task": {
+              "type": "string",
+              "minLength": 1
+            },
+            "result": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "source",
+            "task"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "return"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "value": {
+              "$ref": "#/$defs/ReturnValue"
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "source",
+            "value"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "throw"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "value": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "source",
+            "value"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "opaque"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "frontier": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "source",
+            "frontier"
+          ]
+        }
+      ]
+    },
+    "SummaryContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "receiver": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "captures": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "typeArguments": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "configuration": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "policy": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "arguments",
+        "captures",
+        "typeArguments",
+        "configuration",
+        "policy"
+      ]
+    },
+    "Frontier": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "frontier"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "$ref": "#/$defs/ReasonCode"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nextQuestion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contextLoss": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "reason",
+        "source",
+        "nextQuestion",
+        "contextLoss"
+      ]
+    },
+    "LocalSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "summary"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "host": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implementation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "context": {
+          "$ref": "#/$defs/SummaryContext"
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Operation"
+          },
+          "minItems": 0
+        },
+        "effects": {
+          "$ref": "#/$defs/Answer"
+        },
+        "frontiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Frontier"
+          },
+          "minItems": 0
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "host",
+        "source",
+        "implementation",
+        "context",
+        "operations",
+        "effects",
+        "frontiers",
+        "support"
+      ]
+    },
+    "Host": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "host"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "component": {
+          "type": "string",
+          "minLength": 1
+        },
+        "environment": {
+          "enum": [
+            "browser",
+            "server",
+            "worker",
+            "unknown"
+          ]
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "component",
+        "environment",
+        "support"
+      ]
+    },
+    "Contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "contract"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "shape": {
+          "$ref": "#/$defs/Shape"
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "shape",
+        "support"
+      ]
+    },
+    "Effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "effect"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phase": {
+          "enum": [
+            "read",
+            "staged",
+            "acknowledged",
+            "committed",
+            "published",
+            "delivered",
+            "unknown"
+          ]
+        },
+        "resource": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "phase",
+        "resource",
+        "source",
+        "support"
+      ]
+    },
+    "Actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "actor"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority": {
+          "enum": [
+            "authored",
+            "source_candidate",
+            "observed"
+          ]
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "name",
+        "authority",
+        "support"
+      ]
+    },
+    "Surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "surface"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "page",
+            "dialog",
+            "email",
+            "push",
+            "download"
+          ]
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "name",
+        "type",
+        "states",
+        "support"
+      ]
+    },
+    "Control": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "control_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "surface": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger": {
+          "enum": [
+            "activate",
+            "submit",
+            "change",
+            "gesture",
+            "voice",
+            "keyboard",
+            "navigate"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "availability": {
+          "$ref": "#/$defs/Answer"
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "action",
+        "surface",
+        "state",
+        "trigger",
+        "source",
+        "availability",
+        "support"
+      ]
+    },
+    "UserAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "action"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "intent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "conditions": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "eligibility": {
+              "$ref": "#/$defs/Answer"
+            },
+            "authentication": {
+              "$ref": "#/$defs/Answer"
+            },
+            "authorisation": {
+              "$ref": "#/$defs/Answer"
+            },
+            "ownership": {
+              "$ref": "#/$defs/Answer"
+            }
+          },
+          "required": [
+            "eligibility",
+            "authentication",
+            "authorisation",
+            "ownership"
+          ]
+        },
+        "controls": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "input": {
+          "$ref": "#/$defs/Answer"
+        },
+        "executions": {
+          "$ref": "#/$defs/Answer"
+        },
+        "outcomes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "intent",
+        "actors",
+        "conditions",
+        "controls",
+        "input",
+        "executions",
+        "outcomes",
+        "support"
+      ]
+    },
+    "Mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "from": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "support"
+      ]
+    },
+    "ExecutionTarget": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "local"
+            },
+            "summary": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operation": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "summary",
+            "operation"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "entry"
+            },
+            "entry": {
+              "type": "string",
+              "minLength": 1
+            },
+            "knowledgeFormat": {
+              "const": "knowledge/v3"
+            }
+          },
+          "required": [
+            "kind",
+            "entry",
+            "knowledgeFormat"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "handoff"
+            },
+            "target": {
+              "type": "string",
+              "minLength": 1
+            },
+            "return": {
+              "$ref": "#/$defs/Answer"
+            }
+          },
+          "required": [
+            "kind",
+            "target",
+            "return"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "unresolved"
+            },
+            "gap": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "gap"
+          ]
+        }
+      ]
+    },
+    "ActionExecutionBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "execution"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "host": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "guard": {
+          "$ref": "#/$defs/Answer"
+        },
+        "target": {
+          "$ref": "#/$defs/ExecutionTarget"
+        },
+        "inputMappings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Mapping"
+          },
+          "minItems": 0
+        },
+        "outcomeMappings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "response": {
+                "type": "string",
+                "minLength": 1
+              },
+              "outcome": {
+                "type": "string",
+                "minLength": 1
+              },
+              "support": {
+                "$ref": "#/$defs/Support"
+              }
+            },
+            "required": [
+              "response",
+              "outcome",
+              "support"
+            ]
+          },
+          "minItems": 0
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "action",
+        "host",
+        "operation",
+        "source",
+        "guard",
+        "target",
+        "inputMappings",
+        "outcomeMappings",
+        "support"
+      ]
+    },
+    "Continuation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "stay"
+            },
+            "surface": {
+              "type": "string",
+              "minLength": 1
+            },
+            "state": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "surface",
+            "state"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "navigate"
+            },
+            "surface": {
+              "type": "string",
+              "minLength": 1
+            },
+            "state": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "surface",
+            "state"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "external"
+            },
+            "target": {
+              "type": "string",
+              "minLength": 1
+            },
+            "return": {
+              "$ref": "#/$defs/Answer"
+            }
+          },
+          "required": [
+            "kind",
+            "target",
+            "return"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "terminal"
+            },
+            "goal": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "goal"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "unresolved"
+            },
+            "gap": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "gap"
+          ]
+        }
+      ]
+    },
+    "ActionOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "outcome"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "enum": [
+            "success",
+            "invalid_input",
+            "denied",
+            "not_found",
+            "failure",
+            "cancelled",
+            "pending",
+            "unresolved"
+          ]
+        },
+        "visibleState": {
+          "$ref": "#/$defs/Answer"
+        },
+        "effects": {
+          "$ref": "#/$defs/Answer"
+        },
+        "timing": {
+          "enum": [
+            "immediate",
+            "accepted",
+            "eventual",
+            "unknown"
+          ]
+        },
+        "continuation": {
+          "$ref": "#/$defs/Continuation"
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "action",
+        "result",
+        "visibleState",
+        "effects",
+        "timing",
+        "continuation",
+        "support"
+      ]
+    },
+    "Journey": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "journey"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "goal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority": {
+          "enum": [
+            "authored",
+            "derived",
+            "observed"
+          ]
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "type": "string",
+                "minLength": 1
+              },
+              "outcome": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "action",
+              "outcome"
+            ]
+          },
+          "minItems": 1
+        },
+        "transitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "from": {
+                "type": "string",
+                "minLength": 1
+              },
+              "to": {
+                "type": "string",
+                "minLength": 1
+              },
+              "guard": {
+                "$ref": "#/$defs/Answer"
+              }
+            },
+            "required": [
+              "from",
+              "to",
+              "guard"
+            ]
+          },
+          "minItems": 0
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "actor",
+        "goal",
+        "authority",
+        "steps",
+        "transitions",
+        "support"
+      ]
+    },
+    "Dependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "source",
+            "configuration",
+            "rule",
+            "toolchain",
+            "inventory",
+            "negative_lookup"
+          ]
+        },
+        "fingerprint": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dependsOn": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "fingerprint",
+        "dependsOn"
+      ]
+    },
+    "DependencyClosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "searches": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "containingScope": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "complete",
+        "dependencies",
+        "searches",
+        "containingScope"
+      ]
+    },
+    "SourceBaseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "repo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tree": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "environmentDigest": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ruleDigest": {
+          "type": "string",
+          "minLength": 1
+        },
+        "toolchainDigest": {
+          "type": "string",
+          "minLength": 1
+        },
+        "configDigest": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "repo",
+        "commit",
+        "tree",
+        "ref",
+        "environmentDigest",
+        "ruleDigest",
+        "toolchainDigest",
+        "configDigest"
+      ]
+    },
+    "RefObservation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "checkedAt": {
+              "type": "string",
+              "minLength": 1
+            },
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "enum": [
+                "local",
+                "remote"
+              ]
+            },
+            "status": {
+              "const": "observed"
+            },
+            "revision": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "checkedAt",
+            "ref",
+            "source",
+            "status",
+            "revision"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "checkedAt": {
+              "type": "string",
+              "minLength": 1
+            },
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "enum": [
+                "local",
+                "remote"
+              ]
+            },
+            "status": {
+              "const": "unavailable"
+            },
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "checkedAt",
+            "ref",
+            "source",
+            "status",
+            "error"
+          ]
+        }
+      ]
+    },
+    "GitFileChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "added",
+            "modified",
+            "deleted",
+            "renamed",
+            "type-changed"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "previousPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "oldBlob": {
+          "type": "string",
+          "minLength": 1
+        },
+        "newBlob": {
+          "type": "string",
+          "minLength": 1
+        },
+        "binary": {
+          "type": "boolean"
+        },
+        "gitlink": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "status",
+        "path"
+      ]
+    },
+    "FreshnessResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "enum": [
+            "unchanged",
+            "changed",
+            "configuration-changed",
+            "rules-changed",
+            "ref-rewritten",
+            "baseline-unavailable",
+            "observation-unavailable",
+            "unknown-provenance"
+          ]
+        },
+        "baseline": {
+          "$ref": "#/$defs/SourceBaseline"
+        },
+        "observation": {
+          "$ref": "#/$defs/RefObservation"
+        },
+        "sourceCurrent": {
+          "type": "boolean"
+        },
+        "deploymentCurrent": {
+          "const": "unknown"
+        },
+        "changedFiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GitFileChange"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "state",
+        "baseline",
+        "observation",
+        "sourceCurrent",
+        "deploymentCurrent",
+        "changedFiles"
+      ]
+    },
+    "SearchReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "search"
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sources": {
+          "$ref": "#/$defs/Support"
+        },
+        "inventoryFingerprint": {
+          "type": "string",
+          "minLength": 1
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "queries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "scope",
+        "rule",
+        "sources",
+        "inventoryFingerprint",
+        "complete",
+        "queries"
+      ]
+    },
+    "ConstraintExpression": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "all"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "kind",
+            "constraints"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "any"
+            },
+            "constraints": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "kind",
+            "constraints"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "not"
+            },
+            "constraint": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "constraint"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "predicate"
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "expression": {
+              "type": "string",
+              "minLength": 1
+            },
+            "inputs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "required": [
+            "kind",
+            "source",
+            "expression",
+            "inputs"
+          ]
+        }
+      ]
+    },
+    "ActorConstraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "actor_constraint"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "concern": {
+          "enum": [
+            "eligibility",
+            "authentication",
+            "authorisation",
+            "ownership",
+            "availability"
+          ]
+        },
+        "authority": {
+          "enum": [
+            "declared",
+            "enforcement_bound",
+            "unresolved"
+          ]
+        },
+        "expression": {
+          "$ref": "#/$defs/ConstraintExpression"
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "concern",
+        "authority",
+        "expression",
+        "support"
+      ]
+    },
+    "SemanticNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "semantic_node"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nodeKind": {
+          "enum": [
+            "identifier",
+            "literal",
+            "member",
+            "index",
+            "call",
+            "construct",
+            "object",
+            "array",
+            "property",
+            "binary",
+            "unary",
+            "conditional",
+            "template",
+            "declaration",
+            "parameter",
+            "assignment",
+            "return",
+            "throw",
+            "if",
+            "loop",
+            "try",
+            "catch",
+            "finally",
+            "defer",
+            "block",
+            "function",
+            "annotation",
+            "jsx_element",
+            "jsx_attribute",
+            "sql",
+            "resource",
+            "runtime_boundary",
+            "expression",
+            "field",
+            "control",
+            "await",
+            "callback",
+            "import",
+            "unknown",
+            "value",
+            "branch",
+            "type",
+            "sql_column",
+            "variable",
+            "invocation",
+            "policy"
+          ]
+        },
+        "syntax": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority": {
+          "enum": [
+            "declared",
+            "unresolved"
+          ]
+        },
+        "value": {
+          "$ref": "#/$defs/SourceScalar"
+        },
+        "declaredAsync": {
+          "type": "boolean"
+        },
+        "returnType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "optionalAccess": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "owner",
+        "source",
+        "nodeKind",
+        "syntax"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "nodeKind": {
+                "enum": [
+                  "identifier",
+                  "member",
+                  "sql_column"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "nodeKind": {
+                "const": "runtime_boundary"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "authority"
+            ],
+            "properties": {
+              "authority": {
+                "const": "unresolved"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "nodeKind": {
+                "enum": [
+                  "binary",
+                  "unary",
+                  "assignment"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "operator": {
+                "$ref": "#/$defs/SemanticOperator"
+              }
+            },
+            "required": [
+              "operator"
+            ]
+          }
+        }
+      ]
+    },
+    "SemanticEdge": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "semantic_edge"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "relation": {
+          "enum": [
+            "operand",
+            "receiver",
+            "callee",
+            "argument",
+            "property",
+            "value",
+            "target",
+            "condition",
+            "consequent",
+            "otherwise",
+            "body",
+            "catch",
+            "finally",
+            "deferred",
+            "initializer",
+            "assigns",
+            "reaching_definition",
+            "returns",
+            "parameter",
+            "capture",
+            "annotation",
+            "callback",
+            "registration",
+            "continuation",
+            "awaited",
+            "resource",
+            "sql_parameter",
+            "column_binding",
+            "available_when",
+            "next",
+            "call_target",
+            "contains",
+            "reads",
+            "binds",
+            "awaits",
+            "field_value",
+            "captures",
+            "precedes",
+            "ast_child",
+            "left",
+            "right",
+            "assigned_value",
+            "statement",
+            "try_body",
+            "catches",
+            "declared_type",
+            "key",
+            "initialiser",
+            "reaching_value",
+            "scheduling_unknown",
+            "delivery_unknown",
+            "rollback_unknown",
+            "registry_context_unknown",
+            "scope"
+          ]
+        },
+        "from": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        },
+        "position": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "owner",
+        "source",
+        "relation",
+        "from",
+        "to"
+      ]
+    },
+    "SemanticRecord": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/SemanticNode"
+        },
+        {
+          "$ref": "#/$defs/SemanticEdge"
+        }
+      ]
+    },
+    "SemanticOperator": {
+      "enum": [
+        "=",
+        ":=",
+        "+=",
+        "-=",
+        "*=",
+        "/=",
+        "%=",
+        "**=",
+        "<<=",
+        ">>=",
+        ">>>=",
+        "&=",
+        "|=",
+        "^=",
+        "&^=",
+        "&&=",
+        "||=",
+        "??=",
+        "==",
+        "!=",
+        "===",
+        "!==",
+        "<",
+        "<=",
+        ">",
+        ">=",
+        "+",
+        "-",
+        "*",
+        "/",
+        "%",
+        "**",
+        "<<",
+        ">>",
+        ">>>",
+        "&",
+        "|",
+        "^",
+        "&^",
+        "&&",
+        "||",
+        "??",
+        "!",
+        "~",
+        "++",
+        "--",
+        "<-",
+        "typeof",
+        "void",
+        "delete",
+        "in",
+        "instanceof",
+        ","
+      ]
+    },
+    "SpringSchemaAnnotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "source": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "arguments",
+        "source"
+      ]
+    },
+    "SpringConstraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "annotation": {
+          "type": "string"
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "annotation",
+        "groups",
+        "attributes"
+      ]
+    },
+    "SpringSchemaGap": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "typeName": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "typeName",
+        "detail"
+      ]
+    },
+    "SpringDeclaredProperty": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "jsonName": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SpringConstraint"
+          }
+        },
+        "views": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "presence": {
+          "const": "unknown"
+        },
+        "nullable": {
+          "const": "unknown"
+        },
+        "access": {
+          "enum": [
+            "declared_field",
+            "declared_getter"
+          ]
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SpringSchemaAnnotation"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "jsonName",
+        "type",
+        "source",
+        "constraints",
+        "views",
+        "presence",
+        "nullable",
+        "access",
+        "annotations"
+      ]
+    },
+    "SpringSchemaProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "routeId": {
+          "type": "string"
+        },
+        "direction": {
+          "enum": [
+            "request",
+            "response"
+          ]
+        },
+        "validationGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "views": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "included": {
+                "enum": [
+                  true,
+                  false,
+                  "unknown"
+                ]
+              },
+              "constraints": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/SpringConstraint"
+                }
+              },
+              "nonNull": {
+                "enum": [
+                  true,
+                  false,
+                  "unknown"
+                ]
+              }
+            },
+            "required": [
+              "name",
+              "included",
+              "constraints",
+              "nonNull"
+            ]
+          }
+        },
+        "completeness": {
+          "enum": [
+            "complete",
+            "partial"
+          ]
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "routeId",
+        "direction",
+        "validationGroups",
+        "views",
+        "fields",
+        "completeness",
+        "gaps"
+      ]
+    },
+    "SpringPolymorphism": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "strategy": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "discriminator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "defaultType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "visible": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "subtypes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ]
+          }
+        },
+        "unresolved": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "strategy",
+        "discriminator",
+        "defaultType",
+        "visible",
+        "subtypes",
+        "unresolved"
+      ]
+    },
+    "SpringSchemaBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "schema_binding"
+        },
+        "id": {
+          "type": "string"
+        },
+        "typeName": {
+          "type": "string"
+        },
+        "direction": {
+          "enum": [
+            "source",
+            "request",
+            "response"
+          ]
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SpringDeclaredProperty"
+          }
+        },
+        "inheritedTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "genericArguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "enumValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "polymorphism": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SpringPolymorphism"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completeness": {
+          "enum": [
+            "complete",
+            "partial"
+          ]
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SpringSchemaGap"
+          }
+        },
+        "source": {
+          "type": "string"
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SpringSchemaProfile"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "typeName",
+        "direction",
+        "properties",
+        "inheritedTypes",
+        "genericArguments",
+        "enumValues",
+        "polymorphism",
+        "completeness",
+        "gaps",
+        "source",
+        "support",
+        "profiles"
+      ]
+    },
+    "springRouteBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "route_binding"
+        },
+        "id": {
+          "type": "string"
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "controller": {
+          "type": "string"
+        },
+        "method": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "parameter_types": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "return_type": {
+              "type": "string"
+            },
+            "implementation_source_id": {
+              "type": "string"
+            },
+            "declaration_source_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "parameter_types",
+            "return_type",
+            "declaration_source_id"
+          ]
+        },
+        "http_method": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "java_name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "location": {
+                "enum": [
+                  "header",
+                  "query",
+                  "path",
+                  "body",
+                  "unbound"
+                ]
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "default_value": {
+                "type": "string"
+              },
+              "source_id": {
+                "type": "string"
+              },
+              "validation_groups": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "json_views": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "name",
+              "java_name",
+              "type",
+              "location",
+              "source_id",
+              "validation_groups",
+              "json_views"
+            ]
+          }
+        },
+        "response_status": {
+          "type": "string"
+        },
+        "documented_response_statuses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "response_json_views": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "request_validation_groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "security_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "schema_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "source_ids",
+        "controller",
+        "method",
+        "http_method",
+        "path",
+        "parameters",
+        "documented_response_statuses",
+        "response_json_views",
+        "request_validation_groups",
+        "security_binding_ids",
+        "uncertainties"
+      ]
+    },
+    "springSecurityBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "security_binding"
+        },
+        "id": {
+          "type": "string"
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mechanism": {
+          "enum": [
+            "method_authorisation",
+            "header_interceptor",
+            "filter_chain"
+          ]
+        },
+        "scope": {
+          "type": "string"
+        },
+        "policies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "expression": {
+                "type": "string"
+              },
+              "source_id": {
+                "type": "string"
+              },
+              "paths": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "excluded_paths": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "expression",
+              "source_id"
+            ]
+          }
+        },
+        "activation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "state": {
+              "enum": [
+                "source_enabled",
+                "unresolved",
+                "disabled"
+              ]
+            },
+            "source_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "state",
+            "source_ids"
+          ]
+        },
+        "authentication": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authorisation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "enforcement_chain": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "stage": {
+                "type": "string"
+              },
+              "source_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "detail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "stage",
+              "source_ids",
+              "detail"
+            ]
+          }
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "source_ids",
+        "mechanism",
+        "scope",
+        "policies",
+        "activation",
+        "authentication",
+        "authorisation",
+        "enforcement_chain",
+        "uncertainties"
+      ]
+    },
+    "FrameworkRecord": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/SpringSchemaBinding"
+        },
+        {
+          "$ref": "#/$defs/springRouteBinding"
+        },
+        {
+          "$ref": "#/$defs/springSecurityBinding"
+        },
+        {
+          "$ref": "#/$defs/AspNetRouteBinding"
+        },
+        {
+          "$ref": "#/$defs/SourceFrameworkBinding"
+        }
+      ]
+    },
+    "JavaCallBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "call",
+        "caller",
+        "receiver",
+        "receiverType",
+        "methodName",
+        "argumentTypes",
+        "target",
+        "signature",
+        "resolution",
+        "reason",
+        "guards"
+      ],
+      "properties": {
+        "kind": {
+          "const": "java_call_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "call": {
+          "type": "string",
+          "minLength": 1
+        },
+        "caller": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "receiver": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "receiverType": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "methodName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "argumentTypes": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "target": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signature": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resolution": {
+          "enum": [
+            "exact",
+            "unresolved"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "guards": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "JavaValueBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "relation",
+        "from",
+        "to",
+        "call",
+        "guards"
+      ],
+      "properties": {
+        "kind": {
+          "const": "java_value_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "relation": {
+          "enum": [
+            "argument_parameter",
+            "return_call",
+            "initializer",
+            "assignment",
+            "reference",
+            "field_projection"
+          ]
+        },
+        "from": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        },
+        "call": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "guards": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "mongoCollectionBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "entityType",
+        "collection",
+        "source",
+        "gaps"
+      ],
+      "properties": {
+        "kind": {
+          "const": "mongo_collection_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entityType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "collection": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "mongoRepositoryBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "repositoryType",
+        "entityType",
+        "collection_id",
+        "idType",
+        "fragments",
+        "methods",
+        "source"
+      ],
+      "properties": {
+        "kind": {
+          "const": "mongo_repository_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repositoryType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entityType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "collection_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "idType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fragments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "interfaceType",
+              "implementationType",
+              "source"
+            ],
+            "properties": {
+              "interfaceType": {
+                "type": "string",
+                "minLength": 1
+              },
+              "implementationType": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "methods": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "operation",
+              "source",
+              "readPreference"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "operation": {
+                "enum": [
+                  "read",
+                  "write",
+                  "unknown"
+                ]
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "readPreference": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "mongoOperationBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "receiverType",
+        "receiver_source",
+        "method",
+        "operation",
+        "collection_id",
+        "repository_id",
+        "entityType",
+        "filter_fields",
+        "update_fields",
+        "source",
+        "support",
+        "gaps"
+      ],
+      "properties": {
+        "kind": {
+          "const": "mongo_operation_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "receiverType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "receiver_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation": {
+          "enum": [
+            "read",
+            "write",
+            "unknown"
+          ]
+        },
+        "collection_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repository_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "entityType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "filter_fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "update_fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operator",
+              "field",
+              "source"
+            ],
+            "properties": {
+              "operator": {
+                "enum": [
+                  "$set",
+                  "$setOnInsert"
+                ]
+              },
+              "field": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "ExceptionHandlerBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "advice",
+        "advice_source_id",
+        "handler_source_id",
+        "handled_type",
+        "scope",
+        "response_return_source_ids",
+        "response_construction_source_ids",
+        "support_source_ids",
+        "response_construction_owners"
+      ],
+      "properties": {
+        "advice": {
+          "type": "string",
+          "minLength": 1
+        },
+        "advice_source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "handler_source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "handled_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "enum": [
+            "global",
+            "unresolved"
+          ]
+        },
+        "response_status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "response_return_source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "response_construction_source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "support_source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "response_construction_owners": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "source_id",
+              "owner_method_source_id"
+            ],
+            "properties": {
+              "source_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner_method_source_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "ExceptionBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "source_ids",
+        "thrown_type",
+        "throw_source_id",
+        "throwing_method_source_id",
+        "constructor_argument_source_ids",
+        "guard_source_ids",
+        "enclosing_try_source_ids",
+        "candidates",
+        "resolution",
+        "uncertainties",
+        "local_controller_handler_source_ids"
+      ],
+      "properties": {
+        "kind": {
+          "const": "exception_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "thrown_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "throw_source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "throwing_method_source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "constructor_argument_source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "guard_source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "enclosing_try_source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ExceptionHandlerBinding"
+          }
+        },
+        "resolution": {
+          "enum": [
+            "resolved",
+            "unresolved"
+          ]
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "local_controller_handler_source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "BindingRecord": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/JavaCallBinding"
+        },
+        {
+          "$ref": "#/$defs/JavaValueBinding"
+        },
+        {
+          "$ref": "#/$defs/mongoCollectionBinding"
+        },
+        {
+          "$ref": "#/$defs/mongoRepositoryBinding"
+        },
+        {
+          "$ref": "#/$defs/mongoOperationBinding"
+        },
+        {
+          "$ref": "#/$defs/ExceptionBinding"
+        },
+        {
+          "$ref": "#/$defs/OutboundBinding"
+        },
+        {
+          "$ref": "#/$defs/GraphqlBinding"
+        },
+        {
+          "$ref": "#/$defs/LibraryBinding"
+        },
+        {
+          "$ref": "#/$defs/JavaConstantBinding"
+        },
+        {
+          "$ref": "#/$defs/GraphqlDocumentBinding"
+        },
+        {
+          "$ref": "#/$defs/AsyncBinding"
+        },
+        {
+          "$ref": "#/$defs/ExecutionBinding"
+        },
+        {
+          "$ref": "#/$defs/EventBinding"
+        },
+        {
+          "$ref": "#/$defs/ConfigurationBinding"
+        },
+        {
+          "$ref": "#/$defs/ConsumerBinding"
+        },
+        {
+          "$ref": "#/$defs/EnumBinding"
+        },
+        {
+          "$ref": "#/$defs/JavaCollectionBinding"
+        },
+        {
+          "$ref": "#/$defs/ScheduleBinding"
+        },
+        {
+          "$ref": "#/$defs/CsharpSymbolBinding"
+        }
+      ]
+    },
+    "OutboundBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "source",
+        "owner_source",
+        "client",
+        "request",
+        "response",
+        "failure_paths",
+        "call_binding_ids",
+        "value_binding_ids",
+        "support",
+        "completeness",
+        "gaps"
+      ],
+      "properties": {
+        "kind": {
+          "const": "outbound_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "client": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "receiver_source",
+            "logical_name",
+            "registry_source"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "minLength": 1
+            },
+            "receiver_source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "logical_name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "registry_source": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            }
+          }
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "method",
+            "method_source",
+            "uri_source",
+            "template",
+            "argument_sources",
+            "headers",
+            "accept_sources",
+            "body_sources"
+          ],
+          "properties": {
+            "method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "method_source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uri_source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "template": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "argument_sources": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "headers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "source",
+                  "value_sources"
+                ],
+                "properties": {
+                  "name": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "value_sources": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            },
+            "accept_sources": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "body_sources": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "response": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "type_source",
+            "body_source",
+            "return_sources"
+          ],
+          "properties": {
+            "type": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "type_source": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "body_source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "return_sources": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "failure_paths": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "caught_type",
+              "source",
+              "thrown_type",
+              "thrown_source"
+            ],
+            "properties": {
+              "caught_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "thrown_type": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "thrown_source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "call_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "value_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "completeness": {
+          "enum": [
+            "source_path",
+            "partial"
+          ]
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "GraphqlBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source",
+        "owner_source",
+        "call_binding_ids",
+        "value_binding_ids",
+        "support",
+        "completeness",
+        "gaps",
+        "kind",
+        "client",
+        "document_name",
+        "document_source",
+        "variables",
+        "execution_source",
+        "response",
+        "failure_paths"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "call_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "value_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "completeness": {
+          "enum": [
+            "source_path",
+            "partial"
+          ]
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "kind": {
+          "const": "graphql_binding"
+        },
+        "client": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "receiver_source",
+            "logical_name",
+            "registry_source"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "minLength": 1
+            },
+            "receiver_source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "logical_name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "registry_source": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            }
+          }
+        },
+        "document_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "document_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "source",
+              "value_sources"
+            ],
+            "properties": {
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "value_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        },
+        "execution_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "response": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "field_path",
+            "field_source",
+            "type",
+            "type_source",
+            "body_source",
+            "return_sources"
+          ],
+          "properties": {
+            "field_path": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "field_source": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "type": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "type_source": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "body_source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "return_sources": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "failure_paths": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "caught_type",
+              "source",
+              "thrown_type",
+              "thrown_source"
+            ],
+            "properties": {
+              "caught_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "thrown_type": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "thrown_source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "LibraryBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source",
+        "owner_source",
+        "call_binding_ids",
+        "value_binding_ids",
+        "support",
+        "completeness",
+        "gaps",
+        "kind",
+        "owner_type",
+        "method_name",
+        "call_source",
+        "receiver_source",
+        "argument_sources",
+        "result_type",
+        "contract_basis",
+        "failure_paths"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "call_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "value_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "completeness": {
+          "enum": [
+            "source_path",
+            "partial"
+          ]
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "kind": {
+          "const": "library_binding"
+        },
+        "owner_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "call_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "receiver_source": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "argument_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "result_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "contract_basis": {
+          "enum": [
+            "source_declared_type",
+            "framework_api"
+          ]
+        },
+        "failure_paths": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "caught_type",
+              "source",
+              "thrown_type",
+              "thrown_source"
+            ],
+            "properties": {
+              "caught_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "thrown_type": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "thrown_source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "JavaConstantBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "source",
+        "value_source",
+        "owner_type",
+        "name",
+        "type",
+        "value"
+      ],
+      "properties": {
+        "kind": {
+          "const": "java_constant_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "GraphqlDocumentBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "source",
+        "document_name",
+        "operation_type",
+        "operation_name",
+        "variables",
+        "selections"
+      ],
+      "properties": {
+        "kind": {
+          "const": "graphql_document_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "document_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation_type": {
+          "enum": [
+            "query",
+            "mutation",
+            "subscription"
+          ]
+        },
+        "operation_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "type",
+              "source"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "selections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "field_name",
+              "arguments",
+              "source"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "field_name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "arguments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "variable",
+                    "source"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "variable": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "source": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "AsyncBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "call_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "value_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "completeness": {
+          "const": "partial"
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "kind": {
+          "const": "async_binding"
+        },
+        "owner_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "annotation_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "executor": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "activation_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "executor_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "activation": {
+          "const": "declared_runtime_unverified"
+        },
+        "return_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "completion": {
+          "enum": [
+            "void",
+            "future",
+            "unknown"
+          ]
+        },
+        "invocations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "call_source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner_source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "call_binding_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "dispatch": {
+                "enum": [
+                  "direct_self",
+                  "receiver_proxy_unverified"
+                ]
+              },
+              "use": {
+                "$ref": "#/$defs/CallResultUse"
+              },
+              "use_source": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "call_source",
+              "owner_source",
+              "call_binding_id",
+              "dispatch",
+              "use",
+              "use_source"
+            ]
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SpringConditionDeclaration"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "owner_source",
+        "call_binding_ids",
+        "value_binding_ids",
+        "support",
+        "completeness",
+        "gaps",
+        "kind",
+        "owner_type",
+        "annotation_source",
+        "executor",
+        "activation_sources",
+        "executor_sources",
+        "activation",
+        "return_type",
+        "completion",
+        "invocations",
+        "conditions"
+      ]
+    },
+    "ExecutionBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "call_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "value_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "completeness": {
+          "const": "partial"
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "kind": {
+          "const": "execution_binding"
+        },
+        "owner_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "call_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "call_source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "call_binding_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "use": {
+                "$ref": "#/$defs/CallResultUse"
+              },
+              "use_source": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "call_source",
+              "call_binding_id",
+              "use",
+              "use_source"
+            ]
+          }
+        },
+        "return_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "throw_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "catch_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "finally_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "transaction_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "transaction": {
+          "enum": [
+            "declared_runtime_unverified",
+            "none_in_selected_declaration"
+          ]
+        },
+        "failure": {
+          "const": "source_paths_only"
+        },
+        "completion": {
+          "const": "source_returns_only"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "owner_source",
+        "call_binding_ids",
+        "value_binding_ids",
+        "support",
+        "completeness",
+        "gaps",
+        "kind",
+        "owner_type",
+        "call_results",
+        "return_sources",
+        "throw_sources",
+        "catch_sources",
+        "finally_sources",
+        "transaction_sources",
+        "transaction",
+        "failure",
+        "completion"
+      ]
+    },
+    "EventBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "call_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "value_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "completeness": {
+          "const": "partial"
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "kind": {
+          "const": "event_binding"
+        },
+        "client": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "minLength": 1
+            },
+            "receiver_source": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "type",
+            "receiver_source"
+          ]
+        },
+        "operation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contract": {
+          "enum": [
+            "spring_kafka",
+            "external_sdk_source"
+          ]
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "position": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              }
+            },
+            "required": [
+              "position",
+              "role",
+              "source",
+              "type"
+            ]
+          }
+        },
+        "constructions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "argument_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "field_source": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "value_source": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "field",
+                    "field_source",
+                    "value_source"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "source",
+              "type",
+              "argument_sources",
+              "fields"
+            ]
+          }
+        },
+        "builder_calls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "operation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "receiver_source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "argument_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "source",
+              "operation",
+              "receiver_source",
+              "argument_sources"
+            ]
+          }
+        },
+        "selectors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "receiver_type": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "operation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "target_source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              }
+            },
+            "required": [
+              "source",
+              "receiver_type",
+              "operation",
+              "target_source"
+            ]
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "condition_source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "consequent_source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "alternative_source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "return_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "source",
+              "condition_source",
+              "consequent_source",
+              "alternative_source",
+              "return_sources"
+            ]
+          }
+        },
+        "comparisons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "operator": {
+                "type": "string",
+                "minLength": 1
+              },
+              "operand_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "source",
+              "operator",
+              "operand_sources"
+            ]
+          }
+        },
+        "result_observation": {
+          "enum": [
+            "discarded",
+            "returned",
+            "assigned",
+            "composed"
+          ]
+        },
+        "failure_paths": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "caught_type",
+              "source",
+              "thrown_type",
+              "thrown_source"
+            ],
+            "properties": {
+              "caught_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "thrown_type": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "thrown_source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "candidate_helpers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "call_source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "target_source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "argument_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "parameter_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "resolution": {
+                "const": "source_candidate"
+              }
+            },
+            "required": [
+              "call_source",
+              "target_source",
+              "argument_sources",
+              "parameter_sources",
+              "resolution"
+            ]
+          }
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "owner_source",
+        "call_binding_ids",
+        "value_binding_ids",
+        "support",
+        "completeness",
+        "gaps",
+        "kind",
+        "client",
+        "operation",
+        "contract",
+        "arguments",
+        "constructions",
+        "builder_calls",
+        "selectors",
+        "conditions",
+        "comparisons",
+        "result_observation",
+        "failure_paths",
+        "candidate_helpers"
+      ]
+    },
+    "ConfigurationBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "configuration_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "format": {
+          "enum": [
+            "java_properties",
+            "yaml",
+            "properties"
+          ]
+        },
+        "declared_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "prefix": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "profile": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1
+              },
+              "value": {
+                "$ref": "#/$defs/SourceScalar"
+              },
+              "value_kind": {
+                "enum": [
+                  "declaration",
+                  "literal",
+                  "expression",
+                  "unresolved"
+                ]
+              },
+              "type": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "placeholders": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "key",
+              "value",
+              "value_kind",
+              "type",
+              "source",
+              "placeholders"
+            ]
+          }
+        },
+        "selectors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "receiver_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "operation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "property_key": {
+                "type": "string",
+                "minLength": 1
+              },
+              "property_source": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "source",
+              "receiver_type",
+              "operation",
+              "property_key",
+              "property_source"
+            ]
+          }
+        },
+        "factories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "return_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "parameter_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "call_binding_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "source",
+              "name",
+              "return_type",
+              "parameter_sources",
+              "call_binding_ids"
+            ]
+          }
+        },
+        "completeness": {
+          "const": "partial"
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SpringConditionDeclaration"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "source",
+        "format",
+        "declared_type",
+        "prefix",
+        "profile",
+        "properties",
+        "selectors",
+        "factories",
+        "completeness",
+        "gaps",
+        "conditions"
+      ]
+    },
+    "ConsumerBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "consumer_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "annotation_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "selectors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "role": {
+                "enum": [
+                  "topics",
+                  "topicPattern",
+                  "topicPartitions",
+                  "groupId",
+                  "containerFactory",
+                  "batch",
+                  "autoStartup",
+                  "properties"
+                ]
+              },
+              "expression": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "literal": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              }
+            },
+            "required": [
+              "role",
+              "expression",
+              "source",
+              "literal"
+            ]
+          }
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "payload_annotation_source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              }
+            },
+            "required": [
+              "source",
+              "type",
+              "payload_annotation_source"
+            ]
+          }
+        },
+        "factory_candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "annotation_source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "return_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "selection": {
+                "const": "source_name_candidate"
+              }
+            },
+            "required": [
+              "source",
+              "annotation_source",
+              "return_type",
+              "selection"
+            ]
+          }
+        },
+        "deserialisations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner_source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "receiver_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "argument_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "return_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type_reference_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "source",
+              "owner_source",
+              "receiver_type",
+              "argument_sources",
+              "return_type",
+              "type_reference_sources"
+            ]
+          }
+        },
+        "model_declarations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "field_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "source",
+              "type",
+              "field_sources"
+            ]
+          }
+        },
+        "calls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "call_binding_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner_source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "target_source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "operation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "receiver_type": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "argument_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "execution": {
+                "enum": [
+                  "direct_source",
+                  "async_declared",
+                  "deferred_source"
+                ]
+              }
+            },
+            "required": [
+              "call_binding_id",
+              "source",
+              "owner_source",
+              "target_source",
+              "operation",
+              "receiver_type",
+              "argument_sources",
+              "execution"
+            ]
+          }
+        },
+        "candidate_helpers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "call_source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "target_source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "argument_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "parameter_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "resolution": {
+                "const": "nominal_source_candidate"
+              }
+            },
+            "required": [
+              "call_source",
+              "target_source",
+              "argument_sources",
+              "parameter_sources",
+              "resolution"
+            ]
+          }
+        },
+        "return_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "throw_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "catch_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "call_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "value_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "activation": {
+          "const": "declared_runtime_unverified"
+        },
+        "acknowledgement": {
+          "const": "unobserved"
+        },
+        "retry": {
+          "const": "unobserved"
+        },
+        "completeness": {
+          "const": "partial"
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SpringConditionDeclaration"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "source",
+        "owner_source",
+        "owner_type",
+        "annotation_source",
+        "selectors",
+        "parameters",
+        "factory_candidates",
+        "deserialisations",
+        "model_declarations",
+        "calls",
+        "candidate_helpers",
+        "return_sources",
+        "throw_sources",
+        "catch_sources",
+        "call_binding_ids",
+        "value_binding_ids",
+        "support",
+        "activation",
+        "acknowledgement",
+        "retry",
+        "completeness",
+        "gaps",
+        "conditions"
+      ]
+    },
+    "EnumBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "enum_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "constants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "declared_json_name": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "json_name_source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "annotation_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "argument_sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "name",
+              "source",
+              "declared_json_name",
+              "json_name_source",
+              "annotation_sources",
+              "argument_sources"
+            ]
+          }
+        },
+        "value_method_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "codec": {
+          "const": "unobserved"
+        },
+        "completeness": {
+          "const": "partial"
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "source",
+        "type",
+        "constants",
+        "value_method_sources",
+        "codec",
+        "completeness",
+        "gaps"
+      ]
+    },
+    "SourceScalar": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "JavaCollectionBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "java_collection_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declared_type": {
+          "const": "java.util.List<java.lang.String>"
+        },
+        "factory": {
+          "const": "java.util.List.of"
+        },
+        "factory_call_binding_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "position": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "constant_source": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "position",
+              "source",
+              "constant_source",
+              "value"
+            ]
+          }
+        },
+        "completeness": {
+          "const": "partial"
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "source",
+        "owner_source",
+        "owner_type",
+        "name",
+        "declared_type",
+        "factory",
+        "factory_call_binding_id",
+        "value_source",
+        "elements",
+        "completeness",
+        "gaps"
+      ]
+    },
+    "ScheduleDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "annotation_type": {
+          "$ref": "#/$defs/ScheduleAnnotationType"
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "expression": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "expression"
+            ]
+          }
+        }
+      },
+      "required": [
+        "source",
+        "owner_source",
+        "annotation_type",
+        "arguments"
+      ]
+    },
+    "ScheduleBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "schedule_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ScheduleDeclaration"
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SpringConditionDeclaration"
+          }
+        },
+        "activation_declarations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ScheduleDeclaration"
+          }
+        },
+        "lock_provider_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "async_invocations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "call_source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner_source": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "call_binding_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "dispatch": {
+                "enum": [
+                  "direct_self",
+                  "receiver_proxy_unverified"
+                ]
+              },
+              "use": {
+                "$ref": "#/$defs/CallResultUse"
+              },
+              "use_source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "async_binding_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "call_source",
+              "owner_source",
+              "call_binding_id",
+              "dispatch",
+              "use",
+              "use_source",
+              "async_binding_id"
+            ]
+          }
+        },
+        "call_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "value_binding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "activation": {
+          "const": "declared_runtime_unverified"
+        },
+        "lock_scope": {
+          "const": "scheduled_invocation_only_async_completion_unverified"
+        },
+        "completeness": {
+          "const": "partial"
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "source",
+        "owner_source",
+        "owner_type",
+        "annotations",
+        "conditions",
+        "activation_declarations",
+        "lock_provider_sources",
+        "async_invocations",
+        "call_binding_ids",
+        "value_binding_ids",
+        "support",
+        "activation",
+        "lock_scope",
+        "completeness",
+        "gaps"
+      ]
+    },
+    "ScheduleAnnotationType": {
+      "enum": [
+        "org.springframework.scheduling.annotation.Scheduled",
+        "net.javacrumbs.shedlock.spring.annotation.SchedulerLock",
+        "org.springframework.scheduling.annotation.EnableScheduling",
+        "net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock"
+      ]
+    },
+    "SpringConditionDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "annotation_type": {
+          "enum": [
+            "org.springframework.boot.autoconfigure.condition.ConditionalOnBean",
+            "org.springframework.boot.autoconfigure.condition.ConditionalOnProperty"
+          ]
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "expression": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "name",
+              "expression"
+            ]
+          }
+        }
+      },
+      "required": [
+        "source",
+        "owner_source",
+        "annotation_type",
+        "arguments"
+      ]
+    },
+    "CallResultUse": {
+      "enum": [
+        "ignored",
+        "returned",
+        "joined",
+        "bound",
+        "unknown"
+      ]
+    },
+    "AspNetRouteBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "aspnet_route_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        },
+        "controller": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "httpMethods": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "GET",
+              "POST",
+              "PUT",
+              "DELETE",
+              "PATCH",
+              "HEAD",
+              "OPTIONS"
+            ]
+          },
+          "minItems": 1
+        },
+        "template": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "type",
+              "source"
+            ]
+          }
+        },
+        "status": {
+          "const": "source_declared"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "input_contract_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "output_contract_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "source",
+        "support",
+        "controller",
+        "method",
+        "httpMethods",
+        "template",
+        "parameters",
+        "status",
+        "limitations",
+        "input_contract_ids",
+        "output_contract_ids"
+      ]
+    },
+    "CsharpSymbolBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "csharp_symbol_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "owner": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "relation": {
+          "enum": [
+            "call_target",
+            "reaching_definition",
+            "implementation_candidate"
+          ]
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "dispatch": {
+          "enum": [
+            "exact",
+            "external",
+            "polymorphic",
+            "unresolved"
+          ]
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string"
+              },
+              "parameter": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "source",
+              "parameter"
+            ]
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "boundary": {
+          "enum": [
+            "http",
+            "storage",
+            "async",
+            "unclassified",
+            "unknown"
+          ]
+        },
+        "completion": {
+          "enum": [
+            "awaited",
+            "returned",
+            "unobserved"
+          ]
+        },
+        "configurationSources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "source",
+        "target",
+        "owner",
+        "relation",
+        "symbol",
+        "dispatch",
+        "arguments",
+        "limitations",
+        "boundary",
+        "completion",
+        "configurationSources",
+        "conditions"
+      ]
+    },
+    "SourceFrameworkBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "source_framework_binding"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        },
+        "language": {
+          "enum": [
+            "python",
+            "rust"
+          ]
+        },
+        "framework": {
+          "enum": [
+            "fastapi",
+            "graphene",
+            "apollo-router",
+            "serde"
+          ]
+        },
+        "role": {
+          "enum": [
+            "http_entry",
+            "graphql_field",
+            "plugin_entry",
+            "declared_schema"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "target_source": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "declaration": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "source_declared",
+            "partial"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "source",
+        "support",
+        "language",
+        "framework",
+        "role",
+        "name",
+        "target_source",
+        "declaration",
+        "status",
+        "limitations"
+      ]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "scan/v1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Source"
+      },
+      "minItems": 0
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Rule"
+      },
+      "minItems": 0
+    },
+    "derivations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Derivation"
+      },
+      "minItems": 0
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Gap"
+      },
+      "minItems": 0
+    },
+    "obligations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Obligation"
+      },
+      "minItems": 0
+    },
+    "receipts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/QuestionReceipt"
+      },
+      "minItems": 0
+    },
+    "hosts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Host"
+      },
+      "minItems": 0
+    },
+    "contracts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Contract"
+      },
+      "minItems": 0
+    },
+    "effects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Effect"
+      },
+      "minItems": 0
+    },
+    "summaries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LocalSummary"
+      },
+      "minItems": 0
+    },
+    "actors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Actor"
+      },
+      "minItems": 0
+    },
+    "surfaces": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Surface"
+      },
+      "minItems": 0
+    },
+    "controls": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Control"
+      },
+      "minItems": 0
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/UserAction"
+      },
+      "minItems": 0
+    },
+    "outcomes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ActionOutcome"
+      },
+      "minItems": 0
+    },
+    "executions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ActionExecutionBinding"
+      },
+      "minItems": 0
+    },
+    "journeys": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Journey"
+      },
+      "minItems": 0
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Dependency"
+      },
+      "minItems": 0
+    },
+    "closures": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DependencyClosure"
+      },
+      "minItems": 0
+    },
+    "freshness": {
+      "$ref": "#/$defs/FreshnessResult"
+    },
+    "searches": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/SearchReceipt"
+      }
+    },
+    "actorConstraints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ActorConstraint"
+      }
+    },
+    "semantic": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/SemanticRecord"
+      }
+    },
+    "framework": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/FrameworkRecord"
+      }
+    },
+    "bindings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/BindingRecord"
+      }
+    }
+  },
+  "required": [
+    "format",
+    "id",
+    "sources",
+    "rules",
+    "derivations",
+    "gaps",
+    "obligations",
+    "receipts",
+    "hosts",
+    "contracts",
+    "effects",
+    "summaries",
+    "actors",
+    "surfaces",
+    "controls",
+    "actions",
+    "outcomes",
+    "executions",
+    "journeys",
+    "dependencies",
+    "closures"
+  ]
+}

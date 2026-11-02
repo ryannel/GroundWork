@@ -5,6 +5,7 @@ import { cssModules } from './css-modules-rule.mjs';
 import { barrelExportsOnly, noJunkDrawerNames, routeExports, serverOnly } from './layer-rules.mjs';
 import { readonlyTypes } from './readonly-types-rule.mjs';
 import { linkPrefetch, onePerChoice } from './speed-rules.mjs';
+import { britishSpelling, pageMetadata } from './structure-rules.mjs';
 
 const rel = (context) => path.relative(context.cwd, context.filename).split(path.sep).join('/');
 
@@ -81,35 +82,43 @@ const appRouteFilesOnly = {
   },
 };
 
-/** The site is a static export: nothing may need a server at request time. */
-const staticExportOnly = {
+// Route segment options that cache, pre-build or fix how a page renders. Every page is drawn on request from the
+// workspaces' YAML (the root layout asks for that once), and the readers keep what they work out until a file
+// changes, so none of these is needed.
+const RENDER_OPTIONS = new Set([
+  'revalidate',
+  'fetchCache',
+  'dynamic',
+  'dynamicParams',
+  'generateStaticParams',
+]);
+
+/** The site reads its workspaces and writes nothing: no server actions, and no route caching or pre-building. */
+const drawnOnRequest = {
   meta: {
     type: 'problem',
-    docs: { description: 'no server actions or request-time rendering in a static export' },
+    docs: { description: 'no server actions, and no route segment caching or pre-building' },
     schema: [],
     messages: {
-      server: "'use server' needs a running server; the site is a static export.",
-      dynamic:
-        '`export const {{name}}` asks for request-time rendering; the site is a static export.',
+      server: "'use server' would let a page write; the site only reads its workspaces.",
+      option:
+        '`{{name}}` caches or pre-builds the route; every page is drawn on request (see docs/architecture.md).',
     },
   },
   create(context) {
+    const check = (node, name) => {
+      if (RENDER_OPTIONS.has(name)) context.report({ node, messageId: 'option', data: { name } });
+    };
     return {
       Program(program) {
         const directive = directiveOf(program, 'use server');
         if (directive) context.report({ node: directive, messageId: 'server' });
       },
       'ExportNamedDeclaration > VariableDeclaration > VariableDeclarator'(node) {
-        const name = node.id.type === 'Identifier' ? node.id.name : '';
-        if (name === 'revalidate' || name === 'fetchCache') {
-          context.report({ node, messageId: 'dynamic', data: { name } });
-        }
-        if (
-          name === 'dynamic' &&
-          !(node.init?.type === 'Literal' && node.init.value === 'force-static')
-        ) {
-          context.report({ node, messageId: 'dynamic', data: { name } });
-        }
+        check(node, node.id.type === 'Identifier' ? node.id.name : '');
+      },
+      'ExportNamedDeclaration > FunctionDeclaration'(node) {
+        check(node, node.id?.name ?? '');
       },
     };
   },
@@ -120,7 +129,7 @@ export default {
   rules: {
     'client-file-naming': clientFileNaming,
     'app-route-files-only': appRouteFilesOnly,
-    'static-export-only': staticExportOnly,
+    'drawn-on-request': drawnOnRequest,
     'css-modules': cssModules,
     'route-exports': routeExports,
     'server-only': serverOnly,
@@ -129,5 +138,7 @@ export default {
     'readonly-types': readonlyTypes,
     'one-per-choice': onePerChoice,
     'link-prefetch': linkPrefetch,
+    'page-metadata': pageMetadata,
+    'british-spelling': britishSpelling,
   },
 };

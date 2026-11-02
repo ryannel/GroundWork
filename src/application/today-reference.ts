@@ -1,6 +1,6 @@
 import type { Model } from '@/application/plan/derive';
-import { refHead } from '@/application/plan-story-ref-words';
 import { countWord } from '@/application/plan-viz-text';
+import { refHead } from '@/application/reference/headings';
 
 // The reference of a workspace as it runs today: one catalogue per kind of thing its systems hold, only the
 // kinds it has. The address names the kind in the workspace's words; the catalogue is the plan's.
@@ -45,28 +45,28 @@ const WORDS: Readonly<Record<ReferenceKind, KindWords>> = {
     title: 'Components',
     plan: 'services',
     one: 'component',
-    lede: 'Every service, app and job that runs, grouped by the team that owns it, with what each owns, offers, announces and listens to.',
+    lede: 'Search every service, app and job. Open one for what it owns, offers, announces and listens to.',
     count: (m) => m.asIs.services.length,
   },
   stores: {
     title: 'Stores',
     plan: 'stores',
     one: 'store',
-    lede: 'Databases, warehouses and caches, with who owns each and who else reads or writes it; topics and queues apart, as they only carry events.',
+    lede: 'Search stores, topics and queues. Open one for its owner, records and connections.',
     count: (m) => m.asIs.stores.length,
   },
   apis: {
     title: 'APIs',
     plan: 'apis',
     one: 'endpoint',
-    lede: 'Every endpoint, grouped by the interface that serves it: its signature, who calls it and, opened, what it takes and returns.',
+    lede: 'Search every endpoint. Open one for its callers, request and response.',
     count: (m) => m.asIs.endpoints.length,
   },
   schemas: {
     title: 'Schemas',
     plan: 'schemas',
     one: 'schema',
-    lede: 'Records grouped by the store that holds them, then request bodies and event data, then the graph’s types.',
+    lede: 'Search records, request bodies, event data and graph types. Open one for its fields and relationships.',
     count: (m) => m.asIs.schemas.length,
   },
   events: {
@@ -80,21 +80,21 @@ const WORDS: Readonly<Record<ReferenceKind, KindWords>> = {
     title: 'Flows',
     plan: 'flows',
     one: 'flow',
-    lede: 'Every flow in one table: who sets it off, how many steps it takes, which teams it crosses and what it comes to.',
+    lede: 'Search every flow. Open one for its steps, the teams it crosses and its outcome.',
     count: (m) => m.asIs.flows.length,
   },
   screens: {
     title: 'Screens',
     plan: 'screens',
     one: 'screen',
-    lede: 'What people see: pages, modals, emails and prints, grouped by the app that serves them.',
+    lede: 'Search pages, modals, emails and prints. Open one for its regions and the app that serves it.',
     count: (m) => m.asIs.screens.length,
   },
   operations: {
     title: 'Operations',
     plan: 'operations',
     one: 'operation',
-    lede: 'What the front end asks the graph for, by screen: which teams own the answer and where it is cached.',
+    lede: 'Search what the front end asks the graph for. Open an operation for its query plan and caching.',
     count: (m) => m.asIs.operations.length,
   },
 };

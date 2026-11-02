@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { domainLanguageOf, languagePageOf } from '@/application/language-page';
@@ -13,6 +14,8 @@ interface Params {
 
 // The words the domain owns, read like the workspace's Language page but narrowed to the domain: search them,
 // and open one to see what it means, where it lives and what each system calls it.
+export const metadata: Metadata = { title: 'Language' };
+
 export default async function DomainLanguageRoute({
   params,
 }: {

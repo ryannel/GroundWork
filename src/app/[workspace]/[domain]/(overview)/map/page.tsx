@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { domainScopeOf } from '@/application/model-scope';
@@ -12,6 +13,8 @@ interface Params {
 }
 
 // Every component in the domain, grouped by system, with the components one step outside.
+export const metadata: Metadata = { title: 'Map' };
+
 export default async function DomainMapRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id, domain } = await params;
   const data = await todayData(id);

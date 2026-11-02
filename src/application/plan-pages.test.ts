@@ -4,7 +4,7 @@ import { derive } from '@/application/plan/derive';
 import type { Workspace } from '@/domain/workspace';
 
 import { planCardOf, partsFor } from './plan-footprint';
-import { findPage, neighboursOf, outlineOf, pageHref, planHref, screenParams } from './plan-pages';
+import { findPage, neighboursOf, outlineOf, pageHref, planHref } from './plan-pages';
 import { entityView, glyphOf, typeWord } from './plan-pages-entity';
 import { hashFor, idToToken, inspectedIn, tokenToId } from './plan-pages-hash';
 import { keyOf } from './plan-pages-screens';
@@ -90,12 +90,6 @@ describe('the outline', () => {
     expect(around.opens).toBeNull();
     const ref = outline.pages.filter((p) => p.chapter === 'ref').slice(0, 1);
     for (const page of ref) expect(neighboursOf(outline, page).end).toBeNull();
-  });
-
-  it('leaves the cover out of the static screen params', () => {
-    const params = screenParams(outline);
-    expect(params.some((p) => p.chapter === 'cover' && p.screen === 'cover')).toBe(false);
-    expect(params).toHaveLength(outline.pages.length - 1);
   });
 });
 

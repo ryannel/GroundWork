@@ -39,6 +39,7 @@ describe('workspaceNavOf', () => {
       ['Sales', 'Domains'],
       ['Find', undefined],
       ['Journeys', 'Look up'],
+      ['Services', undefined],
       ['Reference', undefined],
     ]);
   });
@@ -61,6 +62,7 @@ describe('workspaceNavOf', () => {
     expect(nav[0]!.current).toBe(true);
     expect(nav[0]!.items.map((item) => [item.title, item.current])).toEqual([
       ['Map', true],
+      ['Value Flows', false],
       ['Language', false],
       ['People', false],
     ]);
@@ -88,7 +90,11 @@ describe('workspaceNavOf', () => {
       title: 'People',
       href: '/shop/people/',
     });
-    expect(workspaceNavOf(shop, [], { section: 'language' })[0]!.items[1]).toMatchObject({
+    expect(
+      workspaceNavOf(shop, [], { section: 'language' })[0]!.items.find(
+        (item) => item.title === 'Language',
+      ),
+    ).toMatchObject({
       href: '/shop/language/',
       current: true,
     });
@@ -106,5 +112,14 @@ describe('workspaceNavOf', () => {
       current: false,
       href: '/shop/journeys/',
     });
+  });
+
+  it('places Value Flows directly below Map and marks its page without selecting Map', () => {
+    const group = workspaceNavOf(shop, [], { section: 'value-flows' })[0]!;
+    expect(group.open).toBe(true);
+    expect(group.items.slice(0, 2)).toEqual([
+      { title: 'Map', href: '/shop/', current: false },
+      { title: 'Value Flows', href: '/shop/value-flows/', current: true },
+    ]);
   });
 });

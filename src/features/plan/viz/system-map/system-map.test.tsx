@@ -4,8 +4,10 @@ import { afterEach, describe, expect, it } from 'vitest';
 
 import { contractsPlans, stagedDeliveryTime } from '@/../test/fixtures/acme/plans/contracts-plans';
 import { modelOf } from '@/../test/plan-kit';
+import { systemMapInput } from '@/application/plan-viz-system-map-input';
 
 import { SystemMap } from './system-map';
+import { SystemMapView } from './system-map.client';
 
 const pressed = (root: HTMLElement, label: string) =>
   [...root.querySelectorAll('button')].find((b) => b.textContent === label);
@@ -19,6 +21,26 @@ function press(root: HTMLElement, label: string) {
 afterEach(cleanup);
 
 describe('SystemMap', () => {
+  it('opens a large system as an overview and expands every component on request', () => {
+    const input = systemMapInput(modelOf(stagedDeliveryTime()));
+    const service = input.services[0];
+    if (service === undefined) throw new Error('fixture has no service');
+    const services = Array.from({ length: 13 }, (_, index) => ({
+      ...service,
+      id: `svc:large-${String(index)}`,
+      name: `Component ${String(index)}`,
+    }));
+    const { container } = render(<SystemMapView input={{ ...input, services }} />);
+    expect(pressed(container, 'Systems')?.getAttribute('aria-pressed')).toBe('true');
+    const folded = container.querySelectorAll('[data-node]').length;
+    press(container, 'Components');
+    expect(pressed(container, 'Components')?.getAttribute('aria-pressed')).toBe('true');
+    expect(container.querySelectorAll('[data-node]').length).toBeGreaterThan(folded);
+    for (const each of services) {
+      expect(container.querySelector(`[data-inspect="${each.id}"]`)).not.toBeNull();
+    }
+  });
+
   it.each([...contractsPlans(), ['staged delivery-time', stagedDeliveryTime()] as const])(
     'draws every service of %s as a card that opens it',
     (_, plan) => {
@@ -81,5 +103,27 @@ describe('SystemMap', () => {
     fireEvent.click(fold);
     expect(container.querySelectorAll('[data-node]').length).toBeLessThan(before);
     expect(container.querySelector('button[aria-expanded="false"]')).not.toBeNull();
+  });
+
+  it('expands a system from its name and keeps Details as a separate action', () => {
+    const { container } = render(<SystemMap model={modelOf(stagedDeliveryTime())} />);
+    press(container, 'Systems');
+    const system = container.querySelector<SVGGElement>('[data-kind="system"]');
+    const heading = system?.querySelector<HTMLButtonElement>('button[aria-expanded="false"]');
+    const id = system?.dataset.node;
+    if (heading === null || heading === undefined || id === undefined) {
+      throw new Error('No collapsed system in the fixture');
+    }
+    const name = heading.getAttribute('aria-label');
+    expect(heading.dataset.inspect).toBeUndefined();
+    expect(system?.querySelector<HTMLButtonElement>('[data-inspect]')?.dataset.inspect).toBe(id);
+    fireEvent.click(heading);
+    const expanded = container.querySelector(`[data-node="${id}"]`);
+    expect(expanded?.querySelector('h3')?.textContent).toBe(`System · ${name ?? ''}`);
+    const collapse = expanded?.querySelector('button[aria-expanded="true"]');
+    if (collapse === null || collapse === undefined) throw new Error('No Collapse control');
+    expect(collapse.getAttribute('aria-label')).toBe(`Collapse ${name ?? ''}`);
+    fireEvent.click(collapse);
+    expect(container.querySelector(`[data-node="${id}"] [data-inspect]`)).not.toBeNull();
   });
 });

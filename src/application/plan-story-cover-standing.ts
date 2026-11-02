@@ -1,6 +1,5 @@
 import type { Model } from '@/application/plan/derive';
-import { questionTitle } from '@/application/plan-chips';
-import { type Deciding, deciding, isDecision } from '@/application/plan-viz-decision';
+import { type Deciding, deciding, titleOf } from '@/application/plan-viz-decision';
 import { andList } from '@/application/plan-viz-ladder-order';
 import { buildSummary } from '@/application/plan-viz-milestone';
 import { shortDate } from '@/application/plan-viz-state';
@@ -51,8 +50,7 @@ export function gatesOf(model: Model): Deciding[] {
 export const heldUp = (model: Model, id: string): readonly string[] => model.weightOf(id).ids;
 
 /** A gate's title in plain words. */
-export const gateTitle = (e: Deciding): string =>
-  isDecision(e) ? plainLine(e.title) : questionTitle(e.question);
+export const gateTitle = (e: Deciding, model?: Model): string => titleOf(e, model);
 
 /** A title continued after a colon: lower case unless it is an acronym, and ending in a full stop. */
 export function asClause(title: string): string {
@@ -86,8 +84,8 @@ function cutAtClause(text: string, max: number): string {
 }
 
 /** A team's note as the reason in a sentence: its first sentence, cut at a clause when long, with no full stop. */
-export function reasonOf(note: string | undefined, max = REASON_MAX): string {
-  const text = plainLine(note ?? '')
+export function reasonOf(note: string | undefined, max = REASON_MAX, model?: Model): string {
+  const text = plainLine(note ?? '', model)
     .trim()
     .replaceAll(/\s+/gu, ' ');
   const sentence = firstSentence(text).replace(/[!.?]$/u, '');
@@ -110,7 +108,7 @@ export function lowVoteSentence(
     const names = andList(low.map((t) => teamName(model, t)));
     return `${names} are not confident (${andList(low.map((t) => ratingOf(votes, t)))} of 5).`;
   }
-  const why = reasonOf(votes.get(first)?.note);
+  const why = reasonOf(votes.get(first)?.note, REASON_MAX, model);
   const reason = why === '' ? '' : `: ${why}`;
   return `${teamName(model, first)} is not confident (${ratingOf(votes, first)} of 5)${reason}.`;
 }
@@ -174,7 +172,7 @@ function gateLine(
   const late = first.decide_by !== undefined && first.decide_by.localeCompare(today) < 0;
   return {
     tone: late ? 'warn' : 'note',
-    text: `${gateLead(model, first, late)}: ${asClause(gateTitle(first))}${gateMore(gates, first, model.today)}`,
+    text: `${gateLead(model, first, late)}: ${asClause(gateTitle(first, model))}${gateMore(gates, first, model.today)}`,
     link: hasLow ? null : STILL_TO_SETTLE,
   };
 }

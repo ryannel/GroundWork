@@ -15,23 +15,23 @@ export const G = 56;
 export const WIDE_G = 128;
 export const PAD = 16;
 export const VGAP = 24;
-export const LINE = 15;
+const LINE = 15;
 const ROW = 20;
 export const SG = 6;
 const SIN = 14;
 export const SAT_LINE = 13;
 export const SYS_IN = 16;
 export const PART_GAP = 8;
-const HEAD = 46;
+/** Dense shared component headers show kind, a two-line name and a two-line purpose. */
+const COMPONENT_HEAD = 104;
 const MAXROWS = 4;
 const SH = 24;
 const SH2 = 36;
 const NAME_CH = 21;
 const ROLE_CH = 24;
-export const ROLE_LINE = 14;
-export const SYS_NAME = 26;
+const SYS_NAME = 26;
 /** The foot of a folded system card: its team, then its size. */
-const SYS_FOOT = 40;
+const SYS_FOOT = 56;
 const MONO = 6.3;
 const SAT_CH = {
   topic: Math.floor((CW - SIN - 34) / MONO),
@@ -138,22 +138,16 @@ const roleLines = (text: string, room: number, max: number): string[] =>
 const roleRoom = (kind: string, part: boolean): number =>
   (part ? ROLE_CH - 2 : ROLE_CH) - (kind !== '' && kind !== 'service' ? 3 : 0);
 
-function headOf(
-  ctx: Context,
-  id: string,
-  look: { readonly part: boolean; readonly compact: boolean },
-) {
-  const { part, compact } = look;
+function headOf(ctx: Context, id: string, part: boolean) {
   const node = ctx.nodes.get(id);
   const lines = wrapText(ctx.label(id), part ? NAME_CH - 2 : NAME_CH, 2);
   const role = roleLines(node?.does ?? '', roleRoom(node?.kind ?? '', part), part ? 3 : 2);
   const nameEnd = 20 + (lines.length - 1) * LINE;
-  const plain = (compact ? 32 : HEAD) + (compact ? 0 : (lines.length - 1) * LINE);
   return {
     lines,
     role,
     nameEnd,
-    head: role.length > 0 ? nameEnd + 2 + role.length * ROLE_LINE + 9 : plain,
+    head: COMPONENT_HEAD,
   };
 }
 
@@ -170,7 +164,7 @@ function placeRows(ctx: Context, id: string, top: number): Pick<Box, 'rows' | 'm
 
 export function serviceBox(ctx: Context, id: string, at: CardAt): Box {
   const { part = false, compact = false, x, y, w, col } = at;
-  const head = headOf(ctx, id, { part, compact });
+  const head = headOf(ctx, id, part);
   const placed = placeRows(ctx, id, y + head.head);
   const count = placed.rows.length + (placed.more.length > 0 ? 1 : 0);
   return {
@@ -199,7 +193,7 @@ export function systemBox(
   const lines = wrapText(ctx.label(id), NAME_CH, 2);
   const role = roleLines(ctx.nodes.get(id)?.does ?? '', ROLE_CH, 2);
   const nameEnd = SYS_NAME + (lines.length - 1) * LINE;
-  const head = nameEnd + (role.length > 0 ? 2 + role.length * ROLE_LINE : 0) + 12;
+  const head = 128;
   return { ...BLANK, ...at, id, kind: 'system', w: CW, h: head, head, lines, role, nameEnd };
 }
 

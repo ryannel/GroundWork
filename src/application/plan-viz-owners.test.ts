@@ -55,7 +55,9 @@ describe('owner lists', () => {
     expect(lists.tst).toEqual(['tst:dispatch-unit', 'tst:indexer-contract', 'tst:no-v1-left']);
     const owned = new Set(lists.svc);
     const stores = [...model.asIs.stores, ...model.toBe.stores];
-    expect(lists.st.every((id) => owned.has(stores.find((s) => s.id === id)!.owner))).toBe(true);
+    expect(lists.st.every((id) => owned.has(stores.find((s) => s.id === id)!.owner ?? ''))).toBe(
+      true,
+    );
     expect(new Set(lists.if).size).toBe(lists.if.length);
   });
 

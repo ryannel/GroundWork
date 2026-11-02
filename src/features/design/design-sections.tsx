@@ -125,7 +125,7 @@ export function HoldersSection() {
           caption="Systems"
           columns={[
             { key: 'name', label: 'Name' },
-            { key: 'team', label: 'Team' },
+            { key: 'team', label: 'Team', compact: true },
           ]}
           rows={[
             { key: 'a', cells: { name: 'Orders', team: 'Checkout' } },

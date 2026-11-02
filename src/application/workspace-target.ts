@@ -7,6 +7,9 @@ import { chipRefOf, type ChipRef } from '@/application/today-scope';
 import type { SystemModel } from '@/application/workspace-model';
 import type { KeyTerms, TargetArchitecture } from '@/domain/workspace-model';
 
+import { type TargetFlow, targetFlowOf } from './workspace-target-flow';
+import { loopsOf } from './workspace-target-flow-grid';
+
 const CITED = /\[\[([\w:#.-]+)\]\]/gu;
 
 const citedIn = (text: string | null): string[] =>
@@ -52,7 +55,10 @@ function warningsOf(
   const summary = citedIn(target.summary)
     .filter(missing)
     .map((id) => `${at}: the summary cites ${id}, which today's model does not have`);
-  return [...twice, ...summary, ...stageWarnings, ...shiftWarnings];
+  const loops = loopsOf(target.stages).map(
+    (id) => `${at}: stage ${id} is made, through other stages, from itself`,
+  );
+  return [...twice, ...summary, ...stageWarnings, ...loops, ...shiftWarnings];
 }
 
 /** Stages and shifts that name things today's model does not have, or stages that do not exist. */
@@ -89,16 +95,29 @@ export interface TargetView {
   readonly shifts: readonly TargetShiftView[];
   /** A chip for every [[id]] cited in the text. */
   readonly refs: Readonly<Record<string, ChipRef>>;
+  /** The stages drawn as a flow, and the order to read them in. */
+  readonly flow: TargetFlow;
 }
 
 function termNames(keyTerms: KeyTerms): Map<string, string> {
   return new Map(keyTerms.terms.map((term) => [term.id, term.name]));
 }
 
-/** A domain's target architecture; null when it has not written one. */
+/** Where an owner lives when it is not in this domain: another domain, by its system, or outside the company. */
+function placeOf(model: Model, places: Readonly<Record<string, string>>) {
+  return (id: string): string | null => {
+    const service = model.asIs.services.find((each) => each.id === id);
+    if (service?.kind === 'external') return 'Outside the company';
+    const domain = places[id.startsWith('sys:') ? id : (service?.system ?? '')];
+    return domain === undefined ? null : `Lives in ${domain}`;
+  };
+}
+
+/** A domain's target architecture; null when it has not written one. `places` names the other domains' systems. */
 export function targetViewOf(
   today: Pick<SystemModel, 'model' | 'targets' | 'keyTerms'>,
   domain: string,
+  places: Readonly<Record<string, string>> = {},
 ): TargetView | null {
   const target = today.targets.find((each) => each.domain === domain);
   if (target === undefined) return null;
@@ -106,6 +125,7 @@ export function targetViewOf(
   const chip = (id: string) => chipRefOf(model, id);
   const names = new Map(target.stages.map((stage) => [stage.id, stage.name]));
   const terms = termNames(today.keyTerms);
+  const place = placeOf(model, places);
   const texts = [
     target.summary,
     ...target.stages.map((stage) => stage.summary),
@@ -123,5 +143,11 @@ export function targetViewOf(
     })),
     shifts: target.shifts.map((shift) => ({ ...shift, cites: shift.cites.map(chip) })),
     refs: Object.fromEntries(texts.flatMap(citedIn).map((id) => [id, chip(id)])),
+    flow: targetFlowOf(
+      target.stages.map((stage) => ({
+        ...stage,
+        owners: stage.owners.map((id) => ({ ...chip(id), place: place(id) })),
+      })),
+    ),
   };
 }

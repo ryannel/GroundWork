@@ -105,6 +105,7 @@ describe('today’s pages', () => {
     );
     expect(todayScreensOf(shop).map((s) => s.label)).toEqual([
       'Landscape',
+      'Value Flows',
       'Members',
       'Subscriptions',
       'Journeys',

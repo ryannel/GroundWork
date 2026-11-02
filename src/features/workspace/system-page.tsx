@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { type DomainNav, sectionId } from '@/application/domain-nav';
+import type { ExplorerRepositoryLink } from '@/application/explorer-component-links';
 import type { PlanPart } from '@/application/plan-footprint';
 import type { RepoRow } from '@/application/today-repos';
 import type { SystemView } from '@/application/workspace-system';
@@ -8,6 +9,7 @@ import { Facts } from '@/ui/facts';
 import { PageHeader } from '@/ui/page-header';
 import { SectionHeading } from '@/ui/section-heading';
 
+import { CapturedRepositories } from './captured-repositories';
 import { CatalogueList } from './catalogue-list';
 import { ComponentCards } from './component-cards';
 import { JourneysHere } from './journey-cards';
@@ -27,6 +29,8 @@ interface SystemPageProps {
   readonly parts?: readonly PlanPart[];
   readonly overlays?: ReactNode;
   readonly actions?: ReactNode;
+  readonly explorerLinks?: Readonly<Record<string, string>>;
+  readonly explorerRepositories?: readonly ExplorerRepositoryLink[];
 }
 
 function Section({
@@ -97,7 +101,17 @@ function Drawn({ view, map, flows }: Pick<SystemPageProps, 'view' | 'map' | 'flo
 // One system, in the order a newcomer learns it: its job and owner, the plans that would change it, the map and
 // where it ends, the flows through it, each component, the data it keeps and the user journeys that pass through
 // it. Where its code lives, and how fresh our reading of it is, comes last.
-export function SystemPage({ view, nav, map, flows, parts, overlays, actions }: SystemPageProps) {
+export function SystemPage({
+  view,
+  nav,
+  map,
+  flows,
+  parts,
+  overlays,
+  actions,
+  explorerLinks,
+  explorerRepositories,
+}: SystemPageProps) {
   return (
     <WorkspaceShell
       actions={actions}
@@ -117,10 +131,13 @@ export function SystemPage({ view, nav, map, flows, parts, overlays, actions }: 
       </Section>
       <Drawn flows={flows} map={map} view={view} />
       <Section
-        says="What each component does. Open the line under one for what it answers, calls, announces, hears and keeps."
+        says="What each component does. Open its details for what it answers, calls, announces, hears and keeps."
         title="Components"
       >
-        <ComponentCards cards={view.components} />
+        <ComponentCards cards={view.components} explorerLinks={explorerLinks ?? {}} />
+        {explorerRepositories === undefined ? null : (
+          <CapturedRepositories links={explorerRepositories} />
+        )}
       </Section>
       {view.data.length === 0 ? null : (
         <Section

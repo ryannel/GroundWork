@@ -1,13 +1,17 @@
 import 'server-only';
-
-import { readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
+
+import { pathIn, listFolder, statOf } from '@/infrastructure/disk';
 
 import { workspaceFolders } from './workspace-folders';
 
 // What a reader worked out, kept in memory until a file in the workspaces changes. Each read first stamps the
 // workspaces' files (their names, sizes and times: a couple of milliseconds, with no file read), so an edit
 // shows on the next request without a restart, and while nothing changes no page reads or checks a file twice.
+// A workspace's generated folders are left out: no remembered reader reads them, and they hold thousands of
+// files (the explorer corpus runs to gigabytes), so stamping them cost seconds a request and every scan write
+// threw the whole model away.
+const UNSTAMPED = new Set(['explorer', 'evidence']);
 
 /** Reads `key` once, then hands back the same answer until a file under the workspaces changes. */
 export type Remember<T> = (
@@ -22,14 +26,19 @@ interface Kept<T> {
 }
 
 async function filesIn(folder: string, base: string): Promise<string[]> {
-  const entries = await readdir(folder, { withFileTypes: true }).catch(() => []);
+  const entries = await listFolder(folder);
+  const workspaceRoot = entries.some((entry) => entry.name === 'workspace.yaml');
+  const generated = (entry: (typeof entries)[number]): boolean =>
+    workspaceRoot && entry.isDirectory() && UNSTAMPED.has(entry.name);
+  const skipped = (entry: (typeof entries)[number]): boolean =>
+    entry.name.startsWith('.') || entry.name === 'node_modules' || generated(entry);
   const lists = await Promise.all(
     entries
-      .filter((entry) => !entry.name.startsWith('.') && entry.name !== 'node_modules')
+      .filter((entry) => !skipped(entry))
       .map(async (entry) => {
-        const file = path.join(folder, entry.name);
+        const file = pathIn(folder, entry.name);
         if (entry.isDirectory()) return filesIn(file, base);
-        const info = await stat(file).catch(() => null);
+        const info = await statOf(file);
         if (info === null) return [];
         return [`${path.relative(base, file)}\t${String(info.mtimeMs)}\t${String(info.size)}`];
       }),
@@ -69,10 +78,10 @@ async function currentStamp(root: string | undefined): Promise<string> {
 }
 
 /** A cache for one reader. */
-export function untilEdited<T>(): Remember<T> {
+export function untilEdited<T>(revision: () => string = () => ''): Remember<T> {
   const kept = new Map<string, Kept<T>>();
   return async (root, key, read) => {
-    const stamp = await currentStamp(root);
+    const stamp = `${await currentStamp(root)}\n${revision()}`;
     const at = `${root ?? ''}\n${key}`;
     const known = kept.get(at);
     if (known?.stamp === stamp) return known.value;

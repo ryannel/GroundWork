@@ -171,12 +171,3 @@ function aheadOf(
     end: story && (ahead === null || ahead.side) ? workspaceHref(outline.workspace) : null,
   };
 }
-
-/** The `[chapter]/[screen]` segments of every screen except the cover itself, for the static routes. */
-export function screenParams(
-  outline: Outline,
-): { readonly chapter: string; readonly screen: string }[] {
-  return outline.pages
-    .filter((p) => p.href !== planHref(outline))
-    .map((p) => ({ chapter: p.chapter, screen: p.screen }));
-}

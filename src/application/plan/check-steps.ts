@@ -113,7 +113,7 @@ function checkOperationData(c: StepCheck): void {
     const field = d.field === undefined ? '' : ` (for ${d.field})`;
     c.rep.strict(
       c.at('via'),
-      `${d.svc} ${d.rw}s ${d.ref ?? store.id}${field} behind ${step.via}, but ${store.id} is owned by ${store.owner}; add ${d.svc} to ${store.id}.access with mode ${d.rw}, or resolve the field from a store it owns`,
+      `${d.svc} ${d.rw}s ${d.ref ?? store.id}${field} behind ${step.via}, but ${store.id} is owned by ${store.owner ?? 'not recorded'}; add ${d.svc} to ${store.id}.access with mode ${d.rw}, or resolve the field from a store it owns`,
     );
   }
 }
@@ -152,7 +152,7 @@ function checkViaMessage(c: StepCheck, target: MessageNode): void {
   const named = consumers.length > 0 ? consumers.join(', ') : 'none';
   c.rep.error(
     c.at('via'),
-    `via ${step.via}: "from" must be its producer (${target.producer}) or "to" must be one of its consumers (${named}) or its topic (${target.topic}); publish = from producer to topic, consume = from topic to a consumer (append a new consumer to ${step.via}.consumers)`,
+    `via ${step.via}: "from" must be its producer (${target.producer ?? 'not recorded'}) or "to" must be one of its consumers (${named}) or its topic (${target.topic}); publish = from producer to topic, consume = from topic to a consumer (append a new consumer to ${step.via}.consumers)`,
   );
 }
 
@@ -193,7 +193,7 @@ function checkPurge(c: StepCheck, [i, sid]: readonly [number, string], actor: st
   if (purger !== null && !canAccess(st, purger, 'write')) {
     c.rep.strict(
       at,
-      `${purger} (the acting service) purges ${sid}, but only its owner (${st.owner}) or a service with write access may; add ${purger} to ${sid}.access with mode write`,
+      `${purger} (the acting service) purges ${sid}, but only its owner (${st.owner ?? 'not recorded'}) or a service with write access may; add ${purger} to ${sid}.access with mode write`,
     );
   }
 }
@@ -209,7 +209,7 @@ function checkReadWrite(
   if (store?.$type !== 'store' || canAccess(store, actor, need)) return;
   c.rep.strict(
     c.at(prop, [prop, i]),
-    `${actor} (the acting service) ${need}s ${sch.id} in ${store.id}, but only its owner (${store.owner}) or a service with ${need} access may; add ${actor} to ${store.id}.access or use its own projection`,
+    `${actor} (the acting service) ${need}s ${sch.id} in ${store.id}, but only its owner (${store.owner ?? 'not recorded'}) or a service with ${need} access may; add ${actor} to ${store.id}.access or use its own projection`,
   );
 }
 

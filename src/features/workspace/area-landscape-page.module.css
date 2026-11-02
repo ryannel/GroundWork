@@ -1,0 +1,5 @@
+@layer components {
+  .section {
+    margin-top: var(--s-10);
+  }
+}

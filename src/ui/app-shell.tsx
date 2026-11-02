@@ -10,18 +10,21 @@ interface AppShellProps {
   readonly rail?: ReactNode;
   /** Overlays that sit outside the page, such as the inspector. */
   readonly overlays?: ReactNode;
+  readonly wide?: boolean;
   readonly children: ReactNode;
 }
 
 // Every page has the same frame: the bar on top, a rail on the left when there is one, and the stage, centred in
 // what is left. An open inspector narrows the page on a wide window instead of covering it.
-export function AppShell({ bar, rail, overlays, children }: AppShellProps) {
+export function AppShell({ bar, rail, overlays, children, wide = false }: AppShellProps) {
   return (
     <div className={styles.shell}>
       {bar}
       <div className={styles.body} data-rail={rail === undefined ? undefined : ''}>
         {rail === undefined ? null : <RailDrawer>{rail}</RailDrawer>}
-        <main className={styles.stage}>{children}</main>
+        <main className={styles.stage} data-wide={wide ? '' : undefined}>
+          {children}
+        </main>
       </div>
       {overlays}
     </div>

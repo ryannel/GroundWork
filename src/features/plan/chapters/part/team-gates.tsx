@@ -35,7 +35,7 @@ function Gate({
 }) {
   return (
     <li className={styles.gate}>
-      <EntityChip id={gate.id} label={gateTitle(gate)} model={model} />
+      <EntityChip id={gate.id} label={gateTitle(gate, model)} model={model} />
       <span className={styles.meta}>
         {gate.decide_by === undefined
           ? 'no date'

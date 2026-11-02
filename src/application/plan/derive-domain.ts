@@ -155,10 +155,13 @@ function linkSet(dm: Domain): Links {
 }
 
 const writersOf = (n: {
-  readonly owner: string;
+  readonly owner?: string;
   readonly access?: readonly { readonly svc: string; readonly mode: string }[] | undefined;
 }): string[] =>
-  uniq([n.owner, ...(n.access ?? []).filter((a) => writes(a.mode)).map((a) => a.svc)]);
+  uniq([
+    ...(n.owner === undefined ? [] : [n.owner]),
+    ...(n.access ?? []).filter((a) => writes(a.mode)).map((a) => a.svc),
+  ]);
 
 /** Topics also say who writes (owner, write access) and who reads, even where no message is modelled. */
 function topicLinks(g: Graph, { msg }: Links): void {
@@ -202,6 +205,27 @@ const authoredPairs = (stages: readonly Stage[]): (readonly [string, string])[] 
 
 type Edges = Pick<EdgeQueries, 'edgesOfGraph'>;
 
+/** Link every captured publisher to a message's consumers, even when its producer is unknown. */
+function messageLinks(
+  g: Graph,
+  links: Links,
+  recorded: ReturnType<EdgeQueries['edgesOfGraph']>,
+): void {
+  for (const m of g.messages) {
+    const publishers = new Set([
+      ...(m.producer === undefined ? [] : [m.producer]),
+      ...recorded
+        .filter((edge) => edge.kind === 'msg' && edge.to === m.topic && edge.via === m.id)
+        .map((edge) => edge.from),
+    ]);
+    for (const publisher of publishers) {
+      for (const c of consumersIn(g, m.id)) {
+        links.msg(publisher, c.svc, g.has(m.topic) ? m.topic : m.id);
+      }
+    }
+  }
+}
+
 /** Service-to-service links in a graph: events through their topic, calls between caller and callee. */
 function linksOf(
   core: Core,
@@ -210,14 +234,11 @@ function linksOf(
 ): DomainLink[] {
   const g = core.graphOf(mode);
   const links = linkSet(dm);
-  for (const m of g.messages) {
-    for (const c of consumersIn(g, m.id)) {
-      links.msg(m.producer, c.svc, g.has(m.topic) ? m.topic : m.id);
-    }
-  }
+  const recorded = edges.edgesOfGraph(g === core.asIs ? 'asIs' : 'toBe');
+  messageLinks(g, links, recorded);
   topicLinks(g, links);
   for (const pair of authoredPairs(dm.stages)) authoredLink(g, links, pair);
-  for (const e of edges.edgesOfGraph(g === core.asIs ? 'asIs' : 'toBe')) {
+  for (const e of recorded) {
     if (e.kind === 'api') links.api(e.from, e.to, g.get(e.via ?? '')?.$parent ?? e.via);
   }
   return links.list();

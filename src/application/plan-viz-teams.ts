@@ -37,7 +37,11 @@ function parentOf(id: string): string | null {
   return at === -1 ? null : id.slice(0, at);
 }
 
-function viaLink(model: Model, id: string, depth: number): string | null {
+function viaLink(
+  model: Pick<Model, 'get' | 'ownerTeam'>,
+  id: string,
+  depth: number,
+): string | null {
   const entity = model.get(id);
   const own = text(prop(entity, 'team'));
   if (own !== '') return own;
@@ -52,7 +56,11 @@ function viaLink(model: Model, id: string, depth: number): string | null {
 }
 
 /** The team that owns an id, following owner, service, producer and parent links. */
-export function teamOf(model: Model, id: string, depth = 0): string | null {
+export function teamOf(
+  model: Pick<Model, 'get' | 'ownerTeam'>,
+  id: string,
+  depth = 0,
+): string | null {
   if (id === '' || depth > MAX_DEPTH) return null;
   if (id.startsWith(TEAM_PREFIX)) return id;
   const owner = depth === 0 ? model.ownerTeam(id) : null;

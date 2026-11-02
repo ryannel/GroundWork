@@ -6,6 +6,8 @@ export function workspaceHref(workspace: string): string {
 
 export const languageHref = (workspace: string): string => `/${workspace}/language/`;
 
+export const valueFlowsHref = (workspace: string): string => `/${workspace}/value-flows/`;
+
 export const peopleHref = (workspace: string): string => `/${workspace}/people/`;
 
 export const plansHref = (workspace: string): string => `/${workspace}/plans/`;
@@ -40,30 +42,6 @@ export function domainFlowHref(workspace: string, domain: string, flow: string):
 
 export function teamOf(workspace: Workspace, id: string | null): Team | null {
   return workspace.teams.find((team) => team.id === id) ?? null;
-}
-
-/** Every domain, for the static routes. */
-export function domainPaths(
-  workspaces: readonly Workspace[],
-): { readonly workspace: string; readonly domain: string }[] {
-  return workspaces.flatMap((workspace) =>
-    workspace.domains.map((domain) => ({ workspace: workspace.id, domain: domain.id })),
-  );
-}
-
-/** Every system, for the static routes. */
-export function systemPaths(
-  workspaces: readonly Workspace[],
-): { readonly workspace: string; readonly domain: string; readonly system: string }[] {
-  return workspaces.flatMap((workspace) =>
-    workspace.domains.flatMap((domain) =>
-      domain.systems.map((system) => ({
-        workspace: workspace.id,
-        domain: domain.id,
-        system: system.id,
-      })),
-    ),
-  );
 }
 
 export function findWorkspace(workspaces: readonly Workspace[], id: string): Workspace | null {

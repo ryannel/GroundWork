@@ -80,7 +80,7 @@ function checkPurge({ s, st, writers, heard }: Purge, mid: string, i: number): v
   if (!(m.consumers ?? []).some((c) => writers.has(c))) {
     s.warn(
       at,
-      `${st.id} says ${mid} purges it, but neither its owner (${st.owner}) nor a service with write access consumes ${mid}; append the purging service to ${mid}.consumers and give it write access`,
+      `${st.id} says ${mid} purges it, but neither its owner (${st.owner ?? 'unidentified'}) nor a service with write access consumes ${mid}; append the purging service to ${mid}.consumers and give it write access`,
       `${mid}|no-consumer`,
     );
   }
@@ -98,7 +98,7 @@ function checkCaches(s: Scope): void {
   for (const st of s.g.stores) {
     if (st.kind !== 'cache') continue;
     const writers = new Set([
-      st.owner,
+      ...(st.owner === undefined ? [] : [st.owner]),
       ...(st.access ?? []).filter((a) => a.mode.includes('write')).map((a) => a.svc),
     ]);
     const purge = { s, st, writers, heard: invalidators(s.g, st.id).fromSteps };

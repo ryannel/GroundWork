@@ -3,20 +3,22 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import Link from 'next/link';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { ByLens, DimByLens, LensCarry, carried, dimTo, setParam } from './lens.client';
+import { DimByLens, LensCarry, carried, dimTo, setParam, useSetLens } from './lens.client';
 
 const push = vi.fn<(href: string) => void>();
+const replace = vi.fn<(href: string, options?: { scroll?: boolean }) => void>();
 vi.mock(import('next/navigation'), async (original) => {
   const actual = await original();
   return {
     ...actual,
     useSearchParams: () => new actual.ReadonlyURLSearchParams(globalThis.location.search),
-    useRouter: () => ({ push }) as unknown as ReturnType<typeof actual.useRouter>,
+    useRouter: () => ({ push, replace }) as unknown as ReturnType<typeof actual.useRouter>,
   };
 });
 
 beforeEach(() => {
   push.mockReset();
+  replace.mockReset();
   globalThis.history.replaceState(null, '', '/');
 });
 afterEach(cleanup);
@@ -37,25 +39,33 @@ describe('setParam', () => {
   });
 });
 
-describe('ByLens', () => {
-  const teams = { 'team:a': <p>for a</p> };
+describe('useSetLens', () => {
+  function Pick({ team }: { readonly team: string | null }) {
+    const setLens = useSetLens();
+    return (
+      <button
+        onClick={() => {
+          setLens(team);
+        }}
+        type="button"
+      >
+        pick
+      </button>
+    );
+  }
 
-  it('shows everyone with no lens or an unknown one', () => {
-    expect(render(<ByLens everyone={<p>all</p>} teams={teams} />).container.textContent).toBe(
-      'all',
-    );
-    cleanup();
-    globalThis.history.replaceState(null, '', '/?team=zzz');
-    expect(render(<ByLens everyone={<p>all</p>} teams={teams} />).container.textContent).toBe(
-      'all',
-    );
+  it('asks the server for the page cut to the team, keeping the rest of the address', () => {
+    globalThis.history.replaceState(null, '', '/p/?show=all#i-x');
+    render(<Pick team="a" />);
+    fireEvent.click(screen.getByText('pick'));
+    expect(replace).toHaveBeenCalledWith('/p/?show=all&team=a#i-x', { scroll: false });
   });
 
-  it('shows the lens team’s page, with or without the prefix', () => {
-    globalThis.history.replaceState(null, '', '/?team=a');
-    const { container } = render(<ByLens everyone={<p>all</p>} teams={teams} />);
-    expect(container.textContent).toBe('for a');
-    expect(container.querySelector<HTMLElement>('[data-lens]')?.dataset.lens).toBe('a');
+  it('clears the lens for everyone', () => {
+    globalThis.history.replaceState(null, '', '/p/?team=a');
+    render(<Pick team={null} />);
+    fireEvent.click(screen.getByText('pick'));
+    expect(replace).toHaveBeenCalledWith('/p/', { scroll: false });
   });
 });
 

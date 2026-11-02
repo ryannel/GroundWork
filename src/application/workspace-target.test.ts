@@ -52,5 +52,10 @@ describe('a domain target architecture', () => {
       `${at}: stage payment is made from refund, which is not a stage`,
       `${at}: shift pay-first cites st:gone, which today's model does not have`,
     ]);
+    const loop = { ...orders!, stages: [{ ...order!, from: ['payment'] }, payment!] };
+    expect(targetWarnings({ ...today, targets: [loop] })).toEqual([
+      `${at}: stage order is made, through other stages, from itself`,
+      `${at}: stage payment is made, through other stages, from itself`,
+    ]);
   });
 });

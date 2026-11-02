@@ -21,6 +21,7 @@ interface WorkspaceShellProps {
   readonly overlays?: ReactNode;
   /** Buttons at the end of the bar, such as search. */
   readonly actions?: ReactNode;
+  readonly wide?: boolean;
   readonly children: ReactNode;
 }
 
@@ -33,9 +34,11 @@ export function WorkspaceShell({
   overlays,
   actions,
   children,
+  wide = false,
 }: WorkspaceShellProps) {
   return (
     <AppShell
+      wide={wide}
       bar={
         <AppBar lead={<RailToggle label="Show the workspace" />} title={title} trail={trail}>
           {actions}

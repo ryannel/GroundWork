@@ -1,6 +1,7 @@
 @layer components {
   .text {
     margin: 0;
+    overflow-wrap: anywhere;
 
     &[data-tone='strong'] {
       color: var(--fg-1);
@@ -57,6 +58,10 @@
       -webkit-line-clamp: 2;
     }
 
+    &[data-clamp='1'] {
+      -webkit-line-clamp: 1;
+    }
+
     &[data-clamp='3'] {
       -webkit-line-clamp: 3;
     }
@@ -64,6 +69,7 @@
 
   .link {
     text-decoration: none;
+    overflow-wrap: anywhere;
 
     &[data-tone='title'] {
       color: var(--fg-1);

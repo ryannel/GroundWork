@@ -55,13 +55,13 @@ function ownerOfSchema(
     const ep = g.endpoints.find((e) => e.request === n.id || e.response === n.id);
     if (ep !== undefined) return ep.$service ?? null;
     const m = g.messages.find((x) => x.payload === n.id);
-    if (m !== undefined) return m.producer;
+    if (m !== undefined) return m.producer ?? null;
   }
   return null;
 }
 
 /** Entities that name their owning service themselves. */
-function namedOwner(n: PlanNode): string | null {
+function namedOwner(n: PlanNode): string | null | undefined {
   switch (n.$type) {
     case 'service': {
       return n.id;
@@ -72,7 +72,7 @@ function namedOwner(n: PlanNode): string | null {
       return n.service;
     }
     case 'endpoint': {
-      return n.$service ?? null;
+      return n.$service;
     }
     case 'store': {
       return n.owner;

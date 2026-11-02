@@ -1,5 +1,5 @@
 import type { Model } from '@/application/plan/derive';
-import { refLabel } from '@/application/plan/ref-label';
+import { labelsOf, refLabel } from '@/application/plan/ref-label';
 import { cutAtWord, plain } from '@/shared/plain-text';
 
 // The small wordings the data and decision vizzes share: numbers as words, counts, first sentences, enum values.
@@ -77,4 +77,5 @@ export function wasText(model: Model, value: unknown): string {
 }
 
 /** Prose as one plain line, its citations read as labels. */
-export const plainLine = (text: string | null | undefined): string => plain(text, refLabel);
+export const plainLine = (text: string | null | undefined, model?: Pick<Model, 'label'>): string =>
+  plain(text, model === undefined ? refLabel : labelsOf(model));

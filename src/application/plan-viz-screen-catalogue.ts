@@ -291,7 +291,7 @@ export function screenCatalogue(model: Model): CatalogueView | null {
     key: keyLine(map),
     journeys: map.journeys.map((j) => ({
       id: j.id,
-      name: plainLine(nameOf.get(j.id) ?? j.id),
+      name: plainLine(nameOf.get(j.id) ?? j.id, model),
       actor: j.actor ?? ACTOR_MISSING,
     })),
     hasShared: map.edges.some(isShared),

@@ -1,6 +1,30 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "entry": ["src/app/**/{page,layout,not-found,error}.tsx", "**/*.test.{ts,tsx}"],
-  "project": ["src/**/*.{ts,tsx}", "test/**/*.ts", "eslint/**/*.mjs"],
-  "ignoreExportsUsedInFile": { "interface": true, "type": true }
+  "entry": [
+    "src/app/**/{page,layout,not-found,error}.tsx",
+    "**/*.test.{ts,tsx}",
+    "tools/scan-explorer-proof.ts",
+    "tools/scan-service-explorer-export.ts",
+    "tools/scan-rescan-preflight.ts",
+    "tools/scan-polyglot-proof.ts",
+    "tools/scan-bindings-pages.ts",
+    "tools/scan-python-rust-setup.ts",
+    "tools/scan-dotnet-setup.ts",
+    "tools/scan-csharp-program.ts",
+    "tools/scan-rescan-objects.ts"
+  ],
+  "project": [
+    "src/**/*.{ts,tsx}",
+    "test/**/*.ts",
+    "eslint/**/*.mjs",
+    "tools/scan-repository-generated.ts",
+    "tools/scan-repository-generated-ncc.ts",
+    "tools/scan-protobuf-contracts-io.ts",
+    "tools/scan-repository-fixtures.ts",
+    "tools/{publish,refine,repair,pack,install}-*.ts"
+  ],
+  "ignoreExportsUsedInFile": {
+    "interface": true,
+    "type": true
+  }
 }

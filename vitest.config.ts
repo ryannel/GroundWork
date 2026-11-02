@@ -14,12 +14,51 @@ export default defineConfig({
         test: {
           name: 'unit',
           pool: 'threads',
-          include: ['src/**/*.test.{ts,tsx}', 'tools/**/*.test.ts'],
+          include: ['src/**/*.test.{ts,tsx}'],
+          exclude: ['src/infrastructure/**/*.test.ts'],
+          maxWorkers: 4,
+          sequence: { groupOrder: 0 },
+          setupFiles: ['test/fail-on-console-error.ts'],
+        },
+      },
+      {
+        extends: true,
+        // Native compilers and disk/git fixtures need bounded concurrency and time to start.
+        test: {
+          name: 'integration',
+          pool: 'threads',
+          include: ['src/infrastructure/**/*.test.ts'],
+          exclude: ['src/infrastructure/{scan,scan-explorer}/**/*.test.ts'],
+          maxWorkers: 2,
+          testTimeout: 30_000,
+          hookTimeout: 60_000,
+          sequence: { groupOrder: 1 },
+          setupFiles: ['test/fail-on-console-error.ts'],
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'scanner',
+          pool: 'threads',
+          include: ['src/infrastructure/{scan,scan-explorer}/**/*.test.ts', 'tools/**/*.test.ts'],
+          maxWorkers: 2,
+          testTimeout: 30_000,
+          hookTimeout: 60_000,
+          sequence: { groupOrder: 2 },
           setupFiles: ['test/fail-on-console-error.ts'],
         },
       },
       // slow: lints fixtures in a copy of the repo. Runs in check, pre-push and CI. Forks, as it calls chdir.
-      { extends: true, test: { name: 'architecture', include: ['test/**/*.test.ts'] } },
+      {
+        extends: true,
+        test: {
+          name: 'architecture',
+          include: ['test/**/*.test.ts'],
+          maxWorkers: 1,
+          sequence: { groupOrder: 3 },
+        },
+      },
     ],
     css: { modules: { classNameStrategy: 'non-scoped' } },
     coverage: {

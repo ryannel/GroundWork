@@ -50,15 +50,16 @@ function apisOf(model: Model, scope: ModelScope): CatalogueRow[] {
 
 function eventsOf(model: Model, scope: ModelScope): CatalogueRow[] {
   return model.asIs.messages
-    .filter((m) => scope.focus.has(m.producer))
+    .filter(
+      (m) => scope.focus.has(m.id) || (m.producer !== undefined && scope.focus.has(m.producer)),
+    )
     .map((m) => {
       const to = m.consumers ?? [];
+      const from =
+        m.producer === undefined ? 'Publisher not identified' : `From ${model.label(m.producer)}`;
       return {
         head: chipRefOf(model, m.id),
-        note:
-          to.length === 0
-            ? `From ${model.label(m.producer)}; no one listens yet`
-            : `From ${model.label(m.producer)}`,
+        note: to.length === 0 ? `${from}; no recorded consumers` : from,
         items: refs(model, to),
       };
     });
@@ -69,7 +70,9 @@ function dataOf(model: Model, scope: ModelScope): CatalogueRow[] {
     .filter((s) => scope.focus.has(s.id) && s.kind !== 'topic' && s.kind !== 'queue')
     .map((s) => ({
       head: chipRefOf(model, s.id),
-      note: s.does ?? `Kept by ${model.label(s.owner)}`,
+      note:
+        s.does ??
+        (s.owner === undefined ? 'Owner not identified' : `Kept by ${model.label(s.owner)}`),
       items: refs(
         model,
         model.asIs.schemas.filter((x) => x.store === s.id).map((x) => x.id),

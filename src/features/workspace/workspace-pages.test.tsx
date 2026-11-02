@@ -7,7 +7,14 @@ import { domainNavOf } from '@/application/domain-nav';
 import { domainViewOf } from '@/application/workspace-domain';
 import { systemViewOf } from '@/application/workspace-system';
 
-import { CatalogueList, DomainOverview, DomainPage, DomainTab, SystemPage } from './index';
+import {
+  CatalogueList,
+  DomainOverview,
+  DomainPage,
+  DomainTab,
+  SystemPage,
+  SystemCatalogues,
+} from './index';
 
 let pathname = '/acme/orders/';
 vi.mock(import('next/navigation'), () => ({ usePathname: () => pathname }));
@@ -136,5 +143,23 @@ describe('SystemPage', () => {
       />,
     );
     expect(screen.getByText('2 of 4 work items done')).toBeTruthy();
+  });
+});
+
+describe('SystemCatalogues', () => {
+  it('renders only the selected system and keeps every system reachable', () => {
+    const systems = ['one', 'two'].map((id) => ({
+      id,
+      name: id,
+      href: `/acme/orders/${id}/`,
+      catalogue: { apis: [], events: [], data: [] },
+    }));
+    const { rerender } = render(<SystemCatalogues systems={systems} />);
+    expect(screen.getByRole('heading', { name: 'one' })).toBeTruthy();
+    expect(screen.queryByRole('heading', { name: 'two' })).toBeNull();
+    expect(screen.getByRole('link', { name: 'two' }).getAttribute('href')).toBe('?system=two');
+    rerender(<SystemCatalogues selected="two" systems={systems} />);
+    expect(screen.getByRole('heading', { name: 'two' })).toBeTruthy();
+    expect(screen.queryByRole('heading', { name: 'one' })).toBeNull();
   });
 });

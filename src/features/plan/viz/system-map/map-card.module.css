@@ -19,25 +19,6 @@
     }
   }
 
-  .name {
-    fill: var(--fg-1);
-    font-size: var(--fs-13);
-    font-weight: 600;
-  }
-
-  .role {
-    fill: var(--fg-2);
-    font-size: var(--fs-12);
-  }
-
-  .kind {
-    fill: var(--fg-2);
-    font-family: var(--font-mono);
-    font-size: var(--fs-12);
-    letter-spacing: 0.06em;
-    dominant-baseline: middle;
-  }
-
   .divider {
     stroke: var(--line-2);
     stroke-width: 1;

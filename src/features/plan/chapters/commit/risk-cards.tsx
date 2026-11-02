@@ -27,7 +27,7 @@ function RiskCard({ model, r }: { readonly model: Model; readonly r: Risk }) {
       <h4 className={styles.head}>
         <button className={styles.title} data-inspect={r.id} type="button">
           <span className={styles.number}>{numberOfRisk(model, r)}</span>
-          {statementOf(r)}
+          {statementOf(r, model)}
         </button>
       </h4>
       <p className={styles.meta}>

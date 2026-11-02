@@ -1,7 +1,10 @@
 # Architecture
 
-Groundwork is a Next.js site built as static files. At build time it reads the YAML of each workspace, works out
-what each page says, and renders it. Nothing runs on a server.
+Groundwork is a Next.js site run as a Node server (`npm run dev`, or `npm run build` then `npm start`). Each page
+is drawn on request: it reads the YAML of the workspace, works out what the page says, and renders it, so an edit
+shows on the next load. The readers keep what they work out until a file under the workspace changes, so a page
+is cheap to draw again. The generated `explorer/` and `evidence/` folders are not watched: no kept reader reads
+them, and stamping their thousands of files cost seconds a request. The site only reads; it writes nothing.
 
 The layers below are enforced by `eslint.config.mjs`, and `test/architecture.test.ts` proves every rule still
 fires. If a rule gets in the way, change the architecture on purpose, here and in the config, not with a
@@ -18,12 +21,14 @@ user-facing app. Say "service" only when you mean that kind; say "component" whe
 
 ```
 <workspace>/workspace.yaml            format, teams, the people (actors) who use the systems, and key journeys
+  landscape.yaml                     authored areas and the major relationships used to enter the system model
   language.yaml                       the key terms the business has agreed on, anchored to the code
   domains/<domain>/domain.yaml
     language.yaml                     the domain's words: summary and concepts (system model)
     target.yaml                       where the domain is heading: its target architecture (people)
     systems/<system>/system.yaml      purpose, components and what they talk to
     systems/<system>/contracts.yaml   what its components offer and keep (system model)
+    systems/<system>/narratives.yaml  optional inferred stories, evidence references and input fingerprint
     systems/<system>/handlers.yaml    what runs when its endpoints and messages are reached (system model)
   story.yaml                          summary and stages across domains (system model)
   flows/<flow>.yaml                   one flow per file (system model)
@@ -34,6 +39,162 @@ user-facing app. Say "service" only when you mean that kind; say "component" whe
 schema/plan.schema.json               the plan format, checked with ajv (in Groundwork, not the workspace)
 ```
 
+`landscape.yaml` is optional. Its areas are authored, purpose-led entrances into the evidence, not a fifth level
+beside workspace › domain › system › component. An area may reference systems from several domains and a system may
+support several areas. The workspace page uses it when present; otherwise it keeps the domain-and-people map. Each
+area has a dedicated page, and only the area-specific system relationships a person has reconciled are drawn there.
+The authored landscape reads from left to right in relationship order, with parallel branches and at most
+three connected areas per column. Its cards name the work and show a short purpose; the whole-width canvas
+supports panning, zooming and full screen before the reader enters an area.
+Information exchanges and activity transitions determine the rows; shared support does not imply a sequence.
+Short branches move towards their destinations when doing so reduces total forward edge span without reversing
+a relationship. A source is not held in the first row merely because it has no incoming relationships.
+The pure `src/application/area-system-layout.ts` and `area-routing/route.ts` are shared with system maps:
+the landscape uses their left-to-right layout and routes rounded paths through free gutters rather than through boxes.
+Cycles retain their arrows as return paths. Canvas bounds grow with the drawing, using the page's vertical scroll.
+Area details may also save an inferred `valueFlow`: evidence-referenced connections and named bands ordered
+from information creation to use. The area opens on these value flows with each system collapsed once.
+Expanding a system replaces its card with one bounded group; other systems stay collapsed and make room.
+Collapsed anchors prefer the selected overview's cross-system relevance, then authored activity order. Other distinct activities remain
+named on the same system card, so collapsing a multi-purpose system does not erase its secondary work.
+`area-map/value-flow-system.ts` lays out the system's local value-flow bands. Core columns have fixed
+spacing. Supporting components pack beneath the relevant band, gravitating towards their recorded core
+neighbour without expanding every upstream column to fit a support tree. Unmatched components stay in a
+labelled section inside the same boundary. Collapsed contributions use at most three rows per stage;
+busy stages gain adjacent columns rather than pushing the consuming systems below every input. Headings
+stay above contiguous cards on one row and repeat for dispersed contributions, retaining their original
+band identity for filtering. They are placed again after expansion makes room. Full boundaries are excluded from route settling, which
+uses component and heading obstacles instead. Spatial order explains business value; arrows
+retain initiating request, store-access and event-delivery direction. The system-structure view remains
+available for exact technical connections. The default value-flow canvas shows the key authored connections plus a small, labelled supporting forest
+that connects reachable visible cards without adding hypothetical exchanges. Visible topics retain both
+publishing and delivery sides where recorded. All connections, component selection and card expansion
+reveal the remaining exchanges; filtering never changes card placement. Saved
+`valueFlow.summaries` explain existing directed exchanges without adding edges or promoting them into the core.
+An optional `valueFlow.overview` selects a concise, authored cross-system backbone from exact existing core
+connections. It cannot introduce a new relationship. Other internal core work stays visible on expansion,
+and component selection, resource expansion and All connections reveal secondary exchanges. Only currently
+visible connections reserve routing corridors and label positions; disclosure does not move the cards.
+Every routed label reserves its rectangle, including supporting exchanges. Default supporting labels are
+quiet until focused; All connections reveals them. Collapsed exchanges keep their authored concise labels
+in both modes, with the full purpose and operations retained in detail.
+With an explicit overview, the default supporting forest stays within systems rather than adding secondary
+cross-system bridges. An empty overview represents independent work without an in-area backbone.
+Optional `valueFlow.columns` assigns area-wide reading columns to unique member systems, separately from
+component columns within a local activity. Sources can remain before consumers even when their internal
+preparation sequences use different stages. Omitted system placements retain the existing fallback.
+Grouped links deduplicate purpose labels and retain the exact calls in their details. Reference validation prevents unresolved identities entering
+this view; `area-map/value-flow-layout.ts` owns the reversible collapsed/expanded projection.
+Recorded subgraph membership is a separate, undirected supporting connection, never an inferred API call.
+Private resources recorded beside a consumer are placed with their known publisher when that component is
+in the area; library-managed private topics may use explicit sole-owner writing access without inventing
+a message contract. An unknown topic producer or store owner stays omitted; a captured publisher or accessor
+still contributes its own evidenced exchange. Access alone does not establish ownership.
+`area-map/transport.ts` packs the initial overview with every component identity and technical exchange,
+retaining purpose summaries, evidence and qualifications. API contracts, resource rows and repository detail
+load once from the read-only area `map.json` route on expansion or entry to the system-structure view.
+A failed load offers retry; Reset cancels pending expansion, and refreshed server data starts a fresh detail
+session. The full transport omits only fields that reconstruct exactly. No evidence is discarded.
+
+The workspace's Value Flows catalogue sits directly below Map in the landscape rail. It projects the same
+validated area value-flow bands into named outcomes, summaries and supporting system names, grouped by area.
+Search matches those words, participating components and authored exchanges; it does not maintain a second
+model. Query and area filters live in the address. Native history updates use fresh state so Next notifies
+`useSearchParams`; existing silent address updates elsewhere keep their behaviour. Results link to
+`areas/[area]/?flow=<band>#value-flow-map`. The map starts with that flow highlighted and its surrounding
+systems collapsed, framing all participating cards and their exact core routes together, including independent
+contributions. The frame fits both dimensions up to reading size independently of the previous camera;
+Fit flow restores it without moving cards. Its explanation stays immediately above the visible drawing.
+Participant cards have accent outlines and only exact authored exchanges receive accent arrows. Other links
+remain faint even when they touch a participating system; the flow is not every dependency of those systems.
+Only this flow hides the remaining cards and exchanges without changing positions. Repeated selected-band
+captions are replaced by the one explanation above the drawing, while other captions stay quiet as context.
+Following a flow also restores its exact authored exchanges when systems expand, with their own labels and
+normal emphasis. Opening a participating system focuses that flow's local components rather than its first
+unrelated activity, and collapse remains accessible beside the flow explanation. Other context stays available;
+changing flow returns to its corresponding scope. Entering or leaving full screen reframes a selected flow;
+manual zoom and pan otherwise remain under the reader's control.
+
+Area system maps open before the activity list, using the full page width beside the navigation rail and
+a viewport that uses the available screen height. Other workspace pages retain the standard reading width.
+Opening a system reveals its boundary at a readable scale, with an automatic minimum of 85%. Very large
+systems require panning; Fit map is the explicit action for a complete canvas overview. Opening from a
+previous distant overview restores reading size. Subsequent manual panning and zooming stay under the
+reader's control. Cross-system context is faint with quiet labels until selected or All connections is shown.
+Collapsed systems show authored high-level exchanges. Expanded systems show connections with known component
+targets, landing on those components or their API resource groups, never on a system's dotted boundary.
+Untargeted authored exchanges remain in the collapsed overview; no component target is invented for them.
+API resource groups retain protocol, versions and every underlying operation identity. Individual operations
+and their contracts live in the inspector, not on the canvas. Selection does not resize component cards.
+Systems may have an optional `narratives.yaml`, a saved Inferred interpretation with ordered stages,
+component IDs, supporting components, evidence references, reasoning and limitations. The first story defines
+the whole overview: primary components form one row, with supporting components beneath their related stage.
+Later stories highlight subsets, with optional filtering. Both preserve the overview positions.
+Technical arrows keep their original direction. The reader checks the fingerprint of the system's structure,
+contracts, handlers and workspace flows; stale or unresolved stories show a review notice and use the
+technical layout. `tools/system-narrative.ts` exports the LLM context packet and checks a saved narrative;
+`docs/system-narratives.md` defines the post-scan authoring workflow. No LLM runs on a page request.
+Expanded component flows read left to right: callers on the left, what they rely on to the right, because
+cards are lists of rows whose ports sit on their sides. Each column is ordered by the mean position of the
+cards it connects to, sweeping both ways and keeping the order that crosses the fewest lines
+(`area-map/column-order.ts`). A chain longer than five columns wraps into a band below, like a line of text. Lines that share a gap get a lane each (`area-routing/lanes.ts`), staying in the
+free space between cards, and are drawn above the cards so none is hidden. Labels on lines that land on a
+named row stay hidden until the line is highlighted. Apps, services, stores
+and topics have labelled, distinct treatments. Stores and topics appear once, with recorded technology;
+modelled access and publishing/consumption links are distinguished from claims of deployed behaviour.
+Stores used by only one service appear as selectable rows in that service's card. A topic or queue that one
+service publishes, and that service owns, sits in that service's card however many components consume it;
+its consumers are drawn as event lines from the publisher, and the layout treats them that way too. Users
+are checked across the whole model, not just the visible area. Shared stores remain independent nodes.
+While a system is open, the lines inside it lead and every line between systems (system to system, or a card
+to another system) is faint and thin until something at either end is focused or selected; the legend says so. Explicitly classified infrastructure
+(such as feature flags and sign-in) stays quiet until its caller is focused or the Platform toggle is on;
+it remains in the model and inspector. The default connection forest never bridges business groups through
+shared infrastructure. A business provider does not become infrastructure merely because many systems use it.
+A component card (`src/ui/canvas/component-card.tsx`) leads with its name; a tinted icon and a faint
+label give its kind. Plan system maps share its header in a dense treatment for narrow stage columns,
+keeping the team stripe and existing interface rows. Their headers reserve at least 104 pixels so the kind,
+name and purpose fit above the row ports. A system opens with its cards closed: under the name, one strip counts what the card
+holds, and every line to its APIs, stores or topics lands on the card itself. That leaves one line per pair of
+components and kind of link, labelled with how many calls it carries. Opening a card (the strip toggles it;
+following a line opens its destination) lists titled sections, and lines then fan out to the API group or
+resource row they use. The sections each have their own icon, colour and count: API (a
+protocol badge, the resource path, then versions and operation count), Owns data (databases and caches),
+Publishes to (owned topics and queues), and Uses shared (resources other components own, which open their
+own details). Long dotted topic names keep their last parts. Card heights come from one place,
+`src/application/area-map/card-geometry.ts`, which the stylesheet matches, so lines land on the middle of
+the row they name. Arrowheads keep one size whatever the line's width.
+Protocol-only API groups show the protocol badge and "API", not an invented endpoint address.
+
+Plan and landscape system maps share `src/ui/canvas/system-card.tsx`: a System label and icon, the name,
+purpose and component count, and an explicit Expand action. The name also expands; the plan's Details
+action opens its inspector separately. Expanded systems use the shared canvas boundary and header with
+Collapse. Plan columns reserve 128 pixels above their components for that header and keep their stage
+arrangement. System counts include the model's services, stores and topics; a plan's count describes its
+own model, which can cover less than the landscape. Landscape cards retain their other named activities.
+API and resource row anchors retain the enclosing card as a routing obstacle; only outer system
+boundaries are ignored, so return paths cannot cut through their destination card.
+The pure overview helpers live in `src/application/area-map/`; the API inspector is under
+`src/features/workspace/area-map/`. Selection can isolate incoming (Used by) or outgoing (Depends on)
+connections. Resting on a component for 120ms (or focusing it from the keyboard) lights its connections and
+mutes the rest; leaving it waits 300ms, so passing over cards on the way somewhere does not flash the diagram.
+Pointing at a line lights it at once and redraws it, with its label, on top of everything else. Pointing at a line
+mutes nothing, so moving across a bundle of lines moves the highlight from one line to the next. Each line takes
+pointer events only on a wide, undashed hit path, so dotted lines are as easy to point at as solid ones. Lines and
+markers live in `src/ui/canvas/canvas-edge.tsx`; the timing lives in `src/ui/canvas/use-steady-hover.ts`.
+All resting paths draw before the separate label layer, so a later path cannot strike through an earlier
+label. Labels keep the same focus, context and support treatment without adding keyboard focus targets.
+Diagram viewports support trackpad and two-finger touch pinch zoom, anchored at the gesture centre.
+Ordinary scrolling still pans; zoom gestures affect the diagram rather than the browser page.
+Full screen fills the browser viewport using the same canvas shell; Escape or the control restores the page,
+including in embedded browsers without a native full-screen API.
+The shared gesture handling lives in `src/ui/canvas/use-canvas-pinch.ts`.
+Dragging the background pans once the pointer has moved a few pixels, so clicks stay clicks. The pointer is
+captured only for the pan, and the pan ends on release, on lost capture, or on any move with no button held, so
+the view never follows a loose mouse after the canvas changes under it (`src/ui/use-explorer-viewport.ts`). When
+opening a card or system moves the selected component, the view moves with it rather than centring it again, so
+the reader keeps their place (`src/ui/use-canvas-focus.ts`).
+
 ### Where workspaces are
 
 A workspace is its own repo, holding both its model of today and its plans, so a plan and the model it rests on
@@ -42,8 +203,8 @@ share one history. Groundwork keeps one example in `workspaces/` (`personal`).
 it for a workspace's folder by id:
 
 - `GROUNDWORK_WORKSPACES`, when set, names the only workspace folders read (separated by `:`, or `;` on Windows).
-  A company's build uses it so that its site carries no other workspace: `private: true` only keeps a workspace
-  off the lists, and a static build holds every workspace it read.
+  A company's server uses it so that its site serves no other workspace: `private: true` only keeps a workspace
+  off the lists, and the site serves every workspace it reads.
 - Otherwise the examples in `workspaces/`, and the workspaces `groundwork.local.yaml` lists. That file is
   git-ignored, one per checkout, so whoever clones Groundwork links the workspaces they want. An entry is a folder
   on this machine, or `repo: <url>` with an optional `folder:`, cloned into `.workspaces/<name>` (git-ignored)
@@ -87,7 +248,12 @@ not a plan. It holds a summary, `stages` (the things the business makes, in orde
 `term`, the systems or components that should `own` it and the stages it is made `from`) and `shifts` (what is
 true `today`, what the `target` is, and the ids that show it). Stage and shift ids are local; owners, cites and
 `[[id]]`s point into today's model, and `check` warns when they do not (`src/application/workspace-target.ts`).
-People write it; the scan never does. The domain's Target architecture tab draws it.
+People write it; the scan never does. The domain's Target architecture tab draws it as a flow: one card per
+stage listing its owners, and a line from each stage to every stage it feeds. Each stage made from nothing starts
+a lane; lanes meet at a hub and run on as one trunk (`src/application/workspace-target-flow-grid.ts` places the
+stages, `workspace-target-flow.ts` sizes and draws them). Owners that live elsewhere say where, and stages owned
+entirely outside the company are dashed. The stages are then listed in reading order, then the shifts. Today's
+calls are left out.
 
 - `src/domain/workspace-model.ts` has the types: `WorkspaceModel`, `Attribution` (origin and code sources by id,
   nested ids included) and `Scan` (a repo's high-water mark: `head` from `tools/scan-mark.ts`, and `checked`, the tip and commits
@@ -99,6 +265,121 @@ People write it; the scan never does. The domain's Target architecture tab draws
   no changes (teams and colours from `workspace.yaml`, `sys:<system>` per system, components as services or
   stores) and derives it, so every plan view can draw today. A test proves the Acme test fixture's document has
   no validation errors, draws every component and resolves every flow step.
+
+### Service explorer
+
+The optional service explorer reads a disposable projection under `<workspace>/explorer/`; its typed
+contracts are in `src/domain/service-explorer.ts`. A workspace has one explorer page, with selected immutable
+JSON artefacts loaded on demand. Infrastructure validates manifest membership, byte bounds, content hashes,
+references and snapshot identity before publication and again in the browser. The current selected proof
+covers Customer Service and Pre-tax as a compatible fallback. Completed corpus publications use a small
+catalogue selecting repository manifests and hash-bound page-index buckets. Logical pages and indexes travel
+in bounded content-addressed packs; the browser verifies both physical and logical hashes. A publication ID
+separate from the evidence snapshot selects the complete immutable generation. The browser fetches only the
+selected evidence, from `/explorer-data/<workspace>/<generation>/<file>`, which reads the installed generation
+in place under `<workspace>/explorer/corpus/` (`src/infrastructure/scan-explorer/corpus-assets.ts` installs it;
+`src/infrastructure/explorer-assets.ts` reads it back) and lets the
+browser keep it; nothing is copied into `public/`, and there is no HTML/data route per source method. A repository scope
+remains distinct from a source-proven runtime component. The source inventory, published navigation references
+and reviewed Inferred context are separately navigable. Publication does not migrate production YAML.
+
+### Evidence
+
+What a scan finds in a repository is the canonical record of today, and it lives in the workspace repo, current
+only: git holds its history, so nothing keeps an older scan beside the newer one.
+
+```
+<workspace>/evidence/<repo>/
+  repository.json                     repo, commit, scannedAt, language and the passes run
+  discovery.json                      readiness, scopes, declared components and knowledge gaps (optional)
+  <family>.jsonl                      one record per line, sorted by id: files, framework, contracts, schemas,
+                                      claims, and the sources they cite
+<workspace>/.groundwork/              git-ignored, rebuilt by a rescan or from the above
+  analysis/<repo>/                    call-level analysis: bindings, summaries, gaps and the sources they cite
+  syntax/<repo>/                      the syntax graph (nodes, edges, regions)
+  evidence.sqlite                     the index every reader queries
+```
+
+A rescan replaces a repository's folder whole. Records drop the repo and commit (`repository.json` says them
+once) and carry no source text: code is read from a clone at the commit. Call-level analysis (a record per
+call site) and the syntax graph follow mechanically from the code at the commit and run to gigabytes, so they are
+caches, not evidence; only the spans a fact cites stay in `sources.jsonl`. For Volvo's 117 repositories the
+evidence is about 110 MB, the analysis 3.5 GB. The types are in `src/domain/evidence/evidence.ts`, the
+shaping in `src/application/evidence/`, and the writer in `src/infrastructure/scan-explorer/evidence-files.ts`.
+
+`npm run evidence:index -- <workspace>` builds `evidence.sqlite` (`evidence-index-builder.ts`) from the evidence
+and the analysis cache: one row per record with its label, file and lines, the links between records, and an FTS5 search table. It writes beside
+the live file and renames into place, so readers never see half an index. The site, an MCP server or a REST API
+all read through one synchronous port, `EvidenceQuery` (`src/application/evidence/evidence-query.ts`), which
+`src/infrastructure/evidence/evidence-index.ts` implements over `node:sqlite`, read-only, reopening when the
+file is replaced. `npm run evidence -- <workspace> search <text>` queries it from the command line.
+`npm run evidence:migrate` converts the earlier capture and discovery catalogues once; scans should write this
+format directly.
+
+This corpus publisher is a compatibility bridge, not the authoritative company query model. References
+reconstructed from bounded visual frames are partial navigation aids; they cannot establish exhaustive
+callers or endpoint correspondence. The production direction is an evidence-derived relationship index
+and shared bounded queries for the UI, CLI and MCP. Presentation must not define semantic relationships.
+
+`src/application/scan-explorer` builds bounded, source-backed component, entry, data and reverse-caller
+queries over current scan records and retained canonical selections. The exporter produces component-first
+views and separate method/schema frames. `src/application/explorer-focus.ts` can collapse nested expression
+operations for reading; the complete delivered source view remains available. Source containment, branches
+and asynchronous boundaries remain distinct from observed runtime execution. Inferred purpose is labelled.
+See the [service explorer contract](scan-trials/service-explorer/README.md).
+
+### Canonical execution proof
+
+The endpoint execution redesign is implemented separately from the production plan-shaped YAML reader.
+The current [runtime component and interface contracts](scan-trials/runtime-components.md) bind code,
+call sites and schemas to technical component identities with commit-pinned GitHub sources.
+Its [capture contracts](scan-trials/capture-proof/README.md) and
+[write and asynchronous continuation contracts](scan-trials/soft-offer-proof/README.md) describe the accepted
+proof scope and remaining adoption gates. `schema/knowledge.schema.json` defines immutable revision bundles, snapshot
+selection, control/data records and query messages; `npm run generate:knowledge` generates domain types.
+
+`src/domain/knowledge` defines revision references and validation rules. `src/application/knowledge` performs
+snapshot-bound control, value, outcome, effect, invalidation, asynchronous continuation, consistency and
+bounded supporting-record queries through `KnowledgeReader`.
+Lexical captures remain separate from formal parameters; invocation-bound capture origins are described in
+[lexical captures](scan-trials/lexical-captures.md). Capture bindings do not establish callback scheduling.
+`src/infrastructure/knowledge` validates documents, verifies hashes and builds a disposable SQLite index.
+`npm run proof:capture` and `npm run proof:soft-offer` replay pinned Volvo fixtures and export query responses
+and static drawings. Archived v1/v2 schemas preserve both original snapshots. The v2 extension adds
+write acknowledgements, channel bindings, subscriptions, handoffs, delivery policies and consistency boundaries.
+The v3 extension adds runtime/execution/resource/entry bindings, interface contracts, interaction queries and
+derived GitHub anchors. The default proof view draws components first, with selectable schemas and internal logic.
+No runtime server or new application route is introduced. The existing workspace loader is unchanged.
+
+For this proof, validated immutable bundles plus a snapshot manifest are authoritative; database indexes and
+visual projections are rebuilt from them. Technical identities do not depend on team ownership or the
+current domain/system grouping. This is the intended separation for the new model; the legacy hierarchy
+and team constraints described above still apply to the existing reader until deliberately migrated.
+
+### Question-led scan pipeline
+
+The reusable scanner is separate from the production workspace reader and the existing immutable execution
+captures. `schema/scan.schema.json` owns its versioned contracts and generated domain types. Source indexes,
+local summaries, actor actions/outcomes, obligation receipts and freshness are separate from visual projections.
+Typed local semantic graphs preserve parsed atoms, control and value relations, lexical bindings, callbacks,
+SQL bindings and explicit runtime uncertainty. Independent bounded checkers query those relations; display
+syntax cannot substitute for missing structure. Public validation checks evidence ownership and scope too.
+Parser diagnostics quarantine a file's semantic extraction; recovery trees remain in the disposable index.
+Explicit repository trials inventory the tracked tree and publish bounded shards plus an aggregate selection;
+analysis host placeholders remain consistent across shards without establishing runtime component identity.
+Repository v2 summaries reference complete, hash-bound trial metrics rather than repeating freshness lists.
+Large logical scan documents use checked storage fragments; each physical page remains bounded, while
+source and programme callers have separate total decoding limits. Reassembly preserves all records and
+logical generation identity before the existing schema and role checks. These storage formats do not
+change the canonical scan model or establish runtime behaviour.
+`src/infrastructure/scan/` owns compiler adapters, pinned Git reads, content caches and contract validation;
+only this infrastructure folder may import the TypeScript compiler. The installed compiler is a runtime
+dependency of these offline tools, not a browser dependency. Pure scan rules and dependency invalidation live
+in domain/application; clocks, references and filesystem access are supplied by infrastructure or tools.
+Freshness compares an accepted source baseline with an explicitly observed reference and analysis versions.
+Only changed blobs are reparsed; dependent facts can be invalidated without rereading unchanged source.
+A local reference observation does not establish current remote or deployed state. Benchmarks use explicit
+fixed scopes and do not restart the wider Volvo scan queue.
 
 ### The landscape
 
@@ -140,7 +421,7 @@ components belong to the domain and system pages, and teams are not shown.
 - Plan types live in `src/domain/plan/`. `plan.generated.ts` is generated from `schema/plan.schema.json` by
   `npm run generate`; a test fails if it is stale. Generated files are exempt from size limits only.
 - Everything worked out from a plan (the derived layer: graph, journeys, impact, delivery, diffs) lives in
-  `src/application/plan/`. It is pure, so the same code runs at build time and in the browser.
+  `src/application/plan/`. It is pure, so the same code runs on the server and in the browser.
 - Handlers (`h:` ids) say what a component does when an endpoint, message, interaction or schedule reaches it,
   as a tree of steps. `handler-walk.ts` flattens the tree and words each step's guard ("when …", "for each …");
   `check-handlers.ts` validates them; `derive-handler-edges.ts` turns their calls, publishes, reads and writes
@@ -162,34 +443,36 @@ components belong to the domain and system pages, and teams are not shown.
 
 ### Routes
 
-| Route                                               | Page                                 |
-| --------------------------------------------------- | ------------------------------------ |
-| `/`                                                 | the workspaces                       |
-| `/design/`                                          | every piece of the design system     |
-| `/[workspace]/`                                     | the map of one workspace             |
-| `/[workspace]/language/`                            | key terms and the words in the code  |
-| `/[workspace]/people/`                              | the people who use the systems       |
-| `/[workspace]/plans/`                               | every plan, to search and filter     |
-| `/[workspace]/[domain]/`                            | one domain                           |
-| `/[workspace]/[domain]/target/`                     | one domain's target architecture     |
-| `/[workspace]/[domain]/flows/[flow]/`               | one domain, with one flow open       |
-| `/[workspace]/[domain]/[system]/`                   | one system                           |
-| `/[workspace]/[domain]/[system]/flows/[flow]/`      | one system, with one flow open       |
-| `/[workspace]/journeys/`                            | the journeys through the systems     |
-| `/[workspace]/journeys/[key]/`                      | one journey, walked step by step     |
-| `/[workspace]/reference/`                           | the kinds of thing the systems hold  |
-| `/[workspace]/reference/[kind]/`                    | the catalogue of one kind            |
-| `/[workspace]/things/?id=<token>`                   | one thing as it runs today           |
-| `/[workspace]/model.json`                           | the workspace today, for the browser |
-| `/[workspace]/attribution.json`                     | who said each fact, for thing pages  |
-| `/[workspace]/assets/[...file]`                     | the workspace's images               |
-| `/[workspace]/plans/[plan]/`                        | a plan's cover                       |
-| `/[workspace]/plans/[plan]/[chapter]/[screen]/`     | one screen of a plan                 |
-| `/[workspace]/plans/[plan]/things/?id=<token>`      | one thing of a plan, as a page       |
-| `/[workspace]/plans/[plan]/plan.json`               | the checked plan, for the browser    |
-| `/[workspace]/plans/[plan]/revisions/[v]/plan.json` | an earlier version, for the browser  |
-| `/[workspace]/plans/[plan]/assets/[...file]`        | a plan's diagrams and images         |
-| `/[workspace]/plans/[plan]/mockups/[...file]`       | a plan's mockup pages                |
+| Route                                               | Page                                   |
+| --------------------------------------------------- | -------------------------------------- |
+| `/`                                                 | the workspaces                         |
+| `/design/`                                          | every piece of the design system       |
+| `/[workspace]/`                                     | the map of one workspace               |
+| `/[workspace]/value-flows/`                         | searchable work across areas           |
+| `/[workspace]/areas/[area]/`                        | one authored entrance into its systems |
+| `/[workspace]/language/`                            | key terms and the words in the code    |
+| `/[workspace]/people/`                              | the people who use the systems         |
+| `/[workspace]/plans/`                               | every plan, to search and filter       |
+| `/[workspace]/[domain]/`                            | one domain                             |
+| `/[workspace]/[domain]/target/`                     | one domain's target architecture       |
+| `/[workspace]/[domain]/flows/[flow]/`               | one domain, with one flow open         |
+| `/[workspace]/[domain]/[system]/`                   | one system                             |
+| `/[workspace]/[domain]/[system]/flows/[flow]/`      | one system, with one flow open         |
+| `/[workspace]/journeys/`                            | the journeys through the systems       |
+| `/[workspace]/journeys/[key]/`                      | one journey, walked step by step       |
+| `/[workspace]/reference/`                           | the kinds of thing the systems hold    |
+| `/[workspace]/reference/[kind]/`                    | the catalogue of one kind              |
+| `/[workspace]/things/?id=<token>`                   | one thing as it runs today             |
+| `/[workspace]/model.json`                           | the workspace today, for the browser   |
+| `/[workspace]/assets/[...file]`                     | the workspace's images                 |
+| `/[workspace]/plans/[plan]/`                        | a plan's cover                         |
+| `/[workspace]/plans/[plan]/[chapter]/[screen]/`     | one screen of a plan                   |
+| `/[workspace]/plans/[plan]/things/?id=<token>`      | one thing of a plan, as a page         |
+| `/[workspace]/plans/[plan]/plan.json`               | the checked plan, for the browser      |
+| `/[workspace]/plans/[plan]/revisions/[v]/plan.json` | an earlier version, for the browser    |
+| `/[workspace]/plans/[plan]/assets/[...file]`        | a plan's diagrams and images           |
+| `/[workspace]/plans/[plan]/mockups/[...file]`       | a plan's mockup pages                  |
+| `/explorer-data/[workspace]/[generation]/[file]`    | the service explorer's evidence        |
 
 A domain page and a system page are each a layout, and each flow through them is a page under it, so a domain
 can run hundreds of flows: the page carries only the flow being read, and choosing another fetches just that
@@ -219,7 +502,7 @@ A domain's Map is the one drawing of how its systems fit; its overview no longer
 hundreds of parts, so when its story names no stages the map reads system by system
 (`src/application/plan-viz-system-map-columns.ts`): each system sits in the column of its tier, and opens folded
 to one card. A folded card names the system, says what it does, and ends with
-its team and its size (`10 parts · 7 stores`); it lists no parts, because a system can hold too many. A system in
+its team and its size (`17 components`); it lists no components, because a system can hold too many. A system in
 the domain never repeats the domain's name. Systems of other domains never mix with the domain's own: they sit in
 a band ruled off beneath them (`src/application/plan-viz-system-map-outside.ts`), each under the column of its tier
 so its lines stay short, grouped under the name of its domain. The toolbar
@@ -240,7 +523,7 @@ the data to the one that has it: a caller to what it calls, a listener to who te
 columns sit wide apart so each line can carry a short tag at its arrow naming the data it carries (`Product +2`):
 the schema each call answers with, else its interface, and each event by name (`carries`, in
 `plan-viz-system-map-input.ts`). Its tip lists every one, with how many calls. At rest the lines are faint and untagged, so the map shows only who talks to
-whom; pointing at a card traces its lines and shows their tags. Clicking a card opens it in the inspector, which
+whom; pointing at a card traces its lines and shows their tags. Clicking a component opens it in the inspector, which
 lists the systems it gets data from and gives data to, and the map keeps that card traced until another is opened
 (`use-system-map.ts` follows the inspector's open id). A component marked `infrastructure: true` in its
 system.yaml (feature flags, sign-in, error tracking) is plumbing no business data comes from, so the map leaves it
@@ -251,10 +534,11 @@ domain in the trail, and a line on how to read it. The overview alone keeps the 
 teams (`DomainHeader`), so the map, flows and other tabs start straight away. Each flow read beside the list is
 titled with its name.
 
-`plans`, `things`, `assets`, `journeys`, `reference`, `language` and `people` are reserved and cannot be domain ids, `flows` cannot be
+`plans`, `things`, `assets`, `journeys`, `reference`, `language`, `people` and `areas` are reserved and cannot be domain ids, `flows` cannot be
 a system id, and `assets`,
 `mockups`, `things` and `revisions` cannot be
-chapters. Screens render on the server. The step, lens and open inspector are client state in the URL. Entity chips render as
+chapters. Screens render on the server. The step, lens and open inspector live in the URL; the server reads the
+lens, and the browser the rest. Entity chips render as
 `<button data-inspect="id">`; one client inspector catches clicks, fetches `plan.json` once (by a relative URL,
 so it works under any base path) and works out the rest in the browser, so no page inlines the plan.
 
@@ -273,18 +557,17 @@ who announces it and who hears it. The palette names the system each thing belon
 method and path, so "price cart v5" finds it.
 
 A plan that fails to load or has errors still gets its cover, which shows `PlanErrors`: each error and warning
-with its path, and the way back to the workspace. Its other screens are not built, and the workspace's lists leave
+with its path, and the way back to the workspace. Its other screens are not drawn, and the workspace's lists leave
 it out until it is fixed; its `plan.json` holds only `{ errors }`.
 
 Every thing the inspector can show, except the parts of one (fields, steps and regions), also has its own page at
-`things/?id=<token>` (`thingAt`). That is one page per plan, and one per workspace, not one per thing: the build
-draws the shell, and the browser reads `?id=`, takes the model it fetches anyway and draws the thing, so the export
-does not grow with the model. It shows the same body as the inspector, with the others of its kind down the side,
+`things/?id=<token>` (`thingAt`). That is one route per plan, and one per workspace, not one per thing: the server
+reads `?id=` and draws the thing. It shows the same body as the inspector, with the others of its kind down the side,
 the pager and keys stepping through them, Copy link and the today / with-this-plan switch. The inspector's bar
 links to it with Open as page; a system opened read today links to its own system page instead (`Reader.pages`, from
 `systemPagesOf`). The inspector shows a system's neighbours (Gets data from, Gives data to), parts, stores and flows
-(`systemGroups`), naming at most six of each. Read today, the code evidence comes from `attribution.json`, kept out of
-`model.json` because every page fetches that.
+(`systemGroups`), naming at most six of each. Read today, the thing page draws the code evidence on the server; it
+is kept out of `model.json` because every page fetches that.
 
 The workspace's own pages read today, outside any plan. They fetch `/<workspace>/model.json`, the system model
 as a plan-shaped document with no work and so no status, and pass the inspector, palette, hover cards and keys a
@@ -297,10 +580,11 @@ status and no "in this plan"; a thing's page there also says where it sits (doma
 works with, the flows it takes part in and the code that says so, with who said it and the commit.
 
 The team lens is the search parameter `?team=<id>` (with or without the `team:` prefix), and the catalogues'
-mode is `?show=asis|tobe|diff`. A static export has one file per route, so each page is built once for everyone
-(the lens off, the diff mode) and a small client component, wrapped in `<Suspense>`, reads the search and shows the
-cut. `ByLens` holds one render for each team and picks one, which is how Your part (`/cover/part/`) becomes a page
-per team; `DimByLens` draws a page once and dims the other teams' rows. The reference catalogues carry each row's
+mode is `?show=asis|tobe|diff`. A page whose words change with the team is drawn by the server for the team in
+the address: Your part (`/cover/part/`) and the test pyramid read `lens` from `BodyProps` (`lensTeam` names the
+plan team), so changing the lens (`useSetLens`) asks for the page again. A cut that only hides or dims what is
+drawn for everyone stays in the browser, so it needs no new page: `DimByLens` dims the other teams' rows, and a
+small client component reads `?show=` and shows that mode. The reference catalogues carry each row's
 words and teams in `data-search` and `data-teams`, and one filter hides what the lens and the search box leave out.
 While a lens is on, `LensCarry` adds `?team=` to a click on a link to another screen of a plan, so the cut follows
 the reader; the `j` and `k` keys do not carry it. While a lens is on, `RailCut` hides the rail's screens that are
@@ -365,9 +649,11 @@ The Reference's risk grid filters its register: a click on a cell with risks sho
 "n of m risks" and a "Clear filter" button, and a second click on the cell clears it. The filter lives in the page,
 not the address.
 
-Plan assets and mockups are served by static route handlers from the workspace's `plans/<slug>/`, not copied into
+Plan assets and mockups are served by route handlers from the workspace's `plans/<slug>/`, not copied into
 `public/`: there is one source, and the URLs mirror the folder layout, so a mockup's `../assets/x.svg` still
-resolves.
+resolves. File segments and plan slugs cannot escape the selected folder, including through file or directory
+symlinks. Links to files within that same folder remain supported. These checks assume workspace files are
+maintained by trusted local writers; they are not an atomic filesystem sandbox against concurrent hostile writes.
 
 ## Layers
 
@@ -378,19 +664,20 @@ app ──▶ features ──▶ ui
  ├────▶ application ──▶ domain ──▶ shared
  │         ▲
  └────▶ infrastructure
-tools ──▶ infrastructure, application, domain, shared
+tools ──▶ scan ──▶ infrastructure, application, domain, shared
 ```
 
-| Folder                | Holds                                                                                | May import                                  | Packages                              |
-| --------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------- | ------------------------------------- |
-| `src/domain`          | The model's types and rules                                                          | shared                                      | none                                  |
-| `src/application`     | What the app works out from the model: use cases, view models                        | domain, shared                              | none                                  |
-| `src/infrastructure`  | Reading the world: files, YAML (checked with zod), git, GitHub. Server only          | domain, application, shared                 | `node:*`, yaml, zod, ajv, server-only |
-| `src/features/<name>` | The screens of one feature, in React                                                 | application, domain, ui, shared             | react, next                           |
-| `src/ui`              | The design system. Knows nothing of the model                                        | shared                                      | react, next                           |
-| `src/shared`          | Small pure helpers (text, dates, collections)                                        | nothing                                     | none                                  |
-| `src/app`             | Next.js routes: load with infrastructure, compute with application, render a feature | all of the above                            | react, next                           |
-| `tools`               | Command-line tools                                                                   | infrastructure, application, domain, shared | `node:*`, yaml                        |
+| Folder                                     | Holds                                                                                | May import                                        | Packages                              |
+| ------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------- | ------------------------------------- |
+| `src/domain`                               | The model's types and rules                                                          | shared                                            | none                                  |
+| `src/application`                          | What the app works out from the model: use cases, view models                        | domain, shared                                    | none                                  |
+| `src/infrastructure`                       | Reading the world: files, YAML (checked with zod), git, GitHub. Server only          | domain, application, shared                       | `node:*`, yaml, zod, ajv, server-only |
+| `src/infrastructure/scan`, `scan-explorer` | Reading source repos into evidence. Run by tools, never by a page                    | infrastructure, application, domain, shared       | as infrastructure, plus typescript    |
+| `src/features/<name>`                      | The screens of one feature, in React                                                 | application, domain, ui, shared                   | react, next                           |
+| `src/ui`                                   | The design system. Knows nothing of the model                                        | shared                                            | react, next                           |
+| `src/shared`                               | Small pure helpers (text, dates, collections)                                        | nothing                                           | none                                  |
+| `src/app`                                  | Next.js routes: load with infrastructure, compute with application, render a feature | all of the above                                  | react, next                           |
+| `tools`                                    | Command-line tools                                                                   | scan, infrastructure, application, domain, shared | `node:*`, yaml                        |
 
 - Features are reached only through their `index.ts`, and an `index.ts` only re-exports by name
   (`export { x } from`): no code, no `export *`. A feature never imports another feature; move what they
@@ -400,6 +687,21 @@ tools ──▶ infrastructure, application, domain, shared
   `fetch`, `process`, timers…). The caller passes today in.
 - Every file in `src/infrastructure` imports `server-only`. Only `src/infrastructure/workspace-folders.ts`,
   tools and configs read `process.env`.
+- The site reads the disk, and makes paths to it, only through `src/infrastructure/disk.ts`: nothing else
+  outside `scan` imports `node:fs` or calls `path.join` or `path.resolve` (use `pathIn` and `resolvedFrom`).
+  Which folder a page reads is known only on request, so each read and join there carries
+  `/* turbopackIgnore: true */`. The build reads an unmarked join as a file to ship with the page and traces
+  every file in the checkout it could match, scan reports included, which took tens of minutes and gigabytes
+  of memory.
+  Bounded reads check the open file and cap the bytes read, including when a file grows after its size check.
+  A replaced final symlink is not followed; missing files alone return null, and other disk errors propagate.
+- The scanner (`src/infrastructure/scan`, `scan-explorer`) is its own layer: tools run it, and no page, feature
+  or site reader may import it, so its parsers and the TypeScript compiler never reach the site's bundle or its
+  build trace. What a page needs from a scan (the explorer's published files) is read by site infrastructure
+  (`explorer-assets.ts`, `service-explorer-files.ts`).
+- Group code by behaviour and responsibility. There is no file-count ceiling: a cohesive folder may grow.
+  Keep private helpers with the code they explain. Extract a module when it has an independent responsibility,
+  real reuse or a useful test boundary, not merely to reduce a line count.
 - No junk-drawer names: no file called `utils`, `helpers`, `common`, `misc`, `lib`, `core`, `manager`…
 - `src/app` contains only Next.js route files (`page`, `layout`, `not-found`…) and `globals.css`.
 - A file outside these folders is an error.
@@ -407,11 +709,22 @@ tools ──▶ infrastructure, application, domain, shared
 
 ## Next.js
 
-- Static export only: no `'use server'`, no `revalidate`, no dynamic rendering. Nothing that needs a server or
-  the pages router: no `next/headers`, `next/server`, `next/cache`, `next/router`, `next/head`,
-  `next/document`, `next/legacy/image` or `next/dist/*`.
-- A route file exports only what Next.js reads (`default`, `metadata`, `generateMetadata`,
-  `generateStaticParams`, `viewport`…) and types.
+- Drawn on request: the root layout awaits `connection()`, so no page is pre-built or cached and an edit to the
+  YAML shows on the next load. No `'use server'` (the site only reads), and no route segment options that cache
+  or pre-build (`revalidate`, `fetchCache`, `dynamic`, `dynamicParams`, `generateStaticParams`):
+  `groundwork/drawn-on-request` rejects them. An unknown id calls `notFound()`. A page reads the address through
+  its `searchParams`, with `firstParam` and `paramOrNull` from `src/shared/search-params.ts`.
+- Nothing from the pages router or that caches: no `next/cache`, `next/router`, `next/head`, `next/document`,
+  `next/legacy/image` or `next/dist/*`.
+- A route file exports only what Next.js reads (`default`, `metadata`, `generateMetadata`, `viewport`, `GET`…)
+  and types.
+- Every page names itself for the tab (`groundwork/page-metadata`). Layouts set a title template
+  (`%s · <workspace>`, `%s · <domain>`), so a page usually exports a fixed `metadata` title; a page about one
+  named record uses `generateMetadata` with that record's name. A template does not reach the page beside its
+  layout, so an index page exports an empty `metadata` and takes the layout's own title (the workspace, domain
+  or system name).
+- The React Compiler's checks are on, past its recommended set: no state derived in an effect, no hook
+  factories, no `useMemo` without a value.
 - Server components by default. A client component lives in `*.client.tsx` and starts with `'use client'`; the
   name shows the boundary at every import.
 - Internal links use `next/link`. Styles are CSS modules. No `style` props: use a class or a data attribute.
@@ -443,19 +756,18 @@ stylesheets, and fails if any count rises above `tools/design-drift.baseline.jso
 
 ### Speed
 
-A page should feel instant. A static page ships what it draws twice, as HTML and as the payload React hydrates
-from, so drawing what the reader has not asked for costs every reader on every visit.
+A page should feel instant. A page ships what it draws twice, as HTML and as the payload React hydrates from, so
+drawing what the reader has not asked for costs every reader on every visit.
 
-- One page per kind of record, not per record. A thing page reads `?id=` and draws from `plan.json` or
-  `model.json` in the browser, so a plan with a thousand things still exports one page.
-- Draw once, and let the client change what it shows. Do not hand a client component a drawing for every
-  choice (every lens, team or tab); `groundwork/one-per-choice` rejects it. Files still on the debt list in
+- One route per kind of record, not per record. A thing page reads `?id=` on the server and draws that thing.
+- Draw what the address asks for. Do not hand a client component a drawing for every choice (every lens, team or
+  tab); `groundwork/one-per-choice` rejects it. Read the choice on the server, or draw once and let the client
+  hide or dim. Files still on the debt list in
   `eslint.config.mjs` come off it as they are fixed.
 - Prefetch only what the reader reaches for. Use `IntentLink` for long lists of links; `next/link`'s
   `prefetch` prop is rejected by `groundwork/link-prefetch`.
-- A route whose list can be empty (no plans, no pictures) uses `orNothing` from `src/shared/static-params.ts`,
-  because a static export refuses a route that lists no addresses.
-- `npm run budget`, after a build, fails if any exported page weighs more than 1 MB and lists the heaviest.
+- `npm run budget`, after a build, starts the built site, follows its links from the home page, and fails if any
+  page weighs more than 1 MB; it lists the heaviest.
 
 ## Code
 
@@ -465,7 +777,10 @@ from, so drawing what the reader has not asked for costs every reader on every v
 - No `as` casts outside tests: parse with zod at the edge, narrow everywhere else. No enums, namespaces or
   classes (except errors). Switches over unions are exhaustive.
 - Named exports only, except where Next.js or a tool config needs a default.
-- Small pieces: 300 lines a file, 60 a function (120 for a component), 3 parameters, depth 3, complexity 12.
+- Keep control flow shallow: depth 3 and complexity 12 remain enforced. File length, function length, parameter,
+  statement and import counts are review signals, not hard limits. Repeated strings alone do not justify an abstraction.
+  Union members, error classes and JSX depth have no count limit either: splitting a complete model or a readable
+  component solely to satisfy a number obscures its responsibility.
 - kebab-case file names. Tests sit next to the code as `*.test.ts(x)`; component tests use jsdom.
 - knip fails on unused files, exports and dependencies. Coverage of domain, application and shared stays at 90%.
 - No `any`, written or inferred: type coverage outside tests is 100% (`npm run typecoverage`, strict), which
@@ -484,8 +799,12 @@ from, so drawing what the reader has not asked for costs every reader on every v
   change `eslint.config.mjs`, where it is reviewed.
 - Clean code: no names that say nothing (`tmp`, `str`, `ret`, `val`, `res`, `cb`, `err`…), no `TODO` or
   `FIXME` comments, no commented-out code, no `else` after `return`, no `++`, no `for…in`, at most three
-  operators in one condition, at most 15 imports of values per file. Components destructure their props in
+  operators in one condition. Components destructure their props in
   the signature, and handlers are named `handleX` and passed as `onX`.
+- Comments and words on screen are in British English (`groundwork/british-spelling`: colour, behaviour,
+  catalogue, organise…). Code names in `backticks` or "quotes" are left alone.
+- Code is written once. jscpd (`npm run duplication`) fails if more than 0.5% of the lines outside tests are
+  copied blocks of 70 tokens or more; ESLint's `sonarjs/no-identical-functions` catches copies within a file.
 - Security: no `eval`, `new Function`, `innerHTML` and friends (`no-unsanitized`), `dangerouslySetInnerHTML`
   (except the theme script in the root layout), `javascript:` URLs, `target="_blank"` without `rel`, regexes
   built from strings, or regexes that backtrack super-linearly; every regex has the `u` flag. Child processes
@@ -499,8 +818,10 @@ from, so drawing what the reader has not asked for costs every reader on every v
 
 Each was measured against the code. They cost more than they catch:
 
-- `id-length`, `@typescript-eslint/no-magic-numbers`, `explicit-function-return-type` on components: thousands
-  of hits on short loop names, layout numbers and JSX return types, with nothing found.
+- `id-length`, `@typescript-eslint/no-magic-numbers`, `unicorn/prevent-abbreviations`,
+  `explicit-function-return-type` on components: thousands of hits (5,300, 2,200 and 1,400) on short callback
+  names, layout numbers, `props` and JSX return types, with nothing found. `prefer-destructuring` (100) and a
+  200-line file limit (173 files) read no better for the churn.
 - `security/detect-object-injection`: hundreds of false alarms on typed record lookups; `noUncheckedIndexedAccess`
   and the readonly types already guard them. `security/detect-unsafe-regex`: replaced by the more exact
   `regexp/no-super-linear-*`. `security/detect-non-literal-fs-filename`: the layers already confine `fs` to
@@ -520,13 +841,13 @@ Each was measured against the code. They cost more than they catch:
 | Command                             | Runs                                                                                              | When                        |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------- | --------------------------- |
 | `npm run lint:changed`              | ESLint on changed and new files, and the component behind any changed CSS module                  | while working               |
-| `npm test` / `npm run test:changed` | unit tests (all, or those touched by changes)                                                     | while working               |
+| `npm test` / `npm run test:changed` | unit, integration and scanner tests (all, or those touched by changes)                            | while working               |
 | `npm run mutate:changed`            | mutation tests of the changed pure-layer files (`--base <ref>` to compare with a branch)          | while working, pull request |
 | pre-commit hook                     | ESLint, Stylelint and Prettier on staged files, `tsc`, and the tests related to them, in parallel | each commit                 |
 | `npm run design:drift`              | fails if a feature styles looks or draws raw controls more than the baseline allows               | while working               |
-| `npm run budget`                    | after a build, fails if any exported page weighs more than 1 MB                                   | after a build, CI           |
-| `npm run check:static`              | typecheck, type coverage, styles, design drift, format, cycles and knip                           | part of `check`             |
-| `npm run check`                     | `check:static`, lint, and all tests with coverage                                                 | pre-push hook               |
+| `npm run budget`                    | after a build, fails if any page of the running site weighs more than 1 MB                        | after a build, CI           |
+| `npm run check:static`              | typecheck, type coverage, styles, design drift, format, cycles, duplication and knip              | part of `check`             |
+| `npm run check`                     | `check:static`, lint, and all tests with coverage                                                 | shared changes, pre-push    |
 | CI                                  | `npm audit`, `check:static`, lint, tests and the build, as parallel jobs from cold                | every push and pull request |
 | Mutation                            | `npm run mutate:changed` against the pull request's base; the report is attached to the run       | PRs touching pure layers    |
 | CodeQL                              | `security-extended` queries over the TypeScript and the workflows                                 | every push, PR and weekly   |
@@ -542,6 +863,49 @@ changed. A cached lint can miss an error that a change in one file causes in ano
 and CI catch it. Import cycles are checked by dpdm rather than `import/no-cycle`, which walks the whole graph for
 every file.
 
-For speed, ESLint lints across all cores (`--concurrency auto`) and Vitest runs unit test files in threads
+Full ESLint runs are uncached: type-dependent rules and CSS-module checks can change without an edit to the
+file being linted. Focused runs keep a content cache, but bypass it for CSS-module changes and check the whole
+repository without it when lint policy, TypeScript configuration or dependencies change. Git paths are read
+with NUL separators so spaces, non-ASCII names and embedded newlines remain intact; Git failures fail the check.
+ESLint uses one worker to avoid building multiple copies of the typed project in memory.
+Vitest runs unit test files in threads
 rather than forks (the architecture tests need forks to `chdir`). Each file still gets its own module graph:
-tests mock modules, so sharing one would leak mocks.
+tests mock modules, so sharing one would leak mocks. Unit tests use four workers; integration tests use two,
+with time for native compilers to start. Scanner and command-line tests have a separate `scanner` project and `test:scan` command; `test:web` runs
+unit and site integration tests. Shared-logic changes still check related scanner tests. The projects run in
+order, followed by architecture tests on one
+worker. `check` runs static checks, lint and coverage in sequence so those workloads do not compete.
+
+### Reference queries and freshness
+
+`src/application/reference/` owns reference queries, headings and plan registers. Reference pages filter the
+complete model on the server, then render thirty records at a time. Search, team, mode and page live in the URL;
+full records open in the shared inspector. Scoped maps carry only the lookup records their drawing reaches.
+Maps with more than twelve components open at system level; the Components control expands their details.
+
+Labels belong to the model being rendered; deriving another workspace cannot change them. Server plan caches
+refresh when workspace files change or the UTC date changes, so deadlines do not stay frozen overnight. Browser
+model reads share pending requests, keep successful results for one minute and failed results for five seconds,
+and retain at most twenty settled models.
+
+### Focused development checks
+
+Run `npm run check:begin` before editing. It records content hashes in a Git-ignored local cache; it neither
+commits nor alters existing work. `npm run check:quick` compares with that checkpoint, including new and deleted
+files, and checks formatting, lint, styles, types and related tests. It prints each check's elapsed time.
+Alternatively pass specific files or folders: `npm run check:quick -- src/features/workspace/component-cards.tsx`.
+The checkpoint is deliberately not advanced after a check. Use one task per checkout so concurrent edits cannot
+be mistaken for the current task; independent worktrees have independent checkpoints.
+
+UI-only checks use `tsconfig.web.json`, excluding scanner implementations and tests as root files. TypeScript
+still follows imported dependencies. Shared logic and tooling use the full project and related scanner tests.
+`npm run check` and the merge checks still cover the whole repository, including architecture and coverage.
+The pre-commit hook includes related integration and scanner tests as well as unit tests.
+Generated `docs/scan-trials/` and `artifacts/` outputs remain on disk and in Git where already tracked; source
+formatting and task checkpoints exclude them. Maintained source, tests, schemas and ordinary documentation stay
+in scope. A checkpoint is a development aid, never a substitute for the merge checks.
+
+For local feature work, use the focused checks before handover. Shared logic, infrastructure, tooling and
+configuration changes require the full check. Routes, server/client boundaries, dependencies and build
+configuration also require a production build; rendering and data-loading changes require the page budget.
+The intended warm feedback budget for a small UI edit is thirty seconds; measure it rather than assuming it.

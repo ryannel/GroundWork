@@ -79,7 +79,7 @@ export function DecisionCard({ model, e }: DecisionCardProps) {
             <Glyph glyph={isDecision(e) ? '⚖' : '?'} />
             {numberOf(model, e.id)}
           </span>
-          {titleOf(e)}
+          {titleOf(e, model)}
         </button>
         {sayStateOnCard(e) ? <Badge tone={stateTone(state)}>{stateWord(state)}</Badge> : null}
       </h4>
@@ -90,7 +90,7 @@ export function DecisionCard({ model, e }: DecisionCardProps) {
       )}
       <Said e={e} model={model} />
       <Costs e={e} model={model} />
-      <Options options={optionsOf(e)} />
+      <Options options={optionsOf(e, model)} />
       <ChipRow ids={ties.risks} label="Risks accepted with it" model={model} />
       <ChipRow ids={ties.answers} label="Questions it answers" model={model} />
       <ChipRow ids={ties.waiting} label="Waiting on this" model={model} />

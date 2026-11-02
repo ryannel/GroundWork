@@ -5,7 +5,14 @@ import { keyJourneysOf } from './key-journeys';
 import { todayJourneysOf } from './today-journeys';
 import { journeyHref, journeysHref, referenceHref, referenceKindHref } from './today-reader';
 import { referenceOf } from './today-reference';
-import { domainHref, languageHref, peopleHref, plansHref, workspaceHref } from './workspace-paths';
+import {
+  domainHref,
+  languageHref,
+  peopleHref,
+  plansHref,
+  valueFlowsHref,
+  workspaceHref,
+} from './workspace-paths';
 
 export interface NavItem {
   readonly href: string;
@@ -38,7 +45,15 @@ export interface NavGroup {
 export interface NavHere {
   readonly domain?: string;
   readonly system?: string;
-  readonly section?: 'journeys' | 'reference' | 'language' | 'people' | 'plans';
+  readonly section?:
+    | 'journeys'
+    | 'reference'
+    | 'language'
+    | 'people'
+    | 'plans'
+    | 'explorer'
+    | 'area'
+    | 'value-flows';
   /** The journey's key or the reference's kind being read. */
   readonly key?: string;
   /** The workspace as it runs today; with it the journeys and reference list what they hold. */
@@ -48,17 +63,20 @@ export interface NavHere {
 // The landscape's own pages: the map of the whole workspace, its words, and the people who use it.
 function landscapeGroup(workspace: string, here: NavHere): NavGroup {
   const map = here.domain === undefined && here.section === undefined;
+  const area = here.section === 'area';
   const words = here.section === 'language';
   const people = here.section === 'people';
+  const flows = here.section === 'value-flows';
   return {
     key: 'landscape',
     heading: 'Overview',
     title: 'Landscape',
     href: workspaceHref(workspace),
-    current: map,
-    open: map || words || people,
+    current: map || area || flows,
+    open: [map, area, words, people, flows].some(Boolean),
     items: [
       { href: workspaceHref(workspace), title: 'Map', current: map },
+      { href: valueFlowsHref(workspace), title: 'Value Flows', current: flows },
       { href: languageHref(workspace), title: 'Language', current: words },
       { href: peopleHref(workspace), title: 'People', current: people },
     ],
@@ -100,6 +118,14 @@ export function workspaceNavOf(
     planGroup,
     ...domains,
     journeysGroup(workspace, here),
+    {
+      key: 'explorer',
+      title: 'Services',
+      href: `${workspaceHref(workspace.id)}explorer/`,
+      current: here.section === 'explorer',
+      open: false,
+      items: [],
+    },
     referenceGroup(workspace.id, here),
   ];
 }

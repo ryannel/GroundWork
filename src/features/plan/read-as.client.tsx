@@ -4,13 +4,14 @@ import { Suspense, useId } from 'react';
 
 import type { BarTeam } from '@/application/plan-bar';
 
-import { LENS_PARAM, setParam, useLens } from './lens.client';
+import { useLens, useSetLens } from './lens.client';
 import styles from './read-as.module.css';
 
 type Teams = readonly BarTeam[];
 
 function Picker({ teams, lens }: { readonly teams: Teams; readonly lens: string | null }) {
   const id = useId();
+  const setLens = useSetLens();
   const value = teams.find((t) => t.id === lens || t.id === `team:${lens ?? ''}`)?.id ?? '';
   return (
     <span className={styles.readAs} data-on={value === '' ? undefined : ''}>
@@ -21,7 +22,7 @@ function Picker({ teams, lens }: { readonly teams: Teams; readonly lens: string 
         className={styles.select}
         id={id}
         onChange={(event) => {
-          setParam(LENS_PARAM, event.target.value === '' ? null : event.target.value);
+          setLens(event.target.value === '' ? null : event.target.value);
         }}
         title="Read the plan as one team: its pages, its part"
         value={value}

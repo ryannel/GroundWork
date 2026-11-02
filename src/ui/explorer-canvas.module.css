@@ -1,0 +1,108 @@
+@layer components {
+  .viewport {
+    overflow: auto;
+    max-height: 72vh;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+    cursor: grab;
+    touch-action: pan-x pan-y;
+  }
+
+  .canvas {
+    display: block;
+    font-family: var(--font-body);
+    margin-inline: auto;
+  }
+
+  .edge {
+    & > path {
+      fill: none;
+      stroke: var(--edge-strong);
+      stroke-width: 1.5;
+    }
+
+    & > text {
+      fill: var(--fg-3);
+      font-size: var(--fs-13);
+      paint-order: stroke;
+      stroke: var(--bg-1);
+      stroke-width: 4px;
+    }
+  }
+
+  .arrow {
+    fill: var(--edge-strong);
+  }
+
+  .boundary > rect {
+    fill: var(--bg-0);
+    stroke: var(--line-2);
+    stroke-width: 1;
+  }
+
+  .node {
+    cursor: pointer;
+    outline: none;
+
+    & > path,
+    & > rect,
+    & > ellipse {
+      fill: var(--node-bg);
+      stroke: var(--line-3);
+      stroke-width: 1.5;
+    }
+
+    &[data-tone='accent'] > rect {
+      fill: var(--accent-soft);
+      stroke: var(--accent);
+    }
+
+    &[data-tone='warning'] > rect {
+      fill: var(--st-mod-bg);
+      stroke: var(--st-mod);
+    }
+
+    &[data-selected] > path,
+    &[data-selected] > rect,
+    &[data-selected] > ellipse,
+    &:focus-visible > path,
+    &:focus-visible > rect,
+    &:focus-visible > ellipse {
+      stroke: var(--accent);
+      stroke-width: 3;
+    }
+
+    &[data-shape='header'] > rect {
+      fill: transparent;
+      stroke: none;
+    }
+
+    &[data-shape='row'] > rect {
+      fill: var(--bg-1);
+      stroke: var(--line-1);
+    }
+
+    &[data-shape='header'][data-selected] > rect {
+      stroke: var(--accent);
+    }
+  }
+
+  .edge[data-dashed] > path {
+    stroke-dasharray: 5 4;
+  }
+
+  .edge[data-contained] {
+    display: none;
+  }
+
+  .note {
+    fill: var(--fg-3);
+    font-size: var(--fs-12);
+  }
+
+  .name {
+    fill: var(--fg-1);
+    font-size: var(--fs-16);
+  }
+}

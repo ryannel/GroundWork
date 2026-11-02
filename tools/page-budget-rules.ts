@@ -1,7 +1,8 @@
-// What the page budget judges, apart from reading the files: which pages are over and which weigh most.
+// What the page budget judges, apart from fetching the pages: which links lead to pages, which pages are over and
+// which weigh most.
 
 export interface PageSize {
-  /** The page's address in the export: `volvo-cars/reference/apis/`. */
+  /** The page's address: `/volvo-cars/reference/apis/`. */
   readonly page: string;
   readonly bytes: number;
 }
@@ -21,10 +22,20 @@ export function judge(pages: readonly PageSize[], limit: number, top: number): V
   return { over: sorted.filter((p) => p.bytes > limit), heaviest: sorted.slice(0, top) };
 }
 
-/** The page an exported `index.html` serves: its folder, ending in a slash. */
-export function pageOf(file: string): string {
-  const page = file.replace(/index\.html$/u, '');
-  return page === '' ? '/' : page;
+// Files the site serves beside its pages: plan and today models, pictures, mockups and explorer data.
+const FILE = /\.[a-z\d]+$/iu;
+
+/** The pages a page links to on the same site, by path, without their search or hash. Files are left out. */
+export function pageLinks(html: string, at: URL): string[] {
+  const found = new Set<string>();
+  for (const match of html.matchAll(/\bhref="([^"]+)"/gu)) {
+    const raw = match[1]?.replaceAll('&amp;', '&') ?? '';
+    const url = URL.canParse(raw, at) ? new URL(raw, at) : null;
+    if (url !== null && url.origin === at.origin && !FILE.test(url.pathname)) {
+      found.add(url.pathname);
+    }
+  }
+  return [...found];
 }
 
 export const kilobytes = (bytes: number): string =>

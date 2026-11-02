@@ -1,7 +1,7 @@
 import type { Model } from '@/application/plan/derive';
-import { searchText, teamsWhere } from '@/application/plan-story-ref';
-import { testsByLevel, walksText } from '@/application/plan-story-ref-rows';
 import { LEVEL_MEANS, levelWord } from '@/application/plan-viz-tests';
+import { searchText, teamsWhere } from '@/application/reference/model';
+import { testsByLevel, walksText } from '@/application/reference/register';
 import type { Test } from '@/domain/plan/plan.generated';
 import { TeamTag } from '@/features/plan/common/team-dot';
 import { PyramidStrip } from '@/features/plan/viz/matrix/pyramid-strip';
@@ -57,7 +57,7 @@ function TestRow({ model, t }: { readonly model: Model; readonly t: Test }) {
 }
 
 /** What proves each change, by level. */
-export function TestsCat({ model, teams }: CatProps) {
+export function TestsCat({ model, teams, lens = null }: CatProps) {
   const levels = testsByLevel(model.plan.tests ?? []);
   return (
     <Pages
@@ -69,7 +69,7 @@ export function TestsCat({ model, teams }: CatProps) {
         levels.length === 0
           ? []
           : [
-              <PyramidStrip key="pyramid" lensed model={model} />,
+              <PyramidStrip key="pyramid" lens={lens} model={model} />,
               ...levels.map(({ level, tests }) => (
                 <Group
                   count={tests.length}

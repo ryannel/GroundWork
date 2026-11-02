@@ -48,19 +48,21 @@ export interface E2eHead extends Fitted {
   readonly reach: E2eReach;
 }
 
-const some = (reach: E2eReach, list: E2eReach['changed']): string =>
+const some = (reach: E2eReach, list: E2eReach['changed'], model: Model): string =>
   list.length <= 2
-    ? andList(list.map(quoted))
+    ? andList(list.map((flow) => quoted(flow, model)))
     : `${numWord(list.length)} of the ${numWord(reach.changed.length)} changed flows`;
 
 /** 6.1's claim: what the end-to-end tests cover of the changed flows, and what they do not. */
 export function e2eHeadline(model: Model): E2eHead {
   const reach = e2eReach(model);
   const parts: string[] = [];
-  if (reach.none.length > 0) parts.push(`no end-to-end test covers ${some(reach, reach.none)}`);
+  if (reach.none.length > 0) {
+    parts.push(`no end-to-end test covers ${some(reach, reach.none, model)}`);
+  }
   if (reach.partial.length > 0) {
     const verb = reach.partial.length === 1 ? 'is' : 'are';
-    parts.push(`${some(reach, reach.partial)} ${verb} covered only in part`);
+    parts.push(`${some(reach, reach.partial, model)} ${verb} covered only in part`);
   }
   if (parts.length > 0) {
     const fitted = fitParts(parts);
@@ -70,7 +72,7 @@ export function e2eHeadline(model: Model): E2eHead {
     reach.changed.length > 0
       ? reach.changed
       : model.toBe.flows.filter((f) => reach.walkedIds.includes(f.id));
-  const names = namesOf(shown.map(flowName));
+  const names = namesOf(shown.map((flow) => flowName(flow, model)));
   return {
     headline:
       reach.changed.length > 0
@@ -179,15 +181,15 @@ function untestedPart(model: Model, cut: Cut, lens: string | undefined): string 
 }
 
 /** The part of the headline about tests of the end-to-end kind, once every change has one. */
-function reachPart(every: string, reach: E2eReach | null): string {
+function reachPart(every: string, reach: E2eReach | null, model: Model): string {
   if (reach === null || (reach.none.length === 0 && reach.partial.length === 0)) {
     return `${every}, and each is covered end to end`;
   }
   if (reach.none.length > 0) {
-    return `${every}, but no end-to-end test covers ${namesOf(reach.none.map(quoted))}`;
+    return `${every}, but no end-to-end test covers ${namesOf(reach.none.map((flow) => quoted(flow, model)))}`;
   }
   const verb = reach.partial.length === 1 ? 'is' : 'are';
-  return `${every}, but ${namesOf(reach.partial.map(quoted))} ${verb} covered only in part`;
+  return `${every}, but ${namesOf(reach.partial.map((flow) => quoted(flow, model)))} ${verb} covered only in part`;
 }
 
 function leadOf(
@@ -220,7 +222,7 @@ function leadOf(
     };
   }
   if (cut.total === 0) return { part: 'No changes in this team’s part to prove', weakest: null };
-  return { part: reachPart(every, reach), weakest: null };
+  return { part: reachPart(every, reach, model), weakest: null };
 }
 
 /**

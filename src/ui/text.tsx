@@ -15,7 +15,7 @@ interface TextProps {
   readonly mono?: boolean;
   readonly caps?: boolean;
   /** Stop after this many lines, with an ellipsis. */
-  readonly clamp?: 2 | 3;
+  readonly clamp?: 1 | 2 | 3;
 }
 
 /** Words in one of the type styles: how bright, how big, how heavy. Features set none of these themselves. */

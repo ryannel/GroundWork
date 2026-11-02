@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { referenceHref } from '@/application/today-reader';
@@ -7,30 +8,32 @@ import { workspaceHref } from '@/application/workspace-paths';
 import { TodayCatalogue, TodayOverlays, TodaySearch } from '@/features/plan';
 import { WorkspaceShell } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
-import { NOTHING, orNothing } from '@/shared/static-params';
+import type { SearchParams } from '@/shared/search-params';
 
 interface Params {
   readonly workspace: string;
   readonly kind: string;
 }
 
-export const dynamicParams = false;
-
-export async function generateStaticParams(): Promise<Params[]> {
-  const workspaces = await readWorkspaces();
-  const lists = await Promise.all(
-    workspaces.map(async ({ id }) => {
-      const data = await todayData(id);
-      return data === null
-        ? []
-        : referenceOf(data.today.model).map(({ kind }) => ({ workspace: id, kind }));
-    }),
-  );
-  return orNothing(lists.flat(), { workspace: NOTHING, kind: NOTHING });
+export async function generateMetadata({
+  params,
+}: {
+  readonly params: Promise<Params>;
+}): Promise<Metadata> {
+  const { workspace: id, kind } = await params;
+  const data = await todayData(id);
+  const entry =
+    data === null ? undefined : referenceOf(data.today.model).find((k) => k.kind === kind);
+  return { title: entry?.title ?? 'Reference' };
 }
 
-export default async function CatalogueRoute({ params }: { readonly params: Promise<Params> }) {
+export default async function CatalogueRoute({
+  params,
+  searchParams,
+}: {
+  readonly params: Promise<Params>;
+  readonly searchParams: Promise<SearchParams>;
+}) {
   const { workspace: id, kind } = await params;
   const data = await todayData(id);
   const entry =
@@ -53,7 +56,12 @@ export default async function CatalogueRoute({ params }: { readonly params: Prom
         { label: 'Reference', href: referenceHref(workspace.id) },
       ]}
     >
-      <TodayCatalogue kind={kind} model={today.model} workspace={workspace.id} />
+      <TodayCatalogue
+        params={await searchParams}
+        kind={kind}
+        model={today.model}
+        workspace={workspace.id}
+      />
     </WorkspaceShell>
   );
 }

@@ -33,6 +33,7 @@ function pairsOf(P: Planned): Pairs {
     }
   }
   for (const msg of P.messages.values()) {
+    if (msg.producer === undefined) continue;
     for (const c of msg.consumers ?? []) {
       put({ from: msg.producer, to: c, kind: 'event', message: msg.id }, null);
     }

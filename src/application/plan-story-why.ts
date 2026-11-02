@@ -20,7 +20,7 @@ export interface ProblemHead {
 export function problemHead(model: Model): ProblemHead {
   const { plan } = model;
   const authored = plan.story?.chapters?.why?.headline ?? '';
-  const evidence = firstSentence(plainLine(plan.problem.why));
+  const evidence = firstSentence(plainLine(plan.problem.why, model));
   const fallback = evidence === '' ? 'Why this plan exists' : evidence;
   const claim = authored === '' ? fallback : authored;
   if (claim.length <= MAX_HEADLINE) return { headline: claim, lede: '' };

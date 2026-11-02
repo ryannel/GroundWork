@@ -1,8 +1,7 @@
 import { clipText } from '@/application/plan-viz-flow-geometry';
-import { LINE, ROLE_LINE } from '@/application/plan-viz-system-map-boxes';
 import type { DrawnNode, DrawnRow } from '@/application/plan-viz-system-map-types';
-import { FlowGlyph } from '@/features/plan/viz/flow-diagram/flow-glyph';
 import { Hit } from '@/features/plan/viz/flow-diagram/flow-hit';
+import { ComponentCardHeader } from '@/ui/canvas/component-card';
 
 import styles from './map-card.module.css';
 import { kindOf } from './map-kind';
@@ -43,43 +42,27 @@ function Row({ node, row }: { readonly node: DrawnNode; readonly row: DrawnRow }
   );
 }
 
-function Names({ node }: { readonly node: DrawnNode }) {
-  const quiet = node.compact && node.role.length === 0;
-  return node.lines.map((t, i) => (
-    <text key={t} className={styles.name} x={node.tx} y={(quiet ? 20.5 : 20) + i * LINE}>
-      {t}
-    </text>
-  ));
-}
-
-function Kind({ node }: { readonly node: DrawnNode }) {
+function Header({ node }: { readonly node: DrawnNode }) {
   const kind = kindOf(node.serviceKind);
-  const plain = node.serviceKind === 'service' || node.serviceKind === '';
-  if (node.role.length > 0) {
-    return (
-      <>
-        {plain ? null : <FlowGlyph glyph={kind.glyph} x={node.tx} y={node.nameEnd + 6} />}
-        {node.role.map((t, i) => (
-          <text
-            key={t}
-            className={styles.role}
-            x={plain ? node.tx : node.tx + 14}
-            y={node.nameEnd + 2 + (i + 1) * ROLE_LINE}
-          >
-            {t}
-          </text>
-        ))}
-      </>
-    );
-  }
-  if (node.compact) return null;
+  const inset = node.part ? 0 : 8;
   return (
-    <>
-      <FlowGlyph glyph={kind.glyph} x={node.tx} y={node.head - 18} />
-      <text className={styles.kind} x={node.tx + 14} y={node.head - 13}>
-        {kind.word}
-      </text>
-    </>
+    <foreignObject
+      height={node.head - 2}
+      pointerEvents="auto"
+      width={node.w - inset}
+      x={inset}
+      y={0}
+    >
+      <ComponentCardHeader
+        density="dense"
+        icon={kind.icon}
+        inspect={node.id}
+        kind={kind.word}
+        name={node.name}
+        summary={node.role.join(' ')}
+        tone={kind.tone}
+      />
+    </foreignObject>
   );
 }
 
@@ -99,9 +82,7 @@ export function MapCard({ node }: { readonly node: DrawnNode }) {
         width={node.w}
       />
       {node.part ? null : <MapStripe h={node.h} r={3.5} slot={node.teamSlot} />}
-      <Hit h={node.h} inspect={node.id} label={node.name} w={node.w} x={0} y={0} />
-      <Names node={node} />
-      <Kind node={node} />
+      <Header node={node} />
       {hasRows ? (
         <line
           className={styles.divider}

@@ -1,5 +1,4 @@
 import type { Model } from '@/application/plan/derive';
-import { searchText } from '@/application/plan-story-ref';
 import { sequenceNotes, msShort } from '@/application/plan-viz-ladder-order';
 import { teamName } from '@/application/plan-viz-teams';
 import {
@@ -12,6 +11,7 @@ import {
   workById,
   workFacts,
 } from '@/application/plan-viz-work';
+import { searchText } from '@/application/reference/model';
 import type { WorkItem } from '@/domain/plan/plan.generated';
 import { ModelInline } from '@/features/plan/common/model-text';
 import { TeamTag } from '@/features/plan/common/team-dot';

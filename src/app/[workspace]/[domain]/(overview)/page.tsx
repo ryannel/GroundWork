@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { chipInfo } from '@/application/plan-chips';
@@ -12,6 +13,9 @@ interface Params {
 }
 
 // The domain at a glance: each system, its edges, its busiest flows and its words.
+// Named by its layout: a layout's title template reaches the pages below it, not the page beside it.
+export const metadata: Metadata = {};
+
 export default async function DomainRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id, domain } = await params;
   const data = await todayData(id);

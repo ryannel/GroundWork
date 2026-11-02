@@ -101,6 +101,14 @@ function lanesOf(
       label: 'Events',
     });
   }
+  if (
+    input.unionIds.some((id) => {
+      const node = input.sys(id);
+      return node?.$type === 'store' && !isEvent(node) && node.owner === undefined;
+    })
+  ) {
+    lanes.push({ id: 'unowned-stores', team: null, label: 'Stores with no recorded owner' });
+  }
   return lanes;
 }
 
@@ -121,11 +129,18 @@ function placeStores(input: LayoutInput, grid: Grid): void {
     return n?.$type === 'store' && !isEvent(n) ? [{ id, n }] : [];
   });
   for (const { id, n } of stores) {
-    const owner = grid.positions.get(n.owner);
-    if (owner === undefined) continue;
-    const row = (rowsUnder.get(n.owner) ?? 0) + 1;
-    rowsUnder.set(n.owner, row);
-    grid.put({ id, type: 'store', lane: owner.lane, col: owner.col, row, under: n.owner });
+    if (n.owner === undefined) {
+      const lane = grid.laneIndex.get('unowned-stores');
+      if (lane !== undefined) {
+        grid.put({ id, type: 'store', lane, col: grid.nextCol(lane), row: 0, under: null });
+      }
+    } else {
+      const owner = grid.positions.get(n.owner);
+      if (owner === undefined) continue;
+      const row = (rowsUnder.get(n.owner) ?? 0) + 1;
+      rowsUnder.set(n.owner, row);
+      grid.put({ id, type: 'store', lane: owner.lane, col: owner.col, row, under: n.owner });
+    }
   }
 }
 

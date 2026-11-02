@@ -1,7 +1,7 @@
 import 'server-only';
-
-import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
+
+import { pathIn, readBytesIfAny, realPathOf } from '@/infrastructure/disk';
 
 import { workspaceFolder } from './workspace-folders';
 
@@ -26,52 +26,15 @@ const TYPES: Readonly<Record<string, string>> = {
 export const contentTypeOf = (file: string): string =>
   TYPES[path.extname(file).toLowerCase()] ?? 'application/octet-stream';
 
-// A workspace no folder holds has no files.
-async function inWorkspace(workspace: string, ...parts: readonly string[]): Promise<string | null> {
-  const folder = await workspaceFolder(workspace);
-  return folder === null ? null : path.join(folder, ...parts);
-}
-
-const folderOf = async (workspace: string, slug: string, kind: PlanFolder) =>
-  inWorkspace(workspace, 'plans', slug, kind);
-
-async function walk(folder: string, prefix: readonly string[]): Promise<string[][]> {
-  const entries = await readdir(folder, { withFileTypes: true }).catch(() => []);
-  const nested = await Promise.all(
-    entries.map(async (entry) =>
-      entry.isDirectory()
-        ? walk(path.join(folder, entry.name), [...prefix, entry.name])
-        : [[...prefix, entry.name]],
-    ),
-  );
-  return nested.flat();
-}
-
-/** Every file under a plan's assets or mockups, as path segments. */
-export async function listPlanFiles(
-  workspace: string,
-  slug: string,
-  kind: PlanFolder,
-): Promise<string[][]> {
-  const folder = await folderOf(workspace, slug, kind);
-  return folder === null ? [] : walk(folder, []);
-}
-
 /** One file, or null when it is not there. The segments cannot climb out of the folder. */
 export async function readPlanFile(
   at: { readonly workspace: string; readonly slug: string; readonly kind: PlanFolder },
   segments: readonly string[],
 ): Promise<Buffer | null> {
-  const folder = await folderOf(at.workspace, at.slug, at.kind);
-  return folder === null ? null : readUnder(folder, segments);
-}
-
-const assetsOf = async (workspace: string) => inWorkspace(workspace, 'assets');
-
-/** Every file under a workspace's assets/, the images its system model cites, as path segments. */
-export async function listWorkspaceAssets(workspace: string): Promise<string[][]> {
-  const folder = await assetsOf(workspace);
-  return folder === null ? [] : walk(folder, []);
+  if (at.slug === '' || at.slug === '.' || at.slug === '..' || /[/\\\0]/u.test(at.slug)) {
+    return null;
+  }
+  return readUnder(at.workspace, ['plans', at.slug, at.kind], segments);
 }
 
 /** One of a workspace's assets, or null when it is not there. */
@@ -79,12 +42,22 @@ export async function readWorkspaceAsset(
   workspace: string,
   segments: readonly string[],
 ): Promise<Buffer | null> {
-  const folder = await assetsOf(workspace);
-  return folder === null ? null : readUnder(folder, segments);
+  return readUnder(workspace, ['assets'], segments);
 }
 
-async function readUnder(base: string, segments: readonly string[]): Promise<Buffer | null> {
-  const file = path.join(base, ...segments);
+async function readUnder(
+  workspace: string,
+  folders: readonly string[],
+  segments: readonly string[],
+): Promise<Buffer | null> {
+  const folder = await workspaceFolder(workspace);
+  if (folder === null) return null;
+  const root = await realPathOf(folder);
+  if (root === null) return null;
+  const base = pathIn(root, ...folders);
+  const file = pathIn(base, ...segments);
   if (!file.startsWith(base + path.sep)) return null;
-  return readFile(file).catch(() => null);
+  const resolved = await realPathOf(file);
+  if (resolved?.startsWith(base + path.sep) !== true) return null;
+  return readBytesIfAny(resolved);
 }

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { todayJourneysOf } from '@/application/today-journeys';
@@ -7,27 +8,22 @@ import { workspaceHref } from '@/application/workspace-paths';
 import { TodayJourney, TodayOverlays, TodaySearch } from '@/features/plan';
 import { WorkspaceShell } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
-import { NOTHING, orNothing } from '@/shared/static-params';
 
 interface Params {
   readonly workspace: string;
   readonly key: string;
 }
 
-export const dynamicParams = false;
-
-export async function generateStaticParams(): Promise<Params[]> {
-  const workspaces = await readWorkspaces();
-  const lists = await Promise.all(
-    workspaces.map(async ({ id }) => {
-      const data = await todayData(id);
-      return data === null
-        ? []
-        : todayJourneysOf(data.today.model).map(({ key }) => ({ workspace: id, key }));
-    }),
-  );
-  return orNothing(lists.flat(), { workspace: NOTHING, key: NOTHING });
+export async function generateMetadata({
+  params,
+}: {
+  readonly params: Promise<Params>;
+}): Promise<Metadata> {
+  const { workspace: id, key } = await params;
+  const data = await todayData(id);
+  const journey =
+    data === null ? undefined : todayJourneysOf(data.today.model).find((j) => j.key === key);
+  return { title: journey?.title ?? 'Journeys' };
 }
 
 export default async function JourneyRoute({ params }: { readonly params: Promise<Params> }) {

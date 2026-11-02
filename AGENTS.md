@@ -6,8 +6,15 @@ Groundwork) in Next.js and TypeScript.
 
 - Read `docs/architecture.md` before adding a file. The lint config enforces it; do not disable rules to get past
   it.
-- While working, run `npm run lint:changed` and `npm test`. Before handing back, `npm run check` and
-  `npm run build` must pass.
+- At the start of a task, run `npm run check:begin` to record a local checkpoint without committing existing work.
+  While working, run `npm run check:quick` (or pass explicit files/folders after `--`). Do not reset the checkpoint
+  to hide a failure. Keep one task per checkout; separate concurrent tasks into worktrees.
+- Before handing back a local feature change, the focused checks must pass. Run `npm run check` for shared
+  application/domain/infrastructure changes, check-tooling or lint/configuration changes, and before merging.
+  Run `npm run build` for route, server/client boundary, dependency or build configuration changes, and before
+  merging. After rendering or data-loading changes, also run `npm run budget` against the production build.
+- Keep related behaviour together. Line, parameter, import and folder counts are not reasons to split code.
+  Extract for a separate responsibility, reuse, or a useful test boundary; keep complexity and dependency rules.
 - One word per idea. The levels are workspace, domain, system and component, and nothing else. A
   service is one kind of component (alongside stores, topics and apps), not a level.
 - Write for the reader in plain British English. Titles name things; the

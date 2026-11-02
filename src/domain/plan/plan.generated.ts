@@ -443,7 +443,10 @@ export interface Store {
    * its role in plain words a newcomer understands: what it holds or carries, and for whom, ≤ 10 words, sentence case, no jargon or code names. Shown on the system map card
    */
   does?: string;
-  owner: string;
+  /**
+   * svc:<kebab-slug>
+   */
+  owner?: string;
   access?: StoreAccess[];
   /**
    * kind: cache: where the layer sits on the cache path (outermost first)
@@ -696,7 +699,10 @@ export interface Message {
   version?: string;
   topic: string;
   payload?: string;
-  producer: string;
+  /**
+   * svc:<kebab-slug>
+   */
+  producer?: string;
   consumers?: string[];
   /**
    * the payload field the message is keyed by (its partition key), e.g. sku

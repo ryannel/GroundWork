@@ -6,7 +6,6 @@ import { type Component, type Workspace, systemDoes } from '@/domain/workspace';
 import { neighboursOf } from './today-neighbours';
 import { domainViewOf } from './workspace-domain';
 import { landscapeOf } from './workspace-landscape';
-import { domainPaths, systemPaths } from './workspace-paths';
 import { systemViewOf } from './workspace-system';
 
 function acme() {
@@ -193,16 +192,5 @@ describe('a small workspace', () => {
       ['cart', 'calls', ''],
       ['search', 'messages', 'Find domain'],
     ]);
-  });
-});
-
-describe('paths', () => {
-  it('lists every domain and system for the static routes', () => {
-    expect(domainPaths([shop])).toHaveLength(3);
-    expect(systemPaths([shop])).toContainEqual({
-      workspace: 'shop',
-      domain: 'find',
-      system: 'search',
-    });
   });
 });

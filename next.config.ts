@@ -1,10 +1,10 @@
 import type { NextConfig } from 'next';
 
-// Static export: the site is built from the YAML in workspaces/ and served as files (GitHub Pages).
+// A Node server: every page is drawn on request from the YAML of the workspaces it reads (see Next.js in
+// docs/architecture.md).
 const basePath = process.env.BASE_PATH;
 
 const config: NextConfig = {
-  output: 'export',
   trailingSlash: true,
   reactStrictMode: true,
   typedRoutes: true,

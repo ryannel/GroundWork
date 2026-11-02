@@ -1,0 +1,174 @@
+{
+  "capturedFrom": "reports/scan-readiness-workflow-final.json",
+  "success": true,
+  "testResults": [
+    {
+      "name": "tools/scan-repository-delta.test.ts",
+      "status": "passed",
+      "assertionResults": [
+        {
+          "title": "preserves modified, renamed and unchanged shard membership and cache reuse",
+          "status": "passed"
+        },
+        {
+          "title": "keeps per-file question IDs after deletion and regenerates investigation declarations",
+          "status": "passed"
+        },
+        {
+          "title": "does not infer ambiguous duplicate-blob renames or cross-language renames",
+          "status": "passed"
+        },
+        {
+          "title": "is deterministic across inventory order and appends beyond a retired highest ID",
+          "status": "passed"
+        },
+        {
+          "title": "rejects duplicate predecessor ownership and reports mode changes as modifications",
+          "status": "passed"
+        },
+        {
+          "title": "retires every empty scope without publishing an empty scope",
+          "status": "passed"
+        },
+        {
+          "title": "rejects invalid bounds, incomplete predecessors and duplicate or foreign scope membership",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "tools/scan-repository-pass.test.ts",
+      "status": "passed",
+      "assertionResults": [
+        {
+          "title": "resumes only pending tasks, preserves committed files, and ignores unfinished attempts",
+          "status": "passed"
+        },
+        {
+          "title": "honours STOP between tasks without selecting an aggregate",
+          "status": "passed"
+        },
+        {
+          "title": "rejects corrupted completed artifacts before any pending source work",
+          "status": "passed"
+        },
+        {
+          "title": "rejects pin, source policy and analysis changes before any pending source work",
+          "status": "passed"
+        },
+        {
+          "title": "rejects a corrupted prepared scope before any pending source work",
+          "status": "passed"
+        },
+        {
+          "title": "never accepts a terminal checkpoint with a missing task",
+          "status": "passed"
+        },
+        {
+          "title": "uses a predecessor inventory without rechunking unchanged or renamed source",
+          "status": "passed"
+        },
+        {
+          "title": "records typed source-budget failure and publishes no aggregate",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "src/infrastructure/scan/semantic-edge-identity.test.ts",
+      "status": "passed",
+      "assertionResults": [
+        {
+          "title": "ignores object property order, prior IDs and unrelated emission order",
+          "status": "passed"
+        },
+        {
+          "title": "changes identity for every changed semantic field: {\"owner\":\"summary:other\"}",
+          "status": "passed"
+        },
+        {
+          "title": "changes identity for every changed semantic field: {\"source\":\"source:other\"}",
+          "status": "passed"
+        },
+        {
+          "title": "changes identity for every changed semantic field: {\"from\":\"semantic:other\"}",
+          "status": "passed"
+        },
+        {
+          "title": "changes identity for every changed semantic field: {\"to\":\"semantic:other\"}",
+          "status": "passed"
+        },
+        {
+          "title": "changes identity for every changed semantic field: {\"relation\":\"receiver\"}",
+          "status": "passed"
+        },
+        {
+          "title": "changes identity for every changed semantic field: {\"position\":1}",
+          "status": "passed"
+        },
+        {
+          "title": "changes identity for every changed semantic field: {\"label\":\"receiver\"}",
+          "status": "passed"
+        },
+        {
+          "title": "distinguishes absent optional semantics from supplied values",
+          "status": "passed"
+        },
+        {
+          "title": "hashes the whole semantic object, including future structured fields",
+          "status": "passed"
+        },
+        {
+          "title": "preserves distinct provenances and rejects an exact repeated fact explicitly",
+          "status": "passed"
+        },
+        {
+          "title": "rejects non-JSON numeric values instead of aliasing them with null",
+          "status": "passed"
+        },
+        {
+          "title": "sorts common-prefix and Unicode keys deterministically without locale collation",
+          "status": "passed"
+        },
+        {
+          "title": "rejects unsupported fields rather than omitting them from the identity",
+          "status": "passed"
+        },
+        {
+          "title": "coalesces only exact compiler projection duplicates with an explicit diagnostic",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "src/infrastructure/scan/source-budget.test.ts",
+      "status": "passed",
+      "assertionResults": [
+        {
+          "title": "accepts the exact bound and rejects unsafe limit and size metadata",
+          "status": "passed"
+        },
+        {
+          "title": "returns path, blob, actual byte size and limit as a typed error",
+          "status": "passed"
+        },
+        {
+          "title": "checks every selected file before the first cache or blob read",
+          "status": "passed"
+        },
+        {
+          "title": "does not bypass a reduced budget through a retained index",
+          "status": "passed"
+        },
+        {
+          "title": "uses byte sizes for multibyte source and preserves unusual pinned paths",
+          "status": "passed"
+        },
+        {
+          "title": "fingerprints the normalised policy without changing parser identity",
+          "status": "passed"
+        }
+      ]
+    }
+  ]
+}

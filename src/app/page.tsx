@@ -1,7 +1,12 @@
+import type { Metadata } from 'next';
+
 import { libraryOf } from '@/application/workspace-library';
 import { WorkspaceLibrary } from '@/features/workspaces';
 import { readLoadedPlans } from '@/infrastructure/workspace-plans';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
+
+// Named by its layout: a layout's title template reaches the pages below it, not the page beside it.
+export const metadata: Metadata = {};
 
 export default async function HomePage() {
   const workspaces = await readWorkspaces();

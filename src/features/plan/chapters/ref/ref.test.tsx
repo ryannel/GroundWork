@@ -16,6 +16,12 @@ vi.mock(import('next/navigation'), async (original) => {
     ...actual,
     useSearchParams: () => new actual.ReadonlyURLSearchParams(globalThis.location.search),
     usePathname: () => globalThis.location.pathname,
+    useRouter: () =>
+      ({
+        replace: (href: string) => {
+          globalThis.history.replaceState(null, '', href);
+        },
+      }) as unknown as ReturnType<typeof actual.useRouter>,
   };
 });
 
@@ -49,16 +55,17 @@ describe('reference chapter', () => {
     expect(screens).toEqual(expect.arrayContaining(['services', 'stores', 'apis', 'decisions']));
   });
 
-  it('filters services by what is typed', async () => {
-    const { container } = render(<RefChapter {...screenOf(sameDay(), 'services')} />);
-    const rows = [...container.querySelectorAll<HTMLElement>('[data-search]')];
-    expect(rows.length).toBeGreaterThan(1);
-    const word = rows[0]?.dataset.search?.split(' ')[0] ?? '';
-    fireEvent.change(screen.getByRole('searchbox'), { target: { value: `${word} zzzz-nothing` } });
+  it('searches services through the address and renders the server-filtered result', async () => {
+    const props = screenOf(sameDay(), 'services');
+    const { container, rerender } = render(<RefChapter {...props} />);
+    expect(container.querySelectorAll('[data-inspect]').length).toBeGreaterThan(0);
+    fireEvent.change(screen.getByRole('searchbox'), { target: { value: 'zzzz-nothing' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Search' }));
     await act(async () => {
       await Promise.resolve();
     });
-    expect(rows.every((r) => r.hidden === true)).toBe(true);
+    expect(globalThis.location.search).toContain('q=zzzz-nothing');
+    rerender(<RefChapter {...props} searchParams={{ q: 'zzzz-nothing' }} />);
     expect(container.textContent).toContain('Nothing matches that filter.');
   });
 });

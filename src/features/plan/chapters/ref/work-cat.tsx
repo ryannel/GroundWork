@@ -1,7 +1,7 @@
 import type { Model } from '@/application/plan/derive';
-import { milestoneShort, workByMilestone } from '@/application/plan-story-ref-rows';
 import { teamIndex } from '@/application/plan-viz-teams';
 import { msTitle } from '@/application/plan-viz-work';
+import { milestoneShort, workByMilestone } from '@/application/reference/register';
 import { DimByLens } from '@/features/plan/lens.client';
 import { WorkItemRows } from '@/features/plan/viz/board/work-item-rows';
 

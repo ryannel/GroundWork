@@ -1,14 +1,13 @@
 import 'server-only';
 
-import { readdir, readFile } from 'node:fs/promises';
-import path from 'node:path';
-
 import { parse } from 'yaml';
 import type { z } from 'zod';
 
 import type { Domain, System, Workspace } from '@/domain/workspace';
 import { checkWorkspace } from '@/domain/workspace-check';
+import { pathIn, listFolder, readText } from '@/infrastructure/disk';
 
+import { readSystemNarratives } from './system-narratives';
 import { workspaceFolders } from './workspace-folders';
 import { untilEdited } from './workspace-memo';
 import { domainFile, systemFile, workspaceFile } from './workspace-schema';
@@ -26,11 +25,11 @@ export async function readWorkspaces(root?: string): Promise<readonly Workspace[
 }
 
 async function readWorkspace(folder: string): Promise<Workspace> {
-  const file = await readYaml(path.join(folder, 'workspace.yaml'), workspaceFile);
-  const domainsFolder = path.join(folder, 'domains');
+  const file = await readYaml(pathIn(folder, 'workspace.yaml'), workspaceFile);
+  const domainsFolder = pathIn(folder, 'domains');
   const domainIds = await folders(domainsFolder);
   const domains = await Promise.all(
-    domainIds.map(async (id) => readDomain(path.join(domainsFolder, id))),
+    domainIds.map(async (id) => readDomain(pathIn(domainsFolder, id), folder)),
   );
   const workspace: Workspace = {
     id: file.id,
@@ -58,20 +57,22 @@ async function readWorkspace(folder: string): Promise<Workspace> {
   return workspace;
 }
 
-async function readDomain(folder: string): Promise<Domain> {
-  const file = await readYaml(path.join(folder, 'domain.yaml'), domainFile);
-  const systemsFolder = path.join(folder, 'systems');
+async function readDomain(folder: string, workspace: string): Promise<Domain> {
+  const file = await readYaml(pathIn(folder, 'domain.yaml'), domainFile);
+  const systemsFolder = pathIn(folder, 'systems');
   const systemIds = await folders(systemsFolder);
   const systems = await Promise.all(
-    systemIds.map(async (id) => readSystem(path.join(systemsFolder, id))),
+    systemIds.map(async (id) => readSystem(pathIn(systemsFolder, id), workspace)),
   );
   return { id: file.id, name: file.name, purpose: file.purpose ?? null, systems };
 }
 
-async function readSystem(folder: string): Promise<System> {
-  const file = await readYaml(path.join(folder, 'system.yaml'), systemFile);
+async function readSystem(folder: string, workspace: string): Promise<System> {
+  const file = await readYaml(pathIn(folder, 'system.yaml'), systemFile);
+  const narratives = await readSystemNarratives(folder, workspace);
   return {
     id: file.id,
+    ...(narratives === undefined ? {} : { narratives }),
     name: file.name,
     purpose: file.purpose ?? null,
     ...(file.tier === undefined ? {} : { tier: file.tier }),
@@ -95,13 +96,13 @@ async function readYaml<Schema extends z.ZodType>(
   file: string,
   schema: Schema,
 ): Promise<z.output<Schema>> {
-  const result = schema.safeParse(parse(await readFile(file, 'utf8')));
+  const result = schema.safeParse(parse(await readText(file)));
   if (!result.success) throw new Error(`${file}: ${result.error.message}`);
   return result.data;
 }
 
 async function folders(folder: string): Promise<readonly string[]> {
-  const entries = await readdir(folder, { withFileTypes: true }).catch(() => []);
+  const entries = await listFolder(folder);
   return entries
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)

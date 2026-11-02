@@ -10,15 +10,18 @@ import { DomainTarget } from './index';
 afterEach(cleanup);
 
 describe('DomainTarget', () => {
-  it('draws the flow, then the shifts from today', () => {
-    render(<DomainTarget target={targetViewOf(acme().today, 'orders')} />);
+  it('draws the flow, each stage in words, then the shifts from today', () => {
+    render(
+      <DomainTarget flow={<p>The drawing</p>} target={targetViewOf(acme().today, 'orders')} />,
+    );
     const flow = screen.getByRole('region', { name: 'Flow' });
+    expect(within(flow).getByText('The drawing')).toBeTruthy();
+    expect(document.querySelector('#stage-payment')?.textContent).toContain('Payment');
     expect(
       within(flow)
         .getAllByRole('heading', { level: 3 })
         .map((h) => h.textContent),
     ).toEqual(['Order', 'Payment']);
-    expect(within(flow).getByText('from Order')).toBeTruthy();
     const shifts = screen.getByRole('region', { name: 'Shifts' });
     expect(within(shifts).getByText('Pay before announcing')).toBeTruthy();
     expect(within(shifts).getByText('Today')).toBeTruthy();

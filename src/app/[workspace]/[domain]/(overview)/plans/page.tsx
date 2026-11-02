@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { domainPlanRowsOf } from '@/application/plan-index';
@@ -13,6 +14,8 @@ interface Params {
 
 // The plans that reach the domain, read like the workspace's Plans page but narrowed to the domain: search them,
 // cut them by stage, and see which other domains each one also lands in.
+export const metadata: Metadata = { title: 'Plans' };
+
 export default async function DomainPlansRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id, domain } = await params;
   const data = await todayData(id);

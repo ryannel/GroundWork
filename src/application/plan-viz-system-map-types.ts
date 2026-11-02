@@ -158,7 +158,7 @@ export interface DrawnNode {
   readonly partCount: number;
   /** A system folded to one card. */
   readonly folded: boolean;
-  /** A system card's foot: the team that owns it, and how big it is ("10 parts · 7 stores"). */
+  /** A system card's foot: the team that owns it and its total component count. */
   readonly owner: string;
   readonly size: string;
 }

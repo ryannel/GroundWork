@@ -7,6 +7,7 @@ import type { VersionsData } from '@/application/plan-story-versions-data';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 import { listRevisions, readRevision } from './plan-store';
+import { untilEdited } from './workspace-memo';
 import { readLoadedPlan } from './workspace-plans';
 
 /** Every snapshot a ledger version has on disk, by version; one the schema rejects is left out. */
@@ -22,7 +23,7 @@ async function snapshots(workspace: string, slug: string): Promise<Record<string
   return plans;
 }
 
-const cached = new Map<string, Promise<VersionsData | null>>();
+const remembered = untilEdited<VersionsData | null>();
 
 async function load(workspace: string, slug: string): Promise<VersionsData | null> {
   const loaded = await readLoadedPlan(workspace, slug);
@@ -33,12 +34,7 @@ async function load(workspace: string, slug: string): Promise<VersionsData | nul
   return { revision, delivery: deliveryOf(loaded.plan, loaded.status, approved) };
 }
 
-/** A plan's revisions and delivery, read once per build: the ledger with every snapshot on disk. Null without a ledger. */
+/** A plan's revisions and delivery, refreshed when workspace files change. Null without a ledger. */
 export async function planRevision(workspace: string, slug: string): Promise<VersionsData | null> {
-  const key = `${workspace}/${slug}`;
-  const known = cached.get(key);
-  if (known !== undefined) return known;
-  const pending = load(workspace, slug);
-  cached.set(key, pending);
-  return pending;
+  return remembered(undefined, `${workspace}/${slug}`, async () => load(workspace, slug));
 }

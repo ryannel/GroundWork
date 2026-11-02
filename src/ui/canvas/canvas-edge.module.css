@@ -1,0 +1,125 @@
+@layer components {
+  .arrow {
+    fill: var(--edge-strong);
+  }
+
+  .arrowLit {
+    fill: var(--accent);
+  }
+
+  .edge {
+    cursor: pointer;
+    transition: opacity var(--t-1) var(--ease);
+  }
+
+  .edge > .line {
+    fill: none;
+    stroke: var(--edge-strong);
+    stroke-width: 2.5;
+    pointer-events: none;
+  }
+
+  .edge > text {
+    fill: var(--fg-2);
+    font-size: var(--fs-13);
+    paint-order: stroke;
+    stroke: var(--bg-0);
+    stroke-width: 7px;
+    stroke-linejoin: round;
+    pointer-events: none;
+  }
+
+  .edgeLabel,
+  .raised {
+    pointer-events: none;
+  }
+
+  .description {
+    overflow: visible;
+  }
+
+  .raised > path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 3.5;
+  }
+
+  .raised > text {
+    fill: var(--fg-1);
+    font-size: var(--fs-13);
+    paint-order: stroke;
+    stroke: var(--bg-0);
+    stroke-width: 7px;
+    stroke-linejoin: round;
+  }
+
+  .edge[data-kind='message'] > .line,
+  .raised[data-kind='message'] > path {
+    stroke-dasharray: 8 6;
+  }
+
+  .edge[data-kind='data'] > .line,
+  .raised[data-kind='data'] > path,
+  .edge[data-kind='membership'] > .line,
+  .raised[data-kind='membership'] > path {
+    stroke-dasharray: 2 7;
+  }
+
+  .edge[data-pattern='dotted'] > .line,
+  .raised[data-pattern='dotted'] > path {
+    stroke-dasharray: 2 7;
+  }
+
+  .edge[data-pattern='dashed'] > .line,
+  .raised[data-pattern='dashed'] > path {
+    stroke-dasharray: 8 6;
+  }
+
+  .edge[data-muted] {
+    opacity: 0.12;
+  }
+
+  .edge[data-muted] > text {
+    display: none;
+  }
+
+  .edge[data-lit] > .line {
+    stroke: var(--accent);
+    stroke-width: 3;
+  }
+
+  .edge[data-context]:not([data-lit], [data-muted]) {
+    opacity: 0.3;
+  }
+
+  .edge[data-supporting]:not([data-context], [data-lit], [data-muted]) {
+    opacity: 0.65;
+  }
+
+  .edge[data-supporting]:not([data-lit]) > .line {
+    stroke-width: 1.5;
+  }
+
+  .edge[data-context]:not([data-lit]) > .line {
+    stroke-width: 1.5;
+  }
+
+  .edge[data-quiet]:not([data-lit]) > text {
+    display: none;
+  }
+
+  .edge > .edgeHit {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 16;
+    pointer-events: stroke;
+  }
+
+  .edge[data-muted] > .edgeHit {
+    pointer-events: none;
+  }
+
+  .edge:focus-visible {
+    outline: none;
+  }
+}

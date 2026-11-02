@@ -11,7 +11,11 @@ vi.mock(import('next/navigation'), async (original) => {
     ...actual,
     useSearchParams: () => new actual.ReadonlyURLSearchParams(globalThis.location.search),
     useRouter: () =>
-      ({ push: vi.fn<(href: string) => void>() }) as unknown as ReturnType<typeof actual.useRouter>,
+      ({
+        replace: (href: string) => {
+          globalThis.history.replaceState(null, '', href);
+        },
+      }) as unknown as ReturnType<typeof actual.useRouter>,
   };
 });
 

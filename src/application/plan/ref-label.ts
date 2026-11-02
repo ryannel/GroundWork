@@ -1,19 +1,16 @@
 type Labeller = (id: string) => string | null;
 
-let current: Labeller | null = null;
-
-/**
- * Register how the current plan labels an id. Text flattened to plain words (titles, chips, search) reads
- * `[[id]]` through it; derive() registers the plan it works out, and `null` removes it.
- */
-export function setRefLabel(labeller: Labeller | null): void {
-  current = labeller;
-}
-
-/** The label of a bare `[[id]]`. Without a plan that knows it, the id's slug becomes words, so raw ids never reach the reader. */
-export function refLabel(id: string): string {
-  const label = current?.(id) ?? null;
-  if (label !== null && label !== id) return label;
+/** A reference's authored label, or readable words from its id when it is unknown. */
+export function refLabel(id: string, label?: Labeller): string {
+  const found = label?.(id) ?? null;
+  if (found !== null && found !== id) return found;
   const slug = id.replace(/^[a-z]+:/u, '');
   return (slug.split('#').pop() ?? slug).replaceAll(/[-_]/gu, ' ');
+}
+
+/** A resolver belonging to one model; deriving another model cannot change it. */
+export function labelsOf(model: {
+  readonly label: (id: string) => string;
+}): (id: string) => string {
+  return (id) => refLabel(id, model.label);
 }

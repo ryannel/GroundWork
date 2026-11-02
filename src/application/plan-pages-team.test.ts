@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { derive } from '@/application/plan/derive';
 
 import { outlineOf } from './plan-pages';
-import { crumbOf, teamHidden, teamPages, teamPlaces } from './plan-pages-team';
+import { crumbOf, lensTeam, teamHidden, teamPages, teamPlaces } from './plan-pages-team';
 
 vi.mock(import('server-only'), () => ({}));
 
@@ -72,5 +72,17 @@ describe('team pages', () => {
     const page = outline.pages.find((p) => p.chapter === 'why');
     if (page === undefined) throw new Error('mini.yaml has a why');
     expect(crumbOf(outline, page)).toEqual(['1 · Why', page.title]);
+  });
+});
+
+describe('the lens team', () => {
+  it('names a plan team with or without its prefix, and nobody otherwise', () => {
+    const [first] = model.plan.teams;
+    if (first === undefined) throw new Error('no team');
+    expect(lensTeam(model, first.id)).toBe(first.id);
+    expect(lensTeam(model, first.id.replace(/^team:/u, ''))).toBe(first.id);
+    expect(lensTeam(model, 'nobody')).toBeNull();
+    expect(lensTeam(model, null)).toBeNull();
+    expect(lensTeam(model, '')).toBeNull();
   });
 });

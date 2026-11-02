@@ -1,0 +1,215 @@
+{
+  "format": "benchmark-reference/v1",
+  "acceptance": "Every required semantic check must be established by newly extracted structured facts or marked depth_failed/incomplete. Source snippets, node counts and old frozen capture facts cannot satisfy semantic depth. Unknowns remain incomplete, not correct.",
+  "scopes": [
+    {
+      "id": "go-dispatch-river",
+      "repo": "volvo-cars/cce-optimization-facade",
+      "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+      "questions": [
+        {
+          "id": "typed-registry-remains-conditional",
+          "root": {
+            "symbol": "Dispatch",
+            "anchor": {
+              "path": "internal/service/command/dispatcher.go",
+              "lines": [28, 35]
+            }
+          },
+          "checks": [
+            {
+              "id": "go-contextual-registry",
+              "assertion": "Registry key is reflect.TypeOf(key[C]{}); AddHandler[C] mutates a package-level map. Dispatch lacks an unconditional concrete handler target without matching C and registry/config context."
+            },
+            {
+              "id": "go-error-not-throw",
+              "assertion": "Missing map key returns an ordinary error value; found path type-asserts handler.(commandHandler[C]) and returns Handle(ctx,cmd) error. Normal return does not establish nil-error success."
+            }
+          ]
+        },
+        {
+          "id": "enqueue-versus-commit",
+          "root": {
+            "symbol": "Enqueue",
+            "receiver": "*RiverClient",
+            "anchor": {
+              "path": "internal/database/queuedb/client.go",
+              "lines": [90, 102]
+            }
+          },
+          "checks": [
+            {
+              "id": "go-insert-before-commit",
+              "assertion": "Begin error returns immediately; defer rollback registered after successful Begin; InsertTx(ctx,tx,job,nil) error returns before Commit; success path returns tx.Commit(ctx) result."
+            },
+            {
+              "id": "go-enqueue-not-delivery",
+              "assertion": "InsertTx transaction completion is separate from worker execution/delivery. Source config in this same selected file has MaxAttempts:1 and JobTimeout:5*time.Hour; neither establishes exactly-once delivery."
+            }
+          ]
+        },
+        {
+          "id": "policy-write-fields",
+          "root": {
+            "symbol": "create",
+            "receiver": "*PolicyRepository",
+            "anchor": {
+              "path": "internal/database/postgres/policyrulesetrepository.go",
+              "lines": [110, 140]
+            }
+          },
+          "checks": [
+            {
+              "id": "go-sql-positional-bindings",
+              "assertion": "INSERT policy_rulesets columns pno12,model_year,spec_market,local_edition_code,policy_id,rule_set_path bind respectively Car.Pno12.String(),Car.ModelYear,Car.SpecMarket,Car.LocalEditionCode,PolicyID,RulesetPath as $1..$6."
+            },
+            {
+              "id": "go-staged-versus-committed",
+              "assertion": "create/update return nil only when Exec err is nil, but outer Upsert commits after upsert returns nil; Commit error is wrapped and returned. create returning nil proves no transaction commit by itself."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "next-actor-endpoint",
+      "repo": "volvo-cars/cdls-mono-volvocars",
+      "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+      "questions": [
+        {
+          "id": "address-trigger-and-request",
+          "root": {
+            "symbol": "StepAddress",
+            "nestedSymbol": "handleSelect",
+            "anchor": {
+              "path": "apps/ev-subsidy/src/components/wizard/StepAddress/index.tsx",
+              "lines": [13, 48]
+            }
+          },
+          "checks": [
+            {
+              "id": "ts-address-callback-and-wire",
+              "assertion": "AddressInput onPlaceChanged invokes handlePlaceChanged, guards autocomplete and geometry, calls onSelectAction with address/lat/lng; StepAddress binds onSelectAction={handleSelect} and POSTs only {lat:location.lat,lng:location.lng}. Library callback invocation remains declared rather than observed."
+            },
+            {
+              "id": "ts-address-response-and-availability",
+              "assertion": "handleSelect awaits fetch then checks !res.ok then awaits res.json; success sets isEligible(data.eligible), catch sets false, finally loading false. Continue button invokes onNextAction and is disabled when loading || isEligible !== true."
+            }
+          ]
+        },
+        {
+          "id": "income-trigger-does-not-wait-for-helper",
+          "root": {
+            "symbol": "StepPersons",
+            "nestedSymbol": "submitData",
+            "anchor": {
+              "path": "apps/ev-subsidy/src/components/wizard/StepPersons/index.tsx",
+              "lines": [23, 71]
+            }
+          },
+          "checks": [
+            {
+              "id": "ts-income-callback-not-awaiting",
+              "assertion": "Confirmation native button handler calls submitData() WITHOUT await or return and immediately invokes tracker.customEvent; submitData itself sets loading and awaits POST fetch with JSON.stringify({rows,childrenAmount}). Button disabled guard is hasEmptyFields || loading."
+            },
+            {
+              "id": "ts-income-response-to-onNext",
+              "assertion": "submitData awaits res.json only after !res.ok check. incomeSection.status eligible passes six incomeSection.details fields to onNext; else calls onNext() without payload. catch logs and does not onNext; finally loading false."
+            }
+          ]
+        },
+        {
+          "id": "server-request-values-and-await",
+          "root": {
+            "symbol": "POST",
+            "anchor": {
+              "path": "apps/ev-subsidy/app/api/ev-subsidy/eligibility/route.ts",
+              "lines": [5, 100]
+            }
+          },
+          "checks": [
+            {
+              "id": "ts-server-lineage-and-hops",
+              "assertion": "POST awaits req.json, validates numeric lat/lng, awaits lookup GET with lat -> lat and lng -> lon URL selector; awaits lookupRes.json and derives desoCode/municipalityCode into eligibility POST JSON with constants monthsAtAddress=4 and monthsInArea=12."
+            },
+            {
+              "id": "ts-server-failure-and-output",
+              "assertion": "Missing API key yields500; invalid lat/lng yields400; failed lookup/eligibility returns respective downstream status; missing desoCode yields400; successful body {eligible} derives geography section status; unexpected catch yields500."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spring-write-async",
+      "repo": "volvo-cars/cds-ecom-customer-service",
+      "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+      "questions": [
+        {
+          "id": "equal-save-and-order",
+          "root": {
+            "symbol": "saveAndPostProcess",
+            "anchor": {
+              "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerService.java",
+              "lines": [251, 263]
+            }
+          },
+          "checks": [
+            {
+              "id": "spring-equal-branch",
+              "assertion": "When updatedCustomer.equals(previousCustomer), return updatedCustomer without validate, save or postProcess; these calls occur only after the early-return branch."
+            },
+            {
+              "id": "spring-rebound-save-result",
+              "assertion": "On changed-customer path validate(updatedCustomer) precedes updatedCustomer = customerRepository.save(updatedCustomer), and postProcess(previousCustomer, updatedCustomer) receives the REBOUND save result, which is also returned."
+            },
+            {
+              "id": "spring-async-activation",
+              "assertion": "postProcess is source-declared @Async void; calls publishCustomerEvent then publishAnalyticsEvent then audit log then marketing consent in that method. Runtime async proxy/activation is unresolved within the fixed file set; do not assert synchronous completion or guaranteed scheduling."
+            }
+          ]
+        },
+        {
+          "id": "async-publication-and-completion",
+          "root": {
+            "symbol": "publishAnalyticsEvent",
+            "anchor": {
+              "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/analytics/AnalyticsEventService.java",
+              "lines": [39, 69]
+            }
+          },
+          "checks": [
+            {
+              "id": "spring-disabled-publication",
+              "assertion": "Null kafkaTemplate OR disabled settings returns completedFuture(null) with no send on that branch."
+            },
+            {
+              "id": "spring-returned-completion",
+              "assertion": "Return value is kafkaTemplate.send(message).thenRun(log callback), a CompletableFuture<Void>; send invocation/returned handle, completion callback and consumer delivery remain distinct. settings.topicName(), updated.customerId(), event, VERSION, PRODUCER_ID construct the published message."
+            }
+          ]
+        },
+        {
+          "id": "archive-failure-window",
+          "root": {
+            "symbol": "moveCustomerToArchivedCollection",
+            "anchor": {
+              "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customerarchive/CustomerArchiveService.java",
+              "lines": [37, 49]
+            }
+          },
+          "checks": [
+            {
+              "id": "spring-archive-order",
+              "assertion": "Within try: upsertCustomerArchive(customer) precedes deleteCustomer(customer.customerId()), then addExpired. Catch(Exception) calls addFailed and logs, allowing iteration to continue."
+            },
+            {
+              "id": "spring-archive-failure-window",
+              "assertion": "If archive upsert succeeds and later customer delete throws, catch increments failed; fixed scope establishes neither transaction rollback nor compensation across repositories."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -32,7 +32,7 @@ const callKey = (c: FanoutCall): string => `${c.from}|${c.to}|${c.via ?? ''}`;
 function endService(core: Core, g: SystemGraph, id: string): string | null {
   const n = g.get(id) ?? core.sys(id);
   if (n?.$type === 'service') return n.id;
-  return n?.$type === 'store' ? n.owner : null;
+  return n?.$type === 'store' ? (n.owner ?? null) : null;
 }
 
 /** Merge links of the same call, listing every step that makes it. */

@@ -3,6 +3,7 @@ import type { BaseInfo } from '@/application/plan/plan-base';
 import type { PlanCard } from '@/application/plan-footprint';
 import type { Outline } from '@/application/plan-pages';
 import type { VersionsData } from '@/application/plan-story-versions-data';
+import type { SearchParams } from '@/shared/search-params';
 
 import { ChapterBoundary } from './chapter-boundary.client';
 import { PlanShell } from './plan-shell';
@@ -22,6 +23,9 @@ interface PlanPageProps {
   readonly plans?: readonly PlanCard[];
   /** Where the plan's today comes from. */
   readonly base?: BaseInfo;
+  /** The team the address cuts the page to (`?team=`), or null for everyone. */
+  readonly lens?: string | null;
+  readonly searchParams?: SearchParams;
 }
 
 const NO_PLANS: NonNullable<PlanPageProps['plans']> = [];
@@ -36,6 +40,8 @@ export function PlanPage({
   versions = null,
   plans = NO_PLANS,
   base,
+  lens = null,
+  searchParams,
 }: PlanPageProps) {
   const page = outline.pages.find((p) => p.chapter === chapter && p.screen === screen);
   if (page === undefined) return null;
@@ -49,7 +55,15 @@ export function PlanPage({
       workspaceName={workspaceName}
     >
       <ChapterBoundary key={page.href}>
-        {body({ model, outline, page, versions, ...(base === undefined ? {} : { base }) })}
+        {body({
+          model,
+          outline,
+          page,
+          versions,
+          lens,
+          ...(searchParams === undefined ? {} : { searchParams }),
+          ...(base === undefined ? {} : { base }),
+        })}
       </ChapterBoundary>
       <Remember model={model} outline={outline} page={page} />
     </PlanShell>

@@ -1,0 +1,125 @@
+@layer components {
+  .header {
+    height: 84px;
+    flex: none;
+  }
+
+  .header[data-density='dense'] {
+    height: 104px;
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    line-height: 1.25;
+  }
+
+  .meta,
+  .owner {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .meta {
+    color: var(--fg-2);
+  }
+
+  .owner {
+    color: var(--fg-3);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-2);
+    font-size: var(--fs-12);
+    line-height: 1.25;
+  }
+
+  .action {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--accent-fg);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .action:hover {
+    text-decoration: underline;
+  }
+
+  .action:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .activities {
+    padding-inline: var(--s-3);
+  }
+
+  .boundaryHeader {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--s-1) var(--s-3);
+    align-items: start;
+  }
+
+  .identity {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+    min-width: 0;
+  }
+
+  .name {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0;
+    color: var(--fg-1);
+    font-size: var(--fs-16);
+    font-weight: 600;
+    line-height: 1.3;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .purpose {
+    grid-column: 1;
+    overflow: hidden;
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .boundaryHeader > .actions {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .boundaryHeader[data-dense] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .boundaryHeader[data-dense] .name {
+    font-size: var(--fs-13);
+  }
+
+  .boundaryHeader[data-dense] .purpose {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    white-space: normal;
+    line-height: 1.25;
+  }
+
+  .boundaryHeader[data-dense] > .actions {
+    grid-column: 1;
+    grid-row: auto;
+    justify-content: flex-end;
+  }
+}

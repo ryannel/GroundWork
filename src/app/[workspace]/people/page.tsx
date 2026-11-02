@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { domainMapOf } from '@/application/landscape-domains';
@@ -6,18 +7,12 @@ import { workspaceHref } from '@/application/workspace-paths';
 import { TodayOverlays, TodaySearch } from '@/features/plan';
 import { PeoplePage, WorkspaceShell } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
 
 interface Params {
   readonly workspace: string;
 }
 
-export const dynamicParams = false;
-
-export async function generateStaticParams(): Promise<Params[]> {
-  const workspaces = await readWorkspaces();
-  return workspaces.map(({ id }) => ({ workspace: id }));
-}
+export const metadata: Metadata = { title: 'People' };
 
 export default async function PeopleRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id } = await params;

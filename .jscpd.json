@@ -1,0 +1,10 @@
+{
+  "path": ["src", "tools"],
+  "pattern": "**/*.{ts,tsx}",
+  "ignore": ["**/*.test.ts", "**/*.test.tsx", "**/*.generated.ts"],
+  "minTokens": 70,
+  "threshold": 0.5,
+  "reporters": ["console"],
+  "silent": true,
+  "gitignore": true
+}

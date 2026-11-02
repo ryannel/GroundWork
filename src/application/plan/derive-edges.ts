@@ -21,7 +21,7 @@ const isTopic = (kind: string): boolean => kind === 'topic' || kind === 'queue';
 /** The services whose steps carry a message to them, with the steps that do. */
 function walkedConsumers(
   g: SystemGraph,
-  m: { readonly id: string; readonly producer: string },
+  m: { readonly id: string; readonly producer?: string },
 ): Map<string, string[]> {
   const bySvc = new Map<string, string[]>();
   for (const s of g.steps) {
@@ -51,7 +51,11 @@ function publishIn(g: SystemGraph, msgId: string): StepPoint[] {
   const m = g.get(msgId);
   if (m?.$type !== 'message') return [];
   return g.steps
-    .filter((s) => s.via === msgId && (s.from === m.producer || s.to === m.topic))
+    .filter((s) => {
+      if (s.via !== msgId) return false;
+      if (s.from === m.producer || s.to === m.topic) return true;
+      return g.get(s.from)?.$type === 'service' && g.get(s.to)?.$type === 'service';
+    })
     .map(point);
 }
 
@@ -144,7 +148,10 @@ type StoreGraph = ReturnType<Core['graphOf']>;
 /** One cell per service that reads or writes a store: who owns it, how it may access it, which steps touch it. */
 function storeCells(g: StoreGraph, edges: readonly Edge[]): StoreCell[] {
   return edges
-    .filter((e) => e.kind === 'data')
+    .filter((e) => {
+      const store = g.get(e.to);
+      return e.kind === 'data' && store?.$type === 'store' && !isTopic(store.kind);
+    })
     .map((e) => {
       const st = g.get(e.to);
       const access =
@@ -248,6 +255,7 @@ function messageEdges(g: SystemGraph, put: Put): void {
   for (const m of g.messages) {
     const hub = g.has(m.topic) ? m.topic : null;
     const to = hub ?? m.producer;
+    if (to === undefined) continue;
     if (hub !== null) publishEdges(g, m, put);
     for (const c of consumersIn(g, m.id)) {
       put({ from: to, to: c.svc, via: m.id, kind: 'msg' });
@@ -258,19 +266,26 @@ function messageEdges(g: SystemGraph, put: Put): void {
 
 function publishEdges(
   g: SystemGraph,
-  m: { readonly id: string; readonly producer: string; readonly topic: string },
+  m: { readonly id: string; readonly producer?: string; readonly topic: string },
   put: Put,
 ) {
-  const edge = { from: m.producer, to: m.topic, via: m.id, kind: 'msg' as const };
-  put(edge);
-  for (const p of publishIn(g, m.id)) put(edge, p.step);
+  if (m.producer !== undefined) {
+    put({ from: m.producer, to: m.topic, via: m.id, kind: 'msg' });
+  }
+  for (const p of publishIn(g, m.id)) {
+    const from = g.get(p.from)?.$type === 'service' ? p.from : m.producer;
+    if (from !== undefined) put({ from, to: m.topic, via: m.id, kind: 'msg' }, p.step);
+  }
 }
 
 /** A store's owner reads and writes it; so may the services its access list names. */
 function storeAccessEdges(g: SystemGraph, put: Put): void {
   for (const st of g.stores) {
-    if (isTopic(st.kind)) continue;
-    put({ from: st.owner, to: st.id, kind: 'data', read: true, write: true });
+    const topic = isTopic(st.kind);
+    if (topic && g.messages.some((message) => message.topic === st.id)) continue;
+    if (!topic && st.owner !== undefined) {
+      put({ from: st.owner, to: st.id, kind: 'data', read: true, write: true });
+    }
     for (const a of st.access ?? []) {
       put({
         from: a.svc,
@@ -289,7 +304,7 @@ type Fanned = ReturnType<Core['fanout']>;
 function fannedEdges(g: SystemGraph, fo: Fanned, [put, stepId]: readonly [Put, string]): void {
   for (const d of fo.data) {
     const store = g.get(d.store);
-    if (typeof d.svc === 'string' && store?.$type === 'store' && !isTopic(store.kind)) {
+    if (typeof d.svc === 'string' && store?.$type === 'store') {
       const edge = { from: d.svc, to: store.id, kind: 'data' as const };
       put({ ...edge, read: d.rw === 'read', write: d.rw === 'write' }, stepId);
     }
@@ -317,10 +332,10 @@ function dataEdges(core: Core, g: SystemGraph, put: Put): void {
 function internalEdge(g: SystemGraph, s: StepNode, put: Put): void {
   const to = g.get(s.to);
   const from = g.get(s.from);
-  if (to?.$type === 'store' && from?.$type === 'service' && !isTopic(to.kind)) {
+  if (to?.$type === 'store' && from?.$type === 'service') {
     put({ from: s.from, to: s.to, kind: 'data', write: true }, s.id);
   }
-  if (from?.$type === 'store' && to?.$type === 'service' && !isTopic(from.kind)) {
+  if (from?.$type === 'store' && to?.$type === 'service') {
     put({ from: s.to, to: s.from, kind: 'data', read: true }, s.id);
   }
 }

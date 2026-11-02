@@ -48,12 +48,14 @@ export function ownerLists(model: Model, team: string, { hide }: OwnerOptions = 
   const cut = model.teamCut(team);
   const keep = (id: string): boolean => hide?.(id) !== true;
   const owned = new Set(cut.services);
-  const stores = union(model.asIs.stores, model.toBe.stores).filter((s) => owned.has(s.owner));
+  const stores = union(model.asIs.stores, model.toBe.stores).filter(
+    (s) => s.owner !== undefined && owned.has(s.owner),
+  );
   const interfaces = union(model.asIs.interfaces, model.toBe.interfaces).filter((i) =>
     owned.has(i.service),
   );
-  const messages = union(model.asIs.messages, model.toBe.messages).filter((m) =>
-    owned.has(m.producer),
+  const messages = union(model.asIs.messages, model.toBe.messages).filter(
+    (m) => m.producer !== undefined && owned.has(m.producer),
   );
   const decisions = (model.plan.decisions ?? []).filter(
     (d) => d.decider === team && d.status === 'proposed',
@@ -74,7 +76,7 @@ export function ownerLists(model: Model, team: string, { hide }: OwnerOptions = 
 }
 
 /** The name a count's hover card gives a thing. */
-export const nameOf = (model: Model, id: string): string => plainLine(model.label(id));
+export const nameOf = (model: Model, id: string): string => plainLine(model.label(id), model);
 
 /** "3" before delivery; "3 · 1 done" once work is in GitHub. */
 export function workText(model: Model, ids: readonly string[]): string {

@@ -17,9 +17,9 @@ import { openId, serverOpenId, subscribe } from '@/features/plan/inspector-histo
 export type LineFilter = 'all' | LineKind;
 export type Layer = keyof MapShow;
 
-// A map with more stages than this, or about more than one system, opens as an overview; the reader asks for
-// the parts.
+// Large maps open as an overview; components and their interfaces remain one click away.
 const WIDE = 5;
+const DETAILED_COMPONENTS = 12;
 
 export interface SystemMapState {
   readonly show: MapShow;
@@ -51,7 +51,11 @@ function pinnedOf(drawing: SystemMapDrawing | null, open: string | null): TraceT
 /** What the reader has chosen to see, the map drawn for it, and what the pointer is tracing. */
 export function useSystemMap(input: SystemMapInput, focus: LineFilter = 'all'): SystemMapState {
   const [show, setLayers] = useState<MapShow>(() =>
-    new Set(Object.values(input.stageOf)).size > WIDE || bySystem(input) ? SHOW_OVERVIEW : SHOW_ALL,
+    new Set(Object.values(input.stageOf)).size > WIDE ||
+    input.services.length > DETAILED_COMPONENTS ||
+    bySystem(input)
+      ? SHOW_OVERVIEW
+      : SHOW_ALL,
   );
   const [filter, setFilter] = useState<LineFilter>(focus);
   const [flip, setFlip] = useState<ReadonlySet<string>>(new Set());

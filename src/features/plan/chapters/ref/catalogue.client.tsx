@@ -2,8 +2,8 @@
 
 import { Suspense, useEffect, useId, useRef, useState, type ReactNode } from 'react';
 
-import { DEFAULT_SHOW, SHOWS, SHOW_WORD, type Show, showOf } from '@/application/plan-story-ref';
-import { LENS_PARAM, setParam, useLens, useParam } from '@/features/plan/lens.client';
+import { DEFAULT_SHOW, SHOWS, SHOW_WORD, type Show, showOf } from '@/application/reference/model';
+import { setParam, useLens, useParam, useSetLens } from '@/features/plan/lens.client';
 import { Legend } from '@/ui/legend';
 
 import { filterRows } from './catalogue-filter';
@@ -61,6 +61,7 @@ function Live({ noun, bodies, teams, search = true }: CatalogueProps) {
   const asked = showOf(useParam(SHOW_PARAM));
   const show = shows.includes(asked) ? asked : (shows[0] ?? DEFAULT_SHOW);
   const param = useLens();
+  const setLens = useSetLens();
   const lens =
     Object.keys(teams).find((id) => id === param || id === `team:${param ?? ''}`) ?? null;
   const [query, setQuery] = useState('');
@@ -112,7 +113,7 @@ function Live({ noun, bodies, teams, search = true }: CatalogueProps) {
             <button
               className={styles.everyone}
               onClick={() => {
-                setParam(LENS_PARAM, null);
+                setLens(null);
               }}
               type="button"
             >

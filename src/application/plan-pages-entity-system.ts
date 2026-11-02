@@ -17,7 +17,7 @@ function systemsOf(model: Model): Map<string, string> {
   const of = new Map<string, string>();
   for (const s of model.plan.services) if (s.system !== undefined) of.set(s.id, s.system);
   for (const st of model.plan.stores ?? []) {
-    const sys = of.get(st.owner);
+    const sys = st.owner === undefined ? undefined : of.get(st.owner);
     if (sys !== undefined) of.set(st.id, sys);
   }
   return of;

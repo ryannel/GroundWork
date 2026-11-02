@@ -1,10 +1,10 @@
 import type { Model } from '@/application/plan/derive';
+import { deciding, titleOf, numberOf } from '@/application/plan-viz-decision';
 import {
   decidingSearch,
   registerGroups,
   type RegisterGroupView,
-} from '@/application/plan-story-ref-register';
-import { deciding, titleOf, numberOf } from '@/application/plan-viz-decision';
+} from '@/application/reference/register';
 import { EntityChip } from '@/features/plan/common/entity-chip';
 import { TeamTag } from '@/features/plan/common/team-dot';
 import { DecisionCard } from '@/features/plan/viz/decisions/decision-card';
@@ -39,7 +39,7 @@ function Folded({ model, g }: { readonly model: Model; readonly g: RegisterGroup
           <li key={id} {...rowAttrs(decidingSearch(model, e), '')}>
             <EntityChip
               id={id}
-              label={`${numberOf(model, id)} ${titleOf(e)}`}
+              label={`${numberOf(model, id)} ${titleOf(e, model)}`}
               model={model}
               status="existing"
             />

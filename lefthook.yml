@@ -16,8 +16,8 @@ pre-commit:
       glob: '**/*.{ts,tsx,mts}'
       run: npx tsc --noEmit
     tests:
-      glob: 'src/**/*.{ts,tsx,css}'
-      run: npx vitest related --run --project unit --passWithNoTests {staged_files}
+      glob: '{src,tools}/**/*.{ts,tsx,css}'
+      run: npx vitest related --run --project unit --project integration --project scanner --passWithNoTests {staged_files}
 
 pre-push:
   commands:

@@ -37,8 +37,8 @@ const WHEN: Readonly<Record<string, string>> = {
   interval: 'on a timer',
 };
 
-const sentenceOf = (text: string | undefined): string => {
-  const line = plainLine(text).replaceAll(/\s+/gu, ' ').trim();
+const sentenceOf = (text: string | undefined, model: Model): string => {
+  const line = plainLine(text, model).replaceAll(/\s+/gu, ' ').trim();
   const end = line.search(/[!.?](?=\s|$)/u);
   return end === -1 ? line : line.slice(0, end + 1);
 };
@@ -112,7 +112,7 @@ function behindOp(model: Model, op: Operation): BehindOp | null {
   const fields = plan.selected.filter((x) => x.addedByRouter === null).length;
   const subgraphs = new Set(plan.fetches.map((f) => f.subgraph)).size;
   const teams = [...new Set(plan.teams)];
-  const own = sentenceOf(op.summary);
+  const own = sentenceOf(op.summary, model);
   const counts = `${countOf(fields, 'field')} · ${countOf(subgraphs, 'subgraph')} · ${countOf(teams.length, 'team')}`;
   return {
     id: op.id,

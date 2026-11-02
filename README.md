@@ -5,10 +5,17 @@ The systems a company runs, and the plans that change them.
 ```sh
 npm install          # also installs the git hooks
 npm run dev          # http://localhost:3000
-npm run check        # everything, in parallel
-npm run lint:changed # lint only what you changed
-npm run build        # static site in out/
+npm run check:begin  # record the task’s starting point; preserves existing edits
+npm run check:quick  # check only changes since that point, with timings
+npm run test:web     # website tests
+npm run test:scan    # scanner and command-line tests
+npm run check        # full merge checks, including coverage and architecture
+npm run build        # then npm start serves it
 ```
+
+For an explicit scope, use `npm run check:quick -- src/features/workspace/component-cards.tsx`.
+Use one task per checkout. Full checks remain required for shared logic and tooling changes, and before
+merging; see [the development checks](docs/architecture.md#focused-development-checks).
 
 Each workspace is its own repo of YAML: the systems a company runs today and the plans that change them.
 `workspaces/` holds two examples. Clone Groundwork, then link whichever workspace repos you want to read; each

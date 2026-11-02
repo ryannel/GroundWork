@@ -9,7 +9,7 @@ import {
 
 import { screenEntry, type PaletteEntry } from './plan-pages-search';
 import { journeysHref, referenceHref } from './today-reader';
-import { domainHref, systemHref, workspaceHref } from './workspace-paths';
+import { domainHref, systemHref, valueFlowsHref, workspaceHref } from './workspace-paths';
 
 // What a thing's page of today says beyond what the inspector does: where it sits in the workspace, and the
 // code that says so.
@@ -149,6 +149,7 @@ export function codeEvidenceOf(
 export function todayScreensOf(workspace: Workspace): PaletteEntry[] {
   return [
     screenEntry({ href: workspaceHref(workspace.id), title: 'Landscape', hint: workspace.name }),
+    screenEntry({ href: valueFlowsHref(workspace.id), title: 'Value Flows', hint: workspace.name }),
     ...workspace.domains.flatMap((domain) => [
       screenEntry({
         href: domainHref(workspace.id, domain.id),

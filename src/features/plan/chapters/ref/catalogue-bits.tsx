@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react';
 
 import type { Model } from '@/application/plan/derive';
-import { SHOWS, type Show } from '@/application/plan-story-ref';
-import { teamOf } from '@/application/plan-viz-teams';
+import { SHOWS, type Show } from '@/application/reference/model';
 import { Catalogue } from '@/features/plan/chapters/ref/catalogue.client';
 import { EntityChip } from '@/features/plan/common/entity-chip';
 import { TeamDot } from '@/features/plan/common/team-dot';
@@ -19,6 +18,8 @@ export interface CatProps {
   readonly today?: boolean | undefined;
   /** The model's address relative to the page, for what a catalogue draws only when it is opened. */
   readonly src: string;
+  /** The team the address cuts the page to (`?team=`), or null for everyone. */
+  readonly lens?: string | null | undefined;
 }
 
 /** The attributes a row carries so the filter box and the team lens can find it. */
@@ -97,25 +98,6 @@ export function Group({ title, count, note, team, children }: GroupProps) {
   );
 }
 
-/** The group head's team, for the lens dot; none when the thing has no team. */
-export const teamGroup = (
-  model: Model,
-  id: string,
-): { readonly model: Model; readonly id: string } | undefined => {
-  const team = teamOf(model, id);
-  return team === null ? undefined : { model, id: team };
-};
-
-/** Team dots side by side. */
-export function Dots({ children }: { readonly children: ReactNode }) {
-  return <span className={styles.dots}>{children}</span>;
-}
-
-/** A grid of small pictures. */
-export function Shots({ children }: { readonly children: ReactNode }) {
-  return <div className={styles.shots}>{children}</div>;
-}
-
 /** A column of blocks. */
 export function Stack({ children }: { readonly children: ReactNode }) {
   return <div className={styles.stack}>{children}</div>;
@@ -140,45 +122,6 @@ export function Fold({
 /** A grid of cards. */
 export function Cards({ children }: { readonly children: ReactNode }) {
   return <div className={styles.cards}>{children}</div>;
-}
-
-interface CardProps {
-  readonly search: string;
-  readonly teams: string;
-  /** Unchanged and untouched by the plan: shown quietly in the diff. */
-  readonly faded?: boolean;
-  /** The owning team's colour slot, drawn as a stripe. */
-  readonly slot?: number | undefined;
-  readonly children: ReactNode;
-}
-
-export function Card({ search, teams, faded = false, slot, children }: CardProps) {
-  return (
-    <article
-      className={styles.card}
-      data-faded={faded ? '' : undefined}
-      data-team-slot={slot}
-      {...rowAttrs(search, teams)}
-    >
-      {children}
-    </article>
-  );
-}
-
-/** Label and value pairs; a pair with no value is left out. */
-export function Facts({ rows }: { readonly rows: readonly (readonly [string, ReactNode])[] }) {
-  return (
-    <dl className={styles.facts}>
-      {rows
-        .filter(([, value]) => value !== null && value !== false)
-        .map(([label, value]) => (
-          <div className={styles.fact} key={label}>
-            <dt>{label}</dt>
-            <dd>{value}</dd>
-          </div>
-        ))}
-    </dl>
-  );
 }
 
 /** A table that folds to labelled rows when narrow. */

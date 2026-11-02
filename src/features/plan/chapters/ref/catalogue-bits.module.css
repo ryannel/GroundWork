@@ -35,59 +35,6 @@
     gap: var(--s-3);
   }
 
-  .card {
-    display: grid;
-    gap: var(--s-2);
-    align-content: start;
-    padding: var(--s-3) var(--s-4);
-    border: 1px solid var(--line-1);
-    border-radius: var(--r-3);
-    background: var(--bg-1);
-
-    &[data-faded] {
-      opacity: 0.7;
-    }
-
-    &[data-team-slot] {
-      position: relative;
-    }
-
-    &[data-team-slot]::before {
-      position: absolute;
-      inset-block: var(--s-3);
-      inset-inline-start: -1px;
-      width: 3px;
-      border-radius: var(--r-1);
-      background: var(--team);
-      content: '';
-    }
-  }
-
-  .facts {
-    display: grid;
-    gap: var(--s-2);
-    margin: 0;
-  }
-
-  .fact {
-    display: grid;
-    grid-template-columns: 7rem 1fr;
-    gap: var(--s-2);
-    align-items: baseline;
-
-    & dt {
-      color: var(--fg-3);
-      font-size: var(--fs-12);
-      text-transform: uppercase;
-      letter-spacing: var(--tracking-caps);
-    }
-
-    & dd {
-      margin: 0;
-      min-width: 0;
-    }
-  }
-
   .none {
     color: var(--fg-3);
   }
@@ -158,17 +105,6 @@
     border: 1px dashed var(--line-2);
     border-radius: var(--r-3);
     color: var(--fg-3);
-  }
-
-  .dots {
-    display: inline-flex;
-    gap: var(--s-1);
-  }
-
-  .shots {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-    gap: var(--s-3);
   }
 
   .stack {

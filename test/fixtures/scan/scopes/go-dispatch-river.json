@@ -1,0 +1,105 @@
+{
+  "format": "scan-scope/v1",
+  "id": "go-dispatch-river",
+  "repo": "volvo-cars/cce-optimization-facade",
+  "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+  "ref": "HEAD",
+  "files": [
+    {
+      "path": "internal/api/httpserver/eventroutes.go",
+      "language": "go",
+      "environment": "server"
+    },
+    {
+      "path": "internal/api/httpserver/marketmapping/controller.go",
+      "language": "go",
+      "environment": "server"
+    },
+    {
+      "path": "internal/api/httpserver/policy/synccontroller.go",
+      "language": "go",
+      "environment": "server"
+    },
+    {
+      "path": "internal/service/command/dispatcher.go",
+      "language": "go",
+      "environment": "server"
+    },
+    {
+      "path": "internal/service/query/dispatcher.go",
+      "language": "go",
+      "environment": "server"
+    },
+    {
+      "path": "internal/service/command/addpolicymapping.go",
+      "language": "go",
+      "environment": "server"
+    },
+    {
+      "path": "internal/database/queuedb/client.go",
+      "language": "go",
+      "environment": "server"
+    },
+    {
+      "path": "internal/database/queuedb/worker.go",
+      "language": "go",
+      "environment": "server"
+    },
+    {
+      "path": "internal/database/postgres/policyrulesetrepository.go",
+      "language": "go",
+      "environment": "server"
+    }
+  ],
+  "questions": [
+    {
+      "id": "typed-registry-remains-conditional",
+      "profile": "endpoint",
+      "path": "internal/service/command/dispatcher.go",
+      "symbol": "Dispatch",
+      "checks": [
+        {
+          "kind": "control",
+          "text": "!ok"
+        },
+        {
+          "kind": "call",
+          "text": "Handle"
+        }
+      ]
+    },
+    {
+      "id": "enqueue-versus-commit",
+      "profile": "endpoint",
+      "path": "internal/database/queuedb/client.go",
+      "symbol": "Enqueue",
+      "checks": [
+        {
+          "kind": "call",
+          "text": "InsertTx"
+        },
+        {
+          "kind": "call",
+          "text": "Commit"
+        }
+      ]
+    },
+    {
+      "id": "policy-write-fields",
+      "profile": "endpoint",
+      "path": "internal/database/postgres/policyrulesetrepository.go",
+      "symbol": "create",
+      "checks": [
+        {
+          "kind": "call",
+          "text": "Exec"
+        },
+        {
+          "kind": "value",
+          "text": "rule_set_path"
+        }
+      ]
+    }
+  ],
+  "workspace": "volvo-cars"
+}

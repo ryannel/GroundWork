@@ -86,6 +86,34 @@ function whereOf(scope: MapScope, focus: ReadonlySet<string>, id: string): Where
   return focus.has(id) ? 'in' : 'out';
 }
 
+/** Keep only lookup data the scoped drawing can reach, rather than serialising the whole workspace. */
+function scopedReferences(input: SystemMapInput): SystemMapInput {
+  const ids = new Set([
+    ...[...input.services, ...input.systems, ...input.stores].flatMap((node) => [
+      node.id,
+      node.team ?? '',
+    ]),
+    ...input.edges.flatMap((edge) => [edge.from, edge.to, edge.via ?? '', ...edge.steps]),
+    ...input.steps.flatMap((step) => [step.id, step.via, step.id.split('#')[0] ?? '']),
+    ...input.stages.flatMap((stage) => stage.entries.flatMap((entry) => entry.reads)),
+  ]);
+  for (const id of ids) {
+    const parent = input.refs[id]?.parent ?? input.interfaceOf[id];
+    if (parent !== undefined) ids.add(parent);
+  }
+  const keep = <T>(values: Readonly<Record<string, T>>): Record<string, T> =>
+    Object.fromEntries(Object.entries(values).filter(([id]) => ids.has(id)));
+  return {
+    ...input,
+    refs: keep(input.refs),
+    labels: keep(input.labels),
+    interfaceOf: keep(input.interfaceOf),
+    ...(input.callWords === undefined ? {} : { callWords: keep(input.callWords) }),
+    ...(input.carries === undefined ? {} : { carries: keep(input.carries) }),
+    ...(input.tiers === undefined ? {} : { tiers: keep(input.tiers) }),
+  };
+}
+
 /** The input narrowed to the scope; the whole input, with each system's place said, when there is no focus. */
 export function scopeMapInput(input: SystemMapInput, scope: MapScope): SystemMapInput {
   const focus = new Set(scope.focus);
@@ -111,9 +139,10 @@ export function scopeMapInput(input: SystemMapInput, scope: MapScope): SystemMap
     stageOf: Object.fromEntries(Object.entries(input.stageOf).filter(([id]) => shown.has(id))),
     focus: [...focus],
   };
-  return bySystem(scoped)
+  const located = bySystem(scoped)
     ? { ...scoped, systems: scoped.systems.map((s) => homed(s, input, scope)) }
     : scoped;
+  return scopedReferences(located);
 }
 
 /** On a map read system by system, another domain's system says its domain once, over its band, not on its card. */

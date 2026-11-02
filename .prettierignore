@@ -1,5 +1,4 @@
 .next
-out
 coverage
 node_modules
 package-lock.json
@@ -10,3 +9,7 @@ workspaces/*/plans/
 schema/
 workspaces/*/MAP.md
 .workspaces
+
+# Generated scan trial outputs are evidence, not maintained source.
+docs/scan-trials/
+artifacts/

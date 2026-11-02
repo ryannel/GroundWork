@@ -99,7 +99,7 @@ function opsOf(model: Model, id: string): LedgerRow['ops'] {
     key: `${String(i)}-${d.summary}`,
     kind: d.kind ?? 'modify',
     // a summary may already carry its sign; the row draws the sign itself
-    text: plainLine(d.summary).replace(/^[+~×−-] /u, ''),
+    text: plainLine(d.summary, model).replace(/^[+~×−-] /u, ''),
   }));
 }
 

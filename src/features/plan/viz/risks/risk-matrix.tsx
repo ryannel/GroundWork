@@ -40,7 +40,7 @@ function Dot({ model, risk, focus }: DotProps) {
   const number = numberOfRisk(model, risk);
   return (
     <button
-      aria-label={`${number}: ${statementOf(risk)}`}
+      aria-label={`${number}: ${statementOf(risk, model)}`}
       className={styles.dot}
       data-facts={riskFacts(model, risk)}
       data-focus={focusOf(risk, focus)}

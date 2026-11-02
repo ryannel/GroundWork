@@ -1,0 +1,104 @@
+{
+  "format": "scan-scope/v1",
+  "id": "next-actor-endpoint",
+  "repo": "volvo-cars/cdls-mono-volvocars",
+  "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+  "ref": "HEAD",
+  "files": [
+    {
+      "path": "apps/ev-subsidy/src/components/wizard/AddressInput/index.tsx",
+      "language": "typescript",
+      "environment": "browser"
+    },
+    {
+      "path": "apps/ev-subsidy/src/components/wizard/StepAddress/index.tsx",
+      "language": "typescript",
+      "environment": "browser"
+    },
+    {
+      "path": "apps/ev-subsidy/src/components/wizard/StepPersons/index.tsx",
+      "language": "typescript",
+      "environment": "browser"
+    },
+    {
+      "path": "apps/ev-subsidy/src/components/wizard/Wizard.tsx",
+      "language": "typescript",
+      "environment": "browser"
+    },
+    {
+      "path": "apps/ev-subsidy/src/RootLayoutProvider.tsx",
+      "language": "typescript",
+      "environment": "browser"
+    },
+    {
+      "path": "apps/ev-subsidy/app/api/ev-subsidy/eligibility/route.ts",
+      "language": "typescript",
+      "environment": "server"
+    },
+    {
+      "path": "apps/ev-subsidy/app/api/ev-subsidy/income/route.ts",
+      "language": "typescript",
+      "environment": "server"
+    },
+    {
+      "path": "apps/ev-subsidy/proxy.ts",
+      "language": "typescript",
+      "environment": "server"
+    }
+  ],
+  "questions": [
+    {
+      "id": "address-trigger-and-request",
+      "profile": "action",
+      "path": "apps/ev-subsidy/src/components/wizard/StepAddress/index.tsx",
+      "symbol": "",
+      "checks": [
+        {
+          "kind": "lexical_control",
+          "text": "onSelectAction"
+        },
+        {
+          "kind": "call",
+          "text": "fetch"
+        }
+      ]
+    },
+    {
+      "id": "income-trigger-does-not-wait-for-helper",
+      "profile": "action",
+      "path": "apps/ev-subsidy/src/components/wizard/StepPersons/index.tsx",
+      "symbol": "",
+      "checks": [
+        {
+          "kind": "lexical_control",
+          "text": "onClick"
+        },
+        {
+          "kind": "call",
+          "text": "fetch"
+        }
+      ]
+    },
+    {
+      "id": "server-request-values-and-await",
+      "profile": "endpoint",
+      "path": "apps/ev-subsidy/app/api/ev-subsidy/eligibility/route.ts",
+      "symbol": "POST",
+      "checks": [
+        {
+          "kind": "await",
+          "text": "req.json"
+        },
+        {
+          "kind": "call",
+          "text": "fetch"
+        },
+        {
+          "kind": "control",
+          "text": "!lookupRes.ok"
+        }
+      ]
+    }
+  ],
+  "workspace": "volvo-cars"
+}

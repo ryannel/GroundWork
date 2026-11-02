@@ -5,6 +5,8 @@ import styles from './data-table.module.css';
 interface Column {
   readonly key: string;
   readonly label: string;
+  /** Keep short metadata together while other columns wrap. */
+  readonly compact?: boolean;
 }
 
 interface Row {
@@ -33,7 +35,11 @@ export function DataTable({ caption, captionHidden = false, columns, rows }: Dat
         <thead>
           <tr>
             {columns.map((column) => (
-              <th key={column.key} scope="col">
+              <th
+                data-compact={column.compact === true ? '' : undefined}
+                key={column.key}
+                scope="col"
+              >
                 {column.label}
               </th>
             ))}
@@ -43,7 +49,11 @@ export function DataTable({ caption, captionHidden = false, columns, rows }: Dat
           {rows.map((row) => (
             <tr data-search={row.search} key={row.key}>
               {columns.map((column) => (
-                <td data-label={column.label} key={column.key}>
+                <td
+                  data-compact={column.compact === true ? '' : undefined}
+                  data-label={column.label}
+                  key={column.key}
+                >
                   {row.cells[column.key]}
                 </td>
               ))}

@@ -1,8 +1,5 @@
 import 'server-only';
 
-import { readFile } from 'node:fs/promises';
-import path from 'node:path';
-
 import type { ValidateFunction } from 'ajv';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
@@ -13,6 +10,7 @@ import { isRecord, prop } from '@/application/plan/ids';
 import { validatePlan } from '@/application/plan/validate-plan';
 import type { Fanout } from '@/domain/plan/plan-graph';
 import type { Plan } from '@/domain/plan/plan.generated';
+import { pathIn, readText } from '@/infrastructure/disk';
 
 import { rewriteErrors, shapeProblems } from './plan-schema-errors';
 
@@ -32,7 +30,7 @@ let compiled: Promise<Validators> | undefined;
 
 async function compile(): Promise<Validators> {
   const schema: unknown = JSON.parse(
-    await readFile(path.join(process.cwd(), 'schema', 'plan.schema.json'), 'utf8'),
+    await readText(pathIn(process.cwd(), 'schema', 'plan.schema.json')),
   );
   const id = prop(schema, '$id');
   if (!isRecord(schema) || typeof id !== 'string') throw new Error('plan.schema.json has no $id');

@@ -22,7 +22,7 @@ registerHooks({
     let base: string | undefined;
     if (specifier.startsWith('@/')) base = path.join(SRC, specifier.slice(2));
     else if (local) base = path.resolve(path.dirname(fileURLToPath(parent)), specifier);
-    const file = base === undefined || path.extname(base) === '.json' ? undefined : located(base);
+    const file = base === undefined ? undefined : located(base);
     if (file !== undefined) return next(pathToFileURL(file).href, context);
     return next(specifier, context);
   },

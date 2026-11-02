@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://plan-atlas.dev/schema/plan.schema.json",
   "title": "Plan Atlas plan.yaml",
-  "description": "Base arrays describe the system as it is today; every delta is an op inside changes[]. See SPEC.md \u00a71.",
+  "description": "Base arrays describe the system as it is today; every delta is an op inside changes[]. See SPEC.md §1.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -424,35 +424,105 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["version", "status", "date"],
+            "required": [
+              "version",
+              "status",
+              "date"
+            ],
             "properties": {
-              "version": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)*$", "description": "major.minor, e.g. 1.1; a scope change (goals, non-goals, milestones) is a new major" },
-              "status": { "enum": ["proposed", "approved", "rejected"] },
-              "date": { "$ref": "#/$defs/date", "description": "when proposed (YYYY-MM-DD)" },
-              "summary": { "type": "string", "description": "one line: what this revision changes and why it is proposed" },
-              "why": { "type": "string", "description": "the proposer's reasoning in two or three sentences: what is wrong without it and why this way; the revision page leads with it" },
+              "version": {
+                "type": "string",
+                "pattern": "^[0-9]+(?:\\.[0-9]+)*$",
+                "description": "major.minor, e.g. 1.1; a scope change (goals, non-goals, milestones) is a new major"
+              },
+              "status": {
+                "enum": [
+                  "proposed",
+                  "approved",
+                  "rejected"
+                ]
+              },
+              "date": {
+                "$ref": "#/$defs/date",
+                "description": "when proposed (YYYY-MM-DD)"
+              },
+              "summary": {
+                "type": "string",
+                "description": "one line: what this revision changes and why it is proposed"
+              },
+              "why": {
+                "type": "string",
+                "description": "the proposer's reasoning in two or three sentences: what is wrong without it and why this way; the revision page leads with it"
+              },
               "work": {
                 "type": "array",
                 "description": "the proposer's word on what happens to work items the revision touches; the page infers the rest and marks it as inferred",
                 "items": {
                   "type": "object",
                   "additionalProperties": false,
-                  "required": ["item", "action"],
+                  "required": [
+                    "item",
+                    "action"
+                  ],
                   "properties": {
-                    "item": { "type": "string", "pattern": "^wi:", "description": "the work item" },
-                    "action": { "enum": ["rework", "keep", "drop", "new"], "description": "rework: it changes (reopened when done); keep: it stands as it is; drop: it goes; new: it is added" },
-                    "note": { "type": "string", "description": "what changes for it, in a sentence" }
+                    "item": {
+                      "type": "string",
+                      "pattern": "^wi:",
+                      "description": "the work item"
+                    },
+                    "action": {
+                      "enum": [
+                        "rework",
+                        "keep",
+                        "drop",
+                        "new"
+                      ],
+                      "description": "rework: it changes (reopened when done); keep: it stands as it is; drop: it goes; new: it is added"
+                    },
+                    "note": {
+                      "type": "string",
+                      "description": "what changes for it, in a sentence"
+                    }
                   }
                 }
               },
-              "by": { "type": "array", "items": { "type": "string" }, "description": "who proposes it: team ids (team:…) or names" },
-              "pr": { "type": "integer", "minimum": 1, "description": "the pull request that proposed it" },
-              "approved_on": { "$ref": "#/$defs/date" },
-              "approved_by": { "type": "string", "pattern": "^@[A-Za-z0-9][A-Za-z0-9-]*$", "description": "a GitHub handle such as @ryannel: whoever merged the pull request. One person answers for it; there is no sign-off across teams" },
-              "rejected_on": { "$ref": "#/$defs/date" },
-              "rejected_by": { "type": "string", "pattern": "^@[A-Za-z0-9][A-Za-z0-9-]*$", "description": "a GitHub handle such as @ryannel: whoever closed the pull request" },
-              "reason": { "type": "string", "description": "why it was approved or rejected, in a sentence or two; a rejection without one leaves the history unexplained" },
-              "approval_pr": { "type": "integer", "minimum": 1, "description": "the pull request that approved or rejected it; leave it out when that is the pull request that proposed it (`pr`)" }
+              "by": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "who proposes it: team ids (team:…) or names"
+              },
+              "pr": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "the pull request that proposed it"
+              },
+              "approved_on": {
+                "$ref": "#/$defs/date"
+              },
+              "approved_by": {
+                "type": "string",
+                "pattern": "^@[A-Za-z0-9][A-Za-z0-9-]*$",
+                "description": "a GitHub handle such as @ryannel: whoever merged the pull request. One person answers for it; there is no sign-off across teams"
+              },
+              "rejected_on": {
+                "$ref": "#/$defs/date"
+              },
+              "rejected_by": {
+                "type": "string",
+                "pattern": "^@[A-Za-z0-9][A-Za-z0-9-]*$",
+                "description": "a GitHub handle such as @ryannel: whoever closed the pull request"
+              },
+              "reason": {
+                "type": "string",
+                "description": "why it was approved or rejected, in a sentence or two; a rejection without one leaves the history unexplained"
+              },
+              "approval_pr": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "the pull request that approved or rejected it; leave it out when that is the pull request that proposed it (`pr`)"
+              }
             }
           }
         },
@@ -629,7 +699,7 @@
         },
         "does": {
           "type": "string",
-          "description": "the role of the whole system in plain words, \u2264 10 words; shown at the top of its card"
+          "description": "the role of the whole system in plain words, ≤ 10 words; shown at the top of its card"
         },
         "summary": {
           "type": "string",
@@ -680,7 +750,7 @@
         },
         "does": {
           "type": "string",
-          "description": "its role in plain words a newcomer understands: what it does for the business, \u2264 10 words, sentence case, no jargon or code names. Shown on the system map card"
+          "description": "its role in plain words a newcomer understands: what it does for the business, ≤ 10 words, sentence case, no jargon or code names. Shown on the system map card"
         },
         "infrastructure": {
           "type": "boolean",
@@ -725,8 +795,7 @@
       "required": [
         "id",
         "name",
-        "kind",
-        "owner"
+        "kind"
       ],
       "properties": {
         "id": {
@@ -750,10 +819,11 @@
         },
         "does": {
           "type": "string",
-          "description": "its role in plain words a newcomer understands: what it holds or carries, and for whom, \u2264 10 words, sentence case, no jargon or code names. Shown on the system map card"
+          "description": "its role in plain words a newcomer understands: what it holds or carries, and for whom, ≤ 10 words, sentence case, no jargon or code names. Shown on the system map card"
         },
         "owner": {
-          "$ref": "#/$defs/id_svc"
+          "$ref": "#/$defs/id_svc",
+          "description": "The identified owning component. Omit when ownership has not been established; recorded access does not imply ownership."
         },
         "access": {
           "type": "array",
@@ -1250,8 +1320,7 @@
       "required": [
         "id",
         "name",
-        "topic",
-        "producer"
+        "topic"
       ],
       "properties": {
         "id": {
@@ -1270,7 +1339,8 @@
           "$ref": "#/$defs/id_sch"
         },
         "producer": {
-          "$ref": "#/$defs/id_svc"
+          "$ref": "#/$defs/id_svc",
+          "description": "The identified publisher. Omit when only consumption is established; the consumer is not a substitute publisher."
         },
         "consumers": {
           "type": "array",
@@ -2324,7 +2394,7 @@
         },
         "label": {
           "type": "string",
-          "description": "shown instead of the URL; defaults to repo \u00b7 path#line for GitHub blob links"
+          "description": "shown instead of the URL; defaults to repo · path#line for GitHub blob links"
         },
         "note": {
           "type": "string",
@@ -2986,8 +3056,14 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "latency_ms": { "type": "number", "minimum": 0, "description": "p50 of one fetch to this subgraph, in ms (a measurement, not a setting); lets the waterfall draw bars to scale" },
-            "source": { "type": "string" }
+            "latency_ms": {
+              "type": "number",
+              "minimum": 0,
+              "description": "p50 of one fetch to this subgraph, in ms (a measurement, not a setting); lets the waterfall draw bars to scale"
+            },
+            "source": {
+              "type": "string"
+            }
           },
           "description": "numbers from monitoring, not settings"
         },
@@ -3118,7 +3194,7 @@
             "submit",
             "interval"
           ],
-          "description": "when the front end sends it (fired when the page loads, when the button is pressed, \u2026)"
+          "description": "when the front end sends it (fired when the page loads, when the button is pressed, …)"
         }
       }
     },

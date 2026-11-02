@@ -5,12 +5,13 @@ import { Suspense, useEffect, useRef, type ReactNode } from 'react';
 
 import { replaceAddress } from '@/ui/address-bar';
 
-// The team lens and the catalogue mode live in the address as `?team=` and `?show=`, so a cut can be shared and
-// the page it applies to stays one static file. The server renders the whole page for everyone; these read the
-// search on the client and show the matching cut.
+// The team lens and the catalogue mode live in the address as `?team=` and `?show=`, so a cut can be shared. A
+// page whose words change with the team (Your part, the test pyramid) is drawn by the server for the team in the
+// address, so changing the lens asks for the page again; a cut that only hides or dims what is drawn for everyone
+// reads the address here and needs no new page.
 
 /** The search parameter a team lens travels in. */
-export const LENS_PARAM = 'team';
+const LENS_PARAM = 'team';
 
 /** The team the page is cut to, or null for everyone. */
 export function useLens(): string | null {
@@ -22,7 +23,7 @@ export function useParam(name: string): string | null {
   return useSearchParams().get(name);
 }
 
-/** Sets or clears one search parameter in place, without a navigation. */
+/** Sets or clears one search parameter in place, without a navigation: for what only the browser draws. */
 export function setParam(name: string, value: string | null): void {
   const url = new URL(globalThis.location.href);
   if (value === null) url.searchParams.delete(name);
@@ -30,28 +31,15 @@ export function setParam(name: string, value: string | null): void {
   replaceAddress(url);
 }
 
-interface ByLensProps {
-  /** What everyone sees. */
-  readonly everyone: ReactNode;
-  /** What each team sees, by team id. A lens with no entry here shows everyone. */
-  readonly teams: Readonly<Record<string, ReactNode>>;
-}
-
-function Pick({ everyone, teams }: ByLensProps) {
-  const lens = useLens();
-  const team = lens === null ? undefined : (teams[lens] ?? teams[`team:${lens}`]);
-  return (
-    <div data-lens={team === undefined ? undefined : (lens ?? undefined)}>{team ?? everyone}</div>
-  );
-}
-
-// The page for the team in the address, or for everyone. Static output holds the page for everyone.
-export function ByLens({ everyone, ...rest }: ByLensProps) {
-  return (
-    <Suspense fallback={everyone}>
-      <Pick everyone={everyone} {...rest} />
-    </Suspense>
-  );
+/** Sets or clears the team lens, asking the server for the page cut to that team. */
+export function useSetLens(): (team: string | null) => void {
+  const router = useRouter();
+  return (team) => {
+    const url = new URL(globalThis.location.href);
+    if (team === null) url.searchParams.delete(LENS_PARAM);
+    else url.searchParams.set(LENS_PARAM, team);
+    router.replace(`${url.pathname}${url.search}${url.hash}`, { scroll: false });
+  };
 }
 
 interface DimProps {
@@ -82,7 +70,7 @@ function Dimmed({ children, slots }: DimProps) {
   return <div ref={root}>{children}</div>;
 }
 
-// A page that only dims the other teams' rows for a lens: drawn once, dimmed on the client, so the file stays small.
+// A page that only dims the other teams' rows for a lens: drawn once, dimmed on the client.
 export function DimByLens({ children, slots }: DimProps) {
   return (
     <Suspense fallback={children}>

@@ -48,7 +48,7 @@ function AskItem({ model, e }: ItemProps) {
         <button className={styles.text} data-inspect={e.id} type="button">
           <span className={styles.number}>{numberOf(model, e.id)}</span>
           <Glyph glyph={isDecision(e) ? '⚖' : '?'} />
-          <span>{titleOf(e)}</span>
+          <span>{titleOf(e, model)}</span>
         </button>
         <span className={styles.when}>
           {e.decide_by === undefined ? (

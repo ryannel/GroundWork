@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { workspaceHref } from '@/application/workspace-paths';
@@ -10,6 +11,9 @@ interface Params {
   readonly domain: string;
   readonly system: string;
 }
+
+// Named by its layout: a layout's title template reaches the pages below it, not the page beside it.
+export const metadata: Metadata = {};
 
 // The system's busiest flow, read first.
 export default async function SystemRoute({ params }: { readonly params: Promise<Params> }) {

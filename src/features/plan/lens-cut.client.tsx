@@ -5,7 +5,7 @@ import { createContext, Suspense, use, type ReactNode } from 'react';
 import { useLens } from './lens.client';
 
 // A page drawn once for everyone, cut to a team on the client: each part names the teams that see it, and the
-// lens hides the rest. Unlike ByLens, nothing is drawn twice, so the file stays the size of one cut.
+// lens hides the rest, without asking the server again.
 
 const Known = createContext<readonly string[]>([]);
 
@@ -15,14 +15,6 @@ function useTeam(): string | null {
   const known = use(Known);
   if (lens === null) return null;
   return [lens, `team:${lens}`].find((id) => known.includes(id)) ?? null;
-}
-
-/** The entry `byTeam` holds for the team in the address, or undefined for everyone. */
-export function usePick<T>(byTeam: Readonly<Record<string, T>>): T | undefined {
-  const lens = useLens();
-  if (lens === null) return undefined;
-  const key = [lens, `team:${lens}`].find((id) => Object.hasOwn(byTeam, id));
-  return key === undefined ? undefined : byTeam[key];
 }
 
 interface LensTeamsProps {

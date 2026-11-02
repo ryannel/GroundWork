@@ -37,7 +37,7 @@ function eventPair(
 ): Pair[] {
   const message = nodeOf(model, step.via);
   const consumer = svcOf(step.to) ?? svcOf(step.from);
-  return consumer !== null && message?.$type === 'message'
+  return consumer !== null && message?.$type === 'message' && message.producer !== undefined
     ? [{ consumer, provider: message.producer, via: step.via }]
     : [];
 }
@@ -94,11 +94,12 @@ const live = (model: Model, id: string): boolean => {
 function messagePairs(model: Model): Pair[] {
   return model.toBe.messages
     .filter((m) => live(model, m.id))
-    .flatMap((m) =>
-      model
-        .consumersEffective(m.id)
-        .map((c) => ({ consumer: c.svc, provider: m.producer, via: m.id })),
-    );
+    .flatMap((m) => {
+      const provider = m.producer;
+      return provider === undefined
+        ? []
+        : model.consumersEffective(m.id).map((c) => ({ consumer: c.svc, provider, via: m.id }));
+    });
 }
 
 function callPairs(model: Model): Pair[] {

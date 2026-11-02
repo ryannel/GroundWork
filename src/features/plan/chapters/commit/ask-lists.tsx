@@ -28,7 +28,7 @@ export function StillOpen({
             <button className={styles.name} data-inspect={e.id} type="button">
               <span className={styles.number}>{numberOf(model, e.id)}</span>
               <Glyph glyph={isDecision(e) ? '⚖' : '?'} />
-              <span>{titleOf(e)}</span>
+              <span>{titleOf(e, model)}</span>
             </button>
             {e.decider === undefined ? null : <TeamTag model={model} teamId={e.decider} />}
             {e.decide_by === undefined ? null : (
@@ -59,7 +59,7 @@ export function AlsoOpen({
       {also.map(({ e, why }, i) => (
         <span key={e.id}>
           {i === 0 ? '' : '; '}
-          <NamedChip id={e.id} label={short(titleOf(e), 60)} model={model} />{' '}
+          <NamedChip id={e.id} label={short(titleOf(e, model), 60)} model={model} />{' '}
           <span className={styles.faint}>({why})</span>
         </span>
       ))}
@@ -81,7 +81,7 @@ export function RestLine({
     <p className={styles.line}>
       Also kept, with nothing waiting on {items.length === 1 ? 'it' : 'them'}:{' '}
       {items.map((e) => (
-        <NamedChip id={e.id} key={e.id} label={short(titleOf(e), 70)} model={model} />
+        <NamedChip id={e.id} key={e.id} label={short(titleOf(e, model), 70)} model={model} />
       ))}
     </p>
   );

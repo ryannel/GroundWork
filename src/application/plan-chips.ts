@@ -1,7 +1,7 @@
 import type { Model } from '@/application/plan/derive';
 import type { ElementStatus } from '@/application/plan/derive-core';
 import { prop, typeOf } from '@/application/plan/ids';
-import { refLabel } from '@/application/plan/ref-label';
+import { labelsOf, refLabel } from '@/application/plan/ref-label';
 import { glyphOf } from '@/application/plan-pages-entity';
 import type { EntityType } from '@/domain/plan/plan-ids';
 import { TYPE_WORDS } from '@/domain/plan/plan-vocab';
@@ -103,13 +103,13 @@ function refNumber(model: Model, id: string): string {
 }
 
 /** The question itself: the sentence that ends in "?", without the context around it. */
-export function questionTitle(text: string): string {
-  const words = plain(text, refLabel);
+export function questionTitle(text: string, label: (id: string) => string = refLabel): string {
+  const words = plain(text, label);
   const end = words.indexOf('?');
-  if (end === -1) return clip(words, refLabel, 90);
+  if (end === -1) return clip(words, label, 90);
   const head = words.slice(0, end + 1);
   const starts = [...head.matchAll(/[.!:;]\s+(?=[A-Z])/gu)].map((m) => m.index + m[0].length);
-  return clip(head.slice(starts.at(-1) ?? 0), refLabel, 110);
+  return clip(head.slice(starts.at(-1) ?? 0), label, 110);
 }
 
 const text = (entity: unknown, key: string): string | null => {
@@ -119,19 +119,20 @@ const text = (entity: unknown, key: string): string | null => {
 
 /** What a chip calls a thing: a risk or question by its gist, anything else by the model's label as plain text. */
 function chipLabel(model: Model, id: string): string {
+  const label = labelsOf(model);
   const entity = model.get(id);
   if (entity === undefined) return id;
   const type = typeOf(id);
   if (type === 'risk') {
-    return clip(text(entity, 'title') ?? text(entity, 'statement') ?? id, refLabel, 64);
+    return clip(text(entity, 'title') ?? text(entity, 'statement') ?? id, label, 64);
   }
   if (type === 'question') {
     const title = text(entity, 'title');
     return title === null
-      ? questionTitle(text(entity, 'question') ?? id)
-      : clip(title, refLabel, 90);
+      ? questionTitle(text(entity, 'question') ?? id, label)
+      : clip(title, label, 90);
   }
-  return plainTitle(model.label(id), refLabel).replaceAll('`', '');
+  return plainTitle(model.label(id), label).replaceAll('`', '');
 }
 
 /** Everything a chip needs to name one thing. */

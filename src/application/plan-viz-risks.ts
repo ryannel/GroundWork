@@ -13,7 +13,7 @@ const levelAt = (level: Level3 | undefined): number => Math.max(0, LEVELS.indexO
 const word = (level: Level3 | undefined): string => (level === undefined ? '' : LEVEL_WORD[level]);
 
 export const isResolved = (r: Risk): boolean => r.roam === 'resolved';
-export const statementOf = (r: Risk): string => plainLine(r.statement);
+export const statementOf = (r: Risk, model?: Model): string => plainLine(r.statement, model);
 export const numberOfRisk = (model: Model, r: Risk): string => chipInfo(model, r.id).number;
 
 /** 1 (low × low) to 9 (high × high). A level the plan leaves out counts as low. */

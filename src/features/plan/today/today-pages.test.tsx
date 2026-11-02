@@ -72,7 +72,10 @@ describe('reference of today', () => {
     'draws the %s catalogue with no modes and no status',
     (kind) => {
       const { container } = render(<TodayCatalogue kind={kind} model={model} workspace="acme" />);
-      expect(container.querySelectorAll('[data-search]').length).toBeGreaterThan(0);
+      expect(screen.getByRole('heading', { level: 1 }).textContent).toBe(
+        referenceOf(model).find((entry) => entry.kind === kind)?.title,
+      );
+      expect(container.querySelectorAll('[data-inspect]').length).toBeGreaterThan(0);
       expect(container.querySelector('input[type="radio"]')).toBeNull();
       expect(container.textContent).not.toMatch(/\badded\b|\bremoved\b/iu);
     },

@@ -1,0 +1,726 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://groundwork.local/schema/canonical-protobuf-contracts",
+  "title": "CanonicalProtobufContracts",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "canonical-protobuf-contracts/v1"
+    },
+    "repo": {
+      "type": "string",
+      "pattern": "^[^/]+/[^/]+$"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "source_inventory_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "compiler": {
+      "$ref": "#/$defs/Compiler"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/File"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "analysis_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "required": [
+    "format",
+    "repo",
+    "commit",
+    "source_inventory_sha256",
+    "compiler",
+    "files",
+    "limitations",
+    "analysis_sha256"
+  ],
+  "$defs": {
+    "Anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "lines": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "descriptor_path": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "lines",
+        "columns",
+        "descriptor_path"
+      ]
+    },
+    "Range": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "type": "integer"
+        },
+        "end": {
+          "type": "integer"
+        },
+        "end_semantics": {
+          "enum": [
+            "exclusive",
+            "inclusive"
+          ]
+        },
+        "anchor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Anchor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "end_semantics",
+        "anchor"
+      ]
+    },
+    "ReservedName": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "anchor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Anchor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "anchor"
+      ]
+    },
+    "MapType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "key_type": {
+          "type": "string"
+        },
+        "value_type": {
+          "type": "string"
+        },
+        "value_type_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key_type",
+        "value_type",
+        "value_type_name"
+      ]
+    },
+    "Field": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type_name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repeated": {
+          "type": "boolean"
+        },
+        "map": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MapType"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "oneof": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "proto3_optional": {
+          "type": "boolean"
+        },
+        "json_name": {
+          "type": "string"
+        },
+        "default_value": {
+          "type": "string"
+        },
+        "anchor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Anchor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "has_default_value": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "number",
+        "type",
+        "type_name",
+        "label",
+        "repeated",
+        "map",
+        "oneof",
+        "proto3_optional",
+        "json_name",
+        "default_value",
+        "anchor",
+        "has_default_value"
+      ]
+    },
+    "Oneof": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "synthetic": {
+          "type": "boolean"
+        },
+        "field_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "anchor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Anchor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "synthetic",
+        "field_ids",
+        "anchor"
+      ]
+    },
+    "EnumValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "number": {
+          "type": "integer"
+        },
+        "anchor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Anchor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "number",
+        "anchor"
+      ]
+    },
+    "Enum": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "fq_name": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EnumValue"
+          }
+        },
+        "reserved_ranges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Range"
+          }
+        },
+        "reserved_names": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReservedName"
+          }
+        },
+        "anchor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Anchor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "fq_name",
+        "values",
+        "reserved_ranges",
+        "reserved_names",
+        "anchor"
+      ]
+    },
+    "Message": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "fq_name": {
+          "type": "string"
+        },
+        "map_entry": {
+          "type": "boolean"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Field"
+          }
+        },
+        "nested_messages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Message"
+          }
+        },
+        "enums": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Enum"
+          }
+        },
+        "oneofs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Oneof"
+          }
+        },
+        "reserved_ranges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Range"
+          }
+        },
+        "reserved_names": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReservedName"
+          }
+        },
+        "extension_ranges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Range"
+          }
+        },
+        "anchor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Anchor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "fq_name",
+        "map_entry",
+        "fields",
+        "nested_messages",
+        "enums",
+        "oneofs",
+        "reserved_ranges",
+        "reserved_names",
+        "extension_ranges",
+        "anchor"
+      ]
+    },
+    "Rpc": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "input_type": {
+          "type": "string"
+        },
+        "output_type": {
+          "type": "string"
+        },
+        "client_streaming": {
+          "type": "boolean"
+        },
+        "server_streaming": {
+          "type": "boolean"
+        },
+        "anchor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Anchor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "input_type",
+        "output_type",
+        "client_streaming",
+        "server_streaming",
+        "anchor"
+      ]
+    },
+    "Service": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "fq_name": {
+          "type": "string"
+        },
+        "methods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Rpc"
+          }
+        },
+        "anchor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Anchor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "fq_name",
+        "methods",
+        "anchor"
+      ]
+    },
+    "Import": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "public": {
+          "type": "boolean"
+        },
+        "weak": {
+          "type": "boolean"
+        },
+        "anchor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Anchor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "path",
+        "public",
+        "weak",
+        "anchor"
+      ]
+    },
+    "File": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "anchor": {
+          "$ref": "#/$defs/Anchor"
+        },
+        "status": {
+          "enum": [
+            "extracted",
+            "compiler_failed",
+            "compiler_unavailable"
+          ]
+        },
+        "diagnostics": {
+          "type": "string"
+        },
+        "descriptor_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "package": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "syntax": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "imports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Import"
+          }
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Message"
+          }
+        },
+        "enums": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Enum"
+          }
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Service"
+          }
+        },
+        "unsupported": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "anchor",
+        "status",
+        "diagnostics",
+        "descriptor_sha256",
+        "package",
+        "syntax",
+        "imports",
+        "messages",
+        "enums",
+        "services",
+        "unsupported"
+      ]
+    },
+    "StandardInclude": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "lines": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "lines"
+      ]
+    },
+    "Compiler": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "available",
+            "unavailable"
+          ]
+        },
+        "protoc_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "python_protobuf_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "standard_include_root": {
+          "type": "string"
+        },
+        "standard_includes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StandardInclude"
+          }
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "protoc_version",
+        "python_protobuf_version",
+        "standard_include_root",
+        "standard_includes",
+        "reason"
+      ]
+    }
+  }
+}

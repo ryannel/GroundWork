@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 
@@ -7,14 +8,12 @@ import { partsFor } from '@/application/plan-footprint';
 import { domainPlanRowsOf } from '@/application/plan-index';
 import { domainViewOf } from '@/application/workspace-domain';
 import { domainWordsOf } from '@/application/workspace-language';
-import { systemPaths } from '@/application/workspace-paths';
 import { systemViewOf } from '@/application/workspace-system';
 import { FlowList, TodayMap, TodayOverlays, TodaySearch } from '@/features/plan';
 import { SystemPage } from '@/features/workspace';
+import { readExplorerNavigation } from '@/infrastructure/service-explorer-navigation';
 import { todayData } from '@/infrastructure/today-data';
 import { readLoadedPlans } from '@/infrastructure/workspace-plans';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
-import { NOTHING, orNothing } from '@/shared/static-params';
 
 interface Params {
   readonly workspace: string;
@@ -22,14 +21,16 @@ interface Params {
   readonly system: string;
 }
 
-export const dynamicParams = false;
-
-export async function generateStaticParams(): Promise<Params[]> {
-  return orNothing(systemPaths(await readWorkspaces()), {
-    workspace: NOTHING,
-    domain: NOTHING,
-    system: NOTHING,
-  });
+// Every page of the system names the system after its own title.
+export async function generateMetadata({
+  params,
+}: {
+  readonly params: Promise<Params>;
+}): Promise<Metadata> {
+  const { workspace: id, domain, system } = await params;
+  const data = await todayData(id);
+  const view = data === null ? null : systemViewOf(data.workspace, data.today, { domain, system });
+  return view === null ? {} : { title: { default: view.name, template: `%s · ${view.name}` } };
 }
 
 // The system page is a layout, so its flows can be pages of their own: picking one fetches only that flow.
@@ -47,6 +48,10 @@ export default async function SystemLayout({
   const place = data === null ? null : domainViewOf(data.workspace, data.today.model, domain);
   if (data === null || scope === null || view === null || place === null) notFound();
   const { workspace, today } = data;
+  const explorer = await readExplorerNavigation(id, {
+    components: view.components.map((component) => component.chip.id),
+    repositories: view.repos.map((repo) => repo.repo),
+  });
   const loaded = await readLoadedPlans(workspace.id);
   const parts = partsFor(workspace, { domain, system }, loaded);
   const nav = domainNavOf(workspace, place, {
@@ -62,6 +67,8 @@ export default async function SystemLayout({
   return (
     <SystemPage
       actions={<TodaySearch />}
+      explorerLinks={explorer.components}
+      explorerRepositories={explorer.repositories}
       flows={<FlowList flows={view.flows}>{children}</FlowList>}
       map={<TodayMap model={today.model} scope={scope} workspace={workspace} />}
       nav={nav}

@@ -60,13 +60,12 @@ describe('pyramid strip', () => {
 
   it('counts the team in the address when it follows the lens', () => {
     const model = load();
-    const everyone = render(<PyramidStrip lensed model={model} />);
+    const everyone = render(<PyramidStrip model={model} />);
     const all = unitCount();
     everyone.unmount();
     const team = 'team:catalogue';
     expect(model.teamCut(team).changes).toHaveLength(4);
-    globalThis.history.replaceState(null, '', `/?team=${team.replace('team:', '')}`);
-    render(<PyramidStrip lensed model={model} />);
+    render(<PyramidStrip lens={team.replace('team:', '')} model={model} />);
     expect(unitCount()).not.toBe(all);
     expect(unitCount()).toContain(`of ${String(model.teamCut(team).changes.length)} change`);
   });

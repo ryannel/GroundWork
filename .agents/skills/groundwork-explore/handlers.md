@@ -8,6 +8,11 @@ newcomer can read what happens, in order, without opening the code, and so a pla
 Write one handler for every business endpoint, message consumer, scheduled job and UI action in the repo. They
 go in the fragment's `handlers:` list; the merge writes them to the system's `handlers.yaml`.
 
+For REST endpoints, the tree is the control-flow projection of the mandatory
+[endpoint analysis](endpoint-flow.md). Trace middleware, delegated implementations and relevant libraries,
+not just the controller body. Record step-level data flow in the companion analysis; the current handler
+schema has no value-binding or stable execution-step fields. Do not imply those features already validate.
+
 ## Shape
 
 ```yaml
@@ -113,23 +118,25 @@ decisions and effects, not statements.
   then a `does` that says the relay publishes it, or `publish` with `async: true`);
 - every read from and write to a store the component owns or shares, as `read` or `write`, with the field when
   only one field changes (`sch:order#status`);
-- every business decision, as `if` with the condition in words a product person would use: "the basket is over
+- every meaningful decision, as `if` with the condition in plain words: "the basket is over
   the free-delivery threshold", not `if (total > cfg.fdt)`;
 - every loop over business things, as `each`: "each line in the basket";
 - concurrency (`parallel`), retries with their count, fallbacks (`try`/`catch`) and timers (`wait`);
-- what is returned and every way it fails.
+- what is returned and every way it fails;
+- validations, transformations, inherited fields and framework behaviour that affect a branch, transmitted
+  value, persisted value, permission or caller-visible outcome; link their inputs and outputs in the companion.
 
 **Collapse:**
 
-- validation, mapping, logging, metrics, tracing and null checks into one `does` or nothing at all; keep a
-  validation only when its failure is something the caller sees (then it is a `fails` entry);
+- incidental logging and plumbing into one `does` or nothing at all. Retain null checks, validation and mapping
+  whenever they affect decisions, data or outcomes; a mapper name alone does not explain a transformation;
 - helper functions into the steps they contain: follow the call, do not cite the helper as a step;
-- framework plumbing (dependency injection, middleware, serialisation) entirely, unless it makes a business
-  decision such as an auth rule specific to this endpoint;
+- framework plumbing only after checking whether shared authentication, validation, serialisation, exception
+  handling or client defaults affect this endpoint. Unknown framework behaviour is an explicit boundary;
 - a chain of trivial steps into one `does` sentence.
 
-A handler is usually 3 to 15 steps. Past about 25, the handler is doing several jobs: say so in `summary` and
-consider whether it is really two (a sync part and an async part, say).
+A handler may have a short summary, but readability is not a reason to omit branches or data effects. Group
+large paths into named sections in the companion. Split handlers only at a real trigger or execution boundary.
 
 **Sources:** the handler cites the whole function. Each **significant** step cites the lines that make it
 happen: every `call`, `publish`, `read`, `write`, `if`, `each`, `retry` and `try`, and every `fails` entry. A
@@ -166,7 +173,9 @@ know and let the orchestrator resolve it:
 ```
 
 This form is for fragments only; `call: "?"` does not validate. The merge either matches `target` to an endpoint
-in another system's `contracts.yaml` or rewrites the step as a `does` plus a question to the owning team.
+in another system's `contracts.yaml` or preserves the unresolved call, its bindings and the question in the
+endpoint companion. A schema-compatible `does` may describe it in today's handler, but does not count as a
+resolved connection or complete endpoint analysis.
 
 ## Re-scans
 

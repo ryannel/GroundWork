@@ -68,8 +68,8 @@ const IMPERATIVE = new Set(
 );
 
 /** The start of a statement up to a clause break, so a headline stays within two lines. */
-function clause(text: string, max = 64): string {
-  const t = trimStop(plainLine(text));
+function clause(text: string, max = 64, model?: Model): string {
+  const t = trimStop(plainLine(text, model));
   if (t.length <= max) return t;
   for (const sep of [', so ', ' and ', ', ', ' so ', ' because ']) {
     const at = t.indexOf(sep);
@@ -91,13 +91,13 @@ const firstOf = (text: string): string => /^.+?[!.?](?=\s|$)/u.exec(text)?.[0] ?
  */
 function settledClaim(model: Model, e: Decision): string {
   const who = e.decider === undefined ? 'The plan’s owner' : teamName(model, e.decider);
-  const title = trimStop(titleOf(e));
+  const title = trimStop(titleOf(e, model));
   if (IMPERATIVE.has(title.split(/\s+/u)[0]?.toLowerCase() ?? '')) {
     return `${who} decided to ${lowerFirst(title)}.`;
   }
-  const said = trimStop(firstOf(plainLine(e.decision)));
+  const said = trimStop(firstOf(plainLine(e.decision, model)));
   if (said !== '' && norm(said) !== norm(title)) {
-    const text = trimWith(lowerFirst(clause(said, 90)), TAIL);
+    const text = trimWith(lowerFirst(clause(said, 90, model)), TAIL);
     return `${who} decided: ${text}${/[.…]$/u.test(text) ? '' : '.'}`;
   }
   const on = e.decided_on === undefined ? '' : ` on ${shortDate(e.decided_on, model.today)}`;
@@ -157,7 +157,7 @@ export function choicesHeadline(model: Model, c: Choices): string {
     const undo =
       hardest === undefined
         ? ''
-        : `; the hardest to undo: ${lowerFirst(trimStop(titleOf(hardest)))}`;
+        : `; the hardest to undo: ${lowerFirst(trimStop(titleOf(hardest, model)))}`;
     return `Every choice is accepted${undo}.`;
   }
   const hard = hardLine({
@@ -221,7 +221,7 @@ export function risksHeadline(model: Model, rs: readonly Risk[]): string {
   if (rs.length === 1) return oneRiskHeadline(model, first);
   const top = rs.find((r) => r.roam !== 'resolved');
   if (top === undefined) return `All ${numWord(rs.length)} risks are resolved.`;
-  const said = lowerFirst(clause(top.statement));
+  const said = lowerFirst(clause(top.statement, 64, model));
   return `Biggest risk: ${said}${said.endsWith('…') ? '' : '.'}`;
 }
 

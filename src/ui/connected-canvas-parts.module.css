@@ -1,0 +1,177 @@
+@layer components {
+  .componentDetail {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--accent-line);
+    border-radius: var(--r-3);
+    background: var(--bg-1);
+  }
+
+  .componentHeader,
+  .componentFooter {
+    padding: var(--s-3);
+  }
+
+  .componentBody {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: auto;
+    border-block: 1px solid var(--line-1);
+  }
+
+  .attachmentGrid,
+  .contractGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-2);
+  }
+
+  .attachment {
+    min-width: 0;
+    padding: var(--s-2);
+    border: 1px dashed var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-0);
+  }
+
+  .inspectorSection {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    padding: var(--s-3);
+  }
+
+  .inspectorSection + .inspectorSection {
+    border-top: 1px solid var(--line-1);
+  }
+
+  .endpointChoice {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    width: 100%;
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--bg-0);
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .endpointChoice[aria-pressed='true'] {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .dependencyArrow {
+    display: grid;
+    grid-template-columns: minmax(var(--s-7), 1fr) minmax(0, 2fr);
+    gap: var(--s-2);
+    align-items: center;
+    min-width: 0;
+  }
+
+  .dependencyLine {
+    position: relative;
+    height: 2px;
+    background: var(--edge-strong);
+  }
+
+  .dependencyLine::after {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-block: 5px solid transparent;
+    border-left: 8px solid var(--edge-strong);
+    content: '';
+    transform: translateY(-50%);
+  }
+
+  .boundary {
+    fill: none;
+    stroke: var(--accent-line);
+    stroke-width: 1px;
+    stroke-dasharray: 8 6;
+    rx: var(--r-4);
+  }
+
+  .boundaryHeader {
+    box-sizing: border-box;
+    height: 100%;
+    padding: var(--s-2);
+  }
+
+  .systemScope {
+    --system-colour: var(--team-1);
+    --system-line: color-mix(in srgb, var(--system-colour) 35%, var(--line-2));
+    --system-background: color-mix(in srgb, var(--system-colour) 4%, var(--node-bg));
+
+    &[data-colour='2'] {
+      --system-colour: var(--team-2);
+    }
+
+    &[data-colour='3'] {
+      --system-colour: var(--team-3);
+    }
+
+    &[data-colour='4'] {
+      --system-colour: var(--team-4);
+    }
+
+    &[data-colour='5'] {
+      --system-colour: var(--team-5);
+    }
+
+    &[data-colour='6'] {
+      --system-colour: var(--team-6);
+    }
+
+    &[data-colour='7'] {
+      --system-colour: var(--team-7);
+    }
+
+    &[data-colour='8'] {
+      --system-colour: var(--team-8);
+    }
+
+    &[data-colour='9'] {
+      --system-colour: var(--team-9);
+    }
+
+    &[data-colour='10'] {
+      --system-colour: var(--team-10);
+    }
+
+    &[data-colour='11'] {
+      --system-colour: var(--team-11);
+    }
+
+    &[data-colour='12'] {
+      --system-colour: var(--team-12);
+    }
+
+    &[data-colour='13'] {
+      --system-colour: var(--team-13);
+    }
+
+    .boundary {
+      fill: color-mix(in srgb, var(--system-colour) 2%, transparent);
+      stroke: color-mix(in srgb, var(--system-colour) 80%, transparent);
+      stroke-width: 2px;
+      stroke-dasharray: none;
+    }
+
+    .boundaryHeader {
+      border-left: 4px solid var(--system-colour);
+      border-radius: var(--r-2);
+      background: color-mix(in srgb, var(--system-colour) 5%, var(--node-bg));
+    }
+  }
+}

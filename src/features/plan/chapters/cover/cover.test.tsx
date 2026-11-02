@@ -68,8 +68,7 @@ describe('Your part', () => {
   it.each(CHAPTER_PLANS)('draws the page of the lens team of %s', (_, plan, status) => {
     const props = screenOf(plan, 'part', status);
     for (const team of props.model.plan.teams) {
-      globalThis.history.replaceState(null, '', `/?team=${team.id}`);
-      const { container, unmount } = render(<CoverChapter {...props} />);
+      const { container, unmount } = render(<CoverChapter {...props} lens={team.id} />);
       expect(container.querySelector<HTMLElement>('[data-lens]')?.dataset.lens).toBe(team.id);
       expect(container.querySelector('h1 + div, h2 + div')?.textContent).not.toBe('');
       unmount();

@@ -21,11 +21,13 @@ export function List({
 interface ListItemProps {
   readonly children: ReactNode;
   readonly chosen?: boolean;
+  /** An anchor to link to the row. */
+  readonly id?: string;
 }
 
-export function ListItem({ children, chosen = false }: ListItemProps) {
+export function ListItem({ children, chosen = false, id }: ListItemProps) {
   return (
-    <li className={styles.item} data-chosen={chosen ? '' : undefined}>
+    <li className={styles.item} data-chosen={chosen ? '' : undefined} id={id}>
       {children}
     </li>
   );

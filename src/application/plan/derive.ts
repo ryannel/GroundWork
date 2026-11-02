@@ -17,7 +17,6 @@ import { memo } from '@/application/plan/derive-values';
 import type { FederationMembers } from '@/application/plan/federation-members';
 import { typeOf } from '@/application/plan/ids';
 import { createLayout, type Layout } from '@/application/plan/layout';
-import { setRefLabel } from '@/application/plan/ref-label';
 import { type Findings, validatePlan } from '@/application/plan/validate-plan';
 import type { Plan } from '@/domain/plan/plan.generated';
 
@@ -90,7 +89,6 @@ export function derive(plan: Plan, options: DeriveOptions = {}): Model {
   const { core, owners, edges, coverage, register, delivery, story } = c;
   const domain = createDomain(core, owners, edges);
   const glossary = createGlossary(core, domain.domain);
-  setRefLabel((id) => (core.get(id) === undefined ? null : core.label(id)));
   return {
     plan,
     asIs: core.asIs,

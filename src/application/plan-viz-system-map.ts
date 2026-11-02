@@ -142,13 +142,13 @@ function insideOf(kit: Kit, box: Box): string[] {
 const counted = (n: number, one: string, many: string): string =>
   `${String(n)} ${n === 1 ? one : many}`;
 
-/** A system's size as its foot says it: "10 parts · 7 stores", counted across the whole model. */
+/** Components include the services, stores and topics recorded for this system in the current model. */
 function sizeOf(kit: Kit, box: Box): string {
   if (box.kind !== 'system') return '';
   const node = kit.ctx.input.systems.find((s) => s.id === box.id);
-  const parts = counted(node?.parts ?? box.parts.length, 'part', 'parts');
+  const parts = node?.parts ?? box.parts.length;
   const stores = node?.stores ?? 0;
-  return stores === 0 ? parts : `${parts} · ${counted(stores, 'store', 'stores')}`;
+  return counted(parts + stores, 'component', 'components');
 }
 
 function ownerOf(kit: Kit, box: Box): string {

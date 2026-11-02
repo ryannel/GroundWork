@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { judge, kilobytes, pageOf } from './page-budget-rules';
+import { judge, kilobytes, pageLinks } from './page-budget-rules';
 
 const pages = [
   { page: 'a/', bytes: 100 },
@@ -20,9 +20,19 @@ describe('page budget rules', () => {
     expect(judge(pages, 10_000, 3).heaviest.map((p) => p.page)).toStrictEqual(['b/', 'c/', 'd/']);
   });
 
-  it('reads a page from its file and says its size', () => {
-    expect(pageOf('volvo-cars/reference/apis/index.html')).toBe('volvo-cars/reference/apis/');
-    expect(pageOf('index.html')).toBe('/');
+  it('follows links to the site’s own pages, once each, and says a size', () => {
+    const html = [
+      '<a href="/shop/">',
+      '<a href="/shop/?team=a#x">',
+      '<a href="things/?id=1&amp;b=2">',
+      '<a href="https://example.com/">',
+      '<link href="/_next/static/a.css">',
+      '<a href="/shop/model.json">',
+    ].join('');
+    expect(pageLinks(html, new URL('http://localhost:3000/shop/plans/p/'))).toStrictEqual([
+      '/shop/',
+      '/shop/plans/p/things/',
+    ]);
     expect(kilobytes(1_536_000)).toBe('1,500 KB');
   });
 });

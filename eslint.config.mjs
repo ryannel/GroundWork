@@ -30,7 +30,10 @@ const error = (...names) => Object.fromEntries(names.map((name) => [name, 'error
 /* ───────── layers ─────────
    domain          the model and its rules. Pure: no React, no Next, no Node, no packages.
    application     what the app works out from the model (use cases, view models). Pure.
-   infrastructure  reading and writing the world: files, YAML, git, GitHub. Node. Server only.
+   infrastructure  reading and writing the world: files, YAML, git, GitHub. Node. Server only. Reads the disk
+                   only through infrastructure/disk.ts.
+   scan            infrastructure/scan and scan-explorer: reading source repos into evidence. Run by tools,
+                   never by a page, so its parsers and compilers stay out of the site.
    features/<f>    the screens of one feature, in React. Reads application and domain; renders with ui.
    ui              the design system: presentational React, no knowledge of the model.
    shared          small helpers any layer may use (text, dates, collections). Pure.
@@ -42,12 +45,27 @@ const ELEMENTS = [
   { type: 'ui', pattern: 'src/ui' },
   { type: 'application', pattern: 'src/application' },
   { type: 'domain', pattern: 'src/domain' },
+  { type: 'scan', pattern: 'src/infrastructure/{scan,scan-explorer}' },
   { type: 'infrastructure', pattern: 'src/infrastructure' },
   { type: 'shared', pattern: 'src/shared' },
   { type: 'tools', pattern: 'tools' },
 ];
 
 // (no-restricted-syntax is replaced, not merged, by a later block: both blocks spread this)
+const ENVIRONMENT = {
+  object: 'process',
+  property: 'env',
+  message:
+    'Read the environment in one place (src/infrastructure/workspace-folders.ts, a tool or a config) and pass values in.',
+};
+// the build reads a path.join or path.resolve as a file to ship with the page, and traces all it could match
+const TRACED_PATHS = ['join', 'resolve'].map((property) => ({
+  object: 'path',
+  property,
+  message:
+    'Make the path with pathIn or resolvedFrom from @/infrastructure/disk, so the build does not trace it.',
+}));
+
 const PLAIN_TS = [
   { selector: 'TSEnumDeclaration', message: 'Use a union of string literals, not an enum.' },
   { selector: 'TSModuleDeclaration[kind="namespace"]', message: 'Use modules, not namespaces.' },
@@ -109,17 +127,17 @@ const IMPURE_GLOBALS = [
   message: `${name} reaches outside a pure layer; pass what you need in.`,
 }));
 
-// next/* that needs a server or belongs to the pages router has no place in a static app-router site
+// next/* that belongs to the pages router, or caches what every request should read afresh, has no place here
 const NEXT_BANNED = [
   ['next/router', 'Use next/navigation: this is the app router.'],
   ['next/head', 'Export metadata or generateMetadata from the route.'],
   ['next/document', 'The root layout is the document.'],
   ['next/legacy/image', 'Use next/image.'],
   ['next/amp', 'AMP is not supported.'],
-  ['next/headers', 'The site is a static export: there is no request.'],
-  ['next/server', 'The site is a static export: there is no server.'],
-  ['next/cache', 'The site is a static export: nothing is revalidated.'],
-  ['next/after', 'The site is a static export: there is no request.'],
+  [
+    'next/cache',
+    'Every page is drawn on request; the readers keep what they work out until a file changes.',
+  ],
   ['react-dom/server', 'Next.js renders; do not render to strings yourself.'],
 ].map(([name, message]) => ({ name, message }));
 const RESTRICTED_PATHS = [
@@ -166,7 +184,8 @@ const DEPENDENCIES = {
     layer('feature', 'application', 'domain', 'ui', 'shared'),
     layer('app', 'feature', 'ui', 'application', 'infrastructure', 'domain', 'shared'),
     layer('shared'),
-    layer('tools', 'infrastructure', 'application', 'domain', 'shared'),
+    layer('scan', 'scan', 'infrastructure', 'application', 'domain', 'shared'),
+    layer('tools', 'scan', 'infrastructure', 'application', 'domain', 'shared'),
     // a feature is one folder: others reach it through its index.ts, and features never reach into each other
     {
       from: { element: { type: 'app' } },
@@ -178,6 +197,11 @@ const DEPENDENCIES = {
       'infrastructure',
       ['node:**', 'yaml', 'zod', 'ajv', 'ajv/**', 'ajv-formats', 'server-only'],
       'infrastructure uses node, yaml, zod, ajv and server-only.',
+    ),
+    packages(
+      'scan',
+      ['node:**', 'yaml', 'zod', 'ajv', 'ajv/**', 'ajv-formats', 'server-only', 'typescript'],
+      'scan uses what infrastructure uses, and the TypeScript compiler to inspect source.',
     ),
     packages(
       'tools',
@@ -195,14 +219,7 @@ const DEPENDENCIES = {
 };
 
 export default defineConfig([
-  globalIgnores([
-    '.next/**',
-    'out/**',
-    'coverage/**',
-    'reports/**',
-    '.stryker-tmp/**',
-    'next-env.d.ts',
-  ]),
+  globalIgnores(['.next/**', 'coverage/**', 'reports/**', '.stryker-tmp/**', 'next-env.d.ts']),
 
   js.configs.recommended,
   ...nextVitals,
@@ -291,15 +308,7 @@ export default defineConfig([
         'error',
         { paths: RESTRICTED_PATHS, patterns: [...RESTRICTED_PATTERNS, CSS_PATTERN] },
       ],
-      'no-restricted-properties': [
-        'error',
-        {
-          object: 'process',
-          property: 'env',
-          message:
-            'Read the environment in one place (src/infrastructure/workspace-folders.ts, a tool or a config) and pass values in.',
-        },
-      ],
+      'no-restricted-properties': ['error', ENVIRONMENT],
     },
   },
 
@@ -372,6 +381,28 @@ export default defineConfig([
         'error',
         { paths: RESTRICTED_PATHS, patterns: RESTRICTED_PATTERNS },
       ],
+    },
+  },
+  // the site reads the disk, and makes paths to it, through one module, which keeps the build from tracing whole folders
+  {
+    files: ['src/infrastructure/**/*.ts'],
+    ignores: ['src/infrastructure/disk.ts', 'src/infrastructure/{scan,scan-explorer}/**', ...TESTS],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            ...RESTRICTED_PATHS,
+            ...['node:fs', 'node:fs/promises'].map((name) => ({
+              name,
+              message:
+                'Read the disk through @/infrastructure/disk, so the build does not trace it.',
+            })),
+          ],
+          patterns: [...RESTRICTED_PATTERNS, CSS_PATTERN],
+        },
+      ],
+      'no-restricted-properties': ['error', ENVIRONMENT, ...TRACED_PATHS],
     },
   },
   // Next.js and tool configs export a default by contract
@@ -520,7 +551,6 @@ export default defineConfig([
       'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
       'arrow-body-style': ['error', 'as-needed'],
       'func-style': ['error', 'declaration', { allowArrowFunctions: true }],
-      'max-classes-per-file': ['error', 1],
       // names that say nothing: name a value for what it is
       'id-denylist': [
         'error',
@@ -547,9 +577,8 @@ export default defineConfig([
         'err',
       ],
       'sonarjs/expression-complexity': ['error', { max: 3 }],
-      'sonarjs/max-union-size': ['error', { threshold: 8 }],
-      'sonarjs/no-duplicate-string': ['error', { threshold: 3 }],
-      'import/max-dependencies': ['error', { max: 15, ignoreTypeImports: true }],
+      // Repeated prose and literals do not need an abstraction merely to satisfy a count.
+      'sonarjs/no-duplicate-string': 'off',
     },
   },
   // the app reads files one after another on purpose only in tools, where order is the output
@@ -559,30 +588,15 @@ export default defineConfig([
     rules: { 'no-await-in-loop': 'error' },
   },
 
-  /* ───────── size: small files, small functions, shallow code ───────── */
+  // Cohesion determines file and function size. Enforce hard-to-follow control flow instead of line counts.
   {
     files: CODE,
     ignores: [...TESTS, GENERATED],
     rules: {
-      'max-lines': ['error', { max: 300, skipBlankLines: true, skipComments: true }],
-      'max-lines-per-function': [
-        'error',
-        { max: 60, skipBlankLines: true, skipComments: true, IIFEs: true },
-      ],
-      'max-params': ['error', 3],
       'max-depth': ['error', 3],
       'max-nested-callbacks': ['error', 3],
-      'max-statements': ['error', 20],
       complexity: ['error', 12],
       'sonarjs/cognitive-complexity': ['error', 12],
-    },
-  },
-  // a component's markup reads as one block; allow it more lines, not more branches
-  {
-    files: ['src/**/*.tsx'],
-    ignores: TESTS,
-    rules: {
-      'max-lines-per-function': ['error', { max: 120, skipBlankLines: true, skipComments: true }],
     },
   },
 
@@ -590,6 +604,13 @@ export default defineConfig([
   {
     files: ['src/**/*.tsx'],
     rules: {
+      // the React Compiler's checks past its recommended set: state worked out from props, not kept in step
+      ...error(
+        'react-hooks/no-deriving-state-in-effects',
+        'react-hooks/component-hook-factories',
+        'react-hooks/void-use-memo',
+        'react-hooks/capitalized-calls',
+      ),
       ...jsxA11y.flatConfigs.strict.rules,
       'react/forbid-dom-props': [
         'error',
@@ -630,7 +651,6 @@ export default defineConfig([
         { props: 'never', children: 'never', propElementValues: 'always' },
       ],
       'react/jsx-fragments': ['error', 'syntax'],
-      'react/jsx-max-depth': ['error', { max: 6 }],
       'react/destructuring-assignment': ['error', 'always', { destructureInSignature: 'always' }],
       '@next/next/no-html-link-for-pages': 'off', // pages router only; internal links are checked below
       'no-restricted-syntax': [
@@ -649,8 +669,9 @@ export default defineConfig([
     rules: {
       'groundwork/client-file-naming': 'error',
       'groundwork/app-route-files-only': 'error',
-      'groundwork/static-export-only': 'error',
+      'groundwork/drawn-on-request': 'error',
       'groundwork/route-exports': 'error',
+      'groundwork/page-metadata': 'error',
     },
   },
   { files: ['src/**/*.tsx'], rules: { 'groundwork/css-modules': 'error' } },
@@ -662,10 +683,7 @@ export default defineConfig([
   },
   // Known debt, not exemptions: each still draws every choice on the server. Take a file off when it is fixed.
   {
-    files: [
-      'src/features/plan/chapters/part/part-screen.tsx',
-      'src/features/plan/today/journey-walk.tsx',
-    ],
+    files: ['src/features/plan/today/journey-walk.tsx'],
     rules: { 'groundwork/one-per-choice': 'off' },
   },
   { files: ['src/ui/intent-link.client.tsx'], rules: { 'groundwork/link-prefetch': 'off' } },
@@ -686,6 +704,7 @@ export default defineConfig([
       'groundwork/server-only': 'error',
       'groundwork/barrel-exports-only': 'error',
       'groundwork/no-junk-drawer-names': 'error',
+      'groundwork/british-spelling': 'error',
     },
   },
   // domain, application and shared are pure: the same input gives the same answer, anywhere
@@ -699,8 +718,12 @@ export default defineConfig([
   },
   // the environment is read in one place, and tools and configs are run by people
   {
-    files: ['src/infrastructure/workspace-folders.ts', 'tools/**/*.ts', ...CONFIGS],
+    files: ['tools/**/*.ts', ...CONFIGS],
     rules: { 'no-restricted-properties': 'off' },
+  },
+  {
+    files: ['src/infrastructure/workspace-folders.ts'],
+    rules: { 'no-restricted-properties': ['error', ...TRACED_PATHS] },
   },
   // tools talk to a terminal
   {

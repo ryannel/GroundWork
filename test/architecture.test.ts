@@ -23,6 +23,48 @@ const component = (body: string) =>
 const CASES: readonly Case[] = [
   // layers
   {
+    name: 'scan infrastructure may inspect TypeScript source',
+    file: 'src/infrastructure/scan-explorer/compiler.ts',
+    code: "import 'server-only';\n\nimport ts from 'typescript';\n\nexport const compilerVersion = ts.version;\n",
+    rule: null,
+  },
+  {
+    name: 'other infrastructure may not use the scan compiler',
+    file: 'src/infrastructure/compiler.ts',
+    code: "import 'server-only';\n\nimport ts from 'typescript';\n\nexport const compilerVersion = ts.version;\n",
+    rule: 'boundaries/dependencies',
+  },
+  {
+    name: 'site infrastructure may not use scan',
+    file: 'src/infrastructure/bad-scan.ts',
+    code: "import 'server-only';\n\nimport { sourceDigest } from '@/infrastructure/scan/source-index';\n\nexport const x = sourceDigest;\n",
+    rule: 'boundaries/dependencies',
+  },
+  {
+    name: 'tools may use scan',
+    file: 'tools/scan-digest.ts',
+    code: "import { sourceDigest } from '@/infrastructure/scan/source-index';\n\nexport const digest = (text: string): string => sourceDigest(text);\n",
+    rule: null,
+  },
+  {
+    name: 'site infrastructure reads the disk through disk.ts',
+    file: 'src/infrastructure/bad-disk.ts',
+    code: "import 'server-only';\n\nimport { readFile } from 'node:fs/promises';\n\nexport const x = readFile;\n",
+    rule: 'no-restricted-imports',
+  },
+  {
+    name: 'site infrastructure makes paths through disk.ts',
+    file: 'src/infrastructure/bad-path.ts',
+    code: "import 'server-only';\n\nimport path from 'node:path';\n\nexport const inside = (folder: string): string => path.join(folder, 'plans');\n",
+    rule: 'no-restricted-properties',
+  },
+  {
+    name: 'scan reads the disk itself',
+    file: 'src/infrastructure/scan-explorer/disk-reader.ts',
+    code: "import 'server-only';\n\nimport { readFile } from 'node:fs/promises';\n\nexport const read = async (file: string): Promise<string> => readFile(file, 'utf8');\n",
+    rule: null,
+  },
+  {
     name: 'domain may not use react',
     file: 'src/domain/bad-react.ts',
     code: "import { useState } from 'react';\n\nexport const x = useState;\n",
@@ -73,7 +115,7 @@ const CASES: readonly Case[] = [
   {
     name: 'a route may use a feature index',
     file: 'src/app/good/page.tsx',
-    code: "import { WorkspaceLibrary } from '@/features/workspaces';\n\nexport default function Page() {\n  return <WorkspaceLibrary cards={[]} />;\n}\n",
+    code: "import type { Metadata } from 'next';\n\nimport { WorkspaceLibrary } from '@/features/workspaces';\n\nexport const metadata: Metadata = { title: 'Workspaces' };\n\nexport default function Page() {\n  return <WorkspaceLibrary cards={[]} />;\n}\n",
     rule: null,
   },
   {
@@ -83,6 +125,31 @@ const CASES: readonly Case[] = [
     rule: 'boundaries/no-unknown-files',
   },
   // Next.js
+  {
+    name: 'a page names itself for the tab',
+    file: 'src/app/untitled/page.tsx',
+    code: 'export default function Page() {\n  return <p>a</p>;\n}\n',
+    rule: 'groundwork/page-metadata',
+  },
+  // reading
+  {
+    name: 'prose is in British English',
+    file: 'src/shared/american.ts',
+    code: '// The color each lane is drawn in.\nexport const lane = 1;\n',
+    rule: 'groundwork/british-spelling',
+  },
+  {
+    name: 'code names in backticks are not prose',
+    file: 'src/shared/css-names.ts',
+    code: '// Sets the CSS `color` of a lane.\nexport const lane = 1;\n',
+    rule: null,
+  },
+  {
+    name: 'a cohesive folder may grow without arbitrary file-count limits',
+    file: 'src/ui/one-more.ts',
+    code: 'export const more = 1;\n',
+    rule: null,
+  },
   {
     name: 'only route files in app',
     file: 'src/app/helpers.ts',
@@ -102,10 +169,16 @@ const CASES: readonly Case[] = [
     rule: null,
   },
   {
-    name: 'no revalidation in a static site',
+    name: 'no revalidation: every page is drawn on request',
     file: 'src/app/revalidating/page.tsx',
     code: 'export const revalidate = 60;\n\nexport default function Page() {\n  return <p>a</p>;\n}\n',
-    rule: 'groundwork/static-export-only',
+    rule: 'groundwork/drawn-on-request',
+  },
+  {
+    name: 'no pre-built routes: every page is drawn on request',
+    file: 'src/app/prebuilt/page.tsx',
+    code: 'export function generateStaticParams() {\n  return [];\n}\n\nexport default function Page() {\n  return <p>a</p>;\n}\n',
+    rule: 'groundwork/drawn-on-request',
   },
   {
     name: 'no inline styles',
@@ -360,4 +433,28 @@ describe('the lint config enforces the architecture', () => {
   it.each(CASES.filter(({ rule }) => rule !== null))('$name', ({ file, rule }) => {
     expect(found.get(file)).toContain(rule);
   });
+});
+
+it('does not force cohesive code into smaller files or artificial parameter objects', async () => {
+  const config = (await new ESLint({ cwd: repo }).calculateConfigForFile(
+    'src/application/reference/query.ts',
+  )) as { readonly rules: Readonly<Record<string, readonly unknown[] | undefined>> };
+  for (const rule of [
+    'max-lines',
+    'max-lines-per-function',
+    'max-statements',
+    'max-params',
+    'import/max-dependencies',
+    'max-classes-per-file',
+    'groundwork/folder-size',
+  ]) {
+    expect(config.rules[rule], rule).toBeUndefined();
+  }
+  expect(config.rules.complexity?.[0]).toBe(2);
+  expect(config.rules['boundaries/dependencies']?.[0]).toBe(2);
+  expect(config.rules['sonarjs/max-union-size']?.[0]).toBe(0);
+  const reactConfig = (await new ESLint({ cwd: repo }).calculateConfigForFile(
+    'src/ui/stack.tsx',
+  )) as { readonly rules: Readonly<Record<string, readonly unknown[] | undefined>> };
+  expect(reactConfig.rules['react/jsx-max-depth']).toBeUndefined();
 });

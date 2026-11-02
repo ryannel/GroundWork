@@ -121,7 +121,7 @@ export function storeGlance(model: Model, storeId: string, mode: Mode = 'diff'):
   );
   return {
     tech: e.tech === undefined ? null : shortTech(e.tech),
-    owner: e.owner === '' ? null : e.owner,
+    owner: e.owner === '' ? null : (e.owner ?? null),
     records: pipe ? 0 : records.length,
     readers: pipe ? 0 : readers.size,
   };

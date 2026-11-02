@@ -1,0 +1,100 @@
+@layer components {
+  .shell {
+    min-width: 0;
+  }
+
+  .shell:fullscreen {
+    box-sizing: border-box;
+    height: 100vh;
+    padding: var(--s-4);
+    overflow: auto;
+    background: var(--bg-0);
+  }
+
+  .shell[data-fullscreen] {
+    position: fixed;
+    z-index: var(--z-overlay);
+    inset: 0;
+    box-sizing: border-box;
+    padding: var(--s-4);
+    overflow: auto;
+    background: var(--bg-0);
+  }
+
+  .stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    border-block: 1px solid var(--line-1);
+    scroll-margin-top: calc(var(--topbar-h) + var(--s-3));
+  }
+
+  .context {
+    grid-column: 1 / -1;
+    padding: var(--s-3);
+    border-bottom: 1px solid var(--line-1);
+    background: var(--bg-1);
+  }
+
+  .stage[data-inspector] {
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 34vw);
+  }
+
+  .viewport {
+    scroll-margin-top: calc(var(--topbar-h) + var(--s-3));
+    overflow: auto;
+    height: 76vh;
+    background-color: var(--bg-0);
+    background-image: radial-gradient(var(--dot-grid) 1px, transparent 1px);
+    background-size: var(--s-4) var(--s-4);
+    cursor: grab;
+    touch-action: pan-x pan-y;
+  }
+
+  .viewport[data-panning] {
+    cursor: grabbing;
+    user-select: none;
+  }
+
+  .canvas {
+    display: block;
+    margin-inline: auto;
+    font-family: var(--font-body);
+  }
+
+  .canvas > foreignObject[data-context] {
+    opacity: 0.25;
+  }
+
+  .inspector {
+    min-width: 0;
+    max-height: 76vh;
+    overflow: auto;
+    border-left: 1px solid var(--line-2);
+    background: var(--bg-1);
+  }
+
+  .shell:fullscreen .viewport,
+  .shell:fullscreen .inspector,
+  .shell[data-fullscreen] .viewport,
+  .shell[data-fullscreen] .inspector {
+    max-height: calc(100vh - 150px);
+  }
+
+  .shell:fullscreen .viewport,
+  .shell[data-fullscreen] .viewport {
+    height: calc(100vh - 150px);
+  }
+
+  @media (width < 900px) {
+    .stage[data-inspector] {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .inspector {
+      max-height: 60vh;
+      border-top: 1px solid var(--line-2);
+      border-left: 0;
+    }
+  }
+}

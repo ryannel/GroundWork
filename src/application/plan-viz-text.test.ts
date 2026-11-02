@@ -43,7 +43,8 @@ describe('prose', () => {
     expect(short('A [[svc:subs]] `x` *y*')).toBe('A svc:subs x y');
     expect(short('one two three four', 10)).toBe('one two…');
     expect(short(7)).toBe('');
-    expect(plainLine('See [[svc:subs]]')).toContain('Subs');
+    expect(plainLine('See [[svc:subs]]', model)).toBe('See Subscriptions');
+    expect(plainLine('See [[svc:subs]]')).toBe('See subs');
   });
 
   it('reads the values of an enum type', () => {

@@ -40,7 +40,7 @@ export function gateOf(model: Model, id: string, today: Date): Gate | null {
     id,
     decision,
     number: numberOf(model, id),
-    label: short(titleOf(e), LABEL_LENGTH),
+    label: short(titleOf(e, model), LABEL_LENGTH),
     decider,
     date,
     dateText: date === null ? '' : shortDate(date, today),

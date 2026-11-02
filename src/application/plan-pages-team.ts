@@ -135,3 +135,11 @@ export function crumbOf(outline: Outline, page: Page): string[] {
   const name = chapter.number === null ? chapter.title : `${chapter.number} · ${chapter.title}`;
   return page.title === chapter.title ? [name] : [name, page.title];
 }
+
+/** The plan team a lens names (`?team=catalogue` or `?team=team:catalogue`), or null for everyone or a team the
+ * plan does not have. */
+export function lensTeam(model: Model, lens: string | null | undefined): string | null {
+  if (lens === null || lens === undefined || lens === '') return null;
+  const ids = new Set(model.plan.teams.map((team) => team.id));
+  return [lens, `team:${lens}`].find((id) => ids.has(id)) ?? null;
+}

@@ -1,6 +1,5 @@
 import 'server-only';
 
-import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { parse } from 'yaml';
@@ -17,6 +16,7 @@ import type {
   TargetArchitecture,
   WorkspaceModel,
 } from '@/domain/workspace-model';
+import { pathIn, listFolder, readText, readTextIfAny } from '@/infrastructure/disk';
 
 import { workspaceFolder } from './workspace-folders';
 import { type Reading, readingOf } from './workspace-model-facts';
@@ -50,25 +50,25 @@ export async function readWorkspaceModel(
   const reading = readingOf();
   const story = await readStory(folder, reading);
   const keyTerms = await readKeyTerms(folder);
-  const flows = await readEach(path.join(folder, 'flows'), async (raw, file) =>
+  const flows = await readEach(pathIn(folder, 'flows'), async (raw, file) =>
     reading.in(file).fact<Flow>('flow', raw),
   );
-  const journeys = await readEach(path.join(folder, 'journeys'), async (raw, file) =>
+  const journeys = await readEach(pathIn(folder, 'journeys'), async (raw, file) =>
     readJourney(raw, file, reading),
   );
   const languageFiles = workspace.domains.map((domain) => ({
     domain: domain.id,
-    file: path.join(folder, 'domains', domain.id, 'language.yaml'),
+    file: pathIn(folder, 'domains', domain.id, 'language.yaml'),
   }));
   const systemFiles = workspace.domains.flatMap((domain) =>
     domain.systems.map((system) => ({
       system: system.id,
-      file: path.join(folder, 'domains', domain.id, 'systems', system.id, 'contracts.yaml'),
+      file: pathIn(folder, 'domains', domain.id, 'systems', system.id, 'contracts.yaml'),
     })),
   );
   // Files are read side by side, then checked in a fixed order so ids are claimed the same way every time.
   const [languageTexts, contractsRaw, handlersRaw] = await Promise.all([
-    Promise.all(languageFiles.map(async ({ file }) => readFile(file, 'utf8').catch(() => null))),
+    Promise.all(languageFiles.map(async ({ file }) => readTextIfAny(file))),
     Promise.all(systemFiles.map(async ({ file }) => readOptional(file))),
     Promise.all(systemFiles.map(async ({ file }) => readOptional(handlersBeside(file)))),
   ]);
@@ -83,10 +83,10 @@ export async function readWorkspaceModel(
       readContracts({ system, file, raw: contractsRaw[i], handlers: handlersRaw[i] }, reading),
     ),
   );
-  const scans = await readEach(path.join(folder, 'scans'), scanOf);
+  const scans = await readEach(pathIn(folder, 'scans'), scanOf);
   const targets = await Promise.all(
     workspace.domains.map(async (domain) =>
-      readTarget(domain.id, path.join(folder, 'domains', domain.id, 'target.yaml')),
+      readTarget(domain.id, pathIn(folder, 'domains', domain.id, 'target.yaml')),
     ),
   );
   return {
@@ -104,7 +104,7 @@ export async function readWorkspaceModel(
 }
 
 async function readStory(folder: string, reading: Reading): Promise<Story> {
-  const file = path.join(folder, 'story.yaml');
+  const file = pathIn(folder, 'story.yaml');
   const data = parsed(file, storyFile, await readOptional(file));
   return {
     summary: data.summary ?? null,
@@ -114,7 +114,7 @@ async function readStory(folder: string, reading: Reading): Promise<Story> {
 }
 
 async function readKeyTerms(folder: string): Promise<KeyTerms> {
-  const file = path.join(folder, 'language.yaml');
+  const file = pathIn(folder, 'language.yaml');
   const data = parsed(file, keyTermsFile, await readOptional(file));
   return {
     summary: data.summary ?? null,
@@ -166,7 +166,7 @@ async function readLanguage(
 }
 
 async function readTarget(domain: string, file: string): Promise<TargetArchitecture | null> {
-  const raw = await readFile(file, 'utf8').catch(() => null);
+  const raw = await readTextIfAny(file);
   if (raw === null) return null;
   const data = parsed(file, targetFile, parse(raw) ?? {});
   return {
@@ -195,7 +195,7 @@ async function readJourney(
 }
 
 function handlersBeside(contracts: string): string {
-  return path.join(path.dirname(contracts), 'handlers.yaml');
+  return pathIn(path.dirname(contracts), 'handlers.yaml');
 }
 
 async function readContracts(
@@ -258,17 +258,17 @@ async function readEach<T>(
   folder: string,
   read: (raw: unknown, file: string) => Promise<T> | T,
 ): Promise<T[]> {
-  const entries = await readdir(folder, { withFileTypes: true, recursive: true }).catch(() => []);
+  const entries = await listFolder(folder, { recursive: true });
   const files = entries
     .filter((entry) => entry.isFile() && entry.name.endsWith('.yaml'))
-    .map((entry) => path.join(entry.parentPath, entry.name))
+    .map((entry) => pathIn(entry.parentPath, entry.name))
     .toSorted((a, b) => a.localeCompare(b));
-  const texts = await Promise.all(files.map(async (file) => readFile(file, 'utf8')));
+  const texts = await Promise.all(files.map(async (file) => readText(file)));
   return Promise.all(files.map(async (file, i) => read(parse(texts[i] ?? ''), file)));
 }
 
 async function readOptional(file: string): Promise<unknown> {
-  const text = await readFile(file, 'utf8').catch(() => null);
+  const text = await readTextIfAny(file);
   const data: unknown = text === null ? null : parse(text);
   return data ?? {};
 }

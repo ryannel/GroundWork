@@ -1,10 +1,11 @@
 import 'server-only';
 
-import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { parse } from 'yaml';
 import { z } from 'zod';
+
+import { pathIn, resolvedFrom, listFolder, readTextIfAny } from '@/infrastructure/disk';
 
 // Where each workspace's folder is. A workspace is its own repo, kept anywhere on disk; Groundwork reads:
 //   GROUNDWORK_WORKSPACES   when set, only these workspace folders (path.delimiter between them): for CI and
@@ -46,7 +47,7 @@ export function cloneFolder(repo: string): string {
   if (name === undefined || name === '' || name === '.' || name === '..') {
     throw new Error(`${repo}: cannot tell what to call its folder; give it a folder`);
   }
-  return path.join(CLONES, name);
+  return pathIn(CLONES, name);
 }
 
 /** Where an entry's workspace is, relative to the checkout or absolute. */
@@ -64,8 +65,8 @@ interface Listed {
 }
 
 async function idOf({ folder, listedIn, repo }: Listed): Promise<string> {
-  const file = path.join(folder, 'workspace.yaml');
-  const text = await readFile(file, 'utf8').catch(() => null);
+  const file = pathIn(folder, 'workspace.yaml');
+  const text = await readTextIfAny(file);
   if (text === null && repo !== undefined) {
     throw new Error(
       `${repo}: listed in ${listedIn} but not cloned to ${folder}; run npm run workspace -- pull`,
@@ -80,10 +81,10 @@ async function idOf({ folder, listedIn, repo }: Listed): Promise<string> {
 }
 
 async function childrenOf(container: string): Promise<string[]> {
-  const entries = await readdir(container, { withFileTypes: true }).catch(() => []);
+  const entries = await listFolder(container);
   return entries
     .filter((entry) => entry.isDirectory())
-    .map((entry) => path.join(container, entry.name))
+    .map((entry) => pathIn(container, entry.name))
     .toSorted((a, b) => a.localeCompare(b));
 }
 
@@ -115,16 +116,16 @@ export async function registeredAt(
     const folders = env
       .split(path.delimiter)
       .filter((each) => each.trim() !== '')
-      .map((each) => ({ folder: path.resolve(home, each), listedIn: 'GROUNDWORK_WORKSPACES' }));
+      .map((each) => ({ folder: resolvedFrom(home, each), listedIn: 'GROUNDWORK_WORKSPACES' }));
     return indexed(folders);
   }
   const { workspaces, bundled } = options.local
     ? await readLocal(home)
     : { workspaces: [], bundled: true };
   return indexed([
-    ...(bundled ? await bundledIn(path.join(home, BUNDLED)) : []),
+    ...(bundled ? await bundledIn(pathIn(home, BUNDLED)) : []),
     ...workspaces.map((each) => ({
-      folder: path.resolve(home, folderOf(each)),
+      folder: resolvedFrom(home, folderOf(each)),
       listedIn: LOCAL,
       ...(typeof each === 'string' ? {} : { repo: each.repo }),
     })),
@@ -135,7 +136,7 @@ export async function registeredAt(
 export async function readLocal(
   home: string,
 ): Promise<{ readonly workspaces: readonly LocalEntry[]; readonly bundled: boolean }> {
-  const text = await readFile(path.join(home, LOCAL), 'utf8').catch(() => null);
+  const text = await readTextIfAny(pathIn(home, LOCAL));
   const result = localFile.safeParse(text === null ? {} : (parse(text) ?? {}));
   if (!result.success) throw new Error(`${LOCAL}: ${result.error.message}`);
   return result.data;

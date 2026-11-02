@@ -1,0 +1,22 @@
+@layer components {
+  .frame {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+  }
+
+  .lines {
+    position: absolute;
+    inset: 0;
+  }
+
+  .slot {
+    position: absolute;
+  }
+}

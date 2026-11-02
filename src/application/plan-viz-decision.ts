@@ -1,4 +1,5 @@
 import type { Model } from '@/application/plan/derive';
+import { labelsOf, refLabel } from '@/application/plan/ref-label';
 import { chipInfo, questionTitle } from '@/application/plan-chips';
 import { isoDay, shortDate } from '@/application/plan-viz-state';
 import { plainLine } from '@/application/plan-viz-text';
@@ -22,8 +23,10 @@ const FIRST_SENTENCE = /^.+?[!.?](?=\s|$)/u;
 
 const doorWord = (e: Deciding): string =>
   isDecision(e) ? (DOOR[e.reversibility ?? ''] ?? '') : '';
-export const titleOf = (e: Deciding): string =>
-  isDecision(e) ? plainLine(e.title) : questionTitle(e.question);
+export function titleOf(e: Deciding, model?: Model): string {
+  const label = model === undefined ? refLabel : labelsOf(model);
+  return isDecision(e) ? plainLine(e.title, model) : questionTitle(e.question, label);
+}
 export const stateOf = (e: Deciding): string => e.status;
 export const sayStateOnCard = (e: Deciding): boolean => !GROUPED.has(stateOf(e));
 
@@ -76,12 +79,12 @@ export interface OptionLine {
 }
 
 /** The decision itself first, marked chosen, then each alternative with why not. */
-export function optionsOf(e: Deciding): OptionLine[] {
+export function optionsOf(e: Deciding, model?: Model): OptionLine[] {
   const others = isDecision(e) ? (e.options ?? []) : [];
   if (others.length === 0 || !isDecision(e)) return [];
   return [
-    { name: plainLine(e.title), chosen: true, why: '' },
-    ...others.map((o) => ({ name: plainLine(o.name), chosen: false, why: o.why_not ?? '' })),
+    { name: plainLine(e.title, model), chosen: true, why: '' },
+    ...others.map((o) => ({ name: plainLine(o.name, model), chosen: false, why: o.why_not ?? '' })),
   ];
 }
 

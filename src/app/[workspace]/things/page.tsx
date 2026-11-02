@@ -1,29 +1,35 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { thingByToken } from '@/application/plan-pages-things';
 import { workspaceNavOf } from '@/application/workspace-nav';
 import { workspaceHref } from '@/application/workspace-paths';
-import { TodayOverlays, TodaySearch, TodayThingView } from '@/features/plan';
+import { TodayOverlays, TodaySearch, TodayThing } from '@/features/plan';
 import { WorkspaceShell } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
+import { firstParam, type SearchParams } from '@/shared/search-params';
+import { Text } from '@/ui/text';
 
 interface Params {
   readonly workspace: string;
 }
 
-export const dynamicParams = false;
-
-export async function generateStaticParams(): Promise<Params[]> {
-  const workspaces = await readWorkspaces();
-  return workspaces.map(({ id }) => ({ workspace: id }));
-}
-
 // A thing is looked up like the reference, so the rail opens there rather than on the map.
-export default async function TodayThingRoute({ params }: { readonly params: Promise<Params> }) {
+export const metadata: Metadata = { title: 'Things' };
+
+export default async function TodayThingRoute({
+  params,
+  searchParams,
+}: {
+  readonly params: Promise<Params>;
+  readonly searchParams: Promise<SearchParams>;
+}) {
   const { workspace: id } = await params;
   const data = await todayData(id);
   if (data === null) notFound();
   const { workspace, today, plans } = data;
+  const { id: token } = await searchParams;
+  const thing = thingByToken(today.model, firstParam(token));
   return (
     <WorkspaceShell
       actions={<TodaySearch />}
@@ -35,11 +41,18 @@ export default async function TodayThingRoute({ params }: { readonly params: Pro
         { label: workspace.name, href: workspaceHref(workspace.id) },
       ]}
     >
-      <TodayThingView
-        attributionSrc="../attribution.json"
-        modelSrc="../model.json"
-        workspace={workspace}
-      />
+      {thing === null ? (
+        <Text as="p" tone="muted">
+          Nothing here goes by that name.
+        </Text>
+      ) : (
+        <TodayThing
+          attribution={today.attribution}
+          id={thing}
+          model={today.model}
+          workspace={workspace}
+        />
+      )}
     </WorkspaceShell>
   );
 }

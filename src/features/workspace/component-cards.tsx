@@ -1,22 +1,10 @@
 import type { ComponentCard } from '@/application/today-components';
-import type { ChipRef } from '@/application/today-scope';
-import { Markdown } from '@/ui/markdown';
-import { Text } from '@/ui/text';
+import { Text, TextLink } from '@/ui/text';
 
 import styles from './component-cards.module.css';
-import { RefChip, RefChips } from './ref-chip';
+import { RefChip } from './ref-chip';
 
-function Row({ label, chips }: { readonly label: string; readonly chips: readonly ChipRef[] }) {
-  if (chips.length === 0) return null;
-  return (
-    <>
-      <dt>{label}</dt>
-      <dd>
-        <RefChips chips={chips} />
-      </dd>
-    </>
-  );
-}
+const NO_EXPLORER_LINKS: Readonly<Record<string, string>> = {};
 
 const counted = (count: number, one: string, many: string): string =>
   `${String(count)} ${count === 1 ? one : many}`;
@@ -39,7 +27,13 @@ function reachOf(card: ComponentCard): string {
     .join(' · ');
 }
 
-function OneCard({ card }: { readonly card: ComponentCard }) {
+function OneCard({
+  card,
+  explorer,
+}: {
+  readonly card: ComponentCard;
+  readonly explorer: string | undefined;
+}) {
   const reach = reachOf(card);
   return (
     <article className={styles.card}>
@@ -50,40 +44,29 @@ function OneCard({ card }: { readonly card: ComponentCard }) {
         <span className={styles.kind}>{card.kind}</span>
       </header>
       {card.does === '' ? null : <p className={styles.does}>{card.does}</p>}
-      {reach === '' && card.summary === '' ? null : (
-        <details className={styles.more}>
-          <summary>
-            <Text size="sm" tone="faint">
-              {reach === '' ? 'More about it' : reach}
-            </Text>
-          </summary>
-          {card.summary === '' ? null : (
-            <div className={styles.summary}>
-              <Markdown text={card.summary} />
-            </div>
-          )}
-          <dl className={styles.parts}>
-            <Row chips={card.offers} label="Offers" />
-            <Row chips={card.calls} label="Calls" />
-            <Row chips={card.announces} label="Announces" />
-            <Row chips={card.listens} label="Listens to" />
-            <Row chips={card.keeps} label="Keeps" />
-            <Row chips={card.uses} label="Uses" />
-          </dl>
-        </details>
+      {explorer === undefined ? null : <TextLink href={explorer}>Explore service →</TextLink>}
+      {reach === '' ? null : (
+        <Text size="sm" tone="faint">
+          {reach}
+        </Text>
       )}
+      <RefChip chip={{ ...card.chip, label: `Details of ${card.chip.label}` }} />
     </article>
   );
 }
 
-// Each component of a system: what it is and does, and in one line how much hangs off it. The calls it answers,
-// what it calls, the events it announces and hears and the data it keeps fold open beneath; every name opens in
-// the inspector.
-export function ComponentCards({ cards }: { readonly cards: readonly ComponentCard[] }) {
+// Components as a bounded index: full descriptions and relationships open in the shared inspector.
+export function ComponentCards({
+  cards,
+  explorerLinks = NO_EXPLORER_LINKS,
+}: {
+  readonly cards: readonly ComponentCard[];
+  readonly explorerLinks?: Readonly<Record<string, string>>;
+}) {
   return (
     <div className={styles.cards}>
       {cards.map((card) => (
-        <OneCard card={card} key={card.chip.id} />
+        <OneCard card={card} explorer={explorerLinks[card.chip.id]} key={card.chip.id} />
       ))}
     </div>
   );

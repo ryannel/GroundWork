@@ -21,4 +21,16 @@
     max-height: calc(100vh - var(--s-8));
     overflow: auto;
   }
+
+  @media (width < 72rem) {
+    .split[data-open] {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .side {
+      position: static;
+      max-height: none;
+      overflow: visible;
+    }
+  }
 }

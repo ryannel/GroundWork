@@ -4,7 +4,7 @@ import styles from './legend.module.css';
 export interface LegendItem {
   readonly label: string;
   readonly glyph?: string;
-  readonly line?: 'solid' | 'dashed' | 'dotted';
+  readonly line?: 'solid' | 'dashed' | 'dotted' | 'faint';
   readonly swatch?: 'add' | 'mod' | 'dep' | 'rem' | 'dim' | 'cur' | 'out' | 'plain';
 }
 

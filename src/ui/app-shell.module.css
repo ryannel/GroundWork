@@ -35,6 +35,10 @@
     }
   }
 
+  .stage[data-wide] {
+    max-width: none;
+  }
+
   /* On paper the page is the stage alone: no bar, rail or overlays, and the full width of the sheet. */
   @media print {
     .shell > :not(.body),

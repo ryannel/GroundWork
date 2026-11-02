@@ -87,7 +87,7 @@ function stepOf(model: Model, mine: ReadonlySet<string>, id: string): StepChange
   const caller = isOutsideService(from, mine) ? from : null;
   const reachesUs = to !== null && mine.has(to);
   const sameCall = kind === 'differently' && caller !== null && reachesUs && via !== null;
-  const action = plainLine(endpoint(step, 'action') ?? id);
+  const action = plainLine(endpoint(step, 'action') ?? id, model);
   return { flow: id.split('#')[0] ?? id, id, kind, action, from, to, via, caller, sameCall };
 }
 

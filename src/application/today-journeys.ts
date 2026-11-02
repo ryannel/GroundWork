@@ -44,7 +44,7 @@ function flowOf(model: Model, id: string) {
 function systemOf(model: Model, id: string): string | null {
   const node = model.asIs.get(id);
   if (node?.$type === 'service') return node.system ?? null;
-  if (node?.$type === 'store') return systemOf(model, node.owner);
+  if (node?.$type === 'store' && node.owner !== undefined) return systemOf(model, node.owner);
   return null;
 }
 

@@ -82,8 +82,8 @@ export interface EventData {
 
 const orNull = (x: unknown): string | null => (typeof x === 'string' && x !== '' ? x : null);
 
-function deliveryOf(semantics: unknown): string {
-  return firstSentence(plainLine(text(semantics))).replace(/\.$/u, '');
+function deliveryOf(semantics: unknown, model: Model): string {
+  return firstSentence(plainLine(text(semantics), model)).replace(/\.$/u, '');
 }
 
 function migrationOf(model: Model, id: string, mode: EventMode): string | null {
@@ -114,7 +114,7 @@ export function eventData(model: Model, msgId: string, mode: EventMode): EventDa
   const key = keyNames(text(prop(m, 'key'))).join(', ');
   const topic = orNull(prop(m, 'topic'));
   const producer = orNull(prop(m, 'producer'));
-  const delivery = deliveryOf(prop(m, 'semantics'));
+  const delivery = deliveryOf(prop(m, 'semantics'), model);
   const name = text(prop(m, 'name')) === '' ? msgId : text(prop(m, 'name'));
   const version = text(prop(m, 'version'));
   const replacedBy = mode === 'asIs' ? null : model.versions(msgId).replacedBy;

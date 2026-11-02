@@ -35,7 +35,7 @@ function systemsIn(model: Model): MapSystemIn[] {
   return systems.map((s) => ({
     ...nodeIn(model, s.id, orNull(text(s.team))),
     parts: services.filter((x) => x.system === s.id).length,
-    stores: stores.filter((x) => home.get(x.owner) === s.id).length,
+    stores: stores.filter((x) => x.owner !== undefined && home.get(x.owner) === s.id).length,
   }));
 }
 
@@ -66,7 +66,7 @@ function stagesIn(model: Model): MapStageIn[] {
   return model.domain().stages.map((s) => ({
     id: s.id,
     name: s.name,
-    summary: plainLine(s.summary),
+    summary: plainLine(s.summary, model),
     entries: (s.services ?? []).map((x) => ({ svc: x.svc, reads: x.from ?? [] })),
   }));
 }
@@ -150,7 +150,7 @@ export function systemMapInput(model: Model, lens: string | null = null): System
     stores: stores.map((s) => ({
       ...nodeIn(model, s.id, teamOf(model, s.id)),
       topic: TOPICS.has(s.kind),
-      owner: s.owner,
+      owner: s.owner ?? null,
       carries: messages
         .filter((m) => m.topic === s.id)
         .map((m) => (text(m.name) === '' ? m.id : text(m.name))),

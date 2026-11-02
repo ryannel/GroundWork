@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { workspaceNavOf } from '@/application/workspace-nav';
@@ -5,18 +6,12 @@ import { workspaceHref } from '@/application/workspace-paths';
 import { TodayJourneys, TodayOverlays, TodaySearch } from '@/features/plan';
 import { WorkspaceShell } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
 
 interface Params {
   readonly workspace: string;
 }
 
-export const dynamicParams = false;
-
-export async function generateStaticParams(): Promise<Params[]> {
-  const workspaces = await readWorkspaces();
-  return workspaces.map(({ id }) => ({ workspace: id }));
-}
+export const metadata: Metadata = { title: 'Journeys' };
 
 export default async function JourneysRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id } = await params;

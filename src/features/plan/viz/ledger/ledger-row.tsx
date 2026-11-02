@@ -1,7 +1,7 @@
 import type { Model } from '@/application/plan/derive';
-import { searchText } from '@/application/plan-story-ref';
 import { KIND_WORD, type LedgerRow as Row, proofLine } from '@/application/plan-viz-ledger-row';
 import { teamName } from '@/application/plan-viz-teams';
+import { searchText } from '@/application/reference/model';
 import { EntityChip, EntityChips } from '@/features/plan/common/entity-chip';
 import { ModelInline } from '@/features/plan/common/model-text';
 import { TeamDot, TeamTag } from '@/features/plan/common/team-dot';

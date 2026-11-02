@@ -1,0 +1,1308 @@
+{
+  "format": "groundwork-knowledge/v3",
+  "workspace": "scan-evaluation",
+  "records": [
+    {
+      "id": "notification-187bfb5-constraints/source",
+      "kind": "source_revision",
+      "repo": "example/notification-api",
+      "commit": "187bfb590586523a2786796e50bc9bc4505c5378"
+    },
+    {
+      "id": "notification-187bfb5-constraints/evidence/host",
+      "kind": "evidence",
+      "repo": "example/notification-api",
+      "commit": "187bfb590586523a2786796e50bc9bc4505c5378",
+      "path": "server.ts",
+      "lines": [1, 5],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "notification-187bfb5-constraints/evidence/listen",
+      "kind": "evidence",
+      "repo": "example/notification-api",
+      "commit": "187bfb590586523a2786796e50bc9bc4505c5378",
+      "path": "server.ts",
+      "lines": [16, 16],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "notification-187bfb5-constraints/evidence/request-schema",
+      "kind": "evidence",
+      "repo": "example/notification-api",
+      "commit": "187bfb590586523a2786796e50bc9bc4505c5378",
+      "path": "server.ts",
+      "lines": [6, 9],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "notification-187bfb5-constraints/evidence/registration",
+      "kind": "evidence",
+      "repo": "example/notification-api",
+      "commit": "187bfb590586523a2786796e50bc9bc4505c5378",
+      "path": "server.ts",
+      "lines": [10, 10],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "notification-187bfb5-constraints/evidence/handler",
+      "kind": "evidence",
+      "repo": "example/notification-api",
+      "commit": "187bfb590586523a2786796e50bc9bc4505c5378",
+      "path": "server.ts",
+      "lines": [10, 15],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "notification-187bfb5-constraints/evidence/body",
+      "kind": "evidence",
+      "repo": "example/notification-api",
+      "commit": "187bfb590586523a2786796e50bc9bc4505c5378",
+      "path": "server.ts",
+      "lines": [11, 11],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "notification-187bfb5-constraints/evidence/guard",
+      "kind": "evidence",
+      "repo": "example/notification-api",
+      "commit": "187bfb590586523a2786796e50bc9bc4505c5378",
+      "path": "server.ts",
+      "lines": [12, 12],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "notification-187bfb5-constraints/evidence/send",
+      "kind": "evidence",
+      "repo": "example/notification-api",
+      "commit": "187bfb590586523a2786796e50bc9bc4505c5378",
+      "path": "server.ts",
+      "lines": [13, 13],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "notification-187bfb5-constraints/evidence/response",
+      "kind": "evidence",
+      "repo": "example/notification-api",
+      "commit": "187bfb590586523a2786796e50bc9bc4505c5378",
+      "path": "server.ts",
+      "lines": [14, 14],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "notification-187bfb5-constraints/evidence/package",
+      "kind": "evidence",
+      "repo": "example/notification-api",
+      "commit": "187bfb590586523a2786796e50bc9bc4505c5378",
+      "path": "package.json",
+      "lines": [1, 1],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "notification-187bfb5-constraints/gap/sdk",
+      "kind": "gap",
+      "owner": "notification-187bfb5-constraints/entry",
+      "obligation": "dependency_resolution",
+      "reason": "Only the SDK import, constructor and send call are present; package.json declares 3.2.1 without a lockfile, digest or implementation. Transport, destination identity, request encoding, retries, timeouts and side effects are not established.",
+      "action": "Obtain the exact resolved SDK artefact, digest and corresponding source; trace constructor and send.",
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/host",
+        "notification-187bfb5-constraints/evidence/package",
+        "notification-187bfb5-constraints/evidence/send"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/gap/framework",
+      "kind": "gap",
+      "owner": "notification-187bfb5-constraints/entry",
+      "obligation": "middleware_and_wire",
+      "reason": "Fastify 5.0.0 is declared but its implementation and resolved artefact are absent. Default request parsing, validation changes, error responses, serialisation and enforcement are not traced. No authentication hook is declared in this examined file; external access policy is not established.",
+      "action": "Resolve the installed Fastify artefact and trace relevant defaults, hooks and error/serialisation handlers.",
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/host",
+        "notification-187bfb5-constraints/evidence/request-schema",
+        "notification-187bfb5-constraints/evidence/registration",
+        "notification-187bfb5-constraints/evidence/package"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/gap/configuration",
+      "kind": "gap",
+      "owner": "notification-187bfb5-constraints/entry",
+      "obligation": "runtime_binding",
+      "reason": "Source starts a Fastify app on port 3000 and passes process.env.NOTIFICATION_URL to the SDK; effective URL, SDK default when unset, gateway route and deployed host are unknown.",
+      "action": "Inspect the applicable runtime environment and SDK endpoint default without copying secret values.",
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/host",
+        "notification-187bfb5-constraints/evidence/listen"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/gap/completion",
+      "kind": "gap",
+      "owner": "notification-187bfb5-constraints/entry",
+      "obligation": "downstream_completion",
+      "reason": "An awaited SDK return permits constructing 202; it does not establish durable acceptance, notification delivery or any asynchronous continuation.",
+      "action": "Trace the exact SDK/server operation and any acknowledged persistence or asynchronous continuation.",
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/send",
+        "notification-187bfb5-constraints/evidence/response"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/gap/response",
+      "kind": "gap",
+      "owner": "notification-187bfb5-constraints/entry",
+      "obligation": "response_shape",
+      "reason": "The type, presence and serialised form of result.id are not established. Framework validation errors and uncaught failures have no locally declared HTTP mapping.",
+      "action": "Resolve SDK result type and framework serialisation/error policy.",
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/send",
+        "notification-187bfb5-constraints/evidence/response",
+        "notification-187bfb5-constraints/evidence/guard"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/gap/scope",
+      "kind": "gap",
+      "owner": "notification-187bfb5-constraints/entry",
+      "obligation": "repository_discovery",
+      "reason": "This is a bounded POST /notifications capture, not whole-repository discovery or complete end-to-end behaviour.",
+      "action": "Run a separately scoped repository inventory if broader completeness is required.",
+      "evidence": ["notification-187bfb5-constraints/evidence/registration"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/artifact/fastify",
+      "kind": "artifact",
+      "coordinate": "npm:fastify",
+      "version": "5.0.0",
+      "sourceCommit": null,
+      "correspondence": "declared",
+      "evidence": ["notification-187bfb5-constraints/evidence/package"],
+      "digest": null
+    },
+    {
+      "id": "notification-187bfb5-constraints/artifact/tsx",
+      "kind": "artifact",
+      "coordinate": "npm:tsx",
+      "version": "4.0.0",
+      "sourceCommit": null,
+      "correspondence": "declared",
+      "evidence": ["notification-187bfb5-constraints/evidence/package"],
+      "digest": null
+    },
+    {
+      "id": "notification-187bfb5-constraints/artifact/example-notification-sdk",
+      "kind": "artifact",
+      "coordinate": "npm:@example/notification-sdk",
+      "version": "3.2.1",
+      "sourceCommit": null,
+      "correspondence": "declared",
+      "evidence": ["notification-187bfb5-constraints/evidence/package"],
+      "digest": null
+    },
+    {
+      "id": "notification-187bfb5-constraints/component",
+      "kind": "runtime_component",
+      "logicalId": "svc:notification-api",
+      "label": "Notification API",
+      "category": "service",
+      "technology": "TypeScript / Fastify",
+      "sources": ["notification-187bfb5-constraints/source"],
+      "basis": "source_declared",
+      "gaps": [
+        "notification-187bfb5-constraints/gap/configuration",
+        "notification-187bfb5-constraints/gap/framework"
+      ],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/host",
+        "notification-187bfb5-constraints/evidence/listen",
+        "notification-187bfb5-constraints/evidence/package"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/entry",
+      "kind": "entry",
+      "logicalId": "api:notification-api-post-notifications",
+      "method": "POST",
+      "path": "/notifications",
+      "implementation": "notification-187bfb5-constraints/handler",
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/registration",
+        "notification-187bfb5-constraints/evidence/handler"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/handler",
+      "kind": "implementation",
+      "logicalId": "impl:notification-api-server-post-notifications",
+      "scope": "notification-187bfb5-constraints/source",
+      "entry": "notification-187bfb5-constraints/op/entry",
+      "parameters": ["notification-187bfb5-constraints/value/body"],
+      "evidence": ["notification-187bfb5-constraints/evidence/handler"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/execution",
+      "kind": "execution_binding",
+      "implementation": "notification-187bfb5-constraints/handler",
+      "component": "notification-187bfb5-constraints/component",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/registration",
+        "notification-187bfb5-constraints/evidence/listen"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/shape/request-source",
+      "kind": "shape",
+      "representation": "source",
+      "label": "Declared request body schema",
+      "fields": [
+        {
+          "name": "recipient",
+          "type": "string",
+          "status": "declared",
+          "optional": false,
+          "nullable": false,
+          "maxLength": 200,
+          "evidence": ["notification-187bfb5-constraints/evidence/request-schema"]
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "status": "declared",
+          "optional": false,
+          "nullable": false,
+          "evidence": ["notification-187bfb5-constraints/evidence/request-schema"]
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/request-schema"],
+      "container": "object",
+      "additionalProperties": false
+    },
+    {
+      "id": "notification-187bfb5-constraints/shape/request-wire",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "Declared fields; effective parser and validator unresolved",
+      "fields": [
+        {
+          "name": "recipient",
+          "type": "string",
+          "status": "declared",
+          "optional": false,
+          "nullable": false,
+          "maxLength": 200,
+          "evidence": ["notification-187bfb5-constraints/evidence/request-schema"]
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "status": "declared",
+          "optional": false,
+          "nullable": false,
+          "evidence": ["notification-187bfb5-constraints/evidence/request-schema"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["notification-187bfb5-constraints/gap/framework"],
+      "evidence": ["notification-187bfb5-constraints/evidence/request-schema"],
+      "container": "object"
+    },
+    {
+      "id": "notification-187bfb5-constraints/shape/send-argument",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "Constructed SDK send argument",
+      "fields": [
+        {
+          "name": "to",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["notification-187bfb5-constraints/evidence/send"]
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["notification-187bfb5-constraints/evidence/send"]
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/send"],
+      "container": "object"
+    },
+    {
+      "id": "notification-187bfb5-constraints/shape/error",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "Constructed empty-text response",
+      "fields": [
+        {
+          "name": "error",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["notification-187bfb5-constraints/evidence/guard"],
+          "const": "Text is empty"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/guard"],
+      "container": "object"
+    },
+    {
+      "id": "notification-187bfb5-constraints/shape/accepted",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "Constructed 202 response object",
+      "fields": [
+        {
+          "name": "id",
+          "type": "unresolved",
+          "status": "declared",
+          "evidence": ["notification-187bfb5-constraints/evidence/response"]
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/response"],
+      "container": "object"
+    },
+    {
+      "id": "notification-187bfb5-constraints/shape/sdk-result",
+      "kind": "shape",
+      "representation": "source",
+      "label": "Unresolved SDK result; id selected by caller",
+      "fields": [
+        {
+          "name": "id",
+          "type": "unresolved",
+          "status": "declared",
+          "evidence": ["notification-187bfb5-constraints/evidence/response"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": [
+        "notification-187bfb5-constraints/gap/sdk",
+        "notification-187bfb5-constraints/gap/response"
+      ],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/send",
+        "notification-187bfb5-constraints/evidence/response"
+      ],
+      "container": "object"
+    },
+    {
+      "id": "notification-187bfb5-constraints/contract/inbound",
+      "kind": "interface_contract",
+      "component": "notification-187bfb5-constraints/component",
+      "protocol": "http",
+      "name": "POST /notifications",
+      "method": "POST",
+      "path": "/notifications",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "path",
+          "presence": "none",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["notification-187bfb5-constraints/evidence/registration"]
+        },
+        {
+          "part": "query",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["notification-187bfb5-constraints/gap/framework"],
+          "evidence": ["notification-187bfb5-constraints/evidence/registration"]
+        },
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["notification-187bfb5-constraints/gap/framework"],
+          "evidence": ["notification-187bfb5-constraints/evidence/registration"]
+        },
+        {
+          "part": "body",
+          "presence": "present",
+          "shape": "notification-187bfb5-constraints/shape/request-wire",
+          "sourceShape": "notification-187bfb5-constraints/shape/request-source",
+          "contentType": null,
+          "gaps": ["notification-187bfb5-constraints/gap/framework"],
+          "evidence": [
+            "notification-187bfb5-constraints/evidence/request-schema",
+            "notification-187bfb5-constraints/evidence/registration"
+          ]
+        }
+      ],
+      "responses": [
+        {
+          "status": "400",
+          "body": {
+            "part": "body",
+            "presence": "present",
+            "shape": null,
+            "sourceShape": "notification-187bfb5-constraints/shape/error",
+            "contentType": null,
+            "gaps": ["notification-187bfb5-constraints/gap/framework"],
+            "evidence": ["notification-187bfb5-constraints/evidence/guard"]
+          },
+          "meaning": "Handler returns when !body.text.trim() is true; framework errors are separate unresolved cases.",
+          "evidence": ["notification-187bfb5-constraints/evidence/guard"]
+        },
+        {
+          "status": "202",
+          "body": {
+            "part": "body",
+            "presence": "present",
+            "shape": null,
+            "sourceShape": "notification-187bfb5-constraints/shape/accepted",
+            "contentType": null,
+            "gaps": [
+              "notification-187bfb5-constraints/gap/framework",
+              "notification-187bfb5-constraints/gap/response"
+            ],
+            "evidence": ["notification-187bfb5-constraints/evidence/response"]
+          },
+          "meaning": "Constructed after await client.send returns normally and result.id is read; delivery is not established.",
+          "evidence": [
+            "notification-187bfb5-constraints/evidence/send",
+            "notification-187bfb5-constraints/evidence/response"
+          ]
+        },
+        {
+          "status": "unresolved",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": [
+              "notification-187bfb5-constraints/gap/framework",
+              "notification-187bfb5-constraints/gap/response"
+            ],
+            "evidence": ["notification-187bfb5-constraints/evidence/handler"]
+          },
+          "meaning": "Validation, runtime property access and SDK failures have no local HTTP mapping.",
+          "evidence": ["notification-187bfb5-constraints/evidence/handler"]
+        }
+      ],
+      "gaps": [
+        "notification-187bfb5-constraints/gap/framework",
+        "notification-187bfb5-constraints/gap/configuration",
+        "notification-187bfb5-constraints/gap/response"
+      ],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/registration",
+        "notification-187bfb5-constraints/evidence/request-schema",
+        "notification-187bfb5-constraints/evidence/guard",
+        "notification-187bfb5-constraints/evidence/response"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/exposure",
+      "kind": "entry_binding",
+      "entry": "notification-187bfb5-constraints/entry",
+      "execution": "notification-187bfb5-constraints/execution",
+      "contract": "notification-187bfb5-constraints/contract/inbound",
+      "gaps": [
+        "notification-187bfb5-constraints/gap/framework",
+        "notification-187bfb5-constraints/gap/configuration"
+      ],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/registration",
+        "notification-187bfb5-constraints/evidence/listen"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/contract/send",
+      "kind": "interface_contract",
+      "component": null,
+      "protocol": "unresolved",
+      "name": "NotificationClient.send caller construction",
+      "method": null,
+      "path": null,
+      "authority": "caller_construction",
+      "request": [
+        {
+          "part": "body",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": "notification-187bfb5-constraints/shape/send-argument",
+          "contentType": null,
+          "gaps": ["notification-187bfb5-constraints/gap/sdk"],
+          "evidence": ["notification-187bfb5-constraints/evidence/send"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "unresolved",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": "notification-187bfb5-constraints/shape/sdk-result",
+            "contentType": null,
+            "gaps": [
+              "notification-187bfb5-constraints/gap/sdk",
+              "notification-187bfb5-constraints/gap/response"
+            ],
+            "evidence": [
+              "notification-187bfb5-constraints/evidence/send",
+              "notification-187bfb5-constraints/evidence/response"
+            ]
+          },
+          "meaning": "Normal SDK result is awaited; only result.id is read locally.",
+          "evidence": [
+            "notification-187bfb5-constraints/evidence/send",
+            "notification-187bfb5-constraints/evidence/response"
+          ]
+        }
+      ],
+      "gaps": [
+        "notification-187bfb5-constraints/gap/sdk",
+        "notification-187bfb5-constraints/gap/configuration",
+        "notification-187bfb5-constraints/gap/completion"
+      ],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/host",
+        "notification-187bfb5-constraints/evidence/send",
+        "notification-187bfb5-constraints/evidence/response"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/resolve-send",
+      "kind": "resolution",
+      "owner": "notification-187bfb5-constraints/handler",
+      "requestedArtifact": "notification-187bfb5-constraints/artifact/example-notification-sdk",
+      "basis": "unresolved",
+      "target": null,
+      "candidates": [],
+      "binding": null,
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/host",
+        "notification-187bfb5-constraints/evidence/send",
+        "notification-187bfb5-constraints/evidence/package"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/op/entry",
+      "kind": "operation",
+      "owner": "notification-187bfb5-constraints/handler",
+      "action": "entry",
+      "label": "Enter registered async handler; framework parsing and validation details remain unresolved",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/registration",
+        "notification-187bfb5-constraints/evidence/request-schema"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/op/body",
+      "kind": "operation",
+      "owner": "notification-187bfb5-constraints/handler",
+      "action": "compute",
+      "label": "Read request.body with a TypeScript assertion; this assertion adds no runtime validation",
+      "resolution": null,
+      "bindings": [],
+      "result": "notification-187bfb5-constraints/value/body-local",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["notification-187bfb5-constraints/evidence/body"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/op/guard",
+      "kind": "operation",
+      "owner": "notification-187bfb5-constraints/handler",
+      "action": "branch",
+      "label": "Evaluate !body.text.trim(); trimmed text is used only as a guard",
+      "resolution": null,
+      "bindings": [],
+      "result": "notification-187bfb5-constraints/value/empty-text",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["notification-187bfb5-constraints/evidence/guard"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/op/400",
+      "kind": "operation",
+      "owner": "notification-187bfb5-constraints/handler",
+      "action": "return",
+      "label": "return reply.code(400).send({ error: Text is empty })",
+      "resolution": null,
+      "bindings": [],
+      "result": "notification-187bfb5-constraints/value/error-response",
+      "exit": "normal",
+      "httpStatus": 400,
+      "evidence": ["notification-187bfb5-constraints/evidence/guard"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/op/construct",
+      "kind": "operation",
+      "owner": "notification-187bfb5-constraints/handler",
+      "action": "compute",
+      "label": "Construct SDK argument { to: body.recipient, content: body.text }; content stays untrimmed",
+      "resolution": null,
+      "bindings": [],
+      "result": "notification-187bfb5-constraints/value/send-argument",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["notification-187bfb5-constraints/evidence/send"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/op/send",
+      "kind": "operation",
+      "owner": "notification-187bfb5-constraints/handler",
+      "action": "call",
+      "label": "await client.send(argument); SDK implementation and transport unresolved",
+      "resolution": "notification-187bfb5-constraints/resolve-send",
+      "bindings": [],
+      "result": "notification-187bfb5-constraints/value/sdk-result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["notification-187bfb5-constraints/evidence/send"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/op/202",
+      "kind": "operation",
+      "owner": "notification-187bfb5-constraints/handler",
+      "action": "return",
+      "label": "return reply.code(202).send({ id: result.id })",
+      "resolution": null,
+      "bindings": [],
+      "result": "notification-187bfb5-constraints/value/accepted-response",
+      "exit": "normal",
+      "httpStatus": 202,
+      "evidence": ["notification-187bfb5-constraints/evidence/response"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/op/sdk-failure",
+      "kind": "operation",
+      "owner": "notification-187bfb5-constraints/handler",
+      "action": "opaque",
+      "label": "SDK throw or rejection leaves async handler; framework HTTP mapping unresolved",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "exception",
+      "httpStatus": null,
+      "evidence": ["notification-187bfb5-constraints/evidence/send"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/value/body",
+      "kind": "value",
+      "owner": "notification-187bfb5-constraints/handler",
+      "definition": "notification-187bfb5-constraints/op/entry",
+      "label": "request.body",
+      "role": "parameter",
+      "representation": "source",
+      "shape": "notification-187bfb5-constraints/shape/request-source",
+      "accessPath": ["request", "body"],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/request-schema",
+        "notification-187bfb5-constraints/evidence/registration"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/value/body-local",
+      "kind": "value",
+      "owner": "notification-187bfb5-constraints/handler",
+      "definition": "notification-187bfb5-constraints/op/body",
+      "label": "body = request.body as declared object",
+      "role": "definition",
+      "representation": "source",
+      "shape": "notification-187bfb5-constraints/shape/request-source",
+      "accessPath": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/body"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/value/recipient",
+      "kind": "value",
+      "owner": "notification-187bfb5-constraints/handler",
+      "definition": "notification-187bfb5-constraints/op/body",
+      "label": "body.recipient",
+      "role": "field",
+      "representation": "source",
+      "shape": null,
+      "accessPath": ["recipient"],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/body",
+        "notification-187bfb5-constraints/evidence/send"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/value/text",
+      "kind": "value",
+      "owner": "notification-187bfb5-constraints/handler",
+      "definition": "notification-187bfb5-constraints/op/body",
+      "label": "body.text (original, untrimmed)",
+      "role": "field",
+      "representation": "source",
+      "shape": null,
+      "accessPath": ["text"],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/body",
+        "notification-187bfb5-constraints/evidence/guard",
+        "notification-187bfb5-constraints/evidence/send"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/value/empty-text",
+      "kind": "value",
+      "owner": "notification-187bfb5-constraints/handler",
+      "definition": "notification-187bfb5-constraints/op/guard",
+      "label": "!body.text.trim()",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/guard"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/value/error-response",
+      "kind": "value",
+      "owner": "notification-187bfb5-constraints/handler",
+      "definition": "notification-187bfb5-constraints/op/400",
+      "label": "{ error: 'Text is empty' }",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "notification-187bfb5-constraints/shape/error",
+      "accessPath": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/guard"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/value/send-argument",
+      "kind": "value",
+      "owner": "notification-187bfb5-constraints/handler",
+      "definition": "notification-187bfb5-constraints/op/construct",
+      "label": "{ to: body.recipient, content: body.text }",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "notification-187bfb5-constraints/shape/send-argument",
+      "accessPath": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/send"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/value/out-to",
+      "kind": "value",
+      "owner": "notification-187bfb5-constraints/handler",
+      "definition": "notification-187bfb5-constraints/op/construct",
+      "label": "SDK argument.to",
+      "role": "field",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": ["to"],
+      "evidence": ["notification-187bfb5-constraints/evidence/send"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/value/out-content",
+      "kind": "value",
+      "owner": "notification-187bfb5-constraints/handler",
+      "definition": "notification-187bfb5-constraints/op/construct",
+      "label": "SDK argument.content",
+      "role": "field",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": ["content"],
+      "evidence": ["notification-187bfb5-constraints/evidence/send"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/value/sdk-result",
+      "kind": "value",
+      "owner": "notification-187bfb5-constraints/handler",
+      "definition": "notification-187bfb5-constraints/op/send",
+      "label": "Awaited SDK result (normal return only)",
+      "role": "definition",
+      "representation": "source",
+      "shape": "notification-187bfb5-constraints/shape/sdk-result",
+      "accessPath": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/send"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/value/result-id",
+      "kind": "value",
+      "owner": "notification-187bfb5-constraints/handler",
+      "definition": "notification-187bfb5-constraints/op/202",
+      "label": "result.id",
+      "role": "field",
+      "representation": "source",
+      "shape": null,
+      "accessPath": ["id"],
+      "evidence": ["notification-187bfb5-constraints/evidence/response"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/value/accepted-response",
+      "kind": "value",
+      "owner": "notification-187bfb5-constraints/handler",
+      "definition": "notification-187bfb5-constraints/op/202",
+      "label": "{ id: result.id }",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "notification-187bfb5-constraints/shape/accepted",
+      "accessPath": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/response"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/transition/entry-body",
+      "kind": "transition",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/op/entry",
+      "to": "notification-187bfb5-constraints/op/body",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/handler"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/transition/body-guard",
+      "kind": "transition",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/op/body",
+      "to": "notification-187bfb5-constraints/op/guard",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/handler"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/transition/empty",
+      "kind": "transition",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/op/guard",
+      "to": "notification-187bfb5-constraints/op/400",
+      "on": "true",
+      "condition": "!body.text.trim()",
+      "values": ["notification-187bfb5-constraints/value/empty-text"],
+      "evidence": ["notification-187bfb5-constraints/evidence/guard"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/transition/nonempty",
+      "kind": "transition",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/op/guard",
+      "to": "notification-187bfb5-constraints/op/construct",
+      "on": "false",
+      "condition": "Boolean(body.text.trim())",
+      "values": ["notification-187bfb5-constraints/value/empty-text"],
+      "evidence": ["notification-187bfb5-constraints/evidence/guard"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/transition/construct-send",
+      "kind": "transition",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/op/construct",
+      "to": "notification-187bfb5-constraints/op/send",
+      "on": "normal",
+      "condition": null,
+      "values": ["notification-187bfb5-constraints/value/send-argument"],
+      "evidence": ["notification-187bfb5-constraints/evidence/send"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/transition/send-return",
+      "kind": "transition",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/op/send",
+      "to": "notification-187bfb5-constraints/op/202",
+      "on": "normal",
+      "condition": "SDK await returns normally and result.id can be read",
+      "values": ["notification-187bfb5-constraints/value/sdk-result"],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/send",
+        "notification-187bfb5-constraints/evidence/response"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/transition/send-reject",
+      "kind": "transition",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/op/send",
+      "to": "notification-187bfb5-constraints/op/sdk-failure",
+      "on": "exception",
+      "condition": "client.send throws or rejects",
+      "values": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/send"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/flow/body-copy",
+      "kind": "flow",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/value/body",
+      "to": "notification-187bfb5-constraints/value/body-local",
+      "at": "notification-187bfb5-constraints/op/body",
+      "transform": "TypeScript assertion; object is not transformed",
+      "evidence": ["notification-187bfb5-constraints/evidence/body"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "notification-187bfb5-constraints/flow/select-recipient",
+      "kind": "flow",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/value/body-local",
+      "to": "notification-187bfb5-constraints/value/recipient",
+      "at": "notification-187bfb5-constraints/op/body",
+      "transform": "Select field recipient",
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/body",
+        "notification-187bfb5-constraints/evidence/send"
+      ],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "notification-187bfb5-constraints/flow/select-text",
+      "kind": "flow",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/value/body-local",
+      "to": "notification-187bfb5-constraints/value/text",
+      "at": "notification-187bfb5-constraints/op/body",
+      "transform": "Select field text",
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/body",
+        "notification-187bfb5-constraints/evidence/send"
+      ],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "notification-187bfb5-constraints/flow/guard",
+      "kind": "flow",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/value/text",
+      "to": "notification-187bfb5-constraints/value/empty-text",
+      "at": "notification-187bfb5-constraints/op/guard",
+      "transform": "trim() then logical negation; original text is not mutated",
+      "evidence": ["notification-187bfb5-constraints/evidence/guard"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "notification-187bfb5-constraints/flow/to",
+      "kind": "flow",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/value/recipient",
+      "to": "notification-187bfb5-constraints/value/out-to",
+      "at": "notification-187bfb5-constraints/op/construct",
+      "transform": "Rename recipient to to without changing value",
+      "evidence": ["notification-187bfb5-constraints/evidence/send"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "notification-187bfb5-constraints/flow/content",
+      "kind": "flow",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/value/text",
+      "to": "notification-187bfb5-constraints/value/out-content",
+      "at": "notification-187bfb5-constraints/op/construct",
+      "transform": "Rename text to content without trimming",
+      "evidence": ["notification-187bfb5-constraints/evidence/send"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "notification-187bfb5-constraints/flow/assemble-out-to",
+      "kind": "flow",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/value/out-to",
+      "to": "notification-187bfb5-constraints/value/send-argument",
+      "at": "notification-187bfb5-constraints/op/construct",
+      "transform": "Include field in SDK argument object",
+      "evidence": ["notification-187bfb5-constraints/evidence/send"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "notification-187bfb5-constraints/flow/assemble-out-content",
+      "kind": "flow",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/value/out-content",
+      "to": "notification-187bfb5-constraints/value/send-argument",
+      "at": "notification-187bfb5-constraints/op/construct",
+      "transform": "Include field in SDK argument object",
+      "evidence": ["notification-187bfb5-constraints/evidence/send"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "notification-187bfb5-constraints/flow/id",
+      "kind": "flow",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/value/sdk-result",
+      "to": "notification-187bfb5-constraints/value/result-id",
+      "at": "notification-187bfb5-constraints/op/202",
+      "transform": "Select result.id after normal SDK return; type unresolved",
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/send",
+        "notification-187bfb5-constraints/evidence/response"
+      ],
+      "gaps": [
+        "notification-187bfb5-constraints/gap/sdk",
+        "notification-187bfb5-constraints/gap/response"
+      ],
+      "assumptions": ["SDK returns an object permitting id access"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/flow/accepted",
+      "kind": "flow",
+      "owner": "notification-187bfb5-constraints/handler",
+      "from": "notification-187bfb5-constraints/value/result-id",
+      "to": "notification-187bfb5-constraints/value/accepted-response",
+      "at": "notification-187bfb5-constraints/op/202",
+      "transform": "Construct object with id copied from SDK result",
+      "evidence": ["notification-187bfb5-constraints/evidence/response"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "notification-187bfb5-constraints/resource/send",
+      "kind": "resource",
+      "label": "Imported notification SDK boundary",
+      "technology": "Unresolved imported SDK transport",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": [
+        "notification-187bfb5-constraints/shape/send-argument",
+        "notification-187bfb5-constraints/shape/sdk-result"
+      ],
+      "gaps": [
+        "notification-187bfb5-constraints/gap/sdk",
+        "notification-187bfb5-constraints/gap/configuration",
+        "notification-187bfb5-constraints/gap/completion"
+      ],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/host",
+        "notification-187bfb5-constraints/evidence/send"
+      ],
+      "address": {
+        "basis": "source_declared",
+        "connectionSetting": "process.env.NOTIFICATION_URL",
+        "database": null,
+        "table": null,
+        "container": null,
+        "path": null,
+        "key": null
+      }
+    },
+    {
+      "id": "notification-187bfb5-constraints/effect/send",
+      "kind": "effect",
+      "owner": "notification-187bfb5-constraints/handler",
+      "operation": "notification-187bfb5-constraints/op/send",
+      "effect": "call",
+      "resource": "notification-187bfb5-constraints/resource/send",
+      "modality": "source_declared",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["notification-187bfb5-constraints/value/send-argument"],
+      "evidence": ["notification-187bfb5-constraints/evidence/send"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/interaction/send",
+      "kind": "interaction",
+      "owner": "notification-187bfb5-constraints/handler",
+      "execution": "notification-187bfb5-constraints/execution",
+      "operation": "notification-187bfb5-constraints/op/send",
+      "target": null,
+      "targetEntry": null,
+      "contract": "notification-187bfb5-constraints/contract/send",
+      "effect": "notification-187bfb5-constraints/effect/send",
+      "handoff": null,
+      "mode": "unknown",
+      "boundary": "unresolved",
+      "waitsFor": "response",
+      "condition": "Handler entered; body.text.trim() is truthy; argument construction completes.",
+      "requestBindings": [
+        {
+          "part": "selection",
+          "path": [],
+          "value": "notification-187bfb5-constraints/value/send-argument",
+          "transform": "Whole constructed SDK argument; wire placement unresolved"
+        }
+      ],
+      "responseBindings": [
+        {
+          "part": "result",
+          "path": [],
+          "value": "notification-187bfb5-constraints/value/sdk-result",
+          "transform": "await client.send(...) normal return; id selected for 202"
+        }
+      ],
+      "gaps": [
+        "notification-187bfb5-constraints/gap/sdk",
+        "notification-187bfb5-constraints/gap/configuration",
+        "notification-187bfb5-constraints/gap/completion"
+      ],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/guard",
+        "notification-187bfb5-constraints/evidence/send",
+        "notification-187bfb5-constraints/evidence/response"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/coverage/registration",
+      "kind": "coverage",
+      "owner": "notification-187bfb5-constraints/entry",
+      "obligation": "registration",
+      "status": "examined",
+      "scope": "Application registration and host declaration for POST /notifications in server.ts only",
+      "gaps": [],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/registration",
+        "notification-187bfb5-constraints/evidence/listen"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/coverage/schema",
+      "kind": "coverage",
+      "owner": "notification-187bfb5-constraints/entry",
+      "obligation": "api_schemas",
+      "status": "partial",
+      "scope": "Declared input fields, required fields and maximum length; constructed outgoing and returned objects; effective wire and framework failures unresolved",
+      "gaps": [
+        "notification-187bfb5-constraints/gap/framework",
+        "notification-187bfb5-constraints/gap/response"
+      ],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/request-schema",
+        "notification-187bfb5-constraints/evidence/send",
+        "notification-187bfb5-constraints/evidence/guard",
+        "notification-187bfb5-constraints/evidence/response"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/coverage/local",
+      "kind": "coverage",
+      "owner": "notification-187bfb5-constraints/entry",
+      "obligation": "control_and_values",
+      "status": "examined",
+      "scope": "Handler body copy, empty-text branch, early 400, untrimmed content mapping, awaited SDK call, normal 202 and SDK rejection boundary; conditional on handler entry",
+      "gaps": [],
+      "evidence": ["notification-187bfb5-constraints/evidence/handler"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/coverage/sdk",
+      "kind": "coverage",
+      "owner": "notification-187bfb5-constraints/entry",
+      "obligation": "downstream",
+      "status": "partial",
+      "scope": "Caller construction and result use only; no SDK implementation or remote boundary inferred",
+      "gaps": [
+        "notification-187bfb5-constraints/gap/sdk",
+        "notification-187bfb5-constraints/gap/configuration",
+        "notification-187bfb5-constraints/gap/completion"
+      ],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/host",
+        "notification-187bfb5-constraints/evidence/send"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/coverage/security",
+      "kind": "coverage",
+      "owner": "notification-187bfb5-constraints/entry",
+      "obligation": "security_chain",
+      "status": "partial",
+      "scope": "No authentication hook declared in examined application file; framework and external policy not traced",
+      "gaps": [
+        "notification-187bfb5-constraints/gap/framework",
+        "notification-187bfb5-constraints/gap/configuration"
+      ],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/host",
+        "notification-187bfb5-constraints/evidence/registration"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/coverage/completion",
+      "kind": "coverage",
+      "owner": "notification-187bfb5-constraints/entry",
+      "obligation": "completion",
+      "status": "partial",
+      "scope": "202 source return after SDK normal return; no durable acceptance or delivery established",
+      "gaps": ["notification-187bfb5-constraints/gap/completion"],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/send",
+        "notification-187bfb5-constraints/evidence/response"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/coverage/discovery",
+      "kind": "coverage",
+      "owner": "notification-187bfb5-constraints/entry",
+      "obligation": "repository_discovery",
+      "status": "not_examined",
+      "scope": "Only endpoint registration and relevant two source files examined; no whole-repository completeness claim",
+      "gaps": ["notification-187bfb5-constraints/gap/scope"],
+      "evidence": ["notification-187bfb5-constraints/evidence/registration"]
+    },
+    {
+      "id": "notification-187bfb5-constraints/claim/request-constraints",
+      "kind": "claim",
+      "owner": "notification-187bfb5-constraints/entry",
+      "statement": "requestSchema declares an object with additionalProperties:false; recipient and text are required strings and recipient has maxLength 200. Enforcement and validator transformations are unresolved.",
+      "basis": "source_declared",
+      "inputs": [
+        "notification-187bfb5-constraints/shape/request-source",
+        "notification-187bfb5-constraints/op/entry"
+      ],
+      "assumptions": [],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/request-schema",
+        "notification-187bfb5-constraints/evidence/registration"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/claim/startup",
+      "kind": "claim",
+      "owner": "notification-187bfb5-constraints/entry",
+      "statement": "package.json declares start as tsx server.ts; source calls app.listen({ port: 3000 }). Deployment and effective bind address are not established.",
+      "basis": "source_declared",
+      "inputs": ["notification-187bfb5-constraints/component"],
+      "assumptions": [],
+      "evidence": [
+        "notification-187bfb5-constraints/evidence/package",
+        "notification-187bfb5-constraints/evidence/listen"
+      ]
+    },
+    {
+      "id": "notification-187bfb5-constraints/derivation/local-control",
+      "kind": "derivation",
+      "output": "notification-187bfb5-constraints/coverage/local",
+      "rule": "Re-examine local control and value mappings when the handler source changes.",
+      "inputs": [
+        "notification-187bfb5-constraints/evidence/handler",
+        "notification-187bfb5-constraints/evidence/request-schema",
+        "notification-187bfb5-constraints/evidence/send"
+      ]
+    }
+  ]
+}

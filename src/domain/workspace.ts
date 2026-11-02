@@ -1,3 +1,5 @@
+import type { SystemNarratives } from './system-narrative';
+
 // A workspace holds domains; a domain holds systems; a system holds components.
 // One word per idea: these four are the only levels.
 
@@ -31,6 +33,7 @@ export const SYSTEM_TIERS = ['channel', 'gateway', 'forward', 'backend', 'upstre
 export type SystemTier = (typeof SYSTEM_TIERS)[number];
 
 export interface System {
+  readonly narratives?: SystemNarratives;
   readonly id: string;
   readonly name: string;
   /** What the system is for, in a sentence; when absent its components say. */

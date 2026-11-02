@@ -1,0 +1,389 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://groundwork.local/schema/scan-discovery-v1",
+  "title": "ScanDiscovery",
+  "$defs": {
+    "DiscoveryEvidence": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "observed_record"
+            },
+            "context_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "record_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "context_id",
+            "record_id",
+            "source_id"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "context_snapshot"
+            },
+            "context_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "commit": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{40}$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "lines": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "kind",
+            "context_id",
+            "path",
+            "commit",
+            "sha256",
+            "lines"
+          ]
+        }
+      ]
+    },
+    "CandidateDisposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "disposition": {
+          "enum": [
+            "component",
+            "part_of_component",
+            "non_runtime",
+            "unresolved",
+            "split"
+          ]
+        },
+        "component_id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DiscoveryEvidence"
+          },
+          "minItems": 0
+        },
+        "component_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 2,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "candidate_id",
+        "disposition",
+        "component_id",
+        "reason",
+        "evidence"
+      ]
+    },
+    "DiscoveredComponent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidate_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "boundary": {
+          "const": "source_declared"
+        },
+        "deployment": {
+          "const": "unknown"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DiscoveryEvidence"
+          },
+          "minItems": 1
+        },
+        "source_roots": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "candidate_ids",
+        "boundary",
+        "deployment",
+        "evidence"
+      ]
+    },
+    "DiscoveryReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "component_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "area": {
+          "enum": [
+            "purpose",
+            "actor",
+            "action",
+            "journey",
+            "relationship"
+          ]
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outcome": {
+          "enum": [
+            "claims_proposed",
+            "insufficient_context",
+            "not_applicable"
+          ]
+        },
+        "claim_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inspected": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DiscoveryEvidence"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "component_id",
+        "area",
+        "run_id",
+        "outcome",
+        "claim_ids",
+        "reason",
+        "inspected"
+      ]
+    },
+    "BehaviourReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outcome": {
+          "enum": [
+            "explained",
+            "supporting",
+            "unresolved"
+          ]
+        },
+        "claim_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inspected": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DiscoveryEvidence"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "candidate_id",
+        "run_id",
+        "outcome",
+        "claim_ids",
+        "reason",
+        "inspected"
+      ]
+    },
+    "ActionHost": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "component_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DiscoveryEvidence"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "action_id",
+        "component_id",
+        "evidence"
+      ]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "scan-discovery/v1"
+    },
+    "repo": {
+      "type": "string",
+      "minLength": 1
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "analysis_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "snapshot_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "inventory_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CandidateDisposition"
+      },
+      "minItems": 0
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DiscoveredComponent"
+      },
+      "minItems": 0
+    },
+    "receipts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DiscoveryReceipt"
+      },
+      "minItems": 0
+    },
+    "behaviours": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/BehaviourReceipt"
+      },
+      "minItems": 0
+    },
+    "action_hosts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ActionHost"
+      }
+    }
+  },
+  "required": [
+    "format",
+    "repo",
+    "commit",
+    "analysis_version",
+    "snapshot_sha256",
+    "inventory_sha256",
+    "candidates",
+    "components",
+    "receipts",
+    "behaviours"
+  ]
+}

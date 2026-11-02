@@ -14,6 +14,12 @@
       border-bottom: 1px solid var(--line-1);
       text-align: left;
       vertical-align: top;
+      overflow-wrap: anywhere;
+
+      &[data-compact] {
+        width: 1%;
+        white-space: nowrap;
+      }
     }
 
     & th {
@@ -53,6 +59,11 @@
       display: block;
       color: var(--fg-3);
       font-size: var(--fs-12);
+    }
+
+    .table td[data-compact] {
+      width: auto;
+      white-space: normal;
     }
   }
 }

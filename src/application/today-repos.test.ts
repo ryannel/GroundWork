@@ -1,11 +1,17 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { acme as acmeKit } from '@/../test/workspace-kit';
 import { systemScopeOf } from '@/application/model-scope';
 import { componentCardsOf } from '@/application/today-components';
 import { reposOf } from '@/application/today-repos';
 import { systemModelOf } from '@/application/workspace-model';
+import { homeOf } from '@/domain/workspace';
 import type { Scan } from '@/domain/workspace-model';
+
+vi.mock(import('@/domain/workspace'), async (importOriginal) => {
+  const original = await importOriginal();
+  return { ...original, homeOf: vi.fn<typeof homeOf>(original.homeOf) };
+});
 
 function acme(scans: readonly Scan[] = []) {
   const { workspace, model } = acmeKit();
@@ -26,10 +32,17 @@ const scan = (scannedAt: string): Scan => ({
 describe('how fresh a system reading is', () => {
   it('says a repo has not been scanned', () => {
     const { workspace, today } = acme();
-    const [row] = reposOf(workspace, today, 'products');
+    const [row] = reposOf(workspace, { ...today, attribution: {} }, 'products');
     expect(row).toMatchObject({ repo: 'acme/products', scanned: false });
     expect(row?.read).toMatch(/^Not scanned yet/u);
     expect(row?.cited).toMatch(/cite/u);
+  });
+
+  it('distinguishes cited code from a completed scan record', () => {
+    const { workspace, today } = acme();
+    expect(reposOf(workspace, today, 'products')[0]?.read).toBe(
+      'Code cited; no completed scan recorded',
+    );
   });
 
   it('gives the commit, branch and day a repo was read', () => {
@@ -123,6 +136,28 @@ describe('a repo that systems share by folder', () => {
       '1 of the 12 commits since touches this folder, checked 10 May 2025',
     );
     expect(folderMoved({})).toBe('12 commits behind, checked 10 May 2025');
+  });
+});
+
+describe('repeated source citations', () => {
+  it('places each cited file once and counts a fact once per home', () => {
+    const { workspace, model } = acmeKit();
+    const source = model.attribution['svc:products']!.sources[0]!;
+    const today = systemModelOf(workspace, {
+      ...model,
+      attribution: {
+        ...model.attribution,
+        'svc:products': { origin: 'extracted', sources: Array.from({ length: 200 }, () => source) },
+        'api:products-get': { origin: 'extracted', sources: [source] },
+      },
+    });
+    vi.mocked(homeOf).mockClear();
+
+    expect(reposOf(workspace, today, 'products')[0]?.cited).toBe('2 facts cite its code');
+    expect(vi.mocked(homeOf).mock.calls).toEqual([
+      [workspace, 'acme/products', source.path],
+      [workspace, 'acme/ordering', 'src/main/kotlin/orders/OrderController.kt'],
+    ]);
   });
 });
 

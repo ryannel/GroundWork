@@ -1,13 +1,17 @@
 ---
 name: groundwork-graph
-description: Map a federated GraphQL graph into the Groundwork system model and plan changes to it. Use when a system or plan touches a supergraph, a gateway or router, subgraphs, persisted queries or CDN and edge caching, and someone asks to map the graph, add operations, explain why a page is slow or uncached, or plan graph changes. Reads the registry or composed schema, the subgraph repos and the front end's operation manifest, writes graphs, subgraphs and operations into the owning system's contracts.yaml, and plan changes as ops.
+description: Map federated GraphQL schemas, subgraphs and operations, and plan graph changes in Groundwork's production workspace model.
 ---
 
 # Mapping a federated graph
 
+This workflow writes the production YAML model. For question-led GraphQL client/source bindings, use
+[groundwork-explore](../groundwork-explore/SKILL.md) in scan mode. Use existing authorised graph evidence;
+a missing registry or resolver is an explicit gap, not permission to restart a stopped scan.
+
 Goal: `graphs`, `subgraphs`, `operations`, `graph-type` schemas and layered cache stores in the system model,
 each with `sources`, so the app can derive the query plan, response policy and cache path. Rules:
-[groundwork-schema](../groundwork-schema/SKILL.md) rule 15 and [cookbook](../groundwork-schema/cookbook.md)
+[legacy schema](../groundwork-schema/legacy-yaml.md#ground-rules) rule 15 and [cookbook](../groundwork-schema/cookbook.md)
 §16–19. Ordinary components are still explored with [groundwork-explore](../groundwork-explore/SKILL.md).
 
 Today's graph is extracted fact and lives in `domains/<d>/systems/<s>/contracts.yaml` of the system that owns
@@ -16,8 +20,9 @@ changes the graph does so with ops on these ids; it never copies them.
 
 ## The loop
 
-1. **Find the graph.** Ask for the registry (GraphOS, Hive, WunderGraph) or the composed supergraph SDL (the
-   artefact the router loads). The `@join__graph` enum lists the subgraphs and their URLs; `@join__type` and
+1. **Find the graph.** Locate the supplied registry evidence (GraphOS, Hive, WunderGraph) or composed
+   supergraph SDL (the artefact the router loads). Ask only when a necessary input cannot be located in the
+   authorised context. The `@join__graph` enum lists the subgraphs and their URLs; `@join__type` and
    `@join__field` say who owns what. One `graphs` entry, `gateway:` the gateway component. With no registry,
    compose from the subgraph SDLs.
 2. **One explorer per subgraph repo**, as part of [groundwork-scan](../groundwork-scan/SKILL.md): the component,
@@ -29,7 +34,8 @@ changes the graph does so with ops on these ids; it never copies them.
    - `@shareable` → `shareable: true`; two owners without it is a composition error.
    - `@provides(fields: "name")` → `provides: [sch:gql-product#name]`; `@requires` → `requires`.
    - `@override(from: "pricing", label: "percent(10)")` → `override: { from: sg:pricing, percent: 10 }`.
-   - `@authenticated` or `@requiresScopes` → `auth: "…"`; it makes every operation selecting it private.
+   - `@authenticated` or `@requiresScopes` → declared `auth: "…"`; establish effective enforcement and
+     cache eligibility separately from the directives.
    - `@cacheControl(maxAge: 300)` → `cache_control: { max_age: 300 }`.
    - The resolver: records it reads → `reads`, a REST hop → `via: api:…`, a cache it asks first →
      `cache: [{ at, ttl }]`. Its full logic is a handler.
@@ -57,11 +63,15 @@ The cookbook's §16–19 recipes are the patterns: expand, migrate, then remove.
 
 ## Judgement
 
-- Only what runs: skip subgraphs that compose but receive no traffic unless a plan touches them.
-- Never author fetches, round trips or lifetimes; if you are tempted, a directive is missing.
-- Privacy comes from `auth` on a root field (`Query.me`), never from "per region". A key that includes the region
-  is public and cached per region.
-- Say who to call: every subgraph's component has a team; a graph without owners cannot be planned.
+- Retain discovered subgraphs and distinguish source declarations from observed traffic. No usage evidence
+  is not proof of absence; any scope exclusion needs a reason.
+- Derive query-plan and cache results from their actual inputs. Missing configuration or implementation
+  can explain a mismatch; do not invent a directive or runtime result.
+- A regional cache key establishes partitioning, not public cache eligibility or identity enforcement.
+  Keep declared field policy separate from verified router, cache and authorisation behaviour.
+- Keep technical identities independent of team ownership. Missing ownership is a planning question, not
+  a reason to discard a component or stop source mapping.
+- Repeated resolver/binding gaps feed the shared [learning loop](../groundwork-scan/learning.md).
 
 ## Words for the room
 
