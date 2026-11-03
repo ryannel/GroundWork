@@ -18,7 +18,7 @@ Use one task per checkout. Full checks remain required for shared logic and tool
 merging; see [the development checks](docs/architecture.md#focused-development-checks).
 
 Each workspace is its own repo of YAML: the systems a company runs today and the plans that change them.
-`workspaces/` holds two examples. Clone Groundwork, then link whichever workspace repos you want to read; each
+`workspaces/` holds bundled examples, not the list of available company workspaces. Clone Groundwork, then link whichever workspace repos you want to read; each
 checkout keeps its own list in `groundwork.local.yaml`, which is not in git. The `groundwork-workspace` skill
 walks you through it:
 
@@ -27,12 +27,25 @@ npm run workspace -- add git@github.com:acme/acme-groundwork.git   # clone it in
 npm run workspace -- add ../acme-groundwork                        # or read a folder you already have
 npm run workspace -- new ../beta-groundwork --id beta --name "Beta" --private   # make a new one
 npm run workspace -- pull      # clone what is missing and update the linked repos
-npm run workspace -- list      # what this checkout reads
+npm run workspace -- list      # names, ids, folders, registration sources and app paths
+npm run --silent workspace -- list --json   # pure JSON, without npm's banner, for agents and scripts
+npm run workspace -- open acme     # open its workspace root; --origin for a different server
 npm run workspace -- remove acme
 ```
 
-Restart `npm run dev` after linking. To read the same workspaces on another machine, copy `groundwork.local.yaml`
-there and run `pull`.
+Reload the page after linking; no dev-server restart is needed. The library lists company workspaces and
+examples separately. Every workspace and plan page has a workspace switcher; local linking details are
+available on the library cards in development and are not exposed in production.
+
+Start workspace-backed work with `npm run workspace -- list`, not a search of `workspaces/`. The workspace id
+comes from `workspace.yaml`, not the folder name. With more than one workspace registered, map and plan-base
+commands require `--workspace <id>`; they print the selected name, id and folder to stderr, preserving JSON
+on stdout. `GROUNDWORK_WORKSPACES` still overrides both local links and examples for a scoped server.
+
+To read the same workspaces on another machine, link their repository URLs there, or copy a URL-based
+`groundwork.local.yaml` and run `pull`. Folder-only entries point to this machine and must be relinked if their
+paths differ. Keep each workspace's model and plans together; code checkouts and disposable scan caches live
+elsewhere and are referenced, not copied into the workspace.
 
 See `docs/architecture.md` for how the code is laid out and how workspaces are found.
 

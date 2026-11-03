@@ -34,10 +34,12 @@ interface MenuProps {
   readonly button: ReactNode;
   /** The menu's content, shown under the button while open. */
   readonly children: ReactNode;
+  /** Anchor the panel to the start of a control near the left edge of the page. */
+  readonly align?: 'start' | 'end';
 }
 
 // A button that opens a panel of links or choices beneath it. A click outside, a link followed or Esc closes it.
-export function Menu({ label, button, children }: MenuProps) {
+export function Menu({ label, button, children, align = 'end' }: MenuProps) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   useDismiss(root, open, () => {
@@ -58,7 +60,11 @@ export function Menu({ label, button, children }: MenuProps) {
         {button}
         <span aria-hidden="true" className={styles.caret} />
       </button>
-      {open ? <div className={styles.panel}>{children}</div> : null}
+      {open ? (
+        <div className={styles.panel} data-align={align}>
+          {children}
+        </div>
+      ) : null}
     </div>
   );
 }

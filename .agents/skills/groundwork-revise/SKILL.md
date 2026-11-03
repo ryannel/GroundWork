@@ -5,6 +5,9 @@ description: Revise a Groundwork plan through git with its revision ledger. Use 
 
 # Revise a plan
 
+First run `npm run --silent workspace -- list --json` in the Groundwork checkout. Resolve the plan's workspace folder
+from the registry, not `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
+
 The plan is one file; a revision is the same file at a new commit, never a copy. `meta.revisions` is the ledger
 (oldest first, statuses `proposed | approved | rejected`). The newest approved entry is the **canonical plan**; its
 exact snapshot is `<workspace>/plans/<plan>/revisions/<version>.yaml`. `meta.status` (draft | review |

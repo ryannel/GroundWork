@@ -4,7 +4,7 @@
 //                                       today moves any of them on; read the change, fix the plan, check again.
 //   npm run plan:base -- land <slug>    the plan has shipped: keep the part of today it draws as base.yaml, so it
 //                                       goes on reading as it stood while today moves on, and drop the lock.
-// Options: --workspace <id> (the first workspace when not given).
+// Options: --workspace <id> (required when several are registered).
 import { rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
@@ -14,8 +14,7 @@ import { stringify } from 'yaml';
 import { collectionsOf, driftOf, lockOf, onBase, scopeOf } from '@/application/plan/plan-base';
 import { readPlanBase, readPlanLock } from '@/infrastructure/plan-base-store';
 import { readPlan, readVersions } from '@/infrastructure/plan-store';
-import { workspaceFolder } from '@/infrastructure/workspace-folders';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
+import { selectedWorkspace, workspaceFolder } from '@/infrastructure/workspace-folders';
 
 async function planFolder(workspace: string, slug: string): Promise<string> {
   const folder = await workspaceFolder(workspace);
@@ -31,9 +30,9 @@ const { positionals, values } = parseArgs({
 });
 
 async function workspaceId(): Promise<string> {
-  const all = await readWorkspaces();
-  const found = all.find(({ id }) => values.workspace === undefined || id === values.workspace);
-  if (found === undefined) throw new Error(`no workspace ${values.workspace ?? ''}`);
+  const found = await selectedWorkspace(values.workspace);
+  console.error(`Workspace: ${found.name} (${found.id}) at ${found.folder}`);
+  process.env.GROUNDWORK_WORKSPACES = found.folder;
   return found.id;
 }
 

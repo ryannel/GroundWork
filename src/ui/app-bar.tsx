@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import styles from './app-bar.module.css';
 import { BarActions } from './bar-actions.client';
 import { Brand } from './brand';
+import { ScopeSwitcher } from './scope-switcher.client';
 import { ThemeToggle } from './theme-toggle.client';
 
 interface Crumb {
@@ -34,6 +35,7 @@ export function AppBar({ trail = NO_TRAIL, title, note, after, children, lead }:
     <header className={styles.bar}>
       {lead}
       <Brand />
+      <ScopeSwitcher />
       {trail.length === 0 ? null : (
         <nav aria-label="Trail" className={styles.trail}>
           <ol className={styles.crumbs}>

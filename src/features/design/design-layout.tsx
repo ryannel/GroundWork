@@ -1,5 +1,6 @@
 import { Badge } from '@/ui/badge';
 import { List, ListItem } from '@/ui/list';
+import { ScopeProvider, ScopeSwitcher } from '@/ui/scope-switcher.client';
 import { SectionHeading } from '@/ui/section-heading';
 import { SplitView } from '@/ui/split-view';
 import { Cluster, Stack } from '@/ui/stack';
@@ -12,6 +13,24 @@ export function LayoutSection() {
   return (
     <section>
       <SectionHeading title="Layout">How pieces sit together.</SectionHeading>
+      <Specimen
+        name="ScopeSwitcher"
+        use="Keep the current workspace visible and open another workspace from any page."
+      >
+        <ScopeProvider
+          scope={{
+            label: 'Workspace',
+            current: { label: 'Acme', href: '/design/', group: 'Workspaces' },
+            links: [
+              { label: 'Acme', href: '/design/', group: 'Workspaces' },
+              { label: 'Example', href: '/design/?example=true', group: 'Examples' },
+            ],
+            index: { label: 'All workspaces', href: '/' },
+          }}
+        >
+          <ScopeSwitcher />
+        </ScopeProvider>
+      </Specimen>
       <Specimen name="Stack" use="Things one under another, a step apart.">
         <Stack gap={1}>
           <Text tone="strong">Order</Text>

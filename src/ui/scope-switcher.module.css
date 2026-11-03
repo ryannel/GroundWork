@@ -1,0 +1,49 @@
+@layer components {
+  .switcher {
+    position: relative;
+    flex: 0 1 auto;
+    min-width: 0;
+    font-size: var(--fs-13);
+  }
+
+  .current {
+    display: block;
+    max-width: min(var(--measure), 30vw);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .label {
+    margin-right: var(--s-2);
+    color: var(--fg-3);
+
+    @media (width < 56rem) {
+      display: none;
+    }
+  }
+
+  .group {
+    margin: 0 0 var(--s-2);
+    color: var(--fg-3);
+    font-weight: 600;
+  }
+
+  .links {
+    margin: 0 0 var(--s-4);
+    padding: 0;
+    list-style: none;
+
+    & a {
+      display: block;
+      padding: var(--s-2);
+      border-radius: var(--r-2);
+      text-decoration: none;
+    }
+
+    & a[aria-current] {
+      background: var(--bg-2);
+      font-weight: 600;
+    }
+  }
+}

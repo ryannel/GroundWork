@@ -6,7 +6,7 @@
 //   npm run map -- owns <path>      the facts read from a file (--repo org/name to narrow)
 //   npm run map -- repos            the commit each repo was last read at; never-scanned repos say so
 //   npm run map -- md               write <workspace>/MAP.md
-// Options: --workspace <id> (the first workspace when not given); --checkouts <dir> adds a local path to every
+// Options: --workspace <id> (required when several are registered); --checkouts <dir> adds a local path to every
 // source whose repo is checked out as <dir>/<name>.
 import { existsSync } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
@@ -17,7 +17,7 @@ import { type Cited, findIn, ownedBy, type SystemMap, systemMapOf } from '@/appl
 import { callersOf, shownIn } from '@/application/system-map-links';
 import { mapMarkdownOf } from '@/application/system-map-md';
 import { systemModelOf } from '@/application/workspace-model';
-import { workspaceFolder } from '@/infrastructure/workspace-folders';
+import { selectedWorkspace, workspaceFolder } from '@/infrastructure/workspace-folders';
 import { readWorkspaceModel } from '@/infrastructure/workspace-model';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
 
@@ -32,9 +32,12 @@ const { positionals, values } = parseArgs({
 });
 
 async function loaded(): Promise<SystemMap> {
+  const selected = await selectedWorkspace(values.workspace);
+  console.error(`Workspace: ${selected.name} (${selected.id}) at ${selected.folder}`);
+  process.env.GROUNDWORK_WORKSPACES = selected.folder;
   const all = await readWorkspaces();
-  const workspace = all.find(({ id }) => values.workspace === undefined || id === values.workspace);
-  if (workspace === undefined) throw new Error(`no workspace ${values.workspace ?? ''}`);
+  const workspace = all.find(({ id }) => id === selected.id);
+  if (workspace === undefined) throw new Error(`no workspace ${selected.id}`);
   const model = await readWorkspaceModel(workspace);
   return systemMapOf(workspace, systemModelOf(workspace, model));
 }

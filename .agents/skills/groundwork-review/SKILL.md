@@ -5,6 +5,9 @@ description: Review a Groundwork plan (<workspace>/plans/<plan>/plan.yaml) and t
 
 # Review a plan
 
+First run `npm run --silent workspace -- list --json` in the Groundwork checkout. Read the plan and model in the
+resolved folder and select its id explicitly; see [workspace discovery](../README.md#find-the-workspace-first).
+
 Goal: a room follows the plan from cover to commitment and never hits an empty screen, an unexplained word, a
 claim they cannot check, or a change without a test, an owner and an issue.
 

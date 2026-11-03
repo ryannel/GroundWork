@@ -5,6 +5,9 @@ description: Author or validate Groundwork scan evidence, execution bundles, wor
 
 # Groundwork schema rules
 
+For workspace-backed files, first run `npm run --silent workspace -- list --json` in the Groundwork checkout.
+Resolve their workspace folder from the registry, not `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
+
 Choose the contract that the requested artefact actually uses. The formats below are separate; producing
 scan evidence or an execution proof does not migrate the application. Read schema definitions for the
 records being changed rather than copying field names across formats.

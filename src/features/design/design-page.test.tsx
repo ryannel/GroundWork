@@ -22,6 +22,7 @@ describe('DesignPage', () => {
       'Stack',
       'Cluster',
       'SplitView',
+      'ScopeSwitcher',
       'FlowCard',
     ]) {
       expect(screen.getByRole('heading', { level: 3, name })).toBeDefined();

@@ -5,6 +5,9 @@ description: Answer questions about mapped company systems using Groundwork evid
 
 # Answer from Groundwork evidence
 
+For workspace-backed questions, first run `npm run --silent workspace -- list --json` in the Groundwork checkout.
+Resolve the name, id and folder there, not by searching `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
+
 Answer the question from the selected map or capture, then inspect cited source where the answer needs
 more detail. Keep the explanation useful to a newcomer and distinguish what is observed, inferred or unknown.
 

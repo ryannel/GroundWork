@@ -1,16 +1,30 @@
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-import { afterAll, describe, expect, it, vi } from 'vitest';
+import { afterAll, afterEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock(import('server-only'), () => ({}));
 
-const { cloneFolder, folderOf, readLocal, registeredAt, workspaceFolders } =
-  await import('./workspace-folders');
+const {
+  cloneFolder,
+  folderOf,
+  readLocal,
+  registeredAt,
+  registrationsAt,
+  workspaceFolders,
+  workspaceRegistrations,
+  selectedWorkspace,
+  localWorkspaceDetails,
+} = await import('./workspace-folders');
 
 const scratch = path.join(process.cwd(), 'node_modules', '.cache');
 const made: string[] = [];
 
+afterEach(() => {
+  vi.unstubAllEnvs();
+  vi.unstubAllGlobals();
+  vi.restoreAllMocks();
+});
 afterAll(async () => {
   await Promise.all(made.map(async (dir) => rm(dir, { recursive: true, force: true })));
 });
@@ -37,6 +51,14 @@ async function checkout(): Promise<{ home: string; repo: string }> {
   return { home, repo };
 }
 
+async function localCheckout(): Promise<{ home: string; repo: string }> {
+  const setup = await checkout();
+  vi.spyOn(process, 'cwd').mockReturnValue(setup.home);
+  vi.stubEnv('VITEST', globalThis.undefined);
+  vi.stubEnv('GROUNDWORK_WORKSPACES', globalThis.undefined);
+  return setup;
+}
+
 describe('workspaceFolders', () => {
   it('finds the bundled examples by the id in their workspace.yaml', async () => {
     const bundled = path.join(await scratchDir(), 'workspaces');
@@ -48,6 +70,35 @@ describe('workspaceFolders', () => {
 });
 
 describe('registeredAt', () => {
+  it('exposes names, ids, paths and provenance from the same resolver as the app', async () => {
+    const { home, repo } = await checkout();
+    await writeFile(
+      path.join(repo, 'workspace.yaml'),
+      'id: acme\nname: acme\nprivate: true\nteams: [{id: team:shop, name: Shop}]\n',
+    );
+    await writeFile(path.join(home, 'groundwork.local.yaml'), 'workspaces: [../acme-groundwork]\n');
+    await expect(registrationsAt(home, { local: true })).resolves.toEqual([
+      {
+        id: 'example',
+        name: 'example',
+        folder: path.join(home, 'workspaces', 'example'),
+        source: 'example',
+        isExample: true,
+        repo: null,
+      },
+      { id: 'acme', name: 'acme', folder: repo, source: 'local', isExample: false, repo: null },
+    ]);
+    await expect(registrationsAt(home, { env: repo, local: true })).resolves.toEqual([
+      {
+        id: 'acme',
+        name: 'acme',
+        folder: repo,
+        source: 'environment',
+        isExample: false,
+        repo: null,
+      },
+    ]);
+  });
   it('reads the examples and the workspace repos the local file lists', async () => {
     const { home, repo } = await checkout();
     await writeFile(
@@ -76,6 +127,21 @@ describe('registeredAt', () => {
     await writeFile(path.join(home, 'groundwork.local.yaml'), 'workspaces: [../nowhere]\n');
     const found = await registeredAt(home, { env: repo, local: true });
     expect(Object.fromEntries(found)).toEqual({ acme: repo });
+  });
+
+  it('keeps examples labelled when selected through an environment override', async () => {
+    const { home } = await checkout();
+    const folder = path.join(home, 'workspaces/example');
+    await expect(registrationsAt(home, { env: folder, local: true })).resolves.toEqual([
+      {
+        id: 'example',
+        name: 'example',
+        folder,
+        source: 'environment',
+        isExample: true,
+        repo: null,
+      },
+    ]);
   });
 
   it('refuses a listed folder that holds no workspace', async () => {
@@ -111,6 +177,87 @@ describe('registeredAt', () => {
     );
     const found = await registeredAt(home, { local: true });
     expect(found.get('beta')).toBe(clone);
+    const registrations = await registrationsAt(home, { local: true });
+    expect(registrations.find((entry) => entry.id === 'beta')?.repo).toBe(
+      'git@github.com:beta/beta-groundwork.git',
+    );
+  });
+
+  describe('live registration and command selection', () => {
+    it('finds a link added, relocated and removed in one running process', async () => {
+      const { home, repo } = await localCheckout();
+      const before = await workspaceFolders();
+      expect([...before.keys()]).toEqual(['example']);
+      await writeFile(
+        path.join(home, 'groundwork.local.yaml'),
+        'workspaces: [../acme-groundwork]\n',
+      );
+      const added = await workspaceFolders();
+      expect(added.get('acme')).toBe(repo);
+      const relocated = await workspaceAt(path.join(home, '..', 'relocated'), 'acme');
+      await writeFile(path.join(home, 'groundwork.local.yaml'), 'workspaces: [../relocated]\n');
+      const moved = await workspaceFolders();
+      expect(moved.get('acme')).toBe(relocated);
+      await writeFile(path.join(home, 'groundwork.local.yaml'), 'workspaces: []\n');
+      const removed = await workspaceFolders();
+      expect(removed.has('acme')).toBe(false);
+    });
+
+    it('recovers from a broken link once the local file is fixed', async () => {
+      const { home, repo } = await localCheckout();
+      await writeFile(path.join(home, 'groundwork.local.yaml'), 'workspaces: [../missing]\n');
+      await expect(workspaceFolders()).rejects.toThrow(/correct the link/u);
+      await writeFile(
+        path.join(home, 'groundwork.local.yaml'),
+        'workspaces: [../acme-groundwork]\n',
+      );
+      const found = await workspaceFolders();
+      expect(found.get('acme')).toBe(repo);
+    });
+
+    it('requires explicit selection when an example and a company workspace are registered', async () => {
+      const { home, repo } = await localCheckout();
+      await writeFile(
+        path.join(home, 'groundwork.local.yaml'),
+        'workspaces: [../acme-groundwork]\n',
+      );
+      await expect(selectedWorkspace()).rejects.toThrow(
+        /Choose a workspace.*--workspace.*example.*acme/u,
+      );
+      await expect(selectedWorkspace('acme')).resolves.toMatchObject({ id: 'acme', folder: repo });
+      await expect(selectedWorkspace('unknown')).rejects.toThrow(
+        /No workspace unknown.*workspace -- list/u,
+      );
+    });
+
+    it('selects a sole workspace and honours an environment override on every read', async () => {
+      const { repo } = await localCheckout();
+      vi.stubEnv('GROUNDWORK_WORKSPACES', repo);
+      await expect(selectedWorkspace()).resolves.toMatchObject({
+        id: 'acme',
+        source: 'environment',
+      });
+      vi.stubEnv('GROUNDWORK_WORKSPACES', globalThis.undefined);
+      await expect(selectedWorkspace()).resolves.toMatchObject({
+        id: 'example',
+        source: 'example',
+      });
+    });
+
+    it('keeps local settings out of test reads', async () => {
+      const { home } = await localCheckout();
+      await writeFile(path.join(home, 'groundwork.local.yaml'), 'workspaces: [../missing]\n');
+      vi.stubEnv('VITEST', 'true');
+      const found = await workspaceRegistrations();
+      expect(found.map((entry) => entry.id)).toEqual(['example']);
+    });
+
+    it('shows local details only in development', () => {
+      vi.stubEnv('NODE_ENV', 'production');
+      expect(localWorkspaceDetails()).toBe(false);
+      vi.stubEnv('NODE_ENV', 'development');
+      expect(localWorkspaceDetails()).toBe(true);
+    });
   });
 
   it('says to pull a linked repo that is not cloned yet', async () => {

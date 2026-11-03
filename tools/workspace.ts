@@ -12,13 +12,15 @@
 //   npm run workspace -- check <folder> [--warnings]
 //       read the workspace and its model of today, check every reference in the model resolves, and read every
 //       plan onto it, as the app does; exits 1 on any error. --warnings lists the model's warnings too
-//   npm run workspace -- list
-//       the workspaces this checkout reads, and where each one is
+//   npm run workspace -- list [--json]
+//       the names, ids, locations and registration sources this checkout reads
+//   npm run workspace -- open <id> [--origin http://localhost:3000]
+//       open a registered workspace in the browser
 // Registering writes the folder or repo into groundwork.local.yaml (git-ignored, one per machine) and links Groundwork's
 // skills into the workspace repo as .agents/skills, .claude/skills and .github/skills, which its .gitignore keeps
-// out of git. Restart `npm run dev` after registering: Next does not watch folders outside this checkout.
+// out of git. Reload the page after linking; the app reads registration changes without restarting.
 import { execFileSync } from 'node:child_process';
-import { lstat, mkdir, readdir, symlink, writeFile } from 'node:fs/promises';
+import { lstat, mkdir, readdir, rename, rm, symlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
 
@@ -26,6 +28,7 @@ import { stringify } from 'yaml';
 
 import { languageWarnings } from '@/application/workspace-language';
 import { systemModelOf } from '@/application/workspace-model';
+import { workspaceHref } from '@/application/workspace-paths';
 import { targetWarnings } from '@/application/workspace-target';
 import { listPlans } from '@/infrastructure/plan-store';
 import { checkPlanData } from '@/infrastructure/plan-validator';
@@ -34,6 +37,7 @@ import {
   type LocalEntry,
   readLocal,
   registeredAt,
+  registrationsAt,
 } from '@/infrastructure/workspace-folders';
 import { readWorkspaceModel } from '@/infrastructure/workspace-model';
 import { readPlanState } from '@/infrastructure/workspace-plans';
@@ -54,6 +58,8 @@ const { positionals, values } = parseArgs({
     folder: { type: 'string' },
     private: { type: 'boolean', default: false },
     warnings: { type: 'boolean', default: false },
+    json: { type: 'boolean', default: false },
+    origin: { type: 'string', default: 'http://localhost:3000' },
   },
 });
 
@@ -72,20 +78,33 @@ const HEADER =
   '# Written by `npm run workspace`; copy it to another checkout and run pull to read the same workspaces.\n';
 
 async function writeLocal(workspaces: readonly LocalEntry[], bundled: boolean): Promise<void> {
-  await writeFile(
-    LOCAL,
-    HEADER + stringify({ ...(bundled ? {} : { bundled: false }), workspaces }),
-  );
+  const temporary = `${LOCAL}.${String(process.pid)}.tmp`;
+  try {
+    await writeFile(
+      temporary,
+      HEADER + stringify({ ...(bundled ? {} : { bundled: false }), workspaces }),
+    );
+    await rename(temporary, LOCAL);
+  } finally {
+    await rm(temporary, { force: true });
+  }
 }
 
 const where = (entry: LocalEntry): string => path.resolve(HOME, folderOf(entry));
 
-async function register(entry: LocalEntry): Promise<void> {
+async function register(entry: LocalEntry, id: string): Promise<void> {
   const { workspaces, bundled } = await readLocal(HOME);
+  const found = await registeredAt(HOME, { local: true });
+  const existing = found.get(id);
+  if (existing !== undefined && existing !== where(entry)) {
+    throw new Error(
+      `workspace ${id}: found in both ${existing} and ${where(entry)}; link not changed`,
+    );
+  }
+  if (existing === where(entry)) return;
   if (!workspaces.some((each) => where(each) === where(entry))) {
     await writeLocal([...workspaces, entry], bundled);
   }
-  await registeredAt(HOME, { local: true });
 }
 
 /** Whether `given` names a repo to clone rather than a folder on this machine. */
@@ -122,9 +141,9 @@ async function add(given: string): Promise<void> {
   }
   const folder = where(entry);
   const id = await validate(folder);
-  await register(entry);
+  await register(entry, id);
   await linkSkills(folder);
-  console.log(`registered ${id} at ${folder}; restart npm run dev to see it at /${id}/`);
+  console.log(`registered ${id} at ${folder}; reload the page to see it at ${workspaceHref(id)}`);
 }
 
 async function pull(): Promise<void> {
@@ -199,6 +218,9 @@ change them. Groundwork itself, its app, its tools and its skills, is a separate
   \`npm run workspace -- add <this folder>\`, run in the Groundwork checkout. Run that if they are missing.
 - Groundwork's commands (\`npm run map\`, \`npm run plan:base\`, \`node tools/…\`) run in the Groundwork checkout, not
   here. Where a skill says \`<workspace>\`, it means this folder.
+- In that checkout, start with \`npm run --silent workspace -- list --json\` to resolve this workspace's id and folder;
+  do not look only in Groundwork's \`workspaces/\`, which holds examples. Select \`--workspace <id>\` explicitly
+  when several workspaces are registered.
 - Every fact about a system cites the code it was read from (repo, path, lines, commit). Do not write facts the code
   does not show; leave them out, or ask.
 - The levels are workspace, domain, system and component, and nothing else.
@@ -302,8 +324,52 @@ async function check(given: string): Promise<void> {
 }
 
 async function list(): Promise<void> {
+  const found = await registrationsAt(HOME, {
+    env: process.env.GROUNDWORK_WORKSPACES,
+    local: true,
+  });
+  const rows = found.map((workspace) => ({
+    ...workspace,
+    href: workspaceHref(workspace.id),
+  }));
+  if (values.json) {
+    console.log(JSON.stringify(rows, null, 2));
+    return;
+  }
+  if (rows.length === 0) {
+    console.log('No workspaces linked. Run npm run workspace -- add <folder or repo URL>.');
+    return;
+  }
+  for (const row of rows) {
+    console.log(
+      `${row.name} (${row.id})\t${row.isExample ? 'example' : 'workspace'}\t${row.source}\t${row.folder}\t${row.href}`,
+    );
+    if (row.repo !== null) console.log(`  repo: ${row.repo}`);
+  }
+  if ((process.env.GROUNDWORK_WORKSPACES?.trim() ?? '') !== '') {
+    console.log('GROUNDWORK_WORKSPACES overrides local links and bundled examples.');
+  }
+}
+
+async function openWorkspace(id: string): Promise<void> {
   const found = await registeredAt(HOME, { env: process.env.GROUNDWORK_WORKSPACES, local: true });
-  for (const [id, folder] of found) console.log(`${id}\t${folder}`);
+  const folder = found.get(id);
+  if (folder === undefined) {
+    throw new Error(`No workspace ${id}; run npm run workspace -- list to find its id.`);
+  }
+  const origin = new URL(values.origin);
+  const web = origin.protocol === 'http:' || origin.protocol === 'https:';
+  const credentials = origin.username !== '' || origin.password !== '';
+  const extra = origin.pathname !== '/' || origin.search !== '' || origin.hash !== '';
+  if (!web || credentials || extra) {
+    throw new Error('--origin must be an HTTP or HTTPS origin, such as http://localhost:3000');
+  }
+  const url = new URL(workspaceHref(id), origin).href;
+  console.log(`Opening ${id} at ${url} (${folder})`);
+  if (process.platform === 'darwin') execFileSync('open', [url], { stdio: 'inherit' });
+  else if (process.platform === 'win32') {
+    execFileSync('rundll32', ['url.dll,FileProtocolHandler', url], { stdio: 'inherit' });
+  } else execFileSync('xdg-open', [url], { stdio: 'inherit' });
 }
 
 const [command, folder] = positionals;
@@ -313,13 +379,15 @@ if (command === 'list') {
   await pull();
 } else if (command === 'remove' && folder !== undefined) {
   await remove(folder);
+} else if (command === 'open' && folder !== undefined) {
+  await openWorkspace(folder);
 } else if (command === 'check' && folder !== undefined) {
   await check(folder);
 } else if ((command === 'new' || command === 'add') && folder !== undefined) {
   await (command === 'new' ? make(folder) : add(folder));
 } else {
   console.error(
-    'usage: npm run workspace -- new|add|check <folder> | remove <id> | pull | list; see tools/workspace.ts',
+    'usage: npm run workspace -- new|add|check <folder> | remove|open <id> | pull | list [--json]; see tools/workspace.ts',
   );
   process.exitCode = 1;
 }

@@ -8,6 +8,19 @@ The system model (workspace › domain › system › component, with contracts 
 extracted from code by scans and corrected by people. Plans are overlays: ops on the model's ids, read onto today
 while open and onto a frozen copy once landed, never a copy of today.
 
+## Find the workspace first
+
+Before workspace-backed work, run `npm run --silent workspace -- list --json` in the Groundwork checkout.
+Use its name, id, folder and registration source to resolve the workspace the person means. The registry
+includes `groundwork.local.yaml` links and honours `GROUNDWORK_WORKSPACES`; `workspaces/` contains only
+bundled examples. A folder search cannot establish that a workspace or model is missing.
+
+Read `<workspace>/MAP.md` and `<workspace>/plans/` at the resolved folder. Pass `--workspace <ws>` to
+map and plan-base commands when several workspaces are registered; there is no arbitrary first-workspace
+default. If the registry cannot resolve a link, report its error and repair the registration rather than
+silently falling back to an example. Do not link, unlink, clone or scan an additional workspace without
+the person's authorisation.
+
 | Skill                   | Use it to                                                                                                                                                 | Tools it leans on                                                                |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | `groundwork-workspace/` | Make a workspace as its own repo, or register one already on this machine: who it is for, teams, actors, a first cut of domains and systems, then a scan. | `npm run workspace`, `gh`                                                        |

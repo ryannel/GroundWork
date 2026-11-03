@@ -5,6 +5,9 @@ description: Capture what people see in Groundwork and build a plan's walking mo
 
 # Screens, UI journeys and the walking mockup
 
+First run `npm run --silent workspace -- list --json` in the Groundwork checkout. Resolve the workspace id and folder
+before reading screens or plans; see [workspace discovery](../README.md#find-the-workspace-first).
+
 Flows tell the system's story; screens tell the person's. The app shows what people see today, a strip of the
 screens each flow crosses, the screens a plan changes (today's picture beside the new one, regions outlined by
 status, the Figma link, the mockup) and a screens catalogue in the reference chapter. All of it is derived from

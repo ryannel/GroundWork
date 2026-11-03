@@ -5,6 +5,9 @@ description: Organise scan evidence into Groundwork exploration areas and reconc
 
 # Organise the landscape
 
+First run `npm run --silent workspace -- list --json` in the Groundwork checkout. Use the resolved workspace id and
+folder, not a search of `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
+
 Give someone unfamiliar with the system names a useful starting point: what people or the organisation can
 accomplish, how those activities relate, and where to explore the systems that make them possible.
 

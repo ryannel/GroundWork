@@ -5,6 +5,9 @@ description: Map federated GraphQL schemas, subgraphs and operations, and plan g
 
 # Mapping a federated graph
 
+For workspace-backed graph work, first run `npm run --silent workspace -- list --json` in the Groundwork checkout.
+Resolve its id and folder from the registry, not `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
+
 This workflow writes the production YAML model. For question-led GraphQL client/source bindings, use
 [groundwork-explore](../groundwork-explore/SKILL.md) in scan mode. Use existing authorised graph evidence;
 a missing registry or resolver is an explicit gap, not permission to restart a stopped scan.

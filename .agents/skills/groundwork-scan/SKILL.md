@@ -5,6 +5,9 @@ description: Scan or refresh authorised repositories into Groundwork evidence, c
 
 # Scan repositories
 
+For workspace-backed scans, first run `npm run --silent workspace -- list --json` in the Groundwork checkout.
+Resolve the workspace id and folder from the registry, not `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
+
 Produce a commit-pinned account of the requested repositories, their behaviour, useful interpretations and
 remaining gaps. User instructions determine scope, model and parallelism. An existing stop remains in force
 until the user resumes that scope; skill maintenance and fixture tests do not restart repository scans.

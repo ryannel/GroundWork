@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { libraryOf } from '@/application/workspace-library';
 import { WorkspaceLibrary } from '@/features/workspaces';
+import { localWorkspaceDetails, workspaceRegistrations } from '@/infrastructure/workspace-folders';
 import { readLoadedPlans } from '@/infrastructure/workspace-plans';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
 
@@ -9,7 +10,7 @@ import { readWorkspaces } from '@/infrastructure/workspace-store';
 export const metadata: Metadata = {};
 
 export default async function HomePage() {
-  const workspaces = await readWorkspaces();
+  const [workspaces, links] = await Promise.all([readWorkspaces(), workspaceRegistrations()]);
   const plans = new Map(
     await Promise.all(
       workspaces.map(
@@ -17,5 +18,9 @@ export default async function HomePage() {
       ),
     ),
   );
-  return <WorkspaceLibrary library={libraryOf(workspaces, plans, new Date())} />;
+  return (
+    <WorkspaceLibrary
+      library={libraryOf(workspaces, plans, new Date(), links, localWorkspaceDetails())}
+    />
+  );
 }

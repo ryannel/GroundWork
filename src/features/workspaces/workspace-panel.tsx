@@ -21,6 +21,7 @@ export function WorkspacePanel({ card }: WorkspacePanelProps) {
             <Link href={card.href}>{card.name}</Link>
           </h2>
           {card.isPrivate ? <Badge>Private</Badge> : null}
+          {card.isExample ? <Badge>Example</Badge> : null}
         </div>
         {card.description === null ? null : (
           <p className={styles.description}>{card.description}</p>
@@ -63,6 +64,27 @@ export function WorkspacePanel({ card }: WorkspacePanelProps) {
         <Link className={styles.open} href={card.href}>
           Open {card.name} →
         </Link>
+        {card.location === null ? null : (
+          <details className={styles.location}>
+            <summary>Local workspace link</summary>
+            <p>
+              Workspace id: <code>{card.id}</code>
+            </p>
+            <p>
+              Folder: <code>{card.location.folder}</code>
+            </p>
+            <p>Registered through {card.location.source}.</p>
+            {card.location.repo === null ? null : (
+              <p>
+                Repository: <code>{card.location.repo}</code>
+              </p>
+            )}
+            <p>
+              Discover links with <code>npm run workspace -- list</code>. Keep the model and plans
+              in this repo; code repos and disposable scan caches stay separate.
+            </p>
+          </details>
+        )}
       </footer>
     </article>
   );

@@ -21,6 +21,12 @@ export interface WorkspaceCard {
   readonly href: string;
   readonly description: string | null;
   readonly isPrivate: boolean;
+  readonly isExample: boolean;
+  readonly location: {
+    readonly folder: string;
+    readonly repo: string | null;
+    readonly source: string;
+  } | null;
   /** Its size, as short facts: "3 domains", "14 systems". */
   readonly facts: readonly string[];
   readonly domains: readonly DomainLink[];
@@ -33,20 +39,46 @@ export interface Library {
   readonly cards: readonly WorkspaceCard[];
 }
 
+export interface WorkspaceLink {
+  readonly id: string;
+  readonly folder: string;
+  readonly source: 'example' | 'local' | 'environment';
+  readonly isExample: boolean;
+  readonly repo: string | null;
+}
+
+const LINK_SOURCES: Record<WorkspaceLink['source'], string> = {
+  example: 'Bundled example',
+  local: 'groundwork.local.yaml',
+  environment: 'GROUNDWORK_WORKSPACES',
+};
+
 // Shared workspaces first, then by name: the one a team works in leads.
 export function libraryOf(
   workspaces: readonly Workspace[],
   plans: ReadonlyMap<string, readonly PlanInput[]>,
   today: Date,
+  links: readonly WorkspaceLink[] = [],
+  localDetails = false,
 ): Library {
   const cards = workspaces.toSorted(sharedFirst).map((workspace) => {
     const briefs = briefsOf(workspace.id, plans.get(workspace.id) ?? [], today);
+    const link = links.find((each) => each.id === workspace.id);
     return {
       id: workspace.id,
       name: workspace.name,
       href: workspaceHref(workspace.id),
       description: workspace.description,
       isPrivate: workspace.isPrivate,
+      isExample: link?.isExample ?? false,
+      location:
+        localDetails && link !== undefined
+          ? {
+              folder: link.folder,
+              repo: link.repo,
+              source: LINK_SOURCES[link.source],
+            }
+          : null,
       facts: [
         plural(workspace.domains.length, 'domain'),
         plural(systemsOf(workspace).length, 'system'),

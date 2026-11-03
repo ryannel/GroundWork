@@ -1,10 +1,12 @@
 // @vitest-environment happy-dom
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { cleanup, render, screen, within } from '@testing-library/react';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import type { WorkspaceCard } from '@/application/workspace-library';
 
 import { WorkspaceLibrary } from './workspace-library';
+
+afterEach(cleanup);
 
 const card = (over: Partial<WorkspaceCard>): WorkspaceCard => ({
   id: 'acme',
@@ -12,6 +14,8 @@ const card = (over: Partial<WorkspaceCard>): WorkspaceCard => ({
   href: '/acme/',
   description: 'The shop',
   isPrivate: false,
+  isExample: false,
+  location: null,
   facts: ['3 domains'],
   domains: [
     { id: 'storefront', name: 'Storefront', href: '/acme/storefront/', systems: '2 systems' },
@@ -60,5 +64,56 @@ describe('WorkspaceLibrary', () => {
   it('points to the workspace for plans it leaves out', () => {
     render(<WorkspaceLibrary library={{ cards: [card({ morePlans: 3 })] }} />);
     expect(screen.getByText('3 more plans →')).toBeTruthy();
+  });
+
+  it('separates examples from linked company workspaces regardless of privacy', () => {
+    render(
+      <WorkspaceLibrary
+        library={{
+          cards: [
+            card({ id: 'demo', name: 'Demo', isExample: true }),
+            card({ id: 'company', name: 'Company', isPrivate: true }),
+          ],
+        }}
+      />,
+    );
+    expect(
+      within(screen.getByRole('list', { name: 'Linked workspaces' })).getByRole('link', {
+        name: 'Company',
+      }),
+    ).toBeTruthy();
+    expect(
+      within(screen.getByRole('list', { name: 'Example workspaces' })).getByRole('link', {
+        name: 'Demo',
+      }),
+    ).toBeTruthy();
+    expect(screen.getByText('Example')).toBeTruthy();
+  });
+
+  it('explains how to link a workspace when only examples are available', () => {
+    render(<WorkspaceLibrary library={{ cards: [card({ isExample: true })] }} />);
+    expect(screen.getByText(/No workspaces linked/u)).toBeTruthy();
+    expect(screen.getByText('npm run workspace -- add <folder or repo URL>')).toBeTruthy();
+  });
+
+  it('shows linking details only when the route supplies them', () => {
+    render(
+      <WorkspaceLibrary
+        library={{
+          cards: [
+            card({
+              location: {
+                folder: '../company-groundwork',
+                repo: 'git@github.com:company/model.git',
+                source: 'groundwork.local.yaml',
+              },
+            }),
+          ],
+        }}
+      />,
+    );
+    expect(screen.getByText('../company-groundwork')).toBeTruthy();
+    expect(screen.getByText('git@github.com:company/model.git')).toBeTruthy();
+    expect(screen.getByText(/Registered through groundwork.local.yaml/u)).toBeTruthy();
   });
 });

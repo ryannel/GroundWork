@@ -5,6 +5,9 @@ description: Examine one pinned repository or source scope for Groundwork, traci
 
 # Explore a repository
 
+For workspace-backed exploration, first run `npm run --silent workspace -- list --json` in the Groundwork checkout.
+Use its resolved id and folder, not a search of `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
+
 Explain what the authorised source contains and what runs when an endpoint, message, job or user action
 reaches it. Keep technical components separate from team ownership. Entrypoints and runtime declarations
 establish technical boundaries; a library runs in its caller. Source inspection does not prove deployment.

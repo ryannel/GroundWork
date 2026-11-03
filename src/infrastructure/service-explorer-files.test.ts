@@ -23,7 +23,7 @@ async function fixture() {
   const folder = path.join(root, 'acme');
   const output = path.join(folder, 'explorer');
   await mkdir(output, { recursive: true });
-  await writeFile(path.join(folder, 'workspace.yaml'), 'id: acme\n');
+  await writeFile(path.join(folder, 'workspace.yaml'), 'id: acme\nname: Acme\n');
   const raw = JSON.stringify(explorerFixture());
   const artifact = {
     file: 'flow.json',

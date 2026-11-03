@@ -1,5 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignoreBinaries": ["rundll32", "xdg-open"],
   "entry": [
     "src/app/**/{page,layout,not-found,error}.tsx",
     "**/*.test.{ts,tsx}",

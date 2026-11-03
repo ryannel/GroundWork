@@ -5,6 +5,9 @@ description: Author, refresh and review Groundwork value-flow charts after scans
 
 # Explain systems through their value flows
 
+First run `npm run --silent workspace -- list --json` in the Groundwork checkout. Resolve the workspace id and folder
+from the registry, not `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
+
 Help a first-time viewer follow information from creation and preparation to use and outcome. Interpret
 purpose and reading order with the LLM; ground identities, ownership and exchanges in the recorded
 model and cited source. Save the interpretation so page rendering is deterministic. The user's scope,

@@ -5,6 +5,9 @@ description: Create a Groundwork workspace as its own repo, or register one that
 
 # Make or register a workspace
 
+Start with `npm run --silent workspace -- list --json` in the Groundwork checkout. Resolve existing names, ids and
+folders from that registry, not a search of `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
+
 A workspace is one repo that holds everything Groundwork knows about one company (or one part of it): the model of
 the systems it runs today, and the plans that change them. The two live together because a plan is read onto
 today's model: when a scan moves today, the plans that rest on it see the change in the same history, and one pull
@@ -64,8 +67,8 @@ name,description,primaryLanguage,isArchived`), leave out archived and personal r
 6. **Write the skeleton.** Per agreed domain, `domains/<domain>/domain.yaml` (`id`, `name`, `purpose`); per
    system, `systems/<system>/system.yaml` with `id`, `name`, `team` and `repos`, and no components yet. When
    teams share a repo (a monorepo), each system lists its own folder: `{ repo: org/name, path: services/x }`.
-7. **Check it.** `npm run workspace -- check ../<id>-groundwork`, then restart `npm run dev` (Next does not watch
-   folders outside its checkout) and open `/<id>/`.
+7. **Check it.** `npm run workspace -- check ../<id>-groundwork`, then reload the page or run
+   `npm run workspace -- open <id>`. No dev-server restart is needed.
 8. **Commit** in the workspace repo. Make a GitHub repo for it only when asked
    (`gh repo create <org>/<id>-groundwork --private --source ../<id>-groundwork --push`).
 9. **Hand over** to [groundwork-scan](../groundwork-scan/SKILL.md) to read the repos into components, contracts and
@@ -82,9 +85,12 @@ npm run workspace -- add git@github.com:<org>/<id>-groundwork.git   # clones it,
 npm run workspace -- add ../<id>-groundwork                         # a folder already on this machine
 npm run workspace -- pull     # clone what is missing and fast-forward the linked repos
 npm run workspace -- list     # what this checkout reads, and where
+npm run --silent workspace -- list --json   # names, ids, folders, registration sources and app paths
+npm run workspace -- open <id>     # open its workspace root
 npm run workspace -- remove <id>                                    # stop reading one; its folder stays
 ```
 
-Each also links these skills into the workspace. Restart `npm run dev` afterwards. `add` refuses a folder without
-a `workspace.yaml`, and two folders with the same id; fix the folder rather than working round it. To set up
-another checkout with the same workspaces, copy `groundwork.local.yaml` across and run `pull`.
+Each also links these skills into the workspace. Reload the page afterwards. `add` refuses a folder without
+a `workspace.yaml`, and two folders with the same id, leaving registration unchanged; fix the folder rather
+than working round it. To set up another checkout with the same workspaces, copy URL-based entries in
+`groundwork.local.yaml` across and run `pull`; folder-only entries need valid paths on that machine.

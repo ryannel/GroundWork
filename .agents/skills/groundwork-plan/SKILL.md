@@ -5,6 +5,9 @@ description: Plan a cross-team change in Groundwork and write it as an overlay o
 
 # Plan a change
 
+First run `npm run --silent workspace -- list --json` in the Groundwork checkout and resolve the person's workspace.
+Use its registered folder and `--workspace <ws>`, not `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
+
 A Groundwork plan is an **overlay**. The system model in `<workspace>/domains/` already says how everything
 runs today; a plan names the snapshot it was written against, lists what changes as ops on the model's ids, and
 adds the reasoning a room needs to say yes. The app projects today from the model onto what the plan touches (its

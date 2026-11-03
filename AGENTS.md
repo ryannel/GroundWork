@@ -6,6 +6,10 @@ Groundwork) in Next.js and TypeScript.
 
 - Read `docs/architecture.md` before adding a file. The lint config enforces it; do not disable rules to get past
   it.
+- Before workspace-backed work, run `npm run workspace -- list` (or `npm run --silent workspace -- list --json`) in this checkout. Resolve
+  the requested workspace's name, id and folder from that registry; `workspaces/` contains examples, not all
+  available workspaces. Never claim a workspace or its model is missing from a folder search alone.
+  Pass the resolved `--workspace <id>` to map and plan commands when several workspaces are registered.
 - At the start of a task, run `npm run check:begin` to record a local checkpoint without committing existing work.
   While working, run `npm run check:quick` (or pass explicit files/folders after `--`). Do not reset the checkpoint
   to hide a failure. Keep one task per checkout; separate concurrent tasks into worktrees.

@@ -5,6 +5,9 @@ description: File a Groundwork plan's work items as GitHub issues with the gh CL
 
 # Plan work items to GitHub issues
 
+First run `npm run --silent workspace -- list --json` in the Groundwork checkout. Resolve the plan's workspace folder
+from the registry rather than `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
+
 The app already writes each issue: the build chapter (`/<ws>/plans/<plan>/build/`) lists the work items in build
 order, each with its issue body (from `issueMarkdown` in `src/application/plan/issues.ts`, laid out by the issue
 templates in `src/application/plan/issue-templates.ts`) and a copy button. That page is the preview.

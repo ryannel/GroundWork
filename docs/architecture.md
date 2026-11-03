@@ -228,8 +228,22 @@ it for a workspace's folder by id:
 `npm run workspace -- new|add|pull|remove|check|list` makes a workspace repo, links one by folder or repo URL,
 clones or fast-forwards the linked repos, stops reading one, reads one as the app does, and lists what is
 registered (`tools/workspace.ts`); the `groundwork-workspace` skill walks people through it.
-Registering links Groundwork's skills into the workspace repo, git-ignored there. The list is read once per
-process, so restart `npm run dev` after registering; Next does not watch folders outside its checkout either.
+Registering links Groundwork's skills into the workspace repo, git-ignored there. Registration is resolved
+afresh on each read. The existing workspace file stamps invalidate model and plan readers when a workspace
+is linked, removed, relocated or edited, including folders outside this checkout; no restart is needed.
+`workspace-folders.ts` also exposes the name, id, folder and registration source for command discovery.
+Commands that select a workspace require its id when several are registered, and print their selected
+workspace and path to stderr so JSON on stdout stays usable. Examples remain in `workspaces/` for compatibility,
+but are labelled separately in the library and switcher; the folder is not a registry of company workspaces.
+
+The workspace library's view model takes registration provenance as plain data. Local paths and repository
+links are displayed only in development, never in production HTML or client props. A generic navigation
+context in `src/ui/scope-switcher.client.tsx` lets the workspace layout provide a named scope and links to the
+shared app bar on every workspace and plan page, without UI importing the model or features importing one
+another. Workspace switching opens the chosen workspace's root, not a potentially unrelated plan or system.
+The switcher reuses `Menu` with start alignment so its panel stays inside a narrow viewport. `workspace open`
+uses the operating system's browser launcher (`open`, `rundll32` or `xdg-open`); these are system binaries,
+not npm dependencies, and the latter two are declared in Knip's external binary list.
 
 ### The system model
 

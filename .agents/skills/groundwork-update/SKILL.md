@@ -5,6 +5,9 @@ description: Draft the weekly update for a Groundwork plan once work has started
 
 # Weekly update
 
+First run `npm run --silent workspace -- list --json` in the Groundwork checkout. Resolve the plan's workspace id and
+folder before reading its model or status; see [workspace discovery](../README.md#find-the-workspace-first).
+
 GitHub is the tracker and git is the history; the plan never stores state. This skill reads both and drafts the
 note. **A human posts it. Never post, comment or message on their behalf.**
 

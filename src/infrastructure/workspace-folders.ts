@@ -7,6 +7,8 @@ import { z } from 'zod';
 
 import { pathIn, resolvedFrom, listFolder, readTextIfAny } from '@/infrastructure/disk';
 
+import { workspaceFile } from './workspace-schema';
+
 // Where each workspace's folder is. A workspace is its own repo, kept anywhere on disk; Groundwork reads:
 //   GROUNDWORK_WORKSPACES   when set, only these workspace folders (path.delimiter between them): for CI and
 //                           one-off builds, so a company's site carries no other workspace
@@ -56,15 +58,35 @@ export function folderOf(entry: LocalEntry): string {
   return entry.folder ?? cloneFolder(entry.repo);
 }
 
-const idOnly = z.looseObject({ id: z.string() });
+const identity = z.looseObject({
+  id: workspaceFile.shape.id,
+  name: workspaceFile.shape.name,
+});
 
 interface Listed {
   readonly folder: string;
   readonly listedIn: string;
+  readonly source: 'example' | 'local' | 'environment';
+  readonly isExample: boolean;
   readonly repo?: string;
 }
 
-async function idOf({ folder, listedIn, repo }: Listed): Promise<string> {
+export interface WorkspaceRegistration {
+  readonly id: string;
+  readonly name: string;
+  readonly folder: string;
+  readonly source: Listed['source'];
+  readonly isExample: boolean;
+  readonly repo: string | null;
+}
+
+async function registrationOf({
+  folder,
+  listedIn,
+  source,
+  isExample,
+  repo,
+}: Listed): Promise<WorkspaceRegistration> {
   const file = pathIn(folder, 'workspace.yaml');
   const text = await readTextIfAny(file);
   if (text === null && repo !== undefined) {
@@ -73,11 +95,14 @@ async function idOf({ folder, listedIn, repo }: Listed): Promise<string> {
     );
   }
   if (text === null) {
-    throw new Error(`${folder}: listed in ${listedIn} but holds no workspace.yaml`);
+    throw new Error(
+      `${folder}: listed in ${listedIn} but holds no workspace.yaml; correct the link in ${listedIn}`,
+    );
   }
-  const result = idOnly.safeParse(parse(text));
-  if (!result.success) throw new Error(`${file}: has no id`);
-  return result.data.id;
+  const result = identity.safeParse(parse(text));
+  if (!result.success) throw new Error(`${file}: ${result.error.message}`);
+  const { id, name } = result.data;
+  return { id, name, folder, source, isExample, repo: repo ?? null };
 }
 
 async function childrenOf(container: string): Promise<string[]> {
@@ -88,48 +113,67 @@ async function childrenOf(container: string): Promise<string[]> {
     .toSorted((a, b) => a.localeCompare(b));
 }
 
-async function indexed(folders: readonly Listed[]): Promise<ReadonlyMap<string, string>> {
-  const read = await Promise.all(
-    folders.map(async (each) => ({ folder: each.folder, id: await idOf(each) })),
-  );
+async function registered(folders: readonly Listed[]): Promise<readonly WorkspaceRegistration[]> {
+  const read = await Promise.all(folders.map(registrationOf));
   const by = new Map<string, string>();
   for (const { id, folder } of read) {
     const seen = by.get(id);
     if (seen !== undefined) throw new Error(`workspace ${id}: found in both ${seen} and ${folder}`);
     by.set(id, folder);
   }
-  return by;
+  return read;
 }
 
 async function bundledIn(container: string): Promise<Listed[]> {
   const children = await childrenOf(container);
-  return children.map((folder) => ({ folder, listedIn: container }));
+  return children.map((folder) => ({
+    folder,
+    listedIn: container,
+    source: 'example',
+    isExample: true,
+  }));
 }
 
 /** What a Groundwork checkout at `home` reads, given GROUNDWORK_WORKSPACES and whether to read its local file. */
-export async function registeredAt(
+export async function registrationsAt(
   home: string,
   options: { readonly env?: string | undefined; readonly local: boolean },
-): Promise<ReadonlyMap<string, string>> {
+): Promise<readonly WorkspaceRegistration[]> {
   const { env } = options;
+  const examples = pathIn(home, BUNDLED);
   if (env !== undefined && env.trim() !== '') {
     const folders = env
       .split(path.delimiter)
       .filter((each) => each.trim() !== '')
-      .map((each) => ({ folder: resolvedFrom(home, each), listedIn: 'GROUNDWORK_WORKSPACES' }));
-    return indexed(folders);
+      .map((each) => ({
+        folder: resolvedFrom(home, each),
+        listedIn: 'GROUNDWORK_WORKSPACES',
+        source: 'environment' as const,
+        isExample: path.dirname(resolvedFrom(home, each)) === examples,
+      }));
+    return registered(folders);
   }
   const { workspaces, bundled } = options.local
     ? await readLocal(home)
     : { workspaces: [], bundled: true };
-  return indexed([
-    ...(bundled ? await bundledIn(pathIn(home, BUNDLED)) : []),
+  return registered([
+    ...(bundled ? await bundledIn(examples) : []),
     ...workspaces.map((each) => ({
       folder: resolvedFrom(home, folderOf(each)),
       listedIn: LOCAL,
+      source: 'local' as const,
+      isExample: path.dirname(resolvedFrom(home, folderOf(each))) === examples,
       ...(typeof each === 'string' ? {} : { repo: each.repo }),
     })),
   ]);
+}
+
+export async function registeredAt(
+  home: string,
+  options: { readonly env?: string | undefined; readonly local: boolean },
+): Promise<ReadonlyMap<string, string>> {
+  const found = await registrationsAt(home, options);
+  return new Map(found.map(({ id, folder }) => [id, folder]));
 }
 
 /** The local file of the checkout at `home`, or its defaults when there is none. */
@@ -142,20 +186,40 @@ export async function readLocal(
   return result.data;
 }
 
-let known: Promise<ReadonlyMap<string, string>> | null = null;
+/** Current registration, including provenance. No paths are sent to the browser outside development. */
+export async function workspaceRegistrations(): Promise<readonly WorkspaceRegistration[]> {
+  return registrationsAt(process.cwd(), {
+    env: process.env.GROUNDWORK_WORKSPACES,
+    local: process.env.VITEST === undefined,
+  });
+}
+
+export function localWorkspaceDetails(): boolean {
+  return process.env.NODE_ENV === 'development';
+}
+
+/** Commands never pick an arbitrary first workspace when more than one is available. */
+export async function selectedWorkspace(id?: string): Promise<WorkspaceRegistration> {
+  const found = await workspaceRegistrations();
+  const selected =
+    id === undefined && found.length === 1 ? found[0] : found.find((w) => w.id === id);
+  if (selected !== undefined) return selected;
+  const available = found.map((w) => `${w.name} (${w.id})`).join(', ');
+  const reason =
+    id === undefined ? 'Choose a workspace with --workspace <id>' : `No workspace ${id}`;
+  throw new Error(
+    `${reason}. Available: ${available === '' ? 'none' : available}. Run npm run workspace -- list to see their locations.`,
+  );
+}
 
 /**
  * Every workspace's folder, by id. With `root`, a folder of workspace folders (tests and tools read one such
  * folder); without it, the workspaces this Groundwork is set up to read.
  */
 export async function workspaceFolders(root?: string): Promise<ReadonlyMap<string, string>> {
-  if (root !== undefined) return indexed(await bundledIn(root));
-  // Tests read only the examples, whatever this machine has registered.
-  known ??= registeredAt(process.cwd(), {
-    env: process.env.GROUNDWORK_WORKSPACES,
-    local: process.env.VITEST === undefined,
-  });
-  return known;
+  const found =
+    root === undefined ? await workspaceRegistrations() : await registered(await bundledIn(root));
+  return new Map(found.map(({ id, folder }) => [id, folder]));
 }
 
 /** The folder of one workspace, or null when no workspace has that id. */

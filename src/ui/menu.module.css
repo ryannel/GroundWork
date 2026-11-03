@@ -47,5 +47,10 @@
     background: var(--bg-1);
     color: var(--fg-1);
     box-shadow: var(--shadow-2);
+
+    &[data-align='start'] {
+      right: auto;
+      left: 0;
+    }
   }
 }

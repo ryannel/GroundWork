@@ -8,6 +8,16 @@ import { Menu } from './menu.client';
 afterEach(cleanup);
 
 describe('Menu', () => {
+  it('can anchor a panel at the start of its control without changing the default', () => {
+    render(
+      <Menu align="start" button="Choose" label="Choose scope">
+        <p>Scope choices</p>
+      </Menu>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Choose scope' }));
+    expect(screen.getByText('Scope choices').parentElement?.dataset.align).toBe('start');
+  });
+
   it('opens on its button and closes on Esc or a click outside', () => {
     render(
       <Menu button="v2" label="Version history">
@@ -17,6 +27,7 @@ describe('Menu', () => {
     const button = screen.getByRole('button', { name: 'Version history' });
     fireEvent.click(button);
     expect(screen.getByText('Inside')).not.toBeNull();
+    expect(screen.getByText('Inside').parentElement?.dataset.align).toBe('end');
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(screen.queryByText('Inside')).toBeNull();
     fireEvent.click(button);
